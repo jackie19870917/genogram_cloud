@@ -2,17 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2ddfb4d-a272-493c-a337-c7d1572aac3e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/ResponseEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/ResponseUtlis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/service/impl/TestServImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestServImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/config/MybatisPlusConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllFamily.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllFamilyMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllFamilyMapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common_service/src/test/java/com/genogram/MyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common_service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/common_service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/CommonServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/CommonServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common_service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/common_service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common_service/src/test/java/com/genogram/CommonServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/common_service/src/test/java/com/genogram/GenerateMybatisPlus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/TestServ.java" beforeDir="false" afterPath="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/TestServ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestServImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestServImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fan_web_service/src/test/java/com/genogram/FanWebServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/fan_web_service/src/test/java/com/genogram/FanWebServiceApplicationTests.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -36,30 +39,41 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="23" />
-          <entry key="properties" value="2" />
-          <entry key="xml" value="9" />
+          <entry key="class" value="6" />
+          <entry key="iml" value="1" />
+          <entry key="java" value="42" />
+          <entry key="properties" value="4" />
+          <entry key="xml" value="19" />
+          <entry key="yml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="23" />
-          <entry key="Properties" value="2" />
-          <entry key="XML" value="9" />
+          <entry key="CLASS" value="6" />
+          <entry key="IDEA_MODULE" value="1" />
+          <entry key="JAVA" value="42" />
+          <entry key="Properties" value="4" />
+          <entry key="XML" value="19" />
+          <entry key="YAML" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="377" />
+          <entry key="dummy" value="28" />
+          <entry key="java" value="843" />
           <entry key="properties" value="2" />
-          <entry key="xml" value="27" />
+          <entry key="xml" value="119" />
+          <entry key="yml" value="158" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="377" />
+          <entry key="JAVA" value="843" />
+          <entry key="PLAIN_TEXT" value="28" />
           <entry key="Properties" value="2" />
-          <entry key="XML" value="27" />
+          <entry key="SQL" value="5" />
+          <entry key="XML" value="114" />
+          <entry key="YAML" value="158" />
         </counts>
       </usages-collector>
     </session>
@@ -67,10 +81,10 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java">
+        <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/TestServ.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+            <state relative-caret-position="176">
+              <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -79,78 +93,80 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/controller/TestController.java">
+        <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestServImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
+            <state relative-caret-position="164">
+              <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fan_admin_service/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="1" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/service/TestServ.java">
+        <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/FanWebServiceApplication.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="110">
-              <caret line="5" column="14" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fan_admin_service/pom.xml">
+        <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllFamilyMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="27" column="30" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fan_web_service/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="29" column="26" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+            <state relative-caret-position="286">
+              <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/resources/application.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common_service/src/test/java/com/genogram/CommonServiceApplicationTests.java">
+        <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="198">
-              <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
+              <caret line="36" column="31" lean-forward="true" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/service/impl/TestServImpl.java">
+        <entry file="file://$PROJECT_DIR$/common_service/src/main/resources/mapper/AllFamilyMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/CommonServiceApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/uiDesigner.xml">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/javax/xml/ws/Response.java">
+        <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="43" column="17" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
+            <state relative-caret-position="264">
+              <caret line="66" column="17" lean-forward="true" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -161,9 +177,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>com.genogram.entity</find>
+      <find>author</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -172,7 +195,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/common_service/src/main/java/com/genogram/CommonServiceApplication.java" />
         <option value="$PROJECT_DIR$/fan_webservice/src/test/java/com/genogram/FanWebserviceApplicationTests.java" />
         <option value="$PROJECT_DIR$/fan_webservice/src/main/java/com/genogram/service/TestService.java" />
         <option value="$PROJECT_DIR$/fan_webservice/src/main/java/com/genogram/service/impl/TestServiceImpl.java" />
@@ -180,21 +202,31 @@
         <option value="$PROJECT_DIR$/common_service/src/main/java/com/genogram/common/unit/TestUnit.java" />
         <option value="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestService.java" />
         <option value="$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/ResponseEnum.java" />
-        <option value="$PROJECT_DIR$/common_service/pom.xml" />
         <option value="$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/ResponseUtlis.java" />
         <option value="$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/Response.java" />
-        <option value="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/TestServ.java" />
         <option value="$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/TestUnit.java" />
-        <option value="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestServImpl.java" />
-        <option value="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java" />
         <option value="$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/TestController.java" />
         <option value="$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/service/TestServ.java" />
         <option value="$PROJECT_DIR$/fan_admin_service/pom.xml" />
         <option value="$PROJECT_DIR$/fan_web_service/pom.xml" />
-        <option value="$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/controller/TestController.java" />
         <option value="$PROJECT_DIR$/fan_admin_service/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/fan_web_service/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/controller/TestController.java" />
         <option value="$PROJECT_DIR$/common_service/src/test/java/com/genogram/CommonServiceApplicationTests.java" />
+        <option value="$PROJECT_DIR$/common_service/pom.xml" />
+        <option value="$PROJECT_DIR$/common_service/src/test/java/com/genogram/Test.java" />
+        <option value="$PROJECT_DIR$/common_service/src/test/java/com/genogram/GenerateMybatisPlus2.java" />
+        <option value="$PROJECT_DIR$/common_service/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/common_service/src/main/java/com/genogram/CommonServiceApplication.java" />
+        <option value="$PROJECT_DIR$/common_service/src/main/java/com/genogram/config/MybatisPlusConfig.java" />
+        <option value="$PROJECT_DIR$/common_service/src/test/java/com/genogram/GenerateMybatisPlus.java" />
+        <option value="$PROJECT_DIR$/common_service/src/test/java/com/genogram/MyTest.java" />
+        <option value="$PROJECT_DIR$/fan_web_service/src/test/java/com/genogram/FanWebServiceApplicationTests.java" />
+        <option value="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestServImpl.java" />
+        <option value="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/TestServ.java" />
+        <option value="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllFamilyMapper.java" />
+        <option value="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllFamilyMapper.xml" />
+        <option value="$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java" />
       </list>
     </option>
   </component>
@@ -234,32 +266,6 @@
               <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
               <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-              <item name="fan_web_service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-              <item name="fan_web_service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-              <item name="fan_web_service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-              <item name="fan_web_service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -274,7 +280,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541325248767" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541338849864" />
     <property name="last_opened_file_path" value="F:/java/公司/genealogy-boot1/swocean" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -282,11 +288,15 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.genogram" />
       <recent name="com.genogram.service.impl" />
       <recent name="com.genogram.service" />
       <recent name="com.genogram.unit" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\genogram_project\genogram_cloud\common_service\src\main\resources\mapper" />
+      <recent name="F:\genogram_project\genogram_cloud\common_service\src\main\java\com\genogram\mapper" />
+      <recent name="F:\genogram_project\genogram_cloud\common_service\src\main\java\com\genogram\entity" />
       <recent name="F:\genogram_project\genogram_cloud\fan_admin_service\src\main\java\com\genogram" />
       <recent name="F:\genogram_project\genogram_cloud\common_service\src\main\java\com\genogram\unit" />
     </key>
@@ -308,17 +318,17 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.CommonServiceApplication (1)">
-    <configuration name="CommonServiceApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="common_service" />
+  <component name="RunManager" selected="Spring Boot.FanWebServiceApplication (1)">
+    <configuration name="FanWebServiceApplicationTests.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="fan_web_service" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.genogram.controller.*" />
+          <option name="PATTERN" value="com.genogram.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.genogram" />
-      <option name="MAIN_CLASS_NAME" value="com.genogram.CommonServiceApplicationTests" />
+      <option name="MAIN_CLASS_NAME" value="com.genogram.FanWebServiceApplicationTests" />
       <option name="METHOD_NAME" value="contextLoads" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -337,6 +347,52 @@
       <option name="MAIN_CLASS_NAME" value="com.genogram.FanWebserviceApplicationTests" />
       <option name="METHOD_NAME" value="contextLoads" />
       <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GenerateMybatisPlus.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="common_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.genogram.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.genogram" />
+      <option name="MAIN_CLASS_NAME" value="com.genogram.GenerateMybatisPlus" />
+      <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MyTest.contextLoads" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="common_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.genogram.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.genogram" />
+      <option name="MAIN_CLASS_NAME" value="com.genogram.MyTest" />
+      <option name="METHOD_NAME" value="contextLoads" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="common_service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.genogram.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.genogram" />
+      <option name="MAIN_CLASS_NAME" value="com.genogram.Test" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -390,36 +446,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FanWebserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="fan_webservice" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.genogram.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.genogram.FanWebserviceApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Spring Boot.CommonServiceApplication" />
       <item itemvalue="Spring Boot.FanWebserviceApplication" />
-      <item itemvalue="Spring Boot.FanWebserviceApplication (1)" />
       <item itemvalue="JUnit.FanWebserviceApplicationTests.contextLoads" />
-      <item itemvalue="JUnit.CommonServiceApplicationTests.contextLoads" />
+      <item itemvalue="JUnit.GenerateMybatisPlus.contextLoads" />
       <item itemvalue="Spring Boot.FanAdminServiceApplication" />
       <item itemvalue="Spring Boot.FanWebServiceApplication" />
       <item itemvalue="Spring Boot.FanWebServiceApplication (1)" />
       <item itemvalue="Spring Boot.CommonServiceApplication (1)" />
       <item itemvalue="Spring Boot.FanAdminServiceApplication (1)" />
+      <item itemvalue="JUnit.Test" />
+      <item itemvalue="JUnit.MyTest.contextLoads" />
+      <item itemvalue="JUnit.FanWebServiceApplicationTests.contextLoads" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CommonServiceApplicationTests.contextLoads" />
+        <item itemvalue="JUnit.FanWebServiceApplicationTests.contextLoads" />
+        <item itemvalue="JUnit.MyTest.contextLoads" />
+        <item itemvalue="JUnit.Test" />
+        <item itemvalue="JUnit.GenerateMybatisPlus.contextLoads" />
         <item itemvalue="JUnit.FanWebserviceApplicationTests.contextLoads" />
-        <item itemvalue="Spring Boot.FanWebserviceApplication (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -433,29 +480,44 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1541320804271</updated>
-      <workItem from="1541320808481" duration="4262000" />
+      <workItem from="1541320808481" duration="14195000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="FanWebserviceApplicationTests_contextLoads - 2018.11.04 at 16h 54m 47s.xml">
-      <configuration name="FanWebserviceApplicationTests.contextLoads" configurationId="JUnit" />
+    <history-entry file="GenerateMybatisPlus_contextLoads - 2018.11.04 at 19h 34m 51s.xml">
+      <configuration name="GenerateMybatisPlus.contextLoads" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CommonServiceApplicationTests_contextLoads - 2018.11.04 at 17h 05m 59s.xml">
-      <configuration name="CommonServiceApplicationTests.contextLoads" configurationId="JUnit" />
+    <history-entry file="GenerateMybatisPlus_contextLoads - 2018.11.04 at 19h 36m 41s.xml">
+      <configuration name="GenerateMybatisPlus.contextLoads" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CommonServiceApplicationTests_contextLoads - 2018.11.04 at 17h 06m 06s.xml">
-      <configuration name="CommonServiceApplicationTests.contextLoads" configurationId="JUnit" />
+    <history-entry file="Test - 2018.11.04 at 19h 43m 00s.xml">
+      <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CommonServiceApplicationTests_contextLoads - 2018.11.04 at 17h 07m 14s.xml">
-      <configuration name="CommonServiceApplicationTests.contextLoads" configurationId="JUnit" />
+    <history-entry file="Test - 2018.11.04 at 19h 43m 14s.xml">
+      <configuration name="Test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CommonServiceApplicationTests_contextLoads - 2018.11.04 at 17h 46m 24s.xml">
-      <configuration name="CommonServiceApplicationTests.contextLoads" configurationId="JUnit" />
+    <history-entry file="MyTest_contextLoads - 2018.11.04 at 20h 31m 31s.xml">
+      <configuration name="MyTest.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyTest_contextLoads - 2018.11.04 at 20h 31m 59s.xml">
+      <configuration name="MyTest.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyTest_contextLoads - 2018.11.04 at 20h 36m 48s.xml">
+      <configuration name="MyTest.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyTest_contextLoads - 2018.11.04 at 20h 38m 47s.xml">
+      <configuration name="MyTest.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="MyTest_contextLoads - 2018.11.04 at 20h 39m 38s.xml">
+      <configuration name="MyTest.contextLoads" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="FanWebServiceApplicationTests_contextLoads - 2018.11.04 at 21h 03m 26s.xml">
+      <configuration name="FanWebServiceApplicationTests.contextLoads" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4262000" />
+    <option name="totallyTimeSpent" value="14195000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -475,9 +537,9 @@
       <window_info id="Favorites" side_tool="true" />
       <window_info id="Capture Tool" />
       <window_info id="Web" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Run Dashboard" visible="true" weight="0.32998884" />
+      <window_info anchor="bottom" id="Run Dashboard" visible="true" weight="0.39576367" />
       <window_info anchor="bottom" id="Spring" />
       <window_info anchor="bottom" id="Terminal" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
@@ -487,7 +549,7 @@
       <window_info anchor="bottom" id="Messages" weight="0.32998884" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.59197325" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.31772575" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39910814" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -510,14 +572,19 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java</url>
+          <line>39</line>
+          <properties />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/CommonServiceApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fan_webservice/src/main/java/com/genogram/service/sss.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -560,16 +627,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/entityvo/TestVo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="19" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -580,38 +637,10 @@
     <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/ResponseEnum.java">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="25" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common_service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/Response.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="41" column="16" selection-start-line="41" selection-start-column="16" selection-end-line="41" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/TestServ.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="49" selection-start-line="5" selection-start-column="49" selection-end-line="5" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/TestUnit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -622,37 +651,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestServImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/FanWebServiceApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/javax/xml/ws/Response.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
+        <state relative-caret-position="215">
           <caret line="43" column="17" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -673,24 +675,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/controller/TestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/fan_admin_service/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-line="1" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common_service/src/test/java/com/genogram/CommonServiceApplicationTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="14" column="32" selection-start-line="14" selection-start-column="32" selection-end-line="14" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -705,6 +693,245 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fan_admin_service/src/main/java/com/genogram/controller/TestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="17" column="14" lean-forward="true" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-autoconfigure/2.1.0.RELEASE/spring-boot-autoconfigure-2.1.0.RELEASE.jar!/org/springframework/boot/autoconfigure/web/ServerProperties.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="62" column="16" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/entityvo/TestVo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="12" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="77" column="91" selection-start-line="77" selection-start-column="91" selection-end-line="77" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-generate/2.2.0/mybatis-plus-generate-2.2.0.jar!/com/baomidou/mybatisplus/generator/config/GlobalConfig.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="14" column="25" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-generate/2.2.0/mybatis-plus-generate-2.2.0.jar!/com/baomidou/mybatisplus/generator/config/PackageConfig.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="89" column="25" selection-start-line="89" selection-start-column="25" selection-end-line="89" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/test/java/com/genogram/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="19" lean-forward="true" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/unit/TestUnit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-generate/2.2.0/mybatis-plus-generate-2.2.0.jar!/com/baomidou/mybatisplus/generator/config/rules/NamingStrategy.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/test/java/com/genogram/GenerateMybatisPlus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="20" column="9" lean-forward="true" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1923#2289#0" expanded="true" />
+            <element signature="e#2288#2289#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllFamily.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.4.6/mybatis-3.4.6.jar!/org/apache/ibatis/session/RowBounds.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-support/2.2.0/mybatis-plus-support-2.2.0.jar!/com/baomidou/mybatisplus/mapper/BaseMapper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="49" column="26" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/test/java/com/genogram/MyTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fan_web_service/src/test/java/com/genogram/FanWebServiceApplicationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/config/MybatisPlusConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_191/src.zip!/java/util/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="128" column="17" selection-start-line="128" selection-start-column="17" selection-end-line="128" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/genogram_cloud.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/compiler.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/encodings.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/misc.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/uiDesigner.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/vcs.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="66" column="17" lean-forward="true" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/CommonServiceApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllFamilyMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/TestServ.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common_service/src/main/resources/mapper/AllFamilyMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/FanWebServiceApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/service/impl/TestServImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fan_web_service/src/main/java/com/genogram/controller/TestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="36" column="31" lean-forward="true" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
