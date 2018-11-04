@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.FanSysWebMenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.FanSysWebMenu">
+        <id column="id" property="id" />
+        <result column="tree_num" property="treeNum" />
+        <result column="menu_name" property="menuName" />
+        <result column="api_url" property="apiUrl" />
+        <result column="parent_id" property="parentId" />
+        <result column="order_index" property="orderIndex" />
+        <result column="menu_code" property="menuCode" />
+        <result column="istatic" property="istatic" />
+        <result column="comments" property="comments" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, tree_num AS treeNum, menu_name AS menuName, api_url AS apiUrl, parent_id AS parentId, order_index AS orderIndex, menu_code AS menuCode, istatic, comments, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+    </sql>
+
+</mapper>

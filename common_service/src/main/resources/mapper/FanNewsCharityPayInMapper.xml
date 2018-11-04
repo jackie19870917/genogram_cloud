@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.FanNewsCharityPayInMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.FanNewsCharityPayIn">
+        <id column="id" property="id" />
+        <result column="show_id" property="showId" />
+        <result column="pay_usr_id" property="payUsrId" />
+        <result column="type" property="type" />
+        <result column="pay_amount" property="payAmount" />
+        <result column="pay_channel" property="payChannel" />
+        <result column="pay_time" property="payTime" />
+        <result column="agent_account" property="agentAccount" />
+        <result column="agent_id" property="agentId" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, show_id AS showId, pay_usr_id AS payUsrId, type, pay_amount AS payAmount, pay_channel AS payChannel, pay_time AS payTime, agent_account AS agentAccount, agent_id AS agentId, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+    </sql>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.FanNewsIndustryDrftMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.FanNewsIndustryDrft">
+        <id column="id" property="id" />
+        <result column="fan_news_industry_id" property="fanNewsIndustryId" />
+        <result column="news_title" property="newsTitle" />
+        <result column="news_text" property="newsText" />
+        <result column="industry_location" property="industryLocation" />
+        <result column="type" property="type" />
+        <result column="visit_num" property="visitNum" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, fan_news_industry_id AS fanNewsIndustryId, news_title AS newsTitle, news_text AS newsText, industry_location AS industryLocation, type, visit_num AS visitNum, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+    </sql>
+
+</mapper>
