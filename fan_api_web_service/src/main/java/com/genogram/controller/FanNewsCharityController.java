@@ -1,8 +1,8 @@
 package com.genogram.controller;
 
-
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author wangwei
  * @since 2018-11-05
  */
-@Controller
+@RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/genogram/fanNewsCharity")
 public class FanNewsCharityController {
 
