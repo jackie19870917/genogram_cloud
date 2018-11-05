@@ -2,7 +2,6 @@ package com.genogram.service;
 
 import com.genogram.entity.FanSysWebMenu;
 import com.baomidou.mybatisplus.service.IService;
-import com.genogram.entityvo.FanSysWebMenuVo;
 
 /**
  * <p>
@@ -13,5 +12,5 @@ import com.genogram.entityvo.FanSysWebMenuVo;
  * @since 2018-11-05
  */
 public interface IFanSysWebMenuService extends IService<FanSysWebMenu> {
-    public FanSysWebMenuVo showFanWebMenu(int siteId);
+
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.FunSysConfigMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.FunSysConfig">
+        <result column="constant_group" property="constantGroup" />
+        <result column="constant_name" property="constantName" />
+        <result column="constant_code" property="constantCode" />
+        <result column="comment" property="comment" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        constant_group AS constantGroup, constant_name AS constantName, constant_code AS constantCode, comment
+    </sql>
+
+</mapper>

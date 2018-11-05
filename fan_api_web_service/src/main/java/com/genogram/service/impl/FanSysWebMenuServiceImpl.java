@@ -1,7 +1,6 @@
 package com.genogram.service.impl;
 
 import com.genogram.entity.FanSysWebMenu;
-import com.genogram.entityvo.FanSysWebMenuVo;
 import com.genogram.mapper.FanSysWebMenuMapper;
 import com.genogram.service.IFanSysWebMenuService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -18,8 +17,4 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanSysWebMenuServiceImpl extends ServiceImpl<FanSysWebMenuMapper, FanSysWebMenu> implements IFanSysWebMenuService {
 
-    @Override
-    public FanSysWebMenuVo showFanWebMenu(int siteId) {
-        return null;
-    }
 }
