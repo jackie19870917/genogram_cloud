@@ -34,11 +34,9 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
         entity.eq("show_id", siteId);
         entity.eq("status", status);
+        entity.orderBy("create_time", false);
         Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
         return fanNewsCharityOutPage;
     }
 
-    private List<FanNewsCharityOut> selectPage(RowBounds page, Wrapper<FanNewsCharityOut> entity) {
-        return fanNewsCharityOutMapper.selectPage(page, entity);
-    }
 }

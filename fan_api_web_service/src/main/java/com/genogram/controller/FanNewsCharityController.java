@@ -1,7 +1,5 @@
 package com.genogram.controller;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.service.IFanNewsCharityOutService;
@@ -10,6 +8,7 @@ import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -31,7 +30,10 @@ public class FanNewsCharityController {
     private IFanNewsCharityOutService iFanNewsCharityOutService;
 
     @RequestMapping("")
-    public Response<FanNewsCharityOut> selectByCreateTime(Integer siteId,Integer status,Integer pageNo,Integer pageSize) {
+    public Response<FanNewsCharityOut> selectByCreateTime(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
+                                                          @RequestParam(value = "status",defaultValue = "1")Integer status,
+                                                          @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                                                          @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
 
         Page<FanNewsCharityOut> fanNewsCharityOutPage = iFanNewsCharityOutService.selectPage(siteId, status, pageNo, pageSize);
 

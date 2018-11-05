@@ -1,14 +1,8 @@
 package com.genogram.service;
 
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanNewsCharityOut;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.session.RowBounds;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>

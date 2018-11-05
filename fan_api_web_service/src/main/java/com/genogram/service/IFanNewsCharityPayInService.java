@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayIn> {
 
+    Page<FanNewsCharityPayIn> selectPage(Integer siteId, Integer status, Integer pageNo, Integer pageSize);
 }
