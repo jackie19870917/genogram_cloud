@@ -12,5 +12,4 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2018-11-05
  */
 public interface FanSysWebNewsShowMapper extends BaseMapper<FanSysWebNewsShow> {
-
 }

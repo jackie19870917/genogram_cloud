@@ -7,5 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class FanSysWebMenuVo extends FanSysWebMenu {
-    private int pk;
+    private int showId;
+    private int fanSysSiteId;
+    private int fanSysWebMenuId;
 }
