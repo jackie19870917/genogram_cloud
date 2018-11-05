@@ -5,9 +5,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name:  com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/genealogy?serverTimezone=UTC
+    url: jdbc:mysql://192.168.2.179:3306/genealogy?serverTimezone=UTC
     username: root
-    password: 123456
+    password: 875Yhtpw758@
 mybatis-plus:
   #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
   global-config:

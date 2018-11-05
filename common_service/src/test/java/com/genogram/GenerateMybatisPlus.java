@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GenerateMybatisPlus {
-    final static String  dirPath = "F:\\genogram_project\\";
+    final static String  dirPath = "E:\\hbzs\\";
     @Test
     public void contextLoads() {
         AutoGenerator mpg = new AutoGenerator();
@@ -46,8 +46,8 @@ public class GenerateMybatisPlus {
         });
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123456");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/genealogy?serverTimezone=UTC");
+        dsc.setPassword("875Yhtpw758@");
+        dsc.setUrl("jdbc:mysql://192.168.2.179:3306/genealogy?serverTimezone=UTC");
         mpg.setDataSource(dsc);
 
         // 策略配置
