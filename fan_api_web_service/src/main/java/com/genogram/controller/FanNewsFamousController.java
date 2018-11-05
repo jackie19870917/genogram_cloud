@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 
 /**
  * <p>
- * 联谊会-祖先分支 前端控制器
+ * 联谊会-家族名人,家族长老,家族栋梁,组织架构 前端控制器
  * </p>
  *
  * @author wangwei
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/genogram/fanNewsFamousAncestor")
-public class FanNewsFamousAncestorController {
+public class FanNewsFamousController {
 
 }
 
