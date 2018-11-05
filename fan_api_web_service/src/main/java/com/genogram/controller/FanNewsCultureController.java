@@ -3,7 +3,9 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCultureZipai;
+import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.service.IFanNewsCharityOutService;
+import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -28,6 +30,8 @@ public class FanNewsCultureController {
 
     @Autowired
     private IFanNewsCultureZipaiService iFanNewsCultureZipaiService;
+    @Autowired
+    private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
     //联谊会家族字派
     @RequestMapping("/commonality")
@@ -52,8 +56,8 @@ public class FanNewsCultureController {
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @RequestParam(value = "status", defaultValue = "1") Integer status) {
-        Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.familyCulture(showId, status, pageNo, pageSize);
-        return ResponseUtlis.success(fanNewsCultureZipai);
+        Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.familyCulture(showId, status, pageNo, pageSize);
+        return ResponseUtlis.success(familyCultureVo);
     }
 }
 

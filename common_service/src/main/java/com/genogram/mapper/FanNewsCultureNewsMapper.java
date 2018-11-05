@@ -1,7 +1,13 @@
 package com.genogram.mapper;
 
+import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllFamily;
 import com.genogram.entity.FanNewsCultureNews;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.genogram.entityvo.FamilyCultureVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +19,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface FanNewsCultureNewsMapper extends BaseMapper<FanNewsCultureNews> {
 
+    List<FamilyCultureVo> queryMyItems(Page<FamilyCultureVo> mapPage, Map requestParam);
 }

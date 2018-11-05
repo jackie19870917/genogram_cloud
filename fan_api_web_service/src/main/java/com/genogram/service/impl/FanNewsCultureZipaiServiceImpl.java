@@ -38,8 +38,4 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         return fanNewsCultureZipais;
         }
 
-    @Override
-    public Page<FanNewsCultureZipai> familyCulture(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
-        return null;
-    }
 }
