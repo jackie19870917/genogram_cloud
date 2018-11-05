@@ -8,7 +8,7 @@ spring:
     username: root
     password: 875Yhtpw758@
 mybatis-plus:
-  #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+   #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
   global-config:
     id-type: 0
   mapper-locations: classpath*:/mapper/**Mapper.xml
