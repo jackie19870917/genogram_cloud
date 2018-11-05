@@ -37,4 +37,9 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         Page<FanNewsCultureZipai> fanNewsCultureZipais = this.selectPage(new Page<FanNewsCultureZipai>(pageNo, pageSize), entity);
         return fanNewsCultureZipais;
         }
+
+    @Override
+    public Page<FanNewsCultureZipai> familyCulture(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+        return null;
+    }
 }
