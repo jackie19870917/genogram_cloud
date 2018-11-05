@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/common_service/pom.xml" />
         <option value="$PROJECT_DIR$/fan_api_web_service/pom.xml" />
         <option value="$PROJECT_DIR$/fan_api_admin_service/pom.xml" />
+        <option value="$PROJECT_DIR$/common_file_upload_service/pom.xml" />
       </list>
     </option>
   </component>

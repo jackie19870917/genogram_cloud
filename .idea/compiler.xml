@@ -6,10 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="common_file_upload_service" />
         <module name="common_service" />
         <module name="fan_api_admin_service" />
         <module name="fan_api_web_service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common_file_upload_service" target="1.8" />
+      <module name="common_service" target="1.8" />
+      <module name="fan_api_admin_service" target="1.8" />
+      <module name="fan_api_web_service" target="1.8" />
+      <module name="genogram_cloud" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
