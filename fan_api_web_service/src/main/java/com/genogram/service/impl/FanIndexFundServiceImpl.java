@@ -4,6 +4,7 @@ import com.genogram.entity.FanIndexFund;
 import com.genogram.mapper.FanIndexFundMapper;
 import com.genogram.service.IFanIndexFundService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,4 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, FanIndexFund> implements IFanIndexFundService {
 
+    @Autowired
+    private FanIndexFundMapper fanIndexFundMapper;
+
+    @Override
+    public FanIndexFund selectBySiteId(Integer siteId) {
+        return fanIndexFundMapper.selectById(siteId);
+    }
 }

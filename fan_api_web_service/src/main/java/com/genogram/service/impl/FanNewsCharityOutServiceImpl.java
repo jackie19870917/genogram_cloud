@@ -1,10 +1,19 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllFamily;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.mapper.FanNewsCharityOutMapper;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -17,4 +26,19 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutMapper, FanNewsCharityOut> implements IFanNewsCharityOutService {
 
+    @Autowired
+    private FanNewsCharityOutMapper fanNewsCharityOutMapper;
+
+    @Override
+    public Page<FanNewsCharityOut> selectPage(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
+        Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
+        entity.eq("show_id", siteId);
+        entity.eq("status", status);
+        Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
+        return fanNewsCharityOutPage;
+    }
+
+    private List<FanNewsCharityOut> selectPage(RowBounds page, Wrapper<FanNewsCharityOut> entity) {
+        return fanNewsCharityOutMapper.selectPage(page, entity);
+    }
 }
