@@ -23,14 +23,4 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      * @return
      */
     Page<FanNewsCultureZipai> commonality(Integer siteId, Integer status, Integer pageNo, Integer pageSize);
-
-    /**
-     * 联谊会家族文化查询
-     * @param showId 显示位置Id
-     * @param status 状态
-     * @param pageNo 当前页
-     * @param pageSize 每页显示条数
-     * @return
-     */
-    Page<FanNewsCultureZipai> familyCulture(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 }
