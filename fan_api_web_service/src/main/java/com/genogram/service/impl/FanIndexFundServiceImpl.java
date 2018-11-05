@@ -1,6 +1,8 @@
 package com.genogram.service.impl;
 
 import com.genogram.entity.FanIndexFund;
+import com.genogram.entityvo.ChiratyVo;
+import com.genogram.entityvo.TestVo;
 import com.genogram.mapper.FanIndexFundMapper;
 import com.genogram.service.IFanIndexFundService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
