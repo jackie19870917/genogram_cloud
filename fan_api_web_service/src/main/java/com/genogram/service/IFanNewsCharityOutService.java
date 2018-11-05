@@ -3,7 +3,6 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanNewsCharityOut;
-import com.genogram.entityvo.ChiratyVo;
 
 /**
  * <p>
