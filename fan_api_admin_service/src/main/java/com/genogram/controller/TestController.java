@@ -10,18 +10,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+/**
+ *
+ * @Author: wang,wei
+ * @Date: 2018-11-05
+ * @Time: 22:21
+ * @return:
+ * @Description:
+ *
+ */
 @RequestMapping("/test")
 @Controller
 public class TestController {
 
     @Autowired
-    private TestServ TestServ;
+    private TestServ testServ;
     @ResponseBody
     @RequestMapping("/test1")
     public Response<TestVo> test1(@RequestParam(name = "username") String username,
                                   @RequestParam(name = "pwd") String pwd){
-        TestVo vo = TestServ.test(username,pwd);
+        TestVo vo = testServ.test(username,pwd);
         return ResponseUtlis.success(vo);
     }
 }

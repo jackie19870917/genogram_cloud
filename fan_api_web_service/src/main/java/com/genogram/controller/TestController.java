@@ -15,18 +15,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ *
+ * @Author: wang,wei
+ * @Date: 2018-11-05
+ * @Time: 22:21
+ * @return:
+ * @Description:
+ *
+ */
 @RequestMapping("/test")
 @Controller
 public class TestController {
 
     @Autowired
-    private TestServ TestServ;
+    private TestServ testServ;
     @ResponseBody
     @RequestMapping("/test1")
     public Response<TestVo> test1(@RequestParam(name = "username") String username,
                                   @RequestParam(name = "pwd") String pwd){
-        TestVo vo = TestServ.test(username,pwd);
+        TestVo vo = testServ.test(username,pwd);
 
         Page page = new Page();
         //设置当前页
@@ -34,9 +42,9 @@ public class TestController {
         //每页个数
         page.setSize(2);
         Page<AllFamily> mapPage = new Page<>(page.getCurrent(),page.getSize());
-        Map requestParam = new HashMap<>();
-        //requestParam.put("value","s");
-        Page<AllFamily> myItems= TestServ.queryMyItems(mapPage,requestParam);
+        Map requestParam = new HashMap<>(16);
+        //requestParam.put("value","s")
+        Page<AllFamily> myItems= testServ.queryMyItems(mapPage,requestParam);
         System.out.println(myItems);
         return ResponseUtlis.success(myItems);
     }

@@ -16,5 +16,17 @@ import java.util.Map;
  * @since 2018-11-04
  */
 public interface AllFamilyMapper extends BaseMapper<AllFamily> {
+    
+    /**
+     * queryMyItems
+     * @Author: wang,wei
+     * @Date: 2018-11-05
+     * @Time: 22:05
+     * @param mapPage
+     * @param requestParam
+     * @return:
+     * @Description:
+     *
+     */
     List<AllFamily> queryMyItems(Page<AllFamily> mapPage, Map requestParam);
 }

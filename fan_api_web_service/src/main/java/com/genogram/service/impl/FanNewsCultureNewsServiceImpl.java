@@ -30,7 +30,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     @Override
     public Page<FamilyCultureVo> familyCulture(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         Page<FamilyCultureVo> mapPage = new Page<>(pageNo,pageSize);
-        Map requestParam = new HashMap<>();
+        Map requestParam = new HashMap<>(16);
         requestParam.put("showId",showId);
         requestParam.put("status",status);
         List<FamilyCultureVo> myItems =fanNewsCultureNewsMapper.queryMyItems(mapPage, requestParam);
