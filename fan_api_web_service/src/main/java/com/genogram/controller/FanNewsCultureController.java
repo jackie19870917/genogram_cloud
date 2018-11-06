@@ -32,7 +32,7 @@ public class FanNewsCultureController {
 
     //联谊会家族字派
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
-    public Response<FanNewsCultureZipai> commonality(
+    public Response<FanNewsCultureZipai> getCommonalityPage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
@@ -47,8 +47,8 @@ public class FanNewsCultureController {
     }
 
     //联谊会家族文化查询
-    @RequestMapping("/getFamilyCulturePage")
-    public Response<FanNewsCultureZipai> familyCulture(
+    @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
+    public Response<FanNewsCultureZipai> getFamilyCulturePage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
