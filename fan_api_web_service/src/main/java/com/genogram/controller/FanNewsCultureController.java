@@ -1,6 +1,7 @@
 package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.config.ConstantClassField;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
@@ -30,6 +31,13 @@ public class FanNewsCultureController {
     @Autowired
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
+    // 返回状态码 成功 200
+    private Integer SUCCESSFUL_CODE = ConstantClassField.SUCCESSFUL_CODE;
+    // 返回状态码 失败 500
+    private Integer FAILURE_CODE = ConstantClassField.FAILURE_CODE;
+    // 返回状态码 失败 400
+    private Integer ERRO_CODE = ConstantClassField.ERRO_CODE;
+
     //联谊会家族字派
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
@@ -42,7 +50,7 @@ public class FanNewsCultureController {
             return ResponseUtlis.success(fanNewsCultureZipai);
         }catch (Exception e) {
                 e.printStackTrace();
-                return ResponseUtlis.error(500, "查询失败");
+                return ResponseUtlis.error(FAILURE_CODE, "查询失败");
             }
     }
 
@@ -56,12 +64,12 @@ public class FanNewsCultureController {
         try {
             Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.getFamilyCulturePage(showId, status, pageNo, pageSize);
             if(familyCultureVo==null){
-                return ResponseUtlis.error(400,"您好没有数据");
+                return ResponseUtlis.error(ERRO_CODE,"您好没有数据");
             }
             return ResponseUtlis.success(familyCultureVo);
         }catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(500, "查询失败");
+            return ResponseUtlis.error(FAILURE_CODE, "查询失败");
         }
     }
 }
