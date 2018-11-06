@@ -2,10 +2,8 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.ConstantClassField;
-import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
-import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
@@ -41,7 +39,7 @@ public class FanNewsCultureController {
     //联谊会家族字派
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
-            @RequestParam(value = "showId") Integer showId, // 产业显示位置
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @RequestParam(value = "status", defaultValue = "1") Integer status) {
@@ -56,8 +54,8 @@ public class FanNewsCultureController {
 
     //联谊会家族文化查询
     @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
-    public Response<FanNewsCultureZipai> getFamilyCulturePage(
-            @RequestParam(value = "showId") Integer showId, // 产业显示位置
+    public Response<FamilyCultureVo> getFamilyCulturePage(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @RequestParam(value = "status", defaultValue = "1") Integer status) {

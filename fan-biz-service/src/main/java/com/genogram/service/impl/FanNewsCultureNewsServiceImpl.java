@@ -40,6 +40,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //返回新VO的集合
         List<FamilyCultureVo> familyCultureVoList=new ArrayList<>();
 
+        //查询文章信息的条件
         Wrapper<FanNewsCultureNews> entity = new EntityWrapper<FanNewsCultureNews>();
         entity.eq("show_id", showId);
         entity.eq("status", status);
@@ -49,6 +50,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
 
         //得到文件当前页list集合
         List<FanNewsCultureNews> list = fanNewsCultureNews.getRecords();
+        //判断改集合是否为空,如果是直接返回结果
         if(list.size()==0){
             return null;
         }
