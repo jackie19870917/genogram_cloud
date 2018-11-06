@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayIn> {
 
-    Page<FanNewsCharityPayIn> selectPage(Integer siteId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FanNewsCharityPayIn> selectPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 }
