@@ -4,90 +4,8 @@
     <option name="GROUP_BY_SEVERITY" value="true" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="44babed4-3345-4d8c-a57c-5b87743e935a" name="Default Changelist" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace - Copy.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IAllRegionService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IAllUserLoginService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanIndexFamilySummarysService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanIndexFundDrowingService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanIndexFundService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanIndexInfoService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanIndexMessageService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanIndexSlidePicService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsCharityOutDrftService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsCharityOutService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsCharityPayInService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsCultureNewsDrftService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsCultureNewsService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsCultureZipaiDrftService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsCultureZipaiService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsFamilyRecordDrftService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsFamilyRecordService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsFamilyRecordVedioService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsFamousAncestorChildService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsFamousAncestorService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsFamousPersonService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsIndustryDrftService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsIndustryService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsTongpuNewsDrftService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsTongpuNewsService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsTongpuPersonDrftService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsTongpuPersonService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsTongpuPicService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsUploadFileService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanNewsUploadVedioService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanSysRecommendService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanSysSiteService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanSysWebMenuService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFanSysWebNewsShowService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/IFunSysConfigService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/ITempProNewsElectronSpectrumService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/ITempProSpectrumNetworkService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/TestServ.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/AllRegionServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/AllUserLoginServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanIndexFamilySummarysServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanIndexFundDrowingServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanIndexFundServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanIndexInfoServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanIndexMessageServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanIndexSlidePicServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsCharityOutDrftServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsCharityOutServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsCharityPayInServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsCultureNewsDrftServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsCultureNewsServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsCultureZipaiDrftServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsCultureZipaiServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsFamilyRecordDrftServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsFamilyRecordServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsFamilyRecordVedioServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsFamousAncestorChildServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsFamousAncestorServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsFamousPersonServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsIndustryDrftServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsIndustryServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsTongpuNewsDrftServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsTongpuNewsServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsTongpuPersonDrftServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsTongpuPersonServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsTongpuPicServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsUploadFileServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanNewsUploadVedioServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanSysRecommendServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanSysSiteServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanSysWebMenuServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FanSysWebNewsShowServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/FunSysConfigServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/TempProNewsElectronSpectrumServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/TempProSpectrumNetworkServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/service/impl/TestServImpl.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+    <list default="true" id="44babed4-3345-4d8c-a57c-5b87743e935a" name="Default Changelist" comment="Default Changelist">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fan_api_web_service/pom.xml" afterPath="$PROJECT_DIR$/fan_api_web_service/pom.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -229,8 +147,8 @@
       <file leaf-file-name="FanNewsCultureZipaiServiceImpl.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/impl/FanNewsCultureZipaiServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+            <state relative-caret-position="84">
+              <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -362,41 +280,6 @@
             <path>
               <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
               <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-              <item name="fan_api_web_service" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-              <item name="fan_api_web_service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-              <item name="fan_api_web_service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-              <item name="fan_api_web_service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="genogram_cloud" type="b2602c69:ProjectViewProjectNode" />
-              <item name="genogram_cloud" type="462c0819:PsiDirectoryNode" />
-              <item name="fan_api_web_service" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="genogram" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -649,8 +532,16 @@
       <workItem from="1541420695890" duration="747000" />
       <workItem from="1541421481499" duration="2443000" />
       <workItem from="1541423970177" duration="3899000" />
-      <workItem from="1541474481323" duration="4743000" />
+      <workItem from="1541474481323" duration="5196000" />
     </task>
+    <task id="LOCAL-00001" summary="Default Changelist">
+      <created>1541484190534</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1541484190534</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -686,7 +577,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23542000" />
+    <option name="totallyTimeSpent" value="23995000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -701,12 +592,12 @@
       <window_info id="Run Dashboard" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41922006" sideWeight="0.5" order="-1" side_tool="false" content_ui="combo" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2281491" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3955432" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.68523675" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.68523675" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32133675" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32133675" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -754,6 +645,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Default Changelist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1135,8 +1030,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/impl/FanNewsCultureZipaiServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+        <state relative-caret-position="84">
+          <caret line="16" column="3" lean-forward="true" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
           <folding />
         </state>
       </provider>
