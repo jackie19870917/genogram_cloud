@@ -30,7 +30,7 @@ CREATE TABLE `all_family` (
   `first_letter` varchar(10) DEFAULT NULL COMMENT '手写字母大写',
   `sort` int(11) DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='姓氏表';
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='姓氏表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `all_family` (
 
 LOCK TABLES `all_family` WRITE;
 /*!40000 ALTER TABLE `all_family` DISABLE KEYS */;
-INSERT INTO `all_family` VALUES (1,'王','W',1),(2,'魏','W',2),(3,'张','Z',1),(4,'張','Z',2),(5,'網','W',3),(7,'李','L',1),(8,'ss','1',4),(9,'ffff','ss',NULL),(10,NULL,'ss',NULL),(11,NULL,'ss',NULL),(12,NULL,'ss',NULL),(13,NULL,'ss',NULL),(14,NULL,'ss',NULL),(15,NULL,'ss',NULL);
+INSERT INTO `all_family` VALUES (1,'王','W',1),(2,'魏','W',2),(3,'张','Z',1),(4,'張','Z',2),(5,'網','W',3),(7,'李','L',1),(8,'ss','1',4),(9,'ffff','ss',NULL),(10,NULL,'ss',NULL),(11,NULL,'ss',NULL),(12,NULL,'ss',NULL),(13,NULL,'ss',NULL),(14,NULL,'ss',NULL),(15,NULL,'ss',NULL),(16,NULL,'ss',NULL),(17,NULL,'ss',NULL),(18,NULL,'ss',NULL);
 /*!40000 ALTER TABLE `all_family` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,7 +302,7 @@ CREATE TABLE `fan_index_message` (
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   `update_user` int(11) DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊会在线聊天';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊会在线聊天';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -311,6 +311,7 @@ CREATE TABLE `fan_index_message` (
 
 LOCK TABLES `fan_index_message` WRITE;
 /*!40000 ALTER TABLE `fan_index_message` DISABLE KEYS */;
+INSERT INTO `fan_index_message` VALUES (1,1,312314,'张三','你好你好你好啊','2018-11-06 09:51:02',1,'2018-11-06 09:52:03',12321423,NULL,NULL),(2,1,12342,'李四','好好,好好','2018-11-06 09:53:30',1,'2018-11-06 09:53:35',3245235,NULL,NULL);
 /*!40000 ALTER TABLE `fan_index_message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -366,7 +367,7 @@ CREATE TABLE `fan_news_charity_out` (
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   `update_user` int(11) DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊会-家族慈善财务支出表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊会-家族慈善财务支出表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -375,7 +376,7 @@ CREATE TABLE `fan_news_charity_out` (
 
 LOCK TABLES `fan_news_charity_out` WRITE;
 /*!40000 ALTER TABLE `fan_news_charity_out` DISABLE KEYS */;
-INSERT INTO `fan_news_charity_out` VALUES (1,1,1.00,'1','1','1',NULL,1,1,'2018-11-05 08:32:15',1,NULL,NULL),(2,1,2.00,'2','2','2',NULL,2,1,'2018-11-05 08:33:34',1,NULL,NULL);
+INSERT INTO `fan_news_charity_out` VALUES (1,1,1000.00,'洪山捐款','','',NULL,NULL,1,'2018-11-05 08:32:15',1,NULL,NULL),(2,1,9000.00,'江夏捐款','','',NULL,NULL,1,'2018-11-05 08:33:34',1,NULL,NULL),(3,1,NULL,NULL,'标题1','内容1',1,NULL,1,'2018-11-06 07:53:29',1,NULL,NULL),(4,1,NULL,NULL,'标题2','内容2',1,NULL,1,'2018-11-06 07:54:03',1,NULL,NULL);
 /*!40000 ALTER TABLE `fan_news_charity_out` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -588,7 +589,7 @@ CREATE TABLE `fan_news_family_record` (
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   `update_user` int(11) DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊会-记录家族-家族动态,家族通告文章表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊会-记录家族-家族动态,家族通告文章表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -597,6 +598,7 @@ CREATE TABLE `fan_news_family_record` (
 
 LOCK TABLES `fan_news_family_record` WRITE;
 /*!40000 ALTER TABLE `fan_news_family_record` DISABLE KEYS */;
+INSERT INTO `fan_news_family_record` VALUES (1,1,'1','1',1,1,'2018-11-06 09:14:00',1,'2018-11-06 09:13:39',1);
 /*!40000 ALTER TABLE `fan_news_family_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -779,7 +781,7 @@ CREATE TABLE `fan_news_industry` (
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   `update_user` int(11) DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='联谊会-家族产业';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='联谊会-家族产业';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -788,6 +790,7 @@ CREATE TABLE `fan_news_industry` (
 
 LOCK TABLES `fan_news_industry` WRITE;
 /*!40000 ALTER TABLE `fan_news_industry` DISABLE KEYS */;
+INSERT INTO `fan_news_industry` VALUES (1,2,'标题','内容内容内容222','关山大道','1',12,1,'2018-11-06 07:31:44',13121254,NULL,NULL),(2,2,'标题`','男人女人','大道','1',12,1,'2018-11-06 07:32:14',3423543,NULL,NULL),(3,1,'标题','内容内容','大街','1',13,1,'2018-11-06 07:33:18',34235,NULL,NULL),(4,2,'标题','男人女人为2222','地址地址','1',14,2,'2018-11-06 07:34:00',53425,NULL,NULL);
 /*!40000 ALTER TABLE `fan_news_industry` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -990,7 +993,7 @@ CREATE TABLE `fan_news_upload_file` (
   `update_time` timestamp NULL DEFAULT NULL,
   `update_user` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊网附件上传表(不包括视频文件)';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊网附件上传表(不包括视频文件)';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -999,7 +1002,7 @@ CREATE TABLE `fan_news_upload_file` (
 
 LOCK TABLES `fan_news_upload_file` WRITE;
 /*!40000 ALTER TABLE `fan_news_upload_file` DISABLE KEYS */;
-INSERT INTO `fan_news_upload_file` VALUES (1,1,1,'图片名称','gfsags',1,'2018-11-06 02:00:47',1232134,NULL,NULL),(2,1,1,'图片名称','qtreg',1,'2018-11-05 02:01:44',1232134,NULL,NULL),(3,2,1,'图片名称','wqere',1,'2018-11-13 02:22:53',1232134,NULL,NULL),(4,3,1,NULL,'wfty',1,'2018-11-06 03:55:35',NULL,NULL,NULL),(5,5,1,NULL,NULL,1,NULL,NULL,NULL,NULL);
+INSERT INTO `fan_news_upload_file` VALUES (1,1,1,'图片名称','gfsags',1,'2018-11-06 02:00:47',1232134,NULL,NULL),(2,1,1,'图片名称','qtreg',1,'2018-11-05 02:01:44',1232134,NULL,NULL),(3,3,1,'图片名称','wqere',1,'2018-11-13 02:22:53',1,NULL,NULL),(4,3,1,'图1','wfty',1,'2018-11-06 03:55:35',1,NULL,NULL),(6,4,1,'图3','asdf',1,'2018-11-06 08:29:49',1,NULL,NULL),(7,4,1,'图4','qwer',1,'2018-11-06 08:33:07',1,NULL,NULL);
 /*!40000 ALTER TABLE `fan_news_upload_file` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1113,7 +1116,7 @@ CREATE TABLE `fan_sys_web_menu` (
   `api_url` varchar(45) DEFAULT NULL COMMENT 'api 调用path',
   `parent_id` int(11) NOT NULL COMMENT '父ID',
   `order_index` int(11) DEFAULT NULL COMMENT '排列顺序',
-  `menu_code` varchar(45) NOT NULL COMMENT '菜单类型:图片文章视频',
+  `menu_code` varchar(45) DEFAULT NULL COMMENT '菜单类型:图片文章视频',
   `menu_type` varchar(45) DEFAULT NULL COMMENT '菜单种类',
   `istatic` int(11) DEFAULT NULL COMMENT '是否有子栏目;0:否;1是',
   `comments` varchar(45) DEFAULT NULL COMMENT '备注',
@@ -1121,8 +1124,7 @@ CREATE TABLE `fan_sys_web_menu` (
   `create_user` int(11) DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL,
   `update_user` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `menu_code_UNIQUE` (`menu_code`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊会web菜单基础表,非文章位置表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1132,7 +1134,7 @@ CREATE TABLE `fan_sys_web_menu` (
 
 LOCK TABLES `fan_sys_web_menu` WRITE;
 /*!40000 ALTER TABLE `fan_sys_web_menu` DISABLE KEYS */;
-INSERT INTO `fan_sys_web_menu` VALUES (1,0,'首页',NULL,0,0,'0_0','index',NULL,NULL,NULL,NULL,NULL,NULL),(2,1,'家族文化',NULL,1,1,'0_1','culture_home',NULL,NULL,NULL,NULL,NULL,NULL),(3,1,'慈善公益',NULL,1,2,'0_2','charity_home',NULL,NULL,NULL,NULL,NULL,NULL),(4,1,'家族产业',NULL,1,3,'0_3','industry_home',NULL,NULL,NULL,NULL,NULL,NULL),(5,1,'家族名人',NULL,1,4,'0_4','famous_home',NULL,NULL,NULL,NULL,NULL,NULL),(6,1,'记录家族',NULL,1,5,'0_5','family_record_home',NULL,NULL,NULL,NULL,NULL,NULL),(7,1,'统谱编修',NULL,1,6,'0_6','tongpu_home',NULL,NULL,NULL,NULL,NULL,NULL),(8,2,'本地字派',NULL,2,1,'2_1','culture_zipai',NULL,NULL,NULL,NULL,NULL,NULL),(9,2,'家族祠堂',NULL,2,2,'2_2','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(10,2,'源流',NULL,2,3,'2_3','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(11,2,'序',NULL,2,4,'2_4','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(12,2,'宗规族约',NULL,2,5,'2_5','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(13,2,'传说典故',NULL,2,6,'2_6','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(14,2,'财务支出',NULL,3,1,'3_1','charity_news',NULL,NULL,NULL,NULL,NULL,NULL),(15,2,'捐款名录',NULL,3,2,'3_3','charity_person',NULL,NULL,NULL,NULL,NULL,NULL),(16,2,'家族产业',NULL,4,1,'4_1','industry_news',NULL,NULL,NULL,NULL,NULL,NULL),(17,2,'个人产业',NULL,4,2,'4_2','industry_news',NULL,NULL,NULL,NULL,NULL,NULL),(18,2,'家族长老',NULL,5,1,'5_1','famous_news',NULL,NULL,NULL,NULL,NULL,NULL),(19,2,'家族栋梁',NULL,5,2,'5_2','famous_news',NULL,NULL,NULL,NULL,NULL,NULL),(20,2,'家族动态',NULL,6,1,'6_1','family_record_news',NULL,NULL,NULL,NULL,NULL,NULL),(21,2,'县级公告',NULL,6,2,'6_2','family_record_news',NULL,NULL,NULL,NULL,NULL,NULL),(22,2,'官方视频',NULL,6,3,'6_3','family_record_file',NULL,NULL,NULL,NULL,NULL,NULL),(23,2,'个人视频',NULL,6,4,'6_4','family_record_file',NULL,NULL,NULL,NULL,NULL,NULL),(26,2,'财务收益',NULL,3,2,'3_2','charity_news',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `fan_sys_web_menu` VALUES (1,0,'首页',NULL,0,0,'','index',NULL,NULL,NULL,NULL,NULL,NULL),(2,1,'家族文化',NULL,1,1,'','culture_home',NULL,NULL,NULL,NULL,NULL,NULL),(3,1,'慈善公益',NULL,1,2,'','charity_home',NULL,NULL,NULL,NULL,NULL,NULL),(4,1,'家族产业',NULL,1,3,'','industry_home',NULL,NULL,NULL,NULL,NULL,NULL),(5,1,'家族名人',NULL,1,4,'','famous_home',NULL,NULL,NULL,NULL,NULL,NULL),(6,1,'记录家族',NULL,1,5,'','family_record_home',NULL,NULL,NULL,NULL,NULL,NULL),(7,1,'统谱编修',NULL,1,6,'','tongpu_home',NULL,NULL,NULL,NULL,NULL,NULL),(8,2,'本地字派',NULL,2,1,'','culture_zipai',NULL,NULL,NULL,NULL,NULL,NULL),(9,2,'家族祠堂',NULL,2,2,'','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(10,2,'源流',NULL,2,3,'','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(11,2,'序',NULL,2,4,'','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(12,2,'宗规族约',NULL,2,5,'','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(13,2,'传说典故',NULL,2,6,'','culture_news',NULL,NULL,NULL,NULL,NULL,NULL),(14,2,'财务支出',NULL,3,1,'','charity_news',NULL,NULL,NULL,NULL,NULL,NULL),(15,2,'捐款名录',NULL,3,2,'','charity_person',NULL,NULL,NULL,NULL,NULL,NULL),(16,2,'家族产业',NULL,4,1,'','industry_news',NULL,NULL,NULL,NULL,NULL,NULL),(17,2,'个人产业',NULL,4,2,'','industry_news',NULL,NULL,NULL,NULL,NULL,NULL),(18,2,'家族长老',NULL,5,1,'','famous_news',NULL,NULL,NULL,NULL,NULL,NULL),(19,2,'家族栋梁',NULL,5,2,'','famous_news',NULL,NULL,NULL,NULL,NULL,NULL),(20,2,'家族动态',NULL,6,1,'','family_record_news',NULL,NULL,NULL,NULL,NULL,NULL),(21,2,'县级公告',NULL,6,2,'','family_record_news',NULL,NULL,NULL,NULL,NULL,NULL),(22,2,'官方视频',NULL,6,3,'','family_record_file',NULL,NULL,NULL,NULL,NULL,NULL),(23,2,'个人视频',NULL,6,4,'','family_record_file',NULL,NULL,NULL,NULL,NULL,NULL),(24,2,'财务收益',NULL,3,2,'','charity_news',NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `fan_sys_web_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1152,7 +1154,7 @@ CREATE TABLE `fan_sys_web_news_show` (
   `update_time` timestamp NULL DEFAULT NULL COMMENT '修改时间',
   `update_user` int(11) DEFAULT NULL COMMENT '修改人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊网站文章挂靠位置表';
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='联谊网站文章挂靠位置表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1161,7 +1163,7 @@ CREATE TABLE `fan_sys_web_news_show` (
 
 LOCK TABLES `fan_sys_web_news_show` WRITE;
 /*!40000 ALTER TABLE `fan_sys_web_news_show` DISABLE KEYS */;
-INSERT INTO `fan_sys_web_news_show` VALUES (1,1,1,NULL,NULL,NULL,NULL),(2,1,2,NULL,NULL,NULL,NULL),(3,1,3,NULL,NULL,NULL,NULL),(4,1,4,NULL,NULL,NULL,NULL),(5,1,5,NULL,NULL,NULL,NULL),(6,1,6,NULL,NULL,NULL,NULL),(7,1,7,NULL,NULL,NULL,NULL),(8,1,8,NULL,NULL,NULL,NULL),(9,1,9,NULL,NULL,NULL,NULL),(10,1,10,NULL,NULL,NULL,NULL),(11,1,11,NULL,NULL,NULL,NULL),(12,1,12,NULL,NULL,NULL,NULL),(13,1,13,NULL,NULL,NULL,NULL),(14,1,14,NULL,NULL,NULL,NULL),(15,1,15,NULL,NULL,NULL,NULL),(16,1,16,NULL,NULL,NULL,NULL),(17,1,17,NULL,NULL,NULL,NULL),(18,1,18,NULL,NULL,NULL,NULL),(19,1,19,NULL,NULL,NULL,NULL),(20,1,20,NULL,NULL,NULL,NULL),(21,1,21,NULL,NULL,NULL,NULL),(22,1,22,NULL,NULL,NULL,NULL),(23,1,23,NULL,NULL,NULL,NULL),(24,2,1,NULL,NULL,NULL,NULL),(25,2,2,NULL,NULL,NULL,NULL),(26,2,3,NULL,NULL,NULL,NULL),(27,2,4,NULL,NULL,NULL,NULL),(28,2,5,NULL,NULL,NULL,NULL),(29,2,6,NULL,NULL,NULL,NULL),(30,2,7,NULL,NULL,NULL,NULL),(31,2,8,NULL,NULL,NULL,NULL),(32,2,9,NULL,NULL,NULL,NULL),(33,2,10,NULL,NULL,NULL,NULL),(34,2,11,NULL,NULL,NULL,NULL),(35,2,12,NULL,NULL,NULL,NULL),(36,2,13,NULL,NULL,NULL,NULL),(37,2,14,NULL,NULL,NULL,NULL),(38,2,15,NULL,NULL,NULL,NULL),(39,2,16,NULL,NULL,NULL,NULL),(40,2,17,NULL,NULL,NULL,NULL),(41,2,18,NULL,NULL,NULL,NULL),(42,2,19,NULL,NULL,NULL,NULL),(43,2,20,NULL,NULL,NULL,NULL),(44,2,21,NULL,NULL,NULL,NULL),(45,2,22,NULL,NULL,NULL,NULL),(46,2,23,NULL,NULL,NULL,NULL);
+INSERT INTO `fan_sys_web_news_show` VALUES (1,1,1,NULL,NULL,NULL,NULL),(2,1,2,NULL,NULL,NULL,NULL),(3,1,3,NULL,NULL,NULL,NULL),(4,1,4,NULL,NULL,NULL,NULL),(5,1,5,NULL,NULL,NULL,NULL),(6,1,6,NULL,NULL,NULL,NULL),(7,1,7,NULL,NULL,NULL,NULL),(8,1,8,NULL,NULL,NULL,NULL),(9,1,9,NULL,NULL,NULL,NULL),(10,1,10,NULL,NULL,NULL,NULL),(11,1,11,NULL,NULL,NULL,NULL),(12,1,12,NULL,NULL,NULL,NULL),(13,1,13,NULL,NULL,NULL,NULL),(14,1,14,NULL,NULL,NULL,NULL),(15,1,15,NULL,NULL,NULL,NULL),(16,1,16,NULL,NULL,NULL,NULL),(17,1,17,NULL,NULL,NULL,NULL),(18,1,18,NULL,NULL,NULL,NULL),(19,1,19,NULL,NULL,NULL,NULL),(20,1,20,NULL,NULL,NULL,NULL),(21,1,21,NULL,NULL,NULL,NULL),(22,1,22,NULL,NULL,NULL,NULL),(23,1,23,NULL,NULL,NULL,NULL),(24,2,1,NULL,NULL,NULL,NULL),(25,2,2,NULL,NULL,NULL,NULL),(26,2,3,NULL,NULL,NULL,NULL),(27,2,4,NULL,NULL,NULL,NULL),(28,2,5,NULL,NULL,NULL,NULL),(29,2,6,NULL,NULL,NULL,NULL),(30,2,7,NULL,NULL,NULL,NULL),(31,2,8,NULL,NULL,NULL,NULL),(32,2,9,NULL,NULL,NULL,NULL),(33,2,10,NULL,NULL,NULL,NULL),(34,2,11,NULL,NULL,NULL,NULL),(35,2,12,NULL,NULL,NULL,NULL),(36,2,13,NULL,NULL,NULL,NULL),(37,2,14,NULL,NULL,NULL,NULL),(38,2,15,NULL,NULL,NULL,NULL),(39,2,16,NULL,NULL,NULL,NULL),(40,2,17,NULL,NULL,NULL,NULL),(41,2,18,NULL,NULL,NULL,NULL),(42,2,19,NULL,NULL,NULL,NULL),(43,2,20,NULL,NULL,NULL,NULL),(44,2,21,NULL,NULL,NULL,NULL),(45,2,22,NULL,NULL,NULL,NULL),(46,2,23,NULL,NULL,NULL,NULL),(47,1,24,NULL,NULL,NULL,NULL),(48,2,24,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `fan_sys_web_news_show` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1278,4 +1280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-06 15:22:31
+-- Dump completed on 2018-11-06 19:28:00
