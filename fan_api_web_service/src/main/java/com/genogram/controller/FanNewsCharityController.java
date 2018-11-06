@@ -3,9 +3,12 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
+import com.genogram.entityvo.ChiratyVo;
+import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.FanNewsCharityOutVo;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCharityPayInService;
+import com.genogram.service.IFanNewsCharityService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +38,16 @@ public class FanNewsCharityController {
     @Autowired
     private IFanNewsCharityPayInService iFanNewsCharityPayInService;
 
+    @Autowired
+    private IFanNewsCharityService iFanNewsCharityService;
+
     @RequestMapping("")
     public Response<FanNewsCharityOut> selectByCreateTime(@RequestParam(value = "showId",defaultValue = "1") Integer showId,
-                                                          @RequestParam(value = "newType",defaultValue = "1")Integer newType,
                                                           @RequestParam(value = "status",defaultValue = "1")Integer status,
                                                           @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
                                                           @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
 
-        Page<FanNewsCharityOut> fanNewsCharityOutPage = iFanNewsCharityOutService.selectPage(showId,newType, status, pageNo, pageSize);
+        Page<FanNewsCharityOut> fanNewsCharityOutPage = iFanNewsCharityOutService.selectPage(showId, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
@@ -58,15 +63,26 @@ public class FanNewsCharityController {
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }*/
 
-    @RequestMapping("/demos")
-    public Response<FanNewsCharityPayIn> selectByCreateTimess(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
-                                                             @RequestParam(value = "status",defaultValue = "1")Integer status,
-                                                             @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                                             @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
+    @RequestMapping("/FanNewsCharityDonor")
+    public Response<DonorVo> selectByCreateTimess(@RequestParam(value = "showId",defaultValue = "1") Integer showId,
+                                                  @RequestParam(value = "status",defaultValue = "1")Integer status,
+                                                  @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                                                  @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
 
-        Page<FanNewsCharityPayIn> fanNewsCharityPayInPage = iFanNewsCharityPayInService.selectPage(siteId, status, pageNo, pageSize);
+        List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.queryMyItems(showId, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityPayInPage);
+    }
+
+    @RequestMapping("chiratyVo")
+    public Response<ChiratyVo> getchiratyVo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
+                                            @RequestParam(value = "status",defaultValue = "1")Integer status,
+                                            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                                            @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
+
+        ChiratyVo charity = iFanNewsCharityService.getAllFanNewsCharity(siteId, status, pageNo, pageSize);
+
+        return ResponseUtlis.success(charity);
     }
 
     @RequestMapping("/FanNewsCharityPayOutPage")

@@ -29,12 +29,13 @@
         SELECT
         <include refid="Base_Column_List" />
         FROM fan_news_charity_pay_in
-        <where>
+        where
             1=1
-        <if test="show_id!=null">
-            and show_id=#{show_id}
+        <if test="showId!=null">
+            and show_id=#{showId}
         </if>
-        </where>
         group by pay_usr_id
+        order by pay_amount desc
+        limit #{pageNo} ,#{pageSize}
     </select>
 </mapper>
