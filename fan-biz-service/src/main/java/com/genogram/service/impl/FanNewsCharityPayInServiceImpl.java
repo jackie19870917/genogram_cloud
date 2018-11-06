@@ -25,9 +25,9 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     private FanNewsCharityPayInMapper fanNewsCharityPayInMapper;
 
     @Override
-    public Page<FanNewsCharityPayIn> selectPage(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsCharityPayIn> selectPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         Wrapper<FanNewsCharityPayIn> entity = new EntityWrapper<FanNewsCharityPayIn>();
-        entity.eq("show_id", siteId);
+        entity.eq("show_id", showId);
         entity.eq("status", status);
         entity.groupBy("pay_usr_id");
         // entity.orderBy(, "pay_amount");

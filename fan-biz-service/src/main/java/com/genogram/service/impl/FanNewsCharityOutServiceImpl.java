@@ -30,9 +30,9 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     private FanNewsCharityOutMapper fanNewsCharityOutMapper;
 
     @Override
-    public Page<FanNewsCharityOut> selectPage(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsCharityOut> selectPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
-        entity.eq("show_id", siteId);
+        entity.eq("show_id", showId);
         entity.eq("status", status);
         entity.orderBy("create_time", false);
         Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
@@ -40,9 +40,9 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     }
 
     @Override
-    public List<FanNewsCharityOut> selectPageList(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
+    public List<FanNewsCharityOut> selectPageList(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
-        entity.eq("show_id", siteId);
+        entity.eq("show_id", showId);
         entity.eq("status", status);
         entity.orderBy("create_time", false);
         List<FanNewsCharityOut> fanNewsCharityOutList = fanNewsCharityOutMapper.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
