@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -29,9 +31,15 @@ public class FanIndexMenuController {
     @ResponseBody
     @RequestMapping(value = "/getMenuBySiteId" ,  method = RequestMethod.GET)
     public Response<TestVo> test1(@RequestParam(name = "siteId") String siteId){
-        //单表查询list
         List<FanSysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(siteId);
-        return ResponseUtlis.success(list);
+
+        List<FanSysWebMenuVo> indexMenus = iFanSysWebNewsShowService.getIndexMenu(siteId);
+
+        Map map = new HashMap();
+        map.put("index_show",indexMenus);
+        map.put("menu_show",list);
+        //单表查询list
+        return ResponseUtlis.success(map);
     }
 }
 
