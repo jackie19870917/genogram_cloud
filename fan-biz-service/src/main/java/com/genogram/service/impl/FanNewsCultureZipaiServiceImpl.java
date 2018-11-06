@@ -27,13 +27,33 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
 
     //联谊会字派查询
     @Override
-    public Page<FanNewsCultureZipai> commonality(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsCultureZipai> commonality(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
-            entity.eq("show_id", siteId);
-        entity.eq("status", status);
+            entity.eq("show_id", showId);
+            entity.eq("status", status);
             entity.orderBy("create_time", false);
         Page<FanNewsCultureZipai> fanNewsCultureZipais = this.selectPage(new Page<FanNewsCultureZipai>(pageNo, pageSize), entity);
         return fanNewsCultureZipais;
         }
+
+     // 联谊会首页字派查询
+    @Override
+    public StringBuffer CommonalityIndex(Integer showId, Integer status) {
+        Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
+        entity.eq("show_id", showId);
+        entity.eq("status", status);
+        entity.orderBy("create_time", false);
+        List<FanNewsCultureZipai> fanNewsCultureZipais = this.selectList(entity);
+        if (fanNewsCultureZipais.size()==0){
+            return null;
+        }
+        StringBuffer string=new StringBuffer();
+        fanNewsCultureZipais.forEach(( data)->{
+            string.append(data.getZipaiTxt()+",");
+        });
+        //删除最后一个字符
+        string.deleteCharAt(string.length() - 1);
+        return string;
+    }
 
 }

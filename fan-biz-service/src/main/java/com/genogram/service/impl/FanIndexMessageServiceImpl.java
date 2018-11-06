@@ -1,10 +1,15 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexMessage;
 import com.genogram.mapper.FanIndexMessageMapper;
 import com.genogram.service.IFanIndexMessageService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +22,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanIndexMessageServiceImpl extends ServiceImpl<FanIndexMessageMapper, FanIndexMessage> implements IFanIndexMessageService {
 
+    //联谊会首页聊天记录
+    @Override
+    public Page<FanIndexMessage> getChatRecord(Integer siteId, Integer status,Integer pageNo,Integer pageSize) {
+        Wrapper<FanIndexMessage> entity = new EntityWrapper<FanIndexMessage>();
+        entity.eq("site_id", siteId);
+        entity.eq("status", status);
+        entity.orderBy("create_time", false);
+        Page<FanIndexMessage> fanNewsCultureZipais = this.selectPage(new Page<FanIndexMessage>(pageNo, pageSize), entity);
+        return fanNewsCultureZipais;
+    }
 }

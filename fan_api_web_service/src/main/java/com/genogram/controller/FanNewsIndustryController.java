@@ -33,7 +33,7 @@ public class FanNewsIndustryController {
     // 返回状态码 失败 400
     private Integer ERRO_CODE = ConstantClassField.ERRO_CODE;
 
-    //联谊会家族文化查询
+    //联谊会家族产业查询
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
@@ -41,17 +41,34 @@ public class FanNewsIndustryController {
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @RequestParam(value = "status", defaultValue = "1") Integer status) {
+        return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize, status);
+    }
+
+    //联谊会家族产业 首页查询查询
+    @RequestMapping(value ="/getFamilyIndexIndustryPage",method = RequestMethod.GET)
+    public Response<FamilyIndustryVo> FamilyIndexIndustryPage(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "type",defaultValue = "1") Integer type,
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "2") Integer pageSize,//首页就显示两条数据
+            @RequestParam(value = "status", defaultValue = "1") Integer status) {
+        return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize, status);
+    }
+
+    //抽取的方法
+    private Response<FamilyIndustryVo> getFamilyIndustryVoResponse(@RequestParam("showId") Integer showId, @RequestParam(value = "type", defaultValue = "1") Integer type, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize, @RequestParam(value = "status", defaultValue = "1") Integer status) {
         try {
-            Page<FamilyIndustryVo> familyCultureVo = iFanNewsIndustryService.getFamilyIndustryPage(showId, status, pageNo, pageSize,type);
-            if(familyCultureVo==null){
+            Page<FamilyIndustryVo> familyCultureVo = iFanNewsIndustryService.getFamilyIndustryPage(showId, status, pageNo, pageSize, type);
+            if (familyCultureVo == null) {
                 return ResponseUtlis.error(ERRO_CODE);
             }
             return ResponseUtlis.success(familyCultureVo);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(FAILURE_CODE);
         }
     }
+
 
 }
 

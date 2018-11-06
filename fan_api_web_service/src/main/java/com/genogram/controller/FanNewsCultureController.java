@@ -11,6 +11,8 @@ import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 联谊会-家族文化前端控制器
@@ -45,11 +47,32 @@ public class FanNewsCultureController {
             @RequestParam(value = "status", defaultValue = "1") Integer status) {
         try {
             Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(showId, status, pageNo, pageSize);
+            if(fanNewsCultureZipai==null){
+                return ResponseUtlis.error(ERRO_CODE);
+            }
             return ResponseUtlis.success(fanNewsCultureZipai);
         }catch (Exception e) {
                 e.printStackTrace();
                 return ResponseUtlis.error(FAILURE_CODE);
             }
+    }
+
+    //联谊会首页家族字派
+    @RequestMapping(value = "/getCommonalityIndexPage",method = RequestMethod.GET)
+    public Response<StringBuffer> getCommonalityIndexPage(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "status", defaultValue = "1") Integer status) {
+        try {
+            StringBuffer stringBuffer = iFanNewsCultureZipaiService.CommonalityIndex(showId, status);
+            //判断该stringBuffer是否返回为null
+            if(stringBuffer==null){
+                return ResponseUtlis.error(ERRO_CODE);
+            }
+            return ResponseUtlis.success(stringBuffer);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(FAILURE_CODE);
+        }
     }
 
     //联谊会家族文化查询
@@ -59,13 +82,28 @@ public class FanNewsCultureController {
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @RequestParam(value = "status", defaultValue = "1") Integer status) {
+        return getFamilyCultureVoResponse(showId, pageNo, pageSize, status);
+    }
+
+    //联谊会首页家族文化查询
+    @RequestMapping(value ="/getFamilyIndexCulturePage",method = RequestMethod.GET)
+    public Response<FamilyCultureVo> getFamilyIndexCulturePage(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @RequestParam(value = "status", defaultValue = "1") Integer status) {
+        return getFamilyCultureVoResponse(showId, pageNo, pageSize, status);
+    }
+
+    //抽取的家族文化方法
+    private Response<FamilyCultureVo> getFamilyCultureVoResponse(@RequestParam("showId") Integer showId, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize, @RequestParam(value = "status", defaultValue = "1") Integer status) {
         try {
             Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.getFamilyCulturePage(showId, status, pageNo, pageSize);
-            if(familyCultureVo==null){
+            if (familyCultureVo == null) {
                 return ResponseUtlis.error(ERRO_CODE);
             }
             return ResponseUtlis.success(familyCultureVo);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(FAILURE_CODE);
         }

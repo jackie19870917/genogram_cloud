@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 联谊会-家族文化-字派表 服务类
@@ -16,11 +18,19 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
 
     /**
      * 联谊会字派查询
-     * @param siteId 显示位置Id
+     * @param showId 显示位置Id
      * @param status 状态
      * @param pageNo 当前页
      * @param pageSize 每页显示条数
      * @return
      */
-    Page<FanNewsCultureZipai> commonality(Integer siteId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FanNewsCultureZipai> commonality(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+
+    /**
+     *联谊会首页字派查询
+     * @param showId 显示位置Id
+     * @param status 状态
+     * @return
+     */
+    StringBuffer CommonalityIndex(Integer showId, Integer status);
 }

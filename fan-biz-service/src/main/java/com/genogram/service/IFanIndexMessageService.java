@@ -1,7 +1,10 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexMessage;
 import com.baomidou.mybatisplus.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,13 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanIndexMessageService extends IService<FanIndexMessage> {
 
+    /**
+     * 联谊会首页聊天记录
+     * @param siteId 网站ID
+     * @param status 状态
+     * @param pageNo 当前页
+     * @param pageSize 每页显示条数
+     * @return
+     */
+    Page<FanIndexMessage> getChatRecord(Integer siteId, Integer status,Integer pageNo,Integer pageSize);
 }
