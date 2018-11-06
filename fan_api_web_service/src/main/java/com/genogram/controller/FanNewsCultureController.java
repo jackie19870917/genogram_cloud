@@ -1,7 +1,7 @@
 package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.genogram.config.ConstantClassField;
+import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.service.IFanNewsCultureNewsService;
@@ -10,8 +10,6 @@ import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * <p>
@@ -32,11 +30,11 @@ public class FanNewsCultureController {
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
     // 返回状态码 成功 200
-    private Integer SUCCESSFUL_CODE = ConstantClassField.SUCCESSFUL_CODE;
+    private Integer SUCCESSFUL_CODE = Constants.SUCCESSFUL_CODE;
     // 返回状态码 失败 500
-    private Integer FAILURE_CODE = ConstantClassField.FAILURE_CODE;
+    private Integer FAILURE_CODE = Constants.FAILURE_CODE;
     // 返回状态码 失败 400
-    private Integer ERRO_CODE = ConstantClassField.ERRO_CODE;
+    private Integer ERRO_CODE = Constants.ERRO_CODE;
 
     //联谊会家族字派
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)

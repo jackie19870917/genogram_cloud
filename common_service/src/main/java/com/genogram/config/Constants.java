@@ -4,7 +4,7 @@ package com.genogram.config;
  * 常量定义类  final   
  * Created by dongxinyou on 2018/4/13.
  */  
-public final class ConstantClassField {
+public final class Constants {
     public static final String SUNDAY = "SUNDAY";    
     public static final String MONDAY = "MONDAY";    
     public static final String TUESDAY = "TUESDAY";    
