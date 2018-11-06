@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/common_file_upload_service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/common_service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/fan-biz-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fan_api_admin_service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fan_api_web_service" charset="UTF-8" />
   </component>

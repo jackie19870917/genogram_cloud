@@ -25,11 +25,10 @@
     </properties>
 
     <dependencies>
-
         <!--com.genogram 依赖-->
         <dependency>
             <groupId>com.genogram</groupId>
-            <artifactId>common_service</artifactId>
+            <artifactId>fan-biz-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
