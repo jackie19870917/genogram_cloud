@@ -25,15 +25,13 @@ import java.util.List;
 @Service
 public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZipaiMapper, FanNewsCultureZipai> implements IFanNewsCultureZipaiService {
 
-    @Autowired
-    private FanNewsCultureZipaiMapper fanNewsCultureZipaiMapper;
-
     //联谊会字派查询
     @Override
     public Page<FanNewsCultureZipai> commonality(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
             entity.eq("show_id", siteId);
-            entity.eq("status", status);
+        entity.eq("status", status);
+            entity.orderBy("create_time", false);
         Page<FanNewsCultureZipai> fanNewsCultureZipais = this.selectPage(new Page<FanNewsCultureZipai>(pageNo, pageSize), entity);
         return fanNewsCultureZipais;
         }

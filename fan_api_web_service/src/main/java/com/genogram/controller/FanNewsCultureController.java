@@ -10,10 +10,7 @@ import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
@@ -34,7 +31,7 @@ public class FanNewsCultureController {
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
     //联谊会家族字派
-    @RequestMapping("/commonality")
+    @RequestMapping(value = "/commonality",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> commonality(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -56,8 +53,16 @@ public class FanNewsCultureController {
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @RequestParam(value = "status", defaultValue = "1") Integer status) {
-        Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.familyCulture(showId, status, pageNo, pageSize);
-        return ResponseUtlis.success(familyCultureVo);
+        try {
+            Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.familyCulture(showId, status, pageNo, pageSize);
+            if(familyCultureVo==null){
+                return ResponseUtlis.error(400,"您好没有数据");
+            }
+            return ResponseUtlis.success(familyCultureVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(500, "查询失败");
+        }
     }
 }
 
