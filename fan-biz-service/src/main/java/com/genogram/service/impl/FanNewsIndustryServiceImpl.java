@@ -30,7 +30,16 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
     @Autowired
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
 
-    //联谊会家族产业查询
+    /**
+     *联谊会家族产业查询
+     * @param showId 显示位置Id
+     * @param status 状态
+     * @param pageNo 当前页
+     * @param pageSize 每页显示条数
+     * @param type 每页显示条数
+     * @return
+     *
+     */
     @Override
     public Page<FamilyIndustryVo> getFamilyIndustryPage(Integer showId, Integer status, Integer pageNo, Integer pageSize,Integer type) {
         //返回新VO的集合
@@ -85,7 +94,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
 
             files.forEach(( data)->{
-                if(news.getId()==data.getNewsId()){
+                if(news.getId().equals(data.getNewsId())){
                     fanNewsUploadFile.add(data);
                 }
             });

@@ -21,6 +21,7 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
      * @param status 状态
      * @param pageNo 当前页
      * @param pageSize 每页显示条数
+     * @param type 每页显示条数
      * @return
      */
     Page<FamilyIndustryVo> getFamilyIndustryPage(Integer showId, Integer status, Integer pageNo, Integer pageSize,Integer type);
