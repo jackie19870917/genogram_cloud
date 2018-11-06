@@ -1,6 +1,6 @@
 #http://localhost:8090/test/test1?username=ss&pwd=1
 server:
-  port: 8050
+  port: 8090
 spring:
   profiles:
     active: dev
