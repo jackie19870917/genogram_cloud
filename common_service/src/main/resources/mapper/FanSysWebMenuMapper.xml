@@ -11,6 +11,7 @@
         <result column="parent_id" property="parentId" />
         <result column="order_index" property="orderIndex" />
         <result column="menu_code" property="menuCode" />
+        <result column="menu_type" property="menuType" />
         <result column="istatic" property="istatic" />
         <result column="comments" property="comments" />
         <result column="create_time" property="createTime" />
@@ -21,7 +22,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, tree_num AS treeNum, menu_name AS menuName, api_url AS apiUrl, parent_id AS parentId, order_index AS orderIndex, menu_code AS menuCode, istatic, comments, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, tree_num AS treeNum, menu_name AS menuName, api_url AS apiUrl, parent_id AS parentId, order_index AS orderIndex, menu_code AS menuCode, menu_type AS menuType, istatic, comments, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

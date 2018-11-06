@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-06
  */
 @TableName("fan_sys_web_menu")
 public class FanSysWebMenu extends Model<FanSysWebMenu> {
@@ -56,6 +56,11 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
      */
     @TableField("menu_code")
     private String menuCode;
+    /**
+     * 菜单种类
+     */
+    @TableField("menu_type")
+    private String menuType;
     /**
      * 是否有子栏目;0:否;1是
      */
@@ -137,6 +142,15 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
         return this;
     }
 
+    public String getMenuType() {
+        return menuType;
+    }
+
+    public FanSysWebMenu setMenuType(String menuType) {
+        this.menuType = menuType;
+        return this;
+    }
+
     public Integer getIstatic() {
         return istatic;
     }
@@ -206,6 +220,7 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
         ", parentId=" + parentId +
         ", orderIndex=" + orderIndex +
         ", menuCode=" + menuCode +
+        ", menuType=" + menuType +
         ", istatic=" + istatic +
         ", comments=" + comments +
         ", createTime=" + createTime +

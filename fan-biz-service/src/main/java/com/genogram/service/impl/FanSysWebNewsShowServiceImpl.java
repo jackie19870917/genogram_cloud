@@ -45,6 +45,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             vo.setMenuCode(menu.getMenuCode());
             vo.setTreeNum(menu.getTreeNum());
             vo.setOrderIndex(menu.getOrderIndex());
+            vo.setMenuType(menu.getMenuType());
             volist.add(vo);
         });
         return volist;
