@@ -50,7 +50,7 @@ public class FanNewsCultureController {
             return ResponseUtlis.success(fanNewsCultureZipai);
         }catch (Exception e) {
                 e.printStackTrace();
-                return ResponseUtlis.error(FAILURE_CODE, "查询失败");
+                return ResponseUtlis.error(FAILURE_CODE);
             }
     }
 
@@ -64,12 +64,12 @@ public class FanNewsCultureController {
         try {
             Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.getFamilyCulturePage(showId, status, pageNo, pageSize);
             if(familyCultureVo==null){
-                return ResponseUtlis.error(ERRO_CODE,null);
+                return ResponseUtlis.error(ERRO_CODE);
             }
             return ResponseUtlis.success(familyCultureVo);
         }catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(FAILURE_CODE, "查询失败");
+            return ResponseUtlis.error(FAILURE_CODE);
         }
     }
 }
