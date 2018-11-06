@@ -3,5 +3,5 @@ server:
   port: 8090
 spring:
   profiles:
-    active: local
+    active: dev
 

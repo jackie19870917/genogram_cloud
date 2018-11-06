@@ -12,3 +12,8 @@ mybatis-plus:
     id-type: 0
   mapper-locations: classpath*:/mapper/**Mapper.xml
   typeAliasesPackage: com.genogram.entity
+  configuration:
+    #打印sql语句,调试用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
