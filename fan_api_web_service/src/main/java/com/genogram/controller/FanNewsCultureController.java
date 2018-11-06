@@ -31,7 +31,7 @@ public class FanNewsCultureController {
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
     //联谊会家族字派
-    @RequestMapping(value = "/commonality",method = RequestMethod.GET)
+    @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> commonality(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -47,14 +47,14 @@ public class FanNewsCultureController {
     }
 
     //联谊会家族文化查询
-    @RequestMapping("/familyCulture")
+    @RequestMapping("/getFamilyCulturePage")
     public Response<FanNewsCultureZipai> familyCulture(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @RequestParam(value = "status", defaultValue = "1") Integer status) {
         try {
-            Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.familyCulture(showId, status, pageNo, pageSize);
+            Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.getFamilyCulturePage(showId, status, pageNo, pageSize);
             if(familyCultureVo==null){
                 return ResponseUtlis.error(400,"您好没有数据");
             }

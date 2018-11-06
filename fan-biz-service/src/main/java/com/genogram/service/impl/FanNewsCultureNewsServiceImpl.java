@@ -36,32 +36,39 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
 
     @Override
-    public Page<FamilyCultureVo> familyCulture(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
-        //要返回的集合
+    public Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+        //返回新VO的集合
         List<FamilyCultureVo> familyCultureVoList=new ArrayList<>();
 
         Wrapper<FanNewsCultureNews> entity = new EntityWrapper<FanNewsCultureNews>();
         entity.eq("show_id", showId);
         entity.eq("status", status);
         entity.orderBy("create_time", false);
+        //分页查询文章主表
         Page<FanNewsCultureNews> fanNewsCultureNews =this.selectPage(new Page<FanNewsCultureNews>(pageNo, pageSize), entity);
+
+        //得到文件当前页list集合
         List<FanNewsCultureNews> list = fanNewsCultureNews.getRecords();
         if(list.size()==0){
             return null;
         }
+
+        //得到所有文章id
         List newsids =  new ArrayList<>();
         list.forEach(( news)->{
             newsids.add(news.getId());
         });
+
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", showId);
         uploadentity.eq("status", status);
         uploadentity.in("news_id",newsids);
+        //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
 
 
-        //遍历主表文章集合
+        //遍历主表文章集合,赋值新对象vo
         list.forEach(( news)->{
             FamilyCultureVo familyCultureVo=new FamilyCultureVo();
             familyCultureVo.setId(news.getId());
@@ -74,28 +81,31 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
             familyCultureVo.setCreateUser(news.getCreateUser());
             familyCultureVo.setUpdateTime(news.getUpdateTime());
             familyCultureVo.setUpdateUser(news.getUpdateUser());
+
+
             //判断改图片文章id是否一样
             List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
+
             files.forEach(( data)->{
                 if(news.getId()==data.getNewsId()){
                     fanNewsUploadFile.add(data);
                 }
             });
-            //存储图片集合
+
+            //存储图片list集合
             familyCultureVo.setFanNewsUploadFileList(fanNewsUploadFile);
-            //存储到集合中
+
+
+            //存储到新的集合中
             familyCultureVoList.add(familyCultureVo);
         });
+
+        //重新设置page对象
         Page<FamilyCultureVo> mapPage = new Page<>(pageNo,pageSize);
         mapPage.setRecords(familyCultureVoList);
         mapPage.setSize(fanNewsCultureNews.getSize());
         mapPage.setTotal(fanNewsCultureNews.getTotal());
-        /*Page<FamilyCultureVo> mapPage = new Page<>(pageNo,pageSize);
-        Map requestParam = new HashMap<>();
-        requestParam.put("showId",showId);
-        requestParam.put("status",status);
-        List<FamilyCultureVo> myItems =fanNewsCultureNewsMapper.queryMyItems(mapPage, requestParam);
-        mapPage.setRecords(myItems);*/
+
         return mapPage;
     }
 }

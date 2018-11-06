@@ -23,5 +23,5 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      * @param pageSize 每页显示条数
      * @return
      */
-    Page<FamilyCultureVo> familyCulture(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 }
