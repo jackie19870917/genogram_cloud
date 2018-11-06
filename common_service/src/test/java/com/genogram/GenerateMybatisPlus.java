@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GenerateMybatisPlus {
-    final static String  dirPath = "E:\\hbzs\\";
+    final static String  dirPath = "C:\\genogram_cloud\\";
     @Test
     public void contextLoads() {
         AutoGenerator mpg = new AutoGenerator();
@@ -53,8 +53,8 @@ public class GenerateMybatisPlus {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        //strategy.setInclude(new String[] { "all_family" }); // 需要生成的表
-        strategy.setExclude(new String[]{"all_family"}); // 排除生成的表
+        strategy.setInclude(new String[] { "fan_news_charity_out" }); // 需要生成的表
+        //strategy.setExclude(new String[]{"all_family"}); // 排除生成的表
         strategy.setEntityBuilderModel(true);
         mpg.setStrategy(strategy);
 

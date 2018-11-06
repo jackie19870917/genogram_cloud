@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-06
  */
 @TableName("fan_news_charity_out")
 public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
@@ -33,11 +33,11 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
     @TableField("show_id")
     private Integer showId;
     /**
-     * 财务支出金额(家族基金状况5条)
+     * 财务支出金额
      */
     private BigDecimal amount;
     /**
-     * 财务支出用途
+     * (财务支出)用途
      */
     @TableField("use_for")
     private String useFor;
@@ -51,6 +51,11 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
      */
     @TableField("news_text")
     private String newsText;
+    /**
+     * 文章类别(1.财政支出;2.财政收入)
+     */
+    @TableField("news_type")
+    private Integer newsType;
     /**
      * 查看数
      */
@@ -136,6 +141,15 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
         return this;
     }
 
+    public Integer getNewsType() {
+        return newsType;
+    }
+
+    public FanNewsCharityOut setNewsType(Integer newsType) {
+        this.newsType = newsType;
+        return this;
+    }
+
     public Integer getVisitNum() {
         return visitNum;
     }
@@ -204,6 +218,7 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
         ", useFor=" + useFor +
         ", newsTitle=" + newsTitle +
         ", newsText=" + newsText +
+        ", newsType=" + newsType +
         ", visitNum=" + visitNum +
         ", status=" + status +
         ", createTime=" + createTime +
