@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -34,7 +36,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
 
         //单表查询list
         List<FanSysWebNewsShow> list = this.selectList(new EntityWrapper<FanSysWebNewsShow>().eq("fan_sys_site_id",siteId));
-        list.forEach((FanSysWebNewsShow a)->{
+        list.forEach((a)->{
             FanSysWebMenuVo vo = new FanSysWebMenuVo();
             vo.setShowId(a.getId());
             vo.setFanSysSiteId(a.getFanSysSiteId());
@@ -42,12 +44,45 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             //获取菜单信息
             FanSysWebMenu menu = fanSysWebMenuMapper.selectById(vo.getFanSysWebMenuId());
             vo.setMenuName(menu.getMenuName());
-            vo.setMenuCode(menu.getMenuCode());
+            vo.setMenuType(menu.getMenuType());
             vo.setTreeNum(menu.getTreeNum());
+            vo.setParentId(menu.getParentId());
             vo.setOrderIndex(menu.getOrderIndex());
             volist.add(vo);
         });
-        return volist;
+
+        //级联模式,只要一级菜单
+        List firstList = getChildMenu(volist);
+        return firstList;
+    }
+
+    private List<FanSysWebMenuVo> getChildMenu(List<FanSysWebMenuVo> volist){
+        //只要一级菜单
+        List<FanSysWebMenuVo> list = new ArrayList<>();
+
+        volist.forEach((a)->{
+            if(a.getTreeNum()==1){
+                Map map = new HashMap<>();
+                List<FanSysWebMenuVo> child = new ArrayList<>();
+               //for
+                volist.forEach((b)->{
+                if(a.getFanSysWebMenuId() == b.getParentId()){
+                    FanSysWebMenuVo vo = new FanSysWebMenuVo();
+                    vo.setShowId(vo.getShowId());
+                    vo.setMenuName(b.getMenuName());
+                    vo.setOrderIndex(b.getOrderIndex());
+                    vo.setMenuType(b.getMenuType());
+                    vo.setApiUrl(b.getApiUrl());
+                    child.add(vo);
+                }
+                } );
+                a.setChild(child);
+
+                list.add(a);
+            }
+        });
+
+        return list;
     }
 
     @Override
