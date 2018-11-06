@@ -39,4 +39,14 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         return fanNewsCharityOutPage;
     }
 
+    @Override
+    public List<FanNewsCharityOut> selectPageList(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
+        Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
+        entity.eq("show_id", siteId);
+        entity.eq("status", status);
+        entity.orderBy("create_time", false);
+        List<FanNewsCharityOut> fanNewsCharityOutList = fanNewsCharityOutMapper.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
+        return fanNewsCharityOutList;
+    }
+
 }

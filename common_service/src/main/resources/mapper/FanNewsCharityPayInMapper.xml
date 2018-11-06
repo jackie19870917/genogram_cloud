@@ -22,7 +22,19 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, show_id AS showId, pay_usr_id AS payUsrId, type, pay_amount AS payAmount, pay_channel AS payChannel, pay_time AS payTime, agent_account AS agentAccount, agent_id AS agentId, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, show_id AS show_id, pay_usr_id AS pay_usr_id, type,sum(pay_amount) AS pay_amount, pay_channel AS pay_channel, pay_time AS pay_time, agent_account AS agent_account, agent_id AS agent_id, status, create_time AS create_time, create_user AS create_user, update_time AS update_time, update_user AS update_user
     </sql>
 
+    <select id="queryMyItems" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM fan_news_charity_pay_in
+        <where>
+            1=1
+        <if test="show_id!=null">
+            and show_id=#{show_id}
+        </if>
+        </where>
+        group by pay_usr_id
+    </select>
 </mapper>

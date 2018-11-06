@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 联谊网-慈善公益-捐款人 服务类

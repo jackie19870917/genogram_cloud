@@ -26,11 +26,13 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
     @Override
     public Page<FanNewsCharityPayIn> selectPage(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
-
         Wrapper<FanNewsCharityPayIn> entity = new EntityWrapper<FanNewsCharityPayIn>();
         entity.eq("show_id", siteId);
         entity.eq("status", status);
-
-        return null;
+        entity.groupBy("pay_usr_id");
+        // entity.orderBy(, "pay_amount");
+        entity.orderBy("sum(pay_amount)", false);
+        Page<FanNewsCharityPayIn> fanNewsCharityPayInPage = this.selectPage(new Page<>(pageNo, pageSize), entity);
+        return fanNewsCharityPayInPage;
     }
 }

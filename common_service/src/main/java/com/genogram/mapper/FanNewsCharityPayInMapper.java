@@ -1,7 +1,12 @@
 package com.genogram.mapper;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.genogram.entityvo.DonorVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +18,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface FanNewsCharityPayInMapper extends BaseMapper<FanNewsCharityPayIn> {
 
+    List<DonorVo> queryMyItems(Page<DonorVo> mapPage, Map requestParam);
 }
