@@ -64,7 +64,7 @@ public class FanNewsCultureController {
         try {
             Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.getFamilyCulturePage(showId, status, pageNo, pageSize);
             if(familyCultureVo==null){
-                return ResponseUtlis.error(ERRO_CODE,"您好没有数据");
+                return ResponseUtlis.error(ERRO_CODE,null);
             }
             return ResponseUtlis.success(familyCultureVo);
         }catch (Exception e) {
