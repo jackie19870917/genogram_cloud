@@ -3,6 +3,7 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
+import com.genogram.entityvo.FanNewsCharityOutVo;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCharityPayInService;
 import com.genogram.unit.Response;
@@ -35,17 +36,18 @@ public class FanNewsCharityController {
     private IFanNewsCharityPayInService iFanNewsCharityPayInService;
 
     @RequestMapping("")
-    public Response<FanNewsCharityOut> selectByCreateTime(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
+    public Response<FanNewsCharityOut> selectByCreateTime(@RequestParam(value = "showId",defaultValue = "1") Integer showId,
+                                                          @RequestParam(value = "newType",defaultValue = "1")Integer newType,
                                                           @RequestParam(value = "status",defaultValue = "1")Integer status,
                                                           @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
                                                           @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
 
-        Page<FanNewsCharityOut> fanNewsCharityOutPage = iFanNewsCharityOutService.selectPage(siteId, status, pageNo, pageSize);
+        Page<FanNewsCharityOut> fanNewsCharityOutPage = iFanNewsCharityOutService.selectPage(showId,newType, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
 
-    @RequestMapping("/demo")
+   /* @RequestMapping("/demo")
     public Response<FanNewsCharityOut> selectByCreateTimes(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
                                                           @RequestParam(value = "status",defaultValue = "1")Integer status,
                                                           @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
@@ -54,7 +56,7 @@ public class FanNewsCharityController {
         List<FanNewsCharityOut> fanNewsCharityOutPage = iFanNewsCharityOutService.selectPageList(siteId, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
-    }
+    }*/
 
     @RequestMapping("/demos")
     public Response<FanNewsCharityPayIn> selectByCreateTimess(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
@@ -65,6 +67,17 @@ public class FanNewsCharityController {
         Page<FanNewsCharityPayIn> fanNewsCharityPayInPage = iFanNewsCharityPayInService.selectPage(siteId, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityPayInPage);
+    }
+
+    @RequestMapping("/FanNewsCharityPayOutPage")
+    public Response<FanNewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
+                                                                @RequestParam(value = "newsType",defaultValue = "1")Integer newsType,
+                                                                @RequestParam(value = "status",defaultValue = "1")Integer status,
+                                                                @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                                                                @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
+        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutPage(siteId, newsType,status, pageNo, pageSize);
+
+        return ResponseUtlis.success(fanNewsCharityOutPage);
     }
 }
 

@@ -3,6 +3,7 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanNewsCharityOut;
+import com.genogram.entityvo.FanNewsCharityOutVo;
 
 import java.util.List;
 
@@ -16,8 +17,9 @@ import java.util.List;
  */
 public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
 
-    Page<FanNewsCharityOut> selectPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FanNewsCharityOut> selectPage(Integer showId, Integer newsType,Integer status, Integer pageNo, Integer pageSize);
 
-    List<FanNewsCharityOut> selectPageList(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    //List<FanNewsCharityOut> selectPageList(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 
+    Page<FanNewsCharityOutVo> getFanNewsCharityOutPage(Integer showId, Integer newsType, Integer status, Integer pageNo, Integer pageSize);
 }
