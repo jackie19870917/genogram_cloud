@@ -53,7 +53,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             vo.setParentId(menu.getParentId());
             String url = menu.getApiUrl()!=null ? menu.getApiUrl()+a.getId():null;
 
-            vo.setApiUrl("192.168.2.179:8090"+url);
+            vo.setApiUrl("http://192.168.2.179:8090"+url);
             vo.setOrderIndex(menu.getOrderIndex());
             volist.add(vo);
         });
@@ -188,7 +188,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         vo.setFanSysSiteId(Integer.parseInt(siteId));
         vo.setMenuName(menuName);
         vo.setMenuType(menuType);
-        String apiUrl = "192.168.2.179:8090/"+api;
+        String apiUrl = "http://192.168.2.179:8090/"+api;
          if(api.contains("showId=")) {
              apiUrl = apiUrl+ getShowIdBySiteId(menuType,siteId);
          }
