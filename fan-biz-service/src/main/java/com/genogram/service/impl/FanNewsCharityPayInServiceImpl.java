@@ -1,8 +1,5 @@
 package com.genogram.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.mapper.FanNewsCharityPayInMapper;

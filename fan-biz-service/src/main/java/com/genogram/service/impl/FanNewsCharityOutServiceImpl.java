@@ -3,7 +3,6 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.genogram.entity.AllFamily;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FanNewsCharityOutVo;
@@ -11,14 +10,11 @@ import com.genogram.mapper.FanNewsCharityOutMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 /**
  * <p>
  * 联谊会-家族慈善财务支出表 服务实现类

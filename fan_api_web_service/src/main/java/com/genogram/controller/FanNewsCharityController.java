@@ -1,7 +1,6 @@
 package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entityvo.CharityFundVo;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.FanNewsCharityOutVo;
