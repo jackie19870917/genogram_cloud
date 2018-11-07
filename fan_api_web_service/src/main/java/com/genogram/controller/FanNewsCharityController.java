@@ -2,8 +2,6 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFund;
-import com.genogram.entity.FanNewsCharityOut;
-import com.genogram.entityvo.CharityFundVo;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.FanNewsCharityOutVo;
 import com.genogram.service.IFanIndexFundService;
@@ -66,6 +64,7 @@ public class FanNewsCharityController {
      * @param pageSize    每页记录数
      * @return
      */
+
     @RequestMapping(value = "index/getDonorPage",method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPage(@RequestParam( "showId") Integer showId,
                                             @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
