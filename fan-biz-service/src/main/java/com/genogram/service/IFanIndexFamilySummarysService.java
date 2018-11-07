@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -13,4 +14,6 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilySummarys> {
 
+    //联谊堂
+    Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId,Integer status,Integer pageNo,Integer pageSize);
 }

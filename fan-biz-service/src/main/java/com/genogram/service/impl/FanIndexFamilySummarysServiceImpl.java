@@ -1,10 +1,16 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.mapper.FanIndexFamilySummarysMapper;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +23,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamilySummarysMapper, FanIndexFamilySummarys> implements IFanIndexFamilySummarysService {
 
+    @Autowired
+    private FanIndexFamilySummarysMapper fanIndexFamilySummarysMapper;
+
+    @Override
+    public Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId,Integer status,Integer pageNo,Integer pageSize) {
+        Wrapper<FanIndexFamilySummarys> entity = new EntityWrapper<FanIndexFamilySummarys>();
+        entity.eq("site_id", siteId);
+        entity.eq("status", status);
+        return this.selectPage(new Page<FanIndexFamilySummarys>(pageNo,pageSize),entity);
+    }
 }

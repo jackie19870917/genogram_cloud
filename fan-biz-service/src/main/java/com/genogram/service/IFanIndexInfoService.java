@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanIndexInfoService extends IService<FanIndexInfo> {
 
+    //联谊会图腾,宣言,公告
+    FanIndexInfo getFanIndexInfo(Integer siteId);
 }

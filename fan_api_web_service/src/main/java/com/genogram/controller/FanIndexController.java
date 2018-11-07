@@ -2,8 +2,14 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.FanIndexFamilySummarys;
+import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanIndexMessage;
+import com.genogram.entityvo.CharityFundVo;
+import com.genogram.service.IFanIndexFamilySummarysService;
+import com.genogram.service.IFanIndexInfoService;
 import com.genogram.service.IFanIndexMessageService;
+import com.genogram.service.IFanNewsCharityService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +31,54 @@ public class FanIndexController {
     @Autowired
     private IFanIndexMessageService iFanIndexMessageService;
 
+    @Autowired
+    private IFanIndexFamilySummarysService iFanIndexFamilySummarysService;
+
+    @Autowired
+    private IFanNewsCharityService iFanNewsCharityService;
+
+    @Autowired
+    private IFanIndexInfoService iFanIndexInfoService;
+
+    Integer status=1;
+
+    //联谊堂
+    @RequestMapping(value = "index/getFanIndexFamilySummarysPage", method = RequestMethod.GET)
+    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage( @RequestParam(value = "siteId") Integer siteId,
+                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
+
+        return ResponseUtlis.success(fanIndexFamilySummarysPage);
+    }
+
+    //联谊会基金
+    @RequestMapping(value = "index/getCharityFund",method = RequestMethod.GET)
+    public Response<CharityFundVo> getCharityFundVo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
+                                                    @RequestParam(value = "newsType",defaultValue = "")Integer newsType,
+                                                    @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                                                    @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
+
+        CharityFundVo charity = iFanNewsCharityService.GetCharityFundVo(siteId,newsType, status, pageNo, pageSize);
+
+        return ResponseUtlis.success(charity);
+    }
+
+    //联谊会简介,宣言
+    @RequestMapping(value = "index/getFanIndexInfo",method = RequestMethod.GET)
+    public Response<FanIndexInfo> getFanIndexInfo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId) {
+
+        FanIndexInfo fanIndexInfo = iFanIndexInfoService.getFanIndexInfo(siteId);
+
+        return ResponseUtlis.success(fanIndexInfo);
+    }
+
     //联谊会首页聊天记录
     @RequestMapping(value = "/index/getChatRecordList",method = RequestMethod.GET)
     public Response<FanIndexMessage> getChatRecordList(
             @RequestParam(value = "siteId") Integer siteId
-            ) {
+    ) {
         try {
             //状态
             int status =1;
@@ -47,4 +96,3 @@ public class FanIndexController {
     }
 
 }
-

@@ -81,7 +81,7 @@ public class FanNewsCharityController {
      * @param pageSize       每页记录数
      * @return
      */
-    @RequestMapping(value = "getFanNewsCharityOut",method = RequestMethod.GET)
+    @RequestMapping(value = "getFanNewsCharityOutPage",method = RequestMethod.GET)
     public Response<FanNewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
                                                                 @RequestParam(value = "newsType",defaultValue = "1")Integer newsType,
                                                                 @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
