@@ -34,9 +34,13 @@ public class FanIndexMenuController {
         List<FanSysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(siteId);
 
         List<FanSysWebMenuVo> indexMenus = iFanSysWebNewsShowService.getIndexMenu(siteId);
+        Map indexMenusMap = new HashMap<>();
+        indexMenus.forEach((index)->{
+            indexMenusMap.put(index.getMenuType(),index);
+        });
 
         Map map = new HashMap();
-        map.put("index_show",indexMenus);
+        map.put("index_show",indexMenusMap);
         map.put("menu_show",list);
         //单表查询list
         return ResponseUtlis.success(map);

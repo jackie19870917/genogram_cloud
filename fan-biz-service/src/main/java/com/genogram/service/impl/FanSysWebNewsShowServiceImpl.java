@@ -116,7 +116,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         volist.add(vo);
 
         //message
-        vo = setIndexMenu(siteId,"message","index_message","genogram/fanIndex/index/getChatRecordPage?siteId=","api:");
+        vo = setIndexMenu(siteId,"message","index_message","genogram/fanIndex/index/getChatRecordList?siteId=","api:");
         volist.add(vo);
 
         //家族动态
@@ -221,6 +221,24 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 9);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            showId = fanSysWebNewsShows.get(0).getId().toString();
+        }
+
+        //家族产业-公共产业
+        if(menuType.equals("index_industry_public")){
+            Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
+            entity.eq("fan_sys_site_id", siteId);
+            entity.eq("fan_sys_web_menu_id", 17);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            showId = fanSysWebNewsShows.get(0).getId().toString();
+        }
+
+        //家族产业-个人产业
+        if(menuType.equals("index_industry_person")){
+            Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
+            entity.eq("fan_sys_site_id", siteId);
+            entity.eq("fan_sys_web_menu_id", 18);
             List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
