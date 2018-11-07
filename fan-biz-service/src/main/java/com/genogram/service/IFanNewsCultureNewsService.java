@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCultureNews;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.FamilyCultureVo;
+import com.genogram.entityvo.NewsDetailVo;
 
 /**
  * <p>
@@ -24,4 +25,12 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      * @return
      */
     Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+
+    /**
+     *联谊会家族文化详情查询
+     * @param showId   显示位置Id
+     * @param id  文章ID
+     * @return
+     */
+    NewsDetailVo getFamilyCultureDetail(Integer showId, Integer id);
 }
