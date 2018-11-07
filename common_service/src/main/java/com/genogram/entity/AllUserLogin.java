@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-07
  */
 @TableName("all_user_login")
 public class AllUserLogin extends Model<AllUserLogin> {
@@ -33,6 +33,16 @@ public class AllUserLogin extends Model<AllUserLogin> {
      */
     @TableField("user_name")
     private String userName;
+    /**
+     * 真实姓名
+     */
+    @TableField("real_name")
+    private String realName;
+    /**
+     * 别名
+     */
+    @TableField("nick_name")
+    private String nickName;
     /**
      * 手机号
      */
@@ -111,6 +121,24 @@ public class AllUserLogin extends Model<AllUserLogin> {
 
     public AllUserLogin setUserName(String userName) {
         this.userName = userName;
+        return this;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public AllUserLogin setRealName(String realName) {
+        this.realName = realName;
+        return this;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public AllUserLogin setNickName(String nickName) {
+        this.nickName = nickName;
         return this;
     }
 
@@ -224,6 +252,8 @@ public class AllUserLogin extends Model<AllUserLogin> {
         ", id=" + id +
         ", userId=" + userId +
         ", userName=" + userName +
+        ", realName=" + realName +
+        ", nickName=" + nickName +
         ", mobilePhone=" + mobilePhone +
         ", provinceCode=" + provinceCode +
         ", cityCode=" + cityCode +

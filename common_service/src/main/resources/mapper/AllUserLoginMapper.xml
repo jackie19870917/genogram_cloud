@@ -7,6 +7,8 @@
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="user_name" property="userName" />
+        <result column="real_name" property="realName" />
+        <result column="nick_name" property="nickName" />
         <result column="mobile_phone" property="mobilePhone" />
         <result column="province_code" property="provinceCode" />
         <result column="city_code" property="cityCode" />
@@ -22,7 +24,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id AS userId, user_name AS userName, mobile_phone AS mobilePhone, province_code AS provinceCode, city_code AS cityCode, county_code AS countyCode, password, country, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, user_id AS userId, user_name AS userName, real_name AS realName, nick_name AS nickName, mobile_phone AS mobilePhone, province_code AS provinceCode, city_code AS cityCode, county_code AS countyCode, password, country, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>
