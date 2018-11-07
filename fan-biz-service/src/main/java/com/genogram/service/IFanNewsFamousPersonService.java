@@ -1,7 +1,10 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamousPerson;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.FamilyPersonVo;
+import com.genogram.entityvo.FamilyRecordVo;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerson> {
 
+    Page<FamilyPersonVo> getFamilyPersionPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 }

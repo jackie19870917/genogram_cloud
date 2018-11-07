@@ -1,7 +1,9 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamilyRecord;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.FamilyRecordVo;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecord> {
 
+    Page<FamilyRecordVo> getFamilyRecordPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 }
