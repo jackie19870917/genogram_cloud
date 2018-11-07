@@ -1,6 +1,7 @@
 package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.entity.FanSysWebMenu;
 import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entityvo.FanSysWebMenuVo;
@@ -30,6 +31,9 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     @Autowired
     private FanSysWebMenuMapper fanSysWebMenuMapper;
 
+    @Autowired
+    private IFanSysWebNewsShowService iFanSysWebNewsShowService;
+
     @Override
     public List<FanSysWebMenuVo> getMenu(String siteId) {
         List<FanSysWebMenuVo> volist = new ArrayList();
@@ -47,6 +51,9 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             vo.setMenuType(menu.getMenuType());
             vo.setTreeNum(menu.getTreeNum());
             vo.setParentId(menu.getParentId());
+            String url = menu.getApiUrl()!=null ? menu.getApiUrl()+a.getId():null;
+
+            vo.setApiUrl("192.168.2.179:8090"+url);
             vo.setOrderIndex(menu.getOrderIndex());
             volist.add(vo);
         });
@@ -98,18 +105,18 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         volist.add(vo);
 
         //公益基金
-        vo = setIndexMenu(siteId,"公益基金","index_fund","#","api:");
+        vo = setIndexMenu(siteId,"公益基金","index_fund_1","#","api:");
         volist.add(vo);
-
+        //捐款名人
         vo = setIndexMenu(siteId,"捐款名人","index_architecture_pay_in_person_1","#","api:");
         volist.add(vo);
 
         //本地字派
-        vo = setIndexMenu(siteId,"本地字派","index_zipai","#","api:");
+        vo = setIndexMenu(siteId,"本地字派","index_zipai","genogram/fanNewsCulture/index/getCommonalityIndexPage?showId=","api:");
         volist.add(vo);
 
         //message
-        vo = setIndexMenu(siteId,"message","index_message","#","api:");
+        vo = setIndexMenu(siteId,"message","index_message","genogram/fanIndex/index/getChatRecordPage?siteId=","api:");
         volist.add(vo);
 
         //家族动态
@@ -136,6 +143,10 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         vo = setIndexMenu(siteId,"店主企业家","index_architecture_dianzhu","#","api:");
         volist.add(vo);
 
+        //家族文化
+        vo = setIndexMenu(siteId,"家族文化","index_family_culture","genogram/fanNewsCulture/index/getFamilyIndexCulturePage?showId=","api:");
+        volist.add(vo);
+
 
         vo = setIndexMenu(siteId,"支出公开栏","index_charity_pay_out","#","api:");
         volist.add(vo);
@@ -144,25 +155,28 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         volist.add(vo);
 
         //公益总金额 首页有2个 所以分开2
-        vo = setIndexMenu(siteId,"公益总金额","index_fund","#","api:");
+        vo = setIndexMenu(siteId,"公益总金额","index_fund_2","#","api:");
         volist.add(vo);
 
         vo = setIndexMenu(siteId,"捐款名人","index_architecture_pay_in_person_2","#","api:");
         volist.add(vo);
 
-
-        vo = setIndexMenu(siteId,"公共产业","index_industry_public","#","api:");
+        //公共产业
+        vo = setIndexMenu(siteId,"公共产业","index_industry_public","genogram/fanNewsIndustry/index/getFamilyIndexIndustryList?type=1&showId=","api:");
         volist.add(vo);
-
-        vo = setIndexMenu(siteId,"私人产业","index_industry_person","#","api:");
+        //个产业
+        vo = setIndexMenu(siteId,"私人产业","index_industry_person","genogram/fanNewsIndustry/index/getFamilyIndexIndustryList?type=2&showId=","api:");
         volist.add(vo);
 
         //慈善公益第二页的
-        vo = setIndexMenu(siteId,"公益总金额","index_fund","#","api:");
+        vo = setIndexMenu(siteId,"公益总金额","index_fund_3","#","api:");
+        volist.add(vo);
+
+        vo = setIndexMenu(siteId,"捐款名人","index_architecture_pay_in_person_3","#","api:");
         volist.add(vo);
 
         //财政支出第二页的
-        vo = setIndexMenu(siteId,"支出公开栏","index_charity_pay_out_2","#","api:");
+        vo = setIndexMenu(siteId,"支出公开栏","index_charity_pay_out_3","#","api:");
         volist.add(vo);
 
         return volist;
@@ -174,8 +188,43 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         vo.setFanSysSiteId(Integer.parseInt(siteId));
         vo.setMenuName(menuName);
         vo.setMenuType(menuType);
-        vo.setApiUrl(api);
+        String apiUrl = "192.168.2.179:8090/"+api;
+         if(api.contains("showId=")) {
+             apiUrl = apiUrl+ getShowIdBySiteId(menuType,siteId);
+         }
+
+        if(api.contains("siteId=")) {
+            apiUrl = apiUrl+ siteId;
+        }
+
+
+        vo.setApiUrl(apiUrl);
         vo.setComments(comments);
         return vo;
+    }
+
+    private String getShowIdBySiteId(String menuType,String siteId){
+        String showId="";
+
+        //家族字派
+        if(menuType.equals("index_zipai")){
+            Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
+            entity.eq("fan_sys_site_id", siteId);
+            entity.eq("fan_sys_web_menu_id", 8);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            showId = fanSysWebNewsShows.get(0).getId().toString();
+        }
+
+
+        //家族文化-家族祠堂
+        if(menuType.equals("index_family_culture")){
+            Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
+            entity.eq("fan_sys_site_id", siteId);
+            entity.eq("fan_sys_web_menu_id", 9);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            showId = fanSysWebNewsShows.get(0).getId().toString();
+        }
+
+        return showId;
     }
 }
