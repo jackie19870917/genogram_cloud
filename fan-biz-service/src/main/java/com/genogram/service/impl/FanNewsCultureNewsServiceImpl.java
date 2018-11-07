@@ -3,11 +3,13 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.AllUserReg;
 import com.genogram.entity.FanNewsCultureNews;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.AllUserRegMapper;
 import com.genogram.mapper.FanNewsCultureNewsMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
@@ -34,7 +36,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
 
     @Autowired
-    private AllUserRegMapper allUserRegMapper;
+    private AllUserLoginMapper allUserLoginMapper;
 
     @Override
     public Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
@@ -126,11 +128,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
 
-        AllUserReg allUserReg = allUserRegMapper.selectById(fanNewsCultureNews.getCreateUser());
-
-        /*//查出名称
-        Wrapper<AllUserReg> entity = new EntityWrapper<AllUserReg>();
-        entity.eq("user_id", fanNewsCultureNews.getCreateUser());*/
+        //查出名称
+        AllUserLogin allUserLogin = allUserLoginMapper.selectById(fanNewsCultureNews.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetail=new NewsDetailVo();
@@ -147,7 +146,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //存储图片list集合
         newsDetail.setFanNewsUploadFileList(files);
         //存储作者名称
-        newsDetail.setUserName(allUserReg.getRealName());
+        newsDetail.setUserName(allUserLogin.getRealName());
         return newsDetail;
     }
 }

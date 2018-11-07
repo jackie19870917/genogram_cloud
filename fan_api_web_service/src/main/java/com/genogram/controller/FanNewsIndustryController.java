@@ -4,6 +4,7 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entityvo.FamilyIndustryVo;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -85,8 +86,8 @@ public class FanNewsIndustryController {
      * @Author: wang,wei
      * @Date: 2018-11-06
      * @Time: 23:08
-     * @param showId 家族文化显示位置
-     * @param type 家族文化显示位置
+     * @param showId 家族产业显示位置
+     * @param type 家族产业显示位置
      * @param pageNo 当前页
      * @param pageSize 每页记录数
      * @return:
@@ -103,6 +104,25 @@ public class FanNewsIndustryController {
             }
             return ResponseUtlis.success(familyCultureVo);
         } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    //联谊会家族产业各个产业的详情
+    @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyIndustryDetail(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+    ) {
+        try{
+            //判断showId是否有值
+            if(showId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            NewsDetailVo newsDetailVo= iFanNewsIndustryService.getFamilyIndustryDetail(showId,id);
+            return ResponseUtlis.success(newsDetailVo);
+        }catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }

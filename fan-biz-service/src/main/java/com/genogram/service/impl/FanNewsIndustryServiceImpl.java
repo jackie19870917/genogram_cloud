@@ -3,9 +3,12 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FamilyIndustryVo;
+import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.FanNewsIndustryMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsIndustryService;
@@ -29,6 +32,9 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
 
     @Autowired
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
+
+    @Autowired
+    private AllUserLoginMapper allUserLoginMapper;
 
     /**
      *联谊会家族产业查询
@@ -113,5 +119,40 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         mapPage.setSize(fanNewsCultureNews.getSize());
         mapPage.setTotal(fanNewsCultureNews.getTotal());
         return mapPage;
+    }
+
+    //联谊会家族产业各个产业的详情
+    @Override
+    public NewsDetailVo getFamilyIndustryDetail(Integer showId, Integer id) {
+        //根据Id查出产业详情
+        FanNewsIndustry fanNewsIndustry = this.selectById(id);
+
+        //查询图片
+        Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
+        uploadentity.eq("show_id", showId);
+        uploadentity.eq("news_id",id);
+        //查询所有文章id下的图片附件
+        List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
+
+        //查出名称
+        AllUserLogin allUserLogin = allUserLoginMapper.selectById(fanNewsIndustry.getCreateUser());
+
+        //返回新VO的集合赋值新对象vo
+        NewsDetailVo newsDetail=new NewsDetailVo();
+        newsDetail.setId(fanNewsIndustry.getId());
+        newsDetail.setShowId(fanNewsIndustry.getShowId());
+        newsDetail.setNewsTitle(fanNewsIndustry.getNewsTitle());
+        newsDetail.setNewsText(fanNewsIndustry.getNewsText());
+        newsDetail.setVisitNum(fanNewsIndustry.getVisitNum());
+        newsDetail.setStatus(fanNewsIndustry.getStatus());
+        newsDetail.setCreateTime(fanNewsIndustry.getCreateTime());
+        newsDetail.setCreateUser(fanNewsIndustry.getCreateUser());
+        newsDetail.setUpdateTime(fanNewsIndustry.getUpdateTime());
+        newsDetail.setUpdateUser(fanNewsIndustry.getUpdateUser());
+        //存储图片list集合
+        newsDetail.setFanNewsUploadFileList(files);
+        //存储作者名称
+        newsDetail.setUserName(allUserLogin.getRealName());
+        return newsDetail;
     }
 }
