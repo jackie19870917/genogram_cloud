@@ -63,17 +63,6 @@ public class FanNewsCharityController {
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }*/
 
-    @RequestMapping("/FanNewsCharityDonor")
-    public Response<DonorVo> selectByCreateTimess(@RequestParam(value = "showId",defaultValue = "1") Integer showId,
-                                                  @RequestParam(value = "status",defaultValue = "1")Integer status,
-                                                  @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                                  @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
-
-        List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.queryMyItems(showId, status, pageNo, pageSize);
-
-        return ResponseUtlis.success(fanNewsCharityPayInPage);
-    }
-
     @RequestMapping("chiratyVo")
     public Response<ChiratyVo> getchiratyVo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
                                             @RequestParam(value = "status",defaultValue = "1")Integer status,
@@ -83,6 +72,17 @@ public class FanNewsCharityController {
         ChiratyVo charity = iFanNewsCharityService.getAllFanNewsCharity(siteId, status, pageNo, pageSize);
 
         return ResponseUtlis.success(charity);
+    }
+
+    @RequestMapping("/FanNewsCharityDonor")
+    public Response<DonorVo> selectByCreateTimess(@RequestParam(value = "showId",defaultValue = "1") Integer showId,
+                                                  @RequestParam(value = "status",defaultValue = "1")Integer status,
+                                                  @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                                                  @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
+
+        List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.queryMyItems(showId, status, pageNo, pageSize);
+
+        return ResponseUtlis.success(fanNewsCharityPayInPage);
     }
 
     @RequestMapping("/FanNewsCharityPayOutPage")
