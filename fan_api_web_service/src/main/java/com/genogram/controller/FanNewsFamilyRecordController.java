@@ -45,12 +45,14 @@ public class FanNewsFamilyRecordController {
         try {
             Page<FamilyRecordVo> familyRecordVo = iFanNewsFamilyRecordService.getFamilyRecordPage(showId, status, pageNo, pageSize);
             if(familyRecordVo==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE);
+                //没有取到参数,返回空参
+                Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyRecordVo);
             }
             return ResponseUtlis.success(familyRecordVo);
         }catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 }

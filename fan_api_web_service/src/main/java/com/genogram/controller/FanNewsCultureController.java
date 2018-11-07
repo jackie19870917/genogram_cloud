@@ -39,18 +39,20 @@ public class FanNewsCultureController {
         try {
             //判断showId是否有值
             if(showId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY);
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态
             int status=1;
             Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(showId, status, pageNo, pageSize);
             if(fanNewsCultureZipai==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE);
+                //没有取到参数,返回空参
+                Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
             return ResponseUtlis.success(fanNewsCultureZipai);
         }catch (Exception e) {
                 e.printStackTrace();
-                return ResponseUtlis.error(Constants.FAILURE_CODE);
+                return ResponseUtlis.error(Constants.FAILURE_CODE,null);
             }
     }
 
@@ -62,19 +64,21 @@ public class FanNewsCultureController {
         try {
             //判断showId是否有值
             if(showId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY);
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态
             int status=1;
             StringBuffer stringBuffer = iFanNewsCultureZipaiService.CommonalityIndex(showId, status);
             //判断该stringBuffer是否返回为null
             if(stringBuffer==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE);
+                //没有取到参数,返回空参
+                Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
             }
             return ResponseUtlis.success(stringBuffer);
         }catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
@@ -87,7 +91,7 @@ public class FanNewsCultureController {
             ) {
         //判断showId是否有值
         if(showId==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY);
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态
         int status=1;
@@ -103,7 +107,7 @@ public class FanNewsCultureController {
             ) {
         //判断showId是否有值
         if(showId==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY);
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态
         int status=1;
@@ -115,12 +119,14 @@ public class FanNewsCultureController {
         try {
             Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.getFamilyCulturePage(showId, status, pageNo, pageSize);
             if (familyCultureVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE);
+                //没有取到参数,返回空参
+                Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
             }
             return ResponseUtlis.success(familyCultureVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 }

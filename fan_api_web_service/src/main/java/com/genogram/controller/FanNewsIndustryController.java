@@ -46,7 +46,7 @@ public class FanNewsIndustryController {
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
         if(showId==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY);
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态
         int status =1;
@@ -72,7 +72,7 @@ public class FanNewsIndustryController {
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
         if(showId==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY);
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态
         int status =1;
@@ -97,12 +97,14 @@ public class FanNewsIndustryController {
         try {
             Page<FamilyIndustryVo> familyCultureVo = iFanNewsIndustryService.getFamilyIndustryPage(showId, status, pageNo, pageSize, type);
             if (familyCultureVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE);
+                //没有取到参数,返回空参
+                Page<FamilyIndustryVo> emptfamilyCultureVo = new Page<FamilyIndustryVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
             }
             return ResponseUtlis.success(familyCultureVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 

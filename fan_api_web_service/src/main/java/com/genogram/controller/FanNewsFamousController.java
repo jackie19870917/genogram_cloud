@@ -46,12 +46,14 @@ public class FanNewsFamousController {
         try {
             Page<FamilyPersonVo> familyPersonVo = iFanNewsFamousPersonService.getFamilyPersionPage(showId, status, pageNo, pageSize);
             if(familyPersonVo==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE);
+                //没有取到参数,返回空参
+                Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
             }
             return ResponseUtlis.success(familyPersonVo);
         }catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 }

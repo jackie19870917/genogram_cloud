@@ -25,11 +25,12 @@ public class ResponseUtlis
         return success(null);
     }
 
-    public static Response error(Integer code)
+    public static Response error(Integer code,Object object)
     {
         Response response = new Response();
         response.setCode(code);
-        response.setData(null);
+        response.setMsg(code.toString());
+        response.setData(object);
         return response;
     }
 }
