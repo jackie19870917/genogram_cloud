@@ -44,6 +44,11 @@ public class FanNewsIndustryController {
             @RequestParam(value = "type") Integer type,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+        //判断showId是否有值
+        if(showId==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY);
+        }
+        //状态
         int status =1;
         return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize, status);
     }
@@ -62,14 +67,20 @@ public class FanNewsIndustryController {
     @RequestMapping(value ="/index/getFamilyIndexIndustryList",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyIndexIndustryList(
             @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "type") Integer type) {
+            @RequestParam(value = "type") Integer type,
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+        //判断showId是否有值
+        if(showId==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY);
+        }
+        //状态
         int status =1;
-        int pageNo=1;
-        int pageSize=5;
         return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize, status);
     }
 
     /**
+     * 抽取的公共方法
      * getFamilyIndustryVoResponse
      * @Author: wang,wei
      * @Date: 2018-11-06

@@ -80,6 +80,11 @@ public class FanIndexController {
             @RequestParam(value = "siteId") Integer siteId
     ) {
         try {
+            //判断showId是否有值
+            if(siteId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY);
+            }
+            //状态
             //状态
             int status =1;
             int pageNo=1;

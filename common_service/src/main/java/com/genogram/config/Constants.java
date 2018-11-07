@@ -29,4 +29,6 @@ public final class Constants {
 	public static final Integer FAILURE_CODE = 500;
 	//返回状态码 错误
 	public static final Integer ERRO_CODE = 400;
+	//返回状态码 为空
+    public static final Integer IS_EMPTY = 204;
 }

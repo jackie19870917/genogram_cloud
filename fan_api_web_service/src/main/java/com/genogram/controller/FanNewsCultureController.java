@@ -37,6 +37,10 @@ public class FanNewsCultureController {
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
             ) {
         try {
+            //判断showId是否有值
+            if(showId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY);
+            }
             //状态
             int status=1;
             Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(showId, status, pageNo, pageSize);
@@ -56,6 +60,10 @@ public class FanNewsCultureController {
             @RequestParam(value = "showId") Integer showId // 家族文化显示位置
            ) {
         try {
+            //判断showId是否有值
+            if(showId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY);
+            }
             //状态
             int status=1;
             StringBuffer stringBuffer = iFanNewsCultureZipaiService.CommonalityIndex(showId, status);
@@ -77,6 +85,10 @@ public class FanNewsCultureController {
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
             ) {
+        //判断showId是否有值
+        if(showId==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY);
+        }
         //状态
         int status=1;
         return getFamilyCultureVoResponse(showId, pageNo, pageSize, status);
@@ -89,6 +101,10 @@ public class FanNewsCultureController {
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
             ) {
+        //判断showId是否有值
+        if(showId==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY);
+        }
         //状态
         int status=1;
         return getFamilyCultureVoResponse(showId, pageNo, pageSize, status);
