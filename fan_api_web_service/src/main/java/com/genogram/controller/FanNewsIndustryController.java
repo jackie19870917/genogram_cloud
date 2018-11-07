@@ -107,7 +107,5 @@ public class FanNewsIndustryController {
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
-
-
 }
 

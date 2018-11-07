@@ -24,26 +24,18 @@ import org.springframework.web.bind.annotation.*;
 public class FanNewsFamousController {
     @Autowired
     private IFanNewsFamousPersonService iFanNewsFamousPersonService;
-
-//    // 返回状态码 成功 200
-//    private Integer SUCCESSFUL_CODE = ConstantClassField.SUCCESSFUL_CODE;
-//    // 返回状态码 失败 500
-//    private Integer FAILURE_CODE = ConstantClassField.FAILURE_CODE;
-//    // 返回状态码 失败 400
-//    private Integer ERRO_CODE = ConstantClassField.ERRO_CODE;
-
     /**
-     * 家族动态查询
+     * 家族长老查询1
      */
     @ResponseBody
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "selectPerson",method = RequestMethod.GET)
     public Response<FanNewsFamousPerson> SelectPerson(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
-            @RequestParam(value = "status", defaultValue = "1") Integer status
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ){
         try {
+            int status=1;
             Page<FamilyPersonVo> familyPersonVo = iFanNewsFamousPersonService.getFamilyPersionPage(showId, status, pageNo, pageSize);
             if(familyPersonVo==null){
                 //没有取到参数,返回空参
@@ -54,6 +46,30 @@ public class FanNewsFamousController {
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+    /**
+     * 组织架构
+     */
+    @ResponseBody
+    @RequestMapping(value = "selectFramework",method = RequestMethod.GET)
+    public Response<FanNewsFamousPerson> SelectFramework(
+            @RequestParam(value = "showId") Integer showId, // 产业显示位置
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+    ) {
+        try {
+            int status = 1;
+            Page<FamilyPersonVo> familyPersonVo = iFanNewsFamousPersonService.getFamilyPersionPage(showId, status, pageNo, pageSize);
+            if (familyPersonVo == null) {
+                //没有取到参数,返回空参
+                Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
+            }
+            return ResponseUtlis.success(familyPersonVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 }
