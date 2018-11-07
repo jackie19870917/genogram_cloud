@@ -22,7 +22,7 @@ public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, Fan
     private FanIndexFundMapper fanIndexFundMapper;
 
     @Override
-    public FanIndexFund selectBySiteId(Integer siteId) {
+    public FanIndexFund getFanIndexFund(Integer siteId) {
         return fanIndexFundMapper.selectById(siteId);
     }
 }

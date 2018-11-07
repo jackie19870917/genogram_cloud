@@ -17,6 +17,7 @@ import java.util.List;
  */
 public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayIn> {
 
-    List<DonorVo> queryMyItems(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    //捐款名录
+    List<DonorVo> getDonorVoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 
 }

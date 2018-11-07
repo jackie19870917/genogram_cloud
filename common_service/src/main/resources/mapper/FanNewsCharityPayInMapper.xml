@@ -25,7 +25,7 @@
         id, show_id AS show_id, pay_usr_id AS pay_usr_id, type,sum(pay_amount) AS pay_amount, pay_channel AS pay_channel, pay_time AS pay_time, agent_account AS agent_account, agent_id AS agent_id, status, create_time AS create_time, create_user AS create_user, update_time AS update_time, update_user AS update_user
     </sql>
 
-    <select id="queryMyItems" parameterType="java.util.Map" resultMap="BaseResultMap">
+    <select id="getDonorVoPage" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List" />
         FROM fan_news_charity_pay_in
