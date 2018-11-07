@@ -120,11 +120,11 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         volist.add(vo);
 
         //家族动态
-        vo = setIndexMenu(siteId,"家族动态","index_family_record1","genogram/fanNewsFamilyRecord?showId=","api:");
+        vo = setIndexMenu(siteId,"家族动态","index_family_record1","genogram/fanNewsFamilyRecord/selectRecort?showId=","api:");
         volist.add(vo);
 
         //县级公告
-        vo = setIndexMenu(siteId,"县级公告","index_family_record2","genogram/fanNewsFamilyRecord?showId=","api:");
+        vo = setIndexMenu(siteId,"县级公告","index_family_record2","genogram/fanNewsFamilyRecord/selectRecort?showId=","api:");
         volist.add(vo);
 
         //暂时写死 会长,副会长,族长,官员,企业家,店主
