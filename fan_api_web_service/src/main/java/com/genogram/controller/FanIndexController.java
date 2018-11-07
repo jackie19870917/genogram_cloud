@@ -34,9 +34,9 @@ public class FanIndexController {
     //联谊会首页聊天记录
     @RequestMapping(value = "/getChatRecord",method = RequestMethod.GET)
     public Response<FanIndexMessage> getChatRecord(
-            @RequestParam(value = "siteId") Integer siteId, // 家族文化显示位置
+            @RequestParam(value = "siteId") Integer siteId,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "1") Integer pageSize,
+            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
             @RequestParam(value = "status", defaultValue = "1") Integer status) {
         try {
             Page<FanIndexMessage> fanIndexMessage= iFanIndexMessageService.getChatRecord(siteId, status,pageNo,pageSize);
