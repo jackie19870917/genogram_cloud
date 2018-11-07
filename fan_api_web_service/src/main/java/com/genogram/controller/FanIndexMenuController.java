@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class FanIndexMenuController {
         List<FanSysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(siteId);
 
         List<FanSysWebMenuVo> indexMenus = iFanSysWebNewsShowService.getIndexMenu(siteId);
-        Map indexMenusMap = new HashMap<>();
+        Map indexMenusMap = new LinkedHashMap();
         indexMenus.forEach((index)->{
             indexMenusMap.put(index.getMenuType(),index);
         });
