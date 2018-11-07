@@ -46,28 +46,16 @@ public class FanIndexController {
     @RequestMapping(value = "index/getFanIndexFamilySummarysPage", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage( @RequestParam(value = "siteId") Integer siteId,
                                                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+                                                                           @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
 
-    //联谊会基金
-    @RequestMapping(value = "index/getCharityFund",method = RequestMethod.GET)
-    public Response<CharityFundVo> getCharityFundVo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
-                                                    @RequestParam(value = "newsType",defaultValue = "")Integer newsType,
-                                                    @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                                    @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
-
-        CharityFundVo charity = iFanNewsCharityService.GetCharityFundVo(siteId,newsType, status, pageNo, pageSize);
-
-        return ResponseUtlis.success(charity);
-    }
-
     //联谊会简介,宣言
     @RequestMapping(value = "index/getFanIndexInfo",method = RequestMethod.GET)
-    public Response<FanIndexInfo> getFanIndexInfo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId) {
+    public Response<FanIndexInfo> getFanIndexInfo(@RequestParam( "siteId") Integer siteId) {
 
         FanIndexInfo fanIndexInfo = iFanIndexInfoService.getFanIndexInfo(siteId);
 

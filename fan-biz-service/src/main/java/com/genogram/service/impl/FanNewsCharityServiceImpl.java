@@ -26,13 +26,13 @@ public class FanNewsCharityServiceImpl implements IFanNewsCharityService {
     private IFanNewsCharityPayInService iFanNewsCharityPayInService;
 
     @Override
-    public CharityFundVo GetCharityFundVo(Integer siteId,Integer newsType, Integer status, Integer pageNo, Integer pageSize) {
+    public CharityFundVo GetCharityFundVo(Integer siteId,Integer showId1,Integer showId2,Integer newsType, Integer status, Integer pageNo, Integer pageSize) {
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
 
-        List<FanNewsCharityOut> fanNewsCharityOutList = iFanNewsCharityOutService.getFanNewsCharityOutPage(siteId,newsType, status, pageNo, pageSize).getRecords();
+        List<FanNewsCharityOut> fanNewsCharityOutList = iFanNewsCharityOutService.getFanNewsCharityOutPage(siteId,showId1, status, pageNo, pageSize).getRecords();
 
-        List<DonorVo> donorVoList = iFanNewsCharityPayInService.getDonorVoPage(siteId, status, pageNo, pageSize);
+        List<DonorVo> donorVoList = iFanNewsCharityPayInService.getDonorVoPage(showId2, status, pageNo, pageSize);
 
         CharityFundVo charityFundVo = new CharityFundVo();
         charityFundVo.setFanIndexFund(fanIndexFund);

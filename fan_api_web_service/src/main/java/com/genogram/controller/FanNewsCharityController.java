@@ -1,9 +1,12 @@
 package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.FanIndexFund;
+import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entityvo.CharityFundVo;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.FanNewsCharityOutVo;
+import com.genogram.service.IFanIndexFundService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCharityPayInService;
 import com.genogram.service.IFanNewsCharityService;
@@ -36,24 +39,25 @@ public class FanNewsCharityController {
     @Autowired
     private IFanNewsCharityService iFanNewsCharityService;
 
+    @Autowired
+    private IFanIndexFundService iFanIndexFundService;
+
     Integer status = 1;
+
+
     /**
      *
-     * @param siteId      慈善基金显示位置
-     * @param pageNo      当前页
-     * @param pageSize    每页记录数
+     * @param siteId    慈善基金ID
      * @return
      */
-    @RequestMapping(value = "getCharityFund",method = RequestMethod.GET)
-    public Response<CharityFundVo> getCharityFundVo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId,
-                                                    @RequestParam(value = "newsType",defaultValue = "0")Integer newsType,
-                                                    @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                                    @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
+    @RequestMapping(value = "index/getFanIndexFund", method = RequestMethod.GET)
+    public Response<FanIndexFund> getFanIndexFund(@RequestParam("siteId")Integer siteId) {
 
-        CharityFundVo charity = iFanNewsCharityService.GetCharityFundVo(siteId,newsType, status, pageNo, pageSize);
+        FanIndexFund fanIndexFund = iFanIndexFundService.getFanIndexFund(siteId);
 
-        return ResponseUtlis.success(charity);
+        return ResponseUtlis.success(fanIndexFund);
     }
+
 
     /**
      *
@@ -62,8 +66,8 @@ public class FanNewsCharityController {
      * @param pageSize    每页记录数
      * @return
      */
-    @RequestMapping(value = "getDonorPage",method = RequestMethod.GET)
-    public Response<DonorVo> getDonorVoPage(@RequestParam(value = "showId",defaultValue = "1") Integer showId,
+    @RequestMapping(value = "index/getDonorPage",method = RequestMethod.GET)
+    public Response<DonorVo> getDonorVoPage(@RequestParam( "showId") Integer showId,
                                             @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
                                             @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
 
@@ -71,6 +75,7 @@ public class FanNewsCharityController {
 
         return ResponseUtlis.success(fanNewsCharityPayInPage);
     }
+
 
     /**
      *
@@ -80,9 +85,9 @@ public class FanNewsCharityController {
      * @param pageSize       每页记录数
      * @return
      */
-    @RequestMapping(value = "getFanNewsCharityOutPage",method = RequestMethod.GET)
-    public Response<FanNewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam(value = "showId",defaultValue = "1") Integer showId,
-                                                                @RequestParam(value = "newsType",defaultValue = "1")Integer newsType,
+    @RequestMapping(value = "index/getFanNewsCharityOutPage",method = RequestMethod.GET)
+    public Response<FanNewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam( "showId") Integer showId,
+                                                                @RequestParam(value = "newsType",defaultValue = "0")Integer newsType,
                                                                 @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
                                                                 @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
         Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(showId, newsType,status, pageNo, pageSize);
