@@ -83,7 +83,7 @@ public class FanNewsCultureController {
     }
 
     //联谊会首页家族文化查询
-    @RequestMapping(value ="/Index/getFamilyIndexCulturePage",method = RequestMethod.GET)
+    @RequestMapping(value ="/index/getFamilyIndexCulturePage",method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyIndexCulturePage(
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,

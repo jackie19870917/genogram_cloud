@@ -30,7 +30,7 @@ public class FanNewsIndustryController {
      * @Author: wang,wei
      * @Date: 2018-11-06
      * @Time: 23:02
-     * @param showId 家族文化显示位置
+     * @param showId 家族产业显示位置
      * @param type 种类(1:家族产业;2:个人产业)
      * @param pageNo 当前页
      * @param pageSize 每页记录数
@@ -41,7 +41,7 @@ public class FanNewsIndustryController {
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
             @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "type",defaultValue = "1") Integer type,
+            @RequestParam(value = "type") Integer type,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         int status =1;
@@ -53,8 +53,8 @@ public class FanNewsIndustryController {
      * @Author: wang,wei
      * @Date: 2018-11-06
      * @Time: 23:02
-     * @param showId 家族文化显示位置
-     * @param type 家族文化显示位置
+     * @param showId 家族产业显示位置
+     * @param type 种类(1:家族产业;2:个人产业)
      * @return:
      * @Description:
      *
@@ -62,7 +62,7 @@ public class FanNewsIndustryController {
     @RequestMapping(value ="/index/getFamilyIndexIndustryList",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyIndexIndustryList(
             @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "type",defaultValue = "1") Integer type) {
+            @RequestParam(value = "type") Integer type) {
         int status =1;
         int pageNo=1;
         int pageSize=5;
