@@ -1,9 +1,8 @@
 package com.genogram.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityOut;
-import com.genogram.entityvo.ChiratyVo;
+import com.genogram.entityvo.CharityFundVo;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.service.IFanIndexFundService;
 import com.genogram.service.IFanNewsCharityOutService;
@@ -27,19 +26,19 @@ public class FanNewsCharityServiceImpl implements IFanNewsCharityService {
     private IFanNewsCharityPayInService iFanNewsCharityPayInService;
 
     @Override
-    public ChiratyVo getAllFanNewsCharity(Integer siteId,Integer status,Integer pageNo,Integer pageSize) {
+    public CharityFundVo GetCharityFundVo(Integer siteId,Integer newsType, Integer status, Integer pageNo, Integer pageSize) {
 
-        FanIndexFund fanIndexFund = fanIndexFundService.selectBySiteId(siteId);
+        FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
 
-        List<FanNewsCharityOut> fanNewsCharityOutList = iFanNewsCharityOutService.selectPage(siteId, status, pageNo, pageSize).getRecords();
+        List<FanNewsCharityOut> fanNewsCharityOutList = iFanNewsCharityOutService.getFanNewsCharityOutPage(siteId,newsType, status, pageNo, pageSize).getRecords();
 
-        List<DonorVo> donorVoList = iFanNewsCharityPayInService.queryMyItems(siteId, status, pageNo, pageSize);
+        List<DonorVo> donorVoList = iFanNewsCharityPayInService.getDonorVoPage(siteId, status, pageNo, pageSize);
 
-        ChiratyVo chiratyVo = new ChiratyVo();
-        chiratyVo.setFanIndexFund(fanIndexFund);
-        chiratyVo.setFanNewsCharityOutList(fanNewsCharityOutList);
-        chiratyVo.setDonorVoList(donorVoList);
+        CharityFundVo charityFundVo = new CharityFundVo();
+        charityFundVo.setFanIndexFund(fanIndexFund);
+        charityFundVo.setFanNewsCharityOutList(fanNewsCharityOutList);
+        charityFundVo.setDonorVoList(donorVoList);
 
-        return chiratyVo;
+        return charityFundVo;
     }
 }

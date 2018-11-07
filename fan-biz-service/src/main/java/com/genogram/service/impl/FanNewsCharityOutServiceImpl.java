@@ -37,27 +37,18 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
 
     @Override
-    public Page<FanNewsCharityOut> selectPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType,Integer status, Integer pageNo, Integer pageSize) {
         Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
         entity.eq("show_id", showId);
+        entity.eq("news_type", newsType);
         entity.eq("status", status);
         entity.orderBy("create_time", false);
         Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
         return fanNewsCharityOutPage;
     }
-/*
-    @Override
-    public List<FanNewsCharityOut> selectPageList(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
-        Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
-        entity.eq("show_id", showId);
-        entity.eq("status", status);
-        entity.orderBy("create_time", false);
-        List<FanNewsCharityOut> fanNewsCharityOutList = fanNewsCharityOutMapper.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
-        return fanNewsCharityOutList;
-    }*/
 
     @Override
-    public Page<FanNewsCharityOutVo> getFanNewsCharityOutPage(Integer showId, Integer newsType, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Integer showId, Integer newsType, Integer status, Integer pageNo, Integer pageSize) {
 
         List<FanNewsCharityOutVo> fanNewsCharityOutVoList = new ArrayList<>();
 

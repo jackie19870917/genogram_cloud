@@ -29,25 +29,14 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     @Autowired
     private FanNewsCharityPayInMapper fanNewsCharityPayInMapper;
 
-   /* @Override
-    public Page<FanNewsCharityPayIn> selectPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
-        Wrapper<FanNewsCharityPayIn> entity = new EntityWrapper<FanNewsCharityPayIn>();
-        entity.eq("show_id", showId);
-        entity.eq("status", status);
-        entity.groupBy("pay_usr_id");
-        // entity.orderBy(, "pay_amount");
-        entity.orderBy("sum(pay_amount)", false);
-        Page<FanNewsCharityPayIn> fanNewsCharityPayInPage = this.selectPage(new Page<>(pageNo, pageSize), entity);
-        return fanNewsCharityPayInPage;
-    }*/
-
     @Override
-    public List<DonorVo> queryMyItems(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public List<DonorVo> getDonorVoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         Map map = new HashMap();
         map.put("showId", showId);
         map.put("status", status);
         map.put("pageNo", pageNo-1);
         map.put("pageSize", pageSize);
-        return fanNewsCharityPayInMapper.queryMyItems(map);
+
+        return fanNewsCharityPayInMapper.getDonorVoPage(map);
     }
 }

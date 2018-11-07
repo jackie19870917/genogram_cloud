@@ -18,5 +18,5 @@ import java.util.Map;
  */
 public interface FanNewsCharityPayInMapper extends BaseMapper<FanNewsCharityPayIn> {
 
-    List<DonorVo> queryMyItems(Map map);
+    List<DonorVo> getDonorVoPage(Map map);
 }

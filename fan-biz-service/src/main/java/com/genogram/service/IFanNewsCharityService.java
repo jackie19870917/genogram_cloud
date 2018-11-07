@@ -1,8 +1,8 @@
 package com.genogram.service;
 
-import com.genogram.entityvo.ChiratyVo;
+import com.genogram.entityvo.CharityFundVo;
 
 public interface IFanNewsCharityService {
 
-     ChiratyVo getAllFanNewsCharity(Integer siteId,Integer status,Integer pageNo,Integer pageSize);
+     CharityFundVo GetCharityFundVo(Integer siteId,Integer newsType, Integer status, Integer pageNo, Integer pageSize);
 }

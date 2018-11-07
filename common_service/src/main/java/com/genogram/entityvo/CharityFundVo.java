@@ -6,8 +6,9 @@ import lombok.Data;
 
 import java.util.List;
 
+//慈善基金
 @Data
-public class ChiratyVo {
+public class CharityFundVo {
 
     private FanIndexFund fanIndexFund;
     private List<FanNewsCharityOut> fanNewsCharityOutList;
