@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-07
  */
 @TableName("fan_news_upload_file")
 public class FanNewsUploadFile extends Model<FanNewsUploadFile> {
@@ -46,6 +46,11 @@ public class FanNewsUploadFile extends Model<FanNewsUploadFile> {
      */
     @TableField("file_path")
     private String filePath;
+    /**
+     * 是否封面(0.否;1:是封面)
+     */
+    @TableField("pic_index")
+    private Integer picIndex;
     /**
      * 状态1显示.0不显示
      */
@@ -102,6 +107,15 @@ public class FanNewsUploadFile extends Model<FanNewsUploadFile> {
 
     public FanNewsUploadFile setFilePath(String filePath) {
         this.filePath = filePath;
+        return this;
+    }
+
+    public Integer getPicIndex() {
+        return picIndex;
+    }
+
+    public FanNewsUploadFile setPicIndex(Integer picIndex) {
+        this.picIndex = picIndex;
         return this;
     }
 
@@ -163,6 +177,7 @@ public class FanNewsUploadFile extends Model<FanNewsUploadFile> {
         ", showId=" + showId +
         ", fileName=" + fileName +
         ", filePath=" + filePath +
+        ", picIndex=" + picIndex +
         ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
