@@ -1,13 +1,20 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.genogram.entity.AllUserLogin;
+import com.genogram.entity.AllUserReg;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.entityvo.DonorVo;
+import com.genogram.mapper.AllUserLoginMapper;
+import com.genogram.mapper.AllUserRegMapper;
 import com.genogram.mapper.FanNewsCharityPayInMapper;
 import com.genogram.service.IFanNewsCharityPayInService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +33,9 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     @Autowired
     private FanNewsCharityPayInMapper fanNewsCharityPayInMapper;
 
+    @Autowired
+    private AllUserLoginMapper AllUserLoginMapper;
+
     @Override
     public List<DonorVo> getDonorVoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         Map map = new HashMap();
@@ -34,6 +44,29 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
         map.put("pageNo", pageNo-1);
         map.put("pageSize", pageSize);
 
-        return fanNewsCharityPayInMapper.getDonorVoPage(map);
+        List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.getDonorVoPage(map);
+
+        List list = new ArrayList();
+        for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
+            list.add(fanNewsCharityPayIn.getPayUsrId());
+        }
+
+        Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
+        entity.in("id", list);
+
+        List<AllUserLogin> allUserLoginList = AllUserLoginMapper.selectList(entity);
+
+        for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
+            for (AllUserLogin allUserLogin : allUserLoginList) {
+                if (allUserLogin.getId() == fanNewsCharityPayIn.getPayUsrId()) {
+                    DonorVo donorVo = new DonorVo();
+                    donorVo.setAllUserLogin(allUserLogin);
+                    donorVo.setFanNewsCharityPayIn(fanNewsCharityPayIn);
+                    list.add(donorVo);
+                }
+            }
+        }
+
+        return list;
     }
 }

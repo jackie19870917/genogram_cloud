@@ -1,9 +1,13 @@
 package com.genogram.entityvo;
 
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsCharityPayIn;
+import lombok.Data;
 
 //捐款人
-public class DonorVo extends FanNewsCharityPayIn {
+@Data
+public class DonorVo{
 
-
+    private FanNewsCharityPayIn fanNewsCharityPayIn;
+    private AllUserLogin allUserLogin;
 }
