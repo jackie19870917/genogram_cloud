@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.AllUserRegMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserReg">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="real_name" property="realName" />
+        <result column="english_name" property="englishName" />
+        <result column="phone" property="phone" />
+        <result column="nation" property="nation" />
+        <result column="birthplace" property="birthplace" />
+        <result column="job" property="job" />
+        <result column="present_address" property="presentAddress" />
+        <result column="old_address" property="oldAddress" />
+        <result column="alias" property="alias" />
+        <result column="surname" property="surname" />
+        <result column="region" property="region" />
+        <result column="summary" property="summary" />
+        <result column="fans" property="fans" />
+        <result column="honesty" property="honesty" />
+        <result column="creator" property="creator" />
+        <result column="status" property="status" />
+        <result column="pic_src" property="picSrc" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id AS userId, real_name AS realName, english_name AS englishName, phone, nation, birthplace, job, present_address AS presentAddress, old_address AS oldAddress, alias, surname, region, summary, fans, honesty, creator, status, pic_src AS picSrc, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+    </sql>
+
+</mapper>

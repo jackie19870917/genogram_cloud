@@ -53,7 +53,7 @@ public class GenerateMybatisPlus {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "fan_news_upload_file" }); // 需要生成的表
+        strategy.setInclude(new String[] { "all_user_reg" }); // 需要生成的表
         //strategy.setExclude(new String[]{"all_family"}); // 排除生成的表
         strategy.setEntityBuilderModel(true);
         mpg.setStrategy(strategy);
