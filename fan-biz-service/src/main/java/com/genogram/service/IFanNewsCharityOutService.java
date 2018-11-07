@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
 
-
+    //慈善支出(用途)
     Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId,Integer newsType,Integer status, Integer pageNo, Integer pageSize);
 
     //慈善收支(文章)
