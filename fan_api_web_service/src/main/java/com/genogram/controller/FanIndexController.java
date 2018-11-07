@@ -24,29 +24,25 @@ public class FanIndexController {
 
     @Autowired
     private IFanIndexMessageService iFanIndexMessageService;
-    // 返回状态码 成功 200
-    private Integer SUCCESSFUL_CODE = Constants.SUCCESSFUL_CODE;
-    // 返回状态码 失败 500
-    private Integer FAILURE_CODE = Constants.FAILURE_CODE;
-    // 返回状态码 失败 400
-    private Integer ERRO_CODE = Constants.ERRO_CODE;
 
     //联谊会首页聊天记录
-    @RequestMapping(value = "/getChatRecord",method = RequestMethod.GET)
+    @RequestMapping(value = "/index/getChatRecordPage",method = RequestMethod.GET)
     public Response<FanIndexMessage> getChatRecord(
             @RequestParam(value = "siteId") Integer siteId,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-            @RequestParam(value = "status", defaultValue = "1") Integer status) {
+            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize
+            ) {
         try {
+            //状态
+            int status =1;
             Page<FanIndexMessage> fanIndexMessage= iFanIndexMessageService.getChatRecord(siteId, status,pageNo,pageSize);
             if (fanIndexMessage == null) {
-                return ResponseUtlis.error(ERRO_CODE);
+                return ResponseUtlis.error(Constants.ERRO_CODE);
             }
             return ResponseUtlis.success(fanIndexMessage);
         }catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(FAILURE_CODE);
+            return ResponseUtlis.error(Constants.FAILURE_CODE);
         }
     }
 
