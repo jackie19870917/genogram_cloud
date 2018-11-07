@@ -24,5 +24,5 @@ public interface IFanIndexMessageService extends IService<FanIndexMessage> {
      * @param pageSize 每页显示条数
      * @return
      */
-    Page<FanIndexMessage> getChatRecord(Integer siteId, Integer status,Integer pageNo,Integer pageSize);
+    Page<FanIndexMessage> getChatRecordList(Integer siteId, Integer status,Integer pageNo,Integer pageSize);
 }

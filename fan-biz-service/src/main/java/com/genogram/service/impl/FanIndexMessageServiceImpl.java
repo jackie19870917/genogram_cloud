@@ -24,7 +24,7 @@ public class FanIndexMessageServiceImpl extends ServiceImpl<FanIndexMessageMappe
 
     //联谊会首页聊天记录
     @Override
-    public Page<FanIndexMessage> getChatRecord(Integer siteId, Integer status,Integer pageNo,Integer pageSize) {
+    public Page<FanIndexMessage> getChatRecordList(Integer siteId, Integer status,Integer pageNo,Integer pageSize) {
         Wrapper<FanIndexMessage> entity = new EntityWrapper<FanIndexMessage>();
         entity.eq("site_id", siteId);
         entity.eq("status", status);

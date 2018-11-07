@@ -55,19 +55,17 @@ public class FanNewsIndustryController {
      * @Time: 23:02
      * @param showId 家族文化显示位置
      * @param type 家族文化显示位置
-     * @param pageNo 当前页
-     * @param pageSize 每页记录数
      * @return:
      * @Description:
      *
      */
-    @RequestMapping(value ="/index/getFamilyIndexIndustryPage",method = RequestMethod.GET)
-    public Response<FamilyIndustryVo> familyIndexIndustryPage(
+    @RequestMapping(value ="/index/getFamilyIndexIndustryList",method = RequestMethod.GET)
+    public Response<FamilyIndustryVo> getFamilyIndexIndustryList(
             @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "type",defaultValue = "1") Integer type,
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "2") Integer pageSize) {
+            @RequestParam(value = "type",defaultValue = "1") Integer type) {
         int status =1;
+        int pageNo=1;
+        int pageSize=5;
         return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize, status);
     }
 

@@ -26,16 +26,16 @@ public class FanIndexController {
     private IFanIndexMessageService iFanIndexMessageService;
 
     //联谊会首页聊天记录
-    @RequestMapping(value = "/index/getChatRecordPage",method = RequestMethod.GET)
-    public Response<FanIndexMessage> getChatRecord(
-            @RequestParam(value = "siteId") Integer siteId,
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize
+    @RequestMapping(value = "/index/getChatRecordList",method = RequestMethod.GET)
+    public Response<FanIndexMessage> getChatRecordList(
+            @RequestParam(value = "siteId") Integer siteId
             ) {
         try {
             //状态
             int status =1;
-            Page<FanIndexMessage> fanIndexMessage= iFanIndexMessageService.getChatRecord(siteId, status,pageNo,pageSize);
+            int pageNo=1;
+            int pageSize=5;
+            Page<FanIndexMessage> fanIndexMessage= iFanIndexMessageService.getChatRecordList(siteId, status,pageNo,pageSize);
             if (fanIndexMessage == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE);
             }
