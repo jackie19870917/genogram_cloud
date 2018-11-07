@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
@@ -29,7 +30,7 @@ public class FanNewsCultureController {
     @Autowired
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
-    //联谊会家族字派
+    //联谊会家族字派查询
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
@@ -114,20 +115,43 @@ public class FanNewsCultureController {
         return getFamilyCultureVoResponse(showId, pageNo, pageSize, status);
     }
 
+    //联谊会家族文化详情查询
+    @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyCultureDetail(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+    ) {
+        try{
+            //判断showId是否有值
+            if(showId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            NewsDetailVo newsDetailVo= iFanNewsCultureNewsService.getFamilyCultureDetail(showId,id);
+            return ResponseUtlis.success(newsDetailVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+
     //抽取的家族文化方法
     private Response<FamilyCultureVo> getFamilyCultureVoResponse(@RequestParam("showId") Integer showId, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize, @RequestParam(value = "status", defaultValue = "1") Integer status) {
         try {
-            Page<FamilyCultureVo> familyCultureVo = iFanNewsCultureNewsService.getFamilyCulturePage(showId, status, pageNo, pageSize);
-            if (familyCultureVo == null) {
+            Page<FamilyCultureVo> familyCultureVoList = iFanNewsCultureNewsService.getFamilyCulturePage(showId, status, pageNo, pageSize);
+            if (familyCultureVoList == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
                 return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
             }
-            return ResponseUtlis.success(familyCultureVo);
+            return ResponseUtlis.success(familyCultureVoList);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
+
+
+
 }
 

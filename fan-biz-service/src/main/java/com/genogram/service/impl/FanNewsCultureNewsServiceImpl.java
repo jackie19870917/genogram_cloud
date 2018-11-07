@@ -3,9 +3,12 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserReg;
 import com.genogram.entity.FanNewsCultureNews;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FamilyCultureVo;
+import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.mapper.AllUserRegMapper;
 import com.genogram.mapper.FanNewsCultureNewsMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsCultureNewsService;
@@ -14,9 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -30,10 +31,10 @@ import java.util.Map;
 public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNewsMapper, FanNewsCultureNews> implements IFanNewsCultureNewsService {
 
     @Autowired
-    private FanNewsCultureNewsMapper fanNewsCultureNewsMapper;
+    private FanNewsUploadFileMapper fanNewsUploadFileMapper;
 
     @Autowired
-    private FanNewsUploadFileMapper fanNewsUploadFileMapper;
+    private AllUserRegMapper allUserRegMapper;
 
     @Override
     public Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
@@ -109,5 +110,44 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         mapPage.setTotal(fanNewsCultureNews.getTotal());
 
         return mapPage;
+    }
+
+    //联谊会家族文化详情查询
+    @Override
+    public NewsDetailVo getFamilyCultureDetail(Integer showId, Integer id) {
+
+        //根据Id查出文章详情
+        FanNewsCultureNews fanNewsCultureNews=  this.selectById(id);
+
+        //查询图片
+        Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
+        uploadentity.eq("show_id", showId);
+        uploadentity.eq("news_id",id);
+        //查询所有文章id下的图片附件
+        List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
+
+        AllUserReg allUserReg = allUserRegMapper.selectById(fanNewsCultureNews.getCreateUser());
+
+        /*//查出名称
+        Wrapper<AllUserReg> entity = new EntityWrapper<AllUserReg>();
+        entity.eq("user_id", fanNewsCultureNews.getCreateUser());*/
+
+        //返回新VO的集合赋值新对象vo
+        NewsDetailVo newsDetail=new NewsDetailVo();
+        newsDetail.setId(fanNewsCultureNews.getId());
+        newsDetail.setShowId(fanNewsCultureNews.getShowId());
+        newsDetail.setNewsTitle(fanNewsCultureNews.getNewsTitle());
+        newsDetail.setNewsText(fanNewsCultureNews.getNewsText());
+        newsDetail.setVisitNum(fanNewsCultureNews.getVisitNum());
+        newsDetail.setStatus(fanNewsCultureNews.getStatus());
+        newsDetail.setCreateTime(fanNewsCultureNews.getCreateTime());
+        newsDetail.setCreateUser(fanNewsCultureNews.getCreateUser());
+        newsDetail.setUpdateTime(fanNewsCultureNews.getUpdateTime());
+        newsDetail.setUpdateUser(fanNewsCultureNews.getUpdateUser());
+        //存储图片list集合
+        newsDetail.setFanNewsUploadFileList(files);
+        //存储作者名称
+        newsDetail.setUserName(allUserReg.getRealName());
+        return newsDetail;
     }
 }
