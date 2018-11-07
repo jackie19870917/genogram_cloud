@@ -1,6 +1,7 @@
 package com.genogram.entityvo;
 
 import com.genogram.entity.FanNewsFamilyRecord;
+import com.genogram.entity.FanNewsFamilyRecordVedio;
 import com.genogram.entity.FanNewsUploadFile;
 import lombok.Data;
 

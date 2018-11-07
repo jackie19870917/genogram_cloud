@@ -35,14 +35,14 @@ public class FanNewsFamilyRecordController {
      * 家族动态查询
      */
     @ResponseBody
-    @RequestMapping(value = "",method = RequestMethod.POST)
-    public Response<FanNewsFamilyRecord> SelectRecort(
+    @RequestMapping(value = "selectRecort",method = RequestMethod.POST)
+    public Response<FanNewsFamilyRecord> selectRecort(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
-            @RequestParam(value = "status", defaultValue = "1") Integer status
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
             ){
         try {
+            int status = 1;
             Page<FamilyRecordVo> familyRecordVo = iFanNewsFamilyRecordService.getFamilyRecordPage(showId, status, pageNo, pageSize);
             if(familyRecordVo==null){
                 //没有取到参数,返回空参

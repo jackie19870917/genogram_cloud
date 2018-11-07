@@ -16,4 +16,6 @@ import com.genogram.entityvo.FamilyRecordVo;
 public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecord> {
 
     Page<FamilyRecordVo> getFamilyRecordPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+
+
 }
