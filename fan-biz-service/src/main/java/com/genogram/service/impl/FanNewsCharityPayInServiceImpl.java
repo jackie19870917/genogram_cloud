@@ -2,6 +2,7 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.AllUserReg;
 import com.genogram.entity.FanNewsCharityPayIn;
@@ -45,6 +46,41 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
         map.put("pageSize", pageSize);
 
         List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.getDonorVoPage(map);
+
+        List list = new ArrayList();
+        for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
+            list.add(fanNewsCharityPayIn.getPayUsrId());
+        }
+
+        Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
+        entity.in("id", list);
+
+        List<AllUserLogin> allUserLoginList = AllUserLoginMapper.selectList(entity);
+
+        for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
+            for (AllUserLogin allUserLogin : allUserLoginList) {
+                if (allUserLogin.getId() == fanNewsCharityPayIn.getPayUsrId()) {
+                    DonorVo donorVo = new DonorVo();
+                    donorVo.setAllUserLogin(allUserLogin);
+                    donorVo.setFanNewsCharityPayIn(fanNewsCharityPayIn);
+                    list.add(donorVo);
+                }
+            }
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<DonorVo> getDonorVoPageByTime(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+
+        Wrapper<FanNewsCharityPayIn> fanNewsCharityPayInWrapper = new EntityWrapper<FanNewsCharityPayIn>();
+
+        fanNewsCharityPayInWrapper.eq("show_id", showId);
+        fanNewsCharityPayInWrapper.eq("status", status);
+        fanNewsCharityPayInWrapper.orderBy("create_time", false);
+
+        List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.selectPage(new Page<FanNewsCharityPayIn>(pageNo, pageSize), fanNewsCharityPayInWrapper);
 
         List list = new ArrayList();
         for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {

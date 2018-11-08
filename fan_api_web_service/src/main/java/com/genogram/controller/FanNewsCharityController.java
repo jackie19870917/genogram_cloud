@@ -60,7 +60,7 @@ public class FanNewsCharityController {
 
 
     /**
-     * 捐款名录
+     * 捐款名录         (个人总金额)
      *
      * @param showId   捐款名录显示位置
      * @param pageNo   当前页
@@ -68,12 +68,31 @@ public class FanNewsCharityController {
      * @return
      */
 
-    @RequestMapping(value = "index/getDonorPage", method = RequestMethod.GET)
-    public Response<DonorVo> getDonorVoPage(@RequestParam("showId") Integer showId,
+    @RequestMapping(value = "index/getDonorVoPageBySum", method = RequestMethod.GET)
+    public Response<DonorVo> getDonorVoPageBySum(@RequestParam("showId") Integer showId,
                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+                                            @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPage(showId, status, pageNo, pageSize);
+
+        return ResponseUtlis.success(fanNewsCharityPayInPage);
+    }
+
+    /**
+     * 捐款名录          (最新捐款记录)
+     *
+     * @param showId   捐款名录显示位置
+     * @param pageNo   当前页
+     * @param pageSize 每页记录数
+     * @return
+     */
+
+    @RequestMapping(value = "index/getDonorVoPageByCreateTime", method = RequestMethod.GET)
+    public Response<DonorVo> getDonorVoPageByCreateTime(@RequestParam("showId") Integer showId,
+                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                            @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+
+        List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPageByTime(showId, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityPayInPage);
     }

@@ -16,7 +16,9 @@ import java.util.List;
  */
 public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayIn> {
 
-    //捐款名录
+    //捐款名录(个人总金额)
     List<DonorVo> getDonorVoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 
+    //捐款名录(最新记录)
+    List<DonorVo> getDonorVoPageByTime(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 }
