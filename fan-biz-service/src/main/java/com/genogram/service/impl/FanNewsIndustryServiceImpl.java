@@ -54,7 +54,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //查询文章信息的条件
         Wrapper<FanNewsIndustry> entity = new EntityWrapper<FanNewsIndustry>();
         entity.eq("show_id", showId);
-        entity.eq("status", status);
+        entity.in("status", status);
         entity.eq("type",type);
         entity.orderBy("create_time", false);
         //分页查询产业文章主表
@@ -76,7 +76,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", showId);
-        uploadentity.eq("status", status);
+        uploadentity.eq("status", 1); //  1 表示图片为显示状态
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
