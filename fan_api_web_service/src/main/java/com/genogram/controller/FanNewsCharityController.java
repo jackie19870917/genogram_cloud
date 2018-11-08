@@ -83,16 +83,17 @@ public class FanNewsCharityController {
      * 慈善收支
      *
      * @param showId   慈善收支显示位置
-     * @param newsType 种类(0.支出用途.1.财政支出;2.财政收入)
+     * @param newsType 种类(1.财政支出;2.财政收入)
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
      */
     @RequestMapping(value = "index/getFanNewsCharityOutPage", method = RequestMethod.GET)
     public Response<FanNewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam("showId") Integer showId,
-                                                                @RequestParam(value = "newsType", defaultValue = "0") Integer newsType,
+                                                                @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
         Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(showId, newsType, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);

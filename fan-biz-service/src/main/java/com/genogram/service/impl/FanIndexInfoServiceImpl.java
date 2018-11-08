@@ -9,7 +9,6 @@ import com.genogram.service.IFanIndexInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -53,11 +52,16 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     }
 
     @Override
-    public void insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
-        fanIndexInfo = fanIndexInfoMapper.selectById(fanIndexInfo.getSiteId());
+    public Integer insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
+       /* fanIndexInfo = fanIndexInfoMapper.selectById(fanIndexInfo.getSiteId());
 
         if (StringUtils.isEmpty(fanIndexInfo)) {
-
-        }
+            Integer insert = fanIndexInfoMapper.insert(fanIndexInfo);
+            return true;
+        } else {
+            Integer integer = fanIndexInfoMapper.updateById(fanIndexInfo);
+            return true;
+        }*/
+        return fanIndexInfoMapper.insert(fanIndexInfo);
     }
 }

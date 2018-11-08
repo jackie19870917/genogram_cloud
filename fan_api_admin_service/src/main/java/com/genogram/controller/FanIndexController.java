@@ -28,6 +28,8 @@ public class FanIndexController {
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
     public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
-        return null;
+        Integer integer = iFanIndexInfoService.insertOrUpdateFanIndexInfo(fanIndexInfo);
+
+        return ResponseUtlis.success(200);
     }
 }

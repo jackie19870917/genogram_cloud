@@ -92,6 +92,8 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
             fanNewsCharityOutVo.setId(fanNewsCharityOuts.getId());
             fanNewsCharityOutVo.setShowId(fanNewsCharityOuts.getShowId());
             fanNewsCharityOutVo.setNewsTitle(fanNewsCharityOuts.getNewsTitle());
+            fanNewsCharityOutVo.setAmount(fanNewsCharityOuts.getAmount());
+            fanNewsCharityOutVo.setUseFor(fanNewsCharityOuts.getUseFor());
             fanNewsCharityOutVo.setNewsText(fanNewsCharityOuts.getNewsText());
             fanNewsCharityOutVo.setVisitNum(fanNewsCharityOuts.getVisitNum());
             fanNewsCharityOutVo.setStatus(fanNewsCharityOuts.getStatus());
