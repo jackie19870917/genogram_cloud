@@ -92,6 +92,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         List<AllUserLogin> allUserLoginList = AllUserLoginMapper.selectList(entity);
 
+        list = new ArrayList();
         for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
             for (AllUserLogin allUserLogin : allUserLoginList) {
                 if (allUserLogin.getId() == fanNewsCharityPayIn.getPayUsrId()) {
