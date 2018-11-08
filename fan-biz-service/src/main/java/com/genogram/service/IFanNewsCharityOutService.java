@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entityvo.FanNewsCharityOutVo;
+import com.genogram.entityvo.NewsDetailVo;
 
 import java.util.List;
 
@@ -18,8 +19,11 @@ import java.util.List;
 public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
 
     //慈善支出(用途)
-    Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId,Integer newsType,Integer status, Integer pageNo, Integer pageSize);
+    Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType, Integer status, Integer pageNo, Integer pageSize);
 
     //慈善收支(文章)
     Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Integer showId, Integer newsType, Integer status, Integer pageNo, Integer pageSize);
+
+    //慈善收支(详情)
+    NewsDetailVo getNewsCharityOutDetail(Integer id, Integer showId);
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.FanNewsCharityOutVo;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanIndexFundService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCharityPayInService;
@@ -43,7 +44,7 @@ public class FanNewsCharityController {
     Integer status = 1;
 
 
-    /**
+    /**                 慈善基金
      *
      * @param siteId    慈善基金ID
      * @return
@@ -57,7 +58,7 @@ public class FanNewsCharityController {
     }
 
 
-    /**
+    /**                   捐款名录
      *
      * @param showId      捐款名录显示位置
      * @param pageNo      当前页
@@ -76,7 +77,7 @@ public class FanNewsCharityController {
     }
 
 
-    /**
+    /**                      慈善收支
      *
      * @param showId         慈善收支显示位置
      * @param newsType       种类(0.支出用途.1.财政支出;2.财政收入)
@@ -92,6 +93,21 @@ public class FanNewsCharityController {
         Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(showId, newsType,status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
+    }
+
+    /**                  慈善收支详情
+     *
+     * @param showId     慈善收支显示位置
+     * @param id         慈善收支详情显示位置
+     * @return
+     */
+    @RequestMapping(value = "getFanNewsCharity", method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFanNewsCharity(@RequestParam(value = "showId") Integer showId,
+                                                    @RequestParam(value = "id") Integer id) {
+
+        NewsDetailVo newsCharityOutDetail = iFanNewsCharityOutService.getNewsCharityOutDetail(id, showId);
+
+        return ResponseUtlis.success(newsCharityOutDetail);
     }
 }
 
