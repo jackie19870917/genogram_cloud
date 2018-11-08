@@ -17,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 /**
  * <p>
  * 联谊会-家族慈善财务支出表 服务实现类
@@ -39,7 +41,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     private AllUserLoginMapper allUserLoginMapper;
 
     @Override
-    public Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType,Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType, Integer status, Integer pageNo, Integer pageSize) {
         Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
         entity.eq("show_id", showId);
         entity.eq("news_type", newsType);
@@ -50,13 +52,13 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     }
 
     @Override
-    public Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Integer showId, Integer newsType, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Integer showId, Integer newsType, List status, Integer pageNo, Integer pageSize) {
 
         List<FanNewsCharityOutVo> fanNewsCharityOutVoList = new ArrayList<>();
 
         Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
         entity.eq("show_id", showId);
-        entity.eq("status", status);
+        entity.in("status", status);
         entity.eq("news_type", newsType);
         entity.orderBy("create_time", false);
 
@@ -77,7 +79,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         //查询图片
         Wrapper<FanNewsUploadFile> fanNewsUploadFileWrapper = new EntityWrapper<FanNewsUploadFile>();
         fanNewsUploadFileWrapper.eq("show_id", showId);
-        fanNewsUploadFileWrapper.eq("status", status);
+        fanNewsUploadFileWrapper.eq("status", 1);
         fanNewsUploadFileWrapper.in("news_id", list);
 
         //查询所有文章id下的图片附件
@@ -134,7 +136,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         //查询图片
         Wrapper<FanNewsUploadFile> entityWrapper = new EntityWrapper<FanNewsUploadFile>();
         entityWrapper.eq("show_id", showId);
-        entityWrapper.eq("news_id",id);
+        entityWrapper.eq("news_id", id);
 
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> fanNewsUploadFileList = fanNewsUploadFileMapper.selectList(entityWrapper);
@@ -143,7 +145,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         AllUserLogin allUserLogin = allUserLoginMapper.selectById(fanNewsCharityOut.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
-        NewsDetailVo newsDetail=new NewsDetailVo();
+        NewsDetailVo newsDetail = new NewsDetailVo();
         newsDetail.setId(fanNewsCharityOut.getId());
         newsDetail.setShowId(fanNewsCharityOut.getShowId());
         newsDetail.setNewsTitle(fanNewsCharityOut.getNewsTitle());
@@ -162,6 +164,33 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         newsDetail.setUserName(allUserLogin.getRealName());
 
         return newsDetail;
+    }
+
+    @Override
+    public Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut, List<FanNewsUploadFile> fanNewsUploadFileList) {
+
+        if (fanNewsCharityOut.getId() == null) {
+            Date date = new Date();
+            fanNewsCharityOut.setUpdateTime(date);
+            boolean b = this.insertOrUpdate(fanNewsCharityOut);
+
+
+            for (FanNewsUploadFile fanNewsUploadFile : fanNewsUploadFileList) {
+                fanNewsUploadFile.setUpdateTime(date);
+                fanNewsUploadFileMapper.updateById(fanNewsUploadFile);
+            }
+        } else {
+            Date date = new Date();
+            fanNewsCharityOut.setCreateTime(date);
+            this.insertOrUpdate(fanNewsCharityOut);
+
+
+            for (FanNewsUploadFile fanNewsUploadFile : fanNewsUploadFileList) {
+                fanNewsUploadFile.setCreateTime(date);
+                fanNewsUploadFileMapper.insert(fanNewsUploadFile);
+            }
+        }
+        return null;
     }
 
 }

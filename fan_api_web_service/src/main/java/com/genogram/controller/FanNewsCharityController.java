@@ -14,6 +14,7 @@ import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -112,8 +113,9 @@ public class FanNewsCharityController {
                                                                 @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-
-        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(showId, newsType, status, pageNo, pageSize);
+        List list = new ArrayList();
+        list.add(status);
+        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(showId, newsType, list, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
