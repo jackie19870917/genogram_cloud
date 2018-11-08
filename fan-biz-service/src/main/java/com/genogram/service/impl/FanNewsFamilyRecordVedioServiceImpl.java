@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamilyRecordVedio;
 import com.genogram.entity.FanNewsUploadFile;
+import com.genogram.entity.FanNewsUploadVedio;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.mapper.FanNewsFamilyRecordVedioMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
+import com.genogram.mapper.FanNewsUploadVedioMapper;
 import com.genogram.service.IFanNewsFamilyRecordVedioService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +30,15 @@ import java.util.List;
 @Service
 public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFamilyRecordVedioMapper, FanNewsFamilyRecordVedio> implements IFanNewsFamilyRecordVedioService {
     @Autowired
-    private FanNewsUploadFileMapper fanNewsUploadFileMapper;
+    private FanNewsUploadVedioMapper fanNewsUploadVedioMapper;
 
     @Autowired
-    private FanNewsFamilyRecordVedioMapper fanNewsFamilyRecordVedioMapper;
+    private FanNewsUploadFileMapper fanNewsUploadFileMapper;
 
     @Override
     public Page<FamilyRecordVedioVo> getFamilyVeidoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
-        List<FanNewsFamilyRecordVedio> familyRecordVedioVoList=new ArrayList<>();
+        List<FamilyRecordVedioVo> familyRecordVedioVoList=new ArrayList<>();
 
         Wrapper<FanNewsFamilyRecordVedio> entity = new EntityWrapper<FanNewsFamilyRecordVedio>();
         entity.eq("show_id", showId);
@@ -55,13 +57,13 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         list.forEach(( news)->{
             newsids.add(news.getId());
         });
-        //查询图片
-        Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
+        //查询视频文字
+        Wrapper<FanNewsUploadVedio> uploadentity = new EntityWrapper<FanNewsUploadVedio>();
         uploadentity.eq("show_id", showId);
         uploadentity.eq("status", status);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
+        List<FanNewsUploadVedio> files =fanNewsUploadVedioMapper.selectList(uploadentity);
 
         //遍历主表文章集合,赋值新对象vo
         list.forEach(( news)->{
@@ -77,22 +79,24 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
             familyRecordVedioVo.setUpdateTime(news.getUpdateTime());
             familyRecordVedioVo.setUpdateUser(news.getUpdateUser());
 
-
-            //判断改视频文章id是否一样
-            List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
-
+            //判断改文章id是否一样
+            List<FanNewsUploadVedio> FanNewsUploadVedio=new ArrayList<>();
             files.forEach(( data)->{
                 if(news.getId()==data.getNewsId()){
-                    fanNewsUploadFile.add(data);
+                    FanNewsUploadVedio.add(data);
                 }
             });
-            //存储图片list集合
-//            familyRecordVedioVo.fanUploadVedioList(fanNewsUploadFile);
-
-
+            //存储视频list集合
+            familyRecordVedioVo.setFanUploadVedioList(FanNewsUploadVedio);
             //存储到新的集合中
             familyRecordVedioVoList.add(familyRecordVedioVo);
         });
-        return null;
+        //重新设置page对象
+        Page<FamilyRecordVedioVo> mapPage = new Page<>(pageNo,pageSize);
+        mapPage.setRecords(familyRecordVedioVoList);
+        mapPage.setSize(fanNewsFamilyRecordVedio.getSize());
+        mapPage.setTotal(fanNewsFamilyRecordVedio.getTotal());
+
+        return mapPage;
     }
 }
