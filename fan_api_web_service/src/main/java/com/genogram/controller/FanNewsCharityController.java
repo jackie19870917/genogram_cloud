@@ -44,13 +44,14 @@ public class FanNewsCharityController {
     Integer status = 1;
 
 
-    /**                 慈善基金
+    /**
+     * 慈善基金
      *
-     * @param siteId    慈善基金ID
+     * @param siteId 慈善基金ID
      * @return
      */
     @RequestMapping(value = "index/getFanIndexFund", method = RequestMethod.GET)
-    public Response<FanIndexFund> getFanIndexFund(@RequestParam("siteId")Integer siteId) {
+    public Response<FanIndexFund> getFanIndexFund(@RequestParam("siteId") Integer siteId) {
 
         FanIndexFund fanIndexFund = iFanIndexFundService.getFanIndexFund(siteId);
 
@@ -58,18 +59,19 @@ public class FanNewsCharityController {
     }
 
 
-    /**                   捐款名录
+    /**
+     * 捐款名录
      *
-     * @param showId      捐款名录显示位置
-     * @param pageNo      当前页
-     * @param pageSize    每页记录数
+     * @param showId   捐款名录显示位置
+     * @param pageNo   当前页
+     * @param pageSize 每页记录数
      * @return
      */
 
-    @RequestMapping(value = "index/getDonorPage",method = RequestMethod.GET)
-    public Response<DonorVo> getDonorVoPage(@RequestParam( "showId") Integer showId,
-                                            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                            @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
+    @RequestMapping(value = "index/getDonorPage", method = RequestMethod.GET)
+    public Response<DonorVo> getDonorVoPage(@RequestParam("showId") Integer showId,
+                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPage(showId, status, pageNo, pageSize);
 
@@ -77,33 +79,35 @@ public class FanNewsCharityController {
     }
 
 
-    /**                      慈善收支
+    /**
+     * 慈善收支
      *
-     * @param showId         慈善收支显示位置
-     * @param newsType       种类(0.支出用途.1.财政支出;2.财政收入)
-     * @param pageNo         当前页
-     * @param pageSize       每页记录数
+     * @param showId   慈善收支显示位置
+     * @param newsType 种类(0.支出用途.1.财政支出;2.财政收入)
+     * @param pageNo   当前页
+     * @param pageSize 每页记录数
      * @return
      */
-    @RequestMapping(value = "index/getFanNewsCharityOutPage",method = RequestMethod.GET)
-    public Response<FanNewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam( "showId") Integer showId,
-                                                                @RequestParam(value = "newsType",defaultValue = "0")Integer newsType,
-                                                                @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                                                @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
-        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(showId, newsType,status, pageNo, pageSize);
+    @RequestMapping(value = "index/getFanNewsCharityOutPage", method = RequestMethod.GET)
+    public Response<FanNewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam("showId") Integer showId,
+                                                                @RequestParam(value = "newsType", defaultValue = "0") Integer newsType,
+                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(showId, newsType, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
 
-    /**                  慈善收支详情
+    /**
+     * 慈善收支详情
      *
-     * @param showId     慈善收支显示位置
-     * @param id         慈善收支详情显示位置
+     * @param showId 慈善收支显示位置
+     * @param id     慈善收支详情显示位置
      * @return
      */
-    @RequestMapping(value = "getFanNewsCharity", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFanNewsCharity(@RequestParam(value = "showId") Integer showId,
-                                                    @RequestParam(value = "id") Integer id) {
+    @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFanNewsCharityDetail(@RequestParam(value = "showId") Integer showId,
+                                                          @RequestParam(value = "id") Integer id) {
 
         NewsDetailVo newsCharityOutDetail = iFanNewsCharityOutService.getNewsCharityOutDetail(id, showId);
 
