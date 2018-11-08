@@ -52,16 +52,8 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     }
 
     @Override
-    public Integer insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
-       /* fanIndexInfo = fanIndexInfoMapper.selectById(fanIndexInfo.getSiteId());
+    public Boolean insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
-        if (StringUtils.isEmpty(fanIndexInfo)) {
-            Integer insert = fanIndexInfoMapper.insert(fanIndexInfo);
-            return true;
-        } else {
-            Integer integer = fanIndexInfoMapper.updateById(fanIndexInfo);
-            return true;
-        }*/
-        return fanIndexInfoMapper.insert(fanIndexInfo);
+        return this.insertOrUpdate(fanIndexInfo);
     }
 }

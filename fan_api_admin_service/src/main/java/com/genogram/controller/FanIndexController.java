@@ -1,6 +1,7 @@
 package com.genogram.controller;
 
 import com.genogram.entity.FanIndexInfo;
+import com.genogram.entityvo.FanIndexInfoVo;
 import com.genogram.service.IFanIndexInfoService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("genogram/admin/fanIndex/")
+@RequestMapping("genogram/admin/fanIndex")
 public class FanIndexController {
 
     @Autowired
@@ -17,19 +18,24 @@ public class FanIndexController {
 
     //联谊会简介,宣言
     @RequestMapping(value = "getFanIndexInfo",method = RequestMethod.GET)
-    public Response<FanIndexInfo> getFanIndexInfo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId) {
+    public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId) {
 
-        FanIndexInfo fanIndexInfo = iFanIndexInfoService.getFanIndexInfo(siteId);
+        FanIndexInfoVo fanIndexInfoVo = iFanIndexInfoService.getFanIndexInfoVo(siteId);
 
-        return ResponseUtlis.success(fanIndexInfo);
+        return ResponseUtlis.success(fanIndexInfoVo);
     }
 
     //新增或修改    联谊会简介,宣言
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
     public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
-        Integer integer = iFanIndexInfoService.insertOrUpdateFanIndexInfo(fanIndexInfo);
+        Boolean Boolean = iFanIndexInfoService.insertOrUpdateFanIndexInfo(fanIndexInfo);
 
-        return ResponseUtlis.success(200);
+        if (Boolean) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+
     }
 }
