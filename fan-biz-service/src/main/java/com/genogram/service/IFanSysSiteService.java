@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanSysSiteService extends IService<FanSysSite> {
 
+    ///联谊会网站
+    FanSysSite getFanSysSite(Integer siteId);
 }

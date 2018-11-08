@@ -6,6 +6,7 @@ import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanIndexMessage;
 import com.genogram.entityvo.CharityFundVo;
+import com.genogram.entityvo.FanIndexInfoVo;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.genogram.service.IFanIndexInfoService;
 import com.genogram.service.IFanIndexMessageService;
@@ -55,11 +56,11 @@ public class FanIndexController {
 
     //联谊会简介,宣言
     @RequestMapping(value = "index/getFanIndexInfo",method = RequestMethod.GET)
-    public Response<FanIndexInfo> getFanIndexInfo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId) {
+    public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId) {
 
-        FanIndexInfo fanIndexInfo = iFanIndexInfoService.getFanIndexInfo(siteId);
+        FanIndexInfoVo fanIndexInfoVo = iFanIndexInfoService.getFanIndexInfoVo(siteId);
 
-        return ResponseUtlis.success(fanIndexInfo);
+        return ResponseUtlis.success(fanIndexInfoVo);
     }
 
     //联谊会首页聊天记录

@@ -2,6 +2,7 @@ package com.genogram.service;
 
 import com.genogram.entity.FanIndexInfo;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.FanIndexInfoVo;
 
 /**
  * <p>
@@ -15,4 +16,11 @@ public interface IFanIndexInfoService extends IService<FanIndexInfo> {
 
     //联谊会图腾,宣言,公告
     FanIndexInfo getFanIndexInfo(Integer siteId);
+
+    FanIndexInfoVo getFanIndexInfoVo(Integer siteId);
+    //新增/修改  联谊会图腾,宣言,公告
+    void insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo);
+
+   /* //修改  联谊会图腾,宣言,公告
+    void updateFanIndexInfo(FanIndexInfo fanIndexInfo);*/
 }
