@@ -8,10 +8,13 @@ import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.mapper.FanNewsCultureZipaiMapper;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +27,9 @@ import java.util.List;
  */
 @Service
 public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZipaiMapper, FanNewsCultureZipai> implements IFanNewsCultureZipaiService {
+
+    @Autowired
+    private FanNewsCultureZipaiMapper fanNewsCultureZipaiMapper;
 
     //联谊会字派查询
     @Override
@@ -54,6 +60,17 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         //删除最后一个字符
         string.deleteCharAt(string.length() - 1);
         return string;
+    }
+
+    //联谊会字派后台查询
+    @Override
+    public Integer addZiPai(FanNewsCultureZipai fanNewsCultureZipai) {
+        //生成时间
+        Timestamp format = DateUtil.format(new Date());
+        //存入创建时间
+        fanNewsCultureZipai.setCreateTime(format);
+        Integer insert = fanNewsCultureZipaiMapper.insert(fanNewsCultureZipai);
+        return insert;
     }
 
 }

@@ -5,6 +5,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsCultureNews;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
@@ -44,8 +45,8 @@ public class FanNewsCultureController {
             Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(showId, status, pageNo, pageSize);
             if(fanNewsCultureZipai==null){
                 //没有取到参数,返回空参
-                Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+                Page<FanNewsCultureZipai> emptfanNewsCultureZipai = new Page<FanNewsCultureZipai>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,emptfanNewsCultureZipai);
             }
             return ResponseUtlis.success(fanNewsCultureZipai);
         }catch (Exception e) {
@@ -53,6 +54,22 @@ public class FanNewsCultureController {
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
+
+    //联谊会家族字派新增
+    @RequestMapping(value = "/addZiPai",method = RequestMethod.GET)
+    public Response<FanNewsCultureZipai> addZiPai(FanNewsCultureZipai fanNewsCultureZipai){
+        try {
+            Integer insert=iFanNewsCultureZipaiService.addZiPai(fanNewsCultureZipai);
+            if(insert==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
 
  /*   //联谊会家族字派查询
     @RequestMapping(value = "/getGrabblePage",method = RequestMethod.GET)
@@ -94,6 +111,25 @@ public class FanNewsCultureController {
         e.printStackTrace();
         return ResponseUtlis.error(Constants.FAILURE_CODE,null);
     }
+    }
+
+    //联谊会家族文化详情查询
+    @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyCultureDetail(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+    ) {
+        try{
+            //判断showId是否有值
+            if(showId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            NewsDetailVo newsDetailVo= iFanNewsCultureNewsService.getFamilyCultureDetail(showId,id);
+            return ResponseUtlis.success(newsDetailVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
     }
 
     // 家族文化后台添加

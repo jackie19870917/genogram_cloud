@@ -41,6 +41,7 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
     /**
      * 家族文化后台添加
      * @param fanNewsCultureNews  家族文化上传实体类
+     * @param pictures  上传的图片的List
      * @return
      */
     boolean addNews(FanNewsCultureNews fanNewsCultureNews,List<MultipartFile> pictures) throws Exception;

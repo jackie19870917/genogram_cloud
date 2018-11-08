@@ -163,12 +163,14 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     //家族文化后台添加
     @Override
     public boolean addNews(FanNewsCultureNews fanNewsCultureNews,List<MultipartFile> pictures) {
-        boolean insert = this.insert(fanNewsCultureNews);
         /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
         //生成时间
         Timestamp format = DateUtil.format(new Date());
         //存入创建时间
         fanNewsCultureNews.setCreateTime(format);
+        //插入数据
+        boolean insert = this.insert(fanNewsCultureNews);
+        //存储图片
 /*        if(insert){
             iFanNewsUploadFileService.storagePicture(fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId(),pictures);
         }*/

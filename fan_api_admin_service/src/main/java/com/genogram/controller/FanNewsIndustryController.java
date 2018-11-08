@@ -2,12 +2,14 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entityvo.FamilyIndustryVo;
 import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ public class FanNewsIndustryController {
     @Autowired
     private IFanNewsIndustryService iFanNewsIndustryService;
 
+    //联谊会家族产业后台查询
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
             @RequestParam(value = "showId") Integer showId,
@@ -48,5 +51,20 @@ public class FanNewsIndustryController {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
+    }
+
+    // 联谊会家族产业后台添加
+    @RequestMapping(value = "/addNews", method = RequestMethod.POST)
+    public Response<FanNewsIndustry> addNews(FanNewsIndustry fanNewsIndustry, List<MultipartFile> pictures) {
+        try{
+            // 插入数据
+            boolean b = iFanNewsIndustryService.addNews(fanNewsIndustry,pictures);
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+            //插入图片
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+
     }
 }

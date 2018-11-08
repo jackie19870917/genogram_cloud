@@ -33,4 +33,11 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      * @return
      */
     StringBuffer CommonalityIndex(Integer showId, Integer status);
+
+    /**
+     * 联谊会字派后台新增
+     * @param fanNewsCultureZipai
+     * @return
+     */
+    Integer addZiPai(FanNewsCultureZipai fanNewsCultureZipai);
 }

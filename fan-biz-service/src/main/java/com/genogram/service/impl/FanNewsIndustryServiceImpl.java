@@ -13,10 +13,14 @@ import com.genogram.mapper.FanNewsIndustryMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsIndustryService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -154,5 +158,23 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //存储作者名称
         newsDetail.setUserName(allUserLogin.getRealName());
         return newsDetail;
+    }
+
+
+    //联谊会家族产业后台新增
+    @Override
+    public boolean addNews(FanNewsIndustry fanNewsIndustry, List<MultipartFile> pictures) {
+        /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
+        //生成时间
+        Timestamp format = DateUtil.format(new Date());
+        //存入创建时间
+        fanNewsIndustry.setCreateTime(format);
+        //插入数据
+        boolean insert = this.insert(fanNewsIndustry);
+        //存储图片
+/*        if(insert){
+            iFanNewsUploadFileService.storagePicture(fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId(),pictures);
+        }*/
+        return insert;
     }
 }
