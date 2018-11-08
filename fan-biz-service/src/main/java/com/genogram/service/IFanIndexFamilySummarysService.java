@@ -16,4 +16,10 @@ public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilyS
 
     //联谊堂
     Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId,Integer status,Integer pageNo,Integer pageSize);
+
+    //新增/修改联谊堂信息
+    Boolean insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys);
+
+    //单一查询联谊堂
+    FanIndexFamilySummarys getFanIndexFamilySummarys(Integer id);
 }

@@ -56,7 +56,7 @@ public class FanIndexController {
 
     //联谊会简介,宣言
     @RequestMapping(value = "index/getFanIndexInfo",method = RequestMethod.GET)
-    public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam(value = "siteId",defaultValue = "1") Integer siteId) {
+    public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
 
         FanIndexInfoVo fanIndexInfoVo = iFanIndexInfoService.getFanIndexInfoVo(siteId);
 

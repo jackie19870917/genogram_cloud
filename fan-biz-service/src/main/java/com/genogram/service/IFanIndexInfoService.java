@@ -18,9 +18,8 @@ public interface IFanIndexInfoService extends IService<FanIndexInfo> {
     FanIndexInfo getFanIndexInfo(Integer siteId);
 
     FanIndexInfoVo getFanIndexInfoVo(Integer siteId);
+
     //新增/修改  联谊会图腾,宣言,公告
     Boolean insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo);
 
-   /* //修改  联谊会图腾,宣言,公告
-    void updateFanIndexInfo(FanIndexInfo fanIndexInfo);*/
 }

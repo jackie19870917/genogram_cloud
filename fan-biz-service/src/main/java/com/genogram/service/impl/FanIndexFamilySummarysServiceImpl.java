@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,5 +33,24 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
         entity.eq("site_id", siteId);
         entity.eq("status", status);
         return this.selectPage(new Page<FanIndexFamilySummarys>(pageNo,pageSize),entity);
+    }
+
+    @Override
+    public Boolean insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+
+        if (fanIndexFamilySummarys.getId() != null) {
+            fanIndexFamilySummarys.setUpdateTime(new Date());
+        } else {
+            fanIndexFamilySummarys.setCreateTime(new Date());
+        }
+
+        return  this.insertOrUpdate(fanIndexFamilySummarys);
+
+    }
+
+    @Override
+    public FanIndexFamilySummarys getFanIndexFamilySummarys(Integer id) {
+
+        return this.selectById(id);
     }
 }

@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * <p>
  * 联谊会网站:图腾;简介;宣言 服务实现类
@@ -54,6 +56,11 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     @Override
     public Boolean insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
+        if (fanIndexInfo.getId() != null) {
+            fanIndexInfo.setUpdateTime(new Date());
+        } else {
+            fanIndexInfo.setCreateTime(new Date());
+        }
         return this.insertOrUpdate(fanIndexInfo);
     }
 }
