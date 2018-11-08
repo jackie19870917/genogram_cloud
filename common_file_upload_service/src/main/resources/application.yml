@@ -1,0 +1,7 @@
+#http://localhost:8050/test/test1
+server:
+  port: 8050
+spring:
+  profiles:
+    active: dev
+
