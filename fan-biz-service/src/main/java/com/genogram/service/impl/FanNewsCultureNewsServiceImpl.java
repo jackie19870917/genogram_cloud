@@ -15,10 +15,17 @@ import com.genogram.mapper.FanNewsCultureNewsMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IFanNewsUploadFileService;
+import com.genogram.unit.DateUtil;
+import com.genogram.unit.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,6 +44,9 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
 
     @Autowired
     private AllUserLoginMapper allUserLoginMapper;
+
+    @Autowired
+    private IFanNewsUploadFileService iFanNewsUploadFileService;
 
     @Override
     public Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, List<Integer> status, Integer pageNo, Integer pageSize) {
@@ -148,5 +158,20 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //存储作者名称
         newsDetail.setUserName(allUserLogin.getRealName());
         return newsDetail;
+    }
+
+    //家族文化后台添加
+    @Override
+    public boolean addNews(FanNewsCultureNews fanNewsCultureNews,List<MultipartFile> pictures) {
+        boolean insert = this.insert(fanNewsCultureNews);
+        /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
+        //生成时间
+        Timestamp format = DateUtil.format(new Date());
+        //存入创建时间
+        fanNewsCultureNews.setCreateTime(format);
+/*        if(insert){
+            iFanNewsUploadFileService.storagePicture(fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId(),pictures);
+        }*/
+        return insert;
     }
 }

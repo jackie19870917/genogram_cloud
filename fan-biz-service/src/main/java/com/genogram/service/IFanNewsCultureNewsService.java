@@ -5,6 +5,8 @@ import com.genogram.entity.FanNewsCultureNews;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.unit.Response;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,4 +37,11 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      * @return
      */
     NewsDetailVo getFamilyCultureDetail(Integer showId, Integer id);
+
+    /**
+     * 家族文化后台添加
+     * @param fanNewsCultureNews  家族文化上传实体类
+     * @return
+     */
+    boolean addNews(FanNewsCultureNews fanNewsCultureNews,List<MultipartFile> pictures) throws Exception;
 }
