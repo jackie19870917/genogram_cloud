@@ -47,7 +47,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
      *
      */
     @Override
-    public Page<FamilyIndustryVo> getFamilyIndustryPage(Integer showId, Integer status, Integer pageNo, Integer pageSize,Integer type) {
+    public Page<FamilyIndustryVo> getFamilyIndustryPage(Integer showId, List<Integer> status, Integer pageNo, Integer pageSize,Integer type) {
         //返回新VO的集合
         List<FamilyIndustryVo> familyIndustryVoList=new ArrayList<>();
 

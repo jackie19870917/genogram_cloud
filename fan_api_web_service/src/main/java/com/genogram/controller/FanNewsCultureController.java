@@ -12,6 +12,9 @@ import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  * 联谊会-家族文化前端控制器
@@ -94,9 +97,7 @@ public class FanNewsCultureController {
         if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
-        //状态
-        int status=1;
-        return getFamilyCultureVoResponse(showId, pageNo, pageSize, status);
+        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
     }
 
     //联谊会首页家族文化查询
@@ -110,9 +111,7 @@ public class FanNewsCultureController {
         if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
-        //状态
-        int status=1;
-        return getFamilyCultureVoResponse(showId, pageNo, pageSize, status);
+        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
     }
 
     //联谊会家族文化详情查询
@@ -136,9 +135,13 @@ public class FanNewsCultureController {
 
 
     //抽取的家族文化方法
-    private Response<FamilyCultureVo> getFamilyCultureVoResponse(@RequestParam("showId") Integer showId, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize, @RequestParam(value = "status", defaultValue = "1") Integer status) {
+    private Response<FamilyCultureVo> getFamilyCultureVoResponse(Integer showId, Integer pageNo, Integer pageSize) {
         try {
-            Page<FamilyCultureVo> familyCultureVoList = iFanNewsCultureNewsService.getFamilyCulturePage(showId, status, pageNo, pageSize);
+            //状态
+            int status=1;
+            List statusList  = new ArrayList();
+            statusList.add(status);
+            Page<FamilyCultureVo> familyCultureVoList = iFanNewsCultureNewsService.getFamilyCulturePage(showId, statusList, pageNo, pageSize);
             if (familyCultureVoList == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();

@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.FamilyIndustryVo;
 import com.genogram.entityvo.NewsDetailVo;
 
+import java.util.List;
+
 /**
  * <p>
  * 联谊会-家族产业 服务类
@@ -25,7 +27,7 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
      * @param type 每页显示条数
      * @return
      */
-    Page<FamilyIndustryVo> getFamilyIndustryPage(Integer showId, Integer status, Integer pageNo, Integer pageSize,Integer type);
+    Page<FamilyIndustryVo> getFamilyIndustryPage(Integer showId, List<Integer> status, Integer pageNo, Integer pageSize, Integer type);
 
     /**
      * 联谊会家族产业各个产业的详情

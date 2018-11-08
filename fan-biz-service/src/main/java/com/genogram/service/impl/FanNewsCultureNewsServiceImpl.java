@@ -39,14 +39,14 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     private AllUserLoginMapper allUserLoginMapper;
 
     @Override
-    public Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, List<Integer> status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
         List<FamilyCultureVo> familyCultureVoList=new ArrayList<>();
 
         //查询文章信息的条件
         Wrapper<FanNewsCultureNews> entity = new EntityWrapper<FanNewsCultureNews>();
         entity.eq("show_id", showId);
-        entity.eq("status", status);
+        entity.in("status", status);
         entity.orderBy("create_time", false);
         //分页查询文章主表
         Page<FanNewsCultureNews> fanNewsCultureNews =this.selectPage(new Page<FanNewsCultureNews>(pageNo, pageSize), entity);

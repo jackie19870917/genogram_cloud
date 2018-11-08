@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
 
+import java.util.List;
+
 /**
  * <p>
  * 联谊会-家族文化文章表 服务类
@@ -24,7 +26,7 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      * @param pageSize 每页显示条数
      * @return
      */
-    Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, List<Integer> status, Integer pageNo, Integer pageSize);
 
     /**
      *联谊会家族文化详情查询

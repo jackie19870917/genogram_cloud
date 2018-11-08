@@ -11,6 +11,9 @@ import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  * 联谊会-家族产业 前端控制器
@@ -49,9 +52,7 @@ public class FanNewsIndustryController {
         if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
-        //状态
-        int status =1;
-        return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize, status);
+        return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize);
     }
 
     /**
@@ -75,9 +76,7 @@ public class FanNewsIndustryController {
         if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
-        //状态
-        int status =1;
-        return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize, status);
+        return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize);
     }
 
     /**
@@ -94,9 +93,13 @@ public class FanNewsIndustryController {
      * @Description:
      *
      */
-    private Response<FamilyIndustryVo> getFamilyIndustryVoResponse(@RequestParam("showId") Integer showId, @RequestParam(value = "type", defaultValue = "1") Integer type, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo, @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize, @RequestParam(value = "status", defaultValue = "1") Integer status) {
+    private Response<FamilyIndustryVo> getFamilyIndustryVoResponse(Integer showId, Integer type,  Integer pageNo, Integer pageSize) {
         try {
-            Page<FamilyIndustryVo> familyCultureVo = iFanNewsIndustryService.getFamilyIndustryPage(showId, status, pageNo, pageSize, type);
+            //状态
+            int status=1;
+            List statusList  = new ArrayList();
+            statusList.add(status);
+            Page<FamilyIndustryVo> familyCultureVo = iFanNewsIndustryService.getFamilyIndustryPage(showId, statusList, pageNo, pageSize, type);
             if (familyCultureVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyIndustryVo> emptfamilyCultureVo = new Page<FamilyIndustryVo>();
