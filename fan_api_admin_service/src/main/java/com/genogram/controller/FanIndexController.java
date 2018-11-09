@@ -26,7 +26,11 @@ public class FanIndexController {
     @Autowired
     private IFanIndexFamilySummarysService iFanIndexFamilySummarysService;
 
-    //联谊会简介,宣言
+    /**
+     *        联谊会简介,宣言
+     * @param siteId   网站ID
+     * @return
+     */
     @RequestMapping(value = "getFanIndexInfo",method = RequestMethod.GET)
     public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
 
@@ -35,7 +39,11 @@ public class FanIndexController {
         return ResponseUtlis.success(fanIndexInfoVo);
     }
 
-    //新增或修改    联谊会简介,宣言
+    /**
+     *        /新增或修改    联谊会简介,宣言
+     * @param fanIndexInfo   实体类
+     * @return
+     */
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
     public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
@@ -48,7 +56,13 @@ public class FanIndexController {
         }
     }
 
-    //联谊堂
+    /**
+     *        新增或修改    联谊堂
+     * @param siteId    网站ID
+     * @param pageNo    当前页
+     * @param pageSize  每页记录数
+     * @return
+     */
     @RequestMapping(value = "getFanIndexFamilySummarysPage", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -59,7 +73,11 @@ public class FanIndexController {
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
 
-    //联谊堂详情
+    /**
+     *      联谊堂详情
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "getFanIndexFamilySummarys", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarys(@RequestParam(value = "id") Integer id) {
 
@@ -68,7 +86,11 @@ public class FanIndexController {
         return ResponseUtlis.success(fanIndexFamilySummarys);
     }
 
-    //新增或修改    联谊堂
+    /**
+     *       /新增或修改    联谊堂
+     * @param fanIndexFamilySummarys
+     * @return
+     */
     @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarys", method = RequestMethod.POST)
     public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
 

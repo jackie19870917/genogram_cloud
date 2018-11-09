@@ -43,7 +43,13 @@ public class FanIndexController {
 
     Integer status=1;
 
-    //联谊堂
+    /**
+     *        联谊堂
+     * @param siteId   网站ID
+     * @param pageNo   当前页
+     * @param pageSize 每页记录数
+     * @return
+     */
     @RequestMapping(value = "index/getFanIndexFamilySummarysPage", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage( @RequestParam(value = "siteId") Integer siteId,
                                                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -54,7 +60,11 @@ public class FanIndexController {
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
 
-    //联谊会简介,宣言
+    /**
+     *        /联谊会简介,宣言
+     * @param siteId   网站ID
+     * @return
+     */
     @RequestMapping(value = "index/getFanIndexInfo",method = RequestMethod.GET)
     public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
 

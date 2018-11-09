@@ -11,10 +11,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
-/**  
- * 时间操作工具类 
- * Created by huangxueshan on 2018/4/18.
- */
+/**
+ *         时间操作工具类
+ *@Author: Toxicant
+ *@Date: 2018-11-09
+ *@Time: 11:05
+ *@Param:
+ *@return:
+ *@Description:
+*/
 public class DateUtil {
 
     /**
