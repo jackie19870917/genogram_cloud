@@ -18,6 +18,15 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *家族产业增删改查
+ *@Author: yuzhou
+ *@Date: 2018-11-09
+ *@Time: 16:06
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsIndustry")
@@ -26,7 +35,15 @@ public class FanNewsIndustryController {
     @Autowired
     private IFanNewsIndustryService iFanNewsIndustryService;
 
-    //联谊会家族产业后台查询
+    /**
+     *联谊会家族产业后台查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:24
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
             @RequestParam(value = "showId") String showId,
@@ -65,7 +82,15 @@ public class FanNewsIndustryController {
         }
     }
 
-    //联谊会家族产业各个产业的详情
+    /**
+     *联谊会家族产业各个产业的详情
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:24
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyIndustryDetail(
             @RequestParam(value = "id") String id // 家族文化详情显示位置
@@ -73,7 +98,15 @@ public class FanNewsIndustryController {
         return getNewsDetailVoResponse(id);
     }
 
-    //联谊会家族产业各个产业的详情
+    /**
+     *联谊会家族产业各个产业的详情
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:25
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyIndustryAmend",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyIndustryAmend(
             @RequestParam(value = "id") String id // 家族文化详情显示位置
@@ -81,9 +114,15 @@ public class FanNewsIndustryController {
         return getNewsDetailVoResponse(id);
     }
 
-
-
-    //联谊会家族产业各个产业文章进入修改页面抽取方法
+    /**
+     *联谊会家族产业各个产业文章进入修改页面抽取方法
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:24
+     *@Param:
+     *@return:
+     *@Description:
+    */
     private Response<NewsDetailVo> getNewsDetailVoResponse( @RequestParam("id") String id) {
         try {
             NewsDetailVo newsDetailVo = iFanNewsIndustryService.getFamilyIndustryDetail(Integer.valueOf(id));
@@ -94,7 +133,15 @@ public class FanNewsIndustryController {
         }
     }
 
-    // 联谊会家族产业后台添加和修改
+    /**
+     *联谊会家族产业后台添加和修改
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:24
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value = "/addOrUpdateIndustry", method = RequestMethod.POST)
     public Response<FanNewsIndustry> addNews(FanNewsIndustry fanNewsIndustry, String urls) {
         try{

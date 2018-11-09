@@ -10,11 +10,21 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-//家族产业查询
+/**
+ *家族产业查询
+ *@Author: yuzhou
+ *@Date: 2018-11-09
+ *@Time: 15:59
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @Data
 public class FamilyIndustryVo {
 
-    //家族产业图片
+    /**
+     * 家族产业图片
+     */
     private List<FanNewsUploadFile> fanNewsUploadFileList;
 
     /**

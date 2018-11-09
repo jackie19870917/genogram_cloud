@@ -3,6 +3,15 @@ package com.genogram.unit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *字符串工具类
+ *@Author: yuzhou
+ *@Date: 2018-11-09
+ *@Time: 16:08
+ *@Param:
+ *@return:
+ *@Description:
+*/
 public class StringUtils
 {
     /**

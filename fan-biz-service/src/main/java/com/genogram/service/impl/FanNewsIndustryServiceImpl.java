@@ -74,7 +74,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", list.get(0).getShowId());
-        uploadentity.eq("status", 1); //  1 表示图片为显示状态
+        //  1 表示图片为显示状态
+        uploadentity.eq("status", 1);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
@@ -109,7 +110,15 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         return mapPage;
     }
 
-    //联谊会家族产业各个产业的详情
+    /**
+     *联谊会家族产业各个产业的详情
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:25
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public NewsDetailVo getFamilyIndustryDetail(Integer id) {
         //根据Id查出产业详情
@@ -136,8 +145,15 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         return newsDetail;
     }
 
-
-    //联谊会家族产业后台新增
+    /**
+     *联谊会家族产业后台新增
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:25
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public boolean addNews(FanNewsIndustry fanNewsIndustry, String urls) {
         //生成时间

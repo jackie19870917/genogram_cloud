@@ -43,5 +43,5 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      * @param urs  上传的图片的字符串
      * @return
      */
-    boolean addNews(FanNewsCultureNews fanNewsCultureNews,String urs) throws Exception;
+    boolean addNews(FanNewsCultureNews fanNewsCultureNews,String urs);
 }

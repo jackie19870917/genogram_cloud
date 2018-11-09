@@ -125,7 +125,15 @@ public class FanNewsIndustryController {
         }
     }
 
-    //联谊会家族产业各个产业的详情
+    /**
+     *联谊会家族产业各个产业的详情
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:25
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyIndustryDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置

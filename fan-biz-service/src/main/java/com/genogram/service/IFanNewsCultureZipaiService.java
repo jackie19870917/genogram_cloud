@@ -31,11 +31,12 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      * @param entity 查询条件
      * @return
      */
-    StringBuffer CommonalityIndex(Wrapper<FanNewsCultureZipai> entity);
+    StringBuffer commonalityIndex(Wrapper<FanNewsCultureZipai> entity);
 
     /**
      *联谊会字派后台进入修改页面
      * @param id 状态
+     * @return
      */
     FanNewsCultureZipai getZiPaiDetail(Integer id);
 

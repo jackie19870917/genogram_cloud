@@ -19,5 +19,4 @@ import java.util.Map;
  */
 public interface FanNewsCultureNewsMapper extends BaseMapper<FanNewsCultureNews> {
 
-    List<FamilyCultureVo> queryMyItems(Page<FamilyCultureVo> mapPage, Map requestParam);
 }

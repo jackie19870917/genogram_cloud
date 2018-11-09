@@ -73,7 +73,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", list.get(0).getShowId());
-        uploadentity.eq("status", 1);  //  1 表示图片为显示状态
+        //  1 表示图片为显示状态
+        uploadentity.eq("status", 1);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
@@ -111,7 +112,15 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         return mapPage;
     }
 
-    //联谊会家族文化详情查询
+    /**
+     *联谊会家族文化详情查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:22
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public NewsDetailVo getFamilyCultureDetail(Integer id) {
 
@@ -139,7 +148,15 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         return newsDetail;
     }
 
-    //家族文化后台添加
+    /**
+     *家族文化后台添加
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:23
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public boolean addNews(FanNewsCultureNews fanNewsCultureNews,String usrs) {
         /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/

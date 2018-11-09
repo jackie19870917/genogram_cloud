@@ -37,7 +37,15 @@ public class FanNewsCultureController {
     @Autowired
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
-    //联谊会家族字派查询
+    /**
+     *联谊会家族字派查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:20
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
             @RequestParam(value = "showId") String showId, // 家族文化显示位置
@@ -72,7 +80,15 @@ public class FanNewsCultureController {
             }
     }
 
-    //联谊会首页家族字派
+    /**
+     *联谊会首页家族字派
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:20
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value = "/index/getCommonalityIndexPage",method = RequestMethod.GET)
     public Response<StringBuffer> getCommonalityIndexPage(
             @RequestParam(value = "showId") String
@@ -92,7 +108,7 @@ public class FanNewsCultureController {
                 entity.in("status", statusList);
             }
             entity.orderBy("create_time", false);
-            StringBuffer stringBuffer = iFanNewsCultureZipaiService.CommonalityIndex(entity);
+            StringBuffer stringBuffer = iFanNewsCultureZipaiService.commonalityIndex(entity);
             //判断该stringBuffer是否返回为null
             if(stringBuffer==null){
                 //没有取到参数,返回空参
@@ -106,7 +122,15 @@ public class FanNewsCultureController {
         }
     }
 
-    //联谊会家族文化查询
+    /**
+     *联谊会家族文化查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:21
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
             @RequestParam(value = "showId") String showId, // 家族文化显示位置
@@ -120,7 +144,15 @@ public class FanNewsCultureController {
         return getFamilyCultureVoResponse(showId, pageNo, pageSize);
     }
 
-    //联谊会首页家族文化查询
+    /**
+     *联谊会首页家族文化查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:21
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/index/getFamilyIndexCulturePage",method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyIndexCulturePage(
             @RequestParam(value = "showId") String showId, // 家族文化显示位置
@@ -134,7 +166,15 @@ public class FanNewsCultureController {
         return getFamilyCultureVoResponse(showId, pageNo, pageSize);
     }
 
-    //联谊会家族文化详情查询
+    /**
+     *联谊会家族文化详情查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:21
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
             @RequestParam(value = "id") String id // 家族文化文章ID
@@ -148,8 +188,15 @@ public class FanNewsCultureController {
         }
     }
 
-
-    //抽取的家族文化方法
+    /**
+     *抽取的家族文化方法
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:21
+     *@Param:
+     *@return:
+     *@Description:
+    */
     private Response<FamilyCultureVo> getFamilyCultureVoResponse(String showId, Integer pageNo, Integer pageSize) {
         try {
             //状态

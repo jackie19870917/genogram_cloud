@@ -23,6 +23,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *联谊会家族文化增删改查
+ *@Author: yuzhou
+ *@Date: 2018-11-09
+ *@Time: 16:00
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsCulture")
@@ -34,7 +43,15 @@ public class FanNewsCultureController {
     @Autowired
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
-    //联谊会家族字派查询
+    /**
+     *联谊会家族字派查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:18
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
             @RequestParam(value = "showId") String showId, // 家族文化显示位置
@@ -69,7 +86,15 @@ public class FanNewsCultureController {
         }
     }
 
-    //联谊会家族字派进入修改
+    /**
+     *联谊会家族字派进入修改
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:18
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value = "/getZiPaiDetail",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getZiPaiDetail(
             @RequestParam(value = "id") String id // 家族字派文章ID
@@ -83,7 +108,15 @@ public class FanNewsCultureController {
         }
     }
 
-    //联谊会家族字派新增修改
+    /**
+     *联谊会家族字派新增修改
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:19
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value = "/addOrUpdateZiPai",method = RequestMethod.POST)
     public Response<FanNewsCultureZipai> addZiPai(FanNewsCultureZipai fanNewsCultureZipai){
         try {
@@ -110,7 +143,15 @@ public class FanNewsCultureController {
         return null;
     }*/
 
-    //联谊会家族文化查询
+    /**
+     *联谊会家族文化查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:19
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
             @RequestParam(value = "showId") String showId, // 家族文化显示位置
@@ -147,7 +188,15 @@ public class FanNewsCultureController {
     }
     }
 
-    //联谊会家族文化后台详情查询
+    /**
+     *联谊会家族文化后台详情查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:19
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
             @RequestParam(value = "id") String id // 家族文化详情显示位置
@@ -155,7 +204,15 @@ public class FanNewsCultureController {
         return getNewsDetailVoResponse( id);
     }
 
-    //家族文化后台进入修改页面
+    /**
+     *家族文化后台进入修改页面
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:19
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyCultureAmend",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureAmend(
             @RequestParam(value = "id") String id // 家族文化详情显示位置
@@ -163,7 +220,15 @@ public class FanNewsCultureController {
         return getNewsDetailVoResponse(id);
     }
 
-    //家族文化详情修改公共方法
+    /**
+     *家族文化详情修改公共方法
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:20
+     *@Param:
+     *@return:
+     *@Description:
+    */
     private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("id") String id) {
         try {
             NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(Integer.valueOf(id));
@@ -174,7 +239,15 @@ public class FanNewsCultureController {
         }
     }
 
-    // 家族文化后台添加和修改
+    /**
+     *家族文化后台添加和修改
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:20
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
     public Response<FanNewsCultureNews> addNews(FanNewsCultureNews fanNewsCultureNews, String urs) {
         try{

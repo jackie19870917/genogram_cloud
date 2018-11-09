@@ -25,17 +25,32 @@ import java.util.List;
 @Service
 public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZipaiMapper, FanNewsCultureZipai> implements IFanNewsCultureZipaiService {
 
-
-    //联谊会字派查询
+    /**
+     *联谊会字派查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:23
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public Page<FanNewsCultureZipai> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize) {
         Page<FanNewsCultureZipai> fanNewsCultureZipais = this.selectPage(new Page<FanNewsCultureZipai>(pageNo, pageSize), entity);
         return fanNewsCultureZipais;
         }
 
-     // 联谊会首页字派查询
+    /**
+     *联谊会首页字派查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:23
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
-    public StringBuffer CommonalityIndex(Wrapper<FanNewsCultureZipai> entity) {
+    public StringBuffer commonalityIndex(Wrapper<FanNewsCultureZipai> entity) {
 
         //首页字派查询
         List<FanNewsCultureZipai> fanNewsCultureZipais = this.selectList(entity);
@@ -52,14 +67,30 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         return string;
     }
 
-    //联谊会字派后台进入修改页面
+    /**
+     *联谊会字派后台进入修改页面
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:23
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public FanNewsCultureZipai getZiPaiDetail(Integer id) {
         FanNewsCultureZipai fanNewsCultureZipai=this.selectById(id);
         return fanNewsCultureZipai;
     }
 
-    //联谊会字派后台查询
+    /**
+     *联谊会字派后台查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:24
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public boolean addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai) {
         //生成时间
