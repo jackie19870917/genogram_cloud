@@ -22,7 +22,7 @@ public final class Constants {
 	// fastDFS配置文件地址
 	public static final String SITE_FAST_DFS = "E:\\yu\\genealogy\\swocean\\src\\main\\resources\\fastDFS.properties";
 	// fastDFS服务器ip地址
-	public static final String IP_FAST_DFS = "http://192.168.2.132:8090/";
+	public static final String IP_FAST_DFS = "http://192.168.2.132:8050/";
 	//返回状态码 成功
 	public static final Integer SUCCESSFUL_CODE = 200;
 	//返回状态码 失败
