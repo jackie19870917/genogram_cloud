@@ -99,15 +99,13 @@ public class FanNewsIndustryController {
      */
     private Response<FamilyIndustryVo> getFamilyIndustryVoResponse(String showId, String type,  Integer pageNo, Integer pageSize) {
         try {
-            //状态
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList  = new ArrayList();
             statusList.add(1);
             //查询文章信息的条件
             Wrapper<FanNewsIndustry> entity = new EntityWrapper<FanNewsIndustry>();
             entity.eq("show_id", Integer.valueOf(showId));
-            if (statusList.size()!=0){
-                entity.in("status", statusList);
-            }
+            entity.in("status", statusList);
             if(StringUtils.isNotEmpty(type)){
                 entity.eq("type",Integer.valueOf(type));
             }
@@ -139,11 +137,14 @@ public class FanNewsIndustryController {
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         try{
+            NewsDetailVo NewsDetailEmpty=new NewsDetailVo();
+            if(id==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,NewsDetailEmpty);
+            }
             NewsDetailVo newsDetailVo= iFanNewsIndustryService.getFamilyIndustryDetail(id);
             //判断是否返回为空
             if (newsDetailVo==null){
-                NewsDetailVo newsDetail=new NewsDetailVo();
-                return ResponseUtlis.error(Constants.ERRO_CODE,newsDetail);
+                return ResponseUtlis.error(Constants.ERRO_CODE,NewsDetailEmpty);
             }
             return ResponseUtlis.success(newsDetailVo);
         }catch (Exception e) {

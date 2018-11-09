@@ -84,6 +84,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         list.forEach(( news)->{
             FamilyCultureVo familyCultureVo=new FamilyCultureVo();
 
+            //存储新对象
             BeanUtils.copyProperties(news,familyCultureVo);
 
             //判断改图片文章id是否一样
@@ -138,16 +139,21 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
 
         //查出名称
-        AllUserLogin allUserLogin = allUserLoginMapper.selectById(fanNewsCultureNews.getCreateUser());
+        AllUserLogin updateUser = allUserLoginMapper.selectById(fanNewsCultureNews.getUpdateUser());
+        AllUserLogin createUser = allUserLoginMapper.selectById(fanNewsCultureNews.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetail=new NewsDetailVo();
+
+        newsDetail.setUpdateTimeLong(fanNewsCultureNews.getUpdateTime().getTime());
+
         //调用方法封装集合
         BeanUtils.copyProperties(fanNewsCultureNews,newsDetail);
         //存储图片list集合
         newsDetail.setFanNewsUploadFileList(files);
         //存储作者名称
-        newsDetail.setUserName(allUserLogin.getRealName());
+        newsDetail.setCreateUserName(createUser.getRealName());
+        newsDetail.setCreateUserName(updateUser.getRealName());
         return newsDetail;
     }
 
