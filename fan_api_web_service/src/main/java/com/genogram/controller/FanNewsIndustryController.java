@@ -1,13 +1,17 @@
 package com.genogram.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entityvo.FamilyIndustryVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,12 +48,12 @@ public class FanNewsIndustryController {
      */
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "type") Integer type,
+            @RequestParam(value = "showId") String showId,
+            @RequestParam(value = "type") String type,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
-        if(showId==null){
+        if(StringUtils.isEmpty(showId)){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize);
@@ -68,12 +72,12 @@ public class FanNewsIndustryController {
      */
     @RequestMapping(value ="/index/getFamilyIndexIndustryList",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyIndexIndustryList(
-            @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "type") Integer type,
+            @RequestParam(value = "showId") String showId,
+            @RequestParam(value = "type") String type,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
-        if(showId==null){
+        if(StringUtils.isEmpty(showId)){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize);
@@ -93,13 +97,22 @@ public class FanNewsIndustryController {
      * @Description:
      *
      */
-    private Response<FamilyIndustryVo> getFamilyIndustryVoResponse(Integer showId, Integer type,  Integer pageNo, Integer pageSize) {
+    private Response<FamilyIndustryVo> getFamilyIndustryVoResponse(String showId, String type,  Integer pageNo, Integer pageSize) {
         try {
             //状态
-            int status=1;
             List statusList  = new ArrayList();
-            statusList.add(status);
-            Page<FamilyIndustryVo> familyCultureVo = iFanNewsIndustryService.getFamilyIndustryPage(showId, statusList, pageNo, pageSize, type);
+            statusList.add(1);
+            //查询文章信息的条件
+            Wrapper<FanNewsIndustry> entity = new EntityWrapper<FanNewsIndustry>();
+            entity.eq("show_id", Integer.valueOf(showId));
+            if (statusList.size()!=0){
+                entity.in("status", statusList);
+            }
+            if(StringUtils.isNotEmpty(type)){
+                entity.eq("type",Integer.valueOf(type));
+            }
+            entity.orderBy("create_time", false);
+            Page<FamilyIndustryVo> familyCultureVo = iFanNewsIndustryService.getFamilyIndustryPage(entity, pageNo, pageSize);
             if (familyCultureVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyIndustryVo> emptfamilyCultureVo = new Page<FamilyIndustryVo>();
@@ -111,27 +124,14 @@ public class FanNewsIndustryController {
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
-    
-    /**
-     *
-     *@Author: Toxicant
-     *@Date: 2018-11-09
-     *@Time: 10:34
-     *@Param:
-     *@return:
-     *@Description:
-    */
+
+    //联谊会家族产业各个产业的详情
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyIndustryDetail(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         try{
-            //判断showId是否有值
-            if(showId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
-            }
-            NewsDetailVo newsDetailVo= iFanNewsIndustryService.getFamilyIndustryDetail(showId,id);
+            NewsDetailVo newsDetailVo= iFanNewsIndustryService.getFamilyIndustryDetail(id);
             return ResponseUtlis.success(newsDetailVo);
         }catch (Exception e) {
             e.printStackTrace();

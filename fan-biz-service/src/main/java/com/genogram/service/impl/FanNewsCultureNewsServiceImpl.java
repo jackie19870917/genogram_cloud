@@ -50,15 +50,10 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     private IFanNewsUploadFileService iFanNewsUploadFileService;
 
     @Override
-    public Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, List<Integer> status, Integer pageNo, Integer pageSize) {
+    public Page<FamilyCultureVo> getFamilyCulturePage(Wrapper<FanNewsCultureNews> entity, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
         List<FamilyCultureVo> familyCultureVoList=new ArrayList<>();
 
-        //查询文章信息的条件
-        Wrapper<FanNewsCultureNews> entity = new EntityWrapper<FanNewsCultureNews>();
-        entity.eq("show_id", showId);
-        entity.in("status", status);
-        entity.orderBy("create_time", false);
         //分页查询文章主表
         Page<FanNewsCultureNews> fanNewsCultureNews =this.selectPage(new Page<FanNewsCultureNews>(pageNo, pageSize), entity);
 
@@ -76,10 +71,9 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         });
 
         //查询图片
-        // status  1 表示图片为显示状态
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
-        uploadentity.eq("show_id", showId);
-        uploadentity.eq("status", 1);
+        uploadentity.eq("show_id", list.get(0).getShowId());
+        uploadentity.eq("status", 1);  //  1 表示图片为显示状态
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
@@ -88,19 +82,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //遍历主表文章集合,赋值新对象vo
         list.forEach(( news)->{
             FamilyCultureVo familyCultureVo=new FamilyCultureVo();
-//            familyCultureVo.setId(news.getId());
-//            familyCultureVo.setShowId(news.getShowId());
-//            familyCultureVo.setNewsTitle(news.getNewsTitle());
-//            familyCultureVo.setNewsText(news.getNewsText());
-//            familyCultureVo.setVisitNum(news.getVisitNum());
-//            familyCultureVo.setStatus(news.getStatus());
-//            familyCultureVo.setCreateTime(news.getCreateTime());
-//            familyCultureVo.setCreateUser(news.getCreateUser());
-//            familyCultureVo.setUpdateTime(news.getUpdateTime());
-//            familyCultureVo.setUpdateUser(news.getUpdateUser());
 
             BeanUtils.copyProperties(news,familyCultureVo);
-
 
             //判断改图片文章id是否一样
             List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
@@ -130,14 +113,14 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
 
     //联谊会家族文化详情查询
     @Override
-    public NewsDetailVo getFamilyCultureDetail(Integer showId, Integer id) {
+    public NewsDetailVo getFamilyCultureDetail(Integer id) {
 
         //根据Id查出文章详情
         FanNewsCultureNews fanNewsCultureNews=  this.selectById(id);
 
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
-        uploadentity.eq("show_id", showId);
+        uploadentity.eq("show_id", fanNewsCultureNews.getShowId());
         uploadentity.eq("news_id",id);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
@@ -147,16 +130,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetail=new NewsDetailVo();
-        newsDetail.setId(fanNewsCultureNews.getId());
-        newsDetail.setShowId(fanNewsCultureNews.getShowId());
-        newsDetail.setNewsTitle(fanNewsCultureNews.getNewsTitle());
-        newsDetail.setNewsText(fanNewsCultureNews.getNewsText());
-        newsDetail.setVisitNum(fanNewsCultureNews.getVisitNum());
-        newsDetail.setStatus(fanNewsCultureNews.getStatus());
-        newsDetail.setCreateTime(fanNewsCultureNews.getCreateTime());
-        newsDetail.setCreateUser(fanNewsCultureNews.getCreateUser());
-        newsDetail.setUpdateTime(fanNewsCultureNews.getUpdateTime());
-        newsDetail.setUpdateUser(fanNewsCultureNews.getUpdateUser());
+        //调用方法封装集合
+        BeanUtils.copyProperties(fanNewsCultureNews,newsDetail);
         //存储图片list集合
         newsDetail.setFanNewsUploadFileList(files);
         //存储作者名称
@@ -166,7 +141,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
 
     //家族文化后台添加
     @Override
-    public boolean addNews(FanNewsCultureNews fanNewsCultureNews,List<MultipartFile> pictures) {
+    public boolean addNews(FanNewsCultureNews fanNewsCultureNews,String usrs) {
         /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
         //生成时间
         Timestamp format = DateUtil.format(new Date());

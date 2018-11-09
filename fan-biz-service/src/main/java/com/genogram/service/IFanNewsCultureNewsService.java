@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCultureNews;
 import com.baomidou.mybatisplus.service.IService;
@@ -22,27 +23,25 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
 
     /**
      *联谊会家族文化查询
-     * @param showId 显示位置Id
-     * @param status 状态
+     * @param entity 查询条件
      * @param pageNo 当前页
      * @param pageSize 每页显示条数
      * @return
      */
-    Page<FamilyCultureVo> getFamilyCulturePage(Integer showId, List<Integer> status, Integer pageNo, Integer pageSize);
+    Page<FamilyCultureVo> getFamilyCulturePage(Wrapper<FanNewsCultureNews> entity, Integer pageNo, Integer pageSize);
 
     /**
      *联谊会家族文化详情查询
-     * @param showId   显示位置Id
      * @param id  文章ID
      * @return
      */
-    NewsDetailVo getFamilyCultureDetail(Integer showId, Integer id);
+    NewsDetailVo getFamilyCultureDetail(Integer id);
 
     /**
      * 家族文化后台添加
      * @param fanNewsCultureNews  家族文化上传实体类
-     * @param pictures  上传的图片的List
+     * @param urs  上传的图片的字符串
      * @return
      */
-    boolean addNews(FanNewsCultureNews fanNewsCultureNews,List<MultipartFile> pictures) throws Exception;
+    boolean addNews(FanNewsCultureNews fanNewsCultureNews,String urs) throws Exception;
 }

@@ -18,8 +18,6 @@ public class FamilyCultureVo{
     private List<FanNewsUploadFile> fanNewsUploadFileList;
 
 
-
-
     /**
      * 编号
      */

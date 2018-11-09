@@ -14,6 +14,7 @@ import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsIndustryService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,25 +43,18 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
 
     /**
      *联谊会家族产业查询
-     * @param showId 显示位置Id
-     * @param status 状态
+     * @param entity 分页查询产业文章主表查询条件
      * @param pageNo 当前页
      * @param pageSize 每页显示条数
-     * @param type 每页显示条数
      * @return
      *
      */
     @Override
-    public Page<FamilyIndustryVo> getFamilyIndustryPage(Integer showId, List<Integer> status, Integer pageNo, Integer pageSize,Integer type) {
+    public Page<FamilyIndustryVo> getFamilyIndustryPage(Wrapper<FanNewsIndustry> entity, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
         List<FamilyIndustryVo> familyIndustryVoList=new ArrayList<>();
 
-        //查询文章信息的条件
-        Wrapper<FanNewsIndustry> entity = new EntityWrapper<FanNewsIndustry>();
-        entity.eq("show_id", showId);
-        entity.in("status", status);
-        entity.eq("type",type);
-        entity.orderBy("create_time", false);
+
         //分页查询产业文章主表
         Page<FanNewsIndustry> fanNewsCultureNews =this.selectPage(new Page<FanNewsIndustry>(pageNo, pageSize), entity);
 
@@ -78,10 +72,9 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         });
 
         //查询图片
-        //  status   1 表示图片为显示状态
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
-        uploadentity.eq("show_id", showId);
-        uploadentity.eq("status", 1);
+        uploadentity.eq("show_id", list.get(0).getShowId());
+        uploadentity.eq("status", 1); //  1 表示图片为显示状态
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
@@ -89,18 +82,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //遍历主表文章集合,赋值新对象vo
         list.forEach(( news)->{
             FamilyIndustryVo familyIndustryVo=new FamilyIndustryVo();
-            familyIndustryVo.setId(news.getId());
-            familyIndustryVo.setShowId(news.getShowId());
-            familyIndustryVo.setNewsTitle(news.getNewsTitle());
-            familyIndustryVo.setNewsText(news.getNewsText());
-            familyIndustryVo.setVisitNum(news.getVisitNum());
-            familyIndustryVo.setStatus(news.getStatus());
-            familyIndustryVo.setCreateTime(news.getCreateTime());
-            familyIndustryVo.setCreateUser(news.getCreateUser());
-            familyIndustryVo.setUpdateTime(news.getUpdateTime());
-            familyIndustryVo.setUpdateUser(news.getUpdateUser());
-
-
+            //调用方法封装集合
+            BeanUtils.copyProperties(news,familyIndustryVo);
             //判断改图片文章id是否一样
             List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
 
@@ -128,13 +111,13 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
 
     //联谊会家族产业各个产业的详情
     @Override
-    public NewsDetailVo getFamilyIndustryDetail(Integer showId, Integer id) {
+    public NewsDetailVo getFamilyIndustryDetail(Integer id) {
         //根据Id查出产业详情
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
 
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
-        uploadentity.eq("show_id", showId);
+        uploadentity.eq("show_id", fanNewsIndustry.getShowId());
         uploadentity.eq("news_id",id);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
@@ -144,16 +127,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetail=new NewsDetailVo();
-        newsDetail.setId(fanNewsIndustry.getId());
-        newsDetail.setShowId(fanNewsIndustry.getShowId());
-        newsDetail.setNewsTitle(fanNewsIndustry.getNewsTitle());
-        newsDetail.setNewsText(fanNewsIndustry.getNewsText());
-        newsDetail.setVisitNum(fanNewsIndustry.getVisitNum());
-        newsDetail.setStatus(fanNewsIndustry.getStatus());
-        newsDetail.setCreateTime(fanNewsIndustry.getCreateTime());
-        newsDetail.setCreateUser(fanNewsIndustry.getCreateUser());
-        newsDetail.setUpdateTime(fanNewsIndustry.getUpdateTime());
-        newsDetail.setUpdateUser(fanNewsIndustry.getUpdateUser());
+        //调用方法封装集合
+        BeanUtils.copyProperties(fanNewsIndustry,newsDetail);
         //存储图片list集合
         newsDetail.setFanNewsUploadFileList(files);
         //存储作者名称
@@ -164,8 +139,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
 
     //联谊会家族产业后台新增
     @Override
-    public boolean addNews(FanNewsIndustry fanNewsIndustry, List<MultipartFile> pictures) {
-        /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
+    public boolean addNews(FanNewsIndustry fanNewsIndustry, String urls) {
         //生成时间
         Timestamp format = DateUtil.format(new Date());
         if(fanNewsIndustry.getId()==null){
@@ -175,12 +149,10 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             //存入修改时间
             fanNewsIndustry.setUpdateTime(format);
         }
-        //插入数据
-        boolean insert = this.insert(fanNewsIndustry);
-        //存储图片
-/*        if(insert){
+/*        //存储图片
+        if(insert){
             iFanNewsUploadFileService.storagePicture(fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId(),pictures);
         }*/
-        return insert;
+        return this.insert(fanNewsIndustry);
     }
 }

@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.baomidou.mybatisplus.service.IService;
@@ -18,21 +19,19 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
 
     /**
      * 联谊会字派查询
-     * @param showId 显示位置Id
-     * @param status 状态
+     * @param entity 查询条件
      * @param pageNo 当前页
      * @param pageSize 每页显示条数
      * @return
      */
-    Page<FanNewsCultureZipai> commonality(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FanNewsCultureZipai> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
 
     /**
      *联谊会首页字派查询
-     * @param showId 显示位置Id
-     * @param status 状态
+     * @param entity 查询条件
      * @return
      */
-    StringBuffer commonalityIndex(Integer showId, Integer status);
+    StringBuffer CommonalityIndex(Wrapper<FanNewsCultureZipai> entity);
 
     /**
      *联谊会字派后台进入修改页面

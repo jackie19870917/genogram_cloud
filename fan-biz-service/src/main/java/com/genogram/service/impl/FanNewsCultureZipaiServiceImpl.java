@@ -3,14 +3,11 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.mapper.FanNewsCultureZipaiMapper;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
-import org.apache.ibatis.session.RowBounds;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -31,28 +28,23 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
 
     //联谊会字派查询
     @Override
-    public Page<FanNewsCultureZipai> commonality(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
-            Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
-            entity.eq("show_id", showId);
-            entity.eq("status", status);
-            entity.orderBy("create_time", false);
+    public Page<FanNewsCultureZipai> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize) {
         Page<FanNewsCultureZipai> fanNewsCultureZipais = this.selectPage(new Page<FanNewsCultureZipai>(pageNo, pageSize), entity);
         return fanNewsCultureZipais;
         }
 
      // 联谊会首页字派查询
     @Override
-    public StringBuffer commonalityIndex(Integer showId, Integer status) {
-        Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
-        entity.eq("show_id", showId);
-        entity.eq("status", status);
-        entity.orderBy("create_time", false);
+    public StringBuffer CommonalityIndex(Wrapper<FanNewsCultureZipai> entity) {
+
+        //首页字派查询
         List<FanNewsCultureZipai> fanNewsCultureZipais = this.selectList(entity);
         if (fanNewsCultureZipais.size()==0){
             return null;
         }
         StringBuffer string=new StringBuffer();
         fanNewsCultureZipais.forEach(( data)->{
+
             string.append(data.getZipaiTxt()+",");
         });
         //删除最后一个字符
@@ -81,9 +73,7 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
             fanNewsCultureZipai.setUpdateTime(format);
             fanNewsCultureZipai.setUpdateUser(null);
         }
-
-        boolean result = this.insertOrUpdate(fanNewsCultureZipai);
-        return result;
+        return this.insertOrUpdate(fanNewsCultureZipai);
     }
 
 }

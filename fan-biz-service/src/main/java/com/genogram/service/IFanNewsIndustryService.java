@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsIndustry;
 import com.baomidou.mybatisplus.service.IService;
@@ -21,28 +22,25 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
 
     /**
      *联谊会家族产业查询
-     * @param showId 显示位置Id
-     * @param status 状态
+     * @param entity 查询条件
      * @param pageNo 当前页
      * @param pageSize 每页显示条数
-     * @param type 每页显示条数
      * @return
      */
-    Page<FamilyIndustryVo> getFamilyIndustryPage(Integer showId, List<Integer> status, Integer pageNo, Integer pageSize, Integer type);
+    Page<FamilyIndustryVo> getFamilyIndustryPage(Wrapper<FanNewsIndustry> entity, Integer pageNo, Integer pageSize);
 
     /**
      * 联谊会家族产业各个产业的详情
-     * @param showId  显示位置Id
      * @param id  主键
      * @return
      */
-    NewsDetailVo getFamilyIndustryDetail(Integer showId, Integer id);
+    NewsDetailVo getFamilyIndustryDetail(Integer id);
 
     /**
      * 联谊会家族产业后台新增
      * @param fanNewsIndustry  家族产业上传实体类
-     * @param pictures  上传的图片的List
+     * @param urls  上传的图片的字符串
      * @return
      */
-    boolean addNews(FanNewsIndustry fanNewsIndustry, List<MultipartFile> pictures);
+    boolean addNews(FanNewsIndustry fanNewsIndustry, String urls);
 }

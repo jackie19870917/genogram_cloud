@@ -1,5 +1,7 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsCultureNews;
@@ -10,13 +12,16 @@ import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.management.ValueExp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -32,18 +37,26 @@ public class FanNewsCultureController {
     //联谊会家族字派查询
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "showId") String showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try {
             //判断showId是否有值
-            if(showId==null){
+            if(StringUtils.isEmpty(showId)){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态
-            Integer status=1;
-            Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(showId, status, pageNo, pageSize);
+            List statusList  = new ArrayList();
+            statusList.add(1);
+            //查询条件
+            Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
+                entity.eq("show_id", Integer.valueOf(showId));
+            if(statusList.size()!=0){
+                entity.in("status", statusList);
+            }
+            entity.orderBy("create_time", false);
+            Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if(fanNewsCultureZipai==null){
                 //没有取到参数,返回空参
                 Page<FanNewsCultureZipai> emptfanNewsCultureZipai = new Page<FanNewsCultureZipai>();
@@ -59,10 +72,10 @@ public class FanNewsCultureController {
     //联谊会家族字派进入修改
     @RequestMapping(value = "/getZiPaiDetail",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getZiPaiDetail(
-            @RequestParam(value = "id") Integer id // 家族字派文章ID
+            @RequestParam(value = "id") String id // 家族字派文章ID
     ){
         try {
-            FanNewsCultureZipai fanNewsCultureZipai=iFanNewsCultureZipaiService.getZiPaiDetail(id);
+            FanNewsCultureZipai fanNewsCultureZipai=iFanNewsCultureZipaiService.getZiPaiDetail(Integer.valueOf(id));
             return ResponseUtlis.success(fanNewsCultureZipai);
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,23 +113,28 @@ public class FanNewsCultureController {
     //联谊会家族文化查询
     @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "showId") String showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try{
         //判断showId是否有值
-        if(showId==null){
+        if(StringUtils.isEmpty(showId)){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
-        //状态 1代表发表   2代表草稿
-        int status1=1;
-        int status2=2;
-
+        //状态
         List statusList  = new ArrayList();
-        statusList.add(status1);
-        statusList.add(status2);
-        Page<FamilyCultureVo> familyCultureVoList = iFanNewsCultureNewsService.getFamilyCulturePage(showId, statusList, pageNo, pageSize);
+        statusList.add(1);
+        statusList.add(2);
+
+        //查询文章信息的条件
+        Wrapper<FanNewsCultureNews> entity = new EntityWrapper<FanNewsCultureNews>();
+        entity.eq("show_id", Integer.valueOf(showId));
+        if (statusList.size()!=0){
+            entity.in("status", statusList);
+        }
+        entity.orderBy("create_time", false);
+        Page<FamilyCultureVo> familyCultureVoList = iFanNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
         if (familyCultureVoList == null) {
             //没有取到参数,返回空参
             Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
@@ -132,29 +150,23 @@ public class FanNewsCultureController {
     //联谊会家族文化后台详情查询
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") String id // 家族文化详情显示位置
     ) {
-        return getNewsDetailVoResponse(showId, id);
+        return getNewsDetailVoResponse( id);
     }
 
     //家族文化后台进入修改页面
     @RequestMapping(value ="/getFamilyCultureAmend",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureAmend(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") String id // 家族文化详情显示位置
     ) {
-        return getNewsDetailVoResponse(showId, id);
+        return getNewsDetailVoResponse(id);
     }
 
     //家族文化详情修改公共方法
-    private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("showId") Integer showId, @RequestParam("id") Integer id) {
+    private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("id") String id) {
         try {
-            //判断showId是否有值
-            if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
-            }
-            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(showId, id);
+            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(Integer.valueOf(id));
             return ResponseUtlis.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,11 +175,11 @@ public class FanNewsCultureController {
     }
 
     // 家族文化后台添加和修改
-    @RequestMapping(value = "/addNews", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addNews(FanNewsCultureNews fanNewsCultureNews, List<MultipartFile> pictures) {
+    @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
+    public Response<FanNewsCultureNews> addNews(FanNewsCultureNews fanNewsCultureNews, String urs) {
         try{
             // 插入数据
-            boolean insert = iFanNewsCultureNewsService.addNews(fanNewsCultureNews,pictures);
+            boolean insert = iFanNewsCultureNewsService.addNews(fanNewsCultureNews,urs);
             if( ! insert){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
