@@ -82,7 +82,7 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
             //判断改文章id是否一样
             List<FanNewsUploadVedio> FanNewsUploadVedio=new ArrayList<>();
             files.forEach(( data)->{
-                if(news.getId()==data.getNewsId()){
+                if(news.getId().equals(data.getNewsId())){
                     FanNewsUploadVedio.add(data);
                 }
             });

@@ -207,7 +207,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         String showId="";
 
         //家族字派
-        if(menuType.equals("index_zipai")){
+        if("index_zipai".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 8);
@@ -217,7 +217,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
 
 
         //家族文化-家族祠堂
-        if(menuType.equals("index_family_culture")){
+        if("index_family_culture".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 9);
@@ -226,7 +226,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         }
 
         //家族产业-公共产业
-        if(menuType.equals("index_industry_public")){
+        if("index_industry_public".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 17);
@@ -235,7 +235,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         }
 
         //家族产业-个人产业
-        if(menuType.equals("index_industry_person")){
+        if("index_industry_person".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 18);
@@ -244,7 +244,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         }
 
         //慈善公益基金-个人捐款
-        if(menuType.equals("index_architecture_pay_in_person_1") || menuType.equals("index_architecture_pay_in_person_2") ||menuType.equals("index_architecture_pay_in_person_3")){
+        if("index_architecture_pay_in_person_1".equals(menuType) || "index_architecture_pay_in_person_2".equals(menuType) || "index_architecture_pay_in_person_3".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 16);
@@ -253,7 +253,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         }
 
         //慈善公益-支出公开-
-        if(menuType.equals("index_charity_pay_out") ||  menuType.equals("index_charity_pay_out_3")){
+        if("index_charity_pay_out".equals(menuType) || "index_charity_pay_out_3".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 14);
@@ -262,7 +262,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         }
 
         //慈善公益-收益公开
-        if(menuType.equals("index_architecture_pay_in")){
+        if("index_architecture_pay_in".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 15);
@@ -271,7 +271,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         }
 
         //家族动态-家族动态
-        if(menuType.equals("index_family_record1")){
+        if("index_family_record1".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 21);
@@ -280,7 +280,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         }
 
         //家族动态-县级公告
-        if(menuType.equals("index_family_record2")){
+        if("index_family_record2".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 22);

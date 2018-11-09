@@ -62,26 +62,28 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
 
     //联谊会字派后台进入修改页面
     @Override
-    public FanNewsCultureZipai updataZiPai(Integer id) {
+    public FanNewsCultureZipai getZiPaiDetail(Integer id) {
         FanNewsCultureZipai fanNewsCultureZipai=this.selectById(id);
         return fanNewsCultureZipai;
     }
 
     //联谊会字派后台查询
     @Override
-    public boolean addZiPai(FanNewsCultureZipai fanNewsCultureZipai) {
+    public boolean addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai) {
         //生成时间
         Timestamp format = DateUtil.format(new Date());
         if(fanNewsCultureZipai.getId()==null){
+            fanNewsCultureZipai.setCreateUser(null);
             //存入创建时间
             fanNewsCultureZipai.setCreateTime(format);
         }else{
             //存入修改时间
             fanNewsCultureZipai.setUpdateTime(format);
+            fanNewsCultureZipai.setUpdateUser(null);
         }
 
-        boolean insert = this.insertOrUpdate(fanNewsCultureZipai);
-        return insert;
+        boolean result = this.insertOrUpdate(fanNewsCultureZipai);
+        return result;
     }
 
 }

@@ -85,7 +85,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
             List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
 
             files.forEach(( data)->{
-                if(news.getId()==data.getNewsId()){
+                if(news.getId().equals(data.getNewsId())){
                     fanNewsUploadFile.add(data);
                 }
             });

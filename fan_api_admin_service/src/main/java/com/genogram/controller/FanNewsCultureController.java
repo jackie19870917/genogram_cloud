@@ -57,12 +57,12 @@ public class FanNewsCultureController {
     }
 
     //联谊会家族字派进入修改
-    @RequestMapping(value = "/updataZiPai",method = RequestMethod.GET)
-    public Response<FanNewsCultureZipai> updataZiPai(
+    @RequestMapping(value = "/getZiPaiDetail",method = RequestMethod.GET)
+    public Response<FanNewsCultureZipai> getZiPaiDetail(
             @RequestParam(value = "id") Integer id // 家族字派文章ID
     ){
         try {
-            FanNewsCultureZipai fanNewsCultureZipai=iFanNewsCultureZipaiService.updataZiPai(id);
+            FanNewsCultureZipai fanNewsCultureZipai=iFanNewsCultureZipaiService.getZiPaiDetail(id);
             return ResponseUtlis.success(fanNewsCultureZipai);
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,11 +71,11 @@ public class FanNewsCultureController {
     }
 
     //联谊会家族字派新增修改
-    @RequestMapping(value = "/addZiPai",method = RequestMethod.POST)
+    @RequestMapping(value = "/addOrUpdateZiPai",method = RequestMethod.POST)
     public Response<FanNewsCultureZipai> addZiPai(FanNewsCultureZipai fanNewsCultureZipai){
         try {
-            boolean insert=iFanNewsCultureZipaiService.addZiPai(fanNewsCultureZipai);
-            if( ! insert){
+            boolean result=iFanNewsCultureZipaiService.addOrUpdateZiPai(fanNewsCultureZipai);
+            if( ! result){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
@@ -112,6 +112,7 @@ public class FanNewsCultureController {
         //状态
         int status1=1; //  1代表发表
         int status2=2; //   2代表草稿
+
         List statusList  = new ArrayList();
         statusList.add(status1);
         statusList.add(status2);

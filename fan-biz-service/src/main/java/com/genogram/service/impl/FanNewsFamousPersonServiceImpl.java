@@ -84,7 +84,7 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
             List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
 
             files.forEach(( data)->{
-                if(news.getId()==data.getNewsId()){
+                if(news.getId().equals(data.getNewsId())){
                     fanNewsUploadFile.add(data);
                 }
             });

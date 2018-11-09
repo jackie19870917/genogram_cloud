@@ -36,16 +36,15 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
 
     /**
      *联谊会字派后台进入修改页面
-     * @param showId 显示位置Id
      * @param id 状态
      */
-    FanNewsCultureZipai updataZiPai(Integer id);
+    FanNewsCultureZipai getZiPaiDetail(Integer id);
 
     /**
      * 联谊会字派后台新增
      * @param fanNewsCultureZipai
      * @return
      */
-    boolean addZiPai(FanNewsCultureZipai fanNewsCultureZipai);
+    boolean addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai);
 
 }

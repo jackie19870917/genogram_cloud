@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -86,23 +87,25 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //遍历主表文章集合,赋值新对象vo
         list.forEach(( news)->{
             FamilyCultureVo familyCultureVo=new FamilyCultureVo();
-            familyCultureVo.setId(news.getId());
-            familyCultureVo.setShowId(news.getShowId());
-            familyCultureVo.setNewsTitle(news.getNewsTitle());
-            familyCultureVo.setNewsText(news.getNewsText());
-            familyCultureVo.setVisitNum(news.getVisitNum());
-            familyCultureVo.setStatus(news.getStatus());
-            familyCultureVo.setCreateTime(news.getCreateTime());
-            familyCultureVo.setCreateUser(news.getCreateUser());
-            familyCultureVo.setUpdateTime(news.getUpdateTime());
-            familyCultureVo.setUpdateUser(news.getUpdateUser());
+//            familyCultureVo.setId(news.getId());
+//            familyCultureVo.setShowId(news.getShowId());
+//            familyCultureVo.setNewsTitle(news.getNewsTitle());
+//            familyCultureVo.setNewsText(news.getNewsText());
+//            familyCultureVo.setVisitNum(news.getVisitNum());
+//            familyCultureVo.setStatus(news.getStatus());
+//            familyCultureVo.setCreateTime(news.getCreateTime());
+//            familyCultureVo.setCreateUser(news.getCreateUser());
+//            familyCultureVo.setUpdateTime(news.getUpdateTime());
+//            familyCultureVo.setUpdateUser(news.getUpdateUser());
+
+            BeanUtils.copyProperties(news,familyCultureVo);
 
 
             //判断改图片文章id是否一样
             List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
 
             files.forEach(( data)->{
-                if(news.getId()==data.getNewsId()){
+                if(news.getId().equals(data.getNewsId())){
                     fanNewsUploadFile.add(data);
                 }
             });
