@@ -32,7 +32,7 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      * @param status 状态
      * @return
      */
-    StringBuffer CommonalityIndex(Integer showId, Integer status);
+    StringBuffer commonalityIndex(Integer showId, Integer status);
 
     /**
      *联谊会字派后台进入修改页面

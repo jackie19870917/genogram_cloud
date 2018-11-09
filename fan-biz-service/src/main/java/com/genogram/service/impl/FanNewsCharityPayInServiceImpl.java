@@ -39,7 +39,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
     @Override
     public List<DonorVo> getDonorVoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
-        Map map = new HashMap();
+        Map map = new HashMap(16);
         map.put("showId", showId);
         map.put("status", status);
         map.put("pageNo", pageNo-1);

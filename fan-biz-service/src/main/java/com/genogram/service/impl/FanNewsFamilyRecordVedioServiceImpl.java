@@ -35,6 +35,7 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
     @Autowired
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
 
+    @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
     @Override
     public Page<FamilyRecordVedioVo> getFamilyVeidoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
@@ -80,14 +81,14 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
             familyRecordVedioVo.setUpdateUser(news.getUpdateUser());
 
             //判断改文章id是否一样
-            List<FanNewsUploadVedio> FanNewsUploadVedio=new ArrayList<>();
+            List<FanNewsUploadVedio> fanNewsUploadVedio=new ArrayList<>();
             files.forEach(( data)->{
                 if(news.getId().equals(data.getNewsId())){
-                    FanNewsUploadVedio.add(data);
+                    fanNewsUploadVedio.add(data);
                 }
             });
             //存储视频list集合
-            familyRecordVedioVo.setFanUploadVedioList(FanNewsUploadVedio);
+            familyRecordVedioVo.setFanUploadVedioList(fanNewsUploadVedio);
             //存储到新的集合中
             familyRecordVedioVoList.add(familyRecordVedioVo);
         });

@@ -42,7 +42,7 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
 
      // 联谊会首页字派查询
     @Override
-    public StringBuffer CommonalityIndex(Integer showId, Integer status) {
+    public StringBuffer commonalityIndex(Integer showId, Integer status) {
         Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
         entity.eq("show_id", showId);
         entity.eq("status", status);

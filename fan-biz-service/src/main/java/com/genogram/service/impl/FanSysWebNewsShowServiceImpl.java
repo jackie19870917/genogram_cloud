@@ -69,7 +69,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
 
         volist.forEach((a)->{
             if(a.getTreeNum()==1){
-                Map map = new HashMap<>();
+                Map map = new HashMap<>(16);
                 List<FanSysWebMenuVo> child = new ArrayList<>();
                //for
                 volist.forEach((b)->{

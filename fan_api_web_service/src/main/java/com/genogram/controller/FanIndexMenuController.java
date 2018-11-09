@@ -40,7 +40,7 @@ public class FanIndexMenuController {
             indexMenusMap.put(index.getMenuType(),index);
         });
 
-        Map map = new HashMap();
+        Map map = new HashMap(16);
         map.put("index_show",indexMenusMap);
         map.put("menu_show",list);
         //单表查询list

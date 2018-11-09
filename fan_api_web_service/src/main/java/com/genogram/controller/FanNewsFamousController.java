@@ -29,7 +29,7 @@ public class FanNewsFamousController {
      */
     @ResponseBody
     @RequestMapping(value = "selectPerson",method = RequestMethod.GET)
-    public Response<FanNewsFamousPerson> SelectPerson(
+    public Response<FanNewsFamousPerson> selectPerson(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
@@ -53,7 +53,7 @@ public class FanNewsFamousController {
      */
     @ResponseBody
     @RequestMapping(value = "selectFramework",method = RequestMethod.GET)
-    public Response<FanNewsFamousPerson> SelectFramework(
+    public Response<FanNewsFamousPerson> selectFramework(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
