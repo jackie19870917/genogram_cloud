@@ -14,12 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.management.ValueExp;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/genogram/admin/fanNewsCulture/")
+@RequestMapping("/genogram/admin/fanNewsCulture")
 public class FanNewsCultureController {
 
     @Autowired
@@ -55,12 +56,26 @@ public class FanNewsCultureController {
         }
     }
 
-    //联谊会家族字派新增
-    @RequestMapping(value = "/addZiPai",method = RequestMethod.GET)
+    //联谊会家族字派进入修改
+    @RequestMapping(value = "/updataZiPai",method = RequestMethod.GET)
+    public Response<FanNewsCultureZipai> updataZiPai(
+            @RequestParam(value = "id") Integer id // 家族字派文章ID
+    ){
+        try {
+            FanNewsCultureZipai fanNewsCultureZipai=iFanNewsCultureZipaiService.updataZiPai(id);
+            return ResponseUtlis.success(fanNewsCultureZipai);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    //联谊会家族字派新增修改
+    @RequestMapping(value = "/addZiPai",method = RequestMethod.POST)
     public Response<FanNewsCultureZipai> addZiPai(FanNewsCultureZipai fanNewsCultureZipai){
         try {
-            Integer insert=iFanNewsCultureZipaiService.addZiPai(fanNewsCultureZipai);
-            if(insert==null){
+            boolean insert=iFanNewsCultureZipaiService.addZiPai(fanNewsCultureZipai);
+            if( ! insert){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
@@ -113,31 +128,48 @@ public class FanNewsCultureController {
     }
     }
 
-    //联谊会家族文化详情查询
+    //联谊会家族文化后台详情查询
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
-        try{
+        return getNewsDetailVoResponse(showId, id);
+    }
+
+    //家族文化后台进入修改页面
+    @RequestMapping(value ="/getFamilyCultureAmend",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyCultureAmend(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+    ) {
+        return getNewsDetailVoResponse(showId, id);
+    }
+
+    //家族文化详情修改公共方法
+    private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("showId") Integer showId, @RequestParam("id") Integer id) {
+        try {
             //判断showId是否有值
-            if(showId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            if (showId == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            NewsDetailVo newsDetailVo= iFanNewsCultureNewsService.getFamilyCultureDetail(showId,id);
+            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(showId, id);
             return ResponseUtlis.success(newsDetailVo);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
-    // 家族文化后台添加
+    // 家族文化后台添加和修改
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
     public Response<FanNewsCultureNews> addNews(FanNewsCultureNews fanNewsCultureNews, List<MultipartFile> pictures) {
         try{
             // 插入数据
-            boolean b = iFanNewsCultureNewsService.addNews(fanNewsCultureNews,pictures);
+            boolean insert = iFanNewsCultureNewsService.addNews(fanNewsCultureNews,pictures);
+            if( ! insert){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
                 return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
             //插入图片
         } catch (Exception e) {

@@ -166,8 +166,13 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
         //生成时间
         Timestamp format = DateUtil.format(new Date());
-        //存入创建时间
-        fanNewsCultureNews.setCreateTime(format);
+        if(fanNewsCultureNews.getId()==null){
+            //存入创建时间
+            fanNewsCultureNews.setCreateTime(format);
+        }else{
+            //存入修改时间
+            fanNewsCultureNews.setUpdateTime(format);
+        }
         //插入数据
         boolean insert = this.insert(fanNewsCultureNews);
         //存储图片

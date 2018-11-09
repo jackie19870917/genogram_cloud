@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entityvo.FamilyIndustryVo;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -53,7 +54,40 @@ public class FanNewsIndustryController {
         }
     }
 
-    // 联谊会家族产业后台添加
+    //联谊会家族产业各个产业的详情
+    @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyIndustryDetail(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+    ) {
+        return getNewsDetailVoResponse(showId, id);
+    }
+
+    //联谊会家族产业各个产业的详情
+    @RequestMapping(value ="/getFamilyIndustryAmend",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyIndustryAmend(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+    ) {
+        return getNewsDetailVoResponse(showId, id);
+    }
+
+    //联谊会家族产业各个产业文章进入修改页面
+    private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("showId") Integer showId, @RequestParam("id") Integer id) {
+        try {
+            //判断showId是否有值
+            if (showId == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            }
+            NewsDetailVo newsDetailVo = iFanNewsIndustryService.getFamilyIndustryDetail(showId, id);
+            return ResponseUtlis.success(newsDetailVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    // 联谊会家族产业后台添加和修改
     @RequestMapping(value = "/addNews", method = RequestMethod.POST)
     public Response<FanNewsIndustry> addNews(FanNewsIndustry fanNewsIndustry, List<MultipartFile> pictures) {
         try{

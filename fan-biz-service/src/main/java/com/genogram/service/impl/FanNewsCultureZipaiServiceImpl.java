@@ -28,8 +28,6 @@ import java.util.List;
 @Service
 public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZipaiMapper, FanNewsCultureZipai> implements IFanNewsCultureZipaiService {
 
-    @Autowired
-    private FanNewsCultureZipaiMapper fanNewsCultureZipaiMapper;
 
     //联谊会字派查询
     @Override
@@ -62,14 +60,27 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         return string;
     }
 
+    //联谊会字派后台进入修改页面
+    @Override
+    public FanNewsCultureZipai updataZiPai(Integer id) {
+        FanNewsCultureZipai fanNewsCultureZipai=this.selectById(id);
+        return fanNewsCultureZipai;
+    }
+
     //联谊会字派后台查询
     @Override
-    public Integer addZiPai(FanNewsCultureZipai fanNewsCultureZipai) {
+    public boolean addZiPai(FanNewsCultureZipai fanNewsCultureZipai) {
         //生成时间
         Timestamp format = DateUtil.format(new Date());
-        //存入创建时间
-        fanNewsCultureZipai.setCreateTime(format);
-        Integer insert = fanNewsCultureZipaiMapper.insert(fanNewsCultureZipai);
+        if(fanNewsCultureZipai.getId()==null){
+            //存入创建时间
+            fanNewsCultureZipai.setCreateTime(format);
+        }else{
+            //存入修改时间
+            fanNewsCultureZipai.setUpdateTime(format);
+        }
+
+        boolean insert = this.insertOrUpdate(fanNewsCultureZipai);
         return insert;
     }
 

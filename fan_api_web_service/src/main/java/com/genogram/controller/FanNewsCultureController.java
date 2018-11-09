@@ -118,7 +118,7 @@ public class FanNewsCultureController {
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id // 家族文化文章ID
     ) {
         try{
             //判断showId是否有值

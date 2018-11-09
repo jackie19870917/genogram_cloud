@@ -167,8 +167,13 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
         //生成时间
         Timestamp format = DateUtil.format(new Date());
-        //存入创建时间
-        fanNewsIndustry.setCreateTime(format);
+        if(fanNewsIndustry.getId()==null){
+            //存入创建时间
+            fanNewsIndustry.setCreateTime(format);
+        }else{
+            //存入修改时间
+            fanNewsIndustry.setUpdateTime(format);
+        }
         //插入数据
         boolean insert = this.insert(fanNewsIndustry);
         //存储图片
