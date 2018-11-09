@@ -108,7 +108,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
             //判断改图片文章id是否一样
             fanNewsUploadFileList.forEach((data) -> {
-                if (fanNewsCharityOuts.getId() == data.getNewsId()) {
+                if (fanNewsCharityOuts.getId() .equals(data.getId())) {
                     fanNewsUploadFile.add(data);
 
                 }

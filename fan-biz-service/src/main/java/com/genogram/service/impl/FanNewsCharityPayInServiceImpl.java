@@ -35,7 +35,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     private FanNewsCharityPayInMapper fanNewsCharityPayInMapper;
 
     @Autowired
-    private AllUserLoginMapper AllUserLoginMapper;
+    private AllUserLoginMapper allUserLoginMapper;
 
     @Override
     public List<DonorVo> getDonorVoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
@@ -55,12 +55,12 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
         Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
         entity.in("id", list);
 
-        List<AllUserLogin> allUserLoginList = AllUserLoginMapper.selectList(entity);
+        List<AllUserLogin> allUserLoginList = allUserLoginMapper.selectList(entity);
 
         list = new ArrayList();
         for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
             for (AllUserLogin allUserLogin : allUserLoginList) {
-                if (allUserLogin.getId() == fanNewsCharityPayIn.getPayUsrId()) {
+                if (allUserLogin.getId() .equals( fanNewsCharityPayIn.getPayUsrId())) {
                     DonorVo donorVo = new DonorVo();
                     donorVo.setAllUserLogin(allUserLogin);
                     donorVo.setFanNewsCharityPayIn(fanNewsCharityPayIn);
@@ -91,12 +91,12 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
         Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
         entity.in("id", list);
 
-        List<AllUserLogin> allUserLoginList = AllUserLoginMapper.selectList(entity);
+        List<AllUserLogin> allUserLoginList = allUserLoginMapper.selectList(entity);
 
         list = new ArrayList();
         for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
             for (AllUserLogin allUserLogin : allUserLoginList) {
-                if (allUserLogin.getId() == fanNewsCharityPayIn.getPayUsrId()) {
+                if (allUserLogin.getId() .equals( fanNewsCharityPayIn.getPayUsrId())) {
                     DonorVo donorVo = new DonorVo();
                     donorVo.setAllUserLogin(allUserLogin);
                     donorVo.setFanNewsCharityPayIn(fanNewsCharityPayIn);

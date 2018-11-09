@@ -13,5 +13,5 @@ public interface IFanNewsCharityService {
       * @return
       */
 
-     CharityFundVo GetCharityFundVo(Integer siteId,Integer showId1,Integer showId2,Integer newsType, Integer status, Integer pageNo, Integer pageSize);
+     CharityFundVo getCharityFundVo(Integer siteId,Integer showId1,Integer showId2,Integer newsType, Integer status, Integer pageNo, Integer pageSize);
 }
