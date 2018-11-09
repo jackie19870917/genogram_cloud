@@ -81,7 +81,15 @@ public class FanIndexController {
         return ResponseUtlis.success(fanIndexInfoVo);
     }
 
-    //联谊会首页聊天记录
+    /**
+     *联谊会首页聊天记录
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 19:26
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value = "/index/getChatRecordList", method = RequestMethod.GET)
     public Response<FanIndexMessage> getChatRecordList(
             @RequestParam(value = "siteId") Integer siteId
