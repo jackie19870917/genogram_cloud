@@ -7,14 +7,20 @@ import org.csource.fastdfs.StorageServer;
 import org.csource.fastdfs.TrackerClient;
 import org.csource.fastdfs.TrackerServer;
 
-public class FastDFSClient {
+/**
+ * 文件上传
+ *
+ * @author xiaohei
+ * @date 2016-10-31
+ */
+public class FastdfsClient {
 
     private TrackerClient trackerClient = null;
     private TrackerServer trackerServer = null;
     private StorageServer storageServer = null;
     private StorageClient1 storageClient = null;
 
-    public FastDFSClient(String conf) throws Exception {
+    public FastdfsClient(String conf) throws Exception {
         if (conf.contains("classpath:")) {
             conf = conf.replace("classpath:", this.getClass().getResource("/").getPath());
         }
@@ -29,9 +35,10 @@ public class FastDFSClient {
      * 上传文件方法
      * <p>Title: uploadFile</p>
      * <p>Description: </p>
+     *
      * @param fileName 文件全路径
-     * @param extName 文件扩展名，不包含（.）
-     * @param metas 文件扩展信息
+     * @param extName  文件扩展名，不包含（.）
+     * @param metas    文件扩展信息
      * @return
      * @throws Exception
      */
@@ -52,9 +59,10 @@ public class FastDFSClient {
      * 上传文件方法
      * <p>Title: uploadFile</p>
      * <p>Description: </p>
+     *
      * @param fileContent 文件的内容，字节数组
-     * @param extName 文件扩展名
-     * @param metas 文件扩展信息
+     * @param extName     文件扩展名
+     * @param metas       文件扩展信息
      * @return
      * @throws Exception
      */
