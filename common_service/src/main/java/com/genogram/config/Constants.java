@@ -1,9 +1,14 @@
 package com.genogram.config;
 
-/**  
- * 常量定义类  final   
- * Created by dongxinyou on 2018/4/13.
- */  
+/**
+ *常量定义类  final
+ *@Author:
+ *@Date: 2018-11-09
+ *@Time: 15:55
+ *@Param:
+ *@return:
+ *@Description:
+*/
 public final class Constants {
     public static final String SUNDAY = "SUNDAY";    
     public static final String MONDAY = "MONDAY";    
@@ -18,17 +23,34 @@ public final class Constants {
     public static final String OTHER_LOG = "other";
     public static final String DATABASE_TABLE_NON_EXIST = "表不存在";
     public static final Integer DATABASE_TABLE_CODE = 101;
-    
-	// fastDFS配置文件地址
-	public static final String SITE_FAST_DFS = "E:\\hbzs\\genogram_cloud\\common_file_upload_service\\src\\main\\resources\\fastDFS.properties";
-	// fastDFS服务器ip地址
+
+    /**
+     * fastDFS配置文件地址
+     */
+	public static final String SITE_FAST_DFS = "E:\\yu\\genealogy\\swocean\\src\\main\\resources\\fastDFS.properties";
+
+    /**
+     * fastDFS服务器ip地址
+     */
 	public static final String IP_FAST_DFS = "http://192.168.2.132:8090";
-	//返回状态码 成功
+
+    /**
+     * 返回状态码 成功
+     */
 	public static final Integer SUCCESSFUL_CODE = 200;
-	//返回状态码 失败
+
+    /**
+     * 返回状态码 失败
+     */
 	public static final Integer FAILURE_CODE = 500;
-	//返回状态码 错误
+
+    /**
+     * 返回状态码 错误
+     */
 	public static final Integer ERRO_CODE = 400;
-	//返回状态码 为空
+
+    /**
+     * 返回状态码 为空
+     */
     public static final Integer IS_EMPTY = 204;
 }
