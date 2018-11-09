@@ -7,10 +7,12 @@ import com.genogram.mapper.FanIndexInfoMapper;
 import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.service.IFanIndexInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -42,7 +44,7 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         FanSysSite fanSysSite = fanSysSiteMapper.selectById(siteId);
 
         FanIndexInfoVo fanIndexInfoVo = new FanIndexInfoVo();
-        BeanUtils.copyProperties(fanIndexInfo,fanIndexInfoVo);
+        BeanUtils.copyProperties(fanIndexInfo, fanIndexInfoVo);
         fanIndexInfoVo.setSiteName(fanSysSite.getName());
 
         return fanIndexInfoVo;
@@ -52,10 +54,18 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     public Boolean insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
         if (fanIndexInfo.getId() != null) {
-            fanIndexInfo.setUpdateTime(new Date());
+            fanIndexInfo.setUpdateTime(DateUtil.format(new Date()));
         } else {
-            fanIndexInfo.setCreateTime(new Date());
+            fanIndexInfo.setCreateTime(DateUtil.format(new Date()));
         }
         return this.insertOrUpdate(fanIndexInfo);
+    }
+
+    @Override
+    public Boolean deleteFanIndexInfo(FanIndexInfo fanIndexInfo) {
+
+        fanIndexInfo.setUpdateTime(DateUtil.format(new Date()));
+
+        return this.updateById(fanIndexInfo);
     }
 }

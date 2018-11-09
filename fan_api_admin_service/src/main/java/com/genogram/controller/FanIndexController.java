@@ -11,7 +11,17 @@ import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+/**
+ *    联谊会后台
+ *@Author: Toxicant
+ *@Date: 2018-11-09
+ *@Time: 14:23
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("genogram/admin/fanIndex")
@@ -26,6 +36,24 @@ public class FanIndexController {
     @Autowired
     private IFanIndexFamilySummarysService iFanIndexFamilySummarysService;
 
+    @RequestMapping(value = "uploadPic", method = RequestMethod.POST)
+    public Response<FanIndexInfoVo> uploadPic(
+                                              @RequestParam("file") MultipartFile file) {
+
+        try {
+            FastdfsClient fastdfsClient = new FastdfsClient("fdfs_client.conf");
+            String uploadFile = fastdfsClient.uploadFile(file.getBytes());
+            System.out.println(uploadFile);
+           /* String id = DfsUtil.uploadFile(file.getBytes(), fileext);
+            String url = DfsUtil.getFullUrl(id);
+            file.
+            String s = fastdfsClient.uploadFile(file);*/
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      *        联谊会简介,宣言
      * @param siteId   网站ID

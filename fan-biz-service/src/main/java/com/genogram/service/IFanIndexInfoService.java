@@ -35,4 +35,10 @@ public interface IFanIndexInfoService extends IService<FanIndexInfo> {
      */
     Boolean insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo);
 
+    /**
+     *        删除 联谊会图腾,宣言,公告
+     * @param fanIndexInfo
+     * @return
+     */
+    Boolean deleteFanIndexInfo(FanIndexInfo fanIndexInfo);
 }

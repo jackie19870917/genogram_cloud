@@ -13,6 +13,7 @@ import com.genogram.mapper.FanNewsCharityOutMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -91,18 +92,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
             FanNewsCharityOutVo fanNewsCharityOutVo = new FanNewsCharityOutVo();
 
-            fanNewsCharityOutVo.setId(fanNewsCharityOuts.getId());
-            fanNewsCharityOutVo.setShowId(fanNewsCharityOuts.getShowId());
-            fanNewsCharityOutVo.setNewsTitle(fanNewsCharityOuts.getNewsTitle());
-            fanNewsCharityOutVo.setAmount(fanNewsCharityOuts.getAmount());
-            fanNewsCharityOutVo.setUseFor(fanNewsCharityOuts.getUseFor());
-            fanNewsCharityOutVo.setNewsText(fanNewsCharityOuts.getNewsText());
-            fanNewsCharityOutVo.setVisitNum(fanNewsCharityOuts.getVisitNum());
-            fanNewsCharityOutVo.setStatus(fanNewsCharityOuts.getStatus());
-            fanNewsCharityOutVo.setCreateTime(fanNewsCharityOuts.getCreateTime());
-            fanNewsCharityOutVo.setCreateUser(fanNewsCharityOuts.getCreateUser());
-            fanNewsCharityOutVo.setUpdateTime(fanNewsCharityOuts.getUpdateTime());
-            fanNewsCharityOutVo.setUpdateUser(fanNewsCharityOuts.getUpdateUser());
+            BeanUtils.copyProperties(fanNewsCharityOuts,fanNewsCharityOutVo);
 
             List<FanNewsUploadFile> fanNewsUploadFile = new ArrayList<>();
 
@@ -146,16 +136,8 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetail = new NewsDetailVo();
-        newsDetail.setId(fanNewsCharityOut.getId());
-        newsDetail.setShowId(fanNewsCharityOut.getShowId());
-        newsDetail.setNewsTitle(fanNewsCharityOut.getNewsTitle());
-        newsDetail.setNewsText(fanNewsCharityOut.getNewsText());
-        newsDetail.setVisitNum(fanNewsCharityOut.getVisitNum());
-        newsDetail.setStatus(fanNewsCharityOut.getStatus());
-        newsDetail.setCreateTime(fanNewsCharityOut.getCreateTime());
-        newsDetail.setCreateUser(fanNewsCharityOut.getCreateUser());
-        newsDetail.setUpdateTime(fanNewsCharityOut.getUpdateTime());
-        newsDetail.setUpdateUser(fanNewsCharityOut.getUpdateUser());
+
+        BeanUtils.copyProperties(fanNewsCharityOut,newsDetail);
 
         //存储图片list集合
         newsDetail.setFanNewsUploadFileList(fanNewsUploadFileList);
@@ -166,6 +148,12 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         return newsDetail;
     }
 
+    /***
+     *
+     * @param fanNewsCharityOut   慈善收支
+     * @param fanNewsUploadFileList
+     * @return
+     */
     @Override
     public Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut, List<FanNewsUploadFile> fanNewsUploadFileList) {
 
