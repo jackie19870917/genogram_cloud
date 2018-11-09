@@ -14,13 +14,25 @@ import com.genogram.entityvo.FanIndexInfoVo;
  */
 public interface IFanIndexInfoService extends IService<FanIndexInfo> {
 
-    //联谊会图腾,宣言,公告
+    /**
+     *             联谊会图腾,宣言,公告
+     * @param siteId   网店ID
+     * @return
+     */
     FanIndexInfo getFanIndexInfo(Integer siteId);
 
-    //联谊会信息
+    /**
+     *             联谊会信息
+     * @param siteId   网店ID
+     * @return
+     */
     FanIndexInfoVo getFanIndexInfoVo(Integer siteId);
 
-    //新增/修改  联谊会图腾,宣言,公告
+    /**
+     *        /新增/修改  联谊会图腾,宣言,公告
+     * @param fanIndexInfo   实体类
+     * @return
+     */
     Boolean insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo);
 
 }

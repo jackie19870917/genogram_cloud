@@ -35,9 +35,9 @@ public class FanNewsIndustryController {
             if(showId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
-            //状态
-            int status1=1;  // 1 代表发表
-            int status2=2;  // 2 代表草稿
+            //状态 1 代表发表 2 代表草稿
+            int status1=1;
+            int status2=2;
             List statusList  = new ArrayList();
             statusList.add(status1);
             statusList.add(status2);

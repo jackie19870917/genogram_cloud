@@ -16,9 +16,23 @@ import java.util.List;
  */
 public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayIn> {
 
-    //捐款名录(个人总金额)
+    /**
+     *          捐款名录(个人捐款总金额)
+     * @param showId     展示位置
+     * @param status     状态
+     * @param pageNo     当前页
+     * @param pageSize   每页记录数
+     * @return
+     */
     List<DonorVo> getDonorVoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 
-    //捐款名录(最新记录)
+    /**
+     *          捐款名录(最新时间)
+     * @param showId     展示位置
+     * @param status     状态
+     * @param pageNo     当前页
+     * @param pageSize   每页记录数
+     * @return
+     */
     List<DonorVo> getDonorVoPageByTime(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 }

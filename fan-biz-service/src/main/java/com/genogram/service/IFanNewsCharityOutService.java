@@ -19,15 +19,41 @@ import java.util.List;
  */
 public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
 
-    //慈善支出(用途)
+    /**
+     *                慈善支出(用途)
+     * @param showId   慈善支出展示位置
+     * @param newsType   类型(1-慈善支出,2-慈善收益)
+     * @param status     状态
+     * @param pageNo     当前页
+     * @param pageSize   每页记录数
+     * @return
+     */
     Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType, Integer status, Integer pageNo, Integer pageSize);
 
-    //慈善收支(文章)
+    /**
+     *                慈善支出(文章)
+     * @param showId   慈善支出展示位置
+     * @param newsType   类型(1-慈善支出,2-慈善收益)
+     * @param status     状态
+     * @param pageNo     当前页
+     * @param pageSize   每页记录数
+     * @return
+     */
     Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Integer showId, Integer newsType, List status, Integer pageNo, Integer pageSize);
 
-    //慈善收支(详情)
+    /**
+     *            慈善收支文章详情
+     * @param id        文章iD
+     * @param showId    文章展示位置
+     * @return
+     */
     NewsDetailVo getNewsCharityOutDetail(Integer id, Integer showId);
 
-    //新增/修改 慈善收支(文章)
+    /**
+     *     新增/修改  慈善收支(文章)
+     * @param fanNewsCharityOut   慈善收支
+     * @param fanNewsUploadFileList
+     * @return
+     */
     Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut, List<FanNewsUploadFile> fanNewsUploadFileList);
 }

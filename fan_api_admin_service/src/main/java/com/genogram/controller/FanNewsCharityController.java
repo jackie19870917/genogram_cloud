@@ -43,8 +43,9 @@ public class FanNewsCharityController {
                                                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         List list = new ArrayList();
-        Integer status = 1;    //正常
-        Integer statu = 2;     //草稿
+        //   1-正常   2-草稿
+        Integer status = 1;
+        Integer statu = 2;
 
         list.add(status);
         list.add(statu);

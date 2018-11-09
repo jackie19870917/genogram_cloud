@@ -212,11 +212,13 @@ public class DateUtil {
      * @return
      */
     public static Date addDate(Date date,int type , int value){
-        Calendar canlendar = Calendar.getInstance(); // java.util包
+        // java.util包
+        Calendar canlendar = Calendar.getInstance();
         if (date!=null) {
             canlendar.setTime(date);
         }
-        canlendar.add(type, value); // 日期减 如果不够减会将月变动
+        // 日期减 如果不够减会将月变动
+        canlendar.add(type, value);
         return canlendar.getTime();
     }
 
@@ -285,8 +287,10 @@ public class DateUtil {
     public static String getAfterDayDate(String days) {
         int daysInt = Integer.parseInt(days);
 
-        Calendar canlendar = Calendar.getInstance(); // java.util包
-        canlendar.add(Calendar.DATE, daysInt); // 日期减 如果不够减会将月变动
+        // java.util包
+        Calendar canlendar = Calendar.getInstance();
+        // 日期减 如果不够减会将月变动
+        canlendar.add(Calendar.DATE, daysInt);
         Date date = canlendar.getTime();
 
         SimpleDateFormat sdfd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -304,8 +308,10 @@ public class DateUtil {
     public static String getAfterDayWeek(String days) {
         int daysInt = Integer.parseInt(days);
 
-        Calendar canlendar = Calendar.getInstance(); // java.util包
-        canlendar.add(Calendar.DATE, daysInt); // 日期减 如果不够减会将月变动
+        // java.util包
+        Calendar canlendar = Calendar.getInstance();
+        // 日期减 如果不够减会将月变动
+        canlendar.add(Calendar.DATE, daysInt);
         Date date = canlendar.getTime();
 
         SimpleDateFormat sdf = new SimpleDateFormat("E");
@@ -320,7 +326,8 @@ public class DateUtil {
      * @return
      */
     public static String getFirstDayMonth(Date date) {
-        Calendar canlendar = Calendar.getInstance(); // java.util包
+        // java.util包
+        Calendar canlendar = Calendar.getInstance();
         if (date!=null) {
             canlendar.setTime(date);
         }
@@ -338,7 +345,8 @@ public class DateUtil {
      * @return
      */
     public static String getLastDayMonth(Date date) {
-        Calendar canlendar = Calendar.getInstance(); // java.util包
+        // java.util包
+        Calendar canlendar = Calendar.getInstance();
         if (date!=null) {
             canlendar.setTime(date);
         }

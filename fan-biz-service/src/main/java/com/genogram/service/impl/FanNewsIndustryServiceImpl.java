@@ -78,9 +78,10 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         });
 
         //查询图片
+        //  status   1 表示图片为显示状态
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", showId);
-        uploadentity.eq("status", 1); //  1 表示图片为显示状态
+        uploadentity.eq("status", 1);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);

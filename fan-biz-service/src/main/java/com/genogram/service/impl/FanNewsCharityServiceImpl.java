@@ -25,7 +25,7 @@ public class FanNewsCharityServiceImpl implements IFanNewsCharityService {
     @Autowired
     private IFanNewsCharityPayInService iFanNewsCharityPayInService;
 
-    @Override
+   /* @Override
     public CharityFundVo getCharityFundVo(Integer siteId,Integer showId1,Integer showId2,Integer newsType, Integer status, Integer pageNo, Integer pageSize) {
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
@@ -40,5 +40,5 @@ public class FanNewsCharityServiceImpl implements IFanNewsCharityService {
         charityFundVo.setDonorVoList(donorVoList);
 
         return charityFundVo;
-    }
+    }*/
 }

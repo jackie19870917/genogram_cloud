@@ -9,6 +9,15 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
+/**
+ *
+ *@Author: zhouyu
+ *@Date: 2018-11-09
+ *@Time: 10:41
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @Data
 public class NewsDetailVo {
 

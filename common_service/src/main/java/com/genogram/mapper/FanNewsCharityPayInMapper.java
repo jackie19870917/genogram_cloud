@@ -18,6 +18,10 @@ import java.util.Map;
  */
 public interface FanNewsCharityPayInMapper extends BaseMapper<FanNewsCharityPayIn> {
 
-    //查询捐款信息
+    /***
+     *      捐款名录
+     * @param map
+     * @return
+     */
     List<FanNewsCharityPayIn> getDonorVoPage(Map map);
 }

@@ -111,8 +111,16 @@ public class FanNewsIndustryController {
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
-
-    //联谊会家族产业各个产业的详情
+    
+    /**
+     *
+     *@Author: Toxicant
+     *@Date: 2018-11-09
+     *@Time: 10:34
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyIndustryDetail(
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置

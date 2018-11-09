@@ -6,7 +6,15 @@ import lombok.Data;
 
 import java.util.List;
 
-//慈善公益支出
+/**
+ *         慈善公益收支文章
+ *@Author: Toxicant
+ *@Date: 2018-11-09
+ *@Time: 10:58
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @Data
 public class FanNewsCharityOutVo extends FanNewsCharityOut {
 
