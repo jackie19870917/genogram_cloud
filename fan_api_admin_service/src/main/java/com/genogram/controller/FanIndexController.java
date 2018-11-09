@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import static com.genogram.config.Constants.IP_FAST_DFS;
+import static com.genogram.config.Constants.SITE_FAST_DFS;
+
 /**
  *    联谊会后台
  *@Author: Toxicant
@@ -37,23 +40,31 @@ public class FanIndexController {
     private IFanIndexFamilySummarysService iFanIndexFamilySummarysService;
 
     @RequestMapping(value = "uploadPic", method = RequestMethod.POST)
-    public Response<FanIndexInfoVo> uploadPic(
-                                              @RequestParam("file") MultipartFile file) {
+    public String uploadPic(@RequestParam("file") MultipartFile file) {
 
         try {
-            FastdfsClient fastdfsClient = new FastdfsClient("fdfs_client.conf");
-            String uploadFile = fastdfsClient.uploadFile(file.getBytes());
-            System.out.println(uploadFile);
-           /* String id = DfsUtil.uploadFile(file.getBytes(), fileext);
-            String url = DfsUtil.getFullUrl(id);
-            file.
-            String s = fastdfsClient.uploadFile(file);*/
-            return null;
+            FastdfsClient fastdfsClient = new FastdfsClient(SITE_FAST_DFS);
+
+            //获取到要上传文件对象的原始文件名(Original：原始的)
+            String oldName = file.getOriginalFilename();
+
+            //获取原始文件名中的扩展名(a.b.jpg)
+            String extName = oldName.substring(oldName.lastIndexOf(".") + 1);
+
+            //上传到fastDFS文件服务器
+            String path = fastdfsClient.uploadFile(file.getBytes(), extName);
+
+            //获取fastDFS文件服务器路径
+            path = IP_FAST_DFS + path.substring(path.lastIndexOf("/"));
+
+            return path;
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
     /**
      *        联谊会简介,宣言
      * @param siteId   网站ID

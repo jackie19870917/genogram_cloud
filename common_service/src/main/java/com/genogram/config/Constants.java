@@ -20,7 +20,7 @@ public final class Constants {
     public static final Integer DATABASE_TABLE_CODE = 101;
     
 	// fastDFS配置文件地址
-	public static final String SITE_FAST_DFS = "E:\\yu\\genealogy\\swocean\\src\\main\\resources\\fastDFS.properties";
+	public static final String SITE_FAST_DFS = "E:\\hbzs\\genogram_cloud\\common_file_upload_service\\src\\main\\resources\\fastDFS.properties";
 	// fastDFS服务器ip地址
 	public static final String IP_FAST_DFS = "http://192.168.2.132:8090";
 	//返回状态码 成功
