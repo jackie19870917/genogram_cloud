@@ -140,6 +140,11 @@ public class FanNewsIndustryController {
     ) {
         try{
             NewsDetailVo newsDetailVo= iFanNewsIndustryService.getFamilyIndustryDetail(id);
+            //判断是否返回为空
+            if (newsDetailVo==null){
+                NewsDetailVo newsDetail=new NewsDetailVo();
+                return ResponseUtlis.error(Constants.ERRO_CODE,newsDetail);
+            }
             return ResponseUtlis.success(newsDetailVo);
         }catch (Exception e) {
             e.printStackTrace();

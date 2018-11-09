@@ -126,6 +126,9 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
 
         //根据Id查出文章详情
         FanNewsCultureNews fanNewsCultureNews=  this.selectById(id);
+        if (fanNewsCultureNews==null){
+            return null;
+        }
 
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();

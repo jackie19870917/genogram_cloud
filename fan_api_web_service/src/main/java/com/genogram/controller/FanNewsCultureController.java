@@ -167,29 +167,7 @@ public class FanNewsCultureController {
     }
 
     /**
-     *联谊会家族文化详情查询
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:21
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "id") String id // 家族文化文章ID
-    ) {
-        try{
-            NewsDetailVo newsDetailVo= iFanNewsCultureNewsService.getFamilyCultureDetail(Integer.valueOf(id));
-            return ResponseUtlis.success(newsDetailVo);
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
-        }
-    }
-
-    /**
-     *抽取的家族文化方法
+     *抽取的家族文化方法查询方法
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:21
@@ -222,7 +200,31 @@ public class FanNewsCultureController {
         }
     }
 
-
+    /**
+     *联谊会家族文化详情查询
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:21
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyCultureDetail(
+            @RequestParam(value = "id") String id // 家族文化文章ID
+    ) {
+        try{
+            NewsDetailVo newsDetailVo= iFanNewsCultureNewsService.getFamilyCultureDetail(Integer.valueOf(id));
+            if (newsDetailVo==null){
+                NewsDetailVo newsDetail=new NewsDetailVo();
+                return ResponseUtlis.error(Constants.ERRO_CODE,newsDetail);
+            }
+            return ResponseUtlis.success(newsDetailVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
 
 }
 

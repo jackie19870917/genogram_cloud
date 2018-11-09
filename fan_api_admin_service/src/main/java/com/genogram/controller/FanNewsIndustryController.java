@@ -99,7 +99,7 @@ public class FanNewsIndustryController {
     }
 
     /**
-     *联谊会家族产业各个产业的详情
+     *联谊会家族产业各个产业进入修改
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:25

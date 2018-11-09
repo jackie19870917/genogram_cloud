@@ -44,7 +44,7 @@ public class FanNewsCultureController {
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
     /**
-     *联谊会家族字派查询
+     *联谊会家族字派后台查询
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:18
@@ -109,7 +109,7 @@ public class FanNewsCultureController {
     }
 
     /**
-     *联谊会家族字派新增修改
+     *联谊会家族字派后台新增修改
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:19
@@ -144,7 +144,7 @@ public class FanNewsCultureController {
     }*/
 
     /**
-     *联谊会家族文化查询
+     *联谊会家族文化后台查询
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:19

@@ -124,6 +124,10 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //根据Id查出产业详情
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
 
+        if(fanNewsIndustry==null){
+            return null;
+        }
+
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", fanNewsIndustry.getShowId());
