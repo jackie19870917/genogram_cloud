@@ -79,7 +79,6 @@ public class FanIndexFamilySummarys extends Model<FanIndexFamilySummarys> {
     @TableField("update_user")
     private Integer updateUser;
 
-
     public Integer getId() {
         return id;
     }

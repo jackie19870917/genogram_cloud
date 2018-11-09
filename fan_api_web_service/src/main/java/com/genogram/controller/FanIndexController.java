@@ -6,6 +6,7 @@ import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanIndexMessage;
 import com.genogram.entityvo.CharityFundVo;
+import com.genogram.entityvo.FanIndexFamilySummarysVo;
 import com.genogram.entityvo.FanIndexInfoVo;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.genogram.service.IFanIndexInfoService;
@@ -15,6 +16,9 @@ import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -52,13 +56,15 @@ public class FanIndexController {
      * @return
      */
     @RequestMapping(value = "index/getFanIndexFamilySummarysPage", method = RequestMethod.GET)
-    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
+    public Response<FanIndexFamilySummarysVo> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+        List status = new ArrayList();
+        status.add(1);
 
-        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
+        Page<FanIndexFamilySummarysVo> fanIndexFamilySummarysVoPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
 
-        return ResponseUtlis.success(fanIndexFamilySummarysPage);
+        return ResponseUtlis.success(fanIndexFamilySummarysVoPage);
     }
 
     /**
@@ -78,9 +84,7 @@ public class FanIndexController {
     //联谊会首页聊天记录
     @RequestMapping(value = "/index/getChatRecordList", method = RequestMethod.GET)
     public Response<FanIndexMessage> getChatRecordList(
-            @RequestParam(value = "siteId") Integer siteId,
-            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
+            @RequestParam(value = "siteId") Integer siteId
     ) {
         try {
             //判断showId是否有值
@@ -88,6 +92,10 @@ public class FanIndexController {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             //状态
+            //状态
+            int status = 1;
+            int pageNo = 1;
+            int pageSize = 5;
             Page<FanIndexMessage> fanIndexMessage = iFanIndexMessageService.getChatRecordList(siteId, status, pageNo, pageSize);
             if (fanIndexMessage == null) {
                 //没有取到参数,返回空参
