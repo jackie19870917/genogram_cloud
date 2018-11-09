@@ -37,7 +37,7 @@ public class TestController {
     public Map<String,Object> upload(MultipartFile file) throws Exception{
         Map<String, Object> map = new HashMap<>();
         try {
-            FastDFSClient client = new FastDFSClient("E:\\work\\genogram_cloud\\common_file_upload_service\\src\\main\\resources\\fastDFS.properties");
+            FastdfsClient client = new FastdfsClient("E:\\work\\genogram_cloud\\common_file_upload_service\\src\\main\\resources\\fastDFS.properties");
             //获取到要上传文件对象的原始文件名(Original：原始的)
             String oldName = file.getOriginalFilename();
             //获取原始文件名中的扩展名(a.b.jpg)
