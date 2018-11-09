@@ -73,10 +73,14 @@ public class NewsDetailVo {
      * 修改人
      */
 
-    //用户名
+    /**
+     * 用户名
+     */
     private String userName;
 
-    //附件图片
+    /**
+     * 附件图片
+     */
     private List<FanNewsUploadFile> fanNewsUploadFileList;
 
 
