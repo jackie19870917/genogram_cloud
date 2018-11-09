@@ -71,8 +71,8 @@ public class FanNewsCharityController {
 
     @RequestMapping(value = "index/getDonorPage", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageBySum(@RequestParam("showId") Integer showId,
-                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                            @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+                                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                 @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPage(showId, status, pageNo, pageSize);
 
@@ -90,8 +90,8 @@ public class FanNewsCharityController {
 
     @RequestMapping(value = "index/getDonorVoPageByCreateTime", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageByCreateTime(@RequestParam("showId") Integer showId,
-                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                            @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                        @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPageByTime(showId, status, pageNo, pageSize);
 

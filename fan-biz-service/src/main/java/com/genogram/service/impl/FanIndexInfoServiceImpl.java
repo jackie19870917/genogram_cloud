@@ -7,6 +7,7 @@ import com.genogram.mapper.FanIndexInfoMapper;
 import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.service.IFanIndexInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,20 +37,14 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
 
     @Override
     public FanIndexInfoVo getFanIndexInfoVo(Integer siteId) {
+
         FanIndexInfo fanIndexInfo = this.getFanIndexInfo(siteId);
         FanSysSite fanSysSite = fanSysSiteMapper.selectById(siteId);
 
         FanIndexInfoVo fanIndexInfoVo = new FanIndexInfoVo();
-        fanIndexInfoVo.setId(fanIndexInfo.getId());
-        fanIndexInfoVo.setSiteId(fanIndexInfo.getSiteId());
-        fanIndexInfoVo.setTotemPicSrc(fanIndexInfo.getTotemPicSrc());
-        fanIndexInfoVo.setTitle(fanIndexInfo.getTitle());
-        fanIndexInfoVo.setDescription(fanIndexInfo.getDescription());
-        fanIndexInfoVo.setCreateTime(fanIndexInfo.getCreateTime());
-        fanIndexInfoVo.setCreateUser(fanIndexInfo.getCreateUser());
-        fanIndexInfoVo.setUpdateTime(fanIndexInfo.getUpdateTime());
-        fanIndexInfoVo.setUpdateUser(fanIndexInfo.getUpdateUser());
+        BeanUtils.copyProperties(fanIndexInfo,fanIndexInfoVo);
         fanIndexInfoVo.setSiteName(fanSysSite.getName());
+
         return fanIndexInfoVo;
     }
 

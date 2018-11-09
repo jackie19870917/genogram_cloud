@@ -41,19 +41,20 @@ public class FanIndexController {
     @Autowired
     private IFanIndexInfoService iFanIndexInfoService;
 
-    Integer status=1;
+    Integer status = 1;
 
     /**
-     *        联谊堂
+     * 联谊堂
+     *
      * @param siteId   网站ID
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
      */
     @RequestMapping(value = "index/getFanIndexFamilySummarysPage", method = RequestMethod.GET)
-    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage( @RequestParam(value = "siteId") Integer siteId,
-                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
+                                                                          @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
 
@@ -61,11 +62,12 @@ public class FanIndexController {
     }
 
     /**
-     *        /联谊会简介,宣言
-     * @param siteId   网站ID
+     * 联谊会简介,宣言
+     *
+     * @param siteId 网站ID
      * @return
      */
-    @RequestMapping(value = "index/getFanIndexInfo",method = RequestMethod.GET)
+    @RequestMapping(value = "index/getFanIndexInfo", method = RequestMethod.GET)
     public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
 
         FanIndexInfoVo fanIndexInfoVo = iFanIndexInfoService.getFanIndexInfoVo(siteId);
@@ -74,30 +76,30 @@ public class FanIndexController {
     }
 
     //联谊会首页聊天记录
-    @RequestMapping(value = "/index/getChatRecordList",method = RequestMethod.GET)
+    @RequestMapping(value = "/index/getChatRecordList", method = RequestMethod.GET)
     public Response<FanIndexMessage> getChatRecordList(
             @RequestParam(value = "siteId") Integer siteId
     ) {
         try {
             //判断showId是否有值
-            if(siteId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            if (siteId == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             //状态
             //状态
-            int status =1;
-            int pageNo=1;
-            int pageSize=5;
-            Page<FanIndexMessage> fanIndexMessage= iFanIndexMessageService.getChatRecordList(siteId, status,pageNo,pageSize);
+            int status = 1;
+            int pageNo = 1;
+            int pageSize = 5;
+            Page<FanIndexMessage> fanIndexMessage = iFanIndexMessageService.getChatRecordList(siteId, status, pageNo, pageSize);
             if (fanIndexMessage == null) {
                 //没有取到参数,返回空参
                 Page<FanIndexMessage> emptfamilyCultureVo = new Page<FanIndexMessage>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
             }
             return ResponseUtlis.success(fanIndexMessage);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 

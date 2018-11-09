@@ -72,7 +72,7 @@ public class FanNewsCultureController {
             }
             //状态
             int status=1;
-            StringBuffer stringBuffer = iFanNewsCultureZipaiService.CommonalityIndex(showId, status);
+            StringBuffer stringBuffer = iFanNewsCultureZipaiService.commonalityIndex(showId, status);
             //判断该stringBuffer是否返回为null
             if(stringBuffer==null){
                 //没有取到参数,返回空参

@@ -10,14 +10,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 文章详情
  *
- *@Author: zhouyu
- *@Date: 2018-11-09
- *@Time: 10:41
- *@Param:
- *@return:
- *@Description:
-*/
+ * @Author: zhouyu
+ * @Date: 2018-11-09
+ * @Time: 10:41
+ * @Param:
+ * @return:
+ * @Description:
+ */
 @Data
 public class NewsDetailVo {
 
