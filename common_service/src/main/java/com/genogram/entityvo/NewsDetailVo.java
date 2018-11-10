@@ -59,18 +59,31 @@ public class NewsDetailVo {
      */
     private Date updateTime;
 
-    private Integer updateUser;
     /**
      * 修改人
      */
+    private Integer updateUser;
 
     /**
-     * 用户名
+     * 创建人姓名
      */
     private String createUserName;
+
+    /**
+     * 修改人姓名
+     */
     private String updateUserName;
-    private long updateTimeLong;
-    private long createTimeLong;
+
+    /**
+     * 创建时间
+     */
+    private Long updateTimeLong;
+
+    /**
+     * 修改时间
+     */
+    private Long createTimeLong;
+
     /**
      * 附件图片
      */

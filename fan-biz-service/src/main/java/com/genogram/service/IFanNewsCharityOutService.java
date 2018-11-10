@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanNewsCharityOut;
@@ -32,15 +33,12 @@ public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
 
     /**
      *                慈善支出(文章)
-     * @param showId   慈善支出展示位置
-     * @param newsType   类型(1-慈善支出,2-慈善收益)
-     * @param status     状态
+     * @param entity     实体类
      * @param pageNo     当前页
      * @param pageSize   每页记录数
      * @return
      */
-    Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Integer showId, Integer newsType, List status, Integer pageNo, Integer pageSize);
-
+    Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Wrapper<FanNewsCharityOut> entity,Integer pageNo, Integer pageSize);
     /**
      *            慈善收支文章详情
      * @param id        文章iD

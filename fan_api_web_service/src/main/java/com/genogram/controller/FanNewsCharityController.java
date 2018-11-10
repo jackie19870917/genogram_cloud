@@ -1,7 +1,10 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFund;
+import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.FanNewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -123,7 +126,14 @@ public class FanNewsCharityController {
                                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         List list = new ArrayList();
         list.add(status);
-        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(showId, newsType, list, pageNo, pageSize);
+
+        Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
+        entity.eq("show_id", showId);
+        entity.eq("news_type", newsType);
+        entity.in("status", list);
+        entity.orderBy("create_time", false);
+
+        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }

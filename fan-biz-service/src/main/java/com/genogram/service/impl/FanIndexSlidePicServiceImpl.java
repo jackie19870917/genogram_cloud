@@ -46,4 +46,12 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
 
         return this.insertOrUpdate(fanIndexSlidePic);
     }
+
+    @Override
+    public Boolean deleteFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
+
+        fanIndexSlidePic.setUpdateTime(DateUtil.format(new Date()));
+
+        return this.updateById(fanIndexSlidePic);
+    }
 }

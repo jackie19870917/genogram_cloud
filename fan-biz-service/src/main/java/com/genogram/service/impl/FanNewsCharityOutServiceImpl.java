@@ -53,15 +53,9 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     }
 
     @Override
-    public Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Integer showId, Integer newsType, List status, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Wrapper<FanNewsCharityOut> entity, Integer pageNo, Integer pageSize) {
 
         List<FanNewsCharityOutVo> fanNewsCharityOutVoList = new ArrayList<>();
-
-        Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
-        entity.eq("show_id", showId);
-        entity.in("status", status);
-        entity.eq("news_type", newsType);
-        entity.orderBy("create_time", false);
 
         //得到文件当前页list集合
         Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
@@ -79,7 +73,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
         //查询图片
         Wrapper<FanNewsUploadFile> fanNewsUploadFileWrapper = new EntityWrapper<FanNewsUploadFile>();
-        fanNewsUploadFileWrapper.eq("show_id", showId);
+        fanNewsUploadFileWrapper.eq("show_id", fanNewsCharityOutList.get(0).getShowId());
         fanNewsUploadFileWrapper.eq("status", 1);
         fanNewsUploadFileWrapper.in("news_id", list);
 
@@ -133,10 +127,10 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         List<FanNewsUploadFile> fanNewsUploadFileList = fanNewsUploadFileMapper.selectList(entityWrapper);
 
         //查出对应的个人对象(创建人)
-        AllUserLogin allUserLogin = allUserLoginMapper.selectById(fanNewsCharityOut.getCreateUser());
+        AllUserLogin allUserLoginCreateUser = allUserLoginMapper.selectById(fanNewsCharityOut.getCreateUser());
 
         //查出对应的个人对象(修改人)
-        //AllUserLogin allUserLogin = allUserLoginMapper.selectById(fanNewsCharityOut.getUpdateUser());
+        AllUserLogin allUserLoginUpdateUser = allUserLoginMapper.selectById(fanNewsCharityOut.getUpdateUser());
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetailVo = new NewsDetailVo();
@@ -146,10 +140,17 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         //存储图片list集合
         newsDetailVo.setFanNewsUploadFileList(fanNewsUploadFileList);
 
-        //存储作者名称
-        newsDetailVo.setCreateUserName(allUserLogin.getUserName());
+        //存储创建人名称
+        newsDetailVo.setCreateUserName(allUserLoginCreateUser.getUserName());
 
-        //newsDetailVo.setUpdateUserName(allUserLogin.getUserName());
+        //存储创建时间
+        newsDetailVo.setCreateTimeLong(fanNewsCharityOut.getCreateTime().getTime());
+
+        //存储修改人名称
+        newsDetailVo.setUpdateUserName(allUserLoginUpdateUser.getUserName());
+
+        //存储修改时间
+        newsDetailVo.setUpdateTimeLong(fanNewsCharityOut.getUpdateTime().getTime());
 
         return newsDetailVo;
     }

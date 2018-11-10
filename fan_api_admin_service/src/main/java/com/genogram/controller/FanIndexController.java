@@ -12,9 +12,7 @@ import com.genogram.service.IFanIndexSlidePicService;
 import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
-import org.csource.fastdfs.ClientGlobal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -98,6 +96,39 @@ public class FanIndexController {
         return ResponseUtlis.success(fanIndexSlidePicList);
     }
 
+    /**
+     * 新增/修改  轮播图
+     * @param fanIndexSlidePic
+     * @return
+     */
+    @RequestMapping(value = "insertOrUpdateFanIndexSlidePic", method = RequestMethod.POST)
+    public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
+
+        Boolean result = iFanIndexSlidePicService.insertOrUpdateFanIndexSlidePic(fanIndexSlidePic);
+
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
+
+    /**
+     * 逻辑删除  轮播图
+     * @param fanIndexSlidePic
+     * @return
+     */
+    @RequestMapping(value = "deleteFanIndexSlidePic", method = RequestMethod.POST)
+    public Response<FanIndexSlidePic> deleteFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
+
+        Boolean result = iFanIndexSlidePicService.deleteFanIndexSlidePic(fanIndexSlidePic);
+
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
 
     /**
      *        联谊会简介,宣言
@@ -180,7 +211,7 @@ public class FanIndexController {
     }
 
     /**
-     *       /新增或修改    联谊堂
+     *       新增或修改    联谊堂
      * @param fanIndexFamilySummarysVo
      * @return
      */
@@ -212,4 +243,5 @@ public class FanIndexController {
             return ResponseUtlis.success(400);
         }
     }
+
 }
