@@ -42,6 +42,7 @@ public class FanNewsCharityController {
     @Autowired
     private IFanIndexFundService iFanIndexFundService;
 
+    //状态(0:删除;1:已发布;2:草稿3:不显示)
     Integer status = 1;
 
 
@@ -73,8 +74,10 @@ public class FanNewsCharityController {
     public Response<DonorVo> getDonorVoPageBySum(@RequestParam("showId") Integer showId,
                                                  @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                  @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+        List list = new ArrayList();
+        list.add(status);
 
-        List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPage(showId, status, pageNo, pageSize);
+        List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPage(showId, list, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityPayInPage);
     }
@@ -93,9 +96,12 @@ public class FanNewsCharityController {
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
-        List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPageByTime(showId, status, pageNo, pageSize);
+        List list = new ArrayList();
+        list.add(status);
 
-        return ResponseUtlis.success(fanNewsCharityPayInPage);
+        Page<DonorVo> donorVoPageByTime = iFanNewsCharityPayInService.getDonorVoPageByTime(showId, list, pageNo, pageSize);
+
+        return ResponseUtlis.success(donorVoPageByTime);
     }
 
 
@@ -123,15 +129,13 @@ public class FanNewsCharityController {
     /**
      * 慈善收支详情
      *
-     * @param showId 慈善收支显示位置
      * @param id     慈善收支详情显示位置
      * @return
      */
     @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFanNewsCharityDetail(@RequestParam(value = "showId") Integer showId,
-                                                          @RequestParam(value = "id") Integer id) {
+    public Response<NewsDetailVo> getFanNewsCharityDetail(@RequestParam(value = "id") Integer id) {
 
-        NewsDetailVo newsCharityOutDetail = iFanNewsCharityOutService.getNewsCharityOutDetail(id, showId);
+        NewsDetailVo newsCharityOutDetail = iFanNewsCharityOutService.getNewsCharityOutDetail(id);
 
         return ResponseUtlis.success(newsCharityOutDetail);
     }

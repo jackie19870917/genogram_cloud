@@ -3,6 +3,8 @@ package com.genogram.service;
 import com.genogram.entity.FanIndexSlidePic;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 联谊网站轮播图 服务类
@@ -13,4 +15,11 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanIndexSlidePicService extends IService<FanIndexSlidePic> {
 
+    /**
+     * 轮播图查询
+     * @param siteId 网站ID
+     * @param status 状态
+     * @return
+     */
+    List<FanIndexSlidePic> getFanIndexSlidePicListBySiteId(Integer siteId, List status);
 }

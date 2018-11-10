@@ -27,7 +27,7 @@ public final class Constants {
     /**
      * fastDFS配置文件地址
      */
-	public static final String SITE_FAST_DFS = "E:\\yu\\genealogy\\swocean\\src\\main\\resources\\fastDFS.properties";
+	public static final String SITE_FAST_DFS = "E:\\hbzs\\genogram_cloud\\common_file_upload_service\\src\\main\\resources\\fastDFS.properties";
 
     /**
      * fastDFS服务器ip地址

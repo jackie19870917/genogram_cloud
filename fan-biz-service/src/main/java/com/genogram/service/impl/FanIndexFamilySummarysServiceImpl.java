@@ -62,7 +62,7 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
                 if (fanIndexFamilySummarys.getLeader().equals(allUserLogin.getId())) {
 
                     FanIndexFamilySummarysVo fanIndexFamilySummarysVo = new FanIndexFamilySummarysVo();
-                    BeanUtils.copyProperties(fanIndexFamilySummarys,fanIndexFamilySummarysVo);
+                    BeanUtils.copyProperties(fanIndexFamilySummarys, fanIndexFamilySummarysVo);
                     fanIndexFamilySummarysVo.setLeaderName(allUserLogin.getUserName());
 
                     fanIndexFamilySummarysVoList.add(fanIndexFamilySummarysVo);
@@ -70,8 +70,10 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
             }
         }
 
-        Page<FanIndexFamilySummarysVo> mapPage = new Page<>(pageNo,pageSize);
+        Page<FanIndexFamilySummarysVo> mapPage = new Page<>(pageNo, pageSize);
         mapPage.setRecords(fanIndexFamilySummarysVoList);
+        // mapPage.setSize(fanIndexFamilySummarysPage.getSize());
+        mapPage.setTotal(fanIndexFamilySummarysPage.getTotal());
 
         return mapPage;
     }
@@ -79,13 +81,13 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
     @Override
     public Boolean insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarysVo fanIndexFamilySummarysVo) {
 
-       if (fanIndexFamilySummarysVo.getId() != null) {
-           fanIndexFamilySummarysVo.setUpdateTime(new Date());
-       } else {
-           fanIndexFamilySummarysVo.setCreateTime(new Date());
-       }
+        if (fanIndexFamilySummarysVo.getId() != null) {
+            fanIndexFamilySummarysVo.setUpdateTime(new Date());
+        } else {
+            fanIndexFamilySummarysVo.setCreateTime(new Date());
+        }
 
-     // return  this.insertOrUpdate(fanIndexFamilySummarysVo);
+        // return  this.insertOrUpdate(fanIndexFamilySummarysVo);
         return null;
     }
 
@@ -98,9 +100,15 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
 
         FanIndexFamilySummarysVo fanIndexFamilySummarysVo = new FanIndexFamilySummarysVo();
 
-        BeanUtils.copyProperties(fanIndexFamilySummarys,fanIndexFamilySummarysVo);
+        BeanUtils.copyProperties(fanIndexFamilySummarys, fanIndexFamilySummarysVo);
         fanIndexFamilySummarysVo.setLeaderName(allUserLogin.getUserName());
 
         return fanIndexFamilySummarysVo;
+    }
+
+    @Override
+    public Boolean deleteFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+
+        return this.updateById(fanIndexFamilySummarys);
     }
 }

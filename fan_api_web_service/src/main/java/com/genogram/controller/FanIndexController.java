@@ -5,13 +5,11 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanIndexMessage;
+import com.genogram.entity.FanIndexSlidePic;
 import com.genogram.entityvo.CharityFundVo;
 import com.genogram.entityvo.FanIndexFamilySummarysVo;
 import com.genogram.entityvo.FanIndexInfoVo;
-import com.genogram.service.IFanIndexFamilySummarysService;
-import com.genogram.service.IFanIndexInfoService;
-import com.genogram.service.IFanIndexMessageService;
-import com.genogram.service.IFanNewsCharityService;
+import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +38,29 @@ public class FanIndexController {
     private IFanIndexFamilySummarysService iFanIndexFamilySummarysService;
 
     @Autowired
-    private IFanNewsCharityService iFanNewsCharityService;
+    private IFanIndexSlidePicService iFanIndexSlidePicService;
 
     @Autowired
     private IFanIndexInfoService iFanIndexInfoService;
 
+    //状态
     Integer status = 1;
+
+    /**
+     *      轮播图
+     * @param siteId  网站ID
+     * @return
+     */
+    @RequestMapping(value = "index/getFanIndexSlidePicList", method = RequestMethod.GET)
+    public Response<FanIndexSlidePic> getFanIndexSlidePicList(@RequestParam(value = "siteId") Integer siteId) {
+
+        List list = new ArrayList();
+        list.add(siteId);
+
+        List<FanIndexSlidePic> fanIndexSlidePicList = iFanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
+
+        return ResponseUtlis.success(fanIndexSlidePicList);
+    }
 
     /**
      * 联谊堂

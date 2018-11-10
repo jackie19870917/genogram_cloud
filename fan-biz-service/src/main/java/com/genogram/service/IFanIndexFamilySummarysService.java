@@ -40,4 +40,11 @@ public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilyS
      * @return
      */
     FanIndexFamilySummarysVo getFanIndexFamilySummarys(Integer id);
+
+    /**
+     *  逻辑删除
+     * @param fanIndexFamilySummarys
+     * @return
+     */
+    Boolean deleteFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys);
 }

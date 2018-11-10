@@ -66,6 +66,14 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
 
         fanIndexInfo.setUpdateTime(DateUtil.format(new Date()));
 
+        if ("".equals(fanIndexInfo.getTotemPicSrc())) {
+            fanIndexInfo.setTotemPicSrc("");
+        } else if ("".equals(fanIndexInfo.getTitle())) {
+            fanIndexInfo.setTitle("");
+        } else if ("".equals(fanIndexInfo.getDescription())){
+            fanIndexInfo.setDescription("");
+        }
+
         return this.updateById(fanIndexInfo);
     }
 }

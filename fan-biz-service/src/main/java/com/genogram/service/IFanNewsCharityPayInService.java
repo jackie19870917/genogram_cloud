@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.DonorVo;
@@ -24,7 +25,7 @@ public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayI
      * @param pageSize   每页记录数
      * @return
      */
-    List<DonorVo> getDonorVoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    List<DonorVo> getDonorVoPage(Integer showId, List status, Integer pageNo, Integer pageSize);
 
     /**
      *          捐款名录(最新时间)
@@ -34,5 +35,5 @@ public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayI
      * @param pageSize   每页记录数
      * @return
      */
-    List<DonorVo> getDonorVoPageByTime(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<DonorVo> getDonorVoPageByTime(Integer showId, List status, Integer pageNo, Integer pageSize);
 }

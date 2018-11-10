@@ -10,7 +10,9 @@ import com.genogram.service.IFanIndexInfoService;
 import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import org.csource.fastdfs.ClientGlobal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,6 +49,9 @@ public class FanIndexController {
     public String uploadPic(@RequestParam("file") MultipartFile file) {
 
         try {
+
+           // ClientGlobal.init(new ClassPathResource("fastDFS.properties").getFile().getAbsolutePath());
+
             FastdfsClient fastdfsClient = new FastdfsClient(SITE_FAST_DFS);
 
             //获取到要上传文件对象的原始文件名(Original：原始的)
@@ -61,6 +66,7 @@ public class FanIndexController {
             //获取fastDFS文件服务器路径
             path = IP_FAST_DFS + path.substring(path.lastIndexOf("/"));
 
+            System.out.println(path);
             return path;
 
         } catch (Exception e) {
@@ -90,9 +96,26 @@ public class FanIndexController {
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
     public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
-        Boolean aBoolean = iFanIndexInfoService.insertOrUpdateFanIndexInfo(fanIndexInfo);
+        Boolean result = iFanIndexInfoService.insertOrUpdateFanIndexInfo(fanIndexInfo);
 
-        if (aBoolean) {
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
+
+    /**
+     *  删除   联谊会简介,宣言
+     * @param fanIndexInfo
+     * @return
+     */
+    @RequestMapping(value = "deleteFanIndexInfo", method = RequestMethod.POST)
+    public Response<FanIndexInfo> deleteFanIndexInfo(FanIndexInfo fanIndexInfo) {
+
+        Boolean result = iFanIndexInfoService.deleteFanIndexInfo(fanIndexInfo);
+
+        if (result) {
             return ResponseUtlis.success(200);
         } else {
             return ResponseUtlis.success(400);
@@ -110,9 +133,11 @@ public class FanIndexController {
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        List status = new ArrayList();
-        status.add(1);
-        Page<FanIndexFamilySummarysVo> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
+        List list = new ArrayList();
+        //  1-正常    2-草稿
+        list.add(1);
+        list.add(2);
+        Page<FanIndexFamilySummarysVo> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
 
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
@@ -138,9 +163,26 @@ public class FanIndexController {
     @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarys", method = RequestMethod.POST)
     public Response<FanIndexFamilySummarysVo> insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarysVo fanIndexFamilySummarysVo) {
 
-        Boolean aBoolean = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarysVo);
+        Boolean result = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarysVo);
 
-        if (aBoolean) {
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
+
+    /**
+     *   逻辑删除 联谊堂
+     * @param fanIndexFamilySummarys
+     * @return
+     */
+    @RequestMapping(value = "deleteFanIndexFamilySummarys", method = RequestMethod.POST)
+    public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+
+        Boolean result = iFanIndexFamilySummarysService.deleteFanIndexFamilySummarys(fanIndexFamilySummarys);
+
+        if (result) {
             return ResponseUtlis.success(200);
         } else {
             return ResponseUtlis.success(400);

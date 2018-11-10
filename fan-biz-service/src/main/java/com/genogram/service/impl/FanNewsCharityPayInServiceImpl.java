@@ -38,7 +38,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     private AllUserLoginMapper allUserLoginMapper;
 
     @Override
-    public List<DonorVo> getDonorVoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public List<DonorVo> getDonorVoPage(Integer showId, List status, Integer pageNo, Integer pageSize) {
         Map map = new HashMap(16);
         map.put("showId", showId);
         map.put("status", status);
@@ -73,15 +73,17 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     }
 
     @Override
-    public List<DonorVo> getDonorVoPageByTime(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<DonorVo> getDonorVoPageByTime(Integer showId, List status, Integer pageNo, Integer pageSize) {
 
         Wrapper<FanNewsCharityPayIn> fanNewsCharityPayInWrapper = new EntityWrapper<FanNewsCharityPayIn>();
 
         fanNewsCharityPayInWrapper.eq("show_id", showId);
-        fanNewsCharityPayInWrapper.eq("status", status);
+        fanNewsCharityPayInWrapper.in("status", status);
         fanNewsCharityPayInWrapper.orderBy("create_time", false);
 
-        List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.selectPage(new Page<FanNewsCharityPayIn>(pageNo, pageSize), fanNewsCharityPayInWrapper);
+        Page<FanNewsCharityPayIn> fanNewsCharityPayInPage = this.selectPage(new Page<FanNewsCharityPayIn>(pageNo, pageSize), fanNewsCharityPayInWrapper);
+
+        List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInPage.getRecords();
 
         List list = new ArrayList();
         for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
@@ -105,6 +107,11 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
             }
         }
 
-        return list;
+        Page<DonorVo> mapPage = new Page<>(pageNo,pageSize);
+        mapPage.setRecords(list);
+        // mapPage.setSize(fanIndexFamilySummarysPage.getSize());
+        mapPage.setTotal(fanNewsCharityPayInPage.getTotal());
+
+        return mapPage;
     }
 }

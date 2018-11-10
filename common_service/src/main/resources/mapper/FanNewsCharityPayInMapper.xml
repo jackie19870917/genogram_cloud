@@ -34,6 +34,12 @@
         <if test="showId!=null">
             and show_id=#{showId}
         </if>
+        <if test="status!=null">
+            and status in
+            <foreach collection="status" item="item" index="index" open="(" separator="," close=")">
+                     #{item}
+            </foreach>
+        </if>
         group by pay_usr_id
         order by pay_amount desc
         limit #{pageNo} ,#{pageSize}

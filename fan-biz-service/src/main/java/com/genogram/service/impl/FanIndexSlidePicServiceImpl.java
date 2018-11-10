@@ -1,10 +1,14 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.entity.FanIndexSlidePic;
 import com.genogram.mapper.FanIndexSlidePicMapper;
 import com.genogram.service.IFanIndexSlidePicService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +21,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMapper, FanIndexSlidePic> implements IFanIndexSlidePicService {
 
+    @Override
+    public List<FanIndexSlidePic> getFanIndexSlidePicListBySiteId(Integer siteId, List status) {
+
+        Wrapper<FanIndexSlidePic> wrapper = new EntityWrapper<FanIndexSlidePic>();
+        wrapper.eq("site_id",siteId);
+        wrapper.in("status", status);
+
+        return this.selectList(wrapper);
+    }
 }

@@ -28,7 +28,7 @@ public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
      * @param pageSize   每页记录数
      * @return
      */
-    Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType, Integer status, Integer pageNo, Integer pageSize);
+    Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType, List status, Integer pageNo, Integer pageSize);
 
     /**
      *                慈善支出(文章)
@@ -44,10 +44,9 @@ public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
     /**
      *            慈善收支文章详情
      * @param id        文章iD
-     * @param showId    文章展示位置
      * @return
      */
-    NewsDetailVo getNewsCharityOutDetail(Integer id, Integer showId);
+    NewsDetailVo getNewsCharityOutDetail(Integer id);
 
     /**
      *     新增/修改  慈善收支(文章)
