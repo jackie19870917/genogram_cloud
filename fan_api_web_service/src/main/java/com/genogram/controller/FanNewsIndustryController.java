@@ -137,14 +137,14 @@ public class FanNewsIndustryController {
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         try{
-            NewsDetailVo NewsDetailEmpty=new NewsDetailVo();
+            NewsDetailVo newsDetailEmpty=new NewsDetailVo();
             if(id==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE,NewsDetailEmpty);
+                return ResponseUtlis.error(Constants.ERRO_CODE,newsDetailEmpty);
             }
             NewsDetailVo newsDetailVo= iFanNewsIndustryService.getFamilyIndustryDetail(id);
             //判断是否返回为空
             if (newsDetailVo==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE,NewsDetailEmpty);
+                return ResponseUtlis.error(Constants.ERRO_CODE,newsDetailEmpty);
             }
             return ResponseUtlis.success(newsDetailVo);
         }catch (Exception e) {
