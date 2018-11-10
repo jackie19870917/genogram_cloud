@@ -175,7 +175,7 @@ public class FanNewsCultureController {
   *@return:
   *@Description:
  */
-    @RequestMapping(value ="/deleteByIdZipai",method = RequestMethod.GET)
+    @RequestMapping(value ="/deleteZipaiById",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> deleteByIdZipai(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
@@ -363,7 +363,7 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value ="/deleteByIdCultur",method = RequestMethod.GET)
+    @RequestMapping(value ="/deleteCulturById",method = RequestMethod.GET)
     public Response<FanNewsCultureNews> deleteByIdCultur(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置
     ) {

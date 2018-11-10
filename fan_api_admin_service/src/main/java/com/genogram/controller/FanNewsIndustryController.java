@@ -196,7 +196,7 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value ="/deleteByIdIndustry",method = RequestMethod.GET)
+    @RequestMapping(value ="/deleteIndustryById",method = RequestMethod.GET)
     public Response<FanNewsIndustry> deleteByIdIndustry(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置
     ) {
