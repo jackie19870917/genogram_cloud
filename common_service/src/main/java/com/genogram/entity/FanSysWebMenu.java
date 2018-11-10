@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-06
+ * @since 2018-11-10
  */
 @TableName("fan_sys_web_menu")
 public class FanSysWebMenu extends Model<FanSysWebMenu> {
@@ -37,15 +37,15 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
     @TableField("menu_name")
     private String menuName;
     /**
-     * api 调用path
-     */
-    @TableField("api_url")
-    private String apiUrl;
-    /**
      * 父ID
      */
     @TableField("parent_id")
     private Integer parentId;
+    /**
+     * api 调用path
+     */
+    @TableField("api_url")
+    private String apiUrl;
     /**
      * 排列顺序
      */
@@ -61,6 +61,16 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
      */
     @TableField("menu_type")
     private String menuType;
+    /**
+     * 是否是admin显示菜单(0:否;1:是)
+     */
+    @TableField("is_admin")
+    private Integer isAdmin;
+    /**
+     * 是否是admin显示菜单(0:否;1:是)
+     */
+    @TableField("is_web")
+    private Integer isWeb;
     /**
      * 是否有子栏目;0:否;1是
      */
@@ -106,21 +116,21 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
         return this;
     }
 
-    public String getApiUrl() {
-        return apiUrl;
-    }
-
-    public FanSysWebMenu setApiUrl(String apiUrl) {
-        this.apiUrl = apiUrl;
-        return this;
-    }
-
     public Integer getParentId() {
         return parentId;
     }
 
     public FanSysWebMenu setParentId(Integer parentId) {
         this.parentId = parentId;
+        return this;
+    }
+
+    public String getApiUrl() {
+        return apiUrl;
+    }
+
+    public FanSysWebMenu setApiUrl(String apiUrl) {
+        this.apiUrl = apiUrl;
         return this;
     }
 
@@ -148,6 +158,24 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
 
     public FanSysWebMenu setMenuType(String menuType) {
         this.menuType = menuType;
+        return this;
+    }
+
+    public Integer getIsAdmin() {
+        return isAdmin;
+    }
+
+    public FanSysWebMenu setIsAdmin(Integer isAdmin) {
+        this.isAdmin = isAdmin;
+        return this;
+    }
+
+    public Integer getIsWeb() {
+        return isWeb;
+    }
+
+    public FanSysWebMenu setIsWeb(Integer isWeb) {
+        this.isWeb = isWeb;
         return this;
     }
 
@@ -216,11 +244,13 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
         ", id=" + id +
         ", treeNum=" + treeNum +
         ", menuName=" + menuName +
-        ", apiUrl=" + apiUrl +
         ", parentId=" + parentId +
+        ", apiUrl=" + apiUrl +
         ", orderIndex=" + orderIndex +
         ", menuCode=" + menuCode +
         ", menuType=" + menuType +
+        ", isAdmin=" + isAdmin +
+        ", isWeb=" + isWeb +
         ", istatic=" + istatic +
         ", comments=" + comments +
         ", createTime=" + createTime +

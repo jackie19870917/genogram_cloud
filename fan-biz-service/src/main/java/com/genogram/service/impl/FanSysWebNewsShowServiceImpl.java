@@ -38,8 +38,11 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     public List<FanSysWebMenuVo> getMenu(String siteId) {
         List<FanSysWebMenuVo> volist = new ArrayList();
 
+        EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<FanSysWebNewsShow>();
+        entityWrapper.eq("fan_sys_site_id",siteId);
+        //entityWrapper.eq("is_web",1);
         //单表查询list
-        List<FanSysWebNewsShow> list = this.selectList(new EntityWrapper<FanSysWebNewsShow>().eq("fan_sys_site_id",siteId));
+        List<FanSysWebNewsShow> list = this.selectList(entityWrapper);
         list.forEach((a)->{
             FanSysWebMenuVo vo = new FanSysWebMenuVo();
             vo.setShowId(a.getId());
@@ -55,7 +58,9 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
 
             vo.setApiUrl("http://192.168.2.179:8090"+url);
             vo.setOrderIndex(menu.getOrderIndex());
-            volist.add(vo);
+            if(menu.getIsWeb()!=null && menu.getIsWeb()==1){
+                volist.add(vo);
+            }
         });
 
         //级联模式,只要一级菜单
@@ -68,6 +73,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         List<FanSysWebMenuVo> list = new ArrayList<>();
 
         volist.forEach((a)->{
+            //一级菜单
             if(a.getTreeNum()==1){
                 Map map = new HashMap<>(16);
                 List<FanSysWebMenuVo> child = new ArrayList<>();
