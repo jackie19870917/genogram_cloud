@@ -6,6 +6,7 @@ import org.csource.fastdfs.StorageClient1;
 import org.csource.fastdfs.StorageServer;
 import org.csource.fastdfs.TrackerClient;
 import org.csource.fastdfs.TrackerServer;
+import org.springframework.core.io.ClassPathResource;
 
 /**
  * 文件上传
@@ -24,11 +25,8 @@ public class FastdfsClient {
     private StorageServer storageServer = null;
     private StorageClient1 storageClient = null;
 
-    public FastdfsClient(String conf) throws Exception {
-        if (conf.contains("classpath:")) {
-            conf = conf.replace("classpath:", this.getClass().getResource("/").getPath());
-        }
-        ClientGlobal.init(conf);
+    public FastdfsClient() throws Exception {
+        ClientGlobal.init(new ClassPathResource("fastDFS.properties").getFile().getAbsolutePath());
         trackerClient = new TrackerClient();
         trackerServer = trackerClient.getConnection();
         storageServer = null;
