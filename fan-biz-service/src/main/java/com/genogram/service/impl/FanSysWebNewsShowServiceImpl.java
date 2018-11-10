@@ -35,12 +35,8 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     private IFanSysWebNewsShowService iFanSysWebNewsShowService;
 
     @Override
-    public List<FanSysWebMenuVo> getMenu(String siteId) {
+    public List<FanSysWebMenuVo> getMenu(String hostIp,String siteId,boolean isWeb, EntityWrapper<FanSysWebNewsShow> entityWrapper) {
         List<FanSysWebMenuVo> volist = new ArrayList();
-
-        EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<FanSysWebNewsShow>();
-        entityWrapper.eq("fan_sys_site_id",siteId);
-        //entityWrapper.eq("is_web",1);
         //单表查询list
         List<FanSysWebNewsShow> list = this.selectList(entityWrapper);
         list.forEach((a)->{
@@ -54,12 +50,22 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             vo.setMenuType(menu.getMenuType());
             vo.setTreeNum(menu.getTreeNum());
             vo.setParentId(menu.getParentId());
+            vo.setMenuCode(menu.getMenuCode());
             String url = menu.getApiUrl()!=null ? menu.getApiUrl()+a.getId():null;
 
-            vo.setApiUrl("http://192.168.2.179:8090"+url);
+            vo.setApiUrl(hostIp+url);
             vo.setOrderIndex(menu.getOrderIndex());
-            if(menu.getIsWeb()!=null && menu.getIsWeb()==1){
-                volist.add(vo);
+            //web的第一级
+            if(isWeb){
+                if(menu.getIsWeb()!=null && menu.getIsWeb()==1){
+                    volist.add(vo);
+                }
+            }
+            //admin的第一级
+            else{
+                if(menu.getIsAdmin()!=null && menu.getIsAdmin()==1){
+                    volist.add(vo);
+                }
             }
         });
 

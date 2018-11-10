@@ -1,6 +1,7 @@
 package com.genogram.service;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.genogram.entity.FanSysWebNewsShow;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.FanSysWebMenuVo;
@@ -26,7 +27,7 @@ public interface IFanSysWebNewsShowService extends IService<FanSysWebNewsShow> {
      * @Description:
      *
      */
-    public List<FanSysWebMenuVo> getMenu(String siteId);
+    public List<FanSysWebMenuVo> getMenu(String hostIp,String siteId,boolean isWeb,EntityWrapper<FanSysWebNewsShow> entityWrapper);
 
     /**
      * getMenu

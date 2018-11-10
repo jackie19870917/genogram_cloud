@@ -1,7 +1,8 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entityvo.FanSysWebMenuVo;
-import com.genogram.entityvo.TestVo;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -26,13 +27,16 @@ import java.util.Map;
 @RequestMapping("/genogram/fanMenu")
 @CrossOrigin(origins = "*")
 public class FanIndexMenuController {
+    final static String hostIp="http://192.168.2.179:8090";
     @Autowired
     private IFanSysWebNewsShowService iFanSysWebNewsShowService;
 
     @ResponseBody
     @RequestMapping(value = "/getMenuBySiteId" ,  method = RequestMethod.GET)
-    public Response<TestVo> test1(@RequestParam(name = "siteId") String siteId){
-        List<FanSysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(siteId);
+    public Response getMenuBySiteId(@RequestParam(name = "siteId") String siteId){
+        EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<FanSysWebNewsShow>();
+        entityWrapper.eq("fan_sys_site_id",siteId);
+        List<FanSysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(hostIp,siteId,true,entityWrapper);
 
         List<FanSysWebMenuVo> indexMenus = iFanSysWebNewsShowService.getIndexMenu(siteId);
         Map indexMenusMap = new LinkedHashMap();
