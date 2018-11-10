@@ -113,7 +113,7 @@ public class FanNewsCultureController {
     }
 
     /**
-     *联谊会家族字派后台新增修改
+     *联谊会家族字派后台新增修改 发表
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:19
@@ -122,7 +122,29 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateZiPai",method = RequestMethod.POST)
-    public Response<FanNewsCultureZipai> addZiPai(FanNewsCultureZipai fanNewsCultureZipai){
+    public Response<FanNewsCultureZipai> addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai){
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        fanNewsCultureZipai.setStatus(1);
+        return getFanNewsCultureZipaiResponse(fanNewsCultureZipai);
+    }
+
+    /**
+     *联谊会家族字派后台新增修改 草稿
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 11:16
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/addOrUpdateZiPaiDrft",method = RequestMethod.POST)
+    public Response<FanNewsCultureZipai> addOrUpdateZiPaiDrft(FanNewsCultureZipai fanNewsCultureZipai){
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        fanNewsCultureZipai.setStatus(2);
+        return getFanNewsCultureZipaiResponse(fanNewsCultureZipai);
+    }
+
+    private Response<FanNewsCultureZipai> getFanNewsCultureZipaiResponse(FanNewsCultureZipai fanNewsCultureZipai) {
         try {
             boolean result=iFanNewsCultureZipaiService.addOrUpdateZiPai(fanNewsCultureZipai);
             if( ! result){
