@@ -43,7 +43,9 @@ public class FanIndexController {
     @Autowired
     private IFanIndexInfoService iFanIndexInfoService;
 
-    //状态
+    /**
+     * 状态
+     */
     Integer status = 1;
 
     /**
@@ -55,7 +57,7 @@ public class FanIndexController {
     public Response<FanIndexSlidePic> getFanIndexSlidePicList(@RequestParam(value = "siteId") Integer siteId) {
 
         List list = new ArrayList();
-        list.add(siteId);
+        list.add(status);
 
         List<FanIndexSlidePic> fanIndexSlidePicList = iFanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
 
@@ -75,7 +77,7 @@ public class FanIndexController {
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         List status = new ArrayList();
-        status.add(1);
+        status.add(status);
 
         Page<FanIndexFamilySummarysVo> fanIndexFamilySummarysVoPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
 

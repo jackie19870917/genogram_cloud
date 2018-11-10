@@ -22,4 +22,11 @@ public interface IFanIndexSlidePicService extends IService<FanIndexSlidePic> {
      * @return
      */
     List<FanIndexSlidePic> getFanIndexSlidePicListBySiteId(Integer siteId, List status);
+
+    /**
+     * 新增/修改  轮播图
+     * @param fanIndexSlidePic
+     * @return
+     */
+    Boolean insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic);
 }

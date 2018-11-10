@@ -42,7 +42,9 @@ public class FanNewsCharityController {
     @Autowired
     private IFanIndexFundService iFanIndexFundService;
 
-    //状态(0:删除;1:已发布;2:草稿3:不显示)
+    /**
+     * 状态(0:删除;1:已发布;2:草稿3:不显示)
+     */
     Integer status = 1;
 
 

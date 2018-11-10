@@ -3,10 +3,12 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexInfo;
+import com.genogram.entity.FanIndexSlidePic;
 import com.genogram.entityvo.FanIndexFamilySummarysVo;
 import com.genogram.entityvo.FanIndexInfoVo;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.genogram.service.IFanIndexInfoService;
+import com.genogram.service.IFanIndexSlidePicService;
 import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -45,6 +47,9 @@ public class FanIndexController {
     @Autowired
     private IFanIndexFamilySummarysService iFanIndexFamilySummarysService;
 
+    @Autowired
+    private IFanIndexSlidePicService iFanIndexSlidePicService;
+
     @RequestMapping(value = "uploadPic", method = RequestMethod.POST)
     public String uploadPic(@RequestParam("file") MultipartFile file) {
 
@@ -74,6 +79,25 @@ public class FanIndexController {
             return null;
         }
     }
+
+    /**
+     *      轮播图
+     * @param siteId  网站ID
+     * @return
+     */
+    @RequestMapping(value = "getFanIndexSlidePicList", method = RequestMethod.GET)
+    public Response<FanIndexSlidePic> getFanIndexSlidePicList(@RequestParam(value = "siteId") Integer siteId) {
+
+        List list = new ArrayList();
+        //  1-正常    2-草稿
+        list.add(1);
+        list.add(2);
+
+        List<FanIndexSlidePic> fanIndexSlidePicList = iFanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
+
+        return ResponseUtlis.success(fanIndexSlidePicList);
+    }
+
 
     /**
      *        联谊会简介,宣言
