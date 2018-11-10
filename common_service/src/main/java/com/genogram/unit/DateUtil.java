@@ -208,6 +208,20 @@ public class DateUtil {
     public static Timestamp format(Date date) {
         return new Timestamp(date.getTime());
     }
+
+    /**
+     *把本地日期时间转换为Timestamp
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:34
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    public  static Timestamp timestamp(){
+        Date date = new Date();
+        return new Timestamp(date.getTime());
+    }
     
     /**
      * 增加固定的天数

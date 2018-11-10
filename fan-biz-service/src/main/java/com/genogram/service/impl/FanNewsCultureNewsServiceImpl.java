@@ -170,7 +170,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     public boolean addNews(FanNewsCultureNews fanNewsCultureNews,String usrs) {
         /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
         //生成时间
-        Timestamp format = DateUtil.format(new Date());
+        Timestamp format = DateUtil.timestamp();
         if(fanNewsCultureNews.getId()==null){
             //存入创建时间
             fanNewsCultureNews.setCreateTime(format);
@@ -201,7 +201,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         FanNewsCultureNews fanNewsCultureNews=new FanNewsCultureNews();
         fanNewsCultureNews.setId(id);
         fanNewsCultureNews.setStatus(status);
-        fanNewsCultureNews.setUpdateTime(DateUtil.format(new Date()));
+        fanNewsCultureNews.setUpdateTime(DateUtil.timestamp());
         boolean b = this.updateAllColumnById(fanNewsCultureNews);
         return b;
     }

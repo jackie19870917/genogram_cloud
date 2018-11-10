@@ -94,7 +94,7 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
     @Override
     public boolean addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai) {
         //生成时间
-        Timestamp format = DateUtil.format(new Date());
+        Timestamp format = DateUtil.timestamp();
         if(fanNewsCultureZipai.getId()==null){
             fanNewsCultureZipai.setCreateUser(null);
             //存入创建时间
@@ -121,7 +121,7 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         FanNewsCultureZipai fanNewsCultureZipai=new FanNewsCultureZipai();
         fanNewsCultureZipai.setId(id);
         fanNewsCultureZipai.setStatus(status);
-        fanNewsCultureZipai.setUpdateTime(DateUtil.format(new Date()));
+        fanNewsCultureZipai.setUpdateTime(DateUtil.timestamp());
         //修改人  待写
         boolean b = this.updateAllColumnById(fanNewsCultureZipai);
         return b;
