@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entityvo.FamilyIndustryVo;
+import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.unit.Response;
@@ -141,12 +142,12 @@ public class FanNewsIndustryController {
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,newsDetailEmpty);
             }
-            NewsDetailVo newsDetailVo= iFanNewsIndustryService.getFamilyIndustryDetail(id);
+            IndustryDetailVo familyIndustryDetail = iFanNewsIndustryService.getFamilyIndustryDetail(id);
             //判断是否返回为空
-            if (newsDetailVo==null){
+            if (familyIndustryDetail==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,newsDetailEmpty);
             }
-            return ResponseUtlis.success(newsDetailVo);
+            return ResponseUtlis.success(familyIndustryDetail);
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
