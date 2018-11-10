@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-07
+ * @since 2018-11-10
  */
 @TableName("all_user_login")
 public class AllUserLogin extends Model<AllUserLogin> {
