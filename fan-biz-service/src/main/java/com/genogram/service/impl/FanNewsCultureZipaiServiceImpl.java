@@ -96,9 +96,12 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         //生成时间
         Timestamp format = DateUtil.timestamp();
         if(fanNewsCultureZipai.getId()==null){
-            fanNewsCultureZipai.setCreateUser(null);
             //存入创建时间
+            fanNewsCultureZipai.setCreateUser(null);
             fanNewsCultureZipai.setCreateTime(format);
+            //存入修改时间
+            fanNewsCultureZipai.setUpdateTime(format);
+            fanNewsCultureZipai.setUpdateUser(null);
         }else{
             //存入修改时间
             fanNewsCultureZipai.setUpdateTime(format);

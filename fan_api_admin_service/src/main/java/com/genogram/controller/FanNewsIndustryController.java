@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entityvo.FamilyIndustryVo;
+import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.unit.Response;
@@ -92,7 +93,7 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFamilyIndustryDetail(
+    public Response<IndustryDetailVo> getFamilyIndustryDetail(
             @RequestParam(value = "id") String id // 家族文化详情显示位置
     ) {
         return getNewsDetailVoResponse(id);
@@ -108,7 +109,7 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value ="/getFamilyIndustryAmend",method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFamilyIndustryAmend(
+    public Response<IndustryDetailVo> getFamilyIndustryAmend(
             @RequestParam(value = "id") String id // 家族文化详情显示位置
     ) {
         return getNewsDetailVoResponse(id);
@@ -123,10 +124,10 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
-    private Response<NewsDetailVo> getNewsDetailVoResponse( @RequestParam("id") String id) {
+    private Response<IndustryDetailVo> getNewsDetailVoResponse( @RequestParam("id") String id) {
         try {
-            NewsDetailVo newsDetailVo = iFanNewsIndustryService.getFamilyIndustryDetail(Integer.valueOf(id));
-            return ResponseUtlis.success(newsDetailVo);
+            IndustryDetailVo industryDetailVo = iFanNewsIndustryService.getFamilyIndustryDetail(Integer.valueOf(id));
+            return ResponseUtlis.success(industryDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
@@ -204,7 +205,7 @@ public class FanNewsIndustryController {
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
-            int status=2;
+            int status=0;
             Boolean aBoolean = iFanNewsIndustryService.deleteByIdIndustry(id, status);
             if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);

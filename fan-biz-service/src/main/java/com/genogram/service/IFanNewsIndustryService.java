@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsIndustry;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.FamilyIndustryVo;
+import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,7 +35,7 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
      * @param id  主键
      * @return
      */
-    NewsDetailVo getFamilyIndustryDetail(Integer id);
+    IndustryDetailVo getFamilyIndustryDetail(Integer id);
 
     /**
      * 联谊会家族产业后台新增

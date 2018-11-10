@@ -7,6 +7,7 @@ import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FamilyIndustryVo;
+import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.FanNewsIndustryMapper;
@@ -120,7 +121,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
      *@Description:
     */
     @Override
-    public NewsDetailVo getFamilyIndustryDetail(Integer id) {
+    public IndustryDetailVo getFamilyIndustryDetail(Integer id) {
         //根据Id查出产业详情
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
 
@@ -140,17 +141,17 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         AllUserLogin updateUser = allUserLoginMapper.selectById(fanNewsIndustry.getUpdateUser());
 
         //返回新VO的集合赋值新对象vo
-        NewsDetailVo newsDetail=new NewsDetailVo();
+        IndustryDetailVo industryDetailVo=new IndustryDetailVo();
         //调用方法封装集合
-        BeanUtils.copyProperties(fanNewsIndustry,newsDetail);
+        BeanUtils.copyProperties(fanNewsIndustry,industryDetailVo);
         //存储图片list集合
-        newsDetail.setFanNewsUploadFileList(files);
+        industryDetailVo.setFanNewsUploadFileList(files);
         //存储作者名称时间
-        newsDetail.setUpdateTimeLong(fanNewsIndustry.getUpdateTime().getTime());
-        newsDetail.setCreateTimeLong(fanNewsIndustry.getCreateTime().getTime());
-        newsDetail.setCreateUserName(createUser.getRealName());
-        newsDetail.setCreateUserName(updateUser.getRealName());
-        return newsDetail;
+        industryDetailVo.setUpdateTimeLong(fanNewsIndustry.getUpdateTime().getTime());
+        industryDetailVo.setCreateTimeLong(fanNewsIndustry.getCreateTime().getTime());
+        industryDetailVo.setCreateUserName(createUser.getRealName());
+        industryDetailVo.setCreateUserName(updateUser.getRealName());
+        return industryDetailVo;
     }
 
     /**
@@ -169,9 +170,14 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         if(fanNewsIndustry.getId()==null){
             //存入创建时间
             fanNewsIndustry.setCreateTime(format);
+            fanNewsIndustry.setCreateUser(null);
+            //插入修改时间
+            fanNewsIndustry.setUpdateTime(format);
+            fanNewsIndustry.setUpdateUser(null);
         }else{
             //存入修改时间
             fanNewsIndustry.setUpdateTime(format);
+            fanNewsIndustry.setUpdateUser(null);
         }
 /*        //存储图片
         if(insert){

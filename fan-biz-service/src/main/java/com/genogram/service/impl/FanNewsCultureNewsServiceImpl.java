@@ -174,9 +174,14 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         if(fanNewsCultureNews.getId()==null){
             //存入创建时间
             fanNewsCultureNews.setCreateTime(format);
+            fanNewsCultureNews.setCreateUser(null);
+            //存入修改时间
+            fanNewsCultureNews.setUpdateTime(format);
+            fanNewsCultureNews.setUpdateUser(null);
         }else{
             //存入修改时间
             fanNewsCultureNews.setUpdateTime(format);
+            fanNewsCultureNews.setUpdateUser(null);
         }
         //插入数据
         boolean insert = this.insert(fanNewsCultureNews);

@@ -184,7 +184,7 @@ public class FanNewsCultureController {
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
-            int status=2;
+            int status=0;
             Boolean aBoolean = iFanNewsCultureZipaiService.deleteByIdZipai(id, status);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
@@ -260,7 +260,7 @@ public class FanNewsCultureController {
     }
 
     /**
-     *家族文化后台进入修改页面
+     *联谊会家族文化后台进入修改页面
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:19
@@ -298,7 +298,7 @@ public class FanNewsCultureController {
     }
 
     /**
-     *家族文化后台添加和修改 发表
+     *联谊会家族文化后台添加和修改 发表
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:20
@@ -308,11 +308,13 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
     public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews, String urs) {
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        fanNewsCultureNews.setStatus(1);
         return getFanNewsCultureNewsResponse(fanNewsCultureNews, urs);
     }
 
     /**
-     *家族文化后台添加和修改 草稿
+     *联谊会家族文化后台添加和修改 草稿
      *@Author: yuzhou
      *@Date: 2018-11-10
      *@Time: 12:18
@@ -322,6 +324,8 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
     public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews, String urs) {
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        fanNewsCultureNews.setStatus(2);
         return getFanNewsCultureNewsResponse(fanNewsCultureNews, urs);
     }
 
@@ -367,8 +371,8 @@ public class FanNewsCultureController {
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
-            //状态
-            int status=2;
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            int status=0;
             Boolean aBoolean = iFanNewsCultureNewsService.deleteByIdCultur(id, status);
             if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);

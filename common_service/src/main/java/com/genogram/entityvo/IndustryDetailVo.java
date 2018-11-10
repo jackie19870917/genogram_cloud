@@ -3,7 +3,6 @@ package com.genogram.entityvo;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
-import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entity.FanNewsUploadFile;
 import lombok.Data;
 
@@ -11,18 +10,16 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *家族产业查询
+ *产业详情
  *@Author: yuzhou
- *@Date: 2018-11-09
- *@Time: 15:59
+ *@Date: 2018-11-10
+ *@Time: 17:51
  *@Param:
  *@return:
  *@Description:
 */
 @Data
-public class FamilyIndustryVo {
-
-
+public class IndustryDetailVo {
     /**
      * 主键
      */
@@ -73,7 +70,14 @@ public class FamilyIndustryVo {
     private Integer updateUser;
 
     /**
-     * 家族产业图片
+     * 用户名
+     */
+    private String createUserName;
+    private String updateUserName;
+    private long updateTimeLong;
+    private long createTimeLong;
+    /**
+     * 附件图片
      */
     private List<FanNewsUploadFile> fanNewsUploadFileList;
 
