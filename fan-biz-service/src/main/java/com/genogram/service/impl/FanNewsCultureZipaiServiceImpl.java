@@ -118,8 +118,7 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
     */
     @Override
     public Boolean deleteByIdZipai(Integer id, int status) {
-        FanNewsCultureZipai fanNewsCultureZipai=new FanNewsCultureZipai();
-        fanNewsCultureZipai.setId(id);
+        FanNewsCultureZipai fanNewsCultureZipai = this.selectById(id);
         fanNewsCultureZipai.setStatus(status);
         fanNewsCultureZipai.setUpdateTime(DateUtil.timestamp());
         //修改人  待写

@@ -121,6 +121,44 @@ public class FanNewsCultureController {
     }
 
     /**
+     *联谊会家族字派模糊查询
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 10:06
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @RequestMapping(value = "/getZipaiVaguePage",method = RequestMethod.POST)
+    public Response<FanNewsCultureZipai> getGrabblePage(
+            @RequestParam(value = "showId") Integer showId, // 家族字派显示位置
+            @RequestParam(value = "zipaiTxt") String zipaiTxt, // 家族字派模糊查询参数
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+    ) {
+        try{
+            //返回的空list集合结构
+            List<FanNewsCultureZipai> list=new ArrayList<>();
+            //判断showId是否有值
+            if(showId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,list);
+            }
+            Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
+            entity.eq("show_id",showId);
+            entity.like("zipai_txt",zipaiTxt);
+            Page<FanNewsCultureZipai> fanNewsCultureZipaiPage = iFanNewsCultureZipaiService.commonality(entity,pageNo, pageSize);
+            if(fanNewsCultureZipaiPage==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,list);
+            }
+            return ResponseUtlis.success(fanNewsCultureZipaiPage);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+
+    /**
      * 联谊会家族文化查询
      *
      * @Author: yuzhou

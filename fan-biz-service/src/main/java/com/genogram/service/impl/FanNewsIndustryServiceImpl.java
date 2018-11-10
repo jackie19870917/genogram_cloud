@@ -145,7 +145,9 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         BeanUtils.copyProperties(fanNewsIndustry,newsDetail);
         //存储图片list集合
         newsDetail.setFanNewsUploadFileList(files);
-        //存储作者名称
+        //存储作者名称时间
+        newsDetail.setUpdateTimeLong(fanNewsIndustry.getUpdateTime().getTime());
+        newsDetail.setCreateTimeLong(fanNewsIndustry.getCreateTime().getTime());
         newsDetail.setCreateUserName(createUser.getRealName());
         newsDetail.setCreateUserName(updateUser.getRealName());
         return newsDetail;
@@ -189,9 +191,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
     */
     @Override
     public Boolean deleteByIdIndustry(Integer id, int status) {
-        FanNewsIndustry fanNewsIndustry=new FanNewsIndustry();
+        FanNewsIndustry fanNewsIndustry = this.selectById(id);
         fanNewsIndustry.setStatus(status);
-        fanNewsIndustry.setId(id);
         fanNewsIndustry.setUpdateTime(DateUtil.timestamp());
         //修改人 待写
         boolean b = this.updateAllColumnById(fanNewsIndustry);

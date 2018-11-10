@@ -23,12 +23,6 @@ import java.util.List;
 public class FamilyCultureVo{
 
     /**
-     * 家族文化图片
-     */
-    private List<FanNewsUploadFile> fanNewsUploadFileList;
-
-
-    /**
      * 编号
      */
     private Integer id;
@@ -70,5 +64,11 @@ public class FamilyCultureVo{
      */
 
     private Integer updateUser;
+
+    /**
+     * 家族文化图片
+     */
+    private List<FanNewsUploadFile> fanNewsUploadFileList;
+
 
 }

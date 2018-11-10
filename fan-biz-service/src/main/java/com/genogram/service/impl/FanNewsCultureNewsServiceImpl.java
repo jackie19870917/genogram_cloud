@@ -145,13 +145,13 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetail=new NewsDetailVo();
 
-        newsDetail.setUpdateTimeLong(fanNewsCultureNews.getUpdateTime().getTime());
-
         //调用方法封装集合
         BeanUtils.copyProperties(fanNewsCultureNews,newsDetail);
         //存储图片list集合
         newsDetail.setFanNewsUploadFileList(files);
-        //存储作者名称
+        //存储作者名称时间
+        newsDetail.setUpdateTimeLong(fanNewsCultureNews.getUpdateTime().getTime());
+        newsDetail.setCreateTimeLong(fanNewsCultureNews.getCreateTime().getTime());
         newsDetail.setCreateUserName(createUser.getRealName());
         newsDetail.setCreateUserName(updateUser.getRealName());
         return newsDetail;
@@ -198,10 +198,10 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     */
     @Override
         public Boolean deleteByIdCultur(Integer id, int status) {
-        FanNewsCultureNews fanNewsCultureNews=new FanNewsCultureNews();
-        fanNewsCultureNews.setId(id);
+        FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
         fanNewsCultureNews.setStatus(status);
         fanNewsCultureNews.setUpdateTime(DateUtil.timestamp());
+        //修改人待写
         boolean b = this.updateAllColumnById(fanNewsCultureNews);
         return b;
     }
