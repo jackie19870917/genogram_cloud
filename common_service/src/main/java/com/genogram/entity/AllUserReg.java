@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-07
+ * @since 2018-11-10
  */
 @TableName("all_user_reg")
 public class AllUserReg extends Model<AllUserReg> {
@@ -29,8 +29,8 @@ public class AllUserReg extends Model<AllUserReg> {
     /**
      * 用户ID
      */
-    @TableField("user_id")
-    private String userId;
+    @TableField("all_user_login_id")
+    private Integer allUserLoginId;
     /**
      * 真实姓名
      */
@@ -96,7 +96,7 @@ public class AllUserReg extends Model<AllUserReg> {
      */
     private String creator;
     /**
-     * 状态(1-是,2-否)
+     * 状态(0:删除;1:正常,2:非正常)
      */
     private Integer status;
     /**
@@ -135,12 +135,12 @@ public class AllUserReg extends Model<AllUserReg> {
         return this;
     }
 
-    public String getUserId() {
-        return userId;
+    public Integer getAllUserLoginId() {
+        return allUserLoginId;
     }
 
-    public AllUserReg setUserId(String userId) {
-        this.userId = userId;
+    public AllUserReg setAllUserLoginId(Integer allUserLoginId) {
+        this.allUserLoginId = allUserLoginId;
         return this;
     }
 
@@ -342,7 +342,7 @@ public class AllUserReg extends Model<AllUserReg> {
     public String toString() {
         return "AllUserReg{" +
         ", id=" + id +
-        ", userId=" + userId +
+        ", allUserLoginId=" + allUserLoginId +
         ", realName=" + realName +
         ", englishName=" + englishName +
         ", phone=" + phone +
