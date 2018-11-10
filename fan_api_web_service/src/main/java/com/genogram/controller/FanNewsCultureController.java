@@ -38,191 +38,197 @@ public class FanNewsCultureController {
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
     /**
-     *联谊会家族字派查询
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:20
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
+     * 联谊会家族字派查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:20
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/getCommonalityPage", method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
-            @RequestParam(value = "showId") String showId, // 家族文化显示位置
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
-            ) {
+    ) {
         try {
             //判断showId是否有值
-            if(StringUtils.isEmpty(showId)){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            if (showId==null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            //状态
-            List statusList  = new ArrayList();
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            List statusList = new ArrayList();
             statusList.add(1);
             //查询条件
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
-                entity.eq("show_id", Integer.valueOf(showId));
-            if(statusList.size()!=0){
-                entity.in("status", statusList);
-            }
+            entity.eq("show_id", showId);
+            entity.in("status", statusList);
             entity.orderBy("create_time", false);
             Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
-            if(fanNewsCultureZipai==null){
+            if (fanNewsCultureZipai == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.success(fanNewsCultureZipai);
-        }catch (Exception e) {
-                e.printStackTrace();
-                return ResponseUtlis.error(Constants.FAILURE_CODE,null);
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
     }
 
     /**
-     *联谊会首页家族字派
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:20
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    @RequestMapping(value = "/index/getCommonalityIndexPage",method = RequestMethod.GET)
+     * 联谊会首页家族字派
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:20
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/index/getCommonalityIndexPage", method = RequestMethod.GET)
     public Response<StringBuffer> getCommonalityIndexPage(
-            @RequestParam(value = "showId") String
-                                                                                                                                                                      showId // 家族文化显示位置
-           ) {
+            @RequestParam(value = "showId") Integer
+                    showId // 家族文化显示位置
+    ) {
         try {
             //判断showId是否有值
-            if(StringUtils.isEmpty(showId)){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            if (showId==null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            //状态
-            List statusList  = new ArrayList();
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            List statusList = new ArrayList();
             statusList.add(1);
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
-            entity.eq("show_id", Integer.valueOf(showId));
-            if(statusList.size()!=0){
-                entity.in("status", statusList);
-            }
+            entity.eq("show_id", showId);
+            entity.in("status", statusList);
             entity.orderBy("create_time", false);
             StringBuffer stringBuffer = iFanNewsCultureZipaiService.commonalityIndex(entity);
             //判断该stringBuffer是否返回为null
-            if(stringBuffer==null){
+            if (stringBuffer == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
             }
             return ResponseUtlis.success(stringBuffer);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
     /**
-     *联谊会家族文化查询
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:21
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
+     * 联谊会家族文化查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/getFamilyCulturePage", method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") String showId, // 家族文化显示位置
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
-            ) {
-        //判断showId是否有值
-        if(StringUtils.isEmpty(showId)){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
-        }
-        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
-    }
-
-    /**
-     *联谊会首页家族文化查询
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:21
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    @RequestMapping(value ="/index/getFamilyIndexCulturePage",method = RequestMethod.GET)
-    public Response<FamilyCultureVo> getFamilyIndexCulturePage(
-            @RequestParam(value = "showId") String showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
-            ) {
-        //判断showId是否有值
-        if(StringUtils.isEmpty(showId)){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
-        }
-        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
-    }
-
-    /**
-     *联谊会家族文化详情查询
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:21
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "id") String id // 家族文化文章ID
     ) {
-        try{
-            NewsDetailVo newsDetailVo= iFanNewsCultureNewsService.getFamilyCultureDetail(Integer.valueOf(id));
-            return ResponseUtlis.success(newsDetailVo);
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        //判断showId是否有值
+        if (showId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
+        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
     }
 
     /**
-     *抽取的家族文化方法
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:21
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    private Response<FamilyCultureVo> getFamilyCultureVoResponse(String showId, Integer pageNo, Integer pageSize) {
+     * 联谊会首页家族文化查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/index/getFamilyIndexCulturePage", method = RequestMethod.GET)
+    public Response<FamilyCultureVo> getFamilyIndexCulturePage(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+    ) {
+        //判断showId是否有值
+        if (showId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
+    }
+
+    /**
+     * 抽取的家族文化方法查询方法
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    private Response<FamilyCultureVo> getFamilyCultureVoResponse(Integer showId, Integer pageNo, Integer pageSize) {
         try {
-            //状态
-            List statusList  = new ArrayList();
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            List statusList = new ArrayList();
             statusList.add(1);
             //查询文章信息的条件
             Wrapper<FanNewsCultureNews> entity = new EntityWrapper<FanNewsCultureNews>();
-            entity.eq("show_id", Integer.valueOf(showId));
-            if(statusList.size()!=0){
+                entity.eq("show_id", showId);
                 entity.in("status", statusList);
-            }
-            entity.orderBy("create_time", false);
+                entity.orderBy("create_time", false);
             Page<FamilyCultureVo> familyCultureVoList = iFanNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
             if (familyCultureVoList == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
             }
             return ResponseUtlis.success(familyCultureVoList);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
-
+    /**
+     * 联谊会家族文化详情查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/getFamilyCultureDetail", method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyCultureDetail(
+            @RequestParam(value = "id") Integer id // 家族文化文章ID
+    ) {
+        try {
+            //返回空参
+            NewsDetailVo newsDetail = new NewsDetailVo();
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,newsDetail);
+            }
+            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(id);
+            if (newsDetailVo == null) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, newsDetail);
+            }
+            return ResponseUtlis.success(newsDetailVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
 
 }
 

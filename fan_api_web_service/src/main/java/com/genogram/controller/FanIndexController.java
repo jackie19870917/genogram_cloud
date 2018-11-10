@@ -6,6 +6,7 @@ import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanIndexMessage;
 import com.genogram.entityvo.CharityFundVo;
+import com.genogram.entityvo.FanIndexFamilySummarysVo;
 import com.genogram.entityvo.FanIndexInfoVo;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.genogram.service.IFanIndexInfoService;
@@ -15,6 +16,9 @@ import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -52,13 +56,15 @@ public class FanIndexController {
      * @return
      */
     @RequestMapping(value = "index/getFanIndexFamilySummarysPage", method = RequestMethod.GET)
-    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
+    public Response<FanIndexFamilySummarysVo> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+        List status = new ArrayList();
+        status.add(1);
 
-        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
+        Page<FanIndexFamilySummarysVo> fanIndexFamilySummarysVoPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
 
-        return ResponseUtlis.success(fanIndexFamilySummarysPage);
+        return ResponseUtlis.success(fanIndexFamilySummarysVoPage);
     }
 
     /**
@@ -75,7 +81,15 @@ public class FanIndexController {
         return ResponseUtlis.success(fanIndexInfoVo);
     }
 
-    //联谊会首页聊天记录
+    /**
+     *联谊会首页聊天记录
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 19:26
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @RequestMapping(value = "/index/getChatRecordList", method = RequestMethod.GET)
     public Response<FanIndexMessage> getChatRecordList(
             @RequestParam(value = "siteId") Integer siteId

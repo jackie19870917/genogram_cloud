@@ -13,6 +13,7 @@ import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import com.genogram.unit.StringUtils;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +45,7 @@ public class FanNewsCultureController {
     private IFanNewsCultureNewsService iFanNewsCultureNewsService;
 
     /**
-     *联谊会家族字派查询
+     *联谊会家族字派后台查询
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:18
@@ -100,6 +101,9 @@ public class FanNewsCultureController {
             @RequestParam(value = "id") String id // 家族字派文章ID
     ){
         try {
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
             FanNewsCultureZipai fanNewsCultureZipai=iFanNewsCultureZipaiService.getZiPaiDetail(Integer.valueOf(id));
             return ResponseUtlis.success(fanNewsCultureZipai);
         } catch (Exception e) {
@@ -109,7 +113,7 @@ public class FanNewsCultureController {
     }
 
     /**
-     *联谊会家族字派新增修改
+     *联谊会家族字派后台新增修改
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:19
@@ -131,20 +135,75 @@ public class FanNewsCultureController {
         }
     }
 
-
- /*   //联谊会家族字派查询
-    @RequestMapping(value = "/getGrabblePage",method = RequestMethod.GET)
+    /**
+     *联谊会家族字派模糊查询
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 10:06
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/getZipaiVaguePage",method = RequestMethod.POST)
     public Response<FanNewsCultureZipai> getGrabblePage(
             @RequestParam(value = "showId") Integer showId, // 家族字派显示位置
-            @RequestParam(value = "zipaiTxt") Integer zipaiTxt, // 家族字派模糊查询参数
+            @RequestParam(value = "zipaiTxt") String zipaiTxt, // 家族字派模糊查询参数
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
-        return null;
-    }*/
+        try{
+            //返回的空list集合结构
+            List<FanNewsCultureZipai> list=new ArrayList<>();
+            //判断showId是否有值
+            if(showId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,list);
+            }
+            Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
+            entity.eq("show_id",showId);
+            entity.like("zipai_txt",zipaiTxt);
+            Page<FanNewsCultureZipai> fanNewsCultureZipaiPage = iFanNewsCultureZipaiService.selectPage(new Page<>(pageNo, pageSize), entity);
+            if(fanNewsCultureZipaiPage==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,list);
+            }
+            return ResponseUtlis.success(fanNewsCultureZipaiPage);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+ /**
+  *联谊会家族后台删除
+  *@Author: yuzhou
+  *@Date: 2018-11-10
+  *@Time: 10:05
+  *@Param:
+  *@return:
+  *@Description:
+ */
+    @RequestMapping(value ="/deleteByIdZipai",method = RequestMethod.GET)
+    public Response<FanNewsCultureZipai> deleteByIdZipai(
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+    ) {
+        try {
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            //状态
+            int status=2;
+            FanNewsCultureZipai fanNewsCultureZipai=new FanNewsCultureZipai();
+            fanNewsCultureZipai.setId(id);
+            fanNewsCultureZipai.setStatus(status);
+            iFanNewsCultureZipaiService.updateById(fanNewsCultureZipai);
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
 
     /**
-     *联谊会家族文化查询
+     *联谊会家族文化后台查询
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:19
@@ -201,6 +260,9 @@ public class FanNewsCultureController {
     public Response<NewsDetailVo> getFamilyCultureDetail(
             @RequestParam(value = "id") String id // 家族文化详情显示位置
     ) {
+        if(id==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        }
         return getNewsDetailVoResponse( id);
     }
 
@@ -217,6 +279,9 @@ public class FanNewsCultureController {
     public Response<NewsDetailVo> getFamilyCultureAmend(
             @RequestParam(value = "id") String id // 家族文化详情显示位置
     ) {
+        if(id==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        }
         return getNewsDetailVoResponse(id);
     }
 
@@ -263,5 +328,35 @@ public class FanNewsCultureController {
         return ResponseUtlis.error(Constants.FAILURE_CODE,null);
     }
 
+    }
+
+    /**
+     *家族文化后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 9:43
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value ="/deleteByIdCultur",method = RequestMethod.GET)
+    public Response<FanNewsCultureNews> deleteByIdCultur(
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+    ) {
+        try {
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            //状态
+            int status=2;
+            FanNewsCultureNews fanNewsCultureNews=new FanNewsCultureNews();
+            fanNewsCultureNews.setId(id);
+            fanNewsCultureNews.setStatus(status);
+            iFanNewsCultureNewsService.updateById(fanNewsCultureNews);
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
     }
 }

@@ -135,17 +135,19 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         AllUserLogin allUserLogin = allUserLoginMapper.selectById(fanNewsCharityOut.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
-        NewsDetailVo newsDetail = new NewsDetailVo();
+        NewsDetailVo newsDetailVo = new NewsDetailVo();
 
-        BeanUtils.copyProperties(fanNewsCharityOut,newsDetail);
+        BeanUtils.copyProperties(fanNewsCharityOut,newsDetailVo);
 
         //存储图片list集合
-        newsDetail.setFanNewsUploadFileList(fanNewsUploadFileList);
+        newsDetailVo.setFanNewsUploadFileList(fanNewsUploadFileList);
 
         //存储作者名称
-        newsDetail.setUserName(allUserLogin.getRealName());
+        newsDetailVo.setCreateUserName(allUserLogin.getRealName());
 
-        return newsDetail;
+        //newsDetailVo.setUpdateUserName(allUserLogin.getRealName());
+
+        return newsDetailVo;
     }
 
     /***

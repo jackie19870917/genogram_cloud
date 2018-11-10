@@ -45,7 +45,7 @@ public final class Constants {
 	public static final Integer FAILURE_CODE = 500;
 
     /**
-     * 返回状态码 错误
+     * 返回状态码 错误 没有查到参数
      */
 	public static final Integer ERRO_CODE = 400;
 

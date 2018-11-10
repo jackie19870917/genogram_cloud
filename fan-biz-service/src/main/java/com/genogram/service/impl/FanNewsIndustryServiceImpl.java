@@ -124,6 +124,10 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //根据Id查出产业详情
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
 
+        if(fanNewsIndustry==null){
+            return null;
+        }
+
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", fanNewsIndustry.getShowId());
@@ -132,7 +136,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
 
         //查出名称
-        AllUserLogin allUserLogin = allUserLoginMapper.selectById(fanNewsIndustry.getCreateUser());
+        AllUserLogin createUser = allUserLoginMapper.selectById(fanNewsIndustry.getCreateUser());
+        AllUserLogin updateUser = allUserLoginMapper.selectById(fanNewsIndustry.getUpdateUser());
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetail=new NewsDetailVo();
@@ -141,7 +146,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //存储图片list集合
         newsDetail.setFanNewsUploadFileList(files);
         //存储作者名称
-        newsDetail.setUserName(allUserLogin.getRealName());
+        newsDetail.setCreateUserName(createUser.getRealName());
+        newsDetail.setCreateUserName(updateUser.getRealName());
         return newsDetail;
     }
 

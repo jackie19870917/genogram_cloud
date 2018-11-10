@@ -1,9 +1,5 @@
 package com.genogram.service.impl;
 
-import com.genogram.entity.FanIndexFund;
-import com.genogram.entity.FanNewsCharityOut;
-import com.genogram.entityvo.CharityFundVo;
-import com.genogram.entityvo.DonorVo;
 import com.genogram.service.IFanIndexFundService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCharityPayInService;
@@ -11,8 +7,15 @@ import com.genogram.service.IFanNewsCharityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
+/**
+ *
+ *@Author: Toxicant
+ *@Date: 2018-11-09
+ *@Time: 18:55
+ *@Param: 
+ *@return:
+ *@Description:
+*/
 @Service
 public class FanNewsCharityServiceImpl implements IFanNewsCharityService {
 

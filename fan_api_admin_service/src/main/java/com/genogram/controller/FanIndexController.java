@@ -3,6 +3,7 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexInfo;
+import com.genogram.entityvo.FanIndexFamilySummarysVo;
 import com.genogram.entityvo.FanIndexInfoVo;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.genogram.service.IFanIndexInfoService;
@@ -12,6 +13,9 @@ import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.genogram.config.Constants.IP_FAST_DFS;
 import static com.genogram.config.Constants.SITE_FAST_DFS;
@@ -96,7 +100,7 @@ public class FanIndexController {
     }
 
     /**
-     *        新增或修改    联谊堂
+     *           联谊堂
      * @param siteId    网站ID
      * @param pageNo    当前页
      * @param pageSize  每页记录数
@@ -106,8 +110,9 @@ public class FanIndexController {
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        Integer status = 1;
-        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
+        List status = new ArrayList();
+        status.add(1);
+        Page<FanIndexFamilySummarysVo> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
 
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
@@ -118,22 +123,22 @@ public class FanIndexController {
      * @return
      */
     @RequestMapping(value = "getFanIndexFamilySummarys", method = RequestMethod.GET)
-    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarys(@RequestParam(value = "id") Integer id) {
+    public Response<FanIndexFamilySummarysVo> getFanIndexFamilySummarys(@RequestParam(value = "id") Integer id) {
 
-        FanIndexFamilySummarys fanIndexFamilySummarys = iFanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
+        FanIndexFamilySummarysVo fanIndexFamilySummarysVo = iFanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
 
-        return ResponseUtlis.success(fanIndexFamilySummarys);
+        return ResponseUtlis.success(fanIndexFamilySummarysVo);
     }
 
     /**
      *       /新增或修改    联谊堂
-     * @param fanIndexFamilySummarys
+     * @param fanIndexFamilySummarysVo
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarys", method = RequestMethod.POST)
-    public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+    public Response<FanIndexFamilySummarysVo> insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarysVo fanIndexFamilySummarysVo) {
 
-        Boolean aBoolean = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
+        Boolean aBoolean = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarysVo);
 
         if (aBoolean) {
             return ResponseUtlis.success(200);

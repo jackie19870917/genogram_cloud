@@ -3,13 +3,18 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexFamilySummarys;
+import com.genogram.entityvo.FanIndexFamilySummarysVo;
+import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.FanIndexFamilySummarysMapper;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,30 +32,75 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
     @Autowired
     private FanIndexFamilySummarysMapper fanIndexFamilySummarysMapper;
 
+    @Autowired
+    private AllUserLoginMapper allUserLoginMapper;
+
     @Override
-    public Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId,Integer status,Integer pageNo,Integer pageSize) {
+    public Page<FanIndexFamilySummarysVo> getFanIndexFamilySummarysPage(Integer siteId, List status, Integer pageNo, Integer pageSize) {
+
         Wrapper<FanIndexFamilySummarys> entity = new EntityWrapper<FanIndexFamilySummarys>();
         entity.eq("site_id", siteId);
-        entity.eq("status", status);
-        return this.selectPage(new Page<FanIndexFamilySummarys>(pageNo,pageSize),entity);
-    }
+        entity.in("status", status);
 
-    @Override
-    public Boolean insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = this.selectPage(new Page<FanIndexFamilySummarys>(pageNo, pageSize), entity);
 
-        if (fanIndexFamilySummarys.getId() != null) {
-            fanIndexFamilySummarys.setUpdateTime(new Date());
-        } else {
-            fanIndexFamilySummarys.setCreateTime(new Date());
+        List<FanIndexFamilySummarys> fanIndexFamilySummarysList = fanIndexFamilySummarysPage.getRecords();
+
+        List list = new ArrayList();
+        for (FanIndexFamilySummarys fanIndexFamilySummarys : fanIndexFamilySummarysList) {
+            list.add(fanIndexFamilySummarys.getLeader());
         }
 
-        return  this.insertOrUpdate(fanIndexFamilySummarys);
+        Wrapper<AllUserLogin> wrapper = new EntityWrapper();
+        wrapper.in("id", list);
 
+        List<AllUserLogin> allUserLoginList = allUserLoginMapper.selectList(wrapper);
+
+        List<FanIndexFamilySummarysVo> fanIndexFamilySummarysVoList = new ArrayList<>();
+        for (FanIndexFamilySummarys fanIndexFamilySummarys : fanIndexFamilySummarysList) {
+            for (AllUserLogin allUserLogin : allUserLoginList) {
+                if (fanIndexFamilySummarys.getLeader().equals(allUserLogin.getId())) {
+
+                    FanIndexFamilySummarysVo fanIndexFamilySummarysVo = new FanIndexFamilySummarysVo();
+                    BeanUtils.copyProperties(fanIndexFamilySummarys,fanIndexFamilySummarysVo);
+                    fanIndexFamilySummarysVo.setLeaderName(allUserLogin.getUserName());
+
+                    fanIndexFamilySummarysVoList.add(fanIndexFamilySummarysVo);
+                }
+            }
+        }
+
+        Page<FanIndexFamilySummarysVo> mapPage = new Page<>(pageNo,pageSize);
+        mapPage.setRecords(fanIndexFamilySummarysVoList);
+
+        return mapPage;
     }
 
     @Override
-    public FanIndexFamilySummarys getFanIndexFamilySummarys(Integer id) {
+    public Boolean insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarysVo fanIndexFamilySummarysVo) {
 
-        return this.selectById(id);
+       if (fanIndexFamilySummarysVo.getId() != null) {
+           fanIndexFamilySummarysVo.setUpdateTime(new Date());
+       } else {
+           fanIndexFamilySummarysVo.setCreateTime(new Date());
+       }
+
+     // return  this.insertOrUpdate(fanIndexFamilySummarysVo);
+        return null;
+    }
+
+    @Override
+    public FanIndexFamilySummarysVo getFanIndexFamilySummarys(Integer id) {
+
+        FanIndexFamilySummarys fanIndexFamilySummarys = this.selectById(id);
+
+        AllUserLogin allUserLogin = allUserLoginMapper.selectById(id);
+
+        FanIndexFamilySummarysVo fanIndexFamilySummarysVo = new FanIndexFamilySummarysVo();
+
+        BeanUtils.copyProperties(fanIndexFamilySummarys,fanIndexFamilySummarysVo);
+        fanIndexFamilySummarysVo.setLeaderName(allUserLogin.getUserName());
+
+        return fanIndexFamilySummarysVo;
     }
 }
