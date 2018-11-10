@@ -3,7 +3,6 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.baomidou.mybatisplus.service.IService;
-import com.genogram.entityvo.FanIndexFamilySummarysVo;
 
 import java.util.List;
 
@@ -25,21 +24,21 @@ public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilyS
      * @param pageSize 每页记录数
      * @return
      */
-    Page<FanIndexFamilySummarysVo> getFanIndexFamilySummarysPage(Integer siteId, List status, Integer pageNo, Integer pageSize);
+    Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId, List status, Integer pageNo, Integer pageSize);
 
     /**
      *  /新增/修改联谊堂信息
-     * @param fanIndexFamilySummarysVo
+     * @param fanIndexFamilySummarys
      * @return
      */
-    Boolean insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarysVo fanIndexFamilySummarysVo);
+    Boolean insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys);
 
     /**
      * 单一查询联谊堂信息
      * @param id   主键
      * @return
      */
-    FanIndexFamilySummarysVo getFanIndexFamilySummarys(Integer id);
+    FanIndexFamilySummarys getFanIndexFamilySummarys(Integer id);
 
     /**
      *  逻辑删除

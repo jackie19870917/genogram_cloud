@@ -82,9 +82,11 @@ public class FanNewsCharityController {
         List list = new ArrayList();
         list.add(status);
 
-        List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPage(showId, list, pageNo, pageSize);
+      /*  List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPage(showId, list, pageNo, pageSize);
 
-        return ResponseUtlis.success(fanNewsCharityPayInPage);
+        return ResponseUtlis.success(fanNewsCharityPayInPage);*/
+
+        return null;
     }
 
     /**

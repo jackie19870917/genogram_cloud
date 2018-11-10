@@ -42,6 +42,5 @@
         </if>
         group by pay_usr_id
         order by pay_amount desc
-        limit #{pageNo} ,#{pageSize}
     </select>
 </mapper>

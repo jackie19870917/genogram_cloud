@@ -53,18 +53,18 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     @Override
     public Boolean insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
-        if (fanIndexInfo.getId() != null) {
-            fanIndexInfo.setUpdateTime(DateUtil.timestamp());
-        } else {
-            fanIndexInfo.setCreateTime(DateUtil.timestamp());
+        if (fanIndexInfo.getId() == null) {
+            fanIndexInfo.setCreateTime(DateUtil.format(new Date()));
         }
+            fanIndexInfo.setUpdateTime(DateUtil.format(new Date()));
+
         return this.insertOrUpdate(fanIndexInfo);
     }
 
     @Override
     public Boolean deleteFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
-        fanIndexInfo.setUpdateTime(DateUtil.timestamp());
+        fanIndexInfo.setUpdateTime(DateUtil.format(new Date()));
 
         if ("".equals(fanIndexInfo.getTotemPicSrc())) {
             fanIndexInfo.setTotemPicSrc("");

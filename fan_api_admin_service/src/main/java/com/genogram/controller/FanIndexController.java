@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanIndexSlidePic;
-import com.genogram.entityvo.FanIndexFamilySummarysVo;
 import com.genogram.entityvo.FanIndexInfoVo;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.genogram.service.IFanIndexInfoService;
@@ -192,7 +191,7 @@ public class FanIndexController {
         //  1-正常    2-草稿
         list.add(1);
         list.add(2);
-        Page<FanIndexFamilySummarysVo> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
+        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
 
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
@@ -203,22 +202,22 @@ public class FanIndexController {
      * @return
      */
     @RequestMapping(value = "getFanIndexFamilySummarys", method = RequestMethod.GET)
-    public Response<FanIndexFamilySummarysVo> getFanIndexFamilySummarys(@RequestParam(value = "id") Integer id) {
+    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarys(@RequestParam(value = "id") Integer id) {
 
-        FanIndexFamilySummarysVo fanIndexFamilySummarysVo = iFanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
+        FanIndexFamilySummarys fanIndexFamilySummarys = iFanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
 
-        return ResponseUtlis.success(fanIndexFamilySummarysVo);
+        return ResponseUtlis.success(fanIndexFamilySummarys);
     }
 
     /**
      *       新增或修改    联谊堂
-     * @param fanIndexFamilySummarysVo
+     * @param fanIndexFamilySummarys
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarys", method = RequestMethod.POST)
-    public Response<FanIndexFamilySummarysVo> insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarysVo fanIndexFamilySummarysVo) {
+    public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
 
-        Boolean result = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarysVo);
+        Boolean result = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
 
         if (result) {
             return ResponseUtlis.success(200);

@@ -38,11 +38,10 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
     public Boolean insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
 
         Timestamp format = DateUtil.format(new Date());
-        if (fanIndexSlidePic.getId() != null) {
-            fanIndexSlidePic.setUpdateTime(format);
-        } else {
+        if (fanIndexSlidePic.getId() == null) {
             fanIndexSlidePic.setCreateTime(format);
         }
+        fanIndexSlidePic.setUpdateTime(format);
 
         return this.insertOrUpdate(fanIndexSlidePic);
     }

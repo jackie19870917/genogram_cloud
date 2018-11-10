@@ -25,7 +25,7 @@ public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayI
      * @param pageSize   每页记录数
      * @return
      */
-    List<DonorVo> getDonorVoPage(Integer showId, List status, Integer pageNo, Integer pageSize);
+    Page<DonorVo> getDonorVoPage(Integer showId, List status, Integer pageNo, Integer pageSize);
 
     /**
      *          捐款名录(最新时间)

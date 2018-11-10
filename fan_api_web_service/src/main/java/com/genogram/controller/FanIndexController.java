@@ -3,11 +3,8 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanIndexFamilySummarys;
-import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanIndexMessage;
 import com.genogram.entity.FanIndexSlidePic;
-import com.genogram.entityvo.CharityFundVo;
-import com.genogram.entityvo.FanIndexFamilySummarysVo;
 import com.genogram.entityvo.FanIndexInfoVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
@@ -73,15 +70,15 @@ public class FanIndexController {
      * @return
      */
     @RequestMapping(value = "index/getFanIndexFamilySummarysPage", method = RequestMethod.GET)
-    public Response<FanIndexFamilySummarysVo> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
+    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         List status = new ArrayList();
         status.add(status);
 
-        Page<FanIndexFamilySummarysVo> fanIndexFamilySummarysVoPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
+        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
 
-        return ResponseUtlis.success(fanIndexFamilySummarysVoPage);
+        return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
 
     /**

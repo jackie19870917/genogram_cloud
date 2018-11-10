@@ -89,5 +89,4 @@ public class NewsDetailVo {
      */
     private List<FanNewsUploadFile> fanNewsUploadFileList;
 
-
 }

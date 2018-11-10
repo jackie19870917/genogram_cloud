@@ -3,6 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.AllUserReg;
 import com.genogram.entity.FanNewsCharityPayIn;
@@ -38,12 +39,10 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     private AllUserLoginMapper allUserLoginMapper;
 
     @Override
-    public List<DonorVo> getDonorVoPage(Integer showId, List status, Integer pageNo, Integer pageSize) {
+    public Page<DonorVo> getDonorVoPage(Integer showId, List status, Integer pageNo, Integer pageSize) {
         Map map = new HashMap(16);
         map.put("showId", showId);
         map.put("status", status);
-        map.put("pageNo", pageNo-1);
-        map.put("pageSize", pageSize);
 
         List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.getDonorVoPage(map);
 
@@ -57,10 +56,21 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         List<AllUserLogin> allUserLoginList = allUserLoginMapper.selectList(entity);
 
-        list = new ArrayList();
+        list = getList(fanNewsCharityPayInList, allUserLoginList);
+
+        Page<DonorVo> mapPage = new Page<>(pageNo,pageSize);
+        mapPage.setRecords(list);
+        // mapPage.setSize(fanIndexFamilySummarysPage.getSize());
+        mapPage.setTotal(fanNewsCharityPayInList.size());
+        
+        return mapPage;
+    }
+
+    private List getList(List<FanNewsCharityPayIn> fanNewsCharityPayInList, List<AllUserLogin> allUserLoginList) {
+        List list = new ArrayList();
         for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
             for (AllUserLogin allUserLogin : allUserLoginList) {
-                if (allUserLogin.getId() .equals( fanNewsCharityPayIn.getPayUsrId())) {
+                if (allUserLogin.getId().equals(fanNewsCharityPayIn.getPayUsrId())) {
                     DonorVo donorVo = new DonorVo();
                     donorVo.setAllUserLogin(allUserLogin);
                     donorVo.setFanNewsCharityPayIn(fanNewsCharityPayIn);
@@ -68,7 +78,6 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
                 }
             }
         }
-
         return list;
     }
 
@@ -80,6 +89,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
         fanNewsCharityPayInWrapper.eq("show_id", showId);
         fanNewsCharityPayInWrapper.in("status", status);
         fanNewsCharityPayInWrapper.orderBy("create_time", false);
+        fanNewsCharityPayInWrapper.groupBy("pay_usr_id");
 
         Page<FanNewsCharityPayIn> fanNewsCharityPayInPage = this.selectPage(new Page<FanNewsCharityPayIn>(pageNo, pageSize), fanNewsCharityPayInWrapper);
 
@@ -95,17 +105,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         List<AllUserLogin> allUserLoginList = allUserLoginMapper.selectList(entity);
 
-        list = new ArrayList();
-        for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
-            for (AllUserLogin allUserLogin : allUserLoginList) {
-                if (allUserLogin.getId() .equals( fanNewsCharityPayIn.getPayUsrId())) {
-                    DonorVo donorVo = new DonorVo();
-                    donorVo.setAllUserLogin(allUserLogin);
-                    donorVo.setFanNewsCharityPayIn(fanNewsCharityPayIn);
-                    list.add(donorVo);
-                }
-            }
-        }
+        list = getList(fanNewsCharityPayInList, allUserLoginList);
 
         Page<DonorVo> mapPage = new Page<>(pageNo,pageSize);
         mapPage.setRecords(list);
