@@ -35,7 +35,7 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
 
     /**
      *联谊会字派后台进入修改页面
-     * @param id 状态
+     * @param id
      * @return
      */
     FanNewsCultureZipai getZiPaiDetail(Integer id);
@@ -47,4 +47,10 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      */
     boolean addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai);
 
+    /**
+     *联谊会家族字派后台删除
+     * @param id
+     * @param status
+     */
+    Boolean deleteByIdZipai(Integer id, int status);
 }

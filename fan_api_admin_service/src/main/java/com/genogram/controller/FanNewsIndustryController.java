@@ -134,7 +134,7 @@ public class FanNewsIndustryController {
     }
 
     /**
-     *联谊会家族产业后台添加和修改
+     *联谊会家族产业后台添加和修改 发表
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:24
@@ -143,16 +143,76 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateIndustry", method = RequestMethod.POST)
-    public Response<FanNewsIndustry> addNews(FanNewsIndustry fanNewsIndustry, String urls) {
-        try{
+    public Response<FanNewsIndustry> addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String urls) {
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        fanNewsIndustry.setStatus(1);
+        return getFanNewsIndustryResponse(fanNewsIndustry, urls);
+    }
+
+    /**
+     *联谊会家族产业后台添加和修改 草稿
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:10
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
+    public Response<FanNewsIndustry> addOrUpdateIndustryDrft(FanNewsIndustry fanNewsIndustry, String urls) {
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        fanNewsIndustry.setStatus(2);
+        return getFanNewsIndustryResponse(fanNewsIndustry, urls);
+    }
+
+    /**
+     *联谊会家族产业后台添加和修改 抽取的方法
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:19
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    private Response<FanNewsIndustry> getFanNewsIndustryResponse(FanNewsIndustry fanNewsIndustry, String urls) {
+        try {
             // 插入数据
-            boolean b = iFanNewsIndustryService.addNews(fanNewsIndustry,urls);
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+            boolean b = iFanNewsIndustryService.addNews(fanNewsIndustry, urls);
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {
             e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    /**
+     *联谊会家族产业后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:22
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value ="/deleteByIdIndustry",method = RequestMethod.GET)
+    public Response<FanNewsIndustry> deleteByIdIndustry(
+            @RequestParam(value = "id")Integer id // 家族文化详情显示位置
+    ) {
+        try {
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            int status=2;
+            Boolean aBoolean = iFanNewsIndustryService.deleteByIdIndustry(id, status);
+            if (!aBoolean){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+        }catch (Exception e){
+            e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
-
     }
 }

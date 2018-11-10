@@ -44,4 +44,11 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      * @return
      */
     boolean addNews(FanNewsCultureNews fanNewsCultureNews,String urs);
+
+    /**
+     * 联谊会家族文化后台删除
+     * @param id
+     * @param status
+     */
+    Boolean deleteByIdCultur(Integer id, int status);
 }

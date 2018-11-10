@@ -43,4 +43,12 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
      * @return
      */
     boolean addNews(FanNewsIndustry fanNewsIndustry, String urls);
+
+    /**
+     *
+     * @param id
+     * @param status
+     * @return
+     */
+    Boolean deleteByIdIndustry(Integer id, int status);
 }

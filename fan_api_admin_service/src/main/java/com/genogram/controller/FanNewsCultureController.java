@@ -144,6 +144,15 @@ public class FanNewsCultureController {
         return getFanNewsCultureZipaiResponse(fanNewsCultureZipai);
     }
 
+    /**
+     *联谊会家族字派后台新增修改 抽取的方法
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:19
+     *@Param:
+     *@return:
+     *@Description:
+    */
     private Response<FanNewsCultureZipai> getFanNewsCultureZipaiResponse(FanNewsCultureZipai fanNewsCultureZipai) {
         try {
             boolean result=iFanNewsCultureZipaiService.addOrUpdateZiPai(fanNewsCultureZipai);
@@ -183,7 +192,7 @@ public class FanNewsCultureController {
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
             entity.eq("show_id",showId);
             entity.like("zipai_txt",zipaiTxt);
-            Page<FanNewsCultureZipai> fanNewsCultureZipaiPage = iFanNewsCultureZipaiService.selectPage(new Page<>(pageNo, pageSize), entity);
+            Page<FanNewsCultureZipai> fanNewsCultureZipaiPage = iFanNewsCultureZipaiService.commonality(entity,pageNo, pageSize);
             if(fanNewsCultureZipaiPage==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,list);
             }
@@ -195,7 +204,7 @@ public class FanNewsCultureController {
     }
 
  /**
-  *联谊会家族后台删除
+  *联谊会家族字派后台删除
   *@Author: yuzhou
   *@Date: 2018-11-10
   *@Time: 10:05
@@ -211,12 +220,12 @@ public class FanNewsCultureController {
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
-            //状态
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=2;
-            FanNewsCultureZipai fanNewsCultureZipai=new FanNewsCultureZipai();
-            fanNewsCultureZipai.setId(id);
-            fanNewsCultureZipai.setStatus(status);
-            iFanNewsCultureZipaiService.updateById(fanNewsCultureZipai);
+            Boolean aBoolean = iFanNewsCultureZipaiService.deleteByIdZipai(id, status);
+            if(!aBoolean){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
         }catch (Exception e){
             e.printStackTrace();
@@ -327,7 +336,7 @@ public class FanNewsCultureController {
     }
 
     /**
-     *家族文化后台添加和修改
+     *家族文化后台添加和修改 发表
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:20
@@ -336,24 +345,51 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addNews(FanNewsCultureNews fanNewsCultureNews, String urs) {
+    public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews, String urs) {
+        return getFanNewsCultureNewsResponse(fanNewsCultureNews, urs);
+    }
+
+    /**
+     *家族文化后台添加和修改 草稿
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:18
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
+    public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews, String urs) {
+        return getFanNewsCultureNewsResponse(fanNewsCultureNews, urs);
+    }
+
+    /**
+     *家族文化后台添加和修改 抽取的方法
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:18
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews, String urs) {
         try{
             // 插入数据
             boolean insert = iFanNewsCultureNewsService.addNews(fanNewsCultureNews,urs);
             if( ! insert){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
-                return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
             //插入图片
         } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
     }
 
-    }
 
     /**
-     *家族文化后台删除
+     *联谊会家族文化后台删除
      *@Author: yuzhou
      *@Date: 2018-11-10
      *@Time: 9:43
@@ -363,7 +399,7 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value ="/deleteByIdCultur",method = RequestMethod.GET)
     public Response<FanNewsCultureNews> deleteByIdCultur(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id")Integer id // 家族文化详情显示位置
     ) {
         try {
             if(id==null){
@@ -371,10 +407,10 @@ public class FanNewsCultureController {
             }
             //状态
             int status=2;
-            FanNewsCultureNews fanNewsCultureNews=new FanNewsCultureNews();
-            fanNewsCultureNews.setId(id);
-            fanNewsCultureNews.setStatus(status);
-            iFanNewsCultureNewsService.updateById(fanNewsCultureNews);
+            Boolean aBoolean = iFanNewsCultureNewsService.deleteByIdCultur(id, status);
+            if (!aBoolean){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
         }catch (Exception e){
             e.printStackTrace();

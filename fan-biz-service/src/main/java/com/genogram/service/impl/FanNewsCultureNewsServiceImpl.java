@@ -186,4 +186,23 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         }*/
         return insert;
     }
+
+    /**
+     *联谊会家族文化后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 11:58
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+        public Boolean deleteByIdCultur(Integer id, int status) {
+        FanNewsCultureNews fanNewsCultureNews=new FanNewsCultureNews();
+        fanNewsCultureNews.setId(id);
+        fanNewsCultureNews.setStatus(status);
+        fanNewsCultureNews.setUpdateTime(DateUtil.format(new Date()));
+        boolean b = this.updateAllColumnById(fanNewsCultureNews);
+        return b;
+    }
 }

@@ -107,4 +107,23 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         return this.insertOrUpdate(fanNewsCultureZipai);
     }
 
+    /**
+     *联谊会家族字派后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 11:45
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean deleteByIdZipai(Integer id, int status) {
+        FanNewsCultureZipai fanNewsCultureZipai=new FanNewsCultureZipai();
+        fanNewsCultureZipai.setId(id);
+        fanNewsCultureZipai.setStatus(status);
+        fanNewsCultureZipai.setUpdateTime(DateUtil.format(new Date()));
+        //修改人  待写
+        boolean b = this.updateAllColumnById(fanNewsCultureZipai);
+        return b;
+    }
 }

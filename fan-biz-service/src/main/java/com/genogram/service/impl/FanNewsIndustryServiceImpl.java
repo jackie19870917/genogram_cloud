@@ -152,7 +152,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
     }
 
     /**
-     *联谊会家族产业后台新增
+     *联谊会家族产业后台新增 修改
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:25
@@ -176,5 +176,25 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             iFanNewsUploadFileService.storagePicture(fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId(),pictures);
         }*/
         return this.insert(fanNewsIndustry);
+    }
+
+    /**
+     *联谊会家族产业后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:22
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean deleteByIdIndustry(Integer id, int status) {
+        FanNewsIndustry fanNewsIndustry=new FanNewsIndustry();
+        fanNewsIndustry.setStatus(status);
+        fanNewsIndustry.setId(id);
+        fanNewsIndustry.setUpdateTime(DateUtil.format(new Date()));
+        //修改人 待写
+        boolean b = this.updateAllColumnById(fanNewsIndustry);
+        return b;
     }
 }
