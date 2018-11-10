@@ -1,6 +1,8 @@
 package com.genogram.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -12,13 +14,14 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-10
  */
 @TableName("fan_index_family_summarys")
 public class FanIndexFamilySummarys extends Model<FanIndexFamilySummarys> {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 网站id
@@ -38,7 +41,7 @@ public class FanIndexFamilySummarys extends Model<FanIndexFamilySummarys> {
     /**
      * 负责人
      */
-    private Integer leader;
+    private String leader;
     /**
      * 负责人电话
      */
@@ -55,7 +58,7 @@ public class FanIndexFamilySummarys extends Model<FanIndexFamilySummarys> {
     @TableField("praise_num")
     private Integer praiseNum;
     /**
-     * 状态(0:删除;1:显示;2:不显示)
+     * 状态(0:删除;1:显示;2:草稿)
      */
     private Integer status;
     /**
@@ -78,6 +81,7 @@ public class FanIndexFamilySummarys extends Model<FanIndexFamilySummarys> {
      */
     @TableField("update_user")
     private Integer updateUser;
+
 
     public Integer getId() {
         return id;
@@ -115,11 +119,11 @@ public class FanIndexFamilySummarys extends Model<FanIndexFamilySummarys> {
         return this;
     }
 
-    public Integer getLeader() {
+    public String getLeader() {
         return leader;
     }
 
-    public FanIndexFamilySummarys setLeader(Integer leader) {
+    public FanIndexFamilySummarys setLeader(String leader) {
         this.leader = leader;
         return this;
     }
