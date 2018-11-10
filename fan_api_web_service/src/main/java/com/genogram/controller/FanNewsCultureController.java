@@ -49,13 +49,13 @@ public class FanNewsCultureController {
      */
     @RequestMapping(value = "/getCommonalityPage", method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
-            @RequestParam(value = "showId") String showId, // 家族文化显示位置
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try {
             //判断showId是否有值
-            if (StringUtils.isEmpty(showId)) {
+            if (showId==null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -63,7 +63,7 @@ public class FanNewsCultureController {
             statusList.add(1);
             //查询条件
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
-            entity.eq("show_id", Integer.valueOf(showId));
+            entity.eq("show_id", showId);
             entity.in("status", statusList);
             entity.orderBy("create_time", false);
             Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
@@ -91,19 +91,19 @@ public class FanNewsCultureController {
      */
     @RequestMapping(value = "/index/getCommonalityIndexPage", method = RequestMethod.GET)
     public Response<StringBuffer> getCommonalityIndexPage(
-            @RequestParam(value = "showId") String
+            @RequestParam(value = "showId") Integer
                     showId // 家族文化显示位置
     ) {
         try {
             //判断showId是否有值
-            if (StringUtils.isEmpty(showId)) {
+            if (showId==null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
             statusList.add(1);
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
-            entity.eq("show_id", Integer.valueOf(showId));
+            entity.eq("show_id", showId);
             entity.in("status", statusList);
             entity.orderBy("create_time", false);
             StringBuffer stringBuffer = iFanNewsCultureZipaiService.commonalityIndex(entity);
@@ -132,12 +132,12 @@ public class FanNewsCultureController {
      */
     @RequestMapping(value = "/getFamilyCulturePage", method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") String showId, // 家族文化显示位置
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         //判断showId是否有值
-        if (StringUtils.isEmpty(showId)) {
+        if (showId==null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
         return getFamilyCultureVoResponse(showId, pageNo, pageSize);
@@ -155,12 +155,12 @@ public class FanNewsCultureController {
      */
     @RequestMapping(value = "/index/getFamilyIndexCulturePage", method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyIndexCulturePage(
-            @RequestParam(value = "showId") String showId, // 家族文化显示位置
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         //判断showId是否有值
-        if (StringUtils.isEmpty(showId)) {
+        if (showId==null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
         return getFamilyCultureVoResponse(showId, pageNo, pageSize);
@@ -176,14 +176,14 @@ public class FanNewsCultureController {
      * @return:
      * @Description:
      */
-    private Response<FamilyCultureVo> getFamilyCultureVoResponse(String showId, Integer pageNo, Integer pageSize) {
+    private Response<FamilyCultureVo> getFamilyCultureVoResponse(Integer showId, Integer pageNo, Integer pageSize) {
         try {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
             statusList.add(1);
             //查询文章信息的条件
             Wrapper<FanNewsCultureNews> entity = new EntityWrapper<FanNewsCultureNews>();
-                entity.eq("show_id", Integer.valueOf(showId));
+                entity.eq("show_id", showId);
                 entity.in("status", statusList);
                 entity.orderBy("create_time", false);
             Page<FamilyCultureVo> familyCultureVoList = iFanNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
@@ -211,12 +211,16 @@ public class FanNewsCultureController {
      */
     @RequestMapping(value = "/getFamilyCultureDetail", method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "id") String id // 家族文化文章ID
+            @RequestParam(value = "id") Integer id // 家族文化文章ID
     ) {
         try {
-            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(Integer.valueOf(id));
+            //返回空参
+            NewsDetailVo newsDetail = new NewsDetailVo();
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,newsDetail);
+            }
+            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(id);
             if (newsDetailVo == null) {
-                NewsDetailVo newsDetail = new NewsDetailVo();
                 return ResponseUtlis.error(Constants.ERRO_CODE, newsDetail);
             }
             return ResponseUtlis.success(newsDetailVo);
