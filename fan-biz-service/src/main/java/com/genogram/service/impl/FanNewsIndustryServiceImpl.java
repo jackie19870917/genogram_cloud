@@ -8,21 +8,18 @@ import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FamilyIndustryVo;
 import com.genogram.entityvo.IndustryDetailVo;
-import com.genogram.entityvo.NewsDetailVo;
-import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.FanNewsIndustryMapper;
-import com.genogram.mapper.FanNewsUploadFileMapper;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanNewsIndustryService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IFanNewsUploadFileService;
+import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,10 +34,12 @@ import java.util.List;
 public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMapper, FanNewsIndustry> implements IFanNewsIndustryService {
 
     @Autowired
-    private FanNewsUploadFileMapper fanNewsUploadFileMapper;
+    private IUploadFileService uploadFileService;
+    @Autowired
+    private IFanNewsUploadFileService fanNewsUploadFileService;
 
     @Autowired
-    private AllUserLoginMapper allUserLoginMapper;
+    private IAllUserLoginService allUserLoginService;
 
     /**
      *联谊会家族产业查询
@@ -79,7 +78,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         uploadentity.eq("status", 1);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
+        List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
 
         //遍历主表文章集合,赋值新对象vo
         list.forEach(( news)->{
@@ -134,11 +133,11 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         uploadentity.eq("show_id", fanNewsIndustry.getShowId());
         uploadentity.eq("news_id",id);
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
+        List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
-        AllUserLogin createUser = allUserLoginMapper.selectById(fanNewsIndustry.getCreateUser());
-        AllUserLogin updateUser = allUserLoginMapper.selectById(fanNewsIndustry.getUpdateUser());
+        AllUserLogin createUser = allUserLoginService.selectById(fanNewsIndustry.getCreateUser());
+        AllUserLogin updateUser = allUserLoginService.selectById(fanNewsIndustry.getUpdateUser());
 
         //返回新VO的集合赋值新对象vo
         IndustryDetailVo industryDetailVo=new IndustryDetailVo();
@@ -179,11 +178,12 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             fanNewsIndustry.setUpdateTime(format);
             fanNewsIndustry.setUpdateUser(null);
         }
-/*        //存储图片
-        if(insert){
-            iFanNewsUploadFileService.storagePicture(fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId(),pictures);
-        }*/
-        return this.insert(fanNewsIndustry);
+        boolean result = this.insert(fanNewsIndustry);
+        //存储图片
+        if(result){
+            uploadFileService.storageFanFile(urls,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
+        }
+        return result;
     }
 
     /**

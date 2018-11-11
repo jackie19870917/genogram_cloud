@@ -1,4 +1,4 @@
-package com.genogram.controller;
+package com.genogram.client;
 
 import org.csource.common.NameValuePair;
 import org.csource.fastdfs.ClientGlobal;

@@ -7,6 +7,7 @@ import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,8 @@ import java.util.Map;
 @RequestMapping("/genogram/fanMenu")
 @CrossOrigin(origins = "*")
 public class FanIndexMenuController {
-    final static String hostIp="http://192.168.2.179:8090";
+    @Value("${fan_api_web_service.ip}")
+    private String hostIp;
     @Autowired
     private IFanSysWebNewsShowService iFanSysWebNewsShowService;
 

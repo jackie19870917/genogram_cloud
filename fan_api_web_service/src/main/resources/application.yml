@@ -1,4 +1,6 @@
-#http://localhost:8090/test/test1?username=ss&pwd=1
+#http://localhost:8090/genogram/fanMenu/getMenuBySiteId?siteId=1
+fan_api_web_service:
+  ip: http://192.168.2.179:8090
 server:
   port: 8090
 spring:

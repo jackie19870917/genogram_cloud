@@ -8,6 +8,7 @@ import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -19,7 +20,8 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsCulture")
 public class FanIndexMenuController {
-    final static String hostIp="http://192.168.2.179:8050";
+    @Value("${fan_api_admin_service.api_ip}")
+    private String hostIp;
 
     @Autowired
     private IFanSysWebNewsShowService iFanSysWebNewsShowService;

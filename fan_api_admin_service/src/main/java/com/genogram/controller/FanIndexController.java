@@ -14,12 +14,9 @@ import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.genogram.config.Constants.IP_FAST_DFS;
-import static com.genogram.config.Constants.SITE_FAST_DFS;
 
 /**
  *    联谊会后台
@@ -53,23 +50,23 @@ public class FanIndexController {
         try {
 
            // ClientGlobal.init(new ClassPathResource("fastDFS.properties").getFile().getAbsolutePath());
-
-            FastdfsClient fastdfsClient = new FastdfsClient(SITE_FAST_DFS);
-
-            //获取到要上传文件对象的原始文件名(Original：原始的)
-            String oldName = file.getOriginalFilename();
-
-            //获取原始文件名中的扩展名(a.b.jpg)
-            String extName = oldName.substring(oldName.lastIndexOf(".") + 1);
-
-            //上传到fastDFS文件服务器
-            String path = fastdfsClient.uploadFile(file.getBytes(), extName);
-
-            //获取fastDFS文件服务器路径
-            path = IP_FAST_DFS + path.substring(path.lastIndexOf("/"));
-
-            System.out.println(path);
-            return path;
+//
+//            FastdfsClient fastdfsClient = new FastdfsClient(SITE_FAST_DFS);
+//
+//            //获取到要上传文件对象的原始文件名(Original：原始的)
+//            String oldName = file.getOriginalFilename();
+//
+//            //获取原始文件名中的扩展名(a.b.jpg)
+//            String extName = oldName.substring(oldName.lastIndexOf(".") + 1);
+//
+//            //上传到fastDFS文件服务器
+//            String path = fastdfsClient.uploadFile(file.getBytes(), extName);
+//
+//            //获取fastDFS文件服务器路径
+//            path = IP_FAST_DFS + path.substring(path.lastIndexOf("/"));
+//
+//            System.out.println(path);
+            return null;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,7 +83,7 @@ public class FanIndexController {
     public Response<FanIndexSlidePic> getFanIndexSlidePicList(@RequestParam(value = "siteId") Integer siteId) {
 
         List list = new ArrayList();
-        //  1-正常    2-草稿
+        //1:正常;2:草稿
         list.add(1);
         list.add(2);
 
