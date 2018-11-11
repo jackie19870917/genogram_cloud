@@ -7,6 +7,7 @@ import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entityvo.FanSysWebMenuVo;
 import com.genogram.mapper.FanSysWebMenuMapper;
 import com.genogram.mapper.FanSysWebNewsShowMapper;
+import com.genogram.service.IFanSysWebMenuService;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import java.util.Map;
 public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowMapper, FanSysWebNewsShow> implements IFanSysWebNewsShowService {
 
     @Autowired
-    private FanSysWebMenuMapper fanSysWebMenuMapper;
+    private IFanSysWebMenuService fanSysWebMenuService;
 
     @Autowired
     private IFanSysWebNewsShowService iFanSysWebNewsShowService;
@@ -45,7 +46,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             vo.setFanSysSiteId(a.getFanSysSiteId());
             vo.setFanSysWebMenuId(a.getFanSysWebMenuId());
             //获取菜单信息
-            FanSysWebMenu menu = fanSysWebMenuMapper.selectById(vo.getFanSysWebMenuId());
+            FanSysWebMenu menu = fanSysWebMenuService.selectById(vo.getFanSysWebMenuId());
             vo.setMenuName(menu.getMenuName());
             vo.setMenuType(menu.getMenuType());
             vo.setTreeNum(menu.getTreeNum());
