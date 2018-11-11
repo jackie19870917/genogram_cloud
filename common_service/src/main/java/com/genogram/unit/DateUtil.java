@@ -210,7 +210,7 @@ public class DateUtil {
     }
 
     /**
-     *把本地日期时间转换为Timestamp
+     *得到当前的Timestamp
      *@Author: yuzhou
      *@Date: 2018-11-10
      *@Time: 12:34
@@ -218,7 +218,7 @@ public class DateUtil {
      *@return:
      *@Description:
     */
-    public  static Timestamp timestamp(){
+    public  static Timestamp getCurrentTimeStamp(){
         Date date = new Date();
         return new Timestamp(date.getTime());
     }

@@ -166,7 +166,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
     @Override
     public boolean addNews(FanNewsIndustry fanNewsIndustry, String urls) {
         //生成时间
-        Timestamp format = DateUtil.timestamp();
+        Timestamp format = DateUtil.getCurrentTimeStamp();
         if(fanNewsIndustry.getId()==null){
             //存入创建时间
             fanNewsIndustry.setCreateTime(format);
@@ -199,7 +199,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
     public Boolean deleteByIdIndustry(Integer id, int status) {
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
         fanNewsIndustry.setStatus(status);
-        fanNewsIndustry.setUpdateTime(DateUtil.timestamp());
+        fanNewsIndustry.setUpdateTime(DateUtil.getCurrentTimeStamp());
         //修改人 待写
         boolean b = this.updateAllColumnById(fanNewsIndustry);
         return b;

@@ -29,7 +29,7 @@ public class TestController {
     //联谊会家族字派查询
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/test1",method = RequestMethod.POST)
+    @RequestMapping(value = "/test1",method = RequestMethod.GET)
     public AllUserLogin getAllUserLogin(){
         AllUserLogin allUserLogin = iTestService.getAllUserLogin();
         return allUserLogin;
