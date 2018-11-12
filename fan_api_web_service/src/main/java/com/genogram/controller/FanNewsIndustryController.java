@@ -33,7 +33,7 @@ import java.util.List;
 public class FanNewsIndustryController {
 
     @Autowired
-    private IFanNewsIndustryService iFanNewsIndustryService;
+    private IFanNewsIndustryService fanNewsIndustryService;
     /**
      * 联谊会家族产业  详情页查询
      * @Author: wang,wei
@@ -111,7 +111,7 @@ public class FanNewsIndustryController {
                 entity.eq("type",Integer.valueOf(type));
             }
             entity.orderBy("create_time", false);
-            Page<FamilyIndustryVo> familyCultureVo = iFanNewsIndustryService.getFamilyIndustryPage(entity, pageNo, pageSize);
+            Page<FamilyIndustryVo> familyCultureVo = fanNewsIndustryService.getFamilyIndustryPage(entity, pageNo, pageSize);
             if (familyCultureVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyIndustryVo> emptfamilyCultureVo = new Page<FamilyIndustryVo>();
@@ -142,13 +142,13 @@ public class FanNewsIndustryController {
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,newsDetailEmpty);
             }
-            IndustryDetailVo familyIndustryDetail = iFanNewsIndustryService.getFamilyIndustryDetail(id);
+            IndustryDetailVo familyIndustryDetail = fanNewsIndustryService.getFamilyIndustryDetail(id);
             //判断是否返回为空
             if (familyIndustryDetail==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,newsDetailEmpty);
             }
             //增加查看数
-            iFanNewsIndustryService.addVisitNum(id);
+            fanNewsIndustryService.addVisitNum(id);
             return ResponseUtlis.success(familyIndustryDetail);
         }catch (Exception e) {
             e.printStackTrace();

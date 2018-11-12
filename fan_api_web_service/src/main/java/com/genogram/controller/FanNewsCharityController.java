@@ -38,13 +38,13 @@ import java.util.Map;
 public class FanNewsCharityController {
 
     @Autowired
-    private IFanNewsCharityOutService iFanNewsCharityOutService;
+    private IFanNewsCharityOutService fanNewsCharityOutService;
 
     @Autowired
-    private IFanNewsCharityPayInService iFanNewsCharityPayInService;
+    private IFanNewsCharityPayInService fanNewsCharityPayInService;
 
     @Autowired
-    private IFanIndexFundService iFanIndexFundService;
+    private IFanIndexFundService fanIndexFundService;
 
     /**
      * 状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -65,7 +65,7 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
-        FanIndexFund fanIndexFund = iFanIndexFundService.getFanIndexFund(siteId);
+        FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
 
         return ResponseUtlis.success(fanIndexFund);
     }
@@ -100,7 +100,7 @@ public class FanNewsCharityController {
         page.setCurrent(pageNo);
         page.setSize(pageSize);
         Page<FanNewsCharityPayIn> mapPage = new Page<>(page.getCurrent(), page.getSize());
-        Page<DonorVo> donorVoPage = iFanNewsCharityPayInService.getDonorVoPage(mapPage, map);
+        Page<DonorVo> donorVoPage = fanNewsCharityPayInService.getDonorVoPage(mapPage, map);
 
         return ResponseUtlis.success(donorVoPage);
 
@@ -127,7 +127,7 @@ public class FanNewsCharityController {
         List list = new ArrayList();
         list.add(status);
 
-        Page<DonorVo> donorVoPageByTime = iFanNewsCharityPayInService.getDonorVoPageByTime(showId, list, pageNo, pageSize);
+        Page<DonorVo> donorVoPageByTime = fanNewsCharityPayInService.getDonorVoPageByTime(showId, list, pageNo, pageSize);
 
         return ResponseUtlis.success(donorVoPageByTime);
     }
@@ -161,7 +161,7 @@ public class FanNewsCharityController {
         entity.in("status", list);
         entity.orderBy("create_time", false);
 
-        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
+        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
@@ -175,7 +175,7 @@ public class FanNewsCharityController {
     @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
     public Response<NewsDetailVo> getFanNewsCharityDetail(@RequestParam(value = "id") Integer id) {
 
-        NewsDetailVo newsCharityOutDetail = iFanNewsCharityOutService.getNewsCharityOutDetail(id);
+        NewsDetailVo newsCharityOutDetail = fanNewsCharityOutService.getNewsCharityOutDetail(id);
 
         return ResponseUtlis.success(newsCharityOutDetail);
     }
@@ -188,7 +188,7 @@ public class FanNewsCharityController {
     @RequestMapping(value = "insertFanNewsCharityPayIn", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn) {
 
-        Boolean result = iFanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+        Boolean result = fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
 
         if (result) {
             return ResponseUtlis.success(200);
