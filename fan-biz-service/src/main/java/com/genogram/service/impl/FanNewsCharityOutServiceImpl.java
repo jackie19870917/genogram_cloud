@@ -11,8 +11,10 @@ import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.FanNewsCharityOutMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
@@ -36,13 +38,10 @@ import java.util.List;
 public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutMapper, FanNewsCharityOut> implements IFanNewsCharityOutService {
 
     @Autowired
-    private FanNewsCharityOutMapper fanNewsCharityOutMapper;
+    private IFanNewsUploadFileService fanNewsUploadFileService;
 
     @Autowired
-    private FanNewsUploadFileMapper fanNewsUploadFileMapper;
-
-    @Autowired
-    private AllUserLoginMapper allUserLoginMapper;
+    private IAllUserLoginService allUserLoginService;
 
     @Autowired
     private IUploadFileService iuploadFileService;
@@ -84,7 +83,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         fanNewsUploadFileWrapper.in("news_id", list);
 
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> fanNewsUploadFileList = fanNewsUploadFileMapper.selectList(fanNewsUploadFileWrapper);
+        List<FanNewsUploadFile> fanNewsUploadFileList = fanNewsUploadFileService.selectList(fanNewsUploadFileWrapper);
 
         //遍历主表文章集合,赋值新对象vo
 
@@ -130,13 +129,13 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         entityWrapper.eq("show_id", fanNewsCharityOut.getShowId());
 
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> fanNewsUploadFileList = fanNewsUploadFileMapper.selectList(entityWrapper);
+        List<FanNewsUploadFile> fanNewsUploadFileList = fanNewsUploadFileService.selectList(entityWrapper);
 
         //查出对应的个人对象(创建人)
-        AllUserLogin allUserLoginCreateUser = allUserLoginMapper.selectById(fanNewsCharityOut.getCreateUser());
+        AllUserLogin allUserLoginCreateUser = allUserLoginService.selectById(fanNewsCharityOut.getCreateUser());
 
         //查出对应的个人对象(修改人)
-        AllUserLogin allUserLoginUpdateUser = allUserLoginMapper.selectById(fanNewsCharityOut.getUpdateUser());
+        AllUserLogin allUserLoginUpdateUser = allUserLoginService.selectById(fanNewsCharityOut.getUpdateUser());
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetailVo = new NewsDetailVo();

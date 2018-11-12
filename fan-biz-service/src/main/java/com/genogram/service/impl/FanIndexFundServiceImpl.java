@@ -18,11 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, FanIndexFund> implements IFanIndexFundService {
 
-    @Autowired
-    private FanIndexFundMapper fanIndexFundMapper;
-
     @Override
     public FanIndexFund getFanIndexFund(Integer siteId) {
-        return fanIndexFundMapper.selectById(siteId);
+        return this.selectById(siteId);
     }
 }

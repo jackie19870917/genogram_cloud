@@ -11,6 +11,7 @@ import com.genogram.entityvo.DonorVo;
 import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.AllUserRegMapper;
 import com.genogram.mapper.FanNewsCharityPayInMapper;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanNewsCharityPayInService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
@@ -38,7 +39,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     private FanNewsCharityPayInMapper fanNewsCharityPayInMapper;
 
     @Autowired
-    private AllUserLoginMapper allUserLoginMapper;
+    private IAllUserLoginService allUserLoginService;
 
     @Override
     public Page<DonorVo> getDonorVoPage(Page<FanNewsCharityPayIn> mapPage, Map map) {
@@ -53,7 +54,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
         Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
         entity.in("id", list);
 
-        List<AllUserLogin> allUserLoginList = allUserLoginMapper.selectList(entity);
+        List<AllUserLogin> allUserLoginList = allUserLoginService.selectList(entity);
 
         Page<DonorVo> page = new Page<>(mapPage.getCurrent(), mapPage.getSize());
         list = getList(fanNewsCharityPayInList, allUserLoginList);
@@ -100,7 +101,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
         Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
         entity.in("id", list);
 
-        List<AllUserLogin> allUserLoginList = allUserLoginMapper.selectList(entity);
+        List<AllUserLogin> allUserLoginList = allUserLoginService.selectList(entity);
 
         list = getList(fanNewsCharityPayInList, allUserLoginList);
 

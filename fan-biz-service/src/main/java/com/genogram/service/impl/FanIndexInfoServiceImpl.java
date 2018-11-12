@@ -7,6 +7,7 @@ import com.genogram.mapper.FanIndexInfoMapper;
 import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.service.IFanIndexInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IFanSysSiteService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +28,18 @@ import java.util.Date;
 public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, FanIndexInfo> implements IFanIndexInfoService {
 
     @Autowired
-    private FanIndexInfoMapper fanIndexInfoMapper;
-
-    @Autowired
-    private FanSysSiteMapper fanSysSiteMapper;
+    private IFanSysSiteService fanSysSiteService;
 
     @Override
     public FanIndexInfo getFanIndexInfo(Integer siteId) {
-        return fanIndexInfoMapper.selectById(siteId);
+        return this.selectById(siteId);
     }
 
     @Override
     public FanIndexInfoVo getFanIndexInfoVo(Integer siteId) {
 
-        FanIndexInfo fanIndexInfo = this.getFanIndexInfo(siteId);
-        FanSysSite fanSysSite = fanSysSiteMapper.selectById(siteId);
+        FanIndexInfo fanIndexInfo = this.selectById(siteId);
+        FanSysSite fanSysSite = fanSysSiteService.selectById(siteId);
 
         FanIndexInfoVo fanIndexInfoVo = new FanIndexInfoVo();
         BeanUtils.copyProperties(fanIndexInfo, fanIndexInfoVo);

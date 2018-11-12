@@ -98,7 +98,7 @@ public class PayUtils extends WXPayUtil {
 		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
 			ip = request.getRemoteAddr();
 		}
-		if (ip.equals("127.0.0.1") || ip.equals("0:0:0:0:0:0:0:1")) {
+		if ("127.0.0.1".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip)) {
 			// 根据网卡获取本机配置的IP地址
 			InetAddress inetAddress = null;
 			try {
