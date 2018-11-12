@@ -7,6 +7,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsCultureNews;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
+import com.genogram.entityvo.FanNewsCultureZipaiVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
@@ -74,7 +75,7 @@ public class FanNewsCultureController {
                 entity.in("status", statusList);
             }
             entity.orderBy("create_time", false);
-            Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
+            Page<FanNewsCultureZipaiVo> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if(fanNewsCultureZipai==null){
                 //没有取到参数,返回空参
                 Page<FanNewsCultureZipai> emptfanNewsCultureZipai = new Page<FanNewsCultureZipai>();

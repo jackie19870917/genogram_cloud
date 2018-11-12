@@ -34,7 +34,7 @@ import java.util.List;
 public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMapper, FanNewsIndustry> implements IFanNewsIndustryService {
 
     @Autowired
-    private IUploadFileService iuploadFileService;
+    private IUploadFileService uploadFileService;
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;
 
@@ -97,6 +97,9 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             //存储图片list集合
             familyIndustryVo.setFanNewsUploadFileList(fanNewsUploadFile);
 
+            //转换时间为long
+            familyIndustryVo.setCreateTimeLong(news.getCreateTime().getTime());
+            familyIndustryVo.setUpdateTimeLong(news.getUpdateTime().getTime());
 
             //存储到新的集合中
             familyIndustryVoList.add(familyIndustryVo);
@@ -181,7 +184,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         boolean result = this.insert(fanNewsIndustry);
         //存储图片
         if(result){
-            iuploadFileService.storageFanFile(fileNames,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
+            uploadFileService.storageFanFile(fileNames,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
         }
         return result;
     }
@@ -203,5 +206,23 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //修改人 待写
         boolean result = this.updateAllColumnById(fanNewsIndustry);
         return result;
+    }
+
+    /**
+     *联谊会家族产业前台增加查看数
+     *@Author: yuzhou
+     *@Date: 2018-11-12
+     *@Time: 13:56
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public void addVisitNum(Integer id) {
+        //查出详情
+        FanNewsIndustry fanNewsIndustry = this.selectById(id);
+        //查看数加一
+        fanNewsIndustry.setVisitNum(fanNewsIndustry.getVisitNum()+1);
+        this.updateAllColumnById(fanNewsIndustry);
     }
 }

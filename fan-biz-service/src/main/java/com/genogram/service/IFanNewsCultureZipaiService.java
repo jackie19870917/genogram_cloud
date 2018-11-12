@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.FanNewsCultureZipaiVo;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      * @param pageSize 每页显示条数
      * @return
      */
-    Page<FanNewsCultureZipai> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
+    Page<FanNewsCultureZipaiVo> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
 
     /**
      *联谊会首页字派查询
@@ -48,9 +49,15 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
     boolean addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai);
 
     /**
-     *联谊会家族字派后台删除
+     *
      * @param id
      * @param status
+     */
+    /**
+     * 联谊会家族字派后台删除
+     * @param id  主键
+     * @param status  状态(0:删除;1:已发布;2:草稿3:不显示)
+     * @return
      */
     Boolean deleteZipaiById(Integer id, int status);
 }

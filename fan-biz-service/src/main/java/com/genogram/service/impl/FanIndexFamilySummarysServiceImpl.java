@@ -7,6 +7,7 @@ import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.mapper.FanIndexFamilySummarysMapper;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -37,7 +38,6 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
     @Override
     public Boolean insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
 
-
         if (fanIndexFamilySummarys.getId() != null) {
             fanIndexFamilySummarys.setCreateTime(new Date());
         }
@@ -55,6 +55,9 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
 
     @Override
     public Boolean deleteFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+
+        fanIndexFamilySummarys.setStatus(0);
+        fanIndexFamilySummarys.setUpdateTime(DateUtil.getCurrentTimeStamp());
 
         return this.updateById(fanIndexFamilySummarys);
     }

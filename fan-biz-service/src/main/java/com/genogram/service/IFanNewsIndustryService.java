@@ -46,10 +46,16 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
     boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileNames);
 
     /**
-     *
+     *联谊会家族产业后台删除
      * @param id
      * @param status
      * @return
      */
     Boolean deleteIndustryById(Integer id, int status);
+
+    /**
+     * 联谊会家族产业前台增加查看数
+     * @param id  主键
+     */
+    void addVisitNum(Integer id);
 }

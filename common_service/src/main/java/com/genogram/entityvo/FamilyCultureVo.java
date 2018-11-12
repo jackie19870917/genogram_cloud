@@ -65,6 +65,20 @@ public class FamilyCultureVo{
 
     private Integer updateUser;
 
+
+
+    /**
+     * 创建时间LONG
+     */
+    private Long updateTimeLong;
+
+    /**
+     * 修改时间LONG
+     */
+    private Long createTimeLong;
+
+
+
     /**
      * 家族文化图片
      */

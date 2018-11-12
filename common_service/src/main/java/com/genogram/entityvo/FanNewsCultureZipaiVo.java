@@ -3,28 +3,25 @@ package com.genogram.entityvo;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
-import com.genogram.entity.FanNewsIndustry;
-import com.genogram.entity.FanNewsUploadFile;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.FanNewsCultureZipai;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.List;
-
 /**
- *家族产业查询
+ *字派查询
  *@Author: yuzhou
- *@Date: 2018-11-09
- *@Time: 15:59
+ *@Date: 2018-11-12
+ *@Time: 16:46
  *@Param:
  *@return:
  *@Description:
 */
 @Data
-public class FamilyIndustryVo {
-
+public class FanNewsCultureZipaiVo {
 
     /**
-     * 主键
+     * 主键字派ID
      */
     private Integer id;
     /**
@@ -32,23 +29,19 @@ public class FamilyIndustryVo {
      */
     private Integer showId;
     /**
-     * 标题
+     * 字派具体地域
      */
-    private String newsTitle;
+    private String ziapiLocation;
     /**
-     * 内容
+     * 祖先名
      */
-    private String newsText;
+    private String ancestorsName;
     /**
-     * 家族产业具体地址
+     * 字派数组:数字和字的组合
      */
-    private String industryLocation;
+    private String zipaiTxt;
     /**
-     * 种类(1:家族产业;2:个人产业)
-     */
-    private String type;
-    /**
-     * 查看数
+     * 访问数
      */
     private Integer visitNum;
     /**
@@ -71,8 +64,6 @@ public class FamilyIndustryVo {
      * 修改人
      */
     private Integer updateUser;
-
-
     /**
      * 创建时间LONG
      */
@@ -82,12 +73,5 @@ public class FamilyIndustryVo {
      * 修改时间LONG
      */
     private Long createTimeLong;
-
-
-
-    /**
-     * 家族产业图片
-     */
-    private List<FanNewsUploadFile> fanNewsUploadFileList;
 
 }

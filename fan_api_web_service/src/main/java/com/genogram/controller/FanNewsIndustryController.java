@@ -147,6 +147,8 @@ public class FanNewsIndustryController {
             if (familyIndustryDetail==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,newsDetailEmpty);
             }
+            //增加查看数
+            iFanNewsIndustryService.addVisitNum(id);
             return ResponseUtlis.success(familyIndustryDetail);
         }catch (Exception e) {
             e.printStackTrace();
