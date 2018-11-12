@@ -40,15 +40,15 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
     /**
      * 家族文化后台添加
      * @param fanNewsCultureNews  家族文化上传实体类
-     * @param urs  上传的图片的字符串
+     * @param fileNames  上传的图片的字符串
      * @return
      */
-    boolean addNews(FanNewsCultureNews fanNewsCultureNews,String urs);
+    boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,String fileNames);
 
     /**
      * 联谊会家族文化后台删除
      * @param id
      * @param status
      */
-    Boolean deleteByIdCultur(Integer id, int status);
+    Boolean deleteCulturById(Integer id, int status);
 }

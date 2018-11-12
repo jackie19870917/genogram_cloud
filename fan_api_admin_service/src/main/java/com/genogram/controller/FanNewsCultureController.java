@@ -55,13 +55,13 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
-            @RequestParam(value = "showId") String showId, // 家族文化显示位置
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try {
             //判断showId是否有值
-            if(StringUtils.isEmpty(showId)){
+            if(showId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态
@@ -176,7 +176,7 @@ public class FanNewsCultureController {
   *@Description:
  */
     @RequestMapping(value ="/deleteZipaiById",method = RequestMethod.GET)
-    public Response<FanNewsCultureZipai> deleteByIdZipai(
+    public Response<FanNewsCultureZipai> deleteZipaiById(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         try {
@@ -185,7 +185,7 @@ public class FanNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = iFanNewsCultureZipaiService.deleteByIdZipai(id, status);
+            Boolean aBoolean = iFanNewsCultureZipaiService.deleteZipaiById(id, status);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
@@ -207,16 +207,16 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") String showId, // 家族文化显示位置
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try{
         //判断showId是否有值
-        if(StringUtils.isEmpty(showId)){
+        if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
-        //状态
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
         List statusList  = new ArrayList();
         statusList.add(1);
         statusList.add(2);
@@ -251,7 +251,7 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "id") String id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         if(id==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -270,7 +270,7 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value ="/getFamilyCultureAmend",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureAmend(
-            @RequestParam(value = "id") String id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         if(id==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -287,9 +287,9 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
-    private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("id") String id) {
+    private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("id") Integer id) {
         try {
-            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(Integer.valueOf(id));
+            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(id);
             return ResponseUtlis.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -307,10 +307,10 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews, String urs) {
+    public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews, String fileNames) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureNews.setStatus(1);
-        return getFanNewsCultureNewsResponse(fanNewsCultureNews, urs);
+        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileNames);
     }
 
     /**
@@ -323,10 +323,10 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews, String urs) {
+    public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews, String fileNames) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureNews.setStatus(2);
-        return getFanNewsCultureNewsResponse(fanNewsCultureNews, urs);
+        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileNames);
     }
 
     /**
@@ -338,10 +338,10 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
-    private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews, String urs) {
+    private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews, String fileNames) {
         try{
             // 插入数据
-            boolean insert = iFanNewsCultureNewsService.addNews(fanNewsCultureNews,urs);
+            boolean insert = iFanNewsCultureNewsService.addOrUpdateCulture(fanNewsCultureNews,fileNames);
             if( ! insert){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
@@ -364,7 +364,7 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value ="/deleteCulturById",method = RequestMethod.GET)
-    public Response<FanNewsCultureNews> deleteByIdCultur(
+    public Response<FanNewsCultureNews> deleteCulturById(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置
     ) {
         try {
@@ -373,7 +373,7 @@ public class FanNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = iFanNewsCultureNewsService.deleteByIdCultur(id, status);
+            Boolean aBoolean = iFanNewsCultureNewsService.deleteCulturById(id, status);
             if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }

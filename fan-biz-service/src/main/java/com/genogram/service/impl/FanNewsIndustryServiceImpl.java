@@ -34,7 +34,7 @@ import java.util.List;
 public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMapper, FanNewsIndustry> implements IFanNewsIndustryService {
 
     @Autowired
-    private IUploadFileService uploadFileService;
+    private IUploadFileService iuploadFileService;
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;
 
@@ -163,7 +163,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
      *@Description:
     */
     @Override
-    public boolean addNews(FanNewsIndustry fanNewsIndustry, String urls) {
+    public boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileNames) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if(fanNewsIndustry.getId()==null){
@@ -181,7 +181,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         boolean result = this.insert(fanNewsIndustry);
         //存储图片
         if(result){
-            uploadFileService.storageFanFile(urls,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
+            iuploadFileService.storageFanFile(fileNames,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
         }
         return result;
     }
@@ -196,12 +196,12 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
      *@Description:
     */
     @Override
-    public Boolean deleteByIdIndustry(Integer id, int status) {
+    public Boolean deleteIndustryById(Integer id, int status) {
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
         fanNewsIndustry.setStatus(status);
         fanNewsIndustry.setUpdateTime(DateUtil.getCurrentTimeStamp());
         //修改人 待写
-        boolean b = this.updateAllColumnById(fanNewsIndustry);
-        return b;
+        boolean result = this.updateAllColumnById(fanNewsIndustry);
+        return result;
     }
 }

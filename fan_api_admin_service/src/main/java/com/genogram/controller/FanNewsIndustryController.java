@@ -47,16 +47,16 @@ public class FanNewsIndustryController {
     */
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") String showId,
-            @RequestParam(value = "type") String type,
+            @RequestParam(value = "showId") Integer showId,
+            @RequestParam(value = "type") Integer type,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         try {
             //判断showId是否有值
-            if(StringUtils.isEmpty(showId)){
+            if(showId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
-            //状态
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList  = new ArrayList();
             statusList.add(1);
             statusList.add(2);
@@ -66,7 +66,8 @@ public class FanNewsIndustryController {
             if (statusList.size()!=0){
                 entity.in("status", statusList);
             }
-            if(StringUtils.isNotEmpty(type)){
+            //种类(1:家族产业;2:个人产业)
+            if(type==null){
                 entity.eq("type",type);
             }
             entity.orderBy("create_time", false);
@@ -94,7 +95,7 @@ public class FanNewsIndustryController {
     */
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getFamilyIndustryDetail(
-            @RequestParam(value = "id") String id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         return getNewsDetailVoResponse(id);
     }
@@ -110,7 +111,7 @@ public class FanNewsIndustryController {
     */
     @RequestMapping(value ="/getFamilyIndustryAmend",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getFamilyIndustryAmend(
-            @RequestParam(value = "id") String id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         return getNewsDetailVoResponse(id);
     }
@@ -124,12 +125,13 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
-    private Response<IndustryDetailVo> getNewsDetailVoResponse( @RequestParam("id") String id) {
+    private Response<IndustryDetailVo> getNewsDetailVoResponse( @RequestParam("id") Integer id) {
         try {
-            IndustryDetailVo industryDetailVo = iFanNewsIndustryService.getFamilyIndustryDetail(Integer.valueOf(id));
+            IndustryDetailVo industryDetailVo = iFanNewsIndustryService.getFamilyIndustryDetail(id);
             return ResponseUtlis.success(industryDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
+
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
@@ -144,10 +146,10 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateIndustry", method = RequestMethod.POST)
-    public Response<FanNewsIndustry> addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String urls) {
+    public Response<FanNewsIndustry> addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileNames) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(1);
-        return getFanNewsIndustryResponse(fanNewsIndustry, urls);
+        return getFanNewsIndustryResponse(fanNewsIndustry, fileNames);
     }
 
     /**
@@ -160,10 +162,10 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
-    public Response<FanNewsIndustry> addOrUpdateIndustryDrft(FanNewsIndustry fanNewsIndustry, String urls) {
+    public Response<FanNewsIndustry> addOrUpdateIndustryDrft(FanNewsIndustry fanNewsIndustry, String fileNames) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(2);
-        return getFanNewsIndustryResponse(fanNewsIndustry, urls);
+        return getFanNewsIndustryResponse(fanNewsIndustry, fileNames);
     }
 
     /**
@@ -175,10 +177,10 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
-    private Response<FanNewsIndustry> getFanNewsIndustryResponse(FanNewsIndustry fanNewsIndustry, String urls) {
+    private Response<FanNewsIndustry> getFanNewsIndustryResponse(FanNewsIndustry fanNewsIndustry, String fileNames) {
         try {
             // 插入数据
-            boolean b = iFanNewsIndustryService.addNews(fanNewsIndustry, urls);
+            boolean b = iFanNewsIndustryService.addOrUpdateIndustry(fanNewsIndustry, fileNames);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {
@@ -197,7 +199,7 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value ="/deleteIndustryById",method = RequestMethod.GET)
-    public Response<FanNewsIndustry> deleteByIdIndustry(
+    public Response<FanNewsIndustry> deleteIndustryById(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置
     ) {
         try {
@@ -206,7 +208,7 @@ public class FanNewsIndustryController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = iFanNewsIndustryService.deleteByIdIndustry(id, status);
+            Boolean aBoolean = iFanNewsIndustryService.deleteIndustryById(id, status);
             if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }

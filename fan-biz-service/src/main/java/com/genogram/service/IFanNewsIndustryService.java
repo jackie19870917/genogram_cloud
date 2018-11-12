@@ -40,10 +40,10 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
     /**
      * 联谊会家族产业后台新增
      * @param fanNewsIndustry  家族产业上传实体类
-     * @param urls  上传的图片的字符串
+     * @param fileNames  上传的图片的字符串
      * @return
      */
-    boolean addNews(FanNewsIndustry fanNewsIndustry, String urls);
+    boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileNames);
 
     /**
      *
@@ -51,5 +51,5 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
      * @param status
      * @return
      */
-    Boolean deleteByIdIndustry(Integer id, int status);
+    Boolean deleteIndustryById(Integer id, int status);
 }

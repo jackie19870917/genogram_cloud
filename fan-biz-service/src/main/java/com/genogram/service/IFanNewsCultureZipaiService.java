@@ -52,5 +52,5 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      * @param id
      * @param status
      */
-    Boolean deleteByIdZipai(Integer id, int status);
+    Boolean deleteZipaiById(Integer id, int status);
 }

@@ -16,6 +16,7 @@ import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsUploadFileService;
+import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import org.springframework.beans.BeanUtils;
@@ -47,7 +48,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     private AllUserLoginMapper allUserLoginMapper;
 
     @Autowired
-    private IFanNewsUploadFileService iFanNewsUploadFileService;
+    private IUploadFileService iuploadFileService;
 
     @Override
     public Page<FamilyCultureVo> getFamilyCulturePage(Wrapper<FanNewsCultureNews> entity, Integer pageNo, Integer pageSize) {
@@ -167,7 +168,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
      *@Description:
     */
     @Override
-    public boolean addNews(FanNewsCultureNews fanNewsCultureNews,String usrs) {
+    public boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,String fileNames) {
         /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
@@ -184,12 +185,12 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
             fanNewsCultureNews.setUpdateUser(null);
         }
         //插入数据
-        boolean insert = this.insert(fanNewsCultureNews);
+        boolean result = this.insert(fanNewsCultureNews);
         //存储图片
-/*        if(insert){
-            iFanNewsUploadFileService.storagePicture(fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId(),pictures);
-        }*/
-        return insert;
+        if(result){
+            iuploadFileService.storageFanFile(fileNames,fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId());
+        }
+        return result;
     }
 
     /**
@@ -202,12 +203,12 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
      *@Description:
     */
     @Override
-        public Boolean deleteByIdCultur(Integer id, int status) {
+        public Boolean deleteCulturById(Integer id, int status) {
         FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
         fanNewsCultureNews.setStatus(status);
         fanNewsCultureNews.setUpdateTime(DateUtil.getCurrentTimeStamp());
         //修改人待写
-        boolean b = this.updateAllColumnById(fanNewsCultureNews);
-        return b;
+        boolean result = this.updateAllColumnById(fanNewsCultureNews);
+        return result;
     }
 }
