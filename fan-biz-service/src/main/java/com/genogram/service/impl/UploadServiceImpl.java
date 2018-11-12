@@ -6,7 +6,7 @@ import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
-import org.apache.commons.lang3.StringUtils;
+import com.genogram.unit.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +30,10 @@ public class UploadServiceImpl implements IUploadFileService {
 
     @Override
     public boolean storageFanFile(String fileNames,Integer showId, Integer newsId) {
-        String[] split = fileNames.split(";");
-
-        if(split!=null && split.length==0) {
+        if(StringUtils.isEmpty(fileNames)) {
             return true;
         }
+        String[] split = fileNames.split(";");
         List<FanNewsUploadFile> list = new ArrayList<FanNewsUploadFile>();
         for (String fileName : split) {
             FanNewsUploadFile fanNewsUploadFile = new FanNewsUploadFile();
