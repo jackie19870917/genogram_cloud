@@ -33,16 +33,16 @@ import java.util.List;
 public class FanIndexController {
 
     @Autowired
-    private IFanIndexInfoService iFanIndexInfoService;
+    private IFanIndexInfoService fanIndexInfoService;
 
     @Autowired
     private IFanNewsUploadFileService iFanNewsUploadFileService;
 
     @Autowired
-    private IFanIndexFamilySummarysService iFanIndexFamilySummarysService;
+    private IFanIndexFamilySummarysService fanIndexFamilySummarysService;
 
     @Autowired
-    private IFanIndexSlidePicService iFanIndexSlidePicService;
+    private IFanIndexSlidePicService fanIndexSlidePicService;
 
     @RequestMapping(value = "uploadPic", method = RequestMethod.POST)
     public String uploadPic(@RequestParam("file") MultipartFile file) {
@@ -87,7 +87,7 @@ public class FanIndexController {
         list.add(1);
         list.add(2);
 
-        List<FanIndexSlidePic> fanIndexSlidePicList = iFanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
+        List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
 
         return ResponseUtlis.success(fanIndexSlidePicList);
     }
@@ -100,7 +100,7 @@ public class FanIndexController {
     @RequestMapping(value = "insertOrUpdateFanIndexSlidePic", method = RequestMethod.POST)
     public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
 
-        Boolean result = iFanIndexSlidePicService.insertOrUpdateFanIndexSlidePic(fanIndexSlidePic);
+        Boolean result = fanIndexSlidePicService.insertOrUpdateFanIndexSlidePic(fanIndexSlidePic);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -117,7 +117,7 @@ public class FanIndexController {
     @RequestMapping(value = "deleteFanIndexSlidePic", method = RequestMethod.POST)
     public Response<FanIndexSlidePic> deleteFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
 
-        Boolean result = iFanIndexSlidePicService.deleteFanIndexSlidePic(fanIndexSlidePic);
+        Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(fanIndexSlidePic);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -134,7 +134,7 @@ public class FanIndexController {
     @RequestMapping(value = "getFanIndexInfo",method = RequestMethod.GET)
     public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
 
-        FanIndexInfoVo fanIndexInfoVo = iFanIndexInfoService.getFanIndexInfoVo(siteId);
+        FanIndexInfoVo fanIndexInfoVo = fanIndexInfoService.getFanIndexInfoVo(siteId);
 
         return ResponseUtlis.success(fanIndexInfoVo);
     }
@@ -147,7 +147,7 @@ public class FanIndexController {
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
     public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
-        Boolean result = iFanIndexInfoService.insertOrUpdateFanIndexInfo(fanIndexInfo);
+        Boolean result = fanIndexInfoService.insertOrUpdateFanIndexInfo(fanIndexInfo);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -164,7 +164,7 @@ public class FanIndexController {
     @RequestMapping(value = "deleteFanIndexInfo", method = RequestMethod.POST)
     public Response<FanIndexInfo> deleteFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
-        Boolean result = iFanIndexInfoService.deleteFanIndexInfo(fanIndexInfo);
+        Boolean result = fanIndexInfoService.deleteFanIndexInfo(fanIndexInfo);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -188,20 +188,20 @@ public class FanIndexController {
         //  1-正常    2-草稿
         list.add(1);
         list.add(2);
-        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
+        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = fanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
 
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
 
     /**
      *      联谊堂详情
-     * @param id
+     * @param id  主键
      * @return
      */
     @RequestMapping(value = "getFanIndexFamilySummarys", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarys(@RequestParam(value = "id") Integer id) {
 
-        FanIndexFamilySummarys fanIndexFamilySummarys = iFanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
+        FanIndexFamilySummarys fanIndexFamilySummarys = fanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
 
         return ResponseUtlis.success(fanIndexFamilySummarys);
     }
@@ -216,7 +216,7 @@ public class FanIndexController {
 
         //状态   1-正常  2-草稿
         fanIndexFamilySummarys.setStatus(1);
-        Boolean result = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
+        Boolean result = fanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -235,7 +235,7 @@ public class FanIndexController {
 
         //状态   1-正常  2-草稿
         fanIndexFamilySummarys.setStatus(2);
-        Boolean result = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
+        Boolean result = fanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -251,7 +251,7 @@ public class FanIndexController {
     @RequestMapping(value = "deleteFanIndexFamilySummarys", method = RequestMethod.POST)
     public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
 
-        Boolean result = iFanIndexFamilySummarysService.deleteFanIndexFamilySummarys(fanIndexFamilySummarys);
+        Boolean result = fanIndexFamilySummarysService.deleteFanIndexFamilySummarys(fanIndexFamilySummarys);
 
         if (result) {
             return ResponseUtlis.success(200);

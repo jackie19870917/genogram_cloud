@@ -30,7 +30,7 @@ import java.util.List;
 public class FanNewsCharityController {
 
     @Autowired
-    private IFanNewsCharityOutService iFanNewsCharityOutService;
+    private IFanNewsCharityOutService fanNewsCharityOutService;
 
     /**
      * 慈善收支
@@ -58,7 +58,7 @@ public class FanNewsCharityController {
         entity.in("status", list);
         entity.orderBy("create_time", false);
 
-        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = iFanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
+        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
@@ -74,7 +74,7 @@ public class FanNewsCharityController {
 
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(1);
-        Boolean result = iFanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
+        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -94,7 +94,7 @@ public class FanNewsCharityController {
 
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(2);
-        Boolean result = iFanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
+        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -111,7 +111,7 @@ public class FanNewsCharityController {
     @RequestMapping(value = "deleteFanNewsCharityOut", method = RequestMethod.POST)
     public Response<FanNewsCharityOut> deleteFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut) {
 
-        Boolean result = iFanNewsCharityOutService.deleteFanNewsCharityOut(fanNewsCharityOut);
+        Boolean result = fanNewsCharityOutService.deleteFanNewsCharityOut(fanNewsCharityOut);
 
         if (result) {
             return ResponseUtlis.success(200);

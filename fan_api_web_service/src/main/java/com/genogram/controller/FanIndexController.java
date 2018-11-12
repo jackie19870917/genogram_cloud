@@ -29,16 +29,16 @@ import java.util.List;
 public class FanIndexController {
 
     @Autowired
-    private IFanIndexMessageService iFanIndexMessageService;
+    private IFanIndexMessageService fanIndexMessageService;
 
     @Autowired
-    private IFanIndexFamilySummarysService iFanIndexFamilySummarysService;
+    private IFanIndexFamilySummarysService fanIndexFamilySummarysService;
 
     @Autowired
-    private IFanIndexSlidePicService iFanIndexSlidePicService;
+    private IFanIndexSlidePicService fanIndexSlidePicService;
 
     @Autowired
-    private IFanIndexInfoService iFanIndexInfoService;
+    private IFanIndexInfoService fanIndexInfoService;
 
     /**
      * 状态
@@ -60,7 +60,7 @@ public class FanIndexController {
         List list = new ArrayList();
         list.add(status);
 
-        List<FanIndexSlidePic> fanIndexSlidePicList = iFanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
+        List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
 
         return ResponseUtlis.success(fanIndexSlidePicList);
     }
@@ -85,7 +85,7 @@ public class FanIndexController {
         List list = new ArrayList();
         list.add(status);
 
-        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
+        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = fanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
 
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
@@ -103,7 +103,7 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
-        FanIndexInfoVo fanIndexInfoVo = iFanIndexInfoService.getFanIndexInfoVo(siteId);
+        FanIndexInfoVo fanIndexInfoVo = fanIndexInfoService.getFanIndexInfoVo(siteId);
 
         return ResponseUtlis.success(fanIndexInfoVo);
     }
@@ -130,7 +130,7 @@ public class FanIndexController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 1;
-            Page<FanIndexMessage> fanIndexMessage = iFanIndexMessageService.getChatRecordList(siteId, status, pageNo, pageSize);
+            Page<FanIndexMessage> fanIndexMessage = fanIndexMessageService.getChatRecordList(siteId, status, pageNo, pageSize);
             if (fanIndexMessage == null) {
                 //没有取到参数,返回空参
                 Page<FanIndexMessage> emptfamilyCultureVo = new Page<FanIndexMessage>();
