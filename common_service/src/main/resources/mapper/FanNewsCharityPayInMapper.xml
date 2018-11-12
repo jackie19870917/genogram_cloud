@@ -43,4 +43,5 @@
         group by pay_usr_id
         order by pay_amount desc
     </select>
+
 </mapper>

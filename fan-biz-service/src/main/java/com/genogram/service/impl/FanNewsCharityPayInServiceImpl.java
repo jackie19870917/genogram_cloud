@@ -39,12 +39,9 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     private AllUserLoginMapper allUserLoginMapper;
 
     @Override
-    public Page<DonorVo> getDonorVoPage(Integer showId, List status, Integer pageNo, Integer pageSize) {
-        Map map = new HashMap(16);
-        map.put("showId", showId);
-        map.put("status", status);
+    public Page<DonorVo> getDonorVoPage(Page<FanNewsCharityPayIn> mapPage, Map map) {
 
-        List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.getDonorVoPage(map);
+        List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.getDonorVoPage(mapPage,map);
 
         List list = new ArrayList();
         for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
@@ -56,14 +53,12 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         List<AllUserLogin> allUserLoginList = allUserLoginMapper.selectList(entity);
 
+        Page<DonorVo> page = new Page<>(mapPage.getCurrent(), mapPage.getSize());
         list = getList(fanNewsCharityPayInList, allUserLoginList);
+        page.setRecords(list);
+        page.setTotal(mapPage.getTotal());
 
-        Page<DonorVo> mapPage = new Page<>(pageNo,pageSize);
-        mapPage.setRecords(list);
-        // mapPage.setSize(fanIndexFamilySummarysPage.getSize());
-        mapPage.setTotal(fanNewsCharityPayInList.size());
-        
-        return mapPage;
+        return page;
     }
 
     private List getList(List<FanNewsCharityPayIn> fanNewsCharityPayInList, List<AllUserLogin> allUserLoginList) {
@@ -109,7 +104,6 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         Page<DonorVo> mapPage = new Page<>(pageNo,pageSize);
         mapPage.setRecords(list);
-        // mapPage.setSize(fanIndexFamilySummarysPage.getSize());
         mapPage.setTotal(fanNewsCharityPayInPage.getTotal());
 
         return mapPage;

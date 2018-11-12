@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityOut;
+import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.FanNewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -18,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -78,15 +81,23 @@ public class FanNewsCharityController {
     @RequestMapping(value = "index/getDonorPage", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageBySum(@RequestParam("showId") Integer showId,
                                                  @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                 @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+                                                 @RequestParam(value = "pageSize", defaultValue = "1") Integer pageSize) {
+
         List list = new ArrayList();
         list.add(status);
 
-      /*  List<DonorVo> fanNewsCharityPayInPage = iFanNewsCharityPayInService.getDonorVoPage(showId, list, pageNo, pageSize);
+        Map map = new HashMap(16);
+        map.put("showId", showId);
+        map.put("status", list);
 
-        return ResponseUtlis.success(fanNewsCharityPayInPage);*/
+        Page page = new Page();
+        page.setCurrent(pageNo);
+        page.setSize(pageSize);
+        Page<FanNewsCharityPayIn> mapPage = new Page<>(page.getCurrent(), page.getSize());
+        Page<DonorVo> donorVoPage = iFanNewsCharityPayInService.getDonorVoPage(mapPage, map);
 
-        return null;
+        return ResponseUtlis.success(donorVoPage);
+
     }
 
     /**
