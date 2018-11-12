@@ -26,7 +26,7 @@ public class UploadFastDfsImpl implements IUploadFastDfsService {
             //上传到fastDFS文件服务器
             String path = client.uploadFile(file.getBytes(), extName);
             //硬编码
-            path = path.substring(path.lastIndexOf("/")+1);
+            path = path.replaceAll("group1/M00/","");
             String fastDfsPath = fastDfsIp+ path;
             System.out.println(fastDfsPath);
             map.put("ok", "upload_success");
