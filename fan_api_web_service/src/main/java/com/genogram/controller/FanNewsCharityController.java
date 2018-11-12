@@ -3,6 +3,7 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.config.Constants;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
@@ -43,9 +44,6 @@ public class FanNewsCharityController {
     private IFanNewsCharityPayInService iFanNewsCharityPayInService;
 
     @Autowired
-    private IFanNewsCharityService iFanNewsCharityService;
-
-    @Autowired
     private IFanIndexFundService iFanIndexFundService;
 
     /**
@@ -62,6 +60,10 @@ public class FanNewsCharityController {
      */
     @RequestMapping(value = "index/getFanIndexFund", method = RequestMethod.GET)
     public Response<FanIndexFund> getFanIndexFund(@RequestParam("siteId") Integer siteId) {
+
+        if (siteId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
 
         FanIndexFund fanIndexFund = iFanIndexFundService.getFanIndexFund(siteId);
 
@@ -82,6 +84,10 @@ public class FanNewsCharityController {
     public Response<DonorVo> getDonorVoPageBySum(@RequestParam("showId") Integer showId,
                                                  @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                  @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+
+        if (showId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
 
         List list = new ArrayList();
         list.add(status);
@@ -114,6 +120,10 @@ public class FanNewsCharityController {
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
+        if (showId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
         List list = new ArrayList();
         list.add(status);
 
@@ -137,6 +147,11 @@ public class FanNewsCharityController {
                                                                 @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (showId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
         List list = new ArrayList();
         list.add(status);
 
@@ -165,6 +180,11 @@ public class FanNewsCharityController {
         return ResponseUtlis.success(newsCharityOutDetail);
     }
 
+    /**
+     * 新增捐款记录
+     * @param fanNewsCharityPayIn
+     * @return
+     */
     @RequestMapping(value = "insertFanNewsCharityPayIn", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn) {
 

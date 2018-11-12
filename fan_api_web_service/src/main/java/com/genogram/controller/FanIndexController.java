@@ -53,6 +53,10 @@ public class FanIndexController {
     @RequestMapping(value = "index/getFanIndexSlidePicList", method = RequestMethod.GET)
     public Response<FanIndexSlidePic> getFanIndexSlidePicList(@RequestParam(value = "siteId") Integer siteId) {
 
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
         List list = new ArrayList();
         list.add(status);
 
@@ -73,6 +77,11 @@ public class FanIndexController {
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
         List list = new ArrayList();
         list.add(status);
 
@@ -89,6 +98,10 @@ public class FanIndexController {
      */
     @RequestMapping(value = "index/getFanIndexInfo", method = RequestMethod.GET)
     public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
 
         FanIndexInfoVo fanIndexInfoVo = iFanIndexInfoService.getFanIndexInfoVo(siteId);
 
