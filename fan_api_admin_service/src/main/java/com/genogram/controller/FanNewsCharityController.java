@@ -63,10 +63,38 @@ public class FanNewsCharityController {
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
 
+    /**
+     * 新增/修改    慈善收支
+     * @param fanNewsCharityOut
+     * @param files
+     * @return
+     */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)
     public Response<FanNewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut,String files) {
 
         Boolean result = iFanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
-        return null;
+
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
+
+    /**
+     * 逻辑删除
+     * @param fanNewsCharityOut
+     * @return
+     */
+    @RequestMapping(value = "deleteFanNewsCharityOut", method = RequestMethod.POST)
+    public Response<FanNewsCharityOut> deleteFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut) {
+
+        Boolean result = iFanNewsCharityOutService.deleteFanNewsCharityOut(fanNewsCharityOut);
+
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
     }
 }

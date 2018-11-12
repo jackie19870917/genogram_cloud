@@ -81,7 +81,7 @@ public class FanNewsCharityController {
     @RequestMapping(value = "index/getDonorPage", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageBySum(@RequestParam("showId") Integer showId,
                                                  @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                 @RequestParam(value = "pageSize", defaultValue = "1") Integer pageSize) {
+                                                 @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         List list = new ArrayList();
         list.add(status);

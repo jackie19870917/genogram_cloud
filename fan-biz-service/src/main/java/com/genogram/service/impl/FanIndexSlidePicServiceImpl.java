@@ -49,6 +49,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
     @Override
     public Boolean deleteFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
 
+        fanIndexSlidePic.setStatus(0);
         fanIndexSlidePic.setUpdateTime(DateUtil.format(new Date()));
 
         return this.updateById(fanIndexSlidePic);

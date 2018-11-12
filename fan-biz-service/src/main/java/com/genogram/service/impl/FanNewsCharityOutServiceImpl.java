@@ -187,4 +187,13 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
     }
 
+    @Override
+    public Boolean deleteFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut) {
+
+        fanNewsCharityOut.setStatus(0);
+        fanNewsCharityOut.setUpdateTime(DateUtil.getCurrentTimeStamp());
+
+        return this.updateById(fanNewsCharityOut);
+    }
+
 }
