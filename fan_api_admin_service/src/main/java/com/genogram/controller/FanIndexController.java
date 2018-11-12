@@ -214,6 +214,8 @@ public class FanIndexController {
     @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarys", method = RequestMethod.POST)
     public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
 
+        //状态   1-正常  2-草稿
+        fanIndexFamilySummarys.setStatus(1);
         Boolean result = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
 
         if (result) {
@@ -223,6 +225,24 @@ public class FanIndexController {
         }
     }
 
+    /**
+     * 联谊堂 草稿
+     * @param fanIndexFamilySummarys
+     * @return
+     */
+    @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarysDrft", method = RequestMethod.POST)
+    public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarysDrft(FanIndexFamilySummarys fanIndexFamilySummarys) {
+
+        //状态   1-正常  2-草稿
+        fanIndexFamilySummarys.setStatus(2);
+        Boolean result = iFanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
+
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
     /**
      *   逻辑删除 联谊堂
      * @param fanIndexFamilySummarys

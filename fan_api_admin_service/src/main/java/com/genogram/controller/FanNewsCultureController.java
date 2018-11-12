@@ -99,13 +99,13 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value = "/getZiPaiDetail",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getZiPaiDetail(
-            @RequestParam(value = "id") String id // 家族字派文章ID
+            @RequestParam(value = "id") Integer id // 家族字派文章ID
     ){
         try {
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
-            FanNewsCultureZipai fanNewsCultureZipai=iFanNewsCultureZipaiService.getZiPaiDetail(Integer.valueOf(id));
+            FanNewsCultureZipai fanNewsCultureZipai=iFanNewsCultureZipaiService.getZiPaiDetail(id);
             return ResponseUtlis.success(fanNewsCultureZipai);
         } catch (Exception e) {
             e.printStackTrace();
