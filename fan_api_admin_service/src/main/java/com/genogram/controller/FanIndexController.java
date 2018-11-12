@@ -36,7 +36,7 @@ public class FanIndexController {
     private IFanIndexInfoService fanIndexInfoService;
 
     @Autowired
-    private IFanNewsUploadFileService iFanNewsUploadFileService;
+    private IFanNewsUploadFileService fanNewsUploadFileService;
 
     @Autowired
     private IFanIndexFamilySummarysService fanIndexFamilySummarysService;
