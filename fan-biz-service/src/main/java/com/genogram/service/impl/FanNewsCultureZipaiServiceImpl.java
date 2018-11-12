@@ -4,14 +4,16 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCultureZipai;
+import com.genogram.entityvo.FanNewsCultureZipaiVo;
 import com.genogram.mapper.FanNewsCultureZipaiMapper;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,9 +37,29 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
      *@Description:
     */
     @Override
-    public Page<FanNewsCultureZipai> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsCultureZipaiVo> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize) {
+        //返回新VO的集合
+        List<FanNewsCultureZipaiVo> familyCultureVoList=new ArrayList<>();
         Page<FanNewsCultureZipai> fanNewsCultureZipais = this.selectPage(new Page<FanNewsCultureZipai>(pageNo, pageSize), entity);
-        return fanNewsCultureZipais;
+        //获取list集合
+        List<FanNewsCultureZipai> list = fanNewsCultureZipais.getRecords();
+        if(list.size()==0){
+            return null;
+        }
+        list.forEach(( news)->{
+            FanNewsCultureZipaiVo fanNewsCultureZipaiVo=new FanNewsCultureZipaiVo();
+            //存储新对象
+            BeanUtils.copyProperties(news,fanNewsCultureZipaiVo);
+            //转换时间为long
+            fanNewsCultureZipaiVo.setCreateTimeLong(news.getCreateTime().getTime());
+            fanNewsCultureZipaiVo.setUpdateTimeLong(news.getUpdateTime().getTime());
+        });
+        //重新设置page对象
+        Page<FanNewsCultureZipaiVo> mapPage = new Page<>(pageNo,pageSize);
+        mapPage.setRecords(familyCultureVoList);
+        mapPage.setSize(fanNewsCultureZipais.getSize());
+        mapPage.setTotal(fanNewsCultureZipais.getTotal());
+        return mapPage;
         }
 
     /**

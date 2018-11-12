@@ -7,6 +7,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsCultureNews;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
+import com.genogram.entityvo.FanNewsCultureZipaiVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
@@ -66,7 +67,7 @@ public class FanNewsCultureController {
             entity.eq("show_id", showId);
             entity.in("status", statusList);
             entity.orderBy("create_time", false);
-            Page<FanNewsCultureZipai> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
+            Page<FanNewsCultureZipaiVo> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if (fanNewsCultureZipai == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
@@ -146,7 +147,7 @@ public class FanNewsCultureController {
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
             entity.eq("show_id",showId);
             entity.like("zipai_txt",zipaiTxt);
-            Page<FanNewsCultureZipai> fanNewsCultureZipaiPage = iFanNewsCultureZipaiService.commonality(entity,pageNo, pageSize);
+            Page<FanNewsCultureZipaiVo> fanNewsCultureZipaiPage = iFanNewsCultureZipaiService.commonality(entity,pageNo, pageSize);
             if(fanNewsCultureZipaiPage==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,list);
             }
