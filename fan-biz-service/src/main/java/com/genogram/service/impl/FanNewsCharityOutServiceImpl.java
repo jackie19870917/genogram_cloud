@@ -44,7 +44,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     private IAllUserLoginService allUserLoginService;
 
     @Autowired
-    private IUploadFileService iuploadFileService;
+    private IUploadFileService uploadFileService;
 
     @Override
     public Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType, List status, Integer pageNo, Integer pageSize) {
@@ -178,7 +178,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         Boolean result = this.insertOrUpdate(fanNewsCharityOut);
 
         if (result) {
-            result= iuploadFileService.storageFanFile(files, fanNewsCharityOut.getId(), fanNewsCharityOut.getShowId());
+            result= uploadFileService.storageFanFile(files, fanNewsCharityOut.getId(), fanNewsCharityOut.getShowId());
             return true;
         } else {
             return false;
