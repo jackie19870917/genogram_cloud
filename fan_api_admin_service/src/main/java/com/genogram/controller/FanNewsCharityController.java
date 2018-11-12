@@ -48,7 +48,7 @@ public class FanNewsCharityController {
                                                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
         List list = new ArrayList();
-        //   1-正常   2-草稿
+        //状态    1-正常   2-草稿
         list.add(1);
         list.add(2);
 
@@ -72,6 +72,28 @@ public class FanNewsCharityController {
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)
     public Response<FanNewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut,String files) {
 
+        //状态   (1:已发布;2:草稿)
+        fanNewsCharityOut.setStatus(1);
+        Boolean result = iFanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
+
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
+
+    /**
+     *  慈善收支草稿
+     * @param fanNewsCharityOut
+     * @param files
+     * @return
+     */
+    @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDeft", method = RequestMethod.POST)
+    public Response<FanNewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut,String files) {
+
+        //状态   (1:已发布;2:草稿)
+        fanNewsCharityOut.setStatus(2);
         Boolean result = iFanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
 
         if (result) {
