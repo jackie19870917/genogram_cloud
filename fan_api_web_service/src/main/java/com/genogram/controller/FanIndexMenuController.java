@@ -31,16 +31,16 @@ public class FanIndexMenuController {
     @Value("${fan_api_web_service.ip}")
     private String hostIp;
     @Autowired
-    private IFanSysWebNewsShowService iFanSysWebNewsShowService;
+    private IFanSysWebNewsShowService fanSysWebNewsShowService;
 
     @ResponseBody
     @RequestMapping(value = "/getMenuBySiteId" ,  method = RequestMethod.GET)
     public Response getMenuBySiteId(@RequestParam(name = "siteId") String siteId){
         EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<FanSysWebNewsShow>();
         entityWrapper.eq("fan_sys_site_id",siteId);
-        List<FanSysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(hostIp,siteId,true,entityWrapper);
+        List<FanSysWebMenuVo> list = fanSysWebNewsShowService.getMenu(hostIp,siteId,true,entityWrapper);
 
-        List<FanSysWebMenuVo> indexMenus = iFanSysWebNewsShowService.getIndexMenu(siteId);
+        List<FanSysWebMenuVo> indexMenus = fanSysWebNewsShowService.getIndexMenu(siteId);
         Map indexMenusMap = new LinkedHashMap();
         indexMenus.forEach((index)->{
             indexMenusMap.put(index.getMenuType(),index);
