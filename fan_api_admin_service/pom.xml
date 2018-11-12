@@ -34,6 +34,14 @@
             <scope>compile</scope>
         </dependency>
 
+        <!--com.genogram 依赖-->
+        <dependency>
+            <groupId>com.genogram</groupId>
+            <artifactId>common_file_upload_service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>

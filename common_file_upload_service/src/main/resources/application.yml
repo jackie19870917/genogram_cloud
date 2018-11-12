@@ -1,8 +1,6 @@
 #http://localhost:8050/test/test1
-fan_api_admin_service:
-  fastDfs_ip: http://192.168.2.132:8090
 server:
-  port: 8050
+  port: 8030
 spring:
   profiles:
     active: dev

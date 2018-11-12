@@ -34,7 +34,7 @@ import java.util.List;
 public class FanNewsIndustryController {
 
     @Autowired
-    private IFanNewsIndustryService iFanNewsIndustryService;
+    private IFanNewsIndustryService fanNewsIndustryService;
 
     /**
      *联谊会家族产业后台查询
@@ -71,7 +71,7 @@ public class FanNewsIndustryController {
                 entity.eq("type",type);
             }
             entity.orderBy("create_time", false);
-            Page<FamilyIndustryVo> familyCultureVo = iFanNewsIndustryService.getFamilyIndustryPage(entity, pageNo, pageSize);
+            Page<FamilyIndustryVo> familyCultureVo = fanNewsIndustryService.getFamilyIndustryPage(entity, pageNo, pageSize);
             if (familyCultureVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyIndustryVo> emptfamilyCultureVo = new Page<FamilyIndustryVo>();
@@ -127,7 +127,7 @@ public class FanNewsIndustryController {
     */
     private Response<IndustryDetailVo> getNewsDetailVoResponse( @RequestParam("id") Integer id) {
         try {
-            IndustryDetailVo industryDetailVo = iFanNewsIndustryService.getFamilyIndustryDetail(id);
+            IndustryDetailVo industryDetailVo = fanNewsIndustryService.getFamilyIndustryDetail(id);
             return ResponseUtlis.success(industryDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,7 +180,7 @@ public class FanNewsIndustryController {
     private Response<FanNewsIndustry> getFanNewsIndustryResponse(FanNewsIndustry fanNewsIndustry, String fileNames) {
         try {
             // 插入数据
-            boolean b = iFanNewsIndustryService.addOrUpdateIndustry(fanNewsIndustry, fileNames);
+            fanNewsIndustryService.addOrUpdateIndustry(fanNewsIndustry, fileNames);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {
@@ -208,8 +208,8 @@ public class FanNewsIndustryController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = iFanNewsIndustryService.deleteIndustryById(id, status);
-            if (!aBoolean){
+            Boolean isDel = fanNewsIndustryService.deleteIndustryById(id, status);
+            if (!isDel){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
