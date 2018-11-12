@@ -197,7 +197,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     public List<FanSysWebMenuVo> getTitlesByMenuId(String hostIp, int siteId, int menuId) {
         List<FanSysWebMenuVo> voList = new ArrayList<>();
 
-        EntityWrapper<FanSysWebMenu> entityWrapper = new EntityWrapper<FanSysWebMenu>();
+        EntityWrapper<FanSysWebMenu> entityWrapper = new EntityWrapper<>();
         entityWrapper.eq("parent_id",menuId);
         List<FanSysWebMenu> list = fanSysWebMenuService.selectList(entityWrapper);
         list.forEach((menu)->{

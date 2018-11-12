@@ -39,7 +39,7 @@ public class FanIndexMenuController {
 
     @RequestMapping(value = "/getMenuBySiteId", method = RequestMethod.GET)
     public Response getMenuBySiteId(@RequestParam(name = "siteId") String siteId) {
-        EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<FanSysWebNewsShow>();
+        EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<>();
         entityWrapper.eq("fan_sys_site_id", siteId);
         List<FanSysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(hostIp, siteId, false, entityWrapper);
         HashMap indexMap = new LinkedHashMap();
