@@ -211,4 +211,22 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         boolean result = this.updateAllColumnById(fanNewsCultureNews);
         return result;
     }
+
+    /**
+     *联谊会家族文化前台增加查看数
+     *@Author: yuzhou
+     *@Date: 2018-11-12
+     *@Time: 13:49
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public void addVisitNum(Integer id) {
+        //查出详情
+        FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
+        //查看数加一
+        fanNewsCultureNews.setVisitNum(fanNewsCultureNews.getVisitNum()+1);
+         this.updateAllColumnById(fanNewsCultureNews);
+    }
 }

@@ -1,6 +1,8 @@
 
 
 
+
+
 localhost:8050/genogram/admin/fanNewsCulture/getCommonalityPage?showId=8  get  功能:联谊会家族字派后台查询
 
 localhost:8050/genogram/admin/fanNewsCulture/getZiPaiDetail?id=1   get  功能:联谊会家族字派后台进入修改
@@ -83,7 +85,7 @@ https://docs.qq.com/doc/DWnBhVHdBaHRweXFl  功能:联谊会家族产业后台删除
 
 
 
-
+https://docs.qq.com/doc/DWkp6VktVVU9NZkV6  腾讯文档地址
 
 
 

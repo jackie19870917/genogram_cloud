@@ -261,6 +261,8 @@ public class FanNewsCultureController {
             if (newsDetailVo == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, newsDetail);
             }
+            //增加查看数
+            iFanNewsCultureNewsService.addVisitNum(id);
             return ResponseUtlis.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();

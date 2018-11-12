@@ -204,4 +204,22 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         boolean result = this.updateAllColumnById(fanNewsIndustry);
         return result;
     }
+
+    /**
+     *联谊会家族产业前台增加查看数
+     *@Author: yuzhou
+     *@Date: 2018-11-12
+     *@Time: 13:56
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public void addVisitNum(Integer id) {
+        //查出详情
+        FanNewsIndustry fanNewsIndustry = this.selectById(id);
+        //查看数加一
+        fanNewsIndustry.setVisitNum(fanNewsIndustry.getVisitNum()+1);
+        this.updateAllColumnById(fanNewsIndustry);
+    }
 }
