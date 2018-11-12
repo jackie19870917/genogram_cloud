@@ -1,0 +1,97 @@
+
+
+
+localhost:8050/genogram/admin/fanNewsCulture/getCommonalityPage?showId=8  get  功能:联谊会家族字派后台查询
+
+localhost:8050/genogram/admin/fanNewsCulture/getZiPaiDetail?id=1   get  功能:联谊会家族字派后台进入修改
+  
+localhost:8050/genogram/admin/fanNewsCulture/addOrUpdateZiPai   post  功能:联谊会家族字派后台新增修改 发表
+
+localhost:8050/genogram/admin/fanNewsCulture/addOrUpdateZiPaiDrft  post  功能:联谊会家族字派后台新增修改 草稿
+
+localhost:8090/genogram/fanNewsCulture/getZipaiVaguePage  post 功能:联谊会家族字派前台模糊查询
+
+localhost:8050/genogram/admin/fanNewsCulture/deleteZipaiById?id=20  get 功能:联谊会家族字派后台删除
+ 
+localhost:8050/genogram/admin/fanNewsCulture/getFamilyCulturePage?showId=9  get  功能:联谊会家族文化后台查询
+
+localhost:8050/genogram/admin/fanNewsCulture/getFamilyCultureDetail?id=1  get  功能:联谊会家族文化后台详情查询
+
+localhost:8050/genogram/admin/fanNewsCulture/getFamilyCultureAmend?id=1 get 功能:联谊会家族文化后台进入修改页面
+
+localhost:8050/genogram/admin/fanNewsCulture/addOrUpdateCulture  post 功能:联谊会家族文化后台添加和修改 发表
+
+localhost:8050/genogram/admin/fanNewsCulture/addOrUpdateCultureDrft  post  功能:联谊会家族文化后台添加和修改 草稿
+
+localhost:8050/genogram/admin/fanNewsCulture/deleteCulturById?id=27  get  功能:联谊会家族文化后台删除
+
+localhost:8050/genogram/admin/fanNewsIndustry/getFamilyIndustryPage?showId=17&type=1  get  功能:联谊会家族产业后台查询
+
+localhost:8050/genogram/admin/fanNewsIndustry/getFamilyIndustryDetail?id=1  get 功能:联谊会家族产业各个产业的详情
+
+localhost:8050/genogram/admin/fanNewsIndustry/getFamilyIndustryAmend?id=1  get 功能:联谊会家族产业各个产业进入修改页面
+
+localhost:8050/genogram/admin/fanNewsIndustry/addOrUpdateIndustry  post 功能:联谊会家族产业后台添加和修改 发表
+
+localhost:8050/genogram/admin/fanNewsIndustry/addOrUpdateIndustryDrft  post  功能:联谊会家族产业后台添加和修改 草稿
+
+localhost:8050/genogram/admin/fanNewsIndustry/deleteIndustryById?id=14  get  功能:联谊会家族产业后台删除
+
+
+
+
+接口文档 地址
+
+
+https://docs.qq.com/doc/DWkpJdnlpV2ZtVERl  功能:联谊会家族字派后台查询
+
+https://docs.qq.com/doc/DWkhyR3dGZ2FocVVl  功能:联谊会家族字派后台进入修改
+
+https://docs.qq.com/doc/DWkNjd0NXQXdmcFh0  功能:联谊会家族字派后台新增修改 发表
+
+https://docs.qq.com/doc/DWnViY0lKR2tHV0VO  功能:联谊会家族字派后台新增修改 草稿
+
+https://docs.qq.com/doc/DWm5HdXRaQnVJaFlz  功能:联谊会家族字派前台模糊查询
+  
+https://docs.qq.com/doc/DWm5sbkpVcXRKZVV1   功能:联谊会家族字派后台删除
+
+https://docs.qq.com/doc/DWkN3VUd5b2JhZExN  功能:联谊会家族文化后台查询
+
+https://docs.qq.com/doc/DWnJVd3JBQURyQ1Jr  功能:联谊会家族文化后台详情查询
+
+https://docs.qq.com/doc/DWnFHUXVMR010WXp6  功能:联谊会家族文化后台进入修改页面
+
+https://docs.qq.com/doc/DWlNCTERsYVhUS0Z1  功能:联谊会家族文化后台添加和修改 发表
+
+https://docs.qq.com/doc/DWnh2SnJISUl5RlpI  功能:联谊会家族文化后台添加和修改 草稿
+
+https://docs.qq.com/doc/DWndrclBNSXdyZnpR  功能:联谊会家族文化后台删除
+
+https://docs.qq.com/doc/DWmdpb1BYbkdLVURZ  功能:联谊会家族产业后台查询
+
+https://docs.qq.com/doc/DWkdwWExmVU5La09H  功能:联谊会家族产业各个产业的详情
+
+https://docs.qq.com/doc/DWmNHa0tUblVrUmJG  功能:联谊会家族产业各个产业进入修改页面
+
+https://docs.qq.com/doc/DWklNdXhEdkNadFhH  功能:联谊会家族产业后台添加和修改 发表
+
+https://docs.qq.com/doc/DWlNuZXZjZXRGdVdF  功能:联谊会家族产业后台添加和修改 草稿
+
+https://docs.qq.com/doc/DWnBhVHdBaHRweXFl  功能:联谊会家族产业后台删除
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
