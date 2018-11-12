@@ -106,18 +106,17 @@ public class FanIndexController {
     */
     @RequestMapping(value = "/index/getChatRecordList", method = RequestMethod.GET)
     public Response<FanIndexMessage> getChatRecordList(
-            @RequestParam(value = "siteId") Integer siteId
+            @RequestParam(value = "siteId") Integer siteId,
+            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
     ) {
         try {
             //判断showId是否有值
             if (siteId == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            //状态
-            //状态
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 1;
-            int pageNo = 1;
-            int pageSize = 5;
             Page<FanIndexMessage> fanIndexMessage = iFanIndexMessageService.getChatRecordList(siteId, status, pageNo, pageSize);
             if (fanIndexMessage == null) {
                 //没有取到参数,返回空参

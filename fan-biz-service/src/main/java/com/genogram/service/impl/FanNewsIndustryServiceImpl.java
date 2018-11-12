@@ -34,7 +34,7 @@ import java.util.List;
 public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMapper, FanNewsIndustry> implements IFanNewsIndustryService {
 
     @Autowired
-    private IUploadFileService iuploadFileService;
+    private IUploadFileService uploadFileService;
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;
 
@@ -181,7 +181,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         boolean result = this.insert(fanNewsIndustry);
         //存储图片
         if(result){
-            iuploadFileService.storageFanFile(fileNames,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
+            uploadFileService.storageFanFile(fileNames,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
         }
         return result;
     }

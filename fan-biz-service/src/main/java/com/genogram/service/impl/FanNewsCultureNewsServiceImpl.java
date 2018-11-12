@@ -13,6 +13,7 @@ import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.AllUserRegMapper;
 import com.genogram.mapper.FanNewsCultureNewsMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsUploadFileService;
@@ -42,13 +43,13 @@ import java.util.List;
 public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNewsMapper, FanNewsCultureNews> implements IFanNewsCultureNewsService {
 
     @Autowired
-    private FanNewsUploadFileMapper fanNewsUploadFileMapper;
+    private IFanNewsUploadFileService fanNewsUploadFileService;
 
     @Autowired
-    private AllUserLoginMapper allUserLoginMapper;
+    private IAllUserLoginService allUserLoginService;
 
     @Autowired
-    private IUploadFileService iuploadFileService;
+    private IUploadFileService uploadFileService;
 
     @Override
     public Page<FamilyCultureVo> getFamilyCulturePage(Wrapper<FanNewsCultureNews> entity, Integer pageNo, Integer pageSize) {
@@ -78,7 +79,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         uploadentity.eq("status", 1);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
+        List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
 
 
         //遍历主表文章集合,赋值新对象vo
@@ -137,11 +138,11 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         uploadentity.eq("show_id", fanNewsCultureNews.getShowId());
         uploadentity.eq("news_id",id);
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
+        List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
-        AllUserLogin updateUser = allUserLoginMapper.selectById(fanNewsCultureNews.getUpdateUser());
-        AllUserLogin createUser = allUserLoginMapper.selectById(fanNewsCultureNews.getCreateUser());
+        AllUserLogin updateUser = allUserLoginService.selectById(fanNewsCultureNews.getUpdateUser());
+        AllUserLogin createUser = allUserLoginService.selectById(fanNewsCultureNews.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetail=new NewsDetailVo();
@@ -188,7 +189,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         boolean result = this.insert(fanNewsCultureNews);
         //存储图片
         if(result){
-            iuploadFileService.storageFanFile(fileNames,fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId());
+            uploadFileService.storageFanFile(fileNames,fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId());
         }
         return result;
     }
