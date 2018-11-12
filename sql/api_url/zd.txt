@@ -1,6 +1,6 @@
                             RequestMapping
                                  前台
-首页                 ----------          ?查询
+首页                 ----------                  查询
 
 联谊会信息(图腾,名字,简介,宣言): genogram/fanIndex/index/getFanIndexInfo?siteId=1
 联谊堂信息: genogram/fanIndex/index/getFanIndexFamilySummarysPage?siteId=1
@@ -13,7 +13,7 @@
 
 
 
-慈善公益              -----------------           ?查询
+慈善公益              -----------------           查询
 慈善基金: genogram/fanNewsCharity/index/getFanIndexFund?siteId=1
 支出用途: genogram/fanNewsCharity/index/getFanNewsCharityOutPage?showId=15   
 捐款名录: genogram/fanNewsCharity/index/getDonorVoPageByCreateTime?showId=17  (最新)
@@ -35,6 +35,7 @@
 联谊堂: genogram/admin/fanIndex/getFanIndexFamilySummarysPage?siteId=1
    详情: genogram/admin/fanIndex/getFanIndexFamilySummarys?id=1
    新增/修改: genogram/admin/fanIndex/insertOrUpdateFanIndexFamilySummarys
+   草稿:genogram/admin/fanIndex/insertOrUpdateFanIndexFamilySummarysDrft
    删除:genogram/admin/fanIndex/deleteFanIndexFamilySummarys
 
 轮播图:genogram/admin/fanIndex/getFanIndexSlidePicList?siteId=1
@@ -44,5 +45,6 @@
 慈善公益                 ----------     后台  
 慈善支出:genogram/admin/fanNewsCharity/getFanNewsCharityOutPage?showId=15
     收入:genogram/admin/fanNewsCharity/getFanNewsCharityOutPage?showId=16&&newsType=2
-    新增/修改:
-    删除:
+    新增/修改:genogram/admin/fanNewsCharity/insertOrUpdateFanNewsCharityOut
+    草稿:genogram/admin/fanNewsCharity/insertOrUpdateFanNewsCharityOutDrft
+    删除:genogram/admin/fanNewsCharity/deleteFanNewsCharityOut

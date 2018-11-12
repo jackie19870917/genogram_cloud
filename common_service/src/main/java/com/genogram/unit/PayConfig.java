@@ -11,26 +11,31 @@ import com.github.wxpay.sdk.WXPayConfig;
 public class PayConfig implements WXPayConfig {
 
 	// 获取 App ID（企业方公众号Id）
+	@Override
 	public String getAppID() {
 		return "wxb192063260e82181";
 	}
 
 	// 获取 Mch ID（商户账号）
+	@Override
 	public String getMchID() {
 		return "1516336491";
 	}
 
 	// 获取 API 密钥
+	@Override
 	public String getKey() {
 		return "JpjwyhWoD247nBnyVL4RTadu3dhCbstI";
 	}
 
 	// HTTP(S) 连接超时时间，单位毫秒
+	@Override
 	public int getHttpConnectTimeoutMs() {
 		return 8000;
 	}
 
 	// HTTP(S) 读数据超时时间，单位毫秒
+	@Override
 	public int getHttpReadTimeoutMs() {
 		return 10000;
 	}
