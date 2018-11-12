@@ -46,13 +46,15 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         if(list.size()==0){
             return null;
         }
-        list.forEach(( news)->{
+        list.forEach((news)->{
             FanNewsCultureZipaiVo fanNewsCultureZipaiVo=new FanNewsCultureZipaiVo();
             //存储新对象
             BeanUtils.copyProperties(news,fanNewsCultureZipaiVo);
             //转换时间为long
             fanNewsCultureZipaiVo.setCreateTimeLong(news.getCreateTime().getTime());
             fanNewsCultureZipaiVo.setUpdateTimeLong(news.getUpdateTime().getTime());
+
+            familyCultureVoList.add(fanNewsCultureZipaiVo);
         });
         //重新设置page对象
         Page<FanNewsCultureZipaiVo> mapPage = new Page<>(pageNo,pageSize);
