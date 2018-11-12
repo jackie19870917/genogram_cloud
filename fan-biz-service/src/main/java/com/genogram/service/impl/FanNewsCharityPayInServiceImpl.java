@@ -13,9 +13,11 @@ import com.genogram.mapper.AllUserRegMapper;
 import com.genogram.mapper.FanNewsCharityPayInMapper;
 import com.genogram.service.IFanNewsCharityPayInService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +43,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     @Override
     public Page<DonorVo> getDonorVoPage(Page<FanNewsCharityPayIn> mapPage, Map map) {
 
-        List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.getDonorVoPage(mapPage,map);
+        List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.getDonorVoPage(mapPage, map);
 
         List list = new ArrayList();
         for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
@@ -102,10 +104,21 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         list = getList(fanNewsCharityPayInList, allUserLoginList);
 
-        Page<DonorVo> mapPage = new Page<>(pageNo,pageSize);
+        Page<DonorVo> mapPage = new Page<>(pageNo, pageSize);
         mapPage.setRecords(list);
         mapPage.setTotal(fanNewsCharityPayInPage.getTotal());
 
         return mapPage;
+    }
+
+    @Override
+    public Boolean insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn) {
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
+        fanNewsCharityPayIn.setCreateTime(timeStamp);
+        fanNewsCharityPayIn.setUpdateTime(timeStamp);
+
+        return this.insert(fanNewsCharityPayIn);
     }
 }

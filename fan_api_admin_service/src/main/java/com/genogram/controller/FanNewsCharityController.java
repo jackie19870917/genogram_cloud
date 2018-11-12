@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCharityOut;
+import com.genogram.entity.FanNewsCharityPayIn;
+import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FanNewsCharityOutVo;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.unit.Response;
@@ -61,5 +63,10 @@ public class FanNewsCharityController {
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
 
+    @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)
+    public Response<FanNewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut,String files) {
 
+        Boolean result = iFanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
+        return null;
+    }
 }

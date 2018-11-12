@@ -24,11 +24,11 @@ import java.util.List;
 public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamilySummarysMapper, FanIndexFamilySummarys> implements IFanIndexFamilySummarysService {
 
     @Override
-    public Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId, List status, Integer pageNo, Integer pageSize) {
+    public Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId, List list, Integer pageNo, Integer pageSize) {
 
         Wrapper<FanIndexFamilySummarys> entity = new EntityWrapper<FanIndexFamilySummarys>();
         entity.eq("site_id", siteId);
-        entity.in("status", status);
+        entity.in("status", list);
 
         return this.selectPage(new Page<FanIndexFamilySummarys>(pageNo, pageSize), entity);
 

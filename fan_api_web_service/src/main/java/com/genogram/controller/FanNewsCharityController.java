@@ -164,5 +164,17 @@ public class FanNewsCharityController {
 
         return ResponseUtlis.success(newsCharityOutDetail);
     }
+
+    @RequestMapping(value = "insertFanNewsCharityPayIn", method = RequestMethod.POST)
+    public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn) {
+
+        Boolean result = iFanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
 }
 

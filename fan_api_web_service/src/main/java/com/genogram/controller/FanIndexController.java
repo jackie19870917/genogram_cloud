@@ -73,10 +73,10 @@ public class FanIndexController {
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-        List status = new ArrayList();
-        status.add(status);
+        List list = new ArrayList();
+        list.add(status);
 
-        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, status, pageNo, pageSize);
+        Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = iFanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
 
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }

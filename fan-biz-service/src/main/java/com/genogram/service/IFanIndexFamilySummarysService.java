@@ -24,7 +24,7 @@ public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilyS
      * @param pageSize 每页记录数
      * @return
      */
-    Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId, List status, Integer pageNo, Integer pageSize);
+    Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId, List list, Integer pageNo, Integer pageSize);
 
     /**
      *  /新增/修改联谊堂信息

@@ -2,6 +2,9 @@
 fan_api_web_service:
   ip: http://192.168.2.179:8090
   fastDfs_ip: http://192.168.2.132:8090
+fan_api_admin_service:
+  api_ip: http://192.168.2.179:8090
+  fastDfs_ip: http://192.168.2.132:8090
 server:
   port: 8090
 spring:

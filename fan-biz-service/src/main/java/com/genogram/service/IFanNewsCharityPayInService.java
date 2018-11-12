@@ -34,4 +34,11 @@ public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayI
      * @return
      */
     Page<DonorVo> getDonorVoPageByTime(Integer showId, List status, Integer pageNo, Integer pageSize);
+
+    /**
+     *  新增捐款名录
+     * @param fanNewsCharityPayIn 实体类
+     * @return
+     */
+    Boolean insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn);
 }

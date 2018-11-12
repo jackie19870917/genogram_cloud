@@ -13,10 +13,13 @@ import com.genogram.mapper.FanNewsCharityOutMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IUploadFileService;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +43,9 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
     @Autowired
     private AllUserLoginMapper allUserLoginMapper;
+
+    @Autowired
+    private IUploadFileService iuploadFileService;
 
     @Override
     public Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType, List status, Integer pageNo, Integer pageSize) {
@@ -158,34 +164,27 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     /***
      *
      * @param fanNewsCharityOut   慈善收支
-     * @param fanNewsUploadFileList
+     * @param files
      * @return
      */
     @Override
-    public Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut, List<FanNewsUploadFile> fanNewsUploadFileList) {
+    public Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut,String files) {
 
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+        fanNewsCharityOut.setUpdateTime(timeStamp);
         if (fanNewsCharityOut.getId() == null) {
-            Date date = new Date();
-            fanNewsCharityOut.setUpdateTime(date);
-            boolean b = this.insertOrUpdate(fanNewsCharityOut);
-
-
-            for (FanNewsUploadFile fanNewsUploadFile : fanNewsUploadFileList) {
-                fanNewsUploadFile.setUpdateTime(date);
-                fanNewsUploadFileMapper.updateById(fanNewsUploadFile);
-            }
-        } else {
-            Date date = new Date();
-            fanNewsCharityOut.setCreateTime(date);
-            this.insertOrUpdate(fanNewsCharityOut);
-
-
-            for (FanNewsUploadFile fanNewsUploadFile : fanNewsUploadFileList) {
-                fanNewsUploadFile.setCreateTime(date);
-                fanNewsUploadFileMapper.insert(fanNewsUploadFile);
-            }
+            fanNewsCharityOut.setCreateTime(timeStamp);
         }
-        return null;
+
+        Boolean result = this.insertOrUpdate(fanNewsCharityOut);
+
+        if (result) {
+            result= iuploadFileService.storageFanFile(files, fanNewsCharityOut.getId(), fanNewsCharityOut.getShowId());
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }
