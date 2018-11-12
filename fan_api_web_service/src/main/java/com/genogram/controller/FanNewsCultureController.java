@@ -34,9 +34,9 @@ import java.util.List;
 public class FanNewsCultureController {
 
     @Autowired
-    private IFanNewsCultureZipaiService iFanNewsCultureZipaiService;
+    private IFanNewsCultureZipaiService fanNewsCultureZipaiService;
     @Autowired
-    private IFanNewsCultureNewsService iFanNewsCultureNewsService;
+    private IFanNewsCultureNewsService fanNewsCultureNewsService;
 
     /**
      * 联谊会家族字派查询
@@ -67,7 +67,7 @@ public class FanNewsCultureController {
             entity.eq("show_id", showId);
             entity.in("status", statusList);
             entity.orderBy("create_time", false);
-            Page<FanNewsCultureZipaiVo> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
+            Page<FanNewsCultureZipaiVo> fanNewsCultureZipai = fanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if (fanNewsCultureZipai == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
@@ -107,7 +107,7 @@ public class FanNewsCultureController {
             entity.eq("show_id", showId);
             entity.in("status", statusList);
             entity.orderBy("create_time", false);
-            StringBuffer stringBuffer = iFanNewsCultureZipaiService.commonalityIndex(entity);
+            StringBuffer stringBuffer = fanNewsCultureZipaiService.commonalityIndex(entity);
             //判断该stringBuffer是否返回为null
             if (stringBuffer == null) {
                 //没有取到参数,返回空参
@@ -147,7 +147,7 @@ public class FanNewsCultureController {
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
             entity.eq("show_id",showId);
             entity.like("zipai_txt",zipaiTxt);
-            Page<FanNewsCultureZipaiVo> fanNewsCultureZipaiPage = iFanNewsCultureZipaiService.commonality(entity,pageNo, pageSize);
+            Page<FanNewsCultureZipaiVo> fanNewsCultureZipaiPage = fanNewsCultureZipaiService.commonality(entity,pageNo, pageSize);
             if(fanNewsCultureZipaiPage==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,list);
             }
@@ -225,7 +225,7 @@ public class FanNewsCultureController {
                 entity.eq("show_id", showId);
                 entity.in("status", statusList);
                 entity.orderBy("create_time", false);
-            Page<FamilyCultureVo> familyCultureVoList = iFanNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
+            Page<FamilyCultureVo> familyCultureVoList = fanNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
             if (familyCultureVoList == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
@@ -258,12 +258,12 @@ public class FanNewsCultureController {
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,newsDetail);
             }
-            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(id);
+            NewsDetailVo newsDetailVo = fanNewsCultureNewsService.getFamilyCultureDetail(id);
             if (newsDetailVo == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, newsDetail);
             }
             //增加查看数
-            iFanNewsCultureNewsService.addVisitNum(id);
+            fanNewsCultureNewsService.addVisitNum(id);
             return ResponseUtlis.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();

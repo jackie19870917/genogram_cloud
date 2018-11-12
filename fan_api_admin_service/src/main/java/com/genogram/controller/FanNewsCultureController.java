@@ -40,10 +40,10 @@ import java.util.Map;
 public class FanNewsCultureController {
 
     @Autowired
-    private IFanNewsCultureZipaiService iFanNewsCultureZipaiService;
+    private IFanNewsCultureZipaiService fanNewsCultureZipaiService;
 
     @Autowired
-    private IFanNewsCultureNewsService iFanNewsCultureNewsService;
+    private IFanNewsCultureNewsService fanNewsCultureNewsService;
 
     /**
      *联谊会家族字派后台查询
@@ -75,7 +75,7 @@ public class FanNewsCultureController {
                 entity.in("status", statusList);
             }
             entity.orderBy("create_time", false);
-            Page<FanNewsCultureZipaiVo> fanNewsCultureZipai = iFanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
+            Page<FanNewsCultureZipaiVo> fanNewsCultureZipai = fanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if(fanNewsCultureZipai==null){
                 //没有取到参数,返回空参
                 Page<FanNewsCultureZipai> emptfanNewsCultureZipai = new Page<FanNewsCultureZipai>();
@@ -105,7 +105,7 @@ public class FanNewsCultureController {
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
-            FanNewsCultureZipai fanNewsCultureZipai=iFanNewsCultureZipaiService.getZiPaiDetail(id);
+            FanNewsCultureZipai fanNewsCultureZipai=fanNewsCultureZipaiService.getZiPaiDetail(id);
             return ResponseUtlis.success(fanNewsCultureZipai);
         } catch (Exception e) {
             e.printStackTrace();
@@ -156,7 +156,7 @@ public class FanNewsCultureController {
     */
     private Response<FanNewsCultureZipai> getFanNewsCultureZipaiResponse(FanNewsCultureZipai fanNewsCultureZipai) {
         try {
-            boolean result=iFanNewsCultureZipaiService.addOrUpdateZiPai(fanNewsCultureZipai);
+            boolean result=fanNewsCultureZipaiService.addOrUpdateZiPai(fanNewsCultureZipai);
             if( ! result){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
@@ -186,7 +186,7 @@ public class FanNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = iFanNewsCultureZipaiService.deleteZipaiById(id, status);
+            Boolean aBoolean = fanNewsCultureZipaiService.deleteZipaiById(id, status);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
@@ -228,7 +228,7 @@ public class FanNewsCultureController {
             entity.in("status", statusList);
         }
         entity.orderBy("create_time", false);
-        Page<FamilyCultureVo> familyCultureVoList = iFanNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
+        Page<FamilyCultureVo> familyCultureVoList = fanNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
         if (familyCultureVoList == null) {
             //没有取到参数,返回空参
             Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
@@ -290,7 +290,7 @@ public class FanNewsCultureController {
     */
     private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("id") Integer id) {
         try {
-            NewsDetailVo newsDetailVo = iFanNewsCultureNewsService.getFamilyCultureDetail(id);
+            NewsDetailVo newsDetailVo = fanNewsCultureNewsService.getFamilyCultureDetail(id);
             return ResponseUtlis.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -342,7 +342,7 @@ public class FanNewsCultureController {
     private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews, String fileNames) {
         try{
             // 插入数据
-            boolean insert = iFanNewsCultureNewsService.addOrUpdateCulture(fanNewsCultureNews,fileNames);
+            boolean insert = fanNewsCultureNewsService.addOrUpdateCulture(fanNewsCultureNews,fileNames);
             if( ! insert){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
@@ -374,7 +374,7 @@ public class FanNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = iFanNewsCultureNewsService.deleteCulturById(id, status);
+            Boolean aBoolean = fanNewsCultureNewsService.deleteCulturById(id, status);
             if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
