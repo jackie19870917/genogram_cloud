@@ -47,8 +47,9 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
 
     /**
      * 联谊会家族文化后台删除
-     * @param id 主键
+     * @param id  主键
      * @param status  状态(0:删除;1:已发布;2:草稿3:不显示)
+     * @return
      */
     Boolean deleteCulturById(Integer id, int status);
 
