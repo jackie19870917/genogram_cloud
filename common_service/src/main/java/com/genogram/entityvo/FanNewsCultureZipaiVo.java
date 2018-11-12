@@ -8,7 +8,15 @@ import com.genogram.entity.FanNewsCultureZipai;
 import lombok.Data;
 
 import java.util.Date;
-
+/**
+ *字派查询
+ *@Author: yuzhou
+ *@Date: 2018-11-12
+ *@Time: 16:46
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @Data
 public class FanNewsCultureZipaiVo {
 
