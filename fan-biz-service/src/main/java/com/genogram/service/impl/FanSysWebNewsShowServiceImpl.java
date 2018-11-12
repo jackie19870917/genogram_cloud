@@ -10,6 +10,7 @@ import com.genogram.mapper.FanSysWebNewsShowMapper;
 import com.genogram.service.IFanSysWebMenuService;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +32,6 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
 
     @Autowired
     private IFanSysWebMenuService fanSysWebMenuService;
-
-    @Autowired
-    private IFanSysWebNewsShowService iFanSysWebNewsShowService;
 
     @Override
     public List<FanSysWebMenuVo> getMenu(String hostIp,String siteId,boolean isWeb, EntityWrapper<FanSysWebNewsShow> entityWrapper) {
@@ -195,6 +193,31 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         return volist;
     }
 
+    @Override
+    public List<FanSysWebMenuVo> getTitlesByMenuId(String hostIp, int siteId, int menuId) {
+        List<FanSysWebMenuVo> voList = new ArrayList<>();
+
+        EntityWrapper<FanSysWebMenu> entityWrapper = new EntityWrapper<FanSysWebMenu>();
+        entityWrapper.eq("parent_id",menuId);
+        List<FanSysWebMenu> list = fanSysWebMenuService.selectList(entityWrapper);
+        list.forEach((menu)->{
+            FanSysWebMenuVo vo = new FanSysWebMenuVo();
+            BeanUtils.copyProperties(menu,vo);
+
+            //计算showId
+            EntityWrapper<FanSysWebNewsShow> entityWrapper2 = new EntityWrapper<>();
+            entityWrapper2.eq("fan_sys_site_id",siteId);
+            entityWrapper2.eq("fan_sys_web_menu_id",menu.getId());
+            FanSysWebNewsShow fanSysWebNewsShow = this.selectOne(entityWrapper2);
+            //set showId
+            vo.setShowId(fanSysWebNewsShow.getId());
+            vo.setApiUrl(hostIp+menu.getApiUrl()+vo.getShowId());
+            voList.add(vo);
+        });
+
+        return voList;
+    }
+
 
     private FanSysWebMenuVo setIndexMenu(String siteId,String menuName,String menuType,String api, String comments){
         FanSysWebMenuVo vo = new FanSysWebMenuVo();
@@ -224,7 +247,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 8);
-            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 
@@ -234,7 +257,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 9);
-            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 
@@ -243,7 +266,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 17);
-            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 
@@ -252,7 +275,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 18);
-            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 
@@ -261,7 +284,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 16);
-            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 
@@ -270,7 +293,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 14);
-            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 
@@ -279,7 +302,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 15);
-            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 
@@ -288,7 +311,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 21);
-            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 
@@ -297,7 +320,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 22);
-            List<FanSysWebNewsShow> fanSysWebNewsShows = iFanSysWebNewsShowService.selectList(entity);
+            List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 

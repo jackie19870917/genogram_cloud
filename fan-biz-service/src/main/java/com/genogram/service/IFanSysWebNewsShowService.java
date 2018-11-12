@@ -40,4 +40,8 @@ public interface IFanSysWebNewsShowService extends IService<FanSysWebNewsShow> {
      *
      */
     public List<FanSysWebMenuVo> getIndexMenu(String siteId);
+
+
+
+    public List<FanSysWebMenuVo> getTitlesByMenuId(String hostIp,int siteId, int MenuId);
 }
