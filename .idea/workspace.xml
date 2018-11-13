@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44babed4-3345-4d8c-a57c-5b87743e935a" name="Default Changelist" comment="Default Changelist">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro_api_admin_service/src/main/java/com/genogram/controller/ProIndexMenuController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProSysWebNewsShowService.java" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProSysWebNewsShowService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProSysWebNewsShowServiceImpl.java" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProSysWebNewsShowServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pro_api_web_service/src/main/java/com/genogram/controller/ProIndexMenuController.java" afterPath="$PROJECT_DIR$/pro_api_web_service/src/main/java/com/genogram/controller/ProIndexMenuController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -756,7 +748,7 @@
       <workItem from="1541724964486" duration="175000" />
       <workItem from="1541725162414" duration="18133000" />
       <workItem from="1541747555685" duration="5427000" />
-      <workItem from="1542093506056" duration="4101000" />
+      <workItem from="1542093506056" duration="4114000" />
     </task>
     <task id="LOCAL-00001" summary="Default Changelist">
       <created>1541484190534</created>
@@ -968,7 +960,14 @@
       <option name="project" value="LOCAL" />
       <updated>1542097182061</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Default Changelist">
+      <created>1542097665964</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1542097665964</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1004,7 +1003,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111877000" />
+    <option name="totallyTimeSpent" value="111890000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
