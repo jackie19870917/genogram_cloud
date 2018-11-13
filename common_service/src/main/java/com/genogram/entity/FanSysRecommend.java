@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-13
  */
 @TableName("fan_sys_recommend")
 public class FanSysRecommend extends Model<FanSysRecommend> {
@@ -37,7 +37,15 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
     @TableField("news_id")
     private Integer newsId;
     /**
-     * 状态(0:删除;1已推荐2:审核中3:通过正常显示;4:不通过不显示)
+     * 是否省显示(0:否;1是)
+     */
+    private Integer isProvince;
+    /**
+     * 是否全国显示(0:否;1是)
+     */
+    private Integer isCountry;
+    /**
+     * 状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
      */
     private Integer status;
     /**
@@ -71,12 +79,12 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
         return this;
     }
 
-    public Integer getFanSysWebNewsShowId() {
+    public Integer getShowId() {
         return showId;
     }
 
-    public FanSysRecommend setFanSysWebNewsShowId(Integer fanSysWebNewsShowId) {
-        this.showId = fanSysWebNewsShowId;
+    public FanSysRecommend setShowId(Integer showId) {
+        this.showId = showId;
         return this;
     }
 
@@ -86,6 +94,24 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
 
     public FanSysRecommend setNewsId(Integer newsId) {
         this.newsId = newsId;
+        return this;
+    }
+
+    public Integer getIsProvince() {
+        return isProvince;
+    }
+
+    public FanSysRecommend setIsProvince(Integer isProvince) {
+        this.isProvince = isProvince;
+        return this;
+    }
+
+    public Integer getIsCountry() {
+        return isCountry;
+    }
+
+    public FanSysRecommend setIsCountry(Integer isCountry) {
+        this.isCountry = isCountry;
         return this;
     }
 
@@ -143,8 +169,10 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
     public String toString() {
         return "FanSysRecommend{" +
         ", id=" + id +
-        ", fanSysWebNewsShowId=" + showId +
+        ", showId=" + showId +
         ", newsId=" + newsId +
+        ", isProvince=" + isProvince +
+        ", isCountry=" + isCountry +
         ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +

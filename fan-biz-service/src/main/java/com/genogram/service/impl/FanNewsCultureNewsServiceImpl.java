@@ -177,6 +177,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if(fanNewsCultureNews.getId()==null){
+            //查看数 默认为0
+            fanNewsCultureNews.setVisitNum(0);
             //存入创建时间
             fanNewsCultureNews.setCreateTime(format);
             fanNewsCultureNews.setCreateUser(null);

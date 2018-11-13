@@ -36,8 +36,9 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
         //要插入的实体类
         FanSysRecommend fanSysRecommend=new FanSysRecommend();
         fanSysRecommend.setNewsId(id);
-        fanSysRecommend.setFanSysWebNewsShowId(showId);
+        fanSysRecommend.setShowId(showId);
         fanSysRecommend.setStatus(status);
+
         //插入时间
         fanSysRecommend.setCreateTime(DateUtil.getCurrentTimeStamp());
         fanSysRecommend.setUpdateTime(DateUtil.getCurrentTimeStamp());

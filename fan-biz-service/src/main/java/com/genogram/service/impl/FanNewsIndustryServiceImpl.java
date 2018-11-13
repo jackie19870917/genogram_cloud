@@ -170,6 +170,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if(fanNewsIndustry.getId()==null){
+            //查看数 默认为0
+            fanNewsIndustry.setVisitNum(0);
             //存入创建时间
             fanNewsIndustry.setCreateTime(format);
             fanNewsIndustry.setCreateUser(null);
