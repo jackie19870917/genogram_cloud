@@ -7,23 +7,17 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsCultureNews;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
-import com.genogram.entityvo.FanNewsCultureZipaiVo;
+import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
-import com.genogram.unit.StringUtils;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.management.ValueExp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *联谊会家族文化增删改查
@@ -75,7 +69,7 @@ public class FanNewsCultureController {
                 entity.in("status", statusList);
             }
             entity.orderBy("create_time", false);
-            Page<FanNewsCultureZipaiVo> fanNewsCultureZipai = fanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
+            Page<NewsCultureZipaiVo> fanNewsCultureZipai = fanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if(fanNewsCultureZipai==null){
                 //没有取到参数,返回空参
                 Page<FanNewsCultureZipai> emptfanNewsCultureZipai = new Page<FanNewsCultureZipai>();

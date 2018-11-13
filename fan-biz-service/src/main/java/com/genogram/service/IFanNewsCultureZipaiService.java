@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.baomidou.mybatisplus.service.IService;
-import com.genogram.entityvo.FanNewsCultureZipaiVo;
-
-import java.util.List;
+import com.genogram.entityvo.NewsCultureZipaiVo;
 
 /**
  * <p>
@@ -25,7 +23,7 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      * @param pageSize 每页显示条数
      * @return
      */
-    Page<FanNewsCultureZipaiVo> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
+    Page<NewsCultureZipaiVo> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
 
     /**
      *联谊会首页字派查询

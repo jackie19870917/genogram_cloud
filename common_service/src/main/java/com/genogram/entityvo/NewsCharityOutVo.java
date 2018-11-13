@@ -18,7 +18,7 @@ import java.util.List;
  * @Description:
  */
 @Data
-public class FanNewsCharityOutVo {
+public class NewsCharityOutVo {
 
     /**
      * 编号

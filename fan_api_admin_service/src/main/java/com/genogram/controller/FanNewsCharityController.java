@@ -7,8 +7,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanIndexFundDrowing;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
-import com.genogram.entity.FanNewsUploadFile;
-import com.genogram.entityvo.FanNewsCharityOutVo;
+import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.service.IFanIndexFundDrowingService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCharityPayInService;
@@ -53,10 +52,10 @@ public class FanNewsCharityController {
      */
 
     @RequestMapping(value = "getFanNewsCharityOutPage", method = RequestMethod.GET)
-    public Response<FanNewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam("showId") Integer showId,
-                                                                @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
-                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+    public Response<NewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam("showId") Integer showId,
+                                                             @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
+                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -73,7 +72,7 @@ public class FanNewsCharityController {
         entity.in("status", list);
         entity.orderBy("create_time", false);
 
-        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
+        Page<NewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
@@ -85,7 +84,7 @@ public class FanNewsCharityController {
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)
-    public Response<FanNewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut,String files) {
+    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut, String files) {
 
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(1);
@@ -105,7 +104,7 @@ public class FanNewsCharityController {
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDeft", method = RequestMethod.POST)
-    public Response<FanNewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut,String files) {
+    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut, String files) {
 
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(2);

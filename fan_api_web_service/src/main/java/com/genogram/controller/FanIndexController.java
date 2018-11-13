@@ -5,7 +5,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexMessage;
 import com.genogram.entity.FanIndexSlidePic;
-import com.genogram.entityvo.FanIndexInfoVo;
+import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -97,15 +97,15 @@ public class FanIndexController {
      * @return
      */
     @RequestMapping(value = "index/getFanIndexInfo", method = RequestMethod.GET)
-    public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
+    public Response<IndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
-        FanIndexInfoVo fanIndexInfoVo = fanIndexInfoService.getFanIndexInfoVo(siteId);
+        IndexInfoVo indexInfoVo = fanIndexInfoService.getFanIndexInfoVo(siteId);
 
-        return ResponseUtlis.success(fanIndexInfoVo);
+        return ResponseUtlis.success(indexInfoVo);
     }
 
     /**

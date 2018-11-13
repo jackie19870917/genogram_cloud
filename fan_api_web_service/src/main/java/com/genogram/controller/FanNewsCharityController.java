@@ -8,12 +8,11 @@ import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.entityvo.DonorVo;
-import com.genogram.entityvo.FanNewsCharityOutVo;
+import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanIndexFundService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCharityPayInService;
-import com.genogram.service.IFanNewsCharityService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,10 +142,10 @@ public class FanNewsCharityController {
      * @return
      */
     @RequestMapping(value = "index/getFanNewsCharityOutPage", method = RequestMethod.GET)
-    public Response<FanNewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam("showId") Integer showId,
-                                                                @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
-                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+    public Response<NewsCharityOutVo> getFanNewsCharityOutVo(@RequestParam("showId") Integer showId,
+                                                             @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
+                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (showId==null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -161,7 +160,7 @@ public class FanNewsCharityController {
         entity.in("status", list);
         entity.orderBy("create_time", false);
 
-        Page<FanNewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
+        Page<NewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }

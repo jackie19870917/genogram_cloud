@@ -18,7 +18,7 @@ import java.util.Date;
  *@Description:
 */
 @Data
-public class FanNewsCultureZipaiVo {
+public class NewsCultureZipaiVo {
 
     /**
      * 主键字派ID

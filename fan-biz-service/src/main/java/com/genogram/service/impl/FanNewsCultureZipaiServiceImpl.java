@@ -1,10 +1,9 @@
 package com.genogram.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCultureZipai;
-import com.genogram.entityvo.FanNewsCultureZipaiVo;
+import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.mapper.FanNewsCultureZipaiMapper;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -37,9 +36,9 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
      *@Description:
     */
     @Override
-    public Page<FanNewsCultureZipaiVo> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize) {
+    public Page<NewsCultureZipaiVo> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
-        List<FanNewsCultureZipaiVo> familyCultureVoList=new ArrayList<>();
+        List<NewsCultureZipaiVo> familyCultureVoList=new ArrayList<>();
         Page<FanNewsCultureZipai> fanNewsCultureZipais = this.selectPage(new Page<FanNewsCultureZipai>(pageNo, pageSize), entity);
         //获取list集合
         List<FanNewsCultureZipai> list = fanNewsCultureZipais.getRecords();
@@ -47,17 +46,17 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
             return null;
         }
         list.forEach((news)->{
-            FanNewsCultureZipaiVo fanNewsCultureZipaiVo=new FanNewsCultureZipaiVo();
+            NewsCultureZipaiVo newsCultureZipaiVo =new NewsCultureZipaiVo();
             //存储新对象
-            BeanUtils.copyProperties(news,fanNewsCultureZipaiVo);
+            BeanUtils.copyProperties(news, newsCultureZipaiVo);
             //转换时间为long
-            fanNewsCultureZipaiVo.setCreateTimeLong(news.getCreateTime().getTime());
-            fanNewsCultureZipaiVo.setUpdateTimeLong(news.getUpdateTime().getTime());
+            newsCultureZipaiVo.setCreateTimeLong(news.getCreateTime().getTime());
+            newsCultureZipaiVo.setUpdateTimeLong(news.getUpdateTime().getTime());
 
-            familyCultureVoList.add(fanNewsCultureZipaiVo);
+            familyCultureVoList.add(newsCultureZipaiVo);
         });
         //重新设置page对象
-        Page<FanNewsCultureZipaiVo> mapPage = new Page<>(pageNo,pageSize);
+        Page<NewsCultureZipaiVo> mapPage = new Page<>(pageNo,pageSize);
         mapPage.setRecords(familyCultureVoList);
         mapPage.setSize(fanNewsCultureZipais.getSize());
         mapPage.setTotal(fanNewsCultureZipais.getTotal());

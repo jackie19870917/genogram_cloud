@@ -6,11 +6,9 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsUploadFile;
-import com.genogram.entityvo.FanNewsCharityOutVo;
+import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
-import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.FanNewsCharityOutMapper;
-import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -24,7 +22,6 @@ import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -59,9 +56,9 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     }
 
     @Override
-    public Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Wrapper<FanNewsCharityOut> entity, Integer pageNo, Integer pageSize) {
+    public Page<NewsCharityOutVo> getFanNewsCharityOutVoPage(Wrapper<FanNewsCharityOut> entity, Integer pageNo, Integer pageSize) {
 
-        List<FanNewsCharityOutVo> fanNewsCharityOutVoList = new ArrayList<>();
+        List<NewsCharityOutVo> newsCharityOutVoList = new ArrayList<>();
 
         //得到文件当前页list集合
         Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
@@ -90,9 +87,9 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
         fanNewsCharityOutList.forEach((fanNewsCharityOuts) -> {
 
-            FanNewsCharityOutVo fanNewsCharityOutVo = new FanNewsCharityOutVo();
+            NewsCharityOutVo newsCharityOutVo = new NewsCharityOutVo();
 
-            BeanUtils.copyProperties(fanNewsCharityOuts,fanNewsCharityOutVo);
+            BeanUtils.copyProperties(fanNewsCharityOuts, newsCharityOutVo);
 
             List<FanNewsUploadFile> fanNewsUploadFile = new ArrayList<>();
 
@@ -104,14 +101,14 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
                 }
             });
             //存储图片list集合
-            fanNewsCharityOutVo.setFanNewsUploadFileList(fanNewsUploadFile);
+            newsCharityOutVo.setFanNewsUploadFileList(fanNewsUploadFile);
 
             //存储到新的集合中
-            fanNewsCharityOutVoList.add(fanNewsCharityOutVo);
+            newsCharityOutVoList.add(newsCharityOutVo);
         });
 
-        Page<FanNewsCharityOutVo> mapPage = new Page<>(pageNo, pageSize);
-        mapPage.setRecords(fanNewsCharityOutVoList);
+        Page<NewsCharityOutVo> mapPage = new Page<>(pageNo, pageSize);
+        mapPage.setRecords(newsCharityOutVoList);
         mapPage.setTotal(fanNewsCharityOutPage.getTotal());
 
         return mapPage;
