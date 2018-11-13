@@ -143,6 +143,7 @@ public class FanRecommendController {
     ) {
         try {
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
+            entity.orderBy("create_time", false);
             Page<RecommendVo> recommendPage = fanSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
             if(recommendPage==null){
                 //没有取到参数,返回空参

@@ -4,6 +4,15 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ *推荐表封装类
+ *@Author: yuzhou
+ *@Date: 2018-11-13
+ *@Time: 13:45
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @Data
 public class RecommendVo {
 
@@ -47,6 +56,7 @@ public class RecommendVo {
      * 修改人
      */
     private Integer updateUser;
+
 
 
     /**
