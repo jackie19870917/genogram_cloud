@@ -5,193 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="44babed4-3345-4d8c-a57c-5b87743e935a" name="Default Changelist" comment="Default Changelist">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alipay_sdk_alipay_sdk_java_3_1_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_3_3_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_dysmsapi_1_1_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_wxpay_wxpay_sdk_0_0_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__fastdfs_client_fastdfs_client_1_25.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jsp_api_2_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_servlet_api_2_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20170516.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProIndexFund.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProIndexInfo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProIndexSlidePic.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProNewsCharityOut.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProNewsCharityPayIn.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProNewsCultureNews.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProNewsCultureZipai.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProNewsFamilyRecord.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProNewsFamousAncestor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProNewsUploadFile.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProNewsUploadVedio.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProSysSite.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProSysWebMenu.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/ProSysWebNewsShow.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProIndexFundMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProIndexInfoMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProIndexSlidePicMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProNewsCharityOutMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProNewsCharityPayInMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProNewsCultureNewsMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProNewsCultureZipaiMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProNewsFamilyRecordMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProNewsFamousAncestorMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProNewsUploadFileMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProNewsUploadVedioMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProSysSiteMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProSysWebMenuMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/ProSysWebNewsShowMapper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProIndexFundMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProIndexInfoMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProIndexSlidePicMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProNewsCharityOutMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProNewsCharityPayInMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProNewsCultureNewsMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProNewsCultureZipaiMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProNewsFamilyRecordMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProNewsUploadFileMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProNewsUploadVedioMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProSysSiteMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProSysWebMenuMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProSysWebNewsShowMapper.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProIndexFundService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProIndexInfoService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProIndexSlidePicService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProNewsCharityOutService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProNewsCharityPayInService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProNewsCultureNewsService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProNewsCultureZipaiService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProNewsFamilyRecordService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProNewsFamousAncestorService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProNewsUploadFileService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProNewsUploadVedioService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProSysSiteService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProSysWebMenuService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/IProSysWebNewsShowService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProIndexFundServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProIndexInfoServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProIndexSlidePicServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProNewsCharityOutServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProNewsCharityPayInServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProNewsCultureNewsServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProNewsCultureZipaiServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProNewsFamilyRecordServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProNewsFamousAncestorServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProNewsUploadFileServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProNewsUploadVedioServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProSysSiteServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProSysWebMenuServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro-biz-service/src/main/java/com/genogram/service/impl/ProSysWebNewsShowServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro_api_web_service/src/main/java/com/genogram/controller/ProIndexMenuController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro_api_web_service/src/main/resources/application-dev.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro_api_web_service/src/main/resources/application-local.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pro_api_web_service/src/main/resources/application.yml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamilyRecordDrftMapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamousAncestorChildMapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsIndustryDrftMapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/IFanNewsFamousAncestorChildService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/impl/FanNewsFamilyRecordDrftServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/impl/FanNewsFamousAncestorChildServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/impl/FanNewsIndustryDrftServiceImpl.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entityvo/FanSysWebMenuVo.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entityvo/SysWebMenuVo.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsFamousAncestorChildMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/ProNewsFamousAncestorMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllFamily.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllFamily.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllRegion.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllRegion.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllUserLogin.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllUserLogin.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllUserReg.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/AllUserReg.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexFamilySummarys.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexFamilySummarys.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexFund.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexFund.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexFundDrowing.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexFundDrowing.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexInfo.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexMessage.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexSlidePic.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanIndexSlidePic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsCharityOut.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsCharityOut.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsCharityPayIn.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsCharityPayIn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsCultureNews.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsCultureNews.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsCultureZipai.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsCultureZipai.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsFamilyRecord.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsFamilyRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsFamilyRecordVedio.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsFamilyRecordVedio.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsFamousAncestor.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsFamousAncestor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsFamousPerson.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsFamousPerson.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsIndustry.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsIndustry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsTongpuNews.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsTongpuNews.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsTongpuPerson.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsTongpuPerson.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsTongpuPic.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsTongpuPic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsUploadFile.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsUploadFile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsUploadVedio.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanNewsUploadVedio.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanSysRecommend.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanSysRecommend.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanSysSite.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanSysSite.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanSysWebMenu.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanSysWebMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanSysWebNewsShow.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FanSysWebNewsShow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FunSysConfig.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/entity/FunSysConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllFamilyMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllFamilyMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllRegionMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllRegionMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllUserLoginMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllUserLoginMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllUserRegMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/AllUserRegMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexFamilySummarysMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexFamilySummarysMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexFundDrowingMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexFundDrowingMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexFundMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexFundMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexInfoMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexInfoMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexMessageMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexMessageMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexSlidePicMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanIndexSlidePicMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsCharityOutMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsCharityOutMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsCultureNewsMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsCultureNewsMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsCultureZipaiMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsCultureZipaiMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamilyRecordMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamilyRecordMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamilyRecordVedioMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamilyRecordVedioMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamousAncestorMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamousAncestorMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamousPersonMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsFamousPersonMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsIndustryMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsIndustryMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsTongpuNewsMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsTongpuNewsMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsTongpuPersonMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsTongpuPersonMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsTongpuPicMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsTongpuPicMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsUploadFileMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsUploadFileMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsUploadVedioMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanNewsUploadVedioMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanSysRecommendMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanSysRecommendMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanSysSiteMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanSysSiteMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanSysWebMenuMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanSysWebMenuMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanSysWebNewsShowMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FanSysWebNewsShowMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FunSysConfigMapper.java" afterPath="$PROJECT_DIR$/common_service/src/main/java/com/genogram/mapper/FunSysConfigMapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllFamilyMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllFamilyMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllRegionMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllRegionMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllUserLoginMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllUserLoginMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllUserRegMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/AllUserRegMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexFamilySummarysMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexFamilySummarysMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexFundDrowingMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexFundDrowingMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexFundMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexFundMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexInfoMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexInfoMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexMessageMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexMessageMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexSlidePicMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanIndexSlidePicMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsCharityOutMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsCharityOutMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsCultureNewsMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsCultureNewsMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsCultureZipaiMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsCultureZipaiMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsFamilyRecordMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsFamilyRecordMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsFamilyRecordVedioMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsFamilyRecordVedioMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsFamousAncestorMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsFamousAncestorMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsFamousPersonMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsFamousPersonMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsIndustryMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsIndustryMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsTongpuNewsMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsTongpuNewsMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsTongpuPersonMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsTongpuPersonMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsTongpuPicMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsTongpuPicMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsUploadFileMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsUploadFileMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsUploadVedioMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanNewsUploadVedioMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanSysRecommendMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanSysRecommendMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanSysSiteMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanSysSiteMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanSysWebMenuMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanSysWebMenuMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanSysWebNewsShowMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FanSysWebNewsShowMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FunSysConfigMapper.xml" afterPath="$PROJECT_DIR$/common_service/src/main/resources/mapper/FunSysConfigMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_service/src/test/java/com/genogram/GenerateMybatisPlus.java" afterPath="$PROJECT_DIR$/common_service/src/test/java/com/genogram/GenerateMybatisPlus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/IFanSysWebNewsShowService.java" afterPath="$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/IFanSysWebNewsShowService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/impl/FanSysWebNewsShowServiceImpl.java" afterPath="$PROJECT_DIR$/fan-biz-service/src/main/java/com/genogram/service/impl/FanSysWebNewsShowServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fan_api_admin_service/src/main/java/com/genogram/controller/FanIndexMenuController.java" afterPath="$PROJECT_DIR$/fan_api_admin_service/src/main/java/com/genogram/controller/FanIndexMenuController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/controller/FanIndexMenuController.java" afterPath="$PROJECT_DIR$/fan_api_web_service/src/main/java/com/genogram/controller/FanIndexMenuController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/genogram_cloud.iml" afterPath="$PROJECT_DIR$/genogram_cloud.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -892,7 +706,7 @@
       <workItem from="1541724964486" duration="175000" />
       <workItem from="1541725162414" duration="18133000" />
       <workItem from="1541747555685" duration="5427000" />
-      <workItem from="1542093506056" duration="3544000" />
+      <workItem from="1542093506056" duration="3612000" />
     </task>
     <task id="LOCAL-00001" summary="Default Changelist">
       <created>1541484190534</created>
@@ -1083,7 +897,14 @@
       <option name="project" value="LOCAL" />
       <updated>1541752695614</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Default Changelist">
+      <created>1542097149548</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1542097149548</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1119,7 +940,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111320000" />
+    <option name="totallyTimeSpent" value="111388000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1199,9 +1020,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="menu" />
-    <MESSAGE value="Default Changelist" />
     <MESSAGE value="add" />
-    <option name="LAST_COMMIT_MESSAGE" value="add" />
+    <MESSAGE value="Default Changelist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
