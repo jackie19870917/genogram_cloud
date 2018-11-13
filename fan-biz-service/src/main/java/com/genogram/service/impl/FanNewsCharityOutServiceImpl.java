@@ -172,6 +172,9 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     public Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut,String files) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+        fanNewsCharityOut.setCreateUser(1);
+        fanNewsCharityOut.setUpdateUser(1);
+
         fanNewsCharityOut.setUpdateTime(timeStamp);
         if (fanNewsCharityOut.getId() == null) {
             fanNewsCharityOut.setCreateTime(timeStamp);

@@ -43,6 +43,7 @@
    新增/修改:genogram/admin/fanIndex/insertOrUpdateFanIndexSlidePic
    删除:genogram/admin/fanIndex/deleteFanIndexSlidePic
 
+
 慈善公益                 ----------     后台  
 慈善支出:genogram/admin/fanNewsCharity/getFanNewsCharityOutPage?showId=15
     收入:genogram/admin/fanNewsCharity/getFanNewsCharityOutPage?showId=16&&newsType=2
