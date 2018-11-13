@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
-import com.genogram.entityvo.RecommendVo;
 import com.genogram.service.IFanSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -142,12 +140,15 @@ public class FanRecommendController {
             @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
     ) {
         try {
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=1;
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
+            entity.eq("status",status);
             entity.orderBy("create_time", false);
-            Page<RecommendVo> recommendPage = fanSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
+            Page<FanSysRecommend> recommendPage = fanSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
             if(recommendPage==null){
                 //没有取到参数,返回空参
-                Page<RecommendVo> emptfamilyCultureVo = new Page<RecommendVo>();
+                Page<FanSysRecommend> emptfamilyCultureVo = new Page<FanSysRecommend>();
                 return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
             }
             return ResponseUtlis.success(recommendPage);
