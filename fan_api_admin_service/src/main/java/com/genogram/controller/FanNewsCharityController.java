@@ -3,10 +3,12 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.FanIndexFundDrowing;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FanNewsCharityOutVo;
+import com.genogram.service.IFanIndexFundDrowingService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -31,6 +33,9 @@ public class FanNewsCharityController {
 
     @Autowired
     private IFanNewsCharityOutService fanNewsCharityOutService;
+
+    @Autowired
+    private IFanIndexFundDrowingService fanIndexFundDrowingService;
 
     /**
      * 慈善收支
@@ -112,6 +117,23 @@ public class FanNewsCharityController {
     public Response<FanNewsCharityOut> deleteFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut) {
 
         Boolean result = fanNewsCharityOutService.deleteFanNewsCharityOut(fanNewsCharityOut);
+
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
+
+    /**
+     * 新增线上提现
+     * @param fanIndexFundDrowing
+     * @return
+     */
+    @RequestMapping(value = "insertFanIndexFundDrowing", method = RequestMethod.POST)
+    public Response<FanIndexFundDrowing> insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing) {
+
+        Boolean result = fanIndexFundDrowingService.insertFanIndexFundDrowing(fanIndexFundDrowing);
 
         if (result) {
             return ResponseUtlis.success(200);

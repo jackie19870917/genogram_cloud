@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanIndexFundDrowingService extends IService<FanIndexFundDrowing> {
 
+    /**
+     * 新增线上提现记录
+     * @param fanIndexFundDrowing
+     * @return
+     */
+    Boolean insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing);
 }
