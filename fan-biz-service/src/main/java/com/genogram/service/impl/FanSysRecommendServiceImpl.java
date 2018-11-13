@@ -1,20 +1,13 @@
 package com.genogram.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanSysRecommend;
-import com.genogram.entityvo.RecommendVo;
 import com.genogram.mapper.FanSysRecommendMapper;
 import com.genogram.service.IFanSysRecommendService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
-import com.genogram.unit.Response;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -91,37 +84,10 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      *@Description:
     */
     @Override
-    public Page<RecommendVo> getRecommendPage(Wrapper<FanSysRecommend> entity,Integer pageNo, Integer pageSize) {
-        //返回新VO的集合
-        List<RecommendVo> recommendVoList=new ArrayList<>();
-
+    public Page<FanSysRecommend> getRecommendPage(Wrapper<FanSysRecommend> entity,Integer pageNo, Integer pageSize) {
         //查询分页
         Page<FanSysRecommend> fanSysRecommendPage = this.selectPage(new Page<FanSysRecommend>(pageNo, pageSize), entity);
-        //去除list集合
-        List<FanSysRecommend> list = fanSysRecommendPage.getRecords();
-        if(list.size()==0){
-            return null;
-        }
-        list.forEach(( news)->{
-            RecommendVo recommendVo=new RecommendVo();
-
-            //存储新对象
-            BeanUtils.copyProperties(news,recommendVo);
-
-            //转换时间为long
-            recommendVo.setCreateTimeLong(news.getCreateTime().getTime());
-            recommendVo.setUpdateTimeLong(news.getUpdateTime().getTime());
-
-            //存储到新的集合中
-            recommendVoList.add(recommendVo);
-        });
-        //重新设置page对象
-        Page<RecommendVo> mapPage = new Page<>(pageNo,pageSize);
-        mapPage.setRecords(recommendVoList);
-        mapPage.setSize(fanSysRecommendPage.getSize());
-        mapPage.setTotal(fanSysRecommendPage.getTotal());
-
-        return mapPage;
+        return fanSysRecommendPage;
     }
 
 }

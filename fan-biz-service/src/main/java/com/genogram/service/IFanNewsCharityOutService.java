@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanNewsCharityOut;
-import com.genogram.entity.FanNewsUploadFile;
-import com.genogram.entityvo.FanNewsCharityOutVo;
+import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
      * @param pageSize   每页记录数
      * @return
      */
-    Page<FanNewsCharityOutVo> getFanNewsCharityOutVoPage(Wrapper<FanNewsCharityOut> entity,Integer pageNo, Integer pageSize);
+    Page<NewsCharityOutVo> getFanNewsCharityOutVoPage(Wrapper<FanNewsCharityOut> entity, Integer pageNo, Integer pageSize);
     /**
      *            慈善收支文章详情
      * @param id        文章iD

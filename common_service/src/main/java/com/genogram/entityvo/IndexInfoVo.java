@@ -15,7 +15,7 @@ import java.util.Date;
  * @Description:
  */
 @Data
-public class FanIndexInfoVo {
+public class IndexInfoVo {
 
     private Integer id;
     /**

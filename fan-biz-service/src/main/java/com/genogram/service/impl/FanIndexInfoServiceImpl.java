@@ -2,9 +2,8 @@ package com.genogram.service.impl;
 
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanSysSite;
-import com.genogram.entityvo.FanIndexInfoVo;
+import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.mapper.FanIndexInfoMapper;
-import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.service.IFanIndexInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanSysSiteService;
@@ -13,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -36,16 +34,16 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     }
 
     @Override
-    public FanIndexInfoVo getFanIndexInfoVo(Integer siteId) {
+    public IndexInfoVo getFanIndexInfoVo(Integer siteId) {
 
         FanIndexInfo fanIndexInfo = this.selectById(siteId);
         FanSysSite fanSysSite = fanSysSiteService.selectById(siteId);
 
-        FanIndexInfoVo fanIndexInfoVo = new FanIndexInfoVo();
-        BeanUtils.copyProperties(fanIndexInfo, fanIndexInfoVo);
-        fanIndexInfoVo.setSiteName(fanSysSite.getName());
+        IndexInfoVo indexInfoVo = new IndexInfoVo();
+        BeanUtils.copyProperties(fanIndexInfo, indexInfoVo);
+        indexInfoVo.setSiteName(fanSysSite.getName());
 
-        return fanIndexInfoVo;
+        return indexInfoVo;
     }
 
     @Override
