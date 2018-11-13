@@ -43,5 +43,5 @@ public interface IFanSysWebNewsShowService extends IService<FanSysWebNewsShow> {
 
 
 
-    public List<FanSysWebMenuVo> getTitlesByMenuId(String hostIp,int siteId, int MenuId);
+    public List<FanSysWebMenuVo> getTitlesByMenuId(String hostIp,int siteId, int menuId);
 }
