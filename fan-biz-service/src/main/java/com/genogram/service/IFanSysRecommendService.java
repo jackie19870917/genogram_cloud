@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IFanSysRecommendService extends IService<FanSysRecommend> {
 
+
+    void addRecommend(Integer showId, Integer id);
 }
