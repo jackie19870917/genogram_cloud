@@ -19,7 +19,7 @@ public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilyS
     /**
      *     联谊堂信息
      * @param siteId   网站ID
-     * @param status   状态
+     * @param list   状态
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return

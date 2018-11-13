@@ -13,4 +13,17 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IAllUserLoginService extends IService<AllUserLogin> {
 
+    /**
+     * 登陆
+     * @param allUserLogin
+     * @return
+     */
+    AllUserLogin getAllUserLogin(AllUserLogin allUserLogin);
+
+    /**
+     * 注册
+     * @param allUserLogin
+     * @return
+     */
+    Boolean insertAllUserLogin(AllUserLogin allUserLogin);
 }
