@@ -1,8 +1,10 @@
 package com.genogram.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.RecommendVo;
 import com.genogram.service.IFanSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -136,15 +138,22 @@ public class FanRecommendController {
     */
     @RequestMapping(value = "/getRecommendPage",method = RequestMethod.GET)
     public Response<FanSysRecommend> getRecommendPage(
-            @RequestParam(value = "id") Integer id //主键
+            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
     ) {
         try {
-
+            Wrapper<FanSysRecommend> entity = new EntityWrapper();
+            Page<RecommendVo> recommendPage = fanSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
+            if(recommendPage==null){
+                //没有取到参数,返回空参
+                Page<RecommendVo> emptfamilyCultureVo = new Page<RecommendVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+            }
+            return ResponseUtlis.success(recommendPage);
         }catch (Exception e){
             e.printStackTrace();
             return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
-        return null;
     }
 
 }

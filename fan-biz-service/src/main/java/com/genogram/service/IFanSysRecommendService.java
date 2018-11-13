@@ -1,8 +1,11 @@
 package com.genogram.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanSysRecommend;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.RecommendVo;
+import com.genogram.unit.Response;
 
 /**
  * <p>
@@ -32,4 +35,12 @@ public interface IFanSysRecommendService extends IService<FanSysRecommend> {
      */
     Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status);
 
+    /**
+     * 联谊会后台设置推荐查询
+     * @param entity  查询条件
+     * @param pageNo  当前页
+     * @param pageSize 每页显示条数
+     * @return
+     */
+    Page<RecommendVo> getRecommendPage(Wrapper<FanSysRecommend> entity,Integer pageNo, Integer pageSize);
 }
