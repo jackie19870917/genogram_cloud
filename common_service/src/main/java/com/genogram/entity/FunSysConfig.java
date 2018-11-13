@@ -11,13 +11,14 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-13
  */
 @TableName("fun_sys_config")
 public class FunSysConfig extends Model<FunSysConfig> {
 
     private static final long serialVersionUID = 1L;
 
+    private String id;
     /**
      * 常量组
      */
@@ -38,6 +39,15 @@ public class FunSysConfig extends Model<FunSysConfig> {
      */
     private String comment;
 
+
+    public String getId() {
+        return id;
+    }
+
+    public FunSysConfig setId(String id) {
+        this.id = id;
+        return this;
+    }
 
     public String getConstantGroup() {
         return constantGroup;
@@ -77,12 +87,13 @@ public class FunSysConfig extends Model<FunSysConfig> {
 
     @Override
     protected Serializable pkVal() {
-        return null;
+        return this.id;
     }
 
     @Override
     public String toString() {
         return "FunSysConfig{" +
+        ", id=" + id +
         ", constantGroup=" + constantGroup +
         ", constantName=" + constantName +
         ", constantCode=" + constantCode +

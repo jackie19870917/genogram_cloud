@@ -12,20 +12,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, value, first_letter AS first_letter, sort
+        id, value, first_letter AS firstLetter, sort
     </sql>
-
-    <!--分页以及条件map实例-->
-    <select id="queryMyItems" parameterType="java.util.Map" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List" />
-        FROM all_family
-        WHERE
-        1=1
-        <if test="value!=null">
-            value LIKE CONCAT("%",#{value},"%")
-        </if>
-
-    </select>
 
 </mapper>

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.genogram.mapper.FanNewsFamousAncestorChildMapper">
+<mapper namespace="com.genogram.mapper.ProNewsFamousAncestorMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.genogram.entity.FanNewsFamousAncestorChild">
+    <resultMap id="BaseResultMap" type="com.genogram.entity.ProNewsFamousAncestor">
         <id column="id" property="id" />
-        <result column="fan_news_famous_ancestor_id" property="fanNewsFamousAncestorId" />
+        <result column="show_id" property="showId" />
+        <result column="parent_id" property="parentId" />
         <result column="ancestor_title" property="ancestorTitle" />
         <result column="ancestor_name" property="ancestorName" />
         <result column="ancestor_summary" property="ancestorSummary" />
         <result column="pic_file_src" property="picFileSrc" />
         <result column="pic_file_name" property="picFileName" />
-        <result column="visit_num" property="visitNum" />
         <result column="status" property="status" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
@@ -21,7 +21,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, fan_news_famous_ancestor_id AS fanNewsFamousAncestorId, ancestor_title AS ancestorTitle, ancestor_name AS ancestorName, ancestor_summary AS ancestorSummary, pic_file_src AS picFileSrc, pic_file_name AS picFileName, visit_num AS visitNum, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, show_id AS showId, parent_id AS parentId, ancestor_title AS ancestorTitle, ancestor_name AS ancestorName, ancestor_summary AS ancestorSummary, pic_file_src AS picFileSrc, pic_file_name AS picFileName, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

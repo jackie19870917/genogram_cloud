@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-13
  */
 @TableName("fan_news_family_record_vedio")
 public class FanNewsFamilyRecordVedio extends Model<FanNewsFamilyRecordVedio> {

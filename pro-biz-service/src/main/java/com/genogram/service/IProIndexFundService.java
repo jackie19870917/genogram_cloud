@@ -1,0 +1,16 @@
+package com.genogram.service;
+
+import com.genogram.entity.ProIndexFund;
+import com.baomidou.mybatisplus.service.IService;
+
+/**
+ * <p>
+ * 省级-首页-基金-前台后台 服务类
+ * </p>
+ *
+ * @author wangwei
+ * @since 2018-11-13
+ */
+public interface IProIndexFundService extends IService<ProIndexFund> {
+
+}

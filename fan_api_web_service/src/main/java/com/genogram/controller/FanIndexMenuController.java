@@ -2,7 +2,7 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.genogram.entity.FanSysWebNewsShow;
-import com.genogram.entityvo.FanSysWebMenuVo;
+import com.genogram.entityvo.SysWebMenuVo;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -38,9 +38,9 @@ public class FanIndexMenuController {
     public Response getMenuBySiteId(@RequestParam(name = "siteId") String siteId){
         EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<FanSysWebNewsShow>();
         entityWrapper.eq("fan_sys_site_id",siteId);
-        List<FanSysWebMenuVo> list = fanSysWebNewsShowService.getMenu(hostIp,siteId,true,entityWrapper);
+        List<SysWebMenuVo> list = fanSysWebNewsShowService.getMenu(hostIp,siteId,true,entityWrapper);
 
-        List<FanSysWebMenuVo> indexMenus = fanSysWebNewsShowService.getIndexMenu(siteId);
+        List<SysWebMenuVo> indexMenus = fanSysWebNewsShowService.getIndexMenu(siteId);
         Map indexMenusMap = new LinkedHashMap();
         indexMenus.forEach((index)->{
             indexMenusMap.put(index.getMenuType(),index);

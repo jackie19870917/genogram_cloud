@@ -11,11 +11,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 联谊会-家族慈善财务支出表
+ * 联谊会-家族慈善财务收支(文章)表
  * </p>
  *
  * @author wangwei
- * @since 2018-11-06
+ * @since 2018-11-13
  */
 @TableName("fan_news_charity_out")
 public class FanNewsCharityOut extends Model<FanNewsCharityOut> {

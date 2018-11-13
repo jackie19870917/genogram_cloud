@@ -10,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 联谊网附件上传表(不包括视频文件)
+ * 联谊网文章附件上传表(不包括视频文件)
  * </p>
  *
  * @author wangwei
- * @since 2018-11-07
+ * @since 2018-11-13
  */
 @TableName("fan_news_upload_file")
 public class FanNewsUploadFile extends Model<FanNewsUploadFile> {

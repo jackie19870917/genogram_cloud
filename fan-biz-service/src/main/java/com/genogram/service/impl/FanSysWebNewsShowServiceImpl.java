@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.entity.FanSysWebMenu;
 import com.genogram.entity.FanSysWebNewsShow;
-import com.genogram.entityvo.FanSysWebMenuVo;
-import com.genogram.mapper.FanSysWebMenuMapper;
+import com.genogram.entityvo.SysWebMenuVo;
 import com.genogram.mapper.FanSysWebNewsShowMapper;
 import com.genogram.service.IFanSysWebMenuService;
 import com.genogram.service.IFanSysWebNewsShowService;
@@ -34,12 +33,12 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     private IFanSysWebMenuService fanSysWebMenuService;
 
     @Override
-    public List<FanSysWebMenuVo> getMenu(String hostIp,String siteId,boolean isWeb, EntityWrapper<FanSysWebNewsShow> entityWrapper) {
-        List<FanSysWebMenuVo> volist = new ArrayList();
+    public List<SysWebMenuVo> getMenu(String hostIp, String siteId, boolean isWeb, EntityWrapper<FanSysWebNewsShow> entityWrapper) {
+        List<SysWebMenuVo> volist = new ArrayList();
         //单表查询list
         List<FanSysWebNewsShow> list = this.selectList(entityWrapper);
         list.forEach((a)->{
-            FanSysWebMenuVo vo = new FanSysWebMenuVo();
+            SysWebMenuVo vo = new SysWebMenuVo();
             vo.setShowId(a.getId());
             vo.setFanSysSiteId(a.getFanSysSiteId());
             vo.setFanSysWebMenuId(a.getFanSysWebMenuId());
@@ -73,19 +72,19 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         return firstList;
     }
 
-    private List<FanSysWebMenuVo> getChildMenu(List<FanSysWebMenuVo> volist){
+    private List<SysWebMenuVo> getChildMenu(List<SysWebMenuVo> volist){
         //只要一级菜单
-        List<FanSysWebMenuVo> list = new ArrayList<>();
+        List<SysWebMenuVo> list = new ArrayList<>();
 
         volist.forEach((a)->{
             //一级菜单
             if(a.getTreeNum()==1){
                 Map map = new HashMap<>(16);
-                List<FanSysWebMenuVo> child = new ArrayList<>();
+                List<SysWebMenuVo> child = new ArrayList<>();
                //for
                 volist.forEach((b)->{
                 if(a.getFanSysWebMenuId() == b.getParentId()){
-                    FanSysWebMenuVo vo = new FanSysWebMenuVo();
+                    SysWebMenuVo vo = new SysWebMenuVo();
                     vo.setShowId(vo.getShowId());
                     vo.setMenuName(b.getMenuName());
                     vo.setOrderIndex(b.getOrderIndex());
@@ -104,11 +103,11 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     }
 
     @Override
-    public List<FanSysWebMenuVo> getIndexMenu(String siteId) {
-        List<FanSysWebMenuVo> volist = new ArrayList();
+    public List<SysWebMenuVo> getIndexMenu(String siteId) {
+        List<SysWebMenuVo> volist = new ArrayList();
 
         //首页联谊堂概况
-        FanSysWebMenuVo vo = setIndexMenu(siteId,"首页联谊堂概况","index_fan_summary","genogram/fanIndex/index/getFanIndexFamilySummarysPage?siteId=","api:");
+        SysWebMenuVo vo = setIndexMenu(siteId,"首页联谊堂概况","index_fan_summary","genogram/fanIndex/index/getFanIndexFamilySummarysPage?siteId=","api:");
         volist.add(vo);
 
         //简介
@@ -194,14 +193,14 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     }
 
     @Override
-    public List<FanSysWebMenuVo> getTitlesByMenuId(String hostIp, int siteId, int menuId) {
-        List<FanSysWebMenuVo> voList = new ArrayList<>();
+    public List<SysWebMenuVo> getTitlesByMenuId(String hostIp, int siteId, int menuId) {
+        List<SysWebMenuVo> voList = new ArrayList<>();
 
         EntityWrapper<FanSysWebMenu> entityWrapper = new EntityWrapper<>();
         entityWrapper.eq("parent_id",menuId);
         List<FanSysWebMenu> list = fanSysWebMenuService.selectList(entityWrapper);
         list.forEach((menu)->{
-            FanSysWebMenuVo vo = new FanSysWebMenuVo();
+            SysWebMenuVo vo = new SysWebMenuVo();
             BeanUtils.copyProperties(menu,vo);
 
             //计算showId
@@ -220,8 +219,8 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     }
 
 
-    private FanSysWebMenuVo setIndexMenu(String siteId,String menuName,String menuType,String api, String comments){
-        FanSysWebMenuVo vo = new FanSysWebMenuVo();
+    private SysWebMenuVo setIndexMenu(String siteId, String menuName, String menuType, String api, String comments){
+        SysWebMenuVo vo = new SysWebMenuVo();
         vo.setFanSysSiteId(Integer.parseInt(siteId));
         vo.setMenuName(menuName);
         vo.setMenuType(menuType);

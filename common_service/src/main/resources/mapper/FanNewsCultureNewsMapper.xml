@@ -16,56 +16,9 @@
         <result column="update_user" property="updateUser" />
     </resultMap>
 
-    <!-- 多表查询映射结果 -->
-    <resultMap id="withPicBaseResultMap" type="com.genogram.entityvo.FamilyCultureVo">
-        <id column="id" property="id" />
-        <result column="show_id" property="showId" />
-        <result column="news_title" property="newsTitle" />
-        <result column="news_text" property="newsText" />
-        <result column="visit_num" property="visitNum" />
-        <result column="status" property="status" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
-        <collection property="fanNewsUploadFileList" ofType="fanNewsUploadFile">
-            <id column="id" property="id" />
-            <result column="news_id" property="newsId" />
-            <result column="show_id" property="showId" />
-            <result column="file_name" property="fileName" />
-            <result column="file_path" property="filePath" />
-            <result column="status" property="status" />
-            <result column="create_time" property="createTime" />
-            <result column="create_user" property="createUser" />
-            <result column="update_time" property="updateTime" />
-            <result column="update_user" property="updateUser" />
-        </collection>
-    </resultMap>
-
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, show_id AS showId, news_title AS newsTitle, news_text AS newsText, visit_num AS visitNum, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
-
-    <!--多表查询-->
-    <sql id="withPicBase_Column_List">
-       s.id, s.show_id AS showId, s.news_title AS newsTitle, s.news_text AS newsText, s.visit_num AS visitNum, s.status, s.create_time AS createTime, s.create_user AS createUser, s.update_time AS updateTime, s.update_user AS updateUser
-         f.id, f.news_id AS newsId, f.show_id AS showId, f.file_name AS fileName, f.file_path AS filePath, f.status, f.create_time AS createTime, f.create_user AS createUser, f.update_time AS updateTime, f.update_user AS updateUser
-    </sql>
-
-    <select id="queryMyItems" parameterType="java.util.Map" resultMap="withPicBaseResultMap">
-        SELECT
-       s.*,f.*
-         FROM fan_news_culture_news s left join fan_news_upload_file f on s.`show_id`=f.`show_id` and s.`id`=f.`news_id`
-        WHERE
-        1=1
-        <if test="showId!=null">
-            and  s.show_id=#{showId}
-        </if>
-        <if test="status!=null">
-            and  s.status=#{status}
-        </if>
-
-    </select>
 
 </mapper>

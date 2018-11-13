@@ -9,6 +9,7 @@
         <result column="menu_name" property="menuName" />
         <result column="parent_id" property="parentId" />
         <result column="api_url" property="apiUrl" />
+        <result column="api_admin_url" property="apiAdminUrl" />
         <result column="order_index" property="orderIndex" />
         <result column="menu_code" property="menuCode" />
         <result column="menu_type" property="menuType" />
@@ -24,7 +25,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, tree_num AS treeNum, menu_name AS menuName, parent_id AS parentId, api_url AS apiUrl, order_index AS orderIndex, menu_code AS menuCode, menu_type AS menuType, is_admin AS isAdmin, is_web AS isWeb, istatic, comments, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, tree_num AS treeNum, menu_name AS menuName, parent_id AS parentId, api_url AS apiUrl, api_admin_url AS apiAdminUrl, order_index AS orderIndex, menu_code AS menuCode, menu_type AS menuType, is_admin AS isAdmin, is_web AS isWeb, istatic, comments, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

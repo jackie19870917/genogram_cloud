@@ -4,6 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.FunSysConfig">
+        <id column="id" property="id" />
         <result column="constant_group" property="constantGroup" />
         <result column="constant_name" property="constantName" />
         <result column="constant_code" property="constantCode" />
@@ -12,7 +13,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        constant_group AS constantGroup, constant_name AS constantName, constant_code AS constantCode, comment
+        id, constant_group AS constantGroup, constant_name AS constantName, constant_code AS constantCode, comment
     </sql>
 
 </mapper>

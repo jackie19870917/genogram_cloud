@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-13
  */
 @TableName("fan_news_famous_ancestor")
 public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
@@ -31,6 +31,11 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
      */
     @TableField("show_id")
     private Integer showId;
+    /**
+     * 父id
+     */
+    @TableField("parent_id")
+    private Integer parentId;
     /**
      * 祖先头衔
      */
@@ -56,11 +61,6 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
      */
     @TableField("pic_file_name")
     private String picFileName;
-    /**
-     * 查看数
-     */
-    @TableField("visit_num")
-    private Integer visitNum;
     /**
      * 状态(0:删除;1:发布;3:不显示)
      */
@@ -102,6 +102,15 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
 
     public FanNewsFamousAncestor setShowId(Integer showId) {
         this.showId = showId;
+        return this;
+    }
+
+    public Integer getParentId() {
+        return parentId;
+    }
+
+    public FanNewsFamousAncestor setParentId(Integer parentId) {
+        this.parentId = parentId;
         return this;
     }
 
@@ -147,15 +156,6 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
 
     public FanNewsFamousAncestor setPicFileName(String picFileName) {
         this.picFileName = picFileName;
-        return this;
-    }
-
-    public Integer getVisitNum() {
-        return visitNum;
-    }
-
-    public FanNewsFamousAncestor setVisitNum(Integer visitNum) {
-        this.visitNum = visitNum;
         return this;
     }
 
@@ -214,12 +214,12 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
         return "FanNewsFamousAncestor{" +
         ", id=" + id +
         ", showId=" + showId +
+        ", parentId=" + parentId +
         ", ancestorTitle=" + ancestorTitle +
         ", ancestorName=" + ancestorName +
         ", ancestorSummary=" + ancestorSummary +
         ", picFileSrc=" + picFileSrc +
         ", picFileName=" + picFileName +
-        ", visitNum=" + visitNum +
         ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +

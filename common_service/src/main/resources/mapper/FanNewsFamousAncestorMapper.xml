@@ -6,12 +6,12 @@
     <resultMap id="BaseResultMap" type="com.genogram.entity.FanNewsFamousAncestor">
         <id column="id" property="id" />
         <result column="show_id" property="showId" />
+        <result column="parent_id" property="parentId" />
         <result column="ancestor_title" property="ancestorTitle" />
         <result column="ancestor_name" property="ancestorName" />
         <result column="ancestor_summary" property="ancestorSummary" />
         <result column="pic_file_src" property="picFileSrc" />
         <result column="pic_file_name" property="picFileName" />
-        <result column="visit_num" property="visitNum" />
         <result column="status" property="status" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
@@ -21,7 +21,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, show_id AS showId, ancestor_title AS ancestorTitle, ancestor_name AS ancestorName, ancestor_summary AS ancestorSummary, pic_file_src AS picFileSrc, pic_file_name AS picFileName, visit_num AS visitNum, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, show_id AS showId, parent_id AS parentId, ancestor_title AS ancestorTitle, ancestor_name AS ancestorName, ancestor_summary AS ancestorSummary, pic_file_src AS picFileSrc, pic_file_name AS picFileName, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

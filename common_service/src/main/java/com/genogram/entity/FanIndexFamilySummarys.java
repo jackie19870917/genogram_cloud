@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-10
+ * @since 2018-11-13
  */
 @TableName("fan_index_family_summarys")
 public class FanIndexFamilySummarys extends Model<FanIndexFamilySummarys> {

@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-13
  */
 @TableName("all_region")
 public class AllRegion extends Model<AllRegion> {

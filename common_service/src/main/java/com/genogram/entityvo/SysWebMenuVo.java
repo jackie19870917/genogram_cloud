@@ -4,7 +4,6 @@ import com.genogram.entity.FanSysWebMenu;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Map;
 
 @Data
 /**
@@ -16,9 +15,9 @@ import java.util.Map;
  * @Description:
  *
  */
-public class FanSysWebMenuVo extends FanSysWebMenu {
+public class SysWebMenuVo extends FanSysWebMenu {
     private int showId;
     private int fanSysSiteId;
     private int fanSysWebMenuId;
-    private List<FanSysWebMenuVo> child;
+    private List<SysWebMenuVo> child;
 }

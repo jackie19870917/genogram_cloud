@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-04
+ * @since 2018-11-13
  */
 @TableName("all_family")
 public class AllFamily extends Model<AllFamily> {

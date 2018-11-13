@@ -4,7 +4,7 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysWebNewsShow;
-import com.genogram.entityvo.FanSysWebMenuVo;
+import com.genogram.entityvo.SysWebMenuVo;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -30,7 +30,7 @@ public class FanIndexMenuController {
     //http://localhost:8050/genogram/admin/fanMenu/getTitlesByMenuId?siteId=1&menuId=2
     @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.GET)
     public Response getTitlesByMenuId(@RequestParam(name = "siteId") int siteId, @RequestParam(name = "menuId") int menuId) {
-        List<FanSysWebMenuVo> list = iFanSysWebNewsShowService.getTitlesByMenuId(hostIp,siteId, menuId);
+        List<SysWebMenuVo> list = iFanSysWebNewsShowService.getTitlesByMenuId(hostIp,siteId, menuId);
         if (list.isEmpty()) {
             return ResponseUtlis.error(Constants.IS_EMPTY, list);
         }
@@ -41,7 +41,7 @@ public class FanIndexMenuController {
     public Response getMenuBySiteId(@RequestParam(name = "siteId") String siteId) {
         EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<>();
         entityWrapper.eq("fan_sys_site_id", siteId);
-        List<FanSysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(hostIp, siteId, false, entityWrapper);
+        List<SysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(hostIp, siteId, false, entityWrapper);
         HashMap indexMap = new LinkedHashMap();
         list.forEach((fanSysWebMenuVo) -> {
             indexMap.put(fanSysWebMenuVo.getMenuCode(), fanSysWebMenuVo.getChild());

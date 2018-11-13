@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-12
+ * @since 2018-11-13
  */
 @TableName("fan_sys_web_menu")
 public class FanSysWebMenu extends Model<FanSysWebMenu> {

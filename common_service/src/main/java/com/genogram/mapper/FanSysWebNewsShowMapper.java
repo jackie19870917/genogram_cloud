@@ -9,7 +9,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-13
  */
 public interface FanSysWebNewsShowMapper extends BaseMapper<FanSysWebNewsShow> {
+
 }
