@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-05
+ * @since 2018-11-13
  */
 @TableName("fan_index_fund_drowing")
 public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
@@ -38,10 +38,15 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
     @TableField("drow_amount")
     private BigDecimal drowAmount;
     /**
-     * 入账银行
+     * 到账银行
      */
     @TableField("drow_bank")
     private String drowBank;
+    /**
+     * 到账银行支行名称
+     */
+    @TableField("drow_bank_sub")
+    private String drowBankSub;
     /**
      * 提现时间
      */
@@ -60,7 +65,13 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
     /**
      * 提现状态(1:成功;2:失败)
      */
-    private Integer status;
+    @TableField("drow_status")
+    private Integer drowStatus;
+    /**
+     * 审核状态(1:通过;2:不通过)
+     */
+    @TableField("approve_status")
+    private String approveStatus;
     /**
      * 创建时间
      */
@@ -81,11 +92,6 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
      */
     @TableField("update_user")
     private Integer updateUser;
-    /**
-     * 到账银行支行名称
-     */
-    @TableField("drow_bank_sub")
-    private String drowBankSub;
 
 
     public Integer getId() {
@@ -124,6 +130,15 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return this;
     }
 
+    public String getDrowBankSub() {
+        return drowBankSub;
+    }
+
+    public FanIndexFundDrowing setDrowBankSub(String drowBankSub) {
+        this.drowBankSub = drowBankSub;
+        return this;
+    }
+
     public Date getDrowTime() {
         return drowTime;
     }
@@ -151,12 +166,21 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return this;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getDrowStatus() {
+        return drowStatus;
     }
 
-    public FanIndexFundDrowing setStatus(Integer status) {
-        this.status = status;
+    public FanIndexFundDrowing setDrowStatus(Integer drowStatus) {
+        this.drowStatus = drowStatus;
+        return this;
+    }
+
+    public String getApproveStatus() {
+        return approveStatus;
+    }
+
+    public FanIndexFundDrowing setApproveStatus(String approveStatus) {
+        this.approveStatus = approveStatus;
         return this;
     }
 
@@ -196,15 +220,6 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return this;
     }
 
-    public String getDrowBankSub() {
-        return drowBankSub;
-    }
-
-    public FanIndexFundDrowing setDrowBankSub(String drowBankSub) {
-        this.drowBankSub = drowBankSub;
-        return this;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -217,15 +232,16 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         ", siteId=" + siteId +
         ", drowAmount=" + drowAmount +
         ", drowBank=" + drowBank +
+        ", drowBankSub=" + drowBankSub +
         ", drowTime=" + drowTime +
         ", drowInAccountName=" + drowInAccountName +
         ", drowInAccountCard=" + drowInAccountCard +
-        ", status=" + status +
+        ", drowStatus=" + drowStatus +
+        ", approveStatus=" + approveStatus +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +
         ", updateUser=" + updateUser +
-        ", drowBankSub=" + drowBankSub +
         "}";
     }
 }

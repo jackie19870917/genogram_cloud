@@ -8,20 +8,21 @@
         <result column="site_id" property="siteId" />
         <result column="drow_amount" property="drowAmount" />
         <result column="drow_bank" property="drowBank" />
+        <result column="drow_bank_sub" property="drowBankSub" />
         <result column="drow_time" property="drowTime" />
         <result column="drow_in_account_name" property="drowInAccountName" />
         <result column="drow_in_account_card" property="drowInAccountCard" />
-        <result column="status" property="status" />
+        <result column="drow_status" property="drowStatus" />
+        <result column="approve_status" property="approveStatus" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
         <result column="update_time" property="updateTime" />
         <result column="update_user" property="updateUser" />
-        <result column="drow_bank_sub" property="drowBankSub" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, site_id AS siteId, drow_amount AS drowAmount, drow_bank AS drowBank, drow_time AS drowTime, drow_in_account_name AS drowInAccountName, drow_in_account_card AS drowInAccountCard, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser, drow_bank_sub AS drowBankSub
+        id, site_id AS siteId, drow_amount AS drowAmount, drow_bank AS drowBank, drow_bank_sub AS drowBankSub, drow_time AS drowTime, drow_in_account_name AS drowInAccountName, drow_in_account_card AS drowInAccountCard, drow_status AS drowStatus, approve_status AS approveStatus, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>
