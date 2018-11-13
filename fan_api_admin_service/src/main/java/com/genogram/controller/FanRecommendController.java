@@ -84,7 +84,7 @@ public class FanRecommendController {
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=0;
+            int status=3;
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("show_id",showId);
             entity.eq("news_id",id);
@@ -100,7 +100,7 @@ public class FanRecommendController {
     }
 
     /**
-     *联谊会后台设置个人推荐删除
+     *联谊会后台设置个人推荐取消展示
      *@Author: yuzhou
      *@Date: 2018-11-13
      *@Time: 10:39
@@ -111,23 +111,59 @@ public class FanRecommendController {
     @RequestMapping(value = "/deleteRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommend(
             @RequestParam(value = "id") Integer id //推荐主键
-    ) {try {
+    ) {
         if(id==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-        int status=0;
-        Wrapper<FanSysRecommend> entity = new EntityWrapper();
-        entity.eq("id",id);
-        Boolean aBoolean = fanSysRecommendService.deleteRecommend(entity,status);
-        if(!aBoolean){
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
-        }
-        return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
-    }catch (Exception e){
-        e.printStackTrace();
-        return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        int status=3;
+        return getFanSysRecommendResponse(id, status);
     }
+
+    /**
+     *联谊会后台设置个人推荐展示
+     *@Author: yuzhou
+     *@Date: 2018-11-13
+     *@Time: 18:32
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/updateRecommend",method = RequestMethod.GET)
+    public Response<FanSysRecommend> updateRecommend(
+            @RequestParam(value = "id") Integer id //推荐主键
+    ) {
+        if(id==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        }
+        //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+        int status=2;
+        return getFanSysRecommendResponse(id, status);
+    }
+
+    /**
+     *联谊会后台设置个人推荐公共方法
+     *@Author: yuzhou
+     *@Date: 2018-11-13
+     *@Time: 18:32
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    private Response<FanSysRecommend> getFanSysRecommendResponse(@RequestParam("id") Integer id, int status) {
+        try {
+
+            Wrapper<FanSysRecommend> entity = new EntityWrapper();
+            entity.eq("id", id);
+            Boolean aBoolean = fanSysRecommendService.deleteRecommend(entity, status);
+            if (!aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
     }
 
     /**
