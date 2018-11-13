@@ -49,7 +49,12 @@ public class FanRecommendController {
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
-            Boolean aBoolean = fanSysRecommendService.addRecommend(showId,id,status);
+            //要插入的实体类
+            FanSysRecommend fanSysRecommend=new FanSysRecommend();
+            fanSysRecommend.setNewsId(id);
+            fanSysRecommend.setShowId(showId);
+            fanSysRecommend.setStatus(status);
+            Boolean aBoolean = fanSysRecommendService.addRecommend(fanSysRecommend);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -105,7 +110,7 @@ public class FanRecommendController {
     */
     @RequestMapping(value = "/deleteRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommend(
-            @RequestParam(value = "id") Integer id //主键
+            @RequestParam(value = "id") Integer id //推荐主键
     ) {try {
         if(id==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -142,6 +147,7 @@ public class FanRecommendController {
         try {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
+            //查询条件
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("status",status);
             entity.orderBy("create_time", false);

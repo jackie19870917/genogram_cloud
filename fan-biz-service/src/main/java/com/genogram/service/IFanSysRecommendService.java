@@ -18,12 +18,10 @@ public interface IFanSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 联谊会后台点击推荐
-     * @param showId  文章显示位置ID
-     * @param id  主键
-     * @param status  状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+     * @param fanSysRecommend  推荐实体类
      * @return
      */
-    Boolean addRecommend(Integer showId, Integer id,Integer status);
+    Boolean addRecommend(FanSysRecommend fanSysRecommend);
 
     /**
      * 联谊会后台点击取消

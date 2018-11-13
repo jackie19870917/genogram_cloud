@@ -32,12 +32,7 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      *@Description:
     */
     @Override
-    public Boolean addRecommend(Integer showId, Integer id,Integer status) {
-        //要插入的实体类
-        FanSysRecommend fanSysRecommend=new FanSysRecommend();
-        fanSysRecommend.setNewsId(id);
-        fanSysRecommend.setShowId(showId);
-        fanSysRecommend.setStatus(status);
+    public Boolean addRecommend(FanSysRecommend fanSysRecommend) {
         //是否全国显示(0:否;1是)
         fanSysRecommend.setIsCountry(0);
         //是否省显示(0:否;1是)

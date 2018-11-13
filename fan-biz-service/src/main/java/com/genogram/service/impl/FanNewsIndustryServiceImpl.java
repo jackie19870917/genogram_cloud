@@ -6,14 +6,12 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entity.FanNewsUploadFile;
+import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.FamilyIndustryVo;
 import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.mapper.FanNewsIndustryMapper;
-import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.IFanNewsIndustryService;
+import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.genogram.service.IFanNewsUploadFileService;
-import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +33,15 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
 
     @Autowired
     private IUploadFileService uploadFileService;
+
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
+
+    @Autowired
+    private IFanSysRecommendService fanSysRecommendService;
 
     /**
      *联谊会家族产业查询
@@ -151,8 +153,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //存储作者名称时间
         industryDetailVo.setUpdateTimeLong(fanNewsIndustry.getUpdateTime().getTime());
         industryDetailVo.setCreateTimeLong(fanNewsIndustry.getCreateTime().getTime());
-        industryDetailVo.setCreateUserName(createUser.getRealName());
-        industryDetailVo.setCreateUserName(updateUser.getRealName());
+        industryDetailVo.setCreateUserName(null);
+        industryDetailVo.setCreateUserName(null);
         return industryDetailVo;
     }
 
@@ -224,7 +226,18 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //查出详情
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
         //查看数加一
-        fanNewsIndustry.setVisitNum(fanNewsIndustry.getVisitNum()+1);
+        Integer visitNum = fanNewsIndustry.getVisitNum()+1;
+        fanNewsIndustry.setVisitNum(visitNum);
         this.updateAllColumnById(fanNewsIndustry);
+        if(visitNum >200 || visitNum==200){
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=1;
+            //要插入的实体类
+            FanSysRecommend fanSysRecommend=new FanSysRecommend();
+            fanSysRecommend.setStatus(status);
+            fanSysRecommend.setShowId(fanNewsIndustry.getShowId());
+            fanSysRecommend.setNewsId(fanNewsIndustry.getId());
+            fanSysRecommendService.addRecommend(fanSysRecommend);
+        }
     }
 }

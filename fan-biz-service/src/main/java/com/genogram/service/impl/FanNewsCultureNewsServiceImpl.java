@@ -3,21 +3,15 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.genogram.entity.AllUserLogin;
-import com.genogram.entity.AllUserReg;
-import com.genogram.entity.FanNewsCultureNews;
-import com.genogram.entity.FanNewsUploadFile;
+import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.AllUserRegMapper;
 import com.genogram.mapper.FanNewsCultureNewsMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
-import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.IFanNewsCultureNewsService;
+import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.genogram.service.IFanNewsUploadFileService;
-import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import org.springframework.beans.BeanUtils;
@@ -50,6 +44,9 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
 
     @Autowired
     private IUploadFileService uploadFileService;
+
+    @Autowired
+    private IFanSysRecommendService fanSysRecommendService;
 
     @Override
     public Page<FamilyCultureVo> getFamilyCulturePage(Wrapper<FanNewsCultureNews> entity, Integer pageNo, Integer pageSize) {
@@ -157,8 +154,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //存储作者名称时间
         newsDetail.setUpdateTimeLong(fanNewsCultureNews.getUpdateTime().getTime());
         newsDetail.setCreateTimeLong(fanNewsCultureNews.getCreateTime().getTime());
-        newsDetail.setCreateUserName(createUser.getRealName());
-        newsDetail.setCreateUserName(updateUser.getRealName());
+        newsDetail.setCreateUserName(null);
+        newsDetail.setCreateUserName(null);
         return newsDetail;
     }
 
@@ -232,7 +229,18 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //查出详情
         FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
         //查看数加一
-        fanNewsCultureNews.setVisitNum(fanNewsCultureNews.getVisitNum()+1);
+        Integer visitNum = fanNewsCultureNews.getVisitNum()+1;
+        fanNewsCultureNews.setVisitNum(visitNum);
          this.updateAllColumnById(fanNewsCultureNews);
+        if(visitNum >200 || visitNum==200){
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=1;
+            //要插入的实体类
+            FanSysRecommend fanSysRecommend=new FanSysRecommend();
+            fanSysRecommend.setStatus(status);
+            fanSysRecommend.setShowId(fanNewsCultureNews.getShowId());
+            fanSysRecommend.setNewsId(fanNewsCultureNews.getId());
+            fanSysRecommendService.addRecommend(fanSysRecommend);
+        }
     }
 }
