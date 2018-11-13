@@ -29,8 +29,8 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
     /**
      * 显示位置id
      */
-    @TableField("fan_sys_web_news_show_id")
-    private Integer fanSysWebNewsShowId;
+    @TableField("show_id")
+    private Integer showId;
     /**
      * 文章id
      */
@@ -72,11 +72,11 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
     }
 
     public Integer getFanSysWebNewsShowId() {
-        return fanSysWebNewsShowId;
+        return showId;
     }
 
     public FanSysRecommend setFanSysWebNewsShowId(Integer fanSysWebNewsShowId) {
-        this.fanSysWebNewsShowId = fanSysWebNewsShowId;
+        this.showId = fanSysWebNewsShowId;
         return this;
     }
 
@@ -143,7 +143,7 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
     public String toString() {
         return "FanSysRecommend{" +
         ", id=" + id +
-        ", fanSysWebNewsShowId=" + fanSysWebNewsShowId +
+        ", fanSysWebNewsShowId=" + showId +
         ", newsId=" + newsId +
         ", status=" + status +
         ", createTime=" + createTime +

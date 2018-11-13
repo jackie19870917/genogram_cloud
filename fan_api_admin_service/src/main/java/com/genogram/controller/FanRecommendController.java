@@ -1,9 +1,12 @@
 package com.genogram.controller;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.service.IFanSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,17 +38,113 @@ public class FanRecommendController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value = "/addRecommend",method = RequestMethod.GET)
-    public Response<FanSysRecommend> addRecommend(
+    @RequestMapping(value = "/addRecommendButton",method = RequestMethod.GET)
+    public Response<FanSysRecommend> addRecommendButton(
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "id") Integer id //主键
     ) {
-        if(showId==null || id==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        try {
+            if(showId==null || id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=1;
+            Boolean aBoolean = fanSysRecommendService.addRecommend(showId,id,status);
+            if(!aBoolean){
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
-        fanSysRecommendService.addRecommend(showId,id);
-        return null;
     }
 
+    /**
+     *联谊会后台点击取消
+     *@Author: yuzhou
+     *@Date: 2018-11-13
+     *@Time: 10:04
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/deleteRecommendButton",method = RequestMethod.GET)
+    public Response<FanSysRecommend> deleteRecommendButton(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "id") Integer id //文章主键
+    ) {
+        try {
+            if(showId==null || id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=0;
+            Wrapper<FanSysRecommend> entity = new EntityWrapper();
+            entity.eq("show_id",showId);
+            entity.eq("news_id",id);
+            Boolean aBoolean = fanSysRecommendService.deleteRecommend(entity,status);
+            if(!aBoolean){
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *联谊会后台设置个人推荐删除
+     *@Author: yuzhou
+     *@Date: 2018-11-13
+     *@Time: 10:39
+     *@Param: 
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/deleteRecommend",method = RequestMethod.GET)
+    public Response<FanSysRecommend> deleteRecommend(
+            @RequestParam(value = "id") Integer id //主键
+    ) {try {
+        if(id==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        }
+        //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+        int status=0;
+        Wrapper<FanSysRecommend> entity = new EntityWrapper();
+        entity.eq("id",id);
+        Boolean aBoolean = fanSysRecommendService.deleteRecommend(entity,status);
+        if(!aBoolean){
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+        return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+    }catch (Exception e){
+        e.printStackTrace();
+        return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+    }
+    }
+
+    /**
+     *联谊会后台设置推荐查询
+     *@Author: yuzhou
+     *@Date: 2018-11-13
+     *@Time: 11:16
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/getRecommendPage",method = RequestMethod.GET)
+    public Response<FanSysRecommend> getRecommendPage(
+            @RequestParam(value = "id") Integer id //主键
+    ) {
+        try {
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+        return null;
+    }
 
 }
