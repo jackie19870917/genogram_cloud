@@ -45,6 +45,11 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
      */
     private Integer isCountry;
     /**
+     * 是否自动推荐(0:否;1:是)
+     */
+    @TableField("is_auto")
+    private Integer isAuto;
+    /**
      * 状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
      */
     private Integer status;
@@ -115,6 +120,15 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
         return this;
     }
 
+    public Integer getIsAuto() {
+        return isAuto;
+    }
+
+    public FanSysRecommend setIsAuto(Integer isAuto) {
+        this.isAuto = isAuto;
+        return this;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -173,6 +187,7 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
         ", newsId=" + newsId +
         ", isProvince=" + isProvince +
         ", isCountry=" + isCountry +
+        ", isAuto=" + isAuto +
         ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
