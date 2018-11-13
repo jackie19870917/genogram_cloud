@@ -9,6 +9,7 @@ import com.genogram.service.IFanIndexFamilySummarysService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -50,7 +51,13 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
     @Override
     public FanIndexFamilySummarys getFanIndexFamilySummarys(Integer id) {
 
-        return this.selectById(id);
+        FanIndexFamilySummarys fanIndexFamilySummarys = this.selectById(id);
+
+        if (StringUtils.isEmpty(fanIndexFamilySummarys)) {
+            return null;
+        } else {
+            return fanIndexFamilySummarys;
+        }
     }
 
     @Override

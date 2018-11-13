@@ -1,6 +1,7 @@
 package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.config.Constants;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanIndexSlidePic;
@@ -82,6 +83,11 @@ public class FanIndexController {
     @RequestMapping(value = "getFanIndexSlidePicList", method = RequestMethod.GET)
     public Response<FanIndexSlidePic> getFanIndexSlidePicList(@RequestParam(value = "siteId") Integer siteId) {
 
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
         List list = new ArrayList();
         //1:正常;2:草稿
         list.add(1);
@@ -134,6 +140,10 @@ public class FanIndexController {
     @RequestMapping(value = "getFanIndexInfo",method = RequestMethod.GET)
     public Response<FanIndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
 
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
         FanIndexInfoVo fanIndexInfoVo = fanIndexInfoService.getFanIndexInfoVo(siteId);
 
         return ResponseUtlis.success(fanIndexInfoVo);
@@ -184,6 +194,11 @@ public class FanIndexController {
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
         List list = new ArrayList();
         //  1-正常    2-草稿
         list.add(1);

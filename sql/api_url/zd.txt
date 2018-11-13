@@ -23,7 +23,8 @@
 慈善收支详情: genogram/fanNewsCharity/getFanNewsCharityDetail?id=7
 
 
-
+登陆:genogram/admin/userLogin/login
+注册:genogram/admin/userLogin/signIn
 
 
 				
@@ -48,3 +49,5 @@
     新增/修改:genogram/admin/fanNewsCharity/insertOrUpdateFanNewsCharityOut
     草稿:genogram/admin/fanNewsCharity/insertOrUpdateFanNewsCharityOutDrft
     删除:genogram/admin/fanNewsCharity/deleteFanNewsCharityOut
+线下提现:genogram/admin/fanNewsCharity/insertFanIndexFundDrowing
+线下捐款:genogram/admin/fanNewsCharity/insertFanNewsCharityPayIn

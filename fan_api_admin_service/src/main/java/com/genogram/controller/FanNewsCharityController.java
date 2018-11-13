@@ -3,6 +3,7 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.config.Constants;
 import com.genogram.entity.FanIndexFundDrowing;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
@@ -10,6 +11,7 @@ import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FanNewsCharityOutVo;
 import com.genogram.service.IFanIndexFundDrowingService;
 import com.genogram.service.IFanNewsCharityOutService;
+import com.genogram.service.IFanNewsCharityPayInService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,9 @@ public class FanNewsCharityController {
     @Autowired
     private IFanIndexFundDrowingService fanIndexFundDrowingService;
 
+    @Autowired
+    private IFanNewsCharityPayInService fanNewsCharityPayInService;
+
     /**
      * 慈善收支
      *
@@ -52,6 +57,11 @@ public class FanNewsCharityController {
                                                                 @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (showId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
         List list = new ArrayList();
         //状态    1-正常   2-草稿
         list.add(1);
@@ -134,6 +144,19 @@ public class FanNewsCharityController {
     public Response<FanIndexFundDrowing> insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing) {
 
         Boolean result = fanIndexFundDrowingService.insertFanIndexFundDrowing(fanIndexFundDrowing);
+
+        if (result) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.success(400);
+        }
+    }
+
+    @RequestMapping(value = "insertFanNewsCharityPayIn", method = RequestMethod.POST)
+    public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn) {
+
+        fanNewsCharityPayIn.setType(2);
+        Boolean result = fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
 
         if (result) {
             return ResponseUtlis.success(200);

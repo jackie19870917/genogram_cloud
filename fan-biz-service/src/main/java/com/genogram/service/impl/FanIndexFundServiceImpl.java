@@ -6,6 +6,7 @@ import com.genogram.service.IFanIndexFundService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -20,6 +21,12 @@ public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, Fan
 
     @Override
     public FanIndexFund getFanIndexFund(Integer siteId) {
-        return this.selectById(siteId);
+
+        FanIndexFund fanIndexFund = this.selectById(siteId);
+        if (StringUtils.isEmpty(fanIndexFund)) {
+            return null;
+        } else {
+            return fanIndexFund;
+        }
     }
 }

@@ -20,6 +20,7 @@ import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
         List<FanNewsCharityOut> fanNewsCharityOutList = fanNewsCharityOutPage.getRecords();
 
-        if (fanNewsCharityOutList.isEmpty() && fanNewsCharityOutList == null) {
+        if (fanNewsCharityOutList.size()==0) {
             return null;
         }
 
@@ -122,6 +123,10 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
         //根据Id查出文章详情
         FanNewsCharityOut fanNewsCharityOut = this.selectById(id);
+
+        if (StringUtils.isEmpty(fanNewsCharityOut)) {
+            return null;
+        }
 
         //查询图片
         Wrapper<FanNewsUploadFile> entityWrapper = new EntityWrapper<FanNewsUploadFile>();
