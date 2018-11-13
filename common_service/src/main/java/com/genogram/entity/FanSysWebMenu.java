@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-10
+ * @since 2018-11-12
  */
 @TableName("fan_sys_web_menu")
 public class FanSysWebMenu extends Model<FanSysWebMenu> {
@@ -42,10 +42,15 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
     @TableField("parent_id")
     private Integer parentId;
     /**
-     * api 调用path
+     * 前台2级栏目文章列表API
      */
     @TableField("api_url")
     private String apiUrl;
+    /**
+     * 后台2级栏目文章列表API
+     */
+    @TableField("api_admin_url")
+    private String apiAdminUrl;
     /**
      * 排列顺序
      */
@@ -131,6 +136,15 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
 
     public FanSysWebMenu setApiUrl(String apiUrl) {
         this.apiUrl = apiUrl;
+        return this;
+    }
+
+    public String getApiAdminUrl() {
+        return apiAdminUrl;
+    }
+
+    public FanSysWebMenu setApiAdminUrl(String apiAdminUrl) {
+        this.apiAdminUrl = apiAdminUrl;
         return this;
     }
 
@@ -246,6 +260,7 @@ public class FanSysWebMenu extends Model<FanSysWebMenu> {
         ", menuName=" + menuName +
         ", parentId=" + parentId +
         ", apiUrl=" + apiUrl +
+        ", apiAdminUrl=" + apiAdminUrl +
         ", orderIndex=" + orderIndex +
         ", menuCode=" + menuCode +
         ", menuType=" + menuType +

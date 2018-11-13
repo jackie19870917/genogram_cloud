@@ -211,7 +211,8 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
             FanSysWebNewsShow fanSysWebNewsShow = this.selectOne(entityWrapper2);
             //set showId
             vo.setShowId(fanSysWebNewsShow.getId());
-            vo.setApiUrl(hostIp+menu.getApiUrl()+vo.getShowId());
+            //设置后台API地址
+            vo.setApiUrl(hostIp+menu.getApiAdminUrl()+vo.getShowId());
             voList.add(vo);
         });
 
