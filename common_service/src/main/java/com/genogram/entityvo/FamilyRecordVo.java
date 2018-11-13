@@ -10,4 +10,6 @@ import java.util.List;
 public class FamilyRecordVo extends FanNewsFamilyRecord {
     //记录家族图片
     private List<FanNewsUploadFile> fanNewsUploadFileList;
+
+
 }

@@ -3,18 +3,27 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.genogram.entity.FanNewsCultureNews;
+
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsFamilyRecord;
 import com.genogram.entity.FanNewsUploadFile;
-import com.genogram.entityvo.FamilyCultureVo;
+
 import com.genogram.entityvo.FamilyRecordVo;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.FanNewsFamilyRecordMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanNewsFamilyRecordService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IFanNewsUploadFileService;
+import com.genogram.service.IUploadFileService;
+import com.genogram.unit.DateUtil;
+import com.genogram.unit.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +41,22 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
 
     @Autowired
-    private FanNewsFamilyRecordMapper fanNewsFamilyRecordMapper;
+    private IFanNewsUploadFileService fanNewsUploadFileService;
 
+    @Autowired
+    private IUploadFileService iuploadFileService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    /**
+     * 前后台查询
+     * @param showId
+     * @param status
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @Override
     public Page<FamilyRecordVo> getFamilyRecordPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
@@ -106,5 +129,92 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         mapPage.setTotal(fanNewsFamilyRecord.getTotal());
 
         return mapPage;
+    }
+
+    /**
+     * 记录家族详情
+     * @param id  主键
+     * @return
+     */
+    @Override
+    public NewsDetailVo getFamilyRecord(Integer id) {
+        //根据Id查出记录家族详情
+        FanNewsFamilyRecord fanNewsFamilyRecord = this.selectById(id);
+
+        if(fanNewsFamilyRecord==null){
+            return null;
+        }
+
+        //查询图片
+        Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
+        uploadentity.eq("show_id", fanNewsFamilyRecord.getShowId());
+        uploadentity.eq("news_id",id);
+        //查询所有文章id下的图片附件
+        List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
+
+        //查出名称
+        AllUserLogin createUser = allUserLoginService.selectById(fanNewsFamilyRecord.getCreateUser());
+        AllUserLogin updateUser = allUserLoginService.selectById(fanNewsFamilyRecord.getUpdateUser());
+
+        //返回新VO的集合赋值新对象vo
+        NewsDetailVo newsDetailVo=new NewsDetailVo();
+        //调用方法封装集合
+        BeanUtils.copyProperties(fanNewsFamilyRecord,newsDetailVo);
+        //存储图片list集合
+        newsDetailVo.setFanNewsUploadFileList(files);
+        //存储作者名称时间
+        newsDetailVo.setUpdateTimeLong(fanNewsFamilyRecord.getUpdateTime().getTime());
+        newsDetailVo.setCreateTimeLong(fanNewsFamilyRecord.getCreateTime().getTime());
+        newsDetailVo.setCreateUserName(createUser.getRealName());
+        newsDetailVo.setCreateUserName(updateUser.getRealName());
+        return newsDetailVo;
+    }
+    /**
+     *联谊会记录家族后台新增 修改
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:25
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @Override
+    public boolean addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileNames) {
+        //生成时间
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+        if(fanNewsRecord.getId()==null){
+            //存入创建时间
+            fanNewsRecord.setCreateTime(format);
+            fanNewsRecord.setCreateUser(null);
+            //插入修改时间
+            fanNewsRecord.setUpdateTime(format);
+            fanNewsRecord.setUpdateUser(null);
+        }else{
+            //存入修改时间
+            fanNewsRecord.setUpdateTime(format);
+            fanNewsRecord.setUpdateUser(null);
+        }
+        boolean result = this.insertOrUpdate(fanNewsRecord);
+        //存储图片
+        if(result && StringUtils.isNotEmpty(fileNames)){
+            iuploadFileService.storageFanFile(fileNames,fanNewsRecord.getId(),fanNewsRecord.getShowId());
+        }
+        return result;
+    }
+
+    /**
+     * 记录家族删除
+     * @param id
+     * @param status
+     * @return
+     */
+    @Override
+    public Boolean deleteRecordById(Integer id, int status) {
+        FanNewsFamilyRecord fanNewsFamilyRecord = this.selectById(id);
+        fanNewsFamilyRecord.setStatus(status);
+        fanNewsFamilyRecord.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        //修改人 待写
+        boolean result = this.updateAllColumnById(fanNewsFamilyRecord);
+        return result;
     }
 }
