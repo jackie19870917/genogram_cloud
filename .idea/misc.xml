@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/fan-biz-service/pom.xml" />
         <option value="$PROJECT_DIR$/pro_api_web_service/pom.xml" />
         <option value="$PROJECT_DIR$/pro-biz-service/pom.xml" />
+        <option value="$PROJECT_DIR$/pro_api_admin_service/pom.xml" />
       </list>
     </option>
   </component>

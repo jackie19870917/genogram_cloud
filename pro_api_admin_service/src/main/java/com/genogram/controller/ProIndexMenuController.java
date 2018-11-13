@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @RestController
-@RequestMapping("/genogram/proMenu")
+@RequestMapping("/genogram/admin/proMenu")
 @CrossOrigin(origins = "*")
 public class ProIndexMenuController {
     @Value("${pro_api_web_service.ip}")
@@ -28,10 +28,10 @@ public class ProIndexMenuController {
     @Autowired
     private IProSysWebNewsShowService proSysWebNewsShowService;
 
-    //localhost:8050/genogram/proMenu/getTitlesByMenuId?siteId=1&menuId=2
+    //localhost:8050/genogram/admin/proMenu/getTitlesByMenuId?siteId=1&menuId=2
     @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.GET)
     public Response getTitlesByMenuId(@RequestParam(name = "siteId") int siteId, @RequestParam(name = "menuId") int menuId) {
-        List<SysWebMenuVo> list = proSysWebNewsShowService.getTitlesByMenuId(hostIp,true,siteId, menuId);
+        List<SysWebMenuVo> list = proSysWebNewsShowService.getTitlesByMenuId(hostIp,false,siteId, menuId);
         if (list.isEmpty()) {
             return ResponseUtlis.error(Constants.IS_EMPTY, list);
         }

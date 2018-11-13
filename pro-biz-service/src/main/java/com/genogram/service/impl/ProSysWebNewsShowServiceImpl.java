@@ -31,7 +31,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
     private IProSysWebMenuService proSysWebMenuService;
 
     @Override
-    public List<SysWebMenuVo> getTitlesByMenuId(String hostIp, int siteId, int menuId) {
+    public List<SysWebMenuVo> getTitlesByMenuId(String hostIp,boolean isWeb, int siteId, int menuId) {
         List<SysWebMenuVo> voList = new ArrayList<>();
 
         EntityWrapper<ProSysWebMenu> entityWrapper = new EntityWrapper<>();
@@ -49,7 +49,12 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
             //set showId
             vo.setShowId(proSysWebNewsShow.getId());
             //设置后台API地址
-            vo.setApiUrl(hostIp+menu.getApiAdminUrl()+vo.getShowId());
+            if(isWeb){
+                vo.setApiUrl(hostIp+menu.getApiUrl()+vo.getShowId());
+            }else{
+                vo.setApiUrl(hostIp+menu.getApiAdminUrl()+vo.getShowId());
+            }
+
             voList.add(vo);
         });
 

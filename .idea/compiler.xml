@@ -12,6 +12,7 @@
         <module name="fan_api_admin_service" />
         <module name="fan_api_web_service" />
         <module name="pro-biz-service" />
+        <module name="pro_api_admin_service" />
         <module name="pro_api_web_service" />
       </profile>
     </annotationProcessing>
@@ -23,6 +24,7 @@
       <module name="fan_api_web_service" target="1.8" />
       <module name="genogram_cloud" target="1.5" />
       <module name="pro-biz-service" target="1.8" />
+      <module name="pro_api_admin_service" target="1.8" />
       <module name="pro_api_web_service" target="1.8" />
     </bytecodeTargetLevel>
   </component>

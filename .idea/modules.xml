@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/fan_api_web_service/fan_api_web_service.iml" filepath="$PROJECT_DIR$/fan_api_web_service/fan_api_web_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/genogram_cloud.iml" filepath="$PROJECT_DIR$/genogram_cloud.iml" />
       <module fileurl="file://$PROJECT_DIR$/pro-biz-service/pro-biz-service.iml" filepath="$PROJECT_DIR$/pro-biz-service/pro-biz-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pro_api_admin_service/pro_api_admin_service.iml" filepath="$PROJECT_DIR$/pro_api_admin_service/pro_api_admin_service.iml" />
       <module fileurl="file://$PROJECT_DIR$/pro_api_web_service/pro_api_web_service.iml" filepath="$PROJECT_DIR$/pro_api_web_service/pro_api_web_service.iml" />
     </modules>
   </component>
