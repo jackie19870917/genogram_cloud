@@ -15,10 +15,12 @@ import com.genogram.service.IProNewsCultureNewsService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IProNewsUploadFileService;
 import com.genogram.service.IProSysRecommendService;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
 
     @Autowired
     private IProSysRecommendService proSysRecommendService;
+
     /**
      *省级家族文化查询
      *@Author: yuzhou
@@ -194,5 +197,60 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
             fanSysRecommend.setNewsId(proNewsCultureNews.getId());
             proSysRecommendService.addRecommend(fanSysRecommend);
         }
+    }
+
+    /**
+     *省级家族文化新增 修改
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 17:12
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath) {
+        //生成时间
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+        if(proNewsCultureNews.getId()==null){
+            //查看数 默认为0
+            proNewsCultureNews.setVisitNum(0);
+            //存入创建时间
+            proNewsCultureNews.setCreateTime(format);
+            proNewsCultureNews.setCreateUser(null);
+            //存入修改时间
+            proNewsCultureNews.setUpdateTime(format);
+            proNewsCultureNews.setUpdateUser(null);
+        }else{
+            //存入修改时间
+            proNewsCultureNews.setUpdateTime(format);
+            proNewsCultureNews.setUpdateUser(null);
+        }
+        //插入数据
+        boolean result = this.insertOrUpdate(proNewsCultureNews);
+        //存储图片
+      /*  if(result && StringUtils.isNotEmpty(filePath)){
+            proNewsUploadFileService.storageFanFile(fileName,filePath,proNewsCultureNews.getId(),proNewsCultureNews.getShowId());
+        }*/
+        return result;
+    }
+
+    /**
+     *省级家族文化后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 17:21
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean deleteCulturById(Integer id, int status) {
+        ProNewsCultureNews proNewsCultureNews = this.selectById(id);
+        proNewsCultureNews.setStatus(status);
+        proNewsCultureNews.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        //修改人待写
+        boolean result = this.updateAllColumnById(proNewsCultureNews);
+        return result;
     }
 }

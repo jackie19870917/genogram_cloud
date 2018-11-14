@@ -101,6 +101,15 @@ public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZi
         return this.insertOrUpdate(proNewsCultureZipai);
     }
 
+    /**
+     *省级字派后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 16:51
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public Boolean deleteZipaiById(Integer id, int status) {
         ProNewsCultureZipai proNewsCultureZipai = this.selectById(id);

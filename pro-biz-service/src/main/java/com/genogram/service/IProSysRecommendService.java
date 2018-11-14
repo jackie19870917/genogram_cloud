@@ -22,4 +22,21 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      * @return
      */
     Boolean addRecommend(FanSysRecommend fanSysRecommend);
+
+    /**
+     * 省级后台点击取消
+     * @param entity
+     * @param status
+     * @return
+     */
+    Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status);
+
+    /**
+     * 省级后台设置推荐查询
+     * @param entity
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Page<FanSysRecommend> getRecommendPage(Wrapper<FanSysRecommend> entity, Integer pageNo, Integer pageSize);
 }

@@ -38,4 +38,21 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
      * @param id  主键
      */
     void addVisitNum(Integer id);
+
+    /**
+     * 省级家族文化新增 修改
+     * @param proNewsCultureNews
+     * @param fileName
+     * @param filePath
+     * @return
+     */
+    boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath);
+
+    /**
+     * 省级家族文化后台删除
+     * @param id
+     * @param status
+     * @return
+     */
+    Boolean deleteCulturById(Integer id, int status);
 }

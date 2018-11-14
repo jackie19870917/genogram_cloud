@@ -36,6 +36,8 @@ public class ProNewsCultureController {
     @Autowired
     private IProNewsCultureZipaiService proNewsCultureZipaiService;
 
+    @Autowired
+    private IProNewsCultureNewsService proNewsCultureNewsService;
     /**
      *省级后台字派查询
      *@Author: yuzhou
@@ -81,7 +83,7 @@ public class ProNewsCultureController {
     }
 
     /**
-     *省级字派进入后台页面
+     *省级字派进入后台修改页面
      *@Author: yuzhou
      *@Date: 2018-11-14
      *@Time: 16:15
@@ -180,6 +182,161 @@ public class ProNewsCultureController {
             int status=0;
             Boolean aBoolean = proNewsCultureZipaiService.deleteZipaiById(id, status);
             if(!aBoolean){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级家族文化查询
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 17:02
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
+    public Response<FamilyCultureVo> getFamilyCulturePage(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+    ) {
+        try{
+            //判断showId是否有值
+            if(showId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            List statusList  = new ArrayList();
+            statusList.add(1);
+            statusList.add(2);
+            //查询文章信息的条件
+            Wrapper<ProNewsCultureNews> entity = new EntityWrapper<ProNewsCultureNews>();
+            entity.eq("show_id", Integer.valueOf(showId));
+            if (statusList.size()!=0){
+                entity.in("status", statusList);
+            }
+            entity.orderBy("create_time", false);
+            Page<FamilyCultureVo> familyCultureVoList = proNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
+            if (familyCultureVoList == null) {
+                //没有取到参数,返回空参
+                Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+            }
+            return ResponseUtlis.success(familyCultureVoList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级家族文化详情 进入修改页面
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 17:04
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyCultureDetail(
+            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+    ) {
+        try {
+        if(id==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        }
+            NewsDetailVo newsDetailVo = proNewsCultureNewsService.getFamilyCultureDetail(id);
+            return ResponseUtlis.success(newsDetailVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    /**
+     *省级家族文化后台添加和修改 发表
+     *@Author: yuzhou
+     *@Date: 2018-11-09
+     *@Time: 16:20
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
+    public Response<ProNewsCultureNews> addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName,String filePath) {
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        proNewsCultureNews.setStatus(1);
+        return getFanNewsCultureNewsResponse(proNewsCultureNews, fileName,filePath);
+    }
+
+    /**
+     *省级家族文化后台添加和修改 草稿
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:18
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
+    public Response<ProNewsCultureNews> addOrUpdateCultureDrft(ProNewsCultureNews proNewsCultureNews, String fileName,String filePath) {
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        proNewsCultureNews.setStatus(2);
+        return getFanNewsCultureNewsResponse(proNewsCultureNews, fileName,filePath);
+    }
+
+    /**
+     *省级家族文化后台添加和修改 抽取的方法
+     *@Author: yuzhou
+     *@Date: 2018-11-10
+     *@Time: 12:18
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    private Response<ProNewsCultureNews> getFanNewsCultureNewsResponse(ProNewsCultureNews proNewsCultureNews, String fileName,String filePath) {
+        try{
+            // 插入数据
+            boolean insert = proNewsCultureNewsService.addOrUpdateCulture(proNewsCultureNews,fileName,filePath);
+            if( ! insert){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
+            //插入图片
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级家族文化后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 17:20
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value ="/deleteCulturById",method = RequestMethod.GET)
+    public Response<ProNewsCultureNews> deleteCulturById(
+            @RequestParam(value = "id")Integer id // 家族文化详情显示位置
+    ) {
+        try {
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            int status=0;
+            Boolean aBoolean = proNewsCultureNewsService.deleteCulturById(id, status);
+            if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);

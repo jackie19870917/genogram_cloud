@@ -4,12 +4,11 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
-import com.genogram.service.IFanSysRecommendService;
+import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 
 
 /**
@@ -23,16 +22,16 @@ import org.springframework.web.bind.annotation.*;
 */
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("genogram/admin/fanRecommend")
+@RequestMapping("/genogram/admin/proRecommend")
 public class FanRecommendController {
 
     @Autowired
-    private IFanSysRecommendService fanSysRecommendService;
+    private IProSysRecommendService proSysRecommendService;
 
     /**
-     *联谊会后台点击推荐
+     *省级后台点击推荐
      *@Author: yuzhou
-     *@Date: 2018-11-13
+     *@Date: 2018-11-13p
      *@Time: 9:16
      *@Param:
      *@return:
@@ -50,14 +49,14 @@ public class FanRecommendController {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
             //来源:(1县级,2省级)
-            int newsSource=1;
+            int newsSource=2;
             //要插入的实体类
             FanSysRecommend fanSysRecommend=new FanSysRecommend();
             fanSysRecommend.setNewsId(id);
             fanSysRecommend.setShowId(showId);
             fanSysRecommend.setStatus(status);
             fanSysRecommend.setNewsSource(newsSource);
-            Boolean aBoolean = fanSysRecommendService.addRecommend(fanSysRecommend);
+            Boolean aBoolean = proSysRecommendService.addRecommend(fanSysRecommend);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -69,7 +68,7 @@ public class FanRecommendController {
     }
 
     /**
-     *联谊会后台点击取消
+     *省级后台点击取消
      *@Author: yuzhou
      *@Date: 2018-11-13
      *@Time: 10:04
@@ -91,7 +90,7 @@ public class FanRecommendController {
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("show_id",showId);
             entity.eq("news_id",id);
-            Boolean aBoolean = fanSysRecommendService.deleteRecommend(entity,status);
+            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity,status);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -103,7 +102,7 @@ public class FanRecommendController {
     }
 
     /**
-     *联谊会后台设置个人推荐取消展示
+     *省级后台设置个人推荐取消展示
      *@Author: yuzhou
      *@Date: 2018-11-13
      *@Time: 10:39
@@ -124,7 +123,7 @@ public class FanRecommendController {
     }
 
     /**
-     *联谊会后台设置个人推荐展示
+     *省级后台设置个人推荐展示
      *@Author: yuzhou
      *@Date: 2018-11-13
      *@Time: 18:32
@@ -145,7 +144,7 @@ public class FanRecommendController {
     }
 
     /**
-     *联谊会后台设置个人推荐公共方法
+     *省级后台设置个人推荐公共方法
      *@Author: yuzhou
      *@Date: 2018-11-13
      *@Time: 18:32
@@ -158,7 +157,7 @@ public class FanRecommendController {
 
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("id", id);
-            Boolean aBoolean = fanSysRecommendService.deleteRecommend(entity, status);
+            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -170,7 +169,7 @@ public class FanRecommendController {
     }
 
     /**
-     *联谊会后台设置推荐查询
+     *省级后台设置推荐查询
      *@Author: yuzhou
      *@Date: 2018-11-13
      *@Time: 11:16
@@ -187,13 +186,50 @@ public class FanRecommendController {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
             //来源:(1县级,2省级)
+            int newsSource=2;
+            //查询条件
+            Wrapper<FanSysRecommend> entity = new EntityWrapper();
+            entity.eq("status",status);
+            entity.eq("news_source",newsSource);
+            entity.orderBy("create_time", false);
+            Page<FanSysRecommend> recommendPage = proSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
+            if(recommendPage==null){
+                //没有取到参数,返回空参
+                Page<FanSysRecommend> emptfamilyCultureVo = new Page<FanSysRecommend>();
+                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+            }
+            return ResponseUtlis.success(recommendPage);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级首页推荐查询
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 17:47
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/index/getRecommendPage",method = RequestMethod.GET)
+    public Response<FanSysRecommend> getIndexRecommendPage(
+            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
+    ) {
+        try {
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=2;
+            //来源:(1县级,2省级)
             int newsSource=1;
             //查询条件
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("status",status);
             entity.eq("news_source",newsSource);
             entity.orderBy("create_time", false);
-            Page<FanSysRecommend> recommendPage = fanSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
+            Page<FanSysRecommend> recommendPage = proSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
             if(recommendPage==null){
                 //没有取到参数,返回空参
                 Page<FanSysRecommend> emptfamilyCultureVo = new Page<FanSysRecommend>();
