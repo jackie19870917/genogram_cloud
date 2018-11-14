@@ -66,7 +66,7 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value ="/getFamilyIndustryAmend",method = RequestMethod.GET)
+    @RequestMapping(value ="/getFamilyRecordAmend",method = RequestMethod.GET)
     public Response<FamilyRecordVo> getFamilyRecordAmend(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {

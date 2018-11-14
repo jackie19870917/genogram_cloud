@@ -8,7 +8,9 @@ import java.util.List;
 
 @Data
 public class FamilyPersonVo extends FanNewsFamousPerson {
-    //家族名人
+    /**
+     * 家族名人
+     */
     private List<FanNewsUploadFile> fanNewsUploadFileList;
     /**
      * 用户名

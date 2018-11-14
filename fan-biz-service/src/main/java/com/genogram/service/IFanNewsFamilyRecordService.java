@@ -31,10 +31,11 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
      * @return
      */
     NewsDetailVo getFamilyRecord(Integer id);
+
     /**
      * 联谊会家族产业后台新增
-     * @param
-     * @param fileNames  上传的图片的字符串
+     * @param fanNewsRecord
+     * @param fileNames
      * @return
      */
     boolean addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileNames);

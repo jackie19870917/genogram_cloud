@@ -26,7 +26,7 @@ public class FanNewsFamousController {
         private IFanNewsFamousPersonService iFanNewsFamousPersonService;
 
     /**
-     *联谊会家族产业后台查询
+     *联谊会家族名人后台查询
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:24
@@ -68,7 +68,7 @@ public class FanNewsFamousController {
         }
     }
     /**
-     *联谊会记录家族的详情
+     *联谊会家族名人的详情
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:24
@@ -84,7 +84,7 @@ public class FanNewsFamousController {
     }
 
     /**
-     *联谊会记录家族产业各个产业进入修改
+     *联谊会家族名人进入修改
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:25
@@ -100,7 +100,7 @@ public class FanNewsFamousController {
     }
 
     /**
-     *联谊会记录家族文章进入修改页面抽取方法
+     *联谊会家族名人文章进入修改页面抽取方法
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:24
@@ -119,7 +119,7 @@ public class FanNewsFamousController {
         }
     }
     /**
-     *联谊会家族产业后台添加和修改 发表
+     *联谊会家族名人后台添加和修改 发表
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:24
@@ -135,7 +135,7 @@ public class FanNewsFamousController {
     }
 
     /**
-     *联谊会家族产业后台添加和修改 草稿
+     *联谊会家族名人后台添加和修改 草稿
      *@Author: yuzhou
      *@Date: 2018-11-10
      *@Time: 12:10
@@ -151,7 +151,7 @@ public class FanNewsFamousController {
     }
 
     /**
-     *联谊会家族产业后台添加和修改 抽取的方法
+     *联谊会家族名人后台添加和修改 抽取的方法
      *@Author: yuzhou
      *@Date: 2018-11-10
      *@Time: 12:19
@@ -171,7 +171,7 @@ public class FanNewsFamousController {
         }
     }
     /**
-     *联谊会家族产业后台删除
+     *联谊会家族名人后台删除
      *@Author: yuzhou
      *@Date: 2018-11-10
      *@Time: 12:22
