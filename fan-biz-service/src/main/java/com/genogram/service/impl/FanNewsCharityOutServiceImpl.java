@@ -162,10 +162,11 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         return newsDetailVo;
     }
 
-    /***
+    /**
      *
      * @param fanNewsCharityOut   慈善收支
-     * @param files
+     * @param fileName
+     * @param filePath
      * @return
      */
     @Override
