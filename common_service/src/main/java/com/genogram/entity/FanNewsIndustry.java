@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-14
  */
 @TableName("fan_news_industry")
 public class FanNewsIndustry extends Model<FanNewsIndustry> {
@@ -46,10 +46,6 @@ public class FanNewsIndustry extends Model<FanNewsIndustry> {
      */
     @TableField("industry_location")
     private String industryLocation;
-    /**
-     * 种类(1:家族产业;2:个人产业)
-     */
-    private String type;
     /**
      * 查看数
      */
@@ -126,15 +122,6 @@ public class FanNewsIndustry extends Model<FanNewsIndustry> {
         return this;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public FanNewsIndustry setType(String type) {
-        this.type = type;
-        return this;
-    }
-
     public Integer getVisitNum() {
         return visitNum;
     }
@@ -202,7 +189,6 @@ public class FanNewsIndustry extends Model<FanNewsIndustry> {
         ", newsTitle=" + newsTitle +
         ", newsText=" + newsText +
         ", industryLocation=" + industryLocation +
-        ", type=" + type +
         ", visitNum=" + visitNum +
         ", status=" + status +
         ", createTime=" + createTime +
