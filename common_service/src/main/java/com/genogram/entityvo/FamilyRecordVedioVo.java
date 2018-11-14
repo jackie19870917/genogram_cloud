@@ -17,7 +17,7 @@ public class FamilyRecordVedioVo{
     /**
      * 封面
      */
-    private List<FanNewsUploadFile> fanNewsUploadFileList;
+    private FanNewsUploadFile fanNewsUploadFile;
 
 
     /**

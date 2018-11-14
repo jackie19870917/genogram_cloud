@@ -34,7 +34,7 @@ public interface IFanNewsFamilyRecordVedioService extends IService<FanNewsFamily
      * @param
      * @return
      */
-    boolean addOrUpdateVedioRecord(FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio, String picfileName,String picPath,String vedioFileName,String VedioPath);
+    boolean addOrUpdateVedioRecord(FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio, String picfileName,String picPath,String vedioFileName,String vedioPath);
 
     /**
      * 记录家族视屏删除
