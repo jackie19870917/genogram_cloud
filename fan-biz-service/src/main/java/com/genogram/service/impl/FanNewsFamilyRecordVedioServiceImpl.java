@@ -4,12 +4,10 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamilyRecordVedio;
-import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entity.FanNewsUploadVedio;
 import com.genogram.entityvo.FamilyRecordVedioVo;
-import com.genogram.entityvo.FamilyRecordVo;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.FanNewsFamilyRecordVedioMapper;
-import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.mapper.FanNewsUploadVedioMapper;
 import com.genogram.service.IFanNewsFamilyRecordVedioService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -20,10 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>
  * 记录家族视频上传-视频概要 服务实现类
- * </p>
- *
  * @author wangwei
  * @since 2018-11-05
  */
@@ -32,12 +27,8 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
     @Autowired
     private FanNewsUploadVedioMapper fanNewsUploadVedioMapper;
 
-    @Autowired
-    private FanNewsUploadFileMapper fanNewsUploadFileMapper;
-
-    @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
     @Override
-    public Page<FamilyRecordVedioVo> getFamilyVeidoPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FamilyRecordVedioVo> getFamilyRecordVedioVo(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
         List<FamilyRecordVedioVo> familyRecordVedioVoList=new ArrayList<>();
 
@@ -99,5 +90,20 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         mapPage.setTotal(fanNewsFamilyRecordVedio.getTotal());
 
         return mapPage;
+    }
+
+    @Override
+    public NewsDetailVo getFamilyVedioRecord(Integer id) {
+        return null;
+    }
+
+    @Override
+    public boolean addOrUpdateVedioRecord(FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio, String picfileName, String picPath, String vedioFileName, String VedioPath) {
+        return false;
+    }
+
+    @Override
+    public Boolean deleteVedioRecordById(Integer id, int status) {
+        return null;
     }
 }
