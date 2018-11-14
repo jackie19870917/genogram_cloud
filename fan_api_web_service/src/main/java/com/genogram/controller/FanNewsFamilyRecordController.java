@@ -66,7 +66,7 @@ public class FanNewsFamilyRecordController {
     ) {
         try {
             int status = 1;
-            Page<FamilyRecordVedioVo> familyRecordVedioVo = iFanNewsFamilyRecordVedioService.getFamilyVeidoPage(showId, status, pageNo, pageSize);
+            Page<FamilyRecordVedioVo> familyRecordVedioVo = iFanNewsFamilyRecordVedioService.getFamilyRecordVedioPage(showId, status, pageNo, pageSize);
             if(familyRecordVedioVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyRecordVedioVo> emptfamilyRecordVedioVo = new Page<FamilyRecordVedioVo>();

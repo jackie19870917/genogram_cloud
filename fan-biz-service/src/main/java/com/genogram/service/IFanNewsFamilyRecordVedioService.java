@@ -19,7 +19,7 @@ public interface IFanNewsFamilyRecordVedioService extends IService<FanNewsFamily
      * @param pageSize
      * @return
      */
-    Page<FamilyRecordVedioVo> getFamilyRecordVedioVo(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FamilyRecordVedioVo> getFamilyRecordVedioPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 
     /**
      * 联谊会记录家族视频详情

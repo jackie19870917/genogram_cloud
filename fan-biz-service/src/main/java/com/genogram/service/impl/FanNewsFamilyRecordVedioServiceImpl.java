@@ -28,7 +28,7 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
     private FanNewsUploadVedioMapper fanNewsUploadVedioMapper;
 
     @Override
-    public Page<FamilyRecordVedioVo> getFamilyRecordVedioVo(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FamilyRecordVedioVo> getFamilyRecordVedioPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
         List<FamilyRecordVedioVo> familyRecordVedioVoList=new ArrayList<>();
 
