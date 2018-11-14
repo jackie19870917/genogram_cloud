@@ -13,7 +13,7 @@ import com.genogram.mapper.FanNewsIndustryMapper;
 import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
-import com.genogram.unit.StringUtils;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -192,7 +192,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         }
         boolean result = this.insert(fanNewsIndustry);
         //存储图片
-        if(result && StringUtils.isNotEmpty(filePath)){
+        if(result && StringsUtils.isNotEmpty(filePath)){
             uploadFileService.storageFanFile(fileName,filePath,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
         }
         return result;

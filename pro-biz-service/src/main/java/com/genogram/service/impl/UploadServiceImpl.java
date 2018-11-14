@@ -1,11 +1,10 @@
 package com.genogram.service.impl;
 
-import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entity.ProNewsUploadFile;
 import com.genogram.service.IProNewsUploadFileService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
-import com.genogram.unit.StringUtils;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,7 @@ public class UploadServiceImpl implements IUploadFileService {
 
     @Override
     public boolean storageFanFile(String fileNames,Integer showId, Integer newsId) {
-        if(StringUtils.isEmpty(fileNames)) {
+        if(StringsUtils.isEmpty(fileNames)) {
             return true;
         }
         String[] split = fileNames.split(";");

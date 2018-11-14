@@ -14,7 +14,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
-import com.genogram.unit.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

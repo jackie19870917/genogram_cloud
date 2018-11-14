@@ -6,24 +6,17 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
-import com.genogram.mapper.AllUserLoginMapper;
-import com.genogram.mapper.AllUserRegMapper;
 import com.genogram.mapper.FanNewsCultureNewsMapper;
-import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
-import com.genogram.unit.Response;
-import com.genogram.unit.StringUtils;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -195,7 +188,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //插入数据
         boolean result = this.insertOrUpdate(fanNewsCultureNews);
         //存储图片
-        if(result && StringUtils.isNotEmpty(filePath)){
+        if(result && StringsUtils.isNotEmpty(filePath)){
             uploadFileService.storageFanFile(fileName,filePath,fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId());
         }
         return result;
