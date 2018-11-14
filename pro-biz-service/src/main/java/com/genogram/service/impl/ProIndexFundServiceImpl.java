@@ -5,6 +5,7 @@ import com.genogram.mapper.ProIndexFundMapper;
 import com.genogram.service.IProIndexFundService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -17,4 +18,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProIndexFundServiceImpl extends ServiceImpl<ProIndexFundMapper, ProIndexFund> implements IProIndexFundService {
 
+    @Override
+    public ProIndexFund getProIndexFund(Integer siteId) {
+
+        ProIndexFund proIndexFund = this.selectById(siteId);
+
+        if (StringUtils.isEmpty(proIndexFund)) {
+            return null;
+        } else {
+            return proIndexFund;
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.genogram.entityvo;
 
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsCharityPayIn;
+import com.genogram.entity.ProNewsCharityPayIn;
 import lombok.Data;
 
 /**
@@ -18,4 +19,5 @@ public class DonorVo{
 
     private FanNewsCharityPayIn fanNewsCharityPayIn;
     private AllUserLogin allUserLogin;
+    private ProNewsCharityPayIn proNewsCharityPayIn;
 }

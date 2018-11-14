@@ -1,6 +1,7 @@
 package com.genogram.entityvo;
 
 import com.genogram.entity.FanNewsUploadFile;
+import com.genogram.entity.ProNewsUploadFile;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -74,7 +75,12 @@ public class NewsCharityOutVo {
     private Integer updateUser;
 
     /**
-     * 文章的图片
+     * 文章的图片(联谊会)
      */
     List<FanNewsUploadFile> fanNewsUploadFileList;
+
+    /**
+     * 文章的图片(省级)
+     */
+    List<ProNewsUploadFile> proNewsUploadFileList;
 }

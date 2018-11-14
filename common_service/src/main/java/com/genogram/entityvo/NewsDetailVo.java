@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.genogram.entity.FanNewsUploadFile;
+import com.genogram.entity.ProNewsUploadFile;
 import lombok.Data;
 
 import java.util.Date;
@@ -85,8 +86,12 @@ public class NewsDetailVo {
     private Long createTimeLong;
 
     /**
-     * 附件图片
+     * 附件图片(联谊会)
      */
     private List<FanNewsUploadFile> fanNewsUploadFileList;
 
+    /**
+     * 附件图片(省级)
+     */
+    private List<ProNewsUploadFile> proNewsUploadFileList;
 }
