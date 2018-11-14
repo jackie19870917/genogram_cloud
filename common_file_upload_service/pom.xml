@@ -32,7 +32,7 @@
 			<artifactId>common_service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
+		<!--fast_dfs 自己打的maven包-->
 		<dependency>
 			<groupId>fastdfs_client</groupId>
 			<artifactId>fastdfs_client</artifactId>
