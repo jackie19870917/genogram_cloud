@@ -95,7 +95,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
             List<ProNewsUploadFile> proNewsUploadFiles = new ArrayList<>();
 
             //判断改图片文章id是否一样
-            proNewsUploadFiles.forEach((data) -> {
+            proNewsUploadFileList.forEach((data) -> {
                 if (proNewsCharityOut.getId() .equals(data.getNewsId())) {
                     proNewsUploadFiles.add(data);
 

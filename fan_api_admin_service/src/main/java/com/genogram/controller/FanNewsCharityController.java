@@ -8,6 +8,7 @@ import com.genogram.entity.FanIndexFundDrowing;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.entityvo.NewsCharityOutVo;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanIndexFundDrowingService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCharityPayInService;
@@ -75,6 +76,20 @@ public class FanNewsCharityController {
         Page<NewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         return ResponseUtlis.success(fanNewsCharityOutPage);
+    }
+
+    /**
+     * 慈善收支详情
+     *
+     * @param id     慈善收支详情显示位置
+     * @return
+     */
+    @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFanNewsCharityDetail(@RequestParam(value = "id") Integer id) {
+
+        NewsDetailVo newsCharityOutDetail = fanNewsCharityOutService.getNewsCharityOutDetail(id);
+
+        return ResponseUtlis.success(newsCharityOutDetail);
     }
 
     /**
