@@ -240,9 +240,12 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         if(visitNum >200 || visitNum==200){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
+            //来源:(1县级,2省级)
+            int newsSource=1;
             //要插入的实体类
             FanSysRecommend fanSysRecommend=new FanSysRecommend();
             fanSysRecommend.setStatus(status);
+            fanSysRecommend.setNewsSource(newsSource);
             fanSysRecommend.setShowId(fanNewsCultureNews.getShowId());
             fanSysRecommend.setNewsId(fanNewsCultureNews.getId());
             fanSysRecommendService.addRecommend(fanSysRecommend);

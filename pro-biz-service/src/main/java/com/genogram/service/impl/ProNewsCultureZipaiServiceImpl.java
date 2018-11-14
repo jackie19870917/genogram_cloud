@@ -10,8 +10,11 @@ import com.genogram.mapper.ProNewsCultureZipaiMapper;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 
 /**
  * <p>
@@ -23,9 +26,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZipaiMapper, ProNewsCultureZipai> implements IProNewsCultureZipaiService {
-
-    @Autowired
-    private IFanNewsCultureZipaiService fanNewsCultureZipaiService;
 
     /**
      *省级家族字派查询
@@ -56,5 +56,57 @@ public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZi
         //查出省级字派表
         Page<ProNewsCultureZipai> proNewsCultureZipaiPage = this.selectPage(new Page<ProNewsCultureZipai>(pageNo, pageSize), entity);
         return null;
+    }
+
+    /**
+     *省级字派进入后台页面
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 16:16
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public ProNewsCultureZipai getZiPaiDetail(Integer id) {
+        ProNewsCultureZipai proNewsCultureZipai = this.selectById(id);
+        return proNewsCultureZipai;
+    }
+
+    /**
+     *省级字派后台新增
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 16:36
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public boolean addOrUpdateZiPai(ProNewsCultureZipai proNewsCultureZipai) {
+        //生成时间
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+        if(proNewsCultureZipai.getId()==null){
+            //存入创建时间
+            proNewsCultureZipai.setCreateUser(null);
+            proNewsCultureZipai.setCreateTime(format);
+            //存入修改时间
+            proNewsCultureZipai.setUpdateTime(format);
+            proNewsCultureZipai.setUpdateUser(null);
+        }else{
+            //存入修改时间
+            proNewsCultureZipai.setUpdateTime(format);
+            proNewsCultureZipai.setUpdateUser(null);
+        }
+        return this.insertOrUpdate(proNewsCultureZipai);
+    }
+
+    @Override
+    public Boolean deleteZipaiById(Integer id, int status) {
+        ProNewsCultureZipai proNewsCultureZipai = this.selectById(id);
+        proNewsCultureZipai.setStatus(status);
+        proNewsCultureZipai.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        //修改人  待写
+        return this.updateAllColumnById(proNewsCultureZipai);
     }
 }

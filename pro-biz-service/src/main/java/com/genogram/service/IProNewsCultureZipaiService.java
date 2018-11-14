@@ -36,4 +36,28 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      */
     Page<NewsCultureZipaiVo> getZipaiVaguePage(Wrapper<ProNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
 
+    /**
+     * 省级字派进入后台页面
+     * @param id 主键
+     * @return
+     */
+    ProNewsCultureZipai getZiPaiDetail(Integer id);
+
+    /**
+     * 省级家族字派后台新增修改
+     * @param proNewsCultureZipai
+     * @return
+     */
+    boolean addOrUpdateZiPai(ProNewsCultureZipai proNewsCultureZipai);
+
+    /**
+     *省级家族字派后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 16:42
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    Boolean deleteZipaiById(Integer id, int status);
 }

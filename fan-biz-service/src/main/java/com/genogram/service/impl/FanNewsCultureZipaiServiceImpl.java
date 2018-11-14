@@ -106,7 +106,7 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
     }
 
     /**
-     *联谊会字派后台查询
+     *联谊会字派后台新增
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:24

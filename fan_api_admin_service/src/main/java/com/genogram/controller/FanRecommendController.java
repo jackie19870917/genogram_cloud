@@ -49,11 +49,14 @@ public class FanRecommendController {
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
+            //来源:(1县级,2省级)
+            int newsSource=1;
             //要插入的实体类
             FanSysRecommend fanSysRecommend=new FanSysRecommend();
             fanSysRecommend.setNewsId(id);
             fanSysRecommend.setShowId(showId);
             fanSysRecommend.setStatus(status);
+            fanSysRecommend.setNewsSource(newsSource);
             Boolean aBoolean = fanSysRecommendService.addRecommend(fanSysRecommend);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
@@ -183,9 +186,12 @@ public class FanRecommendController {
         try {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
+            //来源:(1县级,2省级)
+            int newsSource=1;
             //查询条件
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("status",status);
+            entity.eq("news_source",newsSource);
             entity.orderBy("create_time", false);
             Page<FanSysRecommend> recommendPage = fanSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
             if(recommendPage==null){

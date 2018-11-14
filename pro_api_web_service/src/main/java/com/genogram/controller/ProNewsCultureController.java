@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * <p>
- * 联谊会-家族文化前端控制器
+ * 省级-家族文化前端控制器
  * </p>
  *
  * @author wangwei
@@ -40,7 +40,7 @@ public class ProNewsCultureController {
     private IProNewsCultureNewsService proNewsCultureNewsService;
 
     /**
-     * 省级家族字派查询
+     * 省级家族字派详情页查询和首页查询
      * @Author: yuzhou
      * @Date: 2018-11-09
      * @Time: 16:20
