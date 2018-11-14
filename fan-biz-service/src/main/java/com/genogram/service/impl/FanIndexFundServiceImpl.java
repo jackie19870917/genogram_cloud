@@ -4,7 +4,6 @@ import com.genogram.entity.FanIndexFund;
 import com.genogram.mapper.FanIndexFundMapper;
 import com.genogram.service.IFanIndexFundService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

@@ -80,7 +80,8 @@ public class FanNewsCharityController {
     /**
      * 新增/修改    慈善收支
      * @param fanNewsCharityOut
-     * @param files
+     * @param fileName
+     * @param filePath
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)

@@ -4,7 +4,6 @@ import com.genogram.entity.FanSysSite;
 import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.service.IFanSysSiteService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

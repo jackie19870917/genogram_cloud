@@ -33,11 +33,34 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
     @Autowired
     private IAllUserLoginService allUserLoginService;
 
+    @Autowired
+    private ProNewsCharityPayInMapper proNewsCharityPayInMapper;
+
     @Override
     public Page<DonorVo> getDonorVoPage(Page<ProNewsCharityPayIn> mapPage, Map map) {
 
+        List<ProNewsCharityPayIn> proNewsCharityPayInList = proNewsCharityPayInMapper.getDonorVoPage(mapPage, map);
 
-        return null;
+        if (proNewsCharityPayInList.size()==0) {
+            return null;
+        }
+
+        List list = new ArrayList();
+        for (ProNewsCharityPayIn proNewsCharityPayIn : proNewsCharityPayInList) {
+            list.add(proNewsCharityPayIn.getPayUsrId());
+        }
+
+        Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
+        entity.in("id", list);
+
+        List<AllUserLogin> allUserLoginList = allUserLoginService.selectList(entity);
+
+        Page<DonorVo> page = new Page<>(mapPage.getCurrent(), mapPage.getSize());
+        list = getList(proNewsCharityPayInList, allUserLoginList);
+        page.setRecords(list);
+        page.setTotal(mapPage.getTotal());
+
+        return page;
     }
 
     @Override
