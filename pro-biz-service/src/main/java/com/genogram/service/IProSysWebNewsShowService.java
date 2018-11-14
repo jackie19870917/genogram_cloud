@@ -16,5 +16,5 @@ import java.util.List;
  */
 public interface IProSysWebNewsShowService extends IService<ProSysWebNewsShow> {
     public List<SysWebMenuVo> getTitlesByMenuId(String hostIp,boolean isWeb, int siteId, int menuId);
-
+    public void initWebNewsShow(int siteId);
 }

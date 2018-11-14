@@ -60,4 +60,10 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
 
         return voList;
     }
+
+    @Override
+    public void initWebNewsShow(int siteId) {
+
+    }
+
 }
