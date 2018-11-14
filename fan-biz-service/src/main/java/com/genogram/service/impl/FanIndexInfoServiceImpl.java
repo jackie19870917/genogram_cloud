@@ -1,5 +1,7 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entityvo.IndexInfoVo;
@@ -11,6 +13,7 @@ import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -47,14 +50,26 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     }
 
     @Override
-    public Boolean insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
+    public Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo) {
+        Wrapper<FanIndexInfo> wrapper = new EntityWrapper<FanIndexInfo>();
+        wrapper.eq("site_id", indexInfoVo.getSiteId());
 
-        if (fanIndexInfo.getId() == null) {
+        FanIndexInfo fanIndexInfo = this.selectOne(wrapper);
+
+        if (StringUtils.isEmpty(fanIndexInfo)) {
             fanIndexInfo.setCreateTime(DateUtil.format(new Date()));
         }
-            fanIndexInfo.setUpdateTime(DateUtil.format(new Date()));
+        fanIndexInfo.setUpdateTime(DateUtil.format(new Date()));
 
-        return this.insertOrUpdate(fanIndexInfo);
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(indexInfoVo.getSiteId());
+
+        if (StringUtils.isEmpty(fanSysSite)) {
+            fanSysSite.setCreateTime(DateUtil.format(new Date()));
+        }
+        fanSysSite.setUpdateTime(DateUtil.format(new Date()));
+
+        return this.insertOrUpdate(fanIndexInfo) & fanSysSiteService.insertOrUpdate(fanSysSite);
+
     }
 
     @Override
@@ -66,7 +81,7 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
             fanIndexInfo.setTotemPicSrc("");
         } else if ("".equals(fanIndexInfo.getTitle())) {
             fanIndexInfo.setTitle("");
-        } else if ("".equals(fanIndexInfo.getDescription())){
+        } else if ("".equals(fanIndexInfo.getDescription())) {
             fanIndexInfo.setDescription("");
         }
 

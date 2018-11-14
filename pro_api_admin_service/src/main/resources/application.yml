@@ -9,7 +9,7 @@ pro_api_web_service:
   ip: http://192.168.2.179:8090
   fastDfs_ip: http://192.168.2.132:8090
 server:
-  port: 8090
+  port: 8040
 spring:
   profiles:
     active: dev

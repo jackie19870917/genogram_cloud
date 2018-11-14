@@ -78,6 +78,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
         Wrapper<ProNewsUploadFile> fanNewsUploadFileWrapper = new EntityWrapper<ProNewsUploadFile>();
         fanNewsUploadFileWrapper.eq("show_id", proNewsCharityOutList.get(0).getShowId());
         fanNewsUploadFileWrapper.eq("status", 1);
+        fanNewsUploadFileWrapper.eq("pic_index", 1);
         fanNewsUploadFileWrapper.in("news_id", list);
 
         //查询所有文章id下的图片附件
@@ -95,7 +96,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
 
             //判断改图片文章id是否一样
             proNewsUploadFiles.forEach((data) -> {
-                if (proNewsCharityOut.getId() .equals(data.getId())) {
+                if (proNewsCharityOut.getId() .equals(data.getNewsId())) {
                     proNewsUploadFiles.add(data);
 
                 }

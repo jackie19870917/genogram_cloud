@@ -78,6 +78,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         Wrapper<FanNewsUploadFile> fanNewsUploadFileWrapper = new EntityWrapper<FanNewsUploadFile>();
         fanNewsUploadFileWrapper.eq("show_id", fanNewsCharityOutList.get(0).getShowId());
         fanNewsUploadFileWrapper.eq("status", 1);
+        fanNewsUploadFileWrapper.eq("pic_index", 1);
         fanNewsUploadFileWrapper.in("news_id", list);
 
         //查询所有文章id下的图片附件
@@ -95,7 +96,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
             //判断改图片文章id是否一样
             fanNewsUploadFileList.forEach((data) -> {
-                if (fanNewsCharityOuts.getId() .equals(data.getId())) {
+                if (fanNewsCharityOuts.getId().equals(data.getNewsId())) {
                     fanNewsUploadFile.add(data);
 
                 }

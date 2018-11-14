@@ -30,10 +30,10 @@ public interface IFanIndexInfoService extends IService<FanIndexInfo> {
 
     /**
      *        /新增/修改  联谊会图腾,宣言,公告
-     * @param fanIndexInfo   实体类
+     * @param indexInfoVo   实体类
      * @return
      */
-    Boolean insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo);
+    Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo);
 
     /**
      *        删除 联谊会图腾,宣言,公告

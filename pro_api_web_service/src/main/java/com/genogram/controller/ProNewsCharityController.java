@@ -56,7 +56,7 @@ public class ProNewsCharityController {
     @RequestMapping(value = "index/getProIndexFund", method = RequestMethod.GET)
     public Response<ProIndexFund> getProIndexFund(@RequestParam("siteId") Integer siteId) {
 
-        if (siteId==null) {
+        if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
@@ -80,7 +80,7 @@ public class ProNewsCharityController {
                                                  @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                  @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
-        if (showId==null) {
+        if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
@@ -115,7 +115,7 @@ public class ProNewsCharityController {
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
-        if (showId==null) {
+        if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
@@ -139,11 +139,11 @@ public class ProNewsCharityController {
      */
     @RequestMapping(value = "index/getProNewsCharityOutPage", method = RequestMethod.GET)
     public Response<NewsCharityOutVo> getProNewsCharityOutPage(@RequestParam("showId") Integer showId,
-                                                             @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
-                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+                                                               @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
+                                                               @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
-        if (showId==null) {
+        if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
@@ -162,9 +162,9 @@ public class ProNewsCharityController {
     }
 
     /**
-     * 慈善收支详情
+     * 慈善收支(文章)详情
      *
-     * @param id     慈善收支详情显示位置
+     * @param id 慈善收支详情显示位置
      * @return
      */
     @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
@@ -177,6 +177,7 @@ public class ProNewsCharityController {
 
     /**
      * 新增捐款记录
+     *
      * @param proNewsCharityPayIn
      * @return
      */

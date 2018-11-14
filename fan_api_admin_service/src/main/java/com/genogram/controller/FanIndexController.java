@@ -151,13 +151,13 @@ public class FanIndexController {
 
     /**
      *        /新增或修改    联谊会简介,宣言
-     * @param fanIndexInfo   实体类
+     * @param indexInfoVo   实体类
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
-    public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(FanIndexInfo fanIndexInfo) {
+    public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo) {
 
-        Boolean result = fanIndexInfoService.insertOrUpdateFanIndexInfo(fanIndexInfo);
+        Boolean result = fanIndexInfoService.insertOrUpdateIndexInfoVo(indexInfoVo);
 
         if (result) {
             return ResponseUtlis.success(200);
