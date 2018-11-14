@@ -188,7 +188,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         boolean result = this.insert(fanNewsIndustry);
         //存储图片
         if(result){
-            uploadFileService.storageFanFile(fileNames,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
+            uploadFileService.storageFanFile(fileNames,fanNewsIndustry.getShowId(),fanNewsIndustry.getId());
         }
         return result;
     }

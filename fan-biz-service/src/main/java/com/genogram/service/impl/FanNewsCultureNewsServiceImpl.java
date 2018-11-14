@@ -191,7 +191,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         boolean result = this.insertOrUpdate(fanNewsCultureNews);
         //存储图片
         if(result){
-            uploadFileService.storageFanFile(fileNames,fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId());
+            uploadFileService.storageFanFile(fileNames,fanNewsCultureNews.getShowId(),fanNewsCultureNews.getId());
         }
         return result;
     }
