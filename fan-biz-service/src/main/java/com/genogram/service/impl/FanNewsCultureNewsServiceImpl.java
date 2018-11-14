@@ -74,6 +74,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         uploadentity.eq("show_id", list.get(0).getShowId());
         //  1 表示图片为显示状态
         uploadentity.eq("status", 1);
+        //置顶封面
+        uploadentity.eq("pic_index",1);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
@@ -136,6 +138,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", fanNewsCultureNews.getShowId());
+        //置顶封面  是否封面(0.否;1:是封面)
+        uploadentity.eq("pic_index",1);
         uploadentity.eq("news_id",id);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
