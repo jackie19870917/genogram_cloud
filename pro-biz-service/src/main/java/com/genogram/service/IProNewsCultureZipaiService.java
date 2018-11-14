@@ -2,8 +2,10 @@ package com.genogram.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.ProNewsCultureNews;
 import com.genogram.entity.ProNewsCultureZipai;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsCultureZipaiVo;
 
 /**
@@ -33,4 +35,5 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      * @return
      */
     Page<NewsCultureZipaiVo> getZipaiVaguePage(Wrapper<ProNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
+
 }

@@ -5,8 +5,12 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.ProNewsCultureNews;
 import com.genogram.entity.ProNewsCultureZipai;
+import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsCultureZipaiVo;
+import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.service.IProNewsCultureNewsService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -31,6 +35,9 @@ public class ProNewsCultureController {
 
     @Autowired
     private IProNewsCultureZipaiService proNewsCultureZipaiService;
+
+    @Autowired
+    private IProNewsCultureNewsService proNewsCultureNewsService;
 
     /**
      * 省级家族字派查询
@@ -114,5 +121,116 @@ public class ProNewsCultureController {
         }
     }
 
+    /**
+     * 省级家族文化查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/getFamilyCulturePage", method = RequestMethod.GET)
+    public Response<FamilyCultureVo> getFamilyCulturePage(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+    ) {
+        //判断showId是否有值
+        if (showId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
+    }
+
+    /**
+     * 省级首页家族文化查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/index/getFamilyIndexCulturePage", method = RequestMethod.GET)
+    public Response<FamilyCultureVo> getFamilyIndexCulturePage(
+            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+    ) {
+        //判断showId是否有值
+        if (showId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
+    }
+
+    /**
+     * 抽取的家族文化方法查询方法
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    private Response<FamilyCultureVo> getFamilyCultureVoResponse(Integer showId, Integer pageNo, Integer pageSize) {
+        try {
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            List statusList = new ArrayList();
+            statusList.add(1);
+            //查询文章信息的条件
+            Wrapper<ProNewsCultureNews> entity = new EntityWrapper<ProNewsCultureNews>();
+            entity.eq("show_id", showId);
+            entity.in("status", statusList);
+            entity.orderBy("create_time", false);
+            Page<FamilyCultureVo> familyCultureVoList = proNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
+            if (familyCultureVoList == null) {
+                //没有取到参数,返回空参
+                Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
+            }
+            return ResponseUtlis.success(familyCultureVoList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    /**
+     * 省级家族文化详情查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/getFamilyCultureDetail", method = RequestMethod.GET)
+    public Response<NewsDetailVo> getFamilyCultureDetail(
+            @RequestParam(value = "id") Integer id // 家族文化文章ID
+    ) {
+        try {
+            //返回空参
+            NewsDetailVo newsDetail = new NewsDetailVo();
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,newsDetail);
+            }
+            NewsDetailVo newsDetailVo = proNewsCultureNewsService.getFamilyCultureDetail(id);
+            if (newsDetailVo == null) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, newsDetail);
+            }
+            //增加查看数
+            proNewsCultureNewsService.addVisitNum(id);
+            return ResponseUtlis.success(newsDetailVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
 }
 

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.genogram.entity.FanNewsCultureNews;
 import com.genogram.entity.FanNewsUploadFile;
+import com.genogram.entity.ProNewsUploadFile;
 import lombok.Data;
 
 import java.util.Date;
@@ -80,9 +81,13 @@ public class FamilyCultureVo{
 
 
     /**
-     * 家族文化图片
+     * 联谊会家族文化图片
      */
     private List<FanNewsUploadFile> fanNewsUploadFileList;
 
+    /**
+     * 省级家族文化图片
+     */
+    private List<ProNewsUploadFile> proNewsUploadFileList;
 
 }
