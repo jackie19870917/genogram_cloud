@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-14
  */
 @TableName("fan_sys_recommend")
 public class FanSysRecommend extends Model<FanSysRecommend> {
@@ -49,6 +49,11 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
      */
     @TableField("is_auto")
     private Integer isAuto;
+    /**
+     * 来源:(1县级,2省级)
+     */
+    @TableField("news_source")
+    private Integer newsSource;
     /**
      * 状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
      */
@@ -129,6 +134,15 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
         return this;
     }
 
+    public Integer getNewsSource() {
+        return newsSource;
+    }
+
+    public FanSysRecommend setNewsSource(Integer newsSource) {
+        this.newsSource = newsSource;
+        return this;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -188,6 +202,7 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
         ", isProvince=" + isProvince +
         ", isCountry=" + isCountry +
         ", isAuto=" + isAuto +
+        ", newsSource=" + newsSource +
         ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
