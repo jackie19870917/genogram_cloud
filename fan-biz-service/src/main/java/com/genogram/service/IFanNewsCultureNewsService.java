@@ -43,7 +43,7 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      * @param fileNames  上传的图片的字符串
      * @return
      */
-    boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,String fileNames);
+    boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,String fileName,String filePath);
 
     /**
      * 联谊会家族文化后台删除

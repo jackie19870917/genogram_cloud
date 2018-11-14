@@ -13,6 +13,7 @@ import com.genogram.mapper.FanNewsIndustryMapper;
 import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -172,7 +173,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
      *@Description:
     */
     @Override
-    public boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileNames) {
+    public boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileName,String filePath) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if(fanNewsIndustry.getId()==null){
@@ -191,8 +192,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         }
         boolean result = this.insert(fanNewsIndustry);
         //存储图片
-        if(result){
-            uploadFileService.storageFanFile(fileNames,fanNewsIndustry.getShowId(),fanNewsIndustry.getId());
+        if(result && StringUtils.isEmpty(filePath)){
+            uploadFileService.storageFanFile(fileName,filePath,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
         }
         return result;
     }

@@ -30,7 +30,8 @@ public class UploadFastDfsImpl implements IUploadFastDfsService {
             String fastDfsPath = fastDfsIp+ path;
             System.out.println(fastDfsPath);
             map.put("ok", "upload_success");
-            map.put("url", path);
+            map.put("file_path", path);
+            map.put("file_name", oldName);
             return map;
         } catch (Exception e) {
             e.printStackTrace();

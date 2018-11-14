@@ -128,10 +128,10 @@ public class FanNewsFamousController {
      *@Description:
      */
     @RequestMapping(value = "/addOrUpdatePersion", method = RequestMethod.POST)
-    public Response<FanNewsFamousPerson> addOrUpdateIndustry(FanNewsFamousPerson fanNewsFamousPerson, String fileNames) {
+    public Response<FanNewsFamousPerson> addOrUpdateIndustry(FanNewsFamousPerson fanNewsFamousPerson,String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsFamousPerson.setStatus(1);
-        return getFanNewsPersionResponse(fanNewsFamousPerson, fileNames);
+        return getFanNewsPersionResponse(fanNewsFamousPerson, fileName,  filePath);
     }
 
     /**
@@ -144,10 +144,10 @@ public class FanNewsFamousController {
      *@Description:
      */
     @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
-    public Response<FanNewsFamousPerson> addOrUpdateIndustryDrft(FanNewsFamousPerson fanNewsFamousPerson, String fileNames) {
+    public Response<FanNewsFamousPerson> addOrUpdateIndustryDrft(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsFamousPerson.setStatus(2);
-        return getFanNewsPersionResponse(fanNewsFamousPerson, fileNames);
+        return getFanNewsPersionResponse(fanNewsFamousPerson,fileName,filePath);
     }
 
     /**
@@ -159,10 +159,10 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
-    private Response<FanNewsFamousPerson> getFanNewsPersionResponse(FanNewsFamousPerson fanNewsFamousPerson, String fileNames) {
+    private Response<FanNewsFamousPerson> getFanNewsPersionResponse(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
         try {
             // 插入数据
-            boolean b = iFanNewsFamousPersonService.addOrUpdatePersion(fanNewsFamousPerson, fileNames);
+            boolean b = iFanNewsFamousPersonService.addOrUpdatePersion(fanNewsFamousPerson, fileName, filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {

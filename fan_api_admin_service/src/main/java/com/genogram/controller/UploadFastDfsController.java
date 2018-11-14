@@ -1,6 +1,7 @@
 package com.genogram.controller;
 
 import com.genogram.service.IUploadFastDfsService;
+import com.genogram.service.IUploadFileService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import java.util.Map;
 public class UploadFastDfsController {
     @Autowired
     private IUploadFastDfsService uploadFastDfsService;
+    @Autowired
+    private IUploadFileService uploadFileService;
     /**
      * 文件上传
      * @Author: wang,wei
@@ -39,5 +42,11 @@ public class UploadFastDfsController {
     @RequestMapping(value ="/uploadFastdfs",method = RequestMethod.POST)
     public Response<Map> uploadFastdfs(MultipartFile file){
         return ResponseUtlis.success(uploadFastDfsService.uploadFastDfs(file));
+    }
+
+
+    @RequestMapping(value ="/test",method = RequestMethod.POST)
+    public Response<Map> test(MultipartFile file){
+        return ResponseUtlis.success(uploadFileService.storageFanFile("123.pdf","00/01/wKgChFvrgsqAd4ahAAAaYrR3r2E691.jpg",44,10));
     }
 }

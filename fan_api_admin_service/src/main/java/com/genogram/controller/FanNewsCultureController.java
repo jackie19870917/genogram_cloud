@@ -302,10 +302,10 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews, String fileNames) {
+    public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureNews.setStatus(1);
-        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileNames);
+        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileName,filePath);
     }
 
     /**
@@ -318,10 +318,10 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews, String fileNames) {
+    public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureNews.setStatus(2);
-        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileNames);
+        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileName,filePath);
     }
 
     /**
@@ -333,10 +333,10 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
-    private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews, String fileNames) {
+    private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews, String fileName,String filePath) {
         try{
             // 插入数据
-            boolean insert = fanNewsCultureNewsService.addOrUpdateCulture(fanNewsCultureNews,fileNames);
+            boolean insert = fanNewsCultureNewsService.addOrUpdateCulture(fanNewsCultureNews,fileName,filePath);
             if( ! insert){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }

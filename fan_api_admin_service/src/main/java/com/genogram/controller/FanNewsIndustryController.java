@@ -146,10 +146,10 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateIndustry", method = RequestMethod.POST)
-    public Response<FanNewsIndustry> addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileNames) {
+    public Response<FanNewsIndustry> addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(1);
-        return getFanNewsIndustryResponse(fanNewsIndustry, fileNames);
+        return getFanNewsIndustryResponse(fanNewsIndustry, fileName,filePath);
     }
 
     /**
@@ -162,10 +162,10 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
-    public Response<FanNewsIndustry> addOrUpdateIndustryDrft(FanNewsIndustry fanNewsIndustry, String fileNames) {
+    public Response<FanNewsIndustry> addOrUpdateIndustryDrft(FanNewsIndustry fanNewsIndustry, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(2);
-        return getFanNewsIndustryResponse(fanNewsIndustry, fileNames);
+        return getFanNewsIndustryResponse(fanNewsIndustry, fileName,filePath);
     }
 
     /**
@@ -177,10 +177,10 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
-    private Response<FanNewsIndustry> getFanNewsIndustryResponse(FanNewsIndustry fanNewsIndustry, String fileNames) {
+    private Response<FanNewsIndustry> getFanNewsIndustryResponse(FanNewsIndustry fanNewsIndustry, String fileName,String filePath) {
         try {
             // 插入数据
-            fanNewsIndustryService.addOrUpdateIndustry(fanNewsIndustry, fileNames);
+            fanNewsIndustryService.addOrUpdateIndustry(fanNewsIndustry, fileName,filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {

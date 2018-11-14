@@ -43,7 +43,7 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
      * @param fileNames  上传的图片的字符串
      * @return
      */
-    boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileNames);
+    boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileName,String filePath);
 
     /**
      *联谊会家族产业后台删除

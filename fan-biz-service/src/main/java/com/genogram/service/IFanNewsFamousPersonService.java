@@ -50,7 +50,7 @@ public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerso
      * @param fileNames  上传的图片的字符串
      * @return
      */
-    boolean addOrUpdatePersion(FanNewsFamousPerson fanNewsFamousPerson, String fileNames);
+    boolean addOrUpdatePersion(FanNewsFamousPerson fanNewsFamousPerson,String fileName, String filePath);
 
     /**
      *删除

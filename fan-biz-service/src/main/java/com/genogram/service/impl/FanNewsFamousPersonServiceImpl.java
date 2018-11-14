@@ -229,7 +229,7 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
      * @return
      */
     @Override
-    public boolean addOrUpdatePersion(FanNewsFamousPerson fanNewsFamousPerson, String fileNames) {
+    public boolean addOrUpdatePersion(FanNewsFamousPerson fanNewsFamousPerson,String fileName, String filePath) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if(fanNewsFamousPerson.getId()==null){
@@ -246,8 +246,8 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         }
         boolean result = this.insertOrUpdate(fanNewsFamousPerson);
         //存储图片
-        if(result && StringUtils.isNotEmpty(fileNames)){
-            iuploadFileService.storageFanFile(fileNames,fanNewsFamousPerson.getId(),fanNewsFamousPerson.getShowId());
+        if(result && StringUtils.isNotEmpty(filePath)){
+            iuploadFileService.storageFanFile(fileName,filePath,fanNewsFamousPerson.getId(),fanNewsFamousPerson.getShowId());
         }
         return result;
     }

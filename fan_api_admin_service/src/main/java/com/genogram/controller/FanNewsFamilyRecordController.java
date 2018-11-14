@@ -101,10 +101,10 @@ public class FanNewsFamilyRecordController {
      *@Description:
      */
     @RequestMapping(value = "/addOrUpdateRecord", method = RequestMethod.POST)
-    public Response<FanNewsFamilyRecord> addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileNames) {
+    public Response<FanNewsFamilyRecord> addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsRecord.setStatus(1);
-        return getFanNewsRecordResponse(fanNewsRecord, fileNames);
+        return getFanNewsRecordResponse(fanNewsRecord, fileName,filePath);
     }
 
     /**
@@ -117,10 +117,10 @@ public class FanNewsFamilyRecordController {
      *@Description:
      */
     @RequestMapping(value = "/addOrUpdateRecordDrft", method = RequestMethod.POST)
-    public Response<FanNewsFamilyRecord> addOrUpdateRecordDrft(FanNewsFamilyRecord fanNewsRecord, String fileNames) {
+    public Response<FanNewsFamilyRecord> addOrUpdateRecordDrft(FanNewsFamilyRecord fanNewsRecord,String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsRecord.setStatus(2);
-        return getFanNewsRecordResponse(fanNewsRecord, fileNames);
+        return getFanNewsRecordResponse(fanNewsRecord, fileName,filePath);
     }
     /**
      *联谊会记录家族后台添加和修改 抽取的方法
@@ -131,10 +131,10 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
-    private Response<FanNewsFamilyRecord> getFanNewsRecordResponse(FanNewsFamilyRecord fanNewsRecord, String fileNames) {
+    private Response<FanNewsFamilyRecord> getFanNewsRecordResponse(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath) {
         try {
             // 插入数据
-            boolean b = iFanNewsFamilyRecordService.addOrUpdateRecord(fanNewsRecord, fileNames);
+            boolean b = iFanNewsFamilyRecordService.addOrUpdateRecord(fanNewsRecord, fileName,filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {

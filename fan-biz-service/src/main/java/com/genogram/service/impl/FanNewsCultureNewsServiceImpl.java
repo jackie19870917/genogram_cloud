@@ -14,6 +14,7 @@ import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
+import com.genogram.unit.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -173,7 +174,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
      *@Description:
     */
     @Override
-    public boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,String fileNames) {
+    public boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,String fileName,String filePath) {
         /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
@@ -194,8 +195,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //插入数据
         boolean result = this.insertOrUpdate(fanNewsCultureNews);
         //存储图片
-        if(result){
-            uploadFileService.storageFanFile(fileNames,fanNewsCultureNews.getShowId(),fanNewsCultureNews.getId());
+        if(result && StringUtils.isEmpty(filePath)){
+            uploadFileService.storageFanFile(fileName,filePath,fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId());
         }
         return result;
     }

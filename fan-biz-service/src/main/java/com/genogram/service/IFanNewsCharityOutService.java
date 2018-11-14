@@ -51,7 +51,7 @@ public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
      * @param files
      * @return
      */
-    Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut,String files);
+    Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut,String fileName,String filePath);
 
     /**
      * 逻辑删除  慈善收支(文章)

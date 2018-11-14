@@ -169,7 +169,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
      * @return
      */
     @Override
-    public Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut,String files) {
+    public Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut,String fileName,String filePath) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
         fanNewsCharityOut.setCreateUser(1);
@@ -182,8 +182,8 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
         Boolean result = this.insertOrUpdate(fanNewsCharityOut);
 
-        if (result) {
-            result= uploadFileService.storageFanFile(files, fanNewsCharityOut.getId(), fanNewsCharityOut.getShowId());
+        if (result && StringUtils.isEmpty(filePath)) {
+            result= uploadFileService.storageFanFile(fileName, filePath,fanNewsCharityOut.getId(), fanNewsCharityOut.getShowId());
             return true;
         } else {
             return false;

@@ -37,8 +37,6 @@ import java.util.List;
  */
 @Service
 public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRecordMapper, FanNewsFamilyRecord> implements IFanNewsFamilyRecordService {
-    @Autowired
-    private FanNewsUploadFileMapper fanNewsUploadFileMapper;
 
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;
@@ -87,7 +85,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         uploadentity.eq("status", status);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
+        List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
 
         //遍历主表文章集合,赋值新对象vo
         list.forEach(( news)->{
@@ -179,7 +177,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
      *@Description:
      */
     @Override
-    public boolean addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileNames) {
+    public boolean addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if(fanNewsRecord.getId()==null){
@@ -196,8 +194,8 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         }
         boolean result = this.insertOrUpdate(fanNewsRecord);
         //存储图片
-        if(result && StringUtils.isNotEmpty(fileNames)){
-            iuploadFileService.storageFanFile(fileNames,fanNewsRecord.getId(),fanNewsRecord.getShowId());
+        if(result && StringUtils.isNotEmpty(filePath)){
+            iuploadFileService.storageFanFile(fileName,filePath,fanNewsRecord.getId(),fanNewsRecord.getShowId());
         }
         return result;
     }

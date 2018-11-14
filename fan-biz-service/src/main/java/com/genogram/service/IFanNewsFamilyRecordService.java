@@ -38,7 +38,7 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
      * @param fileNames
      * @return
      */
-    boolean addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileNames);
+    boolean addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath);
 
     /**
      * 记录家族删除

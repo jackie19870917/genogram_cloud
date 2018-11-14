@@ -84,11 +84,11 @@ public class FanNewsCharityController {
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)
-    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut, String files) {
+    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut, String fileName,String filePath) {
 
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(1);
-        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
+        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,fileName,filePath);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -104,11 +104,11 @@ public class FanNewsCharityController {
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDeft", method = RequestMethod.POST)
-    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut, String files) {
+    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut, String fileName,String filePath) {
 
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(2);
-        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,files);
+        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,fileName,filePath);
 
         if (result) {
             return ResponseUtlis.success(200);
