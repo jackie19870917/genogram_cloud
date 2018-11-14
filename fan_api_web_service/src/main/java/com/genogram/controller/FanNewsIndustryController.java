@@ -40,7 +40,6 @@ public class FanNewsIndustryController {
      * @Date: 2018-11-06
      * @Time: 23:02
      * @param showId 家族产业显示位置
-     * @param type 种类(1:家族产业;2:个人产业)
      * @param pageNo 当前页
      * @param pageSize 每页记录数
      * @return:
@@ -50,14 +49,13 @@ public class FanNewsIndustryController {
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
             @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "type") Integer type,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
         if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
-        return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize);
+        return getFamilyIndustryVoResponse(showId, pageNo, pageSize);
     }
 
     /**
@@ -66,7 +64,6 @@ public class FanNewsIndustryController {
      * @Date: 2018-11-06
      * @Time: 23:02
      * @param showId 家族产业显示位置
-     * @param type 种类(1:家族产业;2:个人产业)
      * @return:
      * @Description:
      *
@@ -74,14 +71,13 @@ public class FanNewsIndustryController {
     @RequestMapping(value ="/index/getFamilyIndexIndustryList",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyIndexIndustryList(
             @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "type") Integer type,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
         if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
-        return getFamilyIndustryVoResponse(showId, type, pageNo, pageSize);
+        return getFamilyIndustryVoResponse(showId, pageNo, pageSize);
     }
 
     /**
@@ -91,14 +87,13 @@ public class FanNewsIndustryController {
      * @Date: 2018-11-06
      * @Time: 23:08
      * @param showId 家族产业显示位置
-     * @param type 家族产业显示位置
      * @param pageNo 当前页
      * @param pageSize 每页记录数
      * @return:
      * @Description:
      *
      */
-    private Response<FamilyIndustryVo> getFamilyIndustryVoResponse(Integer showId, Integer type,  Integer pageNo, Integer pageSize) {
+    private Response<FamilyIndustryVo> getFamilyIndustryVoResponse(Integer showId,Integer pageNo, Integer pageSize) {
         try {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList  = new ArrayList();
@@ -107,9 +102,6 @@ public class FanNewsIndustryController {
             Wrapper<FanNewsIndustry> entity = new EntityWrapper<FanNewsIndustry>();
             entity.eq("show_id", Integer.valueOf(showId));
             entity.in("status", statusList);
-            if(type==null){
-                entity.eq("type",Integer.valueOf(type));
-            }
             entity.orderBy("create_time", false);
             Page<FamilyIndustryVo> familyCultureVo = fanNewsIndustryService.getFamilyIndustryPage(entity, pageNo, pageSize);
             if (familyCultureVo == null) {

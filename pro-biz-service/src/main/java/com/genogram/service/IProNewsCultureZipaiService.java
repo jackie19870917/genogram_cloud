@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.ProNewsCultureZipai;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.NewsCultureZipaiVo;
 
 /**
  * <p>
@@ -23,4 +24,13 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      * @return
      */
     Page<ProNewsCultureZipai> commonality(Wrapper<ProNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
+
+    /**
+     * 省级家族字派模糊查询
+     * @param entity  查询条件
+     * @param pageNo  当前页
+     * @param pageSize  每页显示条数
+     * @return
+     */
+    Page<NewsCultureZipaiVo> getZipaiVaguePage(Wrapper<ProNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
 }

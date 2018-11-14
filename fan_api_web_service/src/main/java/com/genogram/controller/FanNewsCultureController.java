@@ -143,8 +143,12 @@ public class FanNewsCultureController {
             if(showId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,list);
             }
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            List statusList = new ArrayList();
+            statusList.add(1);
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
             entity.eq("show_id",showId);
+            entity.eq("status",statusList);
             entity.like("zipai_txt",zipaiTxt);
             Page<NewsCultureZipaiVo> fanNewsCultureZipaiPage = fanNewsCultureZipaiService.commonality(entity,pageNo, pageSize);
             if(fanNewsCultureZipaiPage==null){
