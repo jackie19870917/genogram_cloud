@@ -68,9 +68,14 @@ public class UploadServiceImpl implements IUploadFileService {
         entity.eq("show_id", showId);
         List<FanNewsUploadFile> list = fanNewsUploadFileService.selectList(entity);
         list.forEach((fanNewsUploadFile)->{
+            //取消首页置顶
             fanNewsUploadFile.setPicIndex(0);
+            //删除
+            fanNewsUploadFile.setStatus(0);
         });
-        fanNewsUploadFileService.insertOrUpdateBatch(list);
+        if(!list.isEmpty()){
+            fanNewsUploadFileService.insertOrUpdateBatch(list);
+        }
     }
 
     @Override
