@@ -51,13 +51,10 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
     boolean addOrUpdateZiPai(ProNewsCultureZipai proNewsCultureZipai);
 
     /**
-     *省级家族字派后台删除
-     *@Author: yuzhou
-     *@Date: 2018-11-14
-     *@Time: 16:42
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级家族字派后台删除
+     * @param id
+     * @param status
+     * @return
+     */
     Boolean deleteZipaiById(Integer id, int status);
 }

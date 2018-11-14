@@ -40,7 +40,8 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
     /**
      * 家族文化后台添加
      * @param fanNewsCultureNews  家族文化上传实体类
-     * @param fileNames  上传的图片的字符串
+     * @param fileName  上传的图片的字符串
+     * @param filePath  上传的图片的路径
      * @return
      */
     boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,String fileName,String filePath);

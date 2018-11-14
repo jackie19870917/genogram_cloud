@@ -103,8 +103,9 @@ public class PayController {
             params.put(name, valueStr);
         }
 
+        // 调用SDK验证签名
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset,
-                AlipayConfig.sign_type); // 调用SDK验证签名
+                AlipayConfig.sign_type);
 
         if (signVerified) {
 
@@ -206,8 +207,9 @@ public class PayController {
             params.put(name, valueStr);
         }
 
+        // 调用SDK验证签名
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset,
-                AlipayConfig.sign_type); // 调用SDK验证签名
+                AlipayConfig.sign_type);
 
         // ——请在这里编写您的程序（以下代码仅作参考）——
 
