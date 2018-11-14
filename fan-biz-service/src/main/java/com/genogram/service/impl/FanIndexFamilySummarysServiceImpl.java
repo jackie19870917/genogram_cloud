@@ -31,6 +31,7 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
         Wrapper<FanIndexFamilySummarys> entity = new EntityWrapper<FanIndexFamilySummarys>();
         entity.eq("site_id", siteId);
         entity.in("status", list);
+        entity.orderBy("update_time", false);
 
         return this.selectPage(new Page<FanIndexFamilySummarys>(pageNo, pageSize), entity);
 
@@ -61,8 +62,11 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
     }
 
     @Override
-    public Boolean deleteFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+    public Boolean deleteFanIndexFamilySummarys(Integer id) {
 
+        FanIndexFamilySummarys fanIndexFamilySummarys = new FanIndexFamilySummarys();
+
+        fanIndexFamilySummarys.setId(id);
         fanIndexFamilySummarys.setStatus(0);
         fanIndexFamilySummarys.setUpdateTime(DateUtil.getCurrentTimeStamp());
 

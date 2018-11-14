@@ -117,13 +117,13 @@ public class FanIndexController {
 
     /**
      * 逻辑删除  轮播图
-     * @param fanIndexSlidePic
+     * @param id
      * @return
      */
-    @RequestMapping(value = "deleteFanIndexSlidePic", method = RequestMethod.POST)
-    public Response<FanIndexSlidePic> deleteFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
+    @RequestMapping(value = "deleteFanIndexSlidePic", method = RequestMethod.GET)
+    public Response<FanIndexSlidePic> deleteFanIndexSlidePic(Integer id) {
 
-        Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(fanIndexSlidePic);
+        Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(id);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -150,7 +150,7 @@ public class FanIndexController {
     }
 
     /**
-     *        /新增或修改    联谊会简介,宣言
+     *        新增或修改    联谊会简介,宣言
      * @param indexInfoVo   实体类
      * @return
      */
@@ -260,13 +260,13 @@ public class FanIndexController {
     }
     /**
      *   逻辑删除 联谊堂
-     * @param fanIndexFamilySummarys
+     * @param id
      * @return
      */
-    @RequestMapping(value = "deleteFanIndexFamilySummarys", method = RequestMethod.POST)
-    public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+    @RequestMapping(value = "deleteFanIndexFamilySummarys", method = RequestMethod.GET)
+    public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(Integer id) {
 
-        Boolean result = fanIndexFamilySummarysService.deleteFanIndexFamilySummarys(fanIndexFamilySummarys);
+        Boolean result = fanIndexFamilySummarysService.deleteFanIndexFamilySummarys(id);
 
         if (result) {
             return ResponseUtlis.success(200);
