@@ -15,7 +15,7 @@ public class UploadFastDfsImpl implements IUploadFastDfsService {
     private String fastDfsIp;
     @Override
     public Map<String, Object> uploadFastDfs(MultipartFile file) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         //FanNewsUploadFile fanNewsUploadFile = new FanNewsUploadFile();
         try {
             FastdfsClient client = new FastdfsClient();

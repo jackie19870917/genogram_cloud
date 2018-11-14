@@ -94,8 +94,8 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
             for (AllUserLogin allUserLogin : allUserLoginList) {
                 if (allUserLogin.getId().equals(proNewsCharityPayIn.getPayUsrId())) {
                     DonorVo donorVo = new DonorVo();
-                    donorVo.setAllUserLogin(allUserLogin);
                     donorVo.setProNewsCharityPayIn(proNewsCharityPayIn);
+                    donorVo.setAllUserLogin(allUserLogin);
                     list.add(donorVo);
                 }
             }
