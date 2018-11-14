@@ -22,7 +22,22 @@ public interface IUploadFileService {
      * @Description:
      *
      */
-    boolean storageFanFile(String fileNames,String filePath, Integer newsId,Integer showId);
+    boolean storageFanFile(String fileName,String filePath, Integer newsId,Integer showId);
+
+
+    /**
+     * 保存联谊会文件
+     * @Author: wang,wei
+     * @Date: 2018-11-11
+     * @Time: 23:13
+     * @param fileNames 文件列表，已分号分隔，或者单个文件
+     * @param showId
+     * @param newsId
+     * @return:
+     * @Description:
+     *
+     */
+    boolean storageFanVedio(String fileName,String filePath, Integer newsId,Integer showId);
 
     /**
      * 保存联谊会文件

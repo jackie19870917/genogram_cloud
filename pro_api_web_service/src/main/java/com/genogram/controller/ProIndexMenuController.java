@@ -1,5 +1,6 @@
 package com.genogram.controller;
 
+
 import com.genogram.config.Constants;
 import com.genogram.entityvo.SysWebMenuVo;
 import com.genogram.service.IProSysWebNewsShowService;
@@ -42,11 +43,8 @@ public class ProIndexMenuController {
     //初始化数据 临时运用
     @RequestMapping(value = "/initWebNewsShow", method = RequestMethod.GET)
     public Response initWebNewsShow(@RequestParam(name = "siteId") int siteId) {
-//        List<SysWebMenuVo> list = proSysWebNewsShowService.getTitlesByMenuId(hostIp,true,siteId);
-//        if (list.isEmpty()) {
-//            return ResponseUtlis.error(Constants.IS_EMPTY, list);
-//        }
-        return null;
+        boolean result = proSysWebNewsShowService.initWebNewsShow(siteId);
+        return ResponseUtlis.success(result);
     }
 
 }

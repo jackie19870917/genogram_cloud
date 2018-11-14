@@ -1,8 +1,6 @@
 package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.genogram.entity.FanSysWebMenu;
-import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entity.ProSysWebMenu;
 import com.genogram.entity.ProSysWebNewsShow;
 import com.genogram.entityvo.SysWebMenuVo;
@@ -62,8 +60,29 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
     }
 
     @Override
-    public void initWebNewsShow(int siteId) {
-
+    public boolean initWebNewsShow(int siteId) {
+        boolean result = true;
+        EntityWrapper<ProSysWebNewsShow> entityWrapper = new EntityWrapper<>();
+        entityWrapper.eq("fan_sys_site_id",siteId);
+        List list = this.selectList(entityWrapper);
+        List<ProSysWebNewsShow> showList = new ArrayList<>();
+        //则insert
+        if(list==null || list.isEmpty()){
+            EntityWrapper<ProSysWebMenu> entityWrapper2 = new EntityWrapper<>();
+            //默认菜单
+            entityWrapper2.eq("istatic",0);
+            List<ProSysWebMenu> menuList = proSysWebMenuService.selectList(entityWrapper2);
+            menuList.forEach((menu)->{
+                ProSysWebNewsShow show = new ProSysWebNewsShow();
+                show.setFanSysSiteId(siteId);
+                show.setFanSysWebMenuId(menu.getId());
+                showList.add(show);
+            });
+            this.insertBatch(showList);
+        }else{
+            result = false;
+        }
+        return true;
     }
 
 }

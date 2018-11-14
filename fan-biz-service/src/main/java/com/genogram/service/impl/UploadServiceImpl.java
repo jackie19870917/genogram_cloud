@@ -2,10 +2,10 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.FanNewsUploadFile;
-import com.genogram.mapper.FanNewsUploadFileMapper;
+import com.genogram.entity.FanNewsUploadVedio;
 import com.genogram.service.IFanNewsUploadFileService;
+import com.genogram.service.IFanNewsUploadVedioService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.StringUtils;
@@ -29,6 +29,8 @@ import java.util.List;
 public class UploadServiceImpl implements IUploadFileService {
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;
+    @Autowired
+    private IFanNewsUploadVedioService fanNewsUploadVedioService;
 
     @Override
     public boolean storageFanFile(String fileName,String filePath,Integer newsId,Integer showId) {
@@ -50,6 +52,27 @@ public class UploadServiceImpl implements IUploadFileService {
         fanNewsUploadFile.setUpdateTime(format);
 
         return fanNewsUploadFileService.insert(fanNewsUploadFile);
+    }
+
+    @Override
+    public boolean storageFanVedio(String fileName, String filePath, Integer newsId, Integer showId) {
+        if(StringUtils.isEmpty(fileName)) {
+            return true;
+        }
+
+        updateOldVedio(newsId,showId);
+
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+        FanNewsUploadVedio fanNewsUploadVedio = new FanNewsUploadVedio();
+        fanNewsUploadVedio.setNewsId(newsId);
+        fanNewsUploadVedio.setShowId(showId);
+        fanNewsUploadVedio.setFileName(fileName);
+        fanNewsUploadVedio.setFilePath(filePath);
+        fanNewsUploadVedio.setStatus(1);
+        fanNewsUploadVedio.setCreateTime(format);
+        fanNewsUploadVedio.setUpdateTime(format);
+
+        return fanNewsUploadVedioService.insert(fanNewsUploadVedio);
     }
 
 
@@ -75,6 +98,20 @@ public class UploadServiceImpl implements IUploadFileService {
         });
         if(!list.isEmpty()){
             fanNewsUploadFileService.insertOrUpdateBatch(list);
+        }
+    }
+
+    private void updateOldVedio(Integer newsId,Integer showId){
+        Wrapper<FanNewsUploadVedio> entity = new EntityWrapper<>();
+        entity.eq("news_id", newsId);
+        entity.eq("show_id", showId);
+        List<FanNewsUploadVedio> list = fanNewsUploadVedioService.selectList(entity);
+        list.forEach((fanNewsUploadVedio)->{
+            //删除
+            fanNewsUploadVedio.setStatus(0);
+        });
+        if(!list.isEmpty()){
+            fanNewsUploadVedioService.insertOrUpdateBatch(list);
         }
     }
 
