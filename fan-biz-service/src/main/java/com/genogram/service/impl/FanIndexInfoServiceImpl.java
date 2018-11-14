@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -56,17 +57,19 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
 
         FanIndexInfo fanIndexInfo = this.selectOne(wrapper);
 
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+
         if (StringUtils.isEmpty(fanIndexInfo)) {
-            fanIndexInfo.setCreateTime(DateUtil.format(new Date()));
+            fanIndexInfo.setCreateTime(format);
         }
-        fanIndexInfo.setUpdateTime(DateUtil.format(new Date()));
+        fanIndexInfo.setUpdateTime(DateUtil.format(format));
 
         FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(indexInfoVo.getSiteId());
 
         if (StringUtils.isEmpty(fanSysSite)) {
-            fanSysSite.setCreateTime(DateUtil.format(new Date()));
+            fanSysSite.setCreateTime(DateUtil.format(format));
         }
-        fanSysSite.setUpdateTime(DateUtil.format(new Date()));
+        fanSysSite.setUpdateTime(DateUtil.format(format));
 
         return this.insertOrUpdate(fanIndexInfo) & fanSysSiteService.insertOrUpdate(fanSysSite);
 
@@ -75,7 +78,9 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     @Override
     public Boolean deleteFanIndexInfo(FanIndexInfo fanIndexInfo) {
 
-        fanIndexInfo.setUpdateTime(DateUtil.format(new Date()));
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+
+        fanIndexInfo.setUpdateTime(format);
 
         if ("".equals(fanIndexInfo.getTotemPicSrc())) {
             fanIndexInfo.setTotemPicSrc("");

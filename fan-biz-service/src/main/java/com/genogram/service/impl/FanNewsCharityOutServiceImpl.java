@@ -186,7 +186,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         Boolean result = this.insertOrUpdate(fanNewsCharityOut);
 
         if (result && !StringUtils.isEmpty(filePath)) {
-            result= uploadFileService.storageFanFile(fileName, filePath,fanNewsCharityOut.getId(), fanNewsCharityOut.getShowId());
+            uploadFileService.storageFanFile(fileName, filePath,fanNewsCharityOut.getId(), fanNewsCharityOut.getShowId());
             return true;
         } else {
             return false;

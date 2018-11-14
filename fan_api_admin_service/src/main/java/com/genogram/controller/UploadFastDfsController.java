@@ -43,10 +43,4 @@ public class UploadFastDfsController {
     public Response<Map> uploadFastdfs(MultipartFile file){
         return ResponseUtlis.success(uploadFastDfsService.uploadFastDfs(file));
     }
-
-
-    @RequestMapping(value ="/test",method = RequestMethod.POST)
-    public Response<Map> test(MultipartFile file){
-        return ResponseUtlis.success(uploadFileService.storageFanFile("123.pdf","00/01/wKgChFvrgsqAd4ahAAAaYrR3r2E691.jpg",44,10));
-    }
 }

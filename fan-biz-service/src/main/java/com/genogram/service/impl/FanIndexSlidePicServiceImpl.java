@@ -38,7 +38,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
     @Override
     public Boolean insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
 
-        Timestamp format = DateUtil.format(new Date());
+        Timestamp format = DateUtil.getCurrentTimeStamp();
         if (fanIndexSlidePic.getId() == null) {
 
             List list = new ArrayList();

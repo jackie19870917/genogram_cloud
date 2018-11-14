@@ -116,7 +116,8 @@ public class FanNewsCharityController {
     /**
      *  慈善收支草稿
      * @param fanNewsCharityOut
-     * @param files
+     * @param fileName
+     * @param filePath
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDeft", method = RequestMethod.POST)

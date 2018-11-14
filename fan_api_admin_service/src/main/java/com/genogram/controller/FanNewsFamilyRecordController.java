@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/genogram/admin/fanNewsFamilyRecord")
 public class FanNewsFamilyRecordController {
     @Autowired
-    private IFanNewsFamilyRecordService iFanNewsFamilyRecordService;
+    private IFanNewsFamilyRecordService fanNewsFamilyRecordService;
 
     @Autowired
     private IFanNewsFamilyRecordVedioService fanNewsFamilyRecordVedioService;
@@ -27,15 +27,15 @@ public class FanNewsFamilyRecordController {
      * 后台家族动态查询
      */
     @ResponseBody
-    @RequestMapping(value = "selectRecort",method = RequestMethod.GET)
-    public Response<FanNewsFamilyRecord> selectRecort(
+    @RequestMapping(value = "selectRecortPage",method = RequestMethod.GET)
+    public Response<FanNewsFamilyRecord> selectRecortPage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ){
         try {
             int status = 1;
-            Page<FamilyRecordVo> familyRecordVo = iFanNewsFamilyRecordService.getFamilyRecordPage(showId, status, pageNo, pageSize);
+            Page<FamilyRecordVo> familyRecordVo = fanNewsFamilyRecordService.getFamilyRecordPage(showId, status, pageNo, pageSize);
             if(familyRecordVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
@@ -88,7 +88,7 @@ public class FanNewsFamilyRecordController {
      */
     private Response<FamilyRecordVo> getNewsDetailVoResponse( @RequestParam("id") Integer id) {
         try {
-            NewsDetailVo newsDetailVo = iFanNewsFamilyRecordService.getFamilyRecord(id);
+            NewsDetailVo newsDetailVo = fanNewsFamilyRecordService.getFamilyRecord(id);
             return ResponseUtlis.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -139,7 +139,7 @@ public class FanNewsFamilyRecordController {
     private Response<FanNewsFamilyRecord> getFanNewsRecordResponse(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath) {
         try {
             // 插入数据
-            boolean b = iFanNewsFamilyRecordService.addOrUpdateRecord(fanNewsRecord, fileName,filePath);
+            boolean b = fanNewsFamilyRecordService.addOrUpdateRecord(fanNewsRecord, fileName,filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {
@@ -166,7 +166,7 @@ public class FanNewsFamilyRecordController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = iFanNewsFamilyRecordService.deleteRecordById(id, status);
+            Boolean aBoolean = fanNewsFamilyRecordService.deleteRecordById(id, status);
             if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
@@ -210,7 +210,7 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value ="/getFamilyRecordVedio",method = RequestMethod.GET)
+    @RequestMapping(value ="/getFamilyRecordVedioDetail",method = RequestMethod.GET)
     public Response<FamilyRecordVedioVo> getFamilyRecordVedioDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
