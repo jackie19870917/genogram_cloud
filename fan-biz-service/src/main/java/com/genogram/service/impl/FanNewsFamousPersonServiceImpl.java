@@ -225,7 +225,7 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
     /**
      * 联谊会记录家族后台新增 修改
      * @param fanNewsFamousPerson  家族名人上传实体类
-     * @param fileNames  上传的图片的字符串
+     * @param fileName  上传的图片的字符串
      * @return
      */
     @Override
@@ -239,6 +239,8 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
             //插入修改时间
             fanNewsFamousPerson.setUpdateTime(format);
             fanNewsFamousPerson.setUpdateUser(null);
+            //默认查看数
+            fanNewsFamousPerson.setVisitNum(0);
         }else{
             //存入修改时间
             fanNewsFamousPerson.setUpdateTime(format);
