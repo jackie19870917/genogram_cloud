@@ -5,11 +5,14 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.ProIndexFund;
+import com.genogram.entity.ProIndexFundDrowing;
 import com.genogram.entity.ProNewsCharityOut;
 import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.entityvo.DonorVo;
+import com.genogram.entityvo.IndexFundDrowingVo;
 import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.service.IProIndexFundDrowingService;
 import com.genogram.service.IProIndexFundService;
 import com.genogram.service.IProNewsCharityOutService;
 import com.genogram.service.IProNewsCharityPayInService;
@@ -44,6 +47,9 @@ public class ProNewsCharityController {
 
     @Autowired
     private IProIndexFundService proIndexFundService;
+
+    @Autowired
+    private IProIndexFundDrowingService proIndexFundDrowingService;
 
     /**
      * 状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -122,17 +128,17 @@ public class ProNewsCharityController {
 
     /**
      *  慈善收支草稿
-     * @param fanNewsCharityOut
+     * @param proNewsCharityOut
      * @param fileName
      * @param filePath
      * @return
      */
-    @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDeft", method = RequestMethod.POST)
-    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut, String fileName,String filePath) {
+    @RequestMapping(value = "insertOrUpdateProNewsCharityOutDeft", method = RequestMethod.POST)
+    public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOutDeft(ProNewsCharityOut proNewsCharityOut, String fileName,String filePath) {
 
         //状态   (1:已发布;2:草稿)
-        fanNewsCharityOut.setStatus(2);
-        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,fileName,filePath);
+        proNewsCharityOut.setStatus(2);
+        Boolean result = proNewsCharityOutService.insertOrUpdateProNewsCharityOutVo(proNewsCharityOut,fileName,filePath);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -143,13 +149,13 @@ public class ProNewsCharityController {
 
     /**
      * 逻辑删除
-     * @param fanNewsCharityOut
+     * @param id
      * @return
      */
-    @RequestMapping(value = "deleteFanNewsCharityOut", method = RequestMethod.POST)
-    public Response<FanNewsCharityOut> deleteFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut) {
+    @RequestMapping(value = "deleteProNewsCharityOut", method = RequestMethod.GET)
+    public Response<ProNewsCharityOut> deleteProNewsCharityOut(Integer id) {
 
-        Boolean result = fanNewsCharityOutService.deleteFanNewsCharityOut(fanNewsCharityOut);
+        Boolean result = proNewsCharityOutService.deleteProNewsCharityOut(id);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -160,13 +166,13 @@ public class ProNewsCharityController {
 
     /**
      * 新增线上提现
-     * @param fanIndexFundDrowing
+     * @param proIndexFundDrowing
      * @return
      */
-    @RequestMapping(value = "insertFanIndexFundDrowing", method = RequestMethod.POST)
-    public Response<FanIndexFundDrowing> insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing) {
+    @RequestMapping(value = "insertProIndexFundDrowing", method = RequestMethod.POST)
+    public Response<ProIndexFundDrowing> insertProIndexFundDrowing(ProIndexFundDrowing proIndexFundDrowing) {
 
-        Boolean result = fanIndexFundDrowingService.insertFanIndexFundDrowing(fanIndexFundDrowing);
+        Boolean result = proIndexFundDrowingService.insertProIndexFundDrowing(proIndexFundDrowing);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -192,53 +198,20 @@ public class ProNewsCharityController {
         }
 
 
-        Page<IndexFundDrowingVo> indexFundDrowingVoPage = fanIndexFundDrowingService.getIndexFundDrowingVoPage(siteId, pageNo, pageSize);
+        Page<IndexFundDrowingVo> indexFundDrowingVoPage = proIndexFundDrowingService.getIndexFundDrowingVoPage(siteId, pageNo, pageSize);
 
         return ResponseUtlis.success(indexFundDrowingVoPage);
     }
 
     /**
      * 新增线下捐款
-     * @param fanNewsCharityPayIn
-     * @return
-     */
-    @RequestMapping(value = "insertFanNewsCharityPayIn", method = RequestMethod.POST)
-    public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn) {
-
-        fanNewsCharityPayIn.setType(2);
-        Boolean result = fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
-
-        if (result) {
-            return ResponseUtlis.success(200);
-        } else {
-            return ResponseUtlis.success(400);
-        }
-    }
-
-
-    /**
-     * 慈善收支(文章)详情
-     *
-     * @param id 慈善收支详情显示位置
-     * @return
-     */
-    @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFanNewsCharityDetail(@RequestParam(value = "id") Integer id) {
-
-        NewsDetailVo newsCharityOutDetail = proNewsCharityOutService.getNewsCharityOutDetail(id);
-
-        return ResponseUtlis.success(newsCharityOutDetail);
-    }
-
-    /**
-     * 新增捐款记录
-     *
      * @param proNewsCharityPayIn
      * @return
      */
     @RequestMapping(value = "insertProNewsCharityPayIn", method = RequestMethod.POST)
     public Response<ProNewsCharityPayIn> insertProNewsCharityPayIn(ProNewsCharityPayIn proNewsCharityPayIn) {
 
+        proNewsCharityPayIn.setType(2);
         Boolean result = proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
 
         if (result) {

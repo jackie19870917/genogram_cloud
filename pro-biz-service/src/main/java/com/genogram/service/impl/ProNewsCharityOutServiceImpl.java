@@ -194,8 +194,11 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
     }
 
     @Override
-    public Boolean deleteProNewsCharityOut(ProNewsCharityOut proNewsCharityOut) {
+    public Boolean deleteProNewsCharityOut(Integer id) {
 
+        ProNewsCharityOut proNewsCharityOut = new ProNewsCharityOut();
+
+        proNewsCharityOut.setId(id);
         proNewsCharityOut.setStatus(0);
         proNewsCharityOut.setUpdateTime(DateUtil.getCurrentTimeStamp());
 

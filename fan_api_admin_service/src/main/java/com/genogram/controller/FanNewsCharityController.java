@@ -137,13 +137,13 @@ public class FanNewsCharityController {
 
     /**
      * 逻辑删除
-     * @param fanNewsCharityOut
+     * @param id
      * @return
      */
     @RequestMapping(value = "deleteFanNewsCharityOut", method = RequestMethod.POST)
-    public Response<FanNewsCharityOut> deleteFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut) {
+    public Response<FanNewsCharityOut> deleteFanNewsCharityOut(Integer id) {
 
-        Boolean result = fanNewsCharityOutService.deleteFanNewsCharityOut(fanNewsCharityOut);
+        Boolean result = fanNewsCharityOutService.deleteFanNewsCharityOut(id);
 
         if (result) {
             return ResponseUtlis.success(200);
