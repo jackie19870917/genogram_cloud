@@ -217,8 +217,8 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         //存储作者名称时间
         familyPersonVo.setUpdateTimeLong(fanNewsFamousPerson.getUpdateTime().getTime());
         familyPersonVo.setCreateTimeLong(fanNewsFamousPerson.getCreateTime().getTime());
-        familyPersonVo.setCreateUserName(createUser.getRealName());
-        familyPersonVo.setCreateUserName(updateUser.getRealName());
+        familyPersonVo.setCreateUserName(null);
+        familyPersonVo.setCreateUserName(null);
         return familyPersonVo;
     }
 
@@ -239,8 +239,6 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
             //插入修改时间
             fanNewsFamousPerson.setUpdateTime(format);
             fanNewsFamousPerson.setUpdateUser(null);
-            //默认查看数
-            fanNewsFamousPerson.setVisitNum(0);
         }else{
             //存入修改时间
             fanNewsFamousPerson.setUpdateTime(format);
