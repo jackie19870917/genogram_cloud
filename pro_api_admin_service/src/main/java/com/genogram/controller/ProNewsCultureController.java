@@ -63,7 +63,6 @@ public class ProNewsCultureController {
             //状态
             List statusList  = new ArrayList();
             statusList.add(1);
-            statusList.add(2);
             //查询条件
             Wrapper<ProNewsCultureZipai> entity = new EntityWrapper<ProNewsCultureZipai>();
             entity.eq("show_id", Integer.valueOf(showId));

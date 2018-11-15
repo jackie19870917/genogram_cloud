@@ -3,6 +3,8 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.AllRegion;
 
+import java.util.List;
+
 /**
  * <p>
  * 地区表 服务类
@@ -16,6 +18,7 @@ public interface IAllRegionService extends IService<AllRegion> {
     /**
      * 省级下属县级官网查询
      * @param siteId  省级网站Id
+     * @return
      */
-    void getProvincialSubordinate(Integer siteId);
+    List<AllRegion> getProvincialSubordinate(Integer siteId);
 }

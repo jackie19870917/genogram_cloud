@@ -8,6 +8,8 @@ import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/proPublic")
@@ -25,12 +27,20 @@ public class CommonController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value = "/ProvincialSubordinate", method = RequestMethod.GET)
+    @RequestMapping(value = "/provincialSubordinate", method = RequestMethod.GET)
     public Response<AllRegion> getProvincialSubordinate(@RequestParam(value = "siteId")Integer siteId){
-        if(siteId==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        try {
+            if(siteId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            List<AllRegion> provincialSubordinate = allRegionService.getProvincialSubordinate(siteId);
+            if(provincialSubordinate==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
+            return ResponseUtlis.success(provincialSubordinate);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
-        allRegionService.getProvincialSubordinate(siteId);
-     return null;
     }
 }

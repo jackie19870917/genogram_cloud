@@ -1,16 +1,23 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entity.ProNewsCultureZipai;
 import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.mapper.ProNewsCultureZipaiMapper;
+import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -22,6 +29,9 @@ import java.sql.Timestamp;
  */
 @Service
 public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZipaiMapper, ProNewsCultureZipai> implements IProNewsCultureZipaiService {
+
+    @Autowired
+    private IFanNewsCultureZipaiService fanNewsCultureZipaiService;
 
     /**
      *省级家族字派查询
@@ -48,10 +58,47 @@ public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZi
      *@Description:
     */
     @Override
-    public Page<NewsCultureZipaiVo> getZipaiVaguePage(Wrapper<ProNewsCultureZipai> entity, Integer pageNo, Integer pageSize) {
+    public Page<NewsCultureZipaiVo> getZipaiVaguePage(Wrapper<ProNewsCultureZipai> entity, Integer pageNo, Integer pageSize,Integer showId,String zipaiTxt) {
+
+        //返回新VO的集合
+        List<NewsCultureZipaiVo> familyCultureVoList=new ArrayList<>();
+
         //查出省级字派表
         Page<ProNewsCultureZipai> proNewsCultureZipaiPage = this.selectPage(new Page<ProNewsCultureZipai>(pageNo, pageSize), entity);
-        return null;
+
+        List<ProNewsCultureZipai> records = proNewsCultureZipaiPage.getRecords();
+
+
+        records.forEach(( news)->{
+            NewsCultureZipaiVo newsCultureZipaiVo =new NewsCultureZipaiVo();
+            //调用方法封装集合
+            BeanUtils.copyProperties(news,newsCultureZipaiVo);
+            familyCultureVoList.add(newsCultureZipaiVo);
+        });
+
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        List statusList = new ArrayList();
+        statusList.add(1);
+        Wrapper<FanNewsCultureZipai> fanNewsEntity = new EntityWrapper<FanNewsCultureZipai>();
+        entity.eq("show_id",showId);
+        entity.in("status",statusList);
+        entity.like("zipai_txt",zipaiTxt);
+        //查出县级字派表
+        List<FanNewsCultureZipai> list = fanNewsCultureZipaiService.selectList(fanNewsEntity);
+
+        list.forEach(( news)->{
+            NewsCultureZipaiVo newsCultureZipaiVo =new NewsCultureZipaiVo();
+            //调用方法封装集合
+            BeanUtils.copyProperties(news,newsCultureZipaiVo);
+            familyCultureVoList.add(newsCultureZipaiVo);
+        });
+
+        //重新设置page对象
+        Page<NewsCultureZipaiVo> mapPage = new Page<>(pageNo,pageSize);
+        mapPage.setRecords(familyCultureVoList);
+        mapPage.setSize(proNewsCultureZipaiPage.getSize());
+        mapPage.setTotal(proNewsCultureZipaiPage.getTotal());
+        return mapPage;
     }
 
     /**

@@ -34,7 +34,7 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      * @param pageSize  每页显示条数
      * @return
      */
-    Page<NewsCultureZipaiVo> getZipaiVaguePage(Wrapper<ProNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
+    Page<NewsCultureZipaiVo> getZipaiVaguePage(Wrapper<ProNewsCultureZipai> entity, Integer pageNo, Integer pageSize,Integer showId,String zipaiTxt);
 
     /**
      * 省级字派进入后台页面

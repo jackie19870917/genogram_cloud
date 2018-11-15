@@ -46,7 +46,6 @@ public class FanNewsIndustryController {
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
             @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "type") Integer type,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         try {
@@ -63,10 +62,6 @@ public class FanNewsIndustryController {
             entity.eq("show_id", showId);
             if (statusList.size()!=0){
                 entity.in("status", statusList);
-            }
-            //种类(1:家族产业;2:个人产业)
-            if(type==null){
-                entity.eq("type",type);
             }
             entity.orderBy("create_time", false);
             Page<FamilyIndustryVo> familyCultureVo = fanNewsIndustryService.getFamilyIndustryPage(entity, pageNo, pageSize);

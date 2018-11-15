@@ -110,7 +110,7 @@ public class ProNewsCultureController {
             entity.eq("show_id",showId);
             entity.in("status",statusList);
             entity.like("zipai_txt",zipaiTxt);
-            Page<NewsCultureZipaiVo> fanNewsCultureZipaiPage = proNewsCultureZipaiService.getZipaiVaguePage(entity,pageNo, pageSize);
+            Page<NewsCultureZipaiVo> fanNewsCultureZipaiPage = proNewsCultureZipaiService.getZipaiVaguePage(entity,pageNo, pageSize,showId,zipaiTxt);
             if(fanNewsCultureZipaiPage==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,list);
             }
