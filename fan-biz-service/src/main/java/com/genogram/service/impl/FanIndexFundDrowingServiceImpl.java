@@ -27,7 +27,7 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
     public Boolean insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing) {
 
         fanIndexFundDrowing.setCreateTime(DateUtil.getCurrentTimeStamp());
-        fanIndexFundDrowing.setDrowStatus(1);
+       // fanIndexFundDrowing.setDrowStatus(1);
 
         return this.insert(fanIndexFundDrowing);
     }

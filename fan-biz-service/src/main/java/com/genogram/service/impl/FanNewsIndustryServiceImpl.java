@@ -190,7 +190,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             fanNewsIndustry.setUpdateTime(format);
             fanNewsIndustry.setUpdateUser(null);
         }
-        boolean result = this.insert(fanNewsIndustry);
+        boolean result = this.insertOrUpdate(fanNewsIndustry);
         //存储图片
         if(result && StringsUtils.isNotEmpty(filePath)){
             uploadFileService.storageFanFile(fileName,filePath,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
