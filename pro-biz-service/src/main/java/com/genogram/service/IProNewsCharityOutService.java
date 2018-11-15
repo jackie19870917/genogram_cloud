@@ -48,10 +48,11 @@ public interface IProNewsCharityOutService extends IService<ProNewsCharityOut> {
     /**
      *     新增/修改  慈善收支(文章)
      * @param proNewsCharityOut   慈善收支
-     * @param files
+     * @param fileName
+     * @param filePath
      * @return
      */
-    Boolean insertOrUpdateProNewsCharityOutVo(ProNewsCharityOut proNewsCharityOut,String files);
+    Boolean insertOrUpdateProNewsCharityOutVo(ProNewsCharityOut proNewsCharityOut,String fileName,String filePath);
 
     /**
      * 逻辑删除  慈善收支(文章)

@@ -166,11 +166,12 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
     /***
      *
      * @param proNewsCharityOut   慈善收支
-     * @param files
+     * @param fileName
+     * @param filePath
      * @return
      */
     @Override
-    public Boolean insertOrUpdateProNewsCharityOutVo(ProNewsCharityOut proNewsCharityOut,String files) {
+    public Boolean insertOrUpdateProNewsCharityOutVo(ProNewsCharityOut proNewsCharityOut,String fileName,String filePath) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
         proNewsCharityOut.setCreateUser(1);
@@ -184,7 +185,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
         Boolean result = this.insertOrUpdate(proNewsCharityOut);
 
         if (result) {
-            result= uploadFileService.storageFanFile(files, proNewsCharityOut.getId(), proNewsCharityOut.getShowId());
+            result= uploadFileService.storageFanFile(fileName,filePath, proNewsCharityOut.getId(), proNewsCharityOut.getShowId());
             return true;
         } else {
             return false;

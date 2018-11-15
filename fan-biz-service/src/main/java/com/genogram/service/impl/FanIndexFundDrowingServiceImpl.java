@@ -37,7 +37,7 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
     }
 
     @Override
-    public Page<IndexFundDrowingVo> getIndexFundDrowingVoPage(Integer siteId,  Integer pageNo, Integer pageSize) {
+    public Page<IndexFundDrowingVo> getIndexFundDrowingVoPage(Integer siteId, Integer pageNo, Integer pageSize) {
 
         Wrapper<FanIndexFundDrowing> wrapper = new EntityWrapper<FanIndexFundDrowing>();
         wrapper.eq("site_id", siteId);
@@ -50,32 +50,22 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
         List list = new ArrayList();
         for (FanIndexFundDrowing fanIndexFundDrowing : fanIndexFundDrowingList) {
             IndexFundDrowingVo indexFundDrowingVo = new IndexFundDrowingVo();
-            if (fanIndexFundDrowing.getApproveStatus() == 1) {
+
+            /*if (fanIndexFundDrowing.getApproveStatus() == 1) {
                 indexFundDrowingVo.setStatusName(ConstantsStatus.FAN_INDEX_FOUND_DROWING_APPROVE_STATUS_1);
-            } else if(fanIndexFundDrowing.getApproveStatus() == 2) {
+            } else if (fanIndexFundDrowing.getApproveStatus() == 2) {
                 indexFundDrowingVo.setStatusName(ConstantsStatus.FAN_INDEX_FOUND_DROWING_APPROVE_STATUS_2);
-            } else if(fanIndexFundDrowing.getApproveStatus() == 3) {
+            } else if (fanIndexFundDrowing.getApproveStatus() == 3) {
                 indexFundDrowingVo.setStatusName(ConstantsStatus.FAN_INDEX_FOUND_DROWING_APPROVE_STATUS_3);
-            }else if(fanIndexFundDrowing.getApproveStatus() == 4) {
+            } else if (fanIndexFundDrowing.getApproveStatus() == 4) {
                 indexFundDrowingVo.setStatusName(ConstantsStatus.FAN_INDEX_FOUND_DROWING_APPROVE_STATUS_4);
-            }
+            }*/
 
             BeanUtils.copyProperties(fanIndexFundDrowing, indexFundDrowingVo);
 
             list.add(indexFundDrowingVo);
         }
 
-        List lists = new ArrayList();
-        for (int i = 0; i < fanIndexFundDrowingList.size(); i++) {
-            IndexFundDrowingVo indexFundDrowingVo = new IndexFundDrowingVo();
-            if (i==fanIndexFundDrowingList.get(i).getApproveStatus()) {
-
-                BeanUtils.copyProperties(fanIndexFundDrowingList.get(i),indexFundDrowingVo);
-
-                indexFundDrowingVo.setStatusName("ConstantsStatus.FAN_INDEX_FOUND_DROWING_APPROVE_STATUS_"+i);
-                lists.add(indexFundDrowingVo);
-            }
-        }
         Page<IndexFundDrowingVo> mapPage = new Page<>(pageNo, pageSize);
         mapPage.setRecords(list);
         mapPage.setTotal(fanIndexFundDrowingPage.getTotal());

@@ -167,8 +167,8 @@ public class ProNewsCharityController {
      * @param id 慈善收支详情显示位置
      * @return
      */
-    @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFanNewsCharityDetail(@RequestParam(value = "id") Integer id) {
+    @RequestMapping(value = "getNewsDetail", method = RequestMethod.GET)
+    public Response<NewsDetailVo> getNewsDetail(@RequestParam(value = "id") Integer id) {
 
         NewsDetailVo newsCharityOutDetail = proNewsCharityOutService.getNewsCharityOutDetail(id);
 
