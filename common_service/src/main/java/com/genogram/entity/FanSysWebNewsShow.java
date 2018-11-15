@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-15
  */
 @TableName("fan_sys_web_news_show")
 public class FanSysWebNewsShow extends Model<FanSysWebNewsShow> {
@@ -26,6 +26,11 @@ public class FanSysWebNewsShow extends Model<FanSysWebNewsShow> {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+    /**
+     * 文章show_id(site_id 和 menu_id 组合)
+     */
+    @TableField("show_id")
+    private Integer showId;
     /**
      * 联谊网站id
      */
@@ -64,6 +69,15 @@ public class FanSysWebNewsShow extends Model<FanSysWebNewsShow> {
 
     public FanSysWebNewsShow setId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    public Integer getShowId() {
+        return showId;
+    }
+
+    public FanSysWebNewsShow setShowId(Integer showId) {
+        this.showId = showId;
         return this;
     }
 
@@ -130,6 +144,7 @@ public class FanSysWebNewsShow extends Model<FanSysWebNewsShow> {
     public String toString() {
         return "FanSysWebNewsShow{" +
         ", id=" + id +
+        ", showId=" + showId +
         ", fanSysSiteId=" + fanSysSiteId +
         ", fanSysWebMenuId=" + fanSysWebMenuId +
         ", createTime=" + createTime +

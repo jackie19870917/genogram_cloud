@@ -5,8 +5,9 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.ProSysWebNewsShow">
         <id column="id" property="id" />
-        <result column="fan_sys_site_id" property="fanSysSiteId" />
-        <result column="fan_sys_web_menu_id" property="fanSysWebMenuId" />
+        <result column="show_id" property="showId" />
+        <result column="pro_sys_site_id" property="proSysSiteId" />
+        <result column="pro_sys_web_menu_id" property="proSysWebMenuId" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
         <result column="update_time" property="updateTime" />
@@ -15,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, fan_sys_site_id AS fanSysSiteId, fan_sys_web_menu_id AS fanSysWebMenuId, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, show_id AS showId, pro_sys_site_id AS proSysSiteId, pro_sys_web_menu_id AS proSysWebMenuId, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

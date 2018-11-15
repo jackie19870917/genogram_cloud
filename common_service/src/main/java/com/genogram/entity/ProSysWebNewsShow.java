@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-15
  */
 @TableName("pro_sys_web_news_show")
 public class ProSysWebNewsShow extends Model<ProSysWebNewsShow> {
@@ -27,15 +27,20 @@ public class ProSysWebNewsShow extends Model<ProSysWebNewsShow> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
+     * 文章show_id(site_id 和 menu_id 组合)
+     */
+    @TableField("show_id")
+    private Integer showId;
+    /**
      * 联谊网站id
      */
-    @TableField("fan_sys_site_id")
-    private Integer fanSysSiteId;
+    @TableField("pro_sys_site_id")
+    private Integer proSysSiteId;
     /**
      * 菜单id
      */
-    @TableField("fan_sys_web_menu_id")
-    private Integer fanSysWebMenuId;
+    @TableField("pro_sys_web_menu_id")
+    private Integer proSysWebMenuId;
     /**
      * 创建时间
      */
@@ -67,21 +72,30 @@ public class ProSysWebNewsShow extends Model<ProSysWebNewsShow> {
         return this;
     }
 
-    public Integer getFanSysSiteId() {
-        return fanSysSiteId;
+    public Integer getShowId() {
+        return showId;
     }
 
-    public ProSysWebNewsShow setFanSysSiteId(Integer fanSysSiteId) {
-        this.fanSysSiteId = fanSysSiteId;
+    public ProSysWebNewsShow setShowId(Integer showId) {
+        this.showId = showId;
         return this;
     }
 
-    public Integer getFanSysWebMenuId() {
-        return fanSysWebMenuId;
+    public Integer getProSysSiteId() {
+        return proSysSiteId;
     }
 
-    public ProSysWebNewsShow setFanSysWebMenuId(Integer fanSysWebMenuId) {
-        this.fanSysWebMenuId = fanSysWebMenuId;
+    public ProSysWebNewsShow setProSysSiteId(Integer proSysSiteId) {
+        this.proSysSiteId = proSysSiteId;
+        return this;
+    }
+
+    public Integer getProSysWebMenuId() {
+        return proSysWebMenuId;
+    }
+
+    public ProSysWebNewsShow setProSysWebMenuId(Integer proSysWebMenuId) {
+        this.proSysWebMenuId = proSysWebMenuId;
         return this;
     }
 
@@ -130,8 +144,9 @@ public class ProSysWebNewsShow extends Model<ProSysWebNewsShow> {
     public String toString() {
         return "ProSysWebNewsShow{" +
         ", id=" + id +
-        ", fanSysSiteId=" + fanSysSiteId +
-        ", fanSysWebMenuId=" + fanSysWebMenuId +
+        ", showId=" + showId +
+        ", proSysSiteId=" + proSysSiteId +
+        ", proSysWebMenuId=" + proSysWebMenuId +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +

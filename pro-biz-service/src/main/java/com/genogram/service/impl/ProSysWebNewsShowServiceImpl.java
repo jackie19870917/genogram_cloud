@@ -63,7 +63,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
     public boolean initWebNewsShow(int siteId) {
         boolean result = true;
         EntityWrapper<ProSysWebNewsShow> entityWrapper = new EntityWrapper<>();
-        entityWrapper.eq("fan_sys_site_id",siteId);
+        entityWrapper.eq("pro_sys_site_id",siteId);
         List list = this.selectList(entityWrapper);
         List<ProSysWebNewsShow> showList = new ArrayList<>();
         //则insert
@@ -74,8 +74,11 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
             List<ProSysWebMenu> menuList = proSysWebMenuService.selectList(entityWrapper2);
             menuList.forEach((menu)->{
                 ProSysWebNewsShow show = new ProSysWebNewsShow();
-                show.setFanSysSiteId(siteId);
-                show.setFanSysWebMenuId(menu.getId());
+                show.setProSysSiteId(siteId);
+                show.setProSysWebMenuId(menu.getId());
+                String showId = String.valueOf(siteId) + String.valueOf(menu.getId());
+                show.setShowId( Integer.parseInt(showId));
+                //show.set
                 showList.add(show);
             });
             this.insertBatch(showList);
