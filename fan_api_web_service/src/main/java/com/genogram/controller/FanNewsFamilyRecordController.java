@@ -35,8 +35,8 @@ public class FanNewsFamilyRecordController {
      * 家族动态查询
      */
     @ResponseBody
-    @RequestMapping(value = "selectRecort",method = RequestMethod.GET)
-    public Response<FanNewsFamilyRecord> selectRecort(
+    @RequestMapping(value = "selectRecortPage",method = RequestMethod.GET)
+    public Response<FanNewsFamilyRecord> selectRecortPage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
@@ -60,7 +60,7 @@ public class FanNewsFamilyRecordController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "selectVedio",method = RequestMethod.GET)
+    @RequestMapping(value = "selectVedioPage",method = RequestMethod.GET)
     public  Response<FanNewsFamilyRecord> selectVedioPage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,

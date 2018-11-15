@@ -20,16 +20,16 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/genogram/fanNewsFamousAncestor")
+@RequestMapping("/genogram/fanNewsFamous")
 public class FanNewsFamousController {
     @Autowired
     private IFanNewsFamousPersonService iFanNewsFamousPersonService;
     /**
-     * 家族长老查询1
+     * 家族长老查询,组织架构
      */
     @ResponseBody
-    @RequestMapping(value = "selectPerson",method = RequestMethod.GET)
-    public Response<FanNewsFamousPerson> selectPerson(
+    @RequestMapping(value = "selectPersonPage",method = RequestMethod.GET)
+    public Response<FanNewsFamousPerson> selectPersonPage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
@@ -48,29 +48,29 @@ public class FanNewsFamousController {
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
-    /**
-     * 组织架构
-     */
-    @ResponseBody
-    @RequestMapping(value = "selectFramework",method = RequestMethod.GET)
-    public Response<FanNewsFamousPerson> selectFramework(
-            @RequestParam(value = "showId") Integer showId, // 产业显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
-    ) {
-        try {
-            int status = 1;
-            Page<FamilyPersonVo> familyPersonVo = iFanNewsFamousPersonService.getFamilyPersionPage(showId, status, pageNo, pageSize);
-            if (familyPersonVo == null) {
-                //没有取到参数,返回空参
-                Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
-            }
-            return ResponseUtlis.success(familyPersonVo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
-        }
-    }
+//    /**
+//     * 组织架构
+//     */
+//    @ResponseBody
+//    @RequestMapping(value = "selectFramework",method = RequestMethod.GET)
+//    public Response<FanNewsFamousPerson> selectFramework(
+//            @RequestParam(value = "showId") Integer showId, // 产业显示位置
+//            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+//            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+//    ) {
+//        try {
+//            int status = 1;
+//            Page<FamilyPersonVo> familyPersonVo = iFanNewsFamousPersonService.getFamilyPersionPage(showId, status, pageNo, pageSize);
+//            if (familyPersonVo == null) {
+//                //没有取到参数,返回空参
+//                Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
+//                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
+//            }
+//            return ResponseUtlis.success(familyPersonVo);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+//        }
+//    }
 }
 
