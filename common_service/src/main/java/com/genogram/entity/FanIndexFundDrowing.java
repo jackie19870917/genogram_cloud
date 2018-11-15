@@ -71,7 +71,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
      * 审核状态(1:审核中;2:打款中;3:成功4:拒绝)
      */
     @TableField("approve_status")
-    private String approveStatus;
+    private Integer approveStatus;
     /**
      * 创建时间
      */
@@ -175,11 +175,11 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return this;
     }
 
-    public String getApproveStatus() {
+    public Integer getApproveStatus() {
         return approveStatus;
     }
 
-    public FanIndexFundDrowing setApproveStatus(String approveStatus) {
+    public FanIndexFundDrowing setApproveStatus(Integer approveStatus) {
         this.approveStatus = approveStatus;
         return this;
     }
