@@ -106,7 +106,9 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         entity.eq("status", 1);
         entity.eq("pic_index", 1);
         FanNewsUploadFile file = fanNewsUploadFileService.selectOne(entity);
-        vo.setFanNewsUploadFile(file);
+        List list = new ArrayList();
+        list.add(file);
+        vo.setFanNewsUploadFile(list);
     }
 
 
