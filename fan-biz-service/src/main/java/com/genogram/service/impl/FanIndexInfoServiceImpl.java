@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 /**
  * <p>

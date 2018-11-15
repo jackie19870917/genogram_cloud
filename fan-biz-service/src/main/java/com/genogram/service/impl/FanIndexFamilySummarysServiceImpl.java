@@ -11,6 +11,7 @@ import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -40,11 +41,13 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
     @Override
     public Boolean insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
 
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
         if (fanIndexFamilySummarys.getId() != null) {
-            fanIndexFamilySummarys.setCreateTime(new Date());
+            fanIndexFamilySummarys.setCreateTime(timeStamp);
         }
 
-        fanIndexFamilySummarys.setUpdateTime(new Date());
+        fanIndexFamilySummarys.setUpdateTime(timeStamp);
 
         return  this.insertOrUpdate(fanIndexFamilySummarys);
     }
