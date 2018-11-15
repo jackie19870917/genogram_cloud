@@ -192,5 +192,6 @@ public class ProNewsCharityController {
             return ResponseUtlis.success(400);
         }
     }
+
 }
 

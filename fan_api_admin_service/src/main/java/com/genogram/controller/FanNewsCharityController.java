@@ -7,6 +7,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanIndexFundDrowing;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
+import com.genogram.entityvo.IndexFundDrowingVo;
 import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanIndexFundDrowingService;
@@ -176,7 +177,7 @@ public class FanNewsCharityController {
      * @return
      */
     @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.GET)
-    public Response<FanIndexFundDrowing> getFanIndexFundDrowing(@RequestParam("siteId") Integer siteId,
+    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@RequestParam("siteId") Integer siteId,
                                                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -184,14 +185,10 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
-        //审核状态   (1:通过;2:不通过)
-        List list = new ArrayList();
-        list.add(1);
-        list.add(2);
 
-        Page<FanIndexFundDrowing> fanIndexFundDrowingPage = fanIndexFundDrowingService.getFanIndexFundDrowingPage(siteId, list, pageNo, pageSize);
+        Page<IndexFundDrowingVo> indexFundDrowingVoPage = fanIndexFundDrowingService.getIndexFundDrowingVoPage(siteId, pageNo, pageSize);
 
-        return ResponseUtlis.success(fanIndexFundDrowingPage);
+        return ResponseUtlis.success(indexFundDrowingVoPage);
     }
 
     /**
