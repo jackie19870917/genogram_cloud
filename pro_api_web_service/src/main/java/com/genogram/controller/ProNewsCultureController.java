@@ -10,6 +10,7 @@ import com.genogram.entity.ProNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.entityvo.ProNewsCultureZipaiVo;
 import com.genogram.service.IProNewsCultureNewsService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.genogram.unit.Response;
@@ -18,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -104,17 +107,18 @@ public class ProNewsCultureController {
                 return ResponseUtlis.error(Constants.IS_EMPTY,list);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
-            List statusList = new ArrayList();
-            statusList.add(1);
-            Wrapper<ProNewsCultureZipai> entity = new EntityWrapper<ProNewsCultureZipai>();
-            entity.eq("show_id",showId);
-            entity.in("status",statusList);
-            entity.like("zipai_txt",zipaiTxt);
-            Page<NewsCultureZipaiVo> fanNewsCultureZipaiPage = proNewsCultureZipaiService.getZipaiVaguePage(entity,pageNo, pageSize,showId,zipaiTxt);
-            if(fanNewsCultureZipaiPage==null){
+            int status=1;
+            Page<ProNewsCultureZipaiVo> mapPage = new Page<ProNewsCultureZipaiVo>(pageNo,pageSize);
+
+            Map map=new HashMap<>();
+            map.put("showId",showId);
+            map.put("zipaiTxt",zipaiTxt);
+            map.put("status",status);
+            Page<ProNewsCultureZipaiVo> zipaiVaguePage = proNewsCultureZipaiService.getZipaiVaguePage(mapPage,map);
+            if(zipaiVaguePage==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,list);
             }
-            return ResponseUtlis.success(fanNewsCultureZipaiPage);
+            return ResponseUtlis.success(zipaiVaguePage);
         }catch (Exception e){
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);

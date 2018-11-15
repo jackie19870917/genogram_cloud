@@ -17,9 +17,48 @@
         <result column="update_user" property="updateUser" />
     </resultMap>
 
+
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, show_id AS showId, ziapi_location AS ziapiLocation, ancestors_name AS ancestorsName, zipai_txt AS zipaiTxt, visit_num AS visitNum, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
+
+    <select id="selectLike" parameterType="java.util.Map"  resultType="com.genogram.entityvo.ProNewsCultureZipaiVo">
+        select temp1.* from (
+    SELECT '1' as source,
+        <include refid="Base_Column_List" />
+    from pro_news_culture_zipai n
+        where
+        1=1
+        <if test="showId!=null">
+         AND  n.show_id=#{showId}
+        </if>
+        <if test="status!=null">
+            AND n.status=#{status}
+        </if>
+        <if test="zipaiTxt!=null">
+            AND n.zipai_txt LIKE CONCAT('%',#{zipaiTxt},'%')
+        </if>
+    union all
+    SELECT '2' as source,
+        <include refid="Base_Column_List" />
+        from fan_news_culture_zipai z
+        where
+        1=1
+        <if test="showId!=null">
+            AND  z.show_id=#{showId}
+        </if>
+        <if test="status!=null">
+            AND z.status=#{status}
+        </if>
+        <if test="zipaiTxt!=null">
+            AND z.zipai_txt LIKE CONCAT('%',#{zipaiTxt},'%')
+        </if>
+        ) temp1
+        order by temp1.updateTime desc
+    </select>
+
+
 
 </mapper>

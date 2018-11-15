@@ -7,6 +7,9 @@ import com.genogram.entity.ProNewsCultureZipai;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsCultureZipaiVo;
+import com.genogram.entityvo.ProNewsCultureZipaiVo;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -29,12 +32,11 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
 
     /**
      * 省级家族字派模糊查询
-     * @param entity  查询条件
-     * @param pageNo  当前页
-     * @param pageSize  每页显示条数
+     * @param mapPage  分页条件
+     * @param map  查询条件
      * @return
      */
-    Page<NewsCultureZipaiVo> getZipaiVaguePage(Wrapper<ProNewsCultureZipai> entity, Integer pageNo, Integer pageSize,Integer showId,String zipaiTxt);
+    Page<ProNewsCultureZipaiVo> getZipaiVaguePage(Page mapPage, Map map);
 
     /**
      * 省级字派进入后台页面
