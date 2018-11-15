@@ -35,7 +35,7 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
     /**
      * 联谊会家族产业后台新增
      * @param fanNewsRecord
-     * @param fileNames
+     * @param
      * @return
      */
     boolean addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath);

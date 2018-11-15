@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("genogram/admin/userLogin")
+@RequestMapping("genogram/userLogin")
 public class FanUserLoginController {
 
     @Autowired

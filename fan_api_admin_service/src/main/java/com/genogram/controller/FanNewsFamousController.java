@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/genogram/admin/fanNewsFamous")
 public class FanNewsFamousController {
         @Autowired
-        private IFanNewsFamousPersonService iFanNewsFamousPersonService;
+        private IFanNewsFamousPersonService fanNewsFamousPersonService;
 
     /**
      *联谊会家族名人后台查询
@@ -55,7 +55,7 @@ public class FanNewsFamousController {
                 entity.in("status", statusList);
             }
             entity.orderBy("create_time", false);
-            Page<FamilyPersonVo> familyPersonVoPage = iFanNewsFamousPersonService.getFamilyPersionPages(entity, pageNo, pageSize);
+            Page<FamilyPersonVo> familyPersonVoPage = fanNewsFamousPersonService.getFamilyPersionPages(entity, pageNo, pageSize);
             if (familyPersonVoPage == null) {
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
@@ -110,7 +110,7 @@ public class FanNewsFamousController {
      */
     private Response<FamilyPersonVo> getNewsDetailVoResponse( @RequestParam("id") Integer id) {
         try {
-            FamilyPersonVo familyPersonVo = iFanNewsFamousPersonService.getFamilyPersionDetail(id);
+            FamilyPersonVo familyPersonVo = fanNewsFamousPersonService.getFamilyPersionDetail(id);
             return ResponseUtlis.success(familyPersonVo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -162,7 +162,7 @@ public class FanNewsFamousController {
     private Response<FanNewsFamousPerson> getFanNewsPersionResponse(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
         try {
             // 插入数据
-            boolean b = iFanNewsFamousPersonService.addOrUpdatePersion(fanNewsFamousPerson, fileName, filePath);
+            boolean b = fanNewsFamousPersonService.addOrUpdatePersion(fanNewsFamousPerson, fileName, filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {
@@ -189,7 +189,7 @@ public class FanNewsFamousController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = iFanNewsFamousPersonService.deletePersionById(id, status);
+            Boolean aBoolean = fanNewsFamousPersonService.deletePersionById(id, status);
             if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }

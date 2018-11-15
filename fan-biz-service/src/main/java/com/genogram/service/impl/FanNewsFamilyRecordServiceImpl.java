@@ -11,14 +11,13 @@ import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.FanNewsFamilyRecordMapper;
-import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanNewsFamilyRecordService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
-import com.genogram.unit.StringUtils;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -194,7 +193,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         }
         boolean result = this.insertOrUpdate(fanNewsRecord);
         //存储图片
-        if(result && StringUtils.isNotEmpty(filePath)){
+        if(result && StringsUtils.isNotEmpty(filePath)){
             iuploadFileService.storageFanFile(fileName,filePath,fanNewsRecord.getId(),fanNewsRecord.getShowId());
         }
         return result;

@@ -8,7 +8,7 @@ import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.service.IFanNewsUploadVedioService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
-import com.genogram.unit.StringUtils;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,7 @@ public class UploadServiceImpl implements IUploadFileService {
 
     @Override
     public boolean storageFanFile(String fileName,String filePath,Integer newsId,Integer showId) {
-        if(StringUtils.isEmpty(fileName)) {
+        if(StringsUtils.isEmpty(fileName)) {
             return true;
         }
 
@@ -56,7 +56,7 @@ public class UploadServiceImpl implements IUploadFileService {
 
     @Override
     public boolean storageFanVedio(String fileName, String filePath, Integer newsId, Integer showId) {
-        if(StringUtils.isEmpty(fileName)) {
+        if(StringsUtils.isEmpty(fileName)) {
             return true;
         }
 
@@ -117,7 +117,7 @@ public class UploadServiceImpl implements IUploadFileService {
 
     @Override
     public boolean storageFanFiles(String fileNames, Integer showId, Integer newsId) {
-        if(StringUtils.isEmpty(fileNames)) {
+        if(StringsUtils.isEmpty(fileNames)) {
             return true;
         }
         String[] split = fileNames.split(";");

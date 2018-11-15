@@ -9,18 +9,16 @@ import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.genogram.service.IFanIndexInfoService;
 import com.genogram.service.IFanIndexSlidePicService;
-import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- *    联谊会后台
+ *联谊会后台
  *@Author: Toxicant
  *@Date: 2018-11-09
  *@Time: 14:23
@@ -37,46 +35,13 @@ public class FanIndexController {
     private IFanIndexInfoService fanIndexInfoService;
 
     @Autowired
-    private IFanNewsUploadFileService fanNewsUploadFileService;
-
-    @Autowired
     private IFanIndexFamilySummarysService fanIndexFamilySummarysService;
 
     @Autowired
     private IFanIndexSlidePicService fanIndexSlidePicService;
 
-    @RequestMapping(value = "uploadPic", method = RequestMethod.POST)
-    public String uploadPic(@RequestParam("file") MultipartFile file) {
-
-        try {
-
-           // ClientGlobal.init(new ClassPathResource("fastDFS.properties").getFile().getAbsolutePath());
-//
-//            FastdfsClient fastdfsClient = new FastdfsClient(SITE_FAST_DFS);
-//
-//            //获取到要上传文件对象的原始文件名(Original：原始的)
-//            String oldName = file.getOriginalFilename();
-//
-//            //获取原始文件名中的扩展名(a.b.jpg)
-//            String extName = oldName.substring(oldName.lastIndexOf(".") + 1);
-//
-//            //上传到fastDFS文件服务器
-//            String path = fastdfsClient.uploadFile(file.getBytes(), extName);
-//
-//            //获取fastDFS文件服务器路径
-//            path = IP_FAST_DFS + path.substring(path.lastIndexOf("/"));
-//
-//            System.out.println(path);
-            return null;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     /**
-     *      轮播图
+     * 轮播图
      * @param siteId  网站ID
      * @return
      */
@@ -117,13 +82,13 @@ public class FanIndexController {
 
     /**
      * 逻辑删除  轮播图
-     * @param fanIndexSlidePic
+     * @param id
      * @return
      */
-    @RequestMapping(value = "deleteFanIndexSlidePic", method = RequestMethod.POST)
-    public Response<FanIndexSlidePic> deleteFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
+    @RequestMapping(value = "deleteFanIndexSlidePic", method = RequestMethod.GET)
+    public Response<FanIndexSlidePic> deleteFanIndexSlidePic(Integer id) {
 
-        Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(fanIndexSlidePic);
+        Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(id);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -133,7 +98,7 @@ public class FanIndexController {
     }
 
     /**
-     *        联谊会简介,宣言
+     * 联谊会简介,宣言
      * @param siteId   网站ID
      * @return
      */
@@ -150,7 +115,7 @@ public class FanIndexController {
     }
 
     /**
-     *        /新增或修改    联谊会简介,宣言
+     * 新增或修改    联谊会简介,宣言
      * @param indexInfoVo   实体类
      * @return
      */
@@ -167,7 +132,7 @@ public class FanIndexController {
     }
 
     /**
-     *  删除   联谊会简介,宣言
+     * 删除   联谊会简介,宣言
      * @param fanIndexInfo
      * @return
      */
@@ -184,7 +149,7 @@ public class FanIndexController {
     }
 
     /**
-     *           联谊堂
+     * 联谊堂
      * @param siteId    网站ID
      * @param pageNo    当前页
      * @param pageSize  每页记录数
@@ -209,7 +174,7 @@ public class FanIndexController {
     }
 
     /**
-     *      联谊堂详情
+     * 联谊堂详情
      * @param id  主键
      * @return
      */
@@ -222,7 +187,7 @@ public class FanIndexController {
     }
 
     /**
-     *       新增或修改    联谊堂
+     * 增或修改    联谊堂
      * @param fanIndexFamilySummarys
      * @return
      */
@@ -259,14 +224,14 @@ public class FanIndexController {
         }
     }
     /**
-     *   逻辑删除 联谊堂
-     * @param fanIndexFamilySummarys
+     * 逻辑删除 联谊堂
+     * @param id
      * @return
      */
-    @RequestMapping(value = "deleteFanIndexFamilySummarys", method = RequestMethod.POST)
-    public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+    @RequestMapping(value = "deleteFanIndexFamilySummarys", method = RequestMethod.GET)
+    public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(Integer id) {
 
-        Boolean result = fanIndexFamilySummarysService.deleteFanIndexFamilySummarys(fanIndexFamilySummarys);
+        Boolean result = fanIndexFamilySummarysService.deleteFanIndexFamilySummarys(id);
 
         if (result) {
             return ResponseUtlis.success(200);

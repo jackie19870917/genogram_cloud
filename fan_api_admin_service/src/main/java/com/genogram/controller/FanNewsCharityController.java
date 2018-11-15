@@ -116,7 +116,8 @@ public class FanNewsCharityController {
     /**
      *  慈善收支草稿
      * @param fanNewsCharityOut
-     * @param files
+     * @param fileName
+     * @param filePath
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDeft", method = RequestMethod.POST)
@@ -167,6 +168,37 @@ public class FanNewsCharityController {
         }
     }
 
+    /**
+     * 线上提现记录
+     * @param siteId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.GET)
+    public Response<FanIndexFundDrowing> getFanIndexFundDrowing(@RequestParam("siteId") Integer siteId,
+                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (siteId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        //审核状态   (1:通过;2:不通过)
+        List list = new ArrayList();
+        list.add(1);
+        list.add(2);
+
+        Page<FanIndexFundDrowing> fanIndexFundDrowingPage = fanIndexFundDrowingService.getFanIndexFundDrowingPage(siteId, list, pageNo, pageSize);
+
+        return ResponseUtlis.success(fanIndexFundDrowingPage);
+    }
+
+    /**
+     * 新增线下捐款
+     * @param fanNewsCharityPayIn
+     * @return
+     */
     @RequestMapping(value = "insertFanNewsCharityPayIn", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn) {
 

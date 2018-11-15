@@ -25,10 +25,17 @@
     </properties>
 
     <dependencies>
-        <!--com.genogram 依赖-->
+        <!--fan-biz-service 依赖-->
         <dependency>
             <groupId>com.genogram</groupId>
             <artifactId>fan-biz-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <!--common_payment 依赖-->
+        <dependency>
+            <groupId>com.genogram</groupId>
+            <artifactId>common_payment</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 

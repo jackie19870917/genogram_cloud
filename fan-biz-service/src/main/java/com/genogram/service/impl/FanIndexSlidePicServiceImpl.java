@@ -10,6 +10,7 @@ import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
     public List<FanIndexSlidePic> getFanIndexSlidePicListBySiteId(Integer siteId, List status) {
 
         Wrapper<FanIndexSlidePic> wrapper = new EntityWrapper<FanIndexSlidePic>();
-        wrapper.eq("site_id",siteId);
+        wrapper.eq("site_id", siteId);
         wrapper.in("status", status);
 
         return this.selectList(wrapper);
@@ -37,9 +38,21 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
     @Override
     public Boolean insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
 
-        Timestamp format = DateUtil.format(new Date());
+        Timestamp format = DateUtil.getCurrentTimeStamp();
         if (fanIndexSlidePic.getId() == null) {
+
+            List list = new ArrayList();
+
+            //状态   1-前后台显示    2-前台不显示      3-前后台都不显示
+            list.add(1);
+            list.add(2);
+
+            List<FanIndexSlidePic> fanIndexSlidePicList = this.getFanIndexSlidePicListBySiteId(fanIndexSlidePic.getSiteId(), list);
+
+            fanIndexSlidePic.setSort(fanIndexSlidePicList.size() + 1);
+            fanIndexSlidePic.setStatus(1);
             fanIndexSlidePic.setCreateTime(format);
+            fanIndexSlidePic.setCreateUser(1);
         }
         fanIndexSlidePic.setUpdateTime(format);
 
@@ -47,8 +60,28 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
     }
 
     @Override
-    public Boolean deleteFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
+    public Boolean deleteFanIndexSlidePic(Integer id) {
 
+        FanIndexSlidePic indexSlidePic = this.selectById(id);
+
+        List list = new ArrayList();
+
+        //状态   1-前后台显示    2-前台不显示      3-前后台都不显示
+        list.add(1);
+        list.add(2);
+
+        List<FanIndexSlidePic> fanIndexSlidePicList = this.getFanIndexSlidePicListBySiteId(indexSlidePic.getSiteId(), list);
+
+        for (FanIndexSlidePic slidePic : fanIndexSlidePicList) {
+            if (indexSlidePic.getSort()<slidePic.getSort()) {
+                slidePic.setSort(slidePic.getSort() - 1);
+                this.updateById(slidePic);
+            }
+        }
+
+        FanIndexSlidePic fanIndexSlidePic = new FanIndexSlidePic();
+
+        fanIndexSlidePic.setId(id);
         fanIndexSlidePic.setStatus(0);
         fanIndexSlidePic.setUpdateTime(DateUtil.format(new Date()));
 

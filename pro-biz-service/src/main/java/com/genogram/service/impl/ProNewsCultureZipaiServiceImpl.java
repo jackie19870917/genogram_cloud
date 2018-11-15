@@ -1,17 +1,13 @@
 package com.genogram.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entity.ProNewsCultureZipai;
 import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.mapper.ProNewsCultureZipaiMapper;
-import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;

@@ -1,9 +1,8 @@
-package com.genogram.unit;
-
-import java.io.InputStream;
-import java.util.ResourceBundle;
+package com.genogram.config;
 
 import com.github.wxpay.sdk.WXPayConfig;
+
+import java.io.InputStream;
 
 /**
  * 微信支付配置对象

@@ -229,7 +229,7 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
         //插入数据
         boolean result = this.insertOrUpdate(proNewsCultureNews);
         //存储图片
-      /*  if(result && StringUtils.isNotEmpty(filePath)){
+      /*  if(result && StringsUtils.isNotEmpty(filePath)){
             proNewsUploadFileService.storageFanFile(fileName,filePath,proNewsCultureNews.getId(),proNewsCultureNews.getShowId());
         }*/
         return result;

@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  *@return:
  *@Description:
 */
-public class StringUtils
+public class StringsUtils
 {
     /**
      * 字符串为空

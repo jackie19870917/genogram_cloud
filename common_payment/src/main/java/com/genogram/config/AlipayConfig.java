@@ -1,4 +1,4 @@
-package com.genogram.unit;
+package com.genogram.config;
 
 import java.io.FileWriter;
 import java.io.IOException;
