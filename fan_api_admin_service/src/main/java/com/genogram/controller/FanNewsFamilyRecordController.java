@@ -178,7 +178,7 @@ public class FanNewsFamilyRecordController {
     }
 
     /**
-     * 官方视频上传
+     * 官方视频
      */
     @ResponseBody
     @RequestMapping(value = "selectRecortVedioPage",method = RequestMethod.GET)
@@ -202,7 +202,7 @@ public class FanNewsFamilyRecordController {
         }
     }
     /**
-     *联谊会记录家族的详情
+     *联谊会记录家族视频详情
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:24
