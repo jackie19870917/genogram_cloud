@@ -110,6 +110,10 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         SysWebMenuVo vo = setIndexMenu(siteId,"首页联谊堂概况","index_fan_summary","genogram/fanIndex/index/getFanIndexFamilySummarysPage?siteId=","api:");
         volist.add(vo);
 
+        //轮播图
+        vo = setIndexMenu(siteId,"轮播图","fan_index_slide_pic","genogram/fanIndex/index/getFanIndexSlidePicList?siteId=","api:");
+        volist.add(vo);
+
         //简介
         vo = setIndexMenu(siteId,"简介","index_summary","genogram/fanIndex/index/getFanIndexInfo?siteId=","api:");
         volist.add(vo);
@@ -118,7 +122,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         vo = setIndexMenu(siteId,"公益基金","index_fund_1","genogram/fanNewsCharity/index/getFanIndexFund?siteId=","api:");
         volist.add(vo);
         //捐款名人
-        vo = setIndexMenu(siteId,"捐款名人","index_architecture_pay_in_person_1","genogram/fanNewsCharity/index/getDonorPage?showId=","api:");
+        vo = setIndexMenu(siteId,"捐款名人","index_architecture_pay_in_person_1","genogram/fanNewsCharity/index/getDonorVoPageByCreateTime?showId=","api:");
         volist.add(vo);
 
         //本地字派
@@ -158,24 +162,29 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         volist.add(vo);
 
 
-        vo = setIndexMenu(siteId,"支出公开栏","index_charity_pay_out","genogram/fanNewsCharity/index/getFanNewsCharityOutPage?newsType=1&showId=","api:");
+        vo = setIndexMenu(siteId,"支出公开栏","index_charity_pay_out","genogram/fanNewsCharity/index/getFanNewsCharityOutPage?showId=","api:");
         volist.add(vo);
 
-        vo = setIndexMenu(siteId,"收益公开栏","index_architecture_pay_in","genogram/fanNewsCharity/index/getFanNewsCharityOutPage?newsType=2&showId=","api:");
+        vo = setIndexMenu(siteId,"收益公开栏","index_architecture_pay_in","genogram/fanNewsCharity/index/getFanNewsCharityOutPage?showId=","api:");
         volist.add(vo);
 
-        //公益总金额 首页有2个 所以分开2
+        //捐款名人最新排序 公益总金额 首页有2个 所以分开2
         vo = setIndexMenu(siteId,"公益总金额","index_fund_2","genogram/fanNewsCharity/index/getFanIndexFund?siteId=","api:");
         volist.add(vo);
 
-        vo = setIndexMenu(siteId,"捐款名人","index_architecture_pay_in_person_2","genogram/fanNewsCharity/index/getDonorPage?showId=","api:");
+        vo = setIndexMenu(siteId,"捐款名人","index_architecture_pay_in_person_2","genogram/fanNewsCharity/index/getDonorVoPageByCreateTime?showId=","api:");
+        volist.add(vo);
+
+        //捐款名人(最多排序) 公益总金额 首页有2个 所以分开2
+
+        vo = setIndexMenu(siteId,"捐款名人","index_architecture_pay_in_person_2_2","genogram/fanNewsCharity/index/getDonorPage?showId=17","api:");
         volist.add(vo);
 
         //公共产业
-        vo = setIndexMenu(siteId,"公共产业","index_industry_public","genogram/fanNewsIndustry/index/getFamilyIndexIndustryList?type=1&showId=","api:");
+        vo = setIndexMenu(siteId,"公共产业","index_industry_public","genogram/fanNewsIndustry/index/getFamilyIndexIndustryList?showId=","api:");
         volist.add(vo);
         //个产业
-        vo = setIndexMenu(siteId,"私人产业","index_industry_person","genogram/fanNewsIndustry/index/getFamilyIndexIndustryList?type=2&showId=","api:");
+        vo = setIndexMenu(siteId,"私人产业","index_industry_person","genogram/fanNewsIndustry/index/getFamilyIndexIndustryList?showId=","api:");
         volist.add(vo);
 
         //慈善公益第二页的
@@ -186,7 +195,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         volist.add(vo);
 
         //财政用途支出第二页的
-        vo = setIndexMenu(siteId,"支出公开栏","index_charity_pay_out_3","genogram/fanNewsCharity/index/getFanNewsCharityOutPage?newsType=0&showId=","api:");
+        vo = setIndexMenu(siteId,"支出公开栏","index_charity_pay_out_3","genogram/fanNewsCharity/index/getFanNewsCharityOutPage?showId=","api:");
         volist.add(vo);
 
         return volist;
@@ -282,7 +291,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         }
 
         //慈善公益基金-个人捐款-捐款名录
-        if("index_architecture_pay_in_person_1".equals(menuType) || "index_architecture_pay_in_person_2".equals(menuType) || "index_architecture_pay_in_person_3".equals(menuType)){
+        if("index_architecture_pay_in_person_1".equals(menuType) || "index_architecture_pay_in_person_2".equals(menuType) || "index_architecture_pay_in_person_3".equals(menuType) || "index_architecture_pay_in_person_2_2".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
             entity.eq("fan_sys_web_menu_id", 17);
