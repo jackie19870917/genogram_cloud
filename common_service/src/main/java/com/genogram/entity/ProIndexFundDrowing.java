@@ -11,14 +11,14 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 线上提现
+ * 省级线上提现
  * </p>
  *
  * @author wangwei
  * @since 2018-11-15
  */
-@TableName("fan_index_fund_drowing")
-public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
+@TableName("pro_index_fund_drowing")
+public class ProIndexFundDrowing extends Model<ProIndexFundDrowing> {
 
     private static final long serialVersionUID = 1L;
 
@@ -98,7 +98,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return id;
     }
 
-    public FanIndexFundDrowing setId(Integer id) {
+    public ProIndexFundDrowing setId(Integer id) {
         this.id = id;
         return this;
     }
@@ -107,7 +107,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return siteId;
     }
 
-    public FanIndexFundDrowing setSiteId(Integer siteId) {
+    public ProIndexFundDrowing setSiteId(Integer siteId) {
         this.siteId = siteId;
         return this;
     }
@@ -116,7 +116,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return drowAmount;
     }
 
-    public FanIndexFundDrowing setDrowAmount(BigDecimal drowAmount) {
+    public ProIndexFundDrowing setDrowAmount(BigDecimal drowAmount) {
         this.drowAmount = drowAmount;
         return this;
     }
@@ -125,7 +125,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return drowBank;
     }
 
-    public FanIndexFundDrowing setDrowBank(String drowBank) {
+    public ProIndexFundDrowing setDrowBank(String drowBank) {
         this.drowBank = drowBank;
         return this;
     }
@@ -134,7 +134,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return drowBankSub;
     }
 
-    public FanIndexFundDrowing setDrowBankSub(String drowBankSub) {
+    public ProIndexFundDrowing setDrowBankSub(String drowBankSub) {
         this.drowBankSub = drowBankSub;
         return this;
     }
@@ -143,7 +143,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return drowTime;
     }
 
-    public FanIndexFundDrowing setDrowTime(Date drowTime) {
+    public ProIndexFundDrowing setDrowTime(Date drowTime) {
         this.drowTime = drowTime;
         return this;
     }
@@ -152,7 +152,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return drowInAccountName;
     }
 
-    public FanIndexFundDrowing setDrowInAccountName(String drowInAccountName) {
+    public ProIndexFundDrowing setDrowInAccountName(String drowInAccountName) {
         this.drowInAccountName = drowInAccountName;
         return this;
     }
@@ -161,7 +161,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return drowInAccountCard;
     }
 
-    public FanIndexFundDrowing setDrowInAccountCard(String drowInAccountCard) {
+    public ProIndexFundDrowing setDrowInAccountCard(String drowInAccountCard) {
         this.drowInAccountCard = drowInAccountCard;
         return this;
     }
@@ -170,7 +170,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return drowComments;
     }
 
-    public FanIndexFundDrowing setDrowComments(String drowComments) {
+    public ProIndexFundDrowing setDrowComments(String drowComments) {
         this.drowComments = drowComments;
         return this;
     }
@@ -179,7 +179,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return approveStatus;
     }
 
-    public FanIndexFundDrowing setApproveStatus(String approveStatus) {
+    public ProIndexFundDrowing setApproveStatus(String approveStatus) {
         this.approveStatus = approveStatus;
         return this;
     }
@@ -188,7 +188,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return createTime;
     }
 
-    public FanIndexFundDrowing setCreateTime(Date createTime) {
+    public ProIndexFundDrowing setCreateTime(Date createTime) {
         this.createTime = createTime;
         return this;
     }
@@ -197,7 +197,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return createUser;
     }
 
-    public FanIndexFundDrowing setCreateUser(Integer createUser) {
+    public ProIndexFundDrowing setCreateUser(Integer createUser) {
         this.createUser = createUser;
         return this;
     }
@@ -206,7 +206,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return updateTime;
     }
 
-    public FanIndexFundDrowing setUpdateTime(Date updateTime) {
+    public ProIndexFundDrowing setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
         return this;
     }
@@ -215,7 +215,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
         return updateUser;
     }
 
-    public FanIndexFundDrowing setUpdateUser(Integer updateUser) {
+    public ProIndexFundDrowing setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
         return this;
     }
@@ -227,7 +227,7 @@ public class FanIndexFundDrowing extends Model<FanIndexFundDrowing> {
 
     @Override
     public String toString() {
-        return "FanIndexFundDrowing{" +
+        return "ProIndexFundDrowing{" +
         ", id=" + id +
         ", siteId=" + siteId +
         ", drowAmount=" + drowAmount +
