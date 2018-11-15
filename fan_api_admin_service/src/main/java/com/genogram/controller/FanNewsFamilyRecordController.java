@@ -214,7 +214,7 @@ public class FanNewsFamilyRecordController {
     public Response<FamilyRecordVedioVo> getFamilyRecordVedioDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
-        return getNewsDetailVedioVoResponse(id);
+        return getNewsDetailVedioVoDetailResponse(id);
     }
     /**
      *联谊会记录家族视频进入修改
@@ -244,6 +244,17 @@ public class FanNewsFamilyRecordController {
         try {
             NewsDetailVo newsDetailVo = fanNewsFamilyRecordVedioService.getFamilyVedioRecord(id);
             return ResponseUtlis.success(newsDetailVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    private Response<FamilyRecordVedioVo> getNewsDetailVedioVoDetailResponse( @RequestParam("id") Integer id) {
+        try {
+            FamilyRecordVedioVo familyRecordVedioVo = fanNewsFamilyRecordVedioService.getFamilyVedioDetilRecord(id);
+            return ResponseUtlis.success(familyRecordVedioVo);
         } catch (Exception e) {
             e.printStackTrace();
 

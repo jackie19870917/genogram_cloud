@@ -29,6 +29,13 @@ public interface IFanNewsFamilyRecordVedioService extends IService<FanNewsFamily
     NewsDetailVo getFamilyVedioRecord(Integer id);
 
     /**
+     * 联谊会记录家族视频详情
+     * @param id  主键
+     * @return
+     */
+    FamilyRecordVedioVo getFamilyVedioDetilRecord(Integer id);
+
+    /**
      * 联谊会记录家族后台视频新增
      * @param fanNewsFamilyRecordVedio
      * @param

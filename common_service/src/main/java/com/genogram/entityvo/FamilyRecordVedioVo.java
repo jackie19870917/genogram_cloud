@@ -45,7 +45,16 @@ public class FamilyRecordVedioVo{
      */
     private Integer status;
     private Date createTime;
-    private Integer createUser;
+    private Integer createUserName;
     private Date updateTime;
-    private Integer updateUser;
+    private Integer updateUserName;
+    /**
+     * 创建时间LONG
+     */
+    private Long updateTimeLong;
+
+    /**
+     * 修改时间LONG
+     */
+    private Long createTimeLong;
 }

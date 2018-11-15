@@ -8,11 +8,8 @@ import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.FanNewsFamilyRecordVedioMapper;
 import com.genogram.mapper.FanNewsUploadVedioMapper;
-import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.IFanNewsFamilyRecordVedioService;
+import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.genogram.service.IFanNewsUploadFileService;
-import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +27,7 @@ import java.util.List;
 @Service
 public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFamilyRecordVedioMapper, FanNewsFamilyRecordVedio> implements IFanNewsFamilyRecordVedioService {
     @Autowired
-    private FanNewsUploadVedioMapper fanNewsUploadVedioMapper;
+    private IFanNewsUploadVedioService fanNewsUploadVedioService;
 
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;
@@ -68,8 +65,8 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         uploadentity.eq("show_id", showId);
         uploadentity.eq("status", status);
         uploadentity.in("news_id",newsids);
-        //查询所有文章id下的图片附件
-        List<FanNewsUploadVedio> files =fanNewsUploadVedioMapper.selectList(uploadentity);
+        //查询所有文章id下的视频附件
+        List<FanNewsUploadVedio> files =fanNewsUploadVedioService.selectList(uploadentity);
 
         //遍历主表文章集合,赋值新对象vo
         list.forEach(( news)->{
@@ -145,6 +142,46 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         newsDetailVo.setCreateUserName(null);
         newsDetailVo.setCreateUserName(null);
         return newsDetailVo;
+    }
+
+    @Override
+    public FamilyRecordVedioVo getFamilyVedioDetilRecord(Integer id) {
+        //根据Id查出记录家族详情
+        FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio = this.selectById(id);
+
+        if(fanNewsFamilyRecordVedio==null){
+            return null;
+        }
+
+        //查询视频
+        Wrapper<FanNewsUploadVedio> uploadentity = new EntityWrapper<FanNewsUploadVedio>();
+        uploadentity.eq("news_id",fanNewsFamilyRecordVedio.getId());
+        uploadentity.eq("show_id", fanNewsFamilyRecordVedio.getShowId());
+        uploadentity.eq("status", 1);
+        //查询所有文章id下的视频附件
+        List<FanNewsUploadVedio> files =fanNewsUploadVedioService.selectList(uploadentity);
+
+
+
+        //查出名称
+        AllUserLogin createUser = allUserLoginService.selectById(null);
+        AllUserLogin updateUser = allUserLoginService.selectById(null);
+
+        //返回新VO的集合赋值新对象vo
+        FamilyRecordVedioVo familyRecordVedioVo=new FamilyRecordVedioVo();
+        //调用方法封装集合
+        BeanUtils.copyProperties(fanNewsFamilyRecordVedio,familyRecordVedioVo);
+        //存储图片list集合
+        //设置封面file
+        this.getPicIndex(familyRecordVedioVo,familyRecordVedioVo.getId(),familyRecordVedioVo.getShowId());
+        //familyRecordVedioVo.setFanNewsUploadFileList(files);
+        familyRecordVedioVo.setFanUploadVedioList(files);
+        //存储作者名称时间
+        familyRecordVedioVo.setUpdateTimeLong(fanNewsFamilyRecordVedio.getUpdateTime().getTime());
+        familyRecordVedioVo.setCreateTimeLong(fanNewsFamilyRecordVedio.getCreateTime().getTime());
+        familyRecordVedioVo.setCreateUserName(null);
+        familyRecordVedioVo.setCreateUserName(null);
+        return familyRecordVedioVo;
     }
 
     @Override
