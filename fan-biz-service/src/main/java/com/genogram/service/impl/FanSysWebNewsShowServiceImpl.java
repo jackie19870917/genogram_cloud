@@ -248,7 +248,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         if("index_zipai".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
-            entity.eq("fan_sys_web_menu_id", 8);
+            entity.eq("fan_sys_web_menu_id", 9);
             List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
@@ -258,7 +258,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         if("index_family_culture".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
-            entity.eq("fan_sys_web_menu_id", 9);
+            entity.eq("fan_sys_web_menu_id", 10);
             List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
@@ -267,7 +267,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         if("index_industry_public".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
-            entity.eq("fan_sys_web_menu_id", 17);
+            entity.eq("fan_sys_web_menu_id", 18);
             List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
@@ -276,16 +276,16 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         if("index_industry_person".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
-            entity.eq("fan_sys_web_menu_id", 18);
+            entity.eq("fan_sys_web_menu_id", 19);
             List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
 
-        //慈善公益基金-个人捐款
+        //慈善公益基金-个人捐款-捐款名录
         if("index_architecture_pay_in_person_1".equals(menuType) || "index_architecture_pay_in_person_2".equals(menuType) || "index_architecture_pay_in_person_3".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
-            entity.eq("fan_sys_web_menu_id", 16);
+            entity.eq("fan_sys_web_menu_id", 17);
             List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
@@ -294,7 +294,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         if("index_charity_pay_out".equals(menuType) || "index_charity_pay_out_3".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
-            entity.eq("fan_sys_web_menu_id", 14);
+            entity.eq("fan_sys_web_menu_id", 15);
             List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
@@ -303,7 +303,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         if("index_architecture_pay_in".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
-            entity.eq("fan_sys_web_menu_id", 15);
+            entity.eq("fan_sys_web_menu_id", 16);
             List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
@@ -312,7 +312,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         if("index_family_record1".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
-            entity.eq("fan_sys_web_menu_id", 21);
+            entity.eq("fan_sys_web_menu_id", 22);
             List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
@@ -321,7 +321,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         if("index_family_record2".equals(menuType)){
             Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<FanSysWebNewsShow>();
             entity.eq("fan_sys_site_id", siteId);
-            entity.eq("fan_sys_web_menu_id", 22);
+            entity.eq("fan_sys_web_menu_id", 23);
             List<FanSysWebNewsShow> fanSysWebNewsShows = this.selectList(entity);
             showId = fanSysWebNewsShows.get(0).getId().toString();
         }
