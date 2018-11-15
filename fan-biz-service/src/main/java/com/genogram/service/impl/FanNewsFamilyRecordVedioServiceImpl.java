@@ -130,8 +130,8 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
-        AllUserLogin createUser = allUserLoginService.selectById(fanNewsFamilyRecordVedio.getCreateUser());
-        AllUserLogin updateUser = allUserLoginService.selectById(fanNewsFamilyRecordVedio.getUpdateUser());
+        AllUserLogin createUser = allUserLoginService.selectById(null);
+        AllUserLogin updateUser = allUserLoginService.selectById(null);
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetailVo=new NewsDetailVo();
@@ -142,8 +142,8 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         //存储作者名称时间
         newsDetailVo.setUpdateTimeLong(fanNewsFamilyRecordVedio.getUpdateTime().getTime());
         newsDetailVo.setCreateTimeLong(fanNewsFamilyRecordVedio.getCreateTime().getTime());
-        newsDetailVo.setCreateUserName(createUser.getRealName());
-        newsDetailVo.setCreateUserName(updateUser.getRealName());
+        newsDetailVo.setCreateUserName(null);
+        newsDetailVo.setCreateUserName(null);
         return newsDetailVo;
     }
 

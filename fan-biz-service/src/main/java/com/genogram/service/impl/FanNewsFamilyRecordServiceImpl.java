@@ -150,8 +150,8 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
-        AllUserLogin createUser = allUserLoginService.selectById(fanNewsFamilyRecord.getCreateUser());
-        AllUserLogin updateUser = allUserLoginService.selectById(fanNewsFamilyRecord.getUpdateUser());
+        AllUserLogin createUser = allUserLoginService.selectById(null);
+        AllUserLogin updateUser = allUserLoginService.selectById(null);
 
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetailVo=new NewsDetailVo();
