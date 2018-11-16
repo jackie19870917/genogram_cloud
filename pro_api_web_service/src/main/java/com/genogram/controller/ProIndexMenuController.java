@@ -24,8 +24,6 @@ import java.util.List;
 @RequestMapping("/genogram/proMenu")
 @CrossOrigin(origins = "*")
 public class ProIndexMenuController {
-    @Value("${pro_api_web_service.ip}")
-    private String hostIp;
     @Autowired
     private IProSysWebNewsShowService proSysWebNewsShowService;
 
@@ -33,12 +31,15 @@ public class ProIndexMenuController {
     //第一级菜单查询
     @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.GET)
     public Response getTitlesByMenuId(@RequestParam(name = "siteId") int siteId, @RequestParam(name = "menuId") int menuId) {
-        List<SysWebMenuVo> list = proSysWebNewsShowService.getTitlesByMenuId(hostIp,true,siteId, menuId);
+        List<SysWebMenuVo> list = proSysWebNewsShowService.getTitlesByMenuId(siteId, menuId);
         if (list.isEmpty()) {
             return ResponseUtlis.error(Constants.IS_EMPTY, list);
         }
         return ResponseUtlis.success(list);
     }
+
+    //第一级
+
 
     //初始化数据 临时运用
     @RequestMapping(value = "/initWebNewsShow", method = RequestMethod.GET)
