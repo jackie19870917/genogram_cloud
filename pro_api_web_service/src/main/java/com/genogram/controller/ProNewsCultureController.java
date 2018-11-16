@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entity.ProNewsCultureNews;
 import com.genogram.entity.ProNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
@@ -43,7 +44,7 @@ public class ProNewsCultureController {
     private IProNewsCultureNewsService proNewsCultureNewsService;
 
     /**
-     * 省级家族字派详情页查询和首页查询
+     * 省级家族字派详情页查询
      * @Author: yuzhou
      * @Date: 2018-11-09
      * @Time: 16:20
@@ -92,9 +93,9 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value = "/getZipaiVaguePage",method = RequestMethod.POST)
+    @RequestMapping(value = "/getZipaiVaguePage",method = RequestMethod.GET)
     public Response<ProNewsCultureZipai> getZipaiVaguePage(
-            @RequestParam(value = "showId") Integer showId, // 家族字派显示位置
+            @RequestParam(value = "showId") Integer showId, //
             @RequestParam(value = "zipaiTxt") String zipaiTxt, // 家族字派模糊查询参数
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
@@ -110,7 +111,7 @@ public class ProNewsCultureController {
             int status=1;
             Page<ProNewsCultureZipaiVo> mapPage = new Page<ProNewsCultureZipaiVo>(pageNo,pageSize);
 
-            Map map=new HashMap<>(16);
+            Map map=new HashMap<>();
             map.put("showId",showId);
             map.put("zipaiTxt",zipaiTxt);
             map.put("status",status);
@@ -123,6 +124,38 @@ public class ProNewsCultureController {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
+    }
+
+    /**
+     *省级查出各个地区的字派
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 9:53
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @RequestMapping(value = "/getZipaiRegionPage",method = RequestMethod.GET)
+    public Response<FanNewsCultureZipai> getZipaiRegionPage(
+            @RequestParam(value = "sizeId") Integer sizeId, // 家族字派显示位置
+            @RequestParam(value = "code") Integer code, // 省级下属县级的地区编号
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+    ) {
+        //判断sizeId是否有值
+        if (sizeId==null && code==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        int status=1;
+        Page<FanNewsCultureZipai> mapPage = new Page<FanNewsCultureZipai>(pageNo,pageSize);
+
+        Map map=new HashMap<>();
+        map.put("code",code);
+        map.put("status",1);
+
+        Page<FanNewsCultureZipai> zipaiVaguePage =proNewsCultureZipaiService.getZipaiRegionPage(sizeId,mapPage,map);
+        return ResponseUtlis.success(zipaiVaguePage);
     }
 
     /**
