@@ -41,7 +41,7 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
 
         Wrapper<FanIndexFundDrowing> wrapper = new EntityWrapper<FanIndexFundDrowing>();
         wrapper.eq("site_id", siteId);
-        wrapper.orderBy("update_time", false);
+        wrapper.orderBy("create_time", false);
 
         Page<FanIndexFundDrowing> fanIndexFundDrowingPage = this.selectPage(new Page<>(pageNo, pageSize), wrapper);
 
