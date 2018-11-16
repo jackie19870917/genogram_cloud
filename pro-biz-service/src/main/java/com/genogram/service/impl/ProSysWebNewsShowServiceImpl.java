@@ -88,7 +88,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
     }
 
     @Override
-    public List<SysWebMenuVo> getIndexMenu(String siteId) {
+    public List<SysWebMenuVo> getIndexMenuBySiteId(int siteId) {
         List<SysWebMenuVo> volist = new ArrayList();
 
 
@@ -160,9 +160,9 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         return null;
     }
 
-    private SysWebMenuVo setIndexMenu(String siteId,String showName, String menuName, String api, String comments){
+    private SysWebMenuVo setIndexMenu(int siteId,String showName, String menuName, String api, String comments){
         SysWebMenuVo vo = new SysWebMenuVo();
-        vo.setFanSysSiteId(Integer.parseInt(siteId));
+        vo.setFanSysSiteId(siteId);
         vo.setMenuName(menuName);
         String apiUrl = api;
         if(api.contains("showId=")) {
@@ -177,9 +177,23 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         return vo;
     }
 
-    private String getShowIdBySiteId(String menuName,String siteId){
+    private String getShowIdBySiteId(String menuName,int siteId){
+        String showId ="";
+        EntityWrapper<ProSysWebMenu> entityWrapper = new EntityWrapper<>();
+        entityWrapper.eq("menu_name",menuName);
+        ProSysWebMenu proSysWebMenu = proSysWebMenuService.selectOne(entityWrapper);
 
-        return null;
+        EntityWrapper<ProSysWebNewsShow> entityWrapper2 = new EntityWrapper<>();
+        entityWrapper2.eq("pro_sys_site_id",siteId);
+        entityWrapper2.eq("pro_sys_web_menu_id",proSysWebMenu.getId());
+
+        ProSysWebNewsShow proSysWebNewsShow = this.selectOne(entityWrapper2);
+
+        if(proSysWebNewsShow!=null){
+            showId = proSysWebNewsShow.getShowId()+"";
+        }
+
+        return showId;
     }
 
 }

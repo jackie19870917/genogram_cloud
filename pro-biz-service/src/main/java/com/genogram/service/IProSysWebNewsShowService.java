@@ -27,5 +27,5 @@ public interface IProSysWebNewsShowService extends IService<ProSysWebNewsShow> {
      * @Description:
      *
      */
-    public List<SysWebMenuVo> getIndexMenu(String siteId);
+    public List<SysWebMenuVo> getIndexMenuBySiteId(int siteId);
 }

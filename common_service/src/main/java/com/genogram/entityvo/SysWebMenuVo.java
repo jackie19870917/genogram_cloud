@@ -19,6 +19,11 @@ public class SysWebMenuVo{
     private int fanSysSiteId;
     private int fanSysWebMenuId;
     private List<SysWebMenuVo> child;
+
+    /**
+     * 页面显示栏目名称
+     */
+    private String menuShowName;
     /**
      * 权限ID
      */

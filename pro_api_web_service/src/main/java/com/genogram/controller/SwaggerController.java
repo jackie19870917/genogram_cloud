@@ -42,7 +42,7 @@ public class SwaggerController {
     //第一级菜单查询
     @ApiOperation(value = "一级菜单查询" ,  notes="查询")
     @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.POST,consumes= MediaType.APPLICATION_JSON_VALUE)
-    public Response getTitlesByMenuId(@RequestBody FanNewsCharityOut fan) {
+    public Response getTitlesByMenuId(FanNewsCharityOut fan) {
         System.out.println(fan);
         return ResponseUtlis.success(fan);
     }

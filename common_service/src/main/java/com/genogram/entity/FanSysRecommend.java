@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-14
+ * @since 2018-11-16
  */
 @TableName("fan_sys_recommend")
 public class FanSysRecommend extends Model<FanSysRecommend> {
@@ -58,6 +58,11 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
      * 状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
      */
     private Integer status;
+    /**
+     * 文章种类(1:家族文化;2:家族动态;3:县级公告;4:家族长老;5家族栋梁)
+     */
+    @TableField("news_type")
+    private Integer newsType;
     /**
      * 创建时间
      */
@@ -152,6 +157,15 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
         return this;
     }
 
+    public Integer getNewsType() {
+        return newsType;
+    }
+
+    public FanSysRecommend setNewsType(Integer newsType) {
+        this.newsType = newsType;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -204,6 +218,7 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
         ", isAuto=" + isAuto +
         ", newsSource=" + newsSource +
         ", status=" + status +
+        ", newsType=" + newsType +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +
