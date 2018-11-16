@@ -82,6 +82,9 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
             //存储新对象
             BeanUtils.copyProperties(news,familyCultureVo);
 
+            //去除html标签
+            familyCultureVo.setNewsText(StringsUtils.removeTag(familyCultureVo.getNewsText()));
+
             //判断改图片文章id是否一样
             List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
 
