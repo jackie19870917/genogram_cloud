@@ -44,31 +44,37 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
 
         IndexInfoVo indexInfoVo = new IndexInfoVo();
         BeanUtils.copyProperties(fanIndexInfo, indexInfoVo);
-        indexInfoVo.setSiteName(fanSysSite.getName());
+        indexInfoVo.setName(fanSysSite.getName());
 
         return indexInfoVo;
     }
 
     @Override
     public Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo) {
+
         Wrapper<FanIndexInfo> wrapper = new EntityWrapper<FanIndexInfo>();
         wrapper.eq("site_id", indexInfoVo.getSiteId());
 
-        FanIndexInfo fanIndexInfo = this.selectOne(wrapper);
+        FanIndexInfo fanIndexInfo = this.selectById(indexInfoVo.getId());
 
         Timestamp format = DateUtil.getCurrentTimeStamp();
 
         if (StringUtils.isEmpty(fanIndexInfo)) {
             fanIndexInfo.setCreateTime(format);
+            indexInfoVo.setCreateTime(format);
         }
-        fanIndexInfo.setUpdateTime(DateUtil.format(format));
+        fanIndexInfo.setUpdateTime(format);
+        indexInfoVo.setUpdateTime(format);
 
-        FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(indexInfoVo.getSiteId());
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(fanIndexInfo.getSiteId());
 
         if (StringUtils.isEmpty(fanSysSite)) {
             fanSysSite.setCreateTime(DateUtil.format(format));
         }
         fanSysSite.setUpdateTime(DateUtil.format(format));
+
+        BeanUtils.copyProperties(indexInfoVo,fanIndexInfo);
+        BeanUtils.copyProperties(indexInfoVo,fanSysSite);
 
         return this.insertOrUpdate(fanIndexInfo) & fanSysSiteService.insertOrUpdate(fanSysSite);
 
