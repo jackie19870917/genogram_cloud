@@ -22,7 +22,6 @@
         id, show_id AS showId, news_id AS newsId, isProvince, isCountry, is_auto AS isAuto, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
-
     <select id="getIndexRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.NewsDetailVo">
     select temp1.* from (
     SELECT
@@ -37,7 +36,9 @@
         <if test="status!=null">
             and m.`status`=#{status}
         </if>
-        and m.news_source=#{newsSource}
+        <if test="newsSource!=null">
+            and m.news_source=#{newsSource}
+        </if>
          and m.show_id=w.show_id and m.news_id=w.id
     union all
     SELECT
@@ -52,7 +53,9 @@
         <if test="status!=null">
             and m.`status`=#{status}
         </if>
-        and m.news_source=#{newsSource}
+        <if test="newsSource!=null">
+            and m.news_source=#{newsSource}
+        </if>
         and m.show_id=r.show_id and m.news_id=r.id
     ) temp1
         order by temp1.updateTime desc

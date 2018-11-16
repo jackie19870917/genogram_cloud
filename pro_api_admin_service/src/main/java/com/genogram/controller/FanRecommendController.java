@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.Response;
@@ -211,7 +212,7 @@ public class FanRecommendController {
     }
 
     /**
-     *省级首页推荐查询
+     *省级首页县级推荐文章查询
      *@Author: yuzhou
      *@Date: 2018-11-14
      *@Time: 17:47
@@ -219,8 +220,8 @@ public class FanRecommendController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value = "/index/getRecommend",method = RequestMethod.GET)
-    public Response<NewsDetailVo> getIndexRecommend(
+    @RequestMapping(value = "/index/getRecommendArticle",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getRecommendArticle(
             @RequestParam(value = "sizeId") Integer sizeId
     ) {
         try {
@@ -232,7 +233,7 @@ public class FanRecommendController {
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
-            List<NewsDetailVo> newsDetailVo=proSysRecommendService.getIndexRecommend(map);
+            List<NewsDetailVo> newsDetailVo=proSysRecommendService.getRecommendArticle(map);
             return ResponseUtlis.success(newsDetailVo);
         }catch (Exception e){
             e.printStackTrace();
@@ -240,4 +241,54 @@ public class FanRecommendController {
         }
     }
 
+    /**
+     *省级首页县级推荐人物查询
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 18:07
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/index/getRecommendFigure",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getRecommendFigure(
+            @RequestParam(value = "sizeId") Integer sizeId
+    ) {
+        try {
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=2;
+            //来源:(1县级,2省级)
+            int newsSource=1;
+            Map map=new HashMap();
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            List<FamilyPersonVo> familyPersonVo=proSysRecommendService.getRecommendFigure(map);
+            return ResponseUtlis.success(familyPersonVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级首页文章推荐详情查询
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 19:08
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/index/getRecommendParticulars",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getRecommendParticulars(
+            @RequestParam(value = "id") Integer id,
+            @RequestParam(value = "source") Integer source
+    ) {
+        if(id==null && source==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        }
+        NewsDetailVo newsDetailVo=proSysRecommendService.getRecommendParticulars(id,source);
+        return null;
+    }
 }

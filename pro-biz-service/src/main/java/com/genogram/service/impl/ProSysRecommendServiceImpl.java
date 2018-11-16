@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.mapper.FanNewsFamousPersonMapper;
 import com.genogram.mapper.FanSysRecommendMapper;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.DateUtil;
@@ -29,6 +31,10 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
 
     @Autowired
     private FanSysRecommendMapper fanSysRecommendMapper;
+
+    @Autowired
+    private FanNewsFamousPersonMapper fanNewsFamousPersonMapper;
+
 
     @Override
     public Boolean addRecommend(FanSysRecommend fanSysRecommend) {
@@ -94,8 +100,41 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      *@Description:
     */
     @Override
-    public List<NewsDetailVo> getIndexRecommend(Map map) {
-        List<NewsDetailVo> fanSysRecommend=fanSysRecommendMapper.getIndexRecommend(map);
-        return fanSysRecommend;
+    public List<NewsDetailVo> getRecommendArticle(Map map) {
+        List<NewsDetailVo> newsDetailVo=fanSysRecommendMapper.getIndexRecommend(map);
+        return newsDetailVo;
+    }
+
+    /**
+     *省级首页县级推荐人物查询
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 18:18
+     *@Param: 
+     *@return:
+     *@Description:
+    */
+    @Override
+    public List<FamilyPersonVo> getRecommendFigure(Map map) {
+        List<FamilyPersonVo> familyPersonVo=fanNewsFamousPersonMapper.getRecommendFigure(map);
+        return familyPersonVo;
+    }
+
+    /**
+     *省级首页文章推荐详情查询
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 19:10
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public NewsDetailVo getRecommendParticulars(Integer id, Integer source) {
+        //1代表家族文化 2 代表记录家族 3代表家族名人
+        if(source==1){
+
+        }
+        return null;
     }
 }
