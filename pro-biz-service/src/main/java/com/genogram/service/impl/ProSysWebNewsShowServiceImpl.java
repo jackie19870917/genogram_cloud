@@ -8,6 +8,7 @@ import com.genogram.mapper.ProSysWebNewsShowMapper;
 import com.genogram.service.IProSysWebMenuService;
 import com.genogram.service.IProSysWebNewsShowService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,27 +65,41 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         EntityWrapper<ProSysWebNewsShow> entityWrapper = new EntityWrapper<>();
         entityWrapper.eq("pro_sys_site_id",siteId);
         List list = this.selectList(entityWrapper);
+
+        //删除旧记录
+        deleteOldSysWebNewsShow(list);
+
         List<ProSysWebNewsShow> showList = new ArrayList<>();
         //则insert
-        if(list==null || list.isEmpty()){
-            EntityWrapper<ProSysWebMenu> entityWrapper2 = new EntityWrapper<>();
-            //默认菜单
-            entityWrapper2.eq("istatic",0);
-            List<ProSysWebMenu> menuList = proSysWebMenuService.selectList(entityWrapper2);
-            menuList.forEach((menu)->{
-                ProSysWebNewsShow show = new ProSysWebNewsShow();
-                show.setProSysSiteId(siteId);
-                show.setProSysWebMenuId(menu.getId());
-                String showId = String.valueOf(siteId) + String.valueOf(menu.getId());
-                show.setShowId( Integer.parseInt(showId));
-                //show.set
-                showList.add(show);
-            });
-            this.insertBatch(showList);
-        }else{
-            result = false;
-        }
+        EntityWrapper<ProSysWebMenu> entityWrapper2 = new EntityWrapper<>();
+        //默认菜单
+        entityWrapper2.eq("istatic",0);
+        List<ProSysWebMenu> menuList = proSysWebMenuService.selectList(entityWrapper2);
+        menuList.forEach((menu)->{
+            ProSysWebNewsShow show = new ProSysWebNewsShow();
+            show.setProSysSiteId(siteId);
+            show.setProSysWebMenuId(menu.getId());
+            String showId = String.valueOf(siteId) + String.valueOf(menu.getId());
+            show.setShowId( Integer.parseInt(showId));
+            show.setCreateTime(DateUtil.getCurrentTimeStamp());
+            show.setCreateUser(1);
+            show.setUpdateTime(DateUtil.getCurrentTimeStamp());
+            show.setUpdateUser(1);
+            //show.set
+            showList.add(show);
+        });
+        this.insertBatch(showList);
         return true;
+    }
+
+    private void deleteOldSysWebNewsShow(List<ProSysWebNewsShow> showList){
+        if(!showList.isEmpty()){
+            List<Integer> list = new ArrayList();
+            showList.forEach((proSysWebNewsShow)->{
+                list.add(proSysWebNewsShow.getId());
+            });
+            this.deleteBatchIds(list);
+        }
     }
 
     @Override
@@ -149,21 +164,22 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         volist.add(vo);
 
         //人物 - 名人 - 省级
-        vo = setIndexMenu(siteId,"祖先","祖先","","");
+        vo = setIndexMenu(siteId,"名人","名人","","");
         volist.add(vo);
 
         //人物 - 精英 - 省级
-        vo = setIndexMenu(siteId,"祖先","祖先","","");
+        vo = setIndexMenu(siteId,"精英","精英","","");
         volist.add(vo);
 
 
-        return null;
+        return volist;
     }
 
     private SysWebMenuVo setIndexMenu(int siteId,String showName, String menuName, String api, String comments){
         SysWebMenuVo vo = new SysWebMenuVo();
         vo.setFanSysSiteId(siteId);
         vo.setMenuName(menuName);
+        vo.setMenuShowName(showName);
         String apiUrl = api;
         if(api.contains("showId=")) {
             apiUrl = apiUrl+ getShowIdBySiteId(menuName,siteId);

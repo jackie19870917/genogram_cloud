@@ -33,14 +33,9 @@ public class ProIndexMenuController {
     @Autowired
     private IProSysWebNewsShowService proSysWebNewsShowService;
 
-    @ApiOperation(value = "首页静态菜单" ,  notes="查询")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "siteId", value = "网站id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "fan", value = "FanNewsCharityOut", required = true, dataType = "FanNewsCharityOut")
-
-    })
-    @RequestMapping(value = "/getIndexMenuBySiteId", method = RequestMethod.POST)
-    public Response getIndexMenuBySiteId(@RequestParam(name = "siteId") int siteId,FanNewsCharityOut fan) {
+    @ApiOperation(value = "首页静态菜单" ,  notes="siteId:网站id")
+    @RequestMapping(value = "/getIndexMenuBySiteId", method = RequestMethod.GET)
+    public Response getIndexMenuBySiteId(@RequestParam(value="siteId") int siteId) {
         List<SysWebMenuVo> list = proSysWebNewsShowService.getIndexMenuBySiteId(siteId);
         if (list.isEmpty()) {
             return ResponseUtlis.error(Constants.IS_EMPTY, list);
@@ -58,10 +53,7 @@ public class ProIndexMenuController {
         return ResponseUtlis.success(list);
     }
 
-
-
-
-    //初始化数据 临时运用
+    @ApiOperation(value = "初始化数据 " ,  notes="临时运用")
     @RequestMapping(value = "/initWebNewsShow", method = RequestMethod.GET)
     public Response initWebNewsShow(@RequestParam(name = "siteId") int siteId) {
         boolean result = proSysWebNewsShowService.initWebNewsShow(siteId);
