@@ -44,7 +44,7 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
 
         IndexInfoVo indexInfoVo = new IndexInfoVo();
         BeanUtils.copyProperties(fanIndexInfo, indexInfoVo);
-        indexInfoVo.setName(fanSysSite.getName());
+        indexInfoVo.setSiteName(fanSysSite.getName());
 
         return indexInfoVo;
     }
@@ -74,6 +74,8 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         fanSysSite.setUpdateTime(DateUtil.format(format));
 
         BeanUtils.copyProperties(indexInfoVo,fanIndexInfo);
+
+        fanSysSite.setName(indexInfoVo.getSiteName());
         BeanUtils.copyProperties(indexInfoVo,fanSysSite);
 
         return this.insertOrUpdate(fanIndexInfo) & fanSysSiteService.insertOrUpdate(fanSysSite);

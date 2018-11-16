@@ -53,5 +53,5 @@ public class IndexInfoVo {
     /**
      * 网站名称
      */
-    private String name;
+    private String siteName;
 }
