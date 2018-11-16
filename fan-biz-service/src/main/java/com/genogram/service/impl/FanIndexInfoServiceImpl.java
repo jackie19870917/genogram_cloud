@@ -45,6 +45,7 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         IndexInfoVo indexInfoVo = new IndexInfoVo();
         BeanUtils.copyProperties(fanIndexInfo, indexInfoVo);
         indexInfoVo.setSiteName(fanSysSite.getName());
+        indexInfoVo.setRegionCode(fanSysSite.getRegionCode());
 
         return indexInfoVo;
     }
