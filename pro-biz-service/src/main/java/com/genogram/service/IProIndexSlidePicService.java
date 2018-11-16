@@ -3,6 +3,8 @@ package com.genogram.service;
 import com.genogram.entity.ProIndexSlidePic;
 import com.baomidou.mybatisplus.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 省级网站轮播图 服务类
@@ -13,4 +15,11 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IProIndexSlidePicService extends IService<ProIndexSlidePic> {
 
+    /**
+     * 轮播图查询
+     * @param siteId 网站ID
+     * @param list 状态
+     * @return
+     */
+    List<ProIndexSlidePic> getProIndexSlidePic(Integer siteId, List list);
 }

@@ -29,7 +29,7 @@ public interface IFanIndexInfoService extends IService<FanIndexInfo> {
     IndexInfoVo getFanIndexInfoVo(Integer siteId);
 
     /**
-     *        /新增/修改  联谊会图腾,宣言,公告
+     *        新增/修改  联谊会图腾,宣言,公告
      * @param indexInfoVo   实体类
      * @return
      */

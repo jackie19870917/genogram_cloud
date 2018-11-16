@@ -5,6 +5,7 @@ import com.genogram.mapper.ProSysSiteMapper;
 import com.genogram.service.IProSysSiteService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -16,5 +17,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ProSysSiteServiceImpl extends ServiceImpl<ProSysSiteMapper, ProSysSite> implements IProSysSiteService {
+
+    @Override
+    public ProSysSite getProSysSite(Integer siteId) {
+
+        ProSysSite proSysSite = this.selectById(siteId);
+        if (StringUtils.isEmpty(proSysSite)) {
+            return null;
+        } else {
+            return proSysSite;
+        }
+    }
 
 }

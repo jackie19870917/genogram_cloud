@@ -60,6 +60,7 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         Timestamp format = DateUtil.getCurrentTimeStamp();
 
         if (StringUtils.isEmpty(fanIndexInfo)) {
+            fanIndexInfo = new FanIndexInfo();
             fanIndexInfo.setCreateTime(format);
             indexInfoVo.setCreateTime(format);
         }
@@ -69,6 +70,7 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(fanIndexInfo.getSiteId());
 
         if (StringUtils.isEmpty(fanSysSite)) {
+            fanSysSite = new FanSysSite();
             fanSysSite.setCreateTime(DateUtil.format(format));
         }
         fanSysSite.setUpdateTime(DateUtil.format(format));

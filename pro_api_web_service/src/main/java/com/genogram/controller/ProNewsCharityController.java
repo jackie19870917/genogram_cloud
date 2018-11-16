@@ -11,6 +11,9 @@ import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +30,10 @@ import java.util.Map;
  * @author wangwei
  * @since 2018-11-05
  */
+@Api(description = "慈善公益菜单(前台)")
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/genogram/proNewsCharity")
+@RequestMapping("genogram/proNewsCharity")
 public class ProNewsCharityController {
 
     @Autowired
@@ -53,8 +57,9 @@ public class ProNewsCharityController {
      * @param siteId 慈善基金ID
      * @return
      */
+    @ApiOperation(value = "基金查询", notes = "查询")
     @RequestMapping(value = "index/getProIndexFund", method = RequestMethod.GET)
-    public Response<ProIndexFund> getProIndexFund(@RequestParam("siteId") Integer siteId) {
+    public Response<ProIndexFund> getProIndexFund(@ApiParam(value = "网站id") @RequestParam Integer siteId) {
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -74,11 +79,11 @@ public class ProNewsCharityController {
      * @param pageSize 每页记录数
      * @return
      */
-
-    @RequestMapping(value = "index/getDonorPage", method = RequestMethod.GET)
-    public Response<DonorVo> getDonorVoPageBySum(@RequestParam("showId") Integer showId,
-                                                 @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                 @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+    @ApiOperation(value = "捐款名录查询(最多)", notes = "查询")
+    @RequestMapping(value = "index/getDonorBySum", method = RequestMethod.GET)
+    public Response<DonorVo> getDonorVoPageBySum(@ApiParam(value = "显示位置") @RequestParam Integer showId,
+                                                 @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                 @ApiParam(value = "规格") @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -109,9 +114,9 @@ public class ProNewsCharityController {
      * @param pageSize 每页记录数
      * @return
      */
-
-    @RequestMapping(value = "index/getDonorVoPageByCreateTime", method = RequestMethod.GET)
-    public Response<DonorVo> getDonorVoPageByCreateTime(@RequestParam("showId") Integer showId,
+    @ApiOperation(value = "捐款名录查询(最新)", notes = "查询")
+    @RequestMapping(value = "index/getDonorVoByCreateTime", method = RequestMethod.GET)
+    public Response<DonorVo> getDonorVoPageByCreateTime(@ApiParam(value = "显示位置") @RequestParam Integer showId,
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
@@ -132,14 +137,15 @@ public class ProNewsCharityController {
      * 慈善收支
      *
      * @param showId   慈善收支显示位置
-     * @param newsType 种类(1.财政支出;2.财政收入)
+     //@param newsType 种类(1.财政支出;2.财政收入)
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
      */
-    @RequestMapping(value = "index/getProNewsCharityOutPage", method = RequestMethod.GET)
-    public Response<NewsCharityOutVo> getProNewsCharityOutPage(@RequestParam("showId") Integer showId,
-                                                               @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
+    @ApiOperation(value = "慈善收支", notes = "查询")
+    @RequestMapping(value = "index/getProNewsCharityOut", method = RequestMethod.GET)
+    public Response<NewsCharityOutVo> getProNewsCharityOutPage(@ApiParam(value = "显示位置") @RequestParam Integer showId,
+                                                               //    @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -152,7 +158,7 @@ public class ProNewsCharityController {
 
         Wrapper<ProNewsCharityOut> entity = new EntityWrapper<ProNewsCharityOut>();
         entity.eq("show_id", showId);
-        entity.eq("news_type", newsType);
+        //  entity.eq("news_type", newsType);
         entity.in("status", list);
         entity.orderBy("create_time", false);
 
@@ -167,8 +173,9 @@ public class ProNewsCharityController {
      * @param id 慈善收支详情显示位置
      * @return
      */
+    @ApiOperation(value = "慈善收支(文章)详情", notes = "查询")
     @RequestMapping(value = "getNewsDetail", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getNewsDetail(@RequestParam(value = "id") Integer id) {
+    public Response<NewsDetailVo> getNewsDetail(@ApiParam(value = "主键") @RequestParam Integer id) {
 
         NewsDetailVo newsCharityOutDetail = proNewsCharityOutService.getNewsCharityOutDetail(id);
 

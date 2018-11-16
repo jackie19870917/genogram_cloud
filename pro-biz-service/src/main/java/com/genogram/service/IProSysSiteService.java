@@ -13,4 +13,11 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IProSysSiteService extends IService<ProSysSite> {
 
+    /**
+     * 网站信息
+     *
+     * @param siteId 网站ID
+     * @return
+     */
+    ProSysSite getProSysSite(Integer siteId);
 }

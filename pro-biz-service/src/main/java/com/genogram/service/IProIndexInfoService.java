@@ -2,6 +2,7 @@ package com.genogram.service;
 
 import com.genogram.entity.ProIndexInfo;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.IndexInfoVo;
 
 /**
  * <p>
@@ -13,4 +14,33 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IProIndexInfoService extends IService<ProIndexInfo> {
 
+    /**
+     * 省级图腾,宣言,公告
+     *
+     * @param siteId 网店ID
+     * @return
+     */
+    ProIndexInfo getProIndexInfo(Integer siteId);
+
+    /**
+     * 省级信息
+     *
+     * @param siteId 网店ID
+     * @return
+     */
+    IndexInfoVo getFanIndexInfoVo(Integer siteId);
+
+    /**
+     * 新增/修改  省级信息
+     * @param indexInfoVo
+     * @return
+     */
+    Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo);
+
+    /**
+     *  删除 省级信息
+     * @param proIndexInfo
+     * @return
+     */
+    Boolean deleteProIndexInfo(ProIndexInfo proIndexInfo);
 }

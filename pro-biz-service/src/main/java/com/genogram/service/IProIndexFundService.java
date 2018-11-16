@@ -19,4 +19,6 @@ public interface IProIndexFundService extends IService<ProIndexFund> {
      * @return
      */
     ProIndexFund getProIndexFund(Integer siteId);
+
+
 }
