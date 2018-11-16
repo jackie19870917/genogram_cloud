@@ -5,12 +5,15 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entity.ProNewsCultureZipai;
+import com.genogram.entity.ProSysSite;
 import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.entityvo.ProNewsCultureZipaiVo;
+import com.genogram.mapper.FanNewsCultureZipaiMapper;
 import com.genogram.mapper.ProNewsCultureZipaiMapper;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IProSysSiteService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +37,13 @@ import java.util.Map;
 public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZipaiMapper, ProNewsCultureZipai> implements IProNewsCultureZipaiService {
 
     @Autowired
-    private IFanNewsCultureZipaiService fanNewsCultureZipaiService;
+    private FanNewsCultureZipaiMapper fanNewsCultureZipaiMapper;
 
     @Autowired
     private ProNewsCultureZipaiMapper proNewsCultureZipaiMapper;
 
+    @Autowired
+    private IProSysSiteService proSysSiteService;
     /**
      *省级家族字派查询
      *@Author: yuzhou
@@ -131,5 +136,27 @@ public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZi
         proNewsCultureZipai.setUpdateTime(DateUtil.getCurrentTimeStamp());
         //修改人  待写
         return this.updateAllColumnById(proNewsCultureZipai);
+    }
+
+    /**
+     *省级查出各个地区的字派
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 9:53
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @Override
+    public Page<FanNewsCultureZipai> getZipaiRegionPage(Integer sizeId,Page mapPage, Map map) {
+        //根据省级网站Id查出姓氏
+        ProSysSite proSysSite = proSysSiteService.selectById(sizeId);
+        //姓氏
+        map.put("familyCode",proSysSite.getFamilyCode());
+
+        //查出集合
+        List<FanNewsCultureZipai> list=fanNewsCultureZipaiMapper.getZipaiRegionPage(mapPage,map);
+        mapPage.setRecords(list);
+        return mapPage;
     }
 }

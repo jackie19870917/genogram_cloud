@@ -2,6 +2,10 @@ package com.genogram.mapper;
 
 import com.genogram.entity.FanSysRecommend;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.genogram.entityvo.NewsDetailVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface FanSysRecommendMapper extends BaseMapper<FanSysRecommend> {
 
+    List<NewsDetailVo> getIndexRecommend(Map map);
 }

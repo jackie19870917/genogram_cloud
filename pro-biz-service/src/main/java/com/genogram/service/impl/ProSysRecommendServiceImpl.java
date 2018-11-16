@@ -4,10 +4,16 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.FanSysRecommendMapper;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -20,6 +26,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMapper, FanSysRecommend> implements IProSysRecommendService {
+
+    @Autowired
+    private FanSysRecommendMapper fanSysRecommendMapper;
 
     @Override
     public Boolean addRecommend(FanSysRecommend fanSysRecommend) {
@@ -73,5 +82,20 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
         //查询分页
         Page<FanSysRecommend> fanSysRecommendPage = this.selectPage(new Page<FanSysRecommend>(pageNo, pageSize), entity);
         return fanSysRecommendPage;
+    }
+
+    /**
+     *省级首页县级推荐文章查询
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 15:18
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public List<NewsDetailVo> getIndexRecommend(Map map) {
+        List<NewsDetailVo> fanSysRecommend=fanSysRecommendMapper.getIndexRecommend(map);
+        return fanSysRecommend;
     }
 }

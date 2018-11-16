@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.NewsDetailVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -39,4 +43,11 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      * @return
      */
     Page<FanSysRecommend> getRecommendPage(Wrapper<FanSysRecommend> entity, Integer pageNo, Integer pageSize);
+
+    /**
+     * 省级首页县级推荐文章查询
+     * @param map 查询条件
+     * @return
+     */
+    List<NewsDetailVo> getIndexRecommend(Map map);
 }
