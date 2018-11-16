@@ -32,6 +32,7 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
 
         fanIndexFundDrowing.setCreateTime(DateUtil.getCurrentTimeStamp());
         fanIndexFundDrowing.setApproveStatus(1);
+        fanIndexFundDrowing.setUpdateTime(DateUtil.getCurrentTimeStamp());
 
         return this.insert(fanIndexFundDrowing);
     }
@@ -41,7 +42,7 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
 
         Wrapper<FanIndexFundDrowing> wrapper = new EntityWrapper<FanIndexFundDrowing>();
         wrapper.eq("site_id", siteId);
-        wrapper.orderBy("create_time", false);
+        wrapper.orderBy("update_time", false);
 
         Page<FanIndexFundDrowing> fanIndexFundDrowingPage = this.selectPage(new Page<>(pageNo, pageSize), wrapper);
 
