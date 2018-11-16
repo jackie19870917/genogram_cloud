@@ -31,7 +31,7 @@ public class ProIndexMenuController {
     //localhost:8050/genogram/admin/proMenu/getTitlesByMenuId?siteId=1&menuId=2
     @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.GET)
     public Response getTitlesByMenuId(@RequestParam(name = "siteId") int siteId, @RequestParam(name = "menuId") int menuId) {
-        List<SysWebMenuVo> list = proSysWebNewsShowService.getTitlesByMenuId(hostIp,false,siteId, menuId);
+        List<SysWebMenuVo> list = proSysWebNewsShowService.getTitlesByMenuId(siteId, menuId);
         if (list.isEmpty()) {
             return ResponseUtlis.error(Constants.IS_EMPTY, list);
         }
