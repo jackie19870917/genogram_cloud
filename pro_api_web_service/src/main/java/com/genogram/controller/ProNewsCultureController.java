@@ -110,7 +110,7 @@ public class ProNewsCultureController {
             int status=1;
             Page<ProNewsCultureZipaiVo> mapPage = new Page<ProNewsCultureZipaiVo>(pageNo,pageSize);
 
-            Map map=new HashMap<>();
+            Map map=new HashMap<>(16);
             map.put("showId",showId);
             map.put("zipaiTxt",zipaiTxt);
             map.put("status",status);

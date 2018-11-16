@@ -273,7 +273,7 @@ public class PayController {
         String payId = null;
 
         // 支付用户的id
-        String userIp = PayUtils.getRemoteAddr(request);
+        String userIp = PayUtils.getRemoteAddr(null);
 
         // 支付金额
         String total_fee = fanNewsCharityPayIn.getPayAmount()+"";

@@ -18,6 +18,9 @@ import com.genogram.service.IProNewsCharityOutService;
 import com.genogram.service.IProNewsCharityPayInService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +37,7 @@ import java.util.Map;
  * @author wangwei
  * @since 2018-11-05
  */
+@Api(description = "慈善公益菜单(后台)")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/proNewsCharity")
@@ -65,8 +69,9 @@ public class ProNewsCharityController {
      * @param pageSize 每页记录数
      * @return
      */
+    @ApiOperation("慈善收支")
     @RequestMapping(value = "index/getProNewsCharityOutPage", method = RequestMethod.GET)
-    public Response<NewsCharityOutVo> getProNewsCharityOutPage(@RequestParam("showId") Integer showId,
+    public Response<NewsCharityOutVo> getProNewsCharityOutPage(@ApiParam(value = "显示位置") @RequestParam Integer showId,
                                                                @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
@@ -97,8 +102,9 @@ public class ProNewsCharityController {
      * @param id 慈善收支详情显示位置
      * @return
      */
+    @ApiOperation("慈善收支(文章)详情")
     @RequestMapping(value = "getNewsDetail", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getNewsDetail(@RequestParam(value = "id") Integer id) {
+    public Response<NewsDetailVo> getNewsDetail(@ApiParam(value = "主键") @RequestParam Integer id) {
 
         NewsDetailVo newsCharityOutDetail = proNewsCharityOutService.getNewsCharityOutDetail(id);
 

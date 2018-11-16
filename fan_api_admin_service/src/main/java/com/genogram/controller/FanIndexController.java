@@ -54,7 +54,7 @@ public class FanIndexController {
         }
 
         List list = new ArrayList();
-        //1:正常;2:草稿
+        //状态   1-前后台显示    2-前台不显示      0-前后台都不显示
         list.add(1);
         list.add(2);
 
