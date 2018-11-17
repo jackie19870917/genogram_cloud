@@ -36,7 +36,7 @@ public class ProIndexController {
     @Autowired
     private IProIndexSlidePicService proIndexSlidePicService;
 
-    @ApiOperation("基本信息")
+    @ApiOperation(value = "基本信息",notes = "id:主键,siteId:网站Id,siteName:网站名称,regionCode;地区编号,totemPicSrc:图腾,title:宣言,description;简介")
     @RequestMapping(value = "index/getIndexInfo", method = RequestMethod.GET)
     public Response<IndexInfoVo> getIndexInfoVo(@ApiParam("网站Id") @RequestParam Integer siteId) {
 
@@ -49,7 +49,7 @@ public class ProIndexController {
         return ResponseUtlis.success(indexInfoVo);
     }
 
-    @ApiOperation("轮播图")
+    @ApiOperation(value = "轮播图",notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "index/getProIndexSlidePic", method = RequestMethod.GET)
     public Response<ProIndexSlidePic> getProIndexSlidePic(@ApiParam("网站Id") @RequestParam Integer siteId) {
 
