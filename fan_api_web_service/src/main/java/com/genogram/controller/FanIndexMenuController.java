@@ -23,7 +23,7 @@ import java.util.Map;
  * @author wangwei
  * @since 2018-11-05
  */
-@Api(description = "联谊会前台首页菜单接口")
+@Api(description = "联谊会菜单接口(前台)")
 @RestController
 @RequestMapping("/genogram/fanMenu")
 @CrossOrigin(origins = "*")
