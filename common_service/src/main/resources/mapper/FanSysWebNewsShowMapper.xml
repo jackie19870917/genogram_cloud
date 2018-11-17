@@ -6,8 +6,20 @@
     <resultMap id="BaseResultMap" type="com.genogram.entity.FanSysWebNewsShow">
         <id column="id" property="id" />
         <result column="show_id" property="showId" />
-        <result column="fan_sys_site_id" property="fanSysSiteId" />
-        <result column="fan_sys_web_menu_id" property="fanSysWebMenuId" />
+        <result column="site_id" property="siteId" />
+        <result column="menu_id" property="menuId" />
+        <result column="tree_num" property="treeNum" />
+        <result column="menu_name" property="menuName" />
+        <result column="parent_id" property="parentId" />
+        <result column="api_url" property="apiUrl" />
+        <result column="api_admin_url" property="apiAdminUrl" />
+        <result column="order_index" property="orderIndex" />
+        <result column="menu_code" property="menuCode" />
+        <result column="menu_type" property="menuType" />
+        <result column="is_admin" property="isAdmin" />
+        <result column="is_web" property="isWeb" />
+        <result column="istatic" property="istatic" />
+        <result column="comments" property="comments" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
         <result column="update_time" property="updateTime" />
@@ -16,7 +28,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, show_id AS showId, fan_sys_site_id AS fanSysSiteId, fan_sys_web_menu_id AS fanSysWebMenuId, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, show_id AS showId, site_id AS siteId, menu_id AS menuId, tree_num AS treeNum, menu_name AS menuName, parent_id AS parentId, api_url AS apiUrl, api_admin_url AS apiAdminUrl, order_index AS orderIndex, menu_code AS menuCode, menu_type AS menuType, is_admin AS isAdmin, is_web AS isWeb, istatic, comments, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

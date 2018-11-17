@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-17
  */
 @TableName("pro_index_fund")
 public class ProIndexFund extends Model<ProIndexFund> {
@@ -41,6 +41,11 @@ public class ProIndexFund extends Model<ProIndexFund> {
      */
     @TableField("pay_num")
     private Integer payNum;
+    /**
+     * 不可用金额(冻结金额)
+     */
+    @TableField("unuse_amount")
+    private BigDecimal unuseAmount;
     /**
      * 线上捐款金额
      */
@@ -111,6 +116,15 @@ public class ProIndexFund extends Model<ProIndexFund> {
 
     public ProIndexFund setPayNum(Integer payNum) {
         this.payNum = payNum;
+        return this;
+    }
+
+    public BigDecimal getUnuseAmount() {
+        return unuseAmount;
+    }
+
+    public ProIndexFund setUnuseAmount(BigDecimal unuseAmount) {
+        this.unuseAmount = unuseAmount;
         return this;
     }
 
@@ -189,6 +203,7 @@ public class ProIndexFund extends Model<ProIndexFund> {
         ", siteId=" + siteId +
         ", remain=" + remain +
         ", payNum=" + payNum +
+        ", unuseAmount=" + unuseAmount +
         ", payOnline=" + payOnline +
         ", payUnderline=" + payUnderline +
         ", payGenogram=" + payGenogram +
