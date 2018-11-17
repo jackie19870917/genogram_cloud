@@ -112,6 +112,8 @@ public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZi
             //存入修改时间
             proNewsCultureZipai.setUpdateTime(format);
             proNewsCultureZipai.setUpdateUser(null);
+            //初始化查看数为0
+            proNewsCultureZipai.setVisitNum(0);
         }else{
             //存入修改时间
             proNewsCultureZipai.setUpdateTime(format);

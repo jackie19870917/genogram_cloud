@@ -14,6 +14,9 @@ import com.genogram.service.IProNewsCultureNewsService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +34,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/proNewsCulture")
+@Api(description = "省级家族文化后台增删改查")
 public class ProNewsCultureController {
 
     @Autowired
@@ -47,11 +51,12 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级后台字派查询" ,  notes="根据showId查询")
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<ProNewsCultureZipai> getCommonalityPage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try {
             //没有取到参数,返回空参
@@ -90,9 +95,10 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级字派进入后台修改页面" ,  notes="根据id查询")
     @RequestMapping(value = "/getZiPaiDetail",method = RequestMethod.GET)
     public Response<ProNewsCultureZipai> getZiPaiDetail(
-            @RequestParam(value = "id") Integer id // 家族字派文章ID
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id // 家族字派文章ID
     ){
         try {
             if(id==null){
@@ -115,8 +121,9 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "省级家族字派后台新增修改 发表" ,  notes="根据ProNewsCultureZipai实体类查询")
     @RequestMapping(value = "/addOrUpdateZiPai",method = RequestMethod.POST)
-    public Response<ProNewsCultureZipai> addOrUpdateZiPai(ProNewsCultureZipai proNewsCultureZipai){
+    public Response<ProNewsCultureZipai> addOrUpdateZiPai(@ApiParam(value = "省级字派实体类")ProNewsCultureZipai proNewsCultureZipai){
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsCultureZipai.setStatus(1);
         return getFanNewsCultureZipaiResponse(proNewsCultureZipai);
@@ -131,8 +138,9 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "省级家族字派后台新增修改 草稿" ,  notes="根据ProNewsCultureZipai实体类查询")
     @RequestMapping(value = "/addOrUpdateZiPaiDrft",method = RequestMethod.POST)
-    public Response<ProNewsCultureZipai> addOrUpdateZiPaiDrft(ProNewsCultureZipai proNewsCultureZipai){
+    public Response<ProNewsCultureZipai> addOrUpdateZiPaiDrft(@ApiParam(value = "省级字派实体类")ProNewsCultureZipai proNewsCultureZipai){
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsCultureZipai.setStatus(2);
         return getFanNewsCultureZipaiResponse(proNewsCultureZipai);
@@ -169,9 +177,10 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级家族字派后台删除" ,  notes="根据id删除")
     @RequestMapping(value ="/deleteZipaiById",method = RequestMethod.GET)
     public Response<ProNewsCultureZipai> deleteZipaiById(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         try {
             if(id==null){
@@ -199,11 +208,12 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级家族文化查询" ,  notes="根据showId查询")
     @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try{
             //判断showId是否有值
@@ -243,9 +253,10 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级家族文化详情 进入修改页面" ,  notes="根据id查询")
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         try {
         if(id==null){
@@ -268,8 +279,9 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "省级家族文化后台添加和修改 发表" ,  notes="根据ProNewsCultureNews实体类新增修改")
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
-    public Response<ProNewsCultureNews> addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName,String filePath) {
+    public Response<ProNewsCultureNews> addOrUpdateCulture(@ApiParam(value = "家族文化表")ProNewsCultureNews proNewsCultureNews, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsCultureNews.setStatus(1);
         return getFanNewsCultureNewsResponse(proNewsCultureNews, fileName,filePath);
@@ -284,8 +296,9 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "省级家族文化后台添加和修改 草稿" ,  notes="根据ProNewsCultureNews实体类新增修改")
     @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
-    public Response<ProNewsCultureNews> addOrUpdateCultureDrft(ProNewsCultureNews proNewsCultureNews, String fileName,String filePath) {
+    public Response<ProNewsCultureNews> addOrUpdateCultureDrft(@ApiParam(value = "家族文化表")ProNewsCultureNews proNewsCultureNews, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsCultureNews.setStatus(2);
         return getFanNewsCultureNewsResponse(proNewsCultureNews, fileName,filePath);
@@ -324,9 +337,10 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级家族文化后台删除" ,  notes="根据id删除")
     @RequestMapping(value ="/deleteCulturById",method = RequestMethod.GET)
     public Response<ProNewsCultureNews> deleteCulturById(
-            @RequestParam(value = "id")Integer id // 家族文化详情显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id")Integer id // 家族文化详情显示位置
     ) {
         try {
             if(id==null){

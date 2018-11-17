@@ -239,9 +239,12 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             int status=1;
             //来源:(1县级,2省级)
             int newsSource=1;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=1;
             //要插入的实体类
             FanSysRecommend fanSysRecommend=new FanSysRecommend();
             fanSysRecommend.setStatus(status);
+            fanSysRecommend.setStatus(isAuto);
             fanSysRecommend.setNewsSource(newsSource);
             fanSysRecommend.setShowId(fanNewsIndustry.getShowId());
             fanSysRecommend.setNewsId(fanNewsIndustry.getId());

@@ -74,15 +74,19 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     */
     @Override
     public Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status) {
+        boolean result=false;
         //查询文章
-        FanSysRecommend fanSysRecommend = this.selectOne(entity);
-        //修改状态
-        fanSysRecommend.setStatus(status);
-        //修改人
-        fanSysRecommend.setUpdateUser(null);
-        //修改时间
-        fanSysRecommend.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        boolean result = this.updateAllColumnById(fanSysRecommend);
+        List<FanSysRecommend> list = this.selectList(entity);
+        for (FanSysRecommend fanSysRecommend : list) {
+            //修改状态
+            fanSysRecommend.setStatus(status);
+            //修改人
+            fanSysRecommend.setUpdateUser(null);
+            //修改时间
+            fanSysRecommend.setUpdateTime(DateUtil.getCurrentTimeStamp());
+            result = this.updateAllColumnById(fanSysRecommend);
+        }
+
         return result;
     }
 

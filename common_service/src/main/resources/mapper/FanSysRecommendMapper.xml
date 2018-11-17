@@ -22,6 +22,7 @@
         id, show_id AS showId, news_id AS newsId, isProvince, isCountry, is_auto AS isAuto, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
+    <!--省级首页县级推荐文章查询-->
     <select id="getIndexRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.IndustryDetailVo">
     select temp1.* from (
     SELECT
@@ -33,6 +34,9 @@
        and e.parent=#{sizeId}
     </if>
     and e.id=s.fan_sys_site_id and s.show_id=m.show_id
+        <if test="isAuto!=null">
+            and m.is_auto=#{isAuto}
+        </if>
         <if test="status!=null">
             and m.`status`=#{status}
         </if>
@@ -50,6 +54,9 @@
             and e.parent=#{sizeId}
         </if>
         and e.id=s.fan_sys_site_id and s.show_id=m.show_id
+        <if test="isAuto!=null">
+            and m.is_auto=#{isAuto}
+        </if>
         <if test="status!=null">
             and m.`status`=#{status}
         </if>
@@ -67,6 +74,9 @@
             and e.parent=#{sizeId}
         </if>
         and e.id=s.fan_sys_site_id and s.show_id=m.show_id
+        <if test="isAuto!=null">
+            and m.is_auto=#{isAuto}
+        </if>
         <if test="status!=null">
             and m.`status`=#{status}
         </if>

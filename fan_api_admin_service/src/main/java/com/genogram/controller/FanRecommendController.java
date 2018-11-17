@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  *@return:
  *@Description:
 */
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("genogram/admin/fanRecommend")
@@ -51,11 +52,14 @@ public class FanRecommendController {
             int status=1;
             //来源:(1县级,2省级)
             int newsSource=1;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=0;
             //要插入的实体类
             FanSysRecommend fanSysRecommend=new FanSysRecommend();
             fanSysRecommend.setNewsId(id);
             fanSysRecommend.setShowId(showId);
             fanSysRecommend.setStatus(status);
+            fanSysRecommend.setStatus(isAuto);
             fanSysRecommend.setNewsSource(newsSource);
             Boolean aBoolean = fanSysRecommendService.addRecommend(fanSysRecommend);
             if(!aBoolean){
@@ -88,9 +92,14 @@ public class FanRecommendController {
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=3;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=0;
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("show_id",showId);
             entity.eq("news_id",id);
+            entity.eq("is_auto",isAuto);
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            entity.eq("status",1);
             Boolean aBoolean = fanSysRecommendService.deleteRecommend(entity,status);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);

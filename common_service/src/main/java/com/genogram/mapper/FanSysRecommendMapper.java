@@ -25,5 +25,4 @@ public interface FanSysRecommendMapper extends BaseMapper<FanSysRecommend> {
      * @return
      */
     List<IndustryDetailVo> getIndexRecommend(Map map);
-
 }

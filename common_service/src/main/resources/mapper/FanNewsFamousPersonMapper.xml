@@ -33,6 +33,9 @@
             and e.parent=#{parent}
         </if>
         and s.id=n.fan_sys_site_id and  n.show_id=m.show_id
+        <if test="isAuto!=null">
+            and m.is_auto=#{isAuto}
+        </if>
         <if test="status!=null">
             and m.`status`=#{status}
         </if>

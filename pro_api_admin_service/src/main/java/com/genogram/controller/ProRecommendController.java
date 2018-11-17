@@ -10,6 +10,9 @@ import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +22,7 @@ import java.util.Map;
 
 
 /**
- *联谊会推荐
+ *省级推荐
  *@Author: Toxicant
  *@Date: 2018-11-09
  *@Time: 14:23
@@ -30,6 +33,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/proRecommend")
+@Api(description = "省级推荐")
 public class ProRecommendController {
 
     @Autowired
@@ -44,10 +48,11 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级后台点击推荐" ,  notes="根据showId,id查询")
     @RequestMapping(value = "/addRecommendButton",method = RequestMethod.GET)
     public Response<FanSysRecommend> addRecommendButton(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "id") Integer id //主键
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //主键
     ) {
         try {
             if(showId==null || id==null){
@@ -83,10 +88,11 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级后台点击取消" ,  notes="根据showId,id查询")
     @RequestMapping(value = "/deleteRecommendButton",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommendButton(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "id") Integer id //文章主键
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //文章主键
     ) {
         try {
             if(showId==null || id==null){
@@ -117,9 +123,10 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级后台设置个人推荐取消展示" ,  notes="根据id删除")
     @RequestMapping(value = "/deleteRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommend(
-            @RequestParam(value = "id") Integer id //推荐主键
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //推荐主键
     ) {
         if(id==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -138,9 +145,10 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级后台设置个人推荐展示" ,  notes="根据id")
     @RequestMapping(value = "/updateRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> updateRecommend(
-            @RequestParam(value = "id") Integer id //推荐主键
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //推荐主键
     ) {
         if(id==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -176,7 +184,7 @@ public class ProRecommendController {
     }
 
     /**
-     *省级后台设置推荐查询
+     *省级后台设置手动推荐查询
      *@Author: yuzhou
      *@Date: 2018-11-13
      *@Time: 11:16
@@ -184,20 +192,24 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级后台设置手动推荐查询" ,  notes="")
     @RequestMapping(value = "/getRecommendPage",method = RequestMethod.GET)
     public Response<FanSysRecommend> getRecommendPage(
-            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
     ) {
         try {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
             //来源:(1县级,2省级)
             int newsSource=2;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=0;
             //查询条件
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("status",status);
             entity.eq("news_source",newsSource);
+            entity.eq("isAuto",isAuto);
             entity.orderBy("create_time", false);
             Page<FanSysRecommend> recommendPage = proSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
             if(recommendPage==null){
@@ -206,6 +218,73 @@ public class ProRecommendController {
                 return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
             }
             return ResponseUtlis.success(recommendPage);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级后台设置自动推荐文章查询
+     *@Author: yuzhou
+     *@Date: 2018-11-17
+     *@Time: 17:55
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "省级后台设置自动推荐查询" ,  notes="")
+    @RequestMapping(value = "/getAutomaticRecommendArticle",method = RequestMethod.GET)
+    public Response<FanSysRecommend> getAutomaticRecommendArticle(
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
+    ) {
+        try {
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=1;
+            //来源:(1县级,2省级)
+            int newsSource=2;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=1;
+            Map map=new HashMap();
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            map.put("isAuto",isAuto);
+            List<IndustryDetailVo> industryDetailVo=proSysRecommendService.getRecommendArticle(map);
+            return ResponseUtlis.success(industryDetailVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级后台设置自动推荐人物查询
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 18:07
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @RequestMapping(value = "/index/getRecommendFigure",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getRecommendFigure(
+            @RequestParam(value = "sizeId") Integer sizeId
+    ) {
+        try {
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=1;
+            //来源:(1县级,2省级)
+            int newsSource=2;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=1;
+            Map map=new HashMap();
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            map.put("isAuto",isAuto);
+            List<FamilyPersonVo> familyPersonVo=proSysRecommendService.getRecommendFigure(map);
+            return ResponseUtlis.success(familyPersonVo);
         }catch (Exception e){
             e.printStackTrace();
             return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
