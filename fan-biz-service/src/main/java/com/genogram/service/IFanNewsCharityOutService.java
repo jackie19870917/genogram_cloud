@@ -60,4 +60,11 @@ public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
      * @return
      */
     Boolean deleteFanNewsCharityOut(Integer id);
+
+    /**
+     * 查看慈善收支详情 增加查看数
+     * @param id
+     * @return
+     */
+    Boolean insertVisitNum(Integer id);
 }

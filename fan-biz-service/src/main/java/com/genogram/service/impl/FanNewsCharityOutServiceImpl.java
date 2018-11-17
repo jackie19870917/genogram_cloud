@@ -207,4 +207,14 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         return this.updateById(fanNewsCharityOut);
     }
 
+    @Override
+    public Boolean insertVisitNum(Integer id) {
+
+        FanNewsCharityOut fanNewsCharityOut = this.selectById(id);
+        fanNewsCharityOut.setId(id);
+        fanNewsCharityOut.setVisitNum(fanNewsCharityOut.getVisitNum() + 1);
+
+        return this.updateById(fanNewsCharityOut);
+    }
+
 }

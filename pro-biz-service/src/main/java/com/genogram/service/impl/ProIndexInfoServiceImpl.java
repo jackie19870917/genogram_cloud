@@ -45,6 +45,7 @@ public class ProIndexInfoServiceImpl extends ServiceImpl<ProIndexInfoMapper, Pro
         IndexInfoVo indexInfoVo = new IndexInfoVo();
         BeanUtils.copyProperties(proIndexInfo,indexInfoVo);
         indexInfoVo.setSiteName(proSysSite.getName());
+        indexInfoVo.setRegionCode(proSysSite.getRegionCode());
 
         return indexInfoVo;
     }

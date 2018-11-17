@@ -175,6 +175,7 @@ public class FanNewsCharityController {
     public Response<NewsDetailVo> getFanNewsCharityDetail(@RequestParam(value = "id") Integer id) {
 
         NewsDetailVo newsCharityOutDetail = fanNewsCharityOutService.getNewsCharityOutDetail(id);
+        fanNewsCharityOutService.insertVisitNum(id);
 
         return ResponseUtlis.success(newsCharityOutDetail);
     }
