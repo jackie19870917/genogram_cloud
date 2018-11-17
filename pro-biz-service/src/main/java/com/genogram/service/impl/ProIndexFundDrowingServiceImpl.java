@@ -30,7 +30,9 @@ public class ProIndexFundDrowingServiceImpl extends ServiceImpl<ProIndexFundDrow
     public Boolean insertProIndexFundDrowing(ProIndexFundDrowing proIndexFundDrowing) {
 
         proIndexFundDrowing.setCreateTime(DateUtil.getCurrentTimeStamp());
+        proIndexFundDrowing.setUpdateTime(DateUtil.getCurrentTimeStamp());
         proIndexFundDrowing.setApproveStatus(1);
+        proIndexFundDrowing.setCreateUser(1);
 
         return this.insert(proIndexFundDrowing);
     }

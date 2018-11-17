@@ -176,6 +176,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
         proNewsCharityOut.setCreateUser(1);
         proNewsCharityOut.setUpdateUser(1);
+        proNewsCharityOut.setVisitNum(0);
 
         proNewsCharityOut.setUpdateTime(timeStamp);
         if (proNewsCharityOut.getId() == null) {

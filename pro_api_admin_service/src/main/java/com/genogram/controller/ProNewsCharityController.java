@@ -61,15 +61,15 @@ public class ProNewsCharityController {
      * 慈善收支
      *
      * @param showId   慈善收支显示位置
-     * @param newsType 种类(1.财政支出;2.财政收入)
+    // @param newsType 种类(1.财政支出;2.财政收入)
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
      */
-    @ApiOperation("慈善收支")
+    @ApiOperation(value = "慈善收支",notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "index/getProNewsCharityOutPage", method = RequestMethod.GET)
     public Response<NewsCharityOutVo> getProNewsCharityOutPage(@ApiParam(value = "显示位置") @RequestParam Integer showId,
-                                                               @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
+                                                             //  @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -84,7 +84,7 @@ public class ProNewsCharityController {
 
         Wrapper<ProNewsCharityOut> entity = new EntityWrapper<ProNewsCharityOut>();
         entity.eq("show_id", showId);
-        entity.eq("news_type", newsType);
+       // entity.eq("news_type", newsType);
         entity.in("status", list);
         entity.orderBy("create_time", false);
 
@@ -99,7 +99,7 @@ public class ProNewsCharityController {
      * @param id 慈善收支详情显示位置
      * @return
      */
-    @ApiOperation("慈善收支(文章)详情")
+    @ApiOperation(value = "慈善收支(文章)详情",notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "getNewsDetail", method = RequestMethod.GET)
     public Response<NewsDetailVo> getNewsDetail(@ApiParam(value = "主键") @RequestParam Integer id) {
 
@@ -163,7 +163,7 @@ public class ProNewsCharityController {
      */
     @ApiOperation("删除慈善收支(文章)")
     @RequestMapping(value = "deleteProNewsCharityOut", method = RequestMethod.GET)
-    public Response<ProNewsCharityOut> deleteProNewsCharityOut(@ApiParam(value = "主键")Integer id) {
+    public Response<ProNewsCharityOut> deleteProNewsCharityOut(@ApiParam(value = "主键")@RequestParam Integer id) {
 
         Boolean result = proNewsCharityOutService.deleteProNewsCharityOut(id);
 
@@ -179,7 +179,7 @@ public class ProNewsCharityController {
      * @param proIndexFundDrowing
      * @return
      */
-    @ApiOperation(value = "新增线上提现",notes = "")
+    @ApiOperation(value = "新增线上提现",notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
     @RequestMapping(value = "insertProIndexFundDrowing", method = RequestMethod.POST)
     public Response<ProIndexFundDrowing> insertProIndexFundDrowing(ProIndexFundDrowing proIndexFundDrowing) {
 
@@ -199,9 +199,9 @@ public class ProNewsCharityController {
      * @param pageSize
      * @return
      */
-    @ApiOperation("线上提现记录")
+    @ApiOperation(value = "线上提现记录",notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
     @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.GET)
-    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam(value = "网站Id") Integer siteId,
+    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam(value = "网站Id")@RequestParam Integer siteId,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -220,7 +220,7 @@ public class ProNewsCharityController {
      * @param proNewsCharityPayIn
      * @return
      */
-    @ApiOperation(value = "新增线下捐款",notes = "")
+    @ApiOperation(value = "新增线下捐款",notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "insertProNewsCharityPayIn", method = RequestMethod.POST)
     public Response<ProNewsCharityPayIn> insertProNewsCharityPayIn(ProNewsCharityPayIn proNewsCharityPayIn) {
 
