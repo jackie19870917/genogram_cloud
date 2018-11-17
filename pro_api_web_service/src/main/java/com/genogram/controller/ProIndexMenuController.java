@@ -25,7 +25,7 @@ import java.util.List;
  * @author wangwei
  * @since 2018-11-05
  */
-@Api(description = "首页菜单接口")
+@Api(description = "省级前台首页菜单接口")
 @RestController
 @RequestMapping("/genogram/proMenu")
 @CrossOrigin(origins = "*")

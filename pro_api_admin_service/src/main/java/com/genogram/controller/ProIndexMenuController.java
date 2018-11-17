@@ -28,7 +28,6 @@ public class ProIndexMenuController {
     @Autowired
     private IProSysWebNewsShowService proSysWebNewsShowService;
 
-    //localhost:8050/genogram/admin/proMenu/getTitlesByMenuId?siteId=1&menuId=2
     @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.GET)
     public Response getTitlesByMenuId(@RequestParam(name = "siteId") int siteId, @RequestParam(name = "menuId") int menuId) {
         List<SysWebMenuVo> list = proSysWebNewsShowService.getTitlesByMenuId(siteId, menuId);

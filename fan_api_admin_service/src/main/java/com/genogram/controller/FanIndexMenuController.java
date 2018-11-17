@@ -1,56 +1,49 @@
 package com.genogram.controller;
 
-
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.genogram.config.Constants;
-import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entityvo.SysWebMenuVo;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * 菜单
+ * @Author: wang,wei
+ * @Date: 2018-11-05
+ * @Time: 22:04
+ * @return:
+ * @Description:
+ *
+ */
+@Api(description = "联谊会后台菜单接口")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanMenu")
 public class FanIndexMenuController {
-    @Value("${fan_api_admin_service.api_ip}")
-    private String hostIp;
-
     @Autowired
-    private IFanSysWebNewsShowService iFanSysWebNewsShowService;
+    private IFanSysWebNewsShowService fanSysWebfNewsShowService;
 
-    //http://localhost:8050/genogram/admin/fanMenu/getTitlesByMenuId?siteId=1&menuId=2
+    @ApiOperation(value = "后台子栏目查询" ,  notes="siteId:网站id;menuId:主菜单id(2.家族文化,3.慈善公益,4.家族产业,5.家族名人,6.记录家族,7.组织架构,8.祖先分支,9.统谱编修)")
     @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.GET)
-    public Response getTitlesByMenuId(@RequestParam(name = "siteId") int siteId, @RequestParam(name = "menuId") int menuId) {
-        List<SysWebMenuVo> list = iFanSysWebNewsShowService.getTitlesByMenuId(hostIp,siteId, menuId);
+    public Response getTitlesByMenuId(@RequestParam("siteId") int siteId, @RequestParam(name = "menuId") int menuId) {
+        List<SysWebMenuVo> list = fanSysWebfNewsShowService.getTitlesByMenuId(siteId, menuId);
         if (list.isEmpty()) {
             return ResponseUtlis.error(Constants.IS_EMPTY, list);
         }
         return ResponseUtlis.success(list);
     }
 
-    @RequestMapping(value = "/getMenuBySiteId", method = RequestMethod.GET)
-    public Response getMenuBySiteId(@RequestParam(name = "siteId") String siteId) {
-        EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<>();
-        entityWrapper.eq("fan_sys_site_id", siteId);
-        List<SysWebMenuVo> list = iFanSysWebNewsShowService.getMenu(hostIp, siteId, false, entityWrapper);
-        HashMap indexMap = new LinkedHashMap();
-        list.forEach((fanSysWebMenuVo) -> {
-            indexMap.put(fanSysWebMenuVo.getMenuCode(), fanSysWebMenuVo.getChild());
-        });
 
-        Map map = new HashMap(16);
-        map.put("menu_show", indexMap);
-        //单表查询list
-        return ResponseUtlis.success(map);
+    @ApiOperation(value = "后台子栏目修改" ,  notes="siteId:网站id;menuName:菜单名称")
+    @RequestMapping(value = "/updateTitlesById", method = RequestMethod.POST)
+    public Response updateTitlesById(@RequestParam("siteId") int siteId, @RequestParam(name = "menuName") String menuName) {
+        fanSysWebfNewsShowService.updateTitlesById(siteId,menuName);
+        return ResponseUtlis.success(true);
     }
 }
 

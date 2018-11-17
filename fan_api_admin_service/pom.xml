@@ -26,7 +26,7 @@
 
     <dependencies>
 
-        <!--com.genogram 依赖-->
+        <!--common_service 依赖-->
         <dependency>
             <groupId>com.genogram</groupId>
             <artifactId>common_service</artifactId>
@@ -34,12 +34,33 @@
             <scope>compile</scope>
         </dependency>
 
-        <!--com.genogram 依赖-->
+        <!--common_file_upload_service 依赖-->
         <dependency>
             <groupId>com.genogram</groupId>
             <artifactId>common_file_upload_service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
+        </dependency>
+
+        <!--fan-biz-service-->
+        <dependency>
+            <groupId>com.genogram</groupId>
+            <artifactId>fan-biz-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <!-- swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.7.0</version>
         </dependency>
 
         <dependency>
@@ -57,12 +78,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.genogram</groupId>
-            <artifactId>fan-biz-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+
     </dependencies>
 
     <build>

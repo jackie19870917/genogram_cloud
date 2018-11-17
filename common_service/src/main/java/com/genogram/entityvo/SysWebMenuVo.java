@@ -15,19 +15,16 @@ import java.util.List;
  *
  */
 public class SysWebMenuVo{
-    private int showId;
-    private int fanSysSiteId;
-    private int fanSysWebMenuId;
-    private List<SysWebMenuVo> child;
-
-    /**
-     * 页面显示栏目名称
-     */
-    private String menuShowName;
-    /**
-     * 权限ID
-     */
     private Integer id;
+    /**
+     * site_id和menuid组合
+     */
+    private Integer showId;
+    /**
+     * 网站id
+     */
+    private Integer siteId;
+    private Integer menuId;
     /**
      * 菜单级数
      */
@@ -53,7 +50,7 @@ public class SysWebMenuVo{
      */
     private Integer orderIndex;
     /**
-     * 菜单类型:图片文章视频
+     * 菜单类型
      */
     private String menuCode;
     /**
@@ -69,7 +66,7 @@ public class SysWebMenuVo{
      */
     private Integer isWeb;
     /**
-     * 是否有子栏目;0:否;1是
+     * 是否手动添加的子栏目;0:否;1是
      */
     private Integer istatic;
     /**
