@@ -58,12 +58,5 @@ public class FanIndexMenuController {
         }
         return ResponseUtlis.success(list);
     }
-
-    @ApiOperation(value = "初始化fan_sys_web_news_show" ,  notes="")
-    @RequestMapping(value = "/initWebMenu", method = RequestMethod.GET)
-    public Response initWebMenu(@RequestParam("siteId") int siteId) {
-        fanSysWebNewsShowService.initWebMenu(siteId);
-        return ResponseUtlis.success(true);
-    }
 }
 

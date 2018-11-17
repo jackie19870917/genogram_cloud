@@ -37,7 +37,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2_2 ="index_architecture_pay_in_person_2_2";
     private final static String INDEX_CHARITY_PAY_OUT ="index_charity_pay_out";
     private final static String INDEX_CHARITY_PAY_OUT_3 ="index_charity_pay_out_3";
-
+    private final static int NUM_100 = 100;
 
     @Autowired
     private IFanSysWebMenuService fanSysWebMenuService;
@@ -219,5 +219,47 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         fanSysWebNewsShows.setUpdateUser(1);
         fanSysWebNewsShows.setUpdateTime(DateUtil.getCurrentTimeStamp());
         this.insertOrUpdate(fanSysWebNewsShows);
+    }
+
+    @Override
+    public String delTitlesById(int id) {
+        FanSysWebNewsShow fanSysWebNewsShows = this.selectById(id);
+        if(fanSysWebNewsShows.getIstatic().equals(0)){
+            //固定的栏目不允许删除
+            return "can not del the title";
+        }else{
+            this.deleteById(id);
+            return "del successful";
+        }
+    }
+
+    @Override
+    public void addTitles(int siteId, String menuName, int parentId) {
+        Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<>();
+        entity.eq("site_id", siteId);
+        entity.eq("parent_id", parentId);
+        entity.orderBy("order_index", true);
+        List<FanSysWebNewsShow> fanSysWebNewsShowsList = this.selectList(entity);
+        FanSysWebNewsShow lastOne = fanSysWebNewsShowsList.get(fanSysWebNewsShowsList.size()-1);
+        lastOne.setMenuName(menuName);
+
+        if(lastOne.getMenuId()<NUM_100){
+            //第一次添加100以内的,则组成新方式
+            lastOne.setMenuId(lastOne.getTreeNum() *100);
+        }else{
+            lastOne.setMenuId(lastOne.getMenuId()+1);
+        }
+        lastOne.setOrderIndex(lastOne.getOrderIndex()+1);
+        String showId = lastOne.getSiteId() + "" + lastOne.getMenuId();
+        lastOne.setShowId(Integer.parseInt(showId));
+        //手动添加的节点
+        lastOne.setIstatic(1);
+
+        lastOne.setUpdateUser(1);
+        lastOne.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        lastOne.setCreateUser(1);
+        lastOne.setCreateTime(DateUtil.getCurrentTimeStamp());
+
+        this.insert(lastOne);
     }
 }

@@ -1,24 +1,24 @@
 package com.genogram.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-
-import java.io.Serializable;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
 /**
  * <p>
- * 省级-家族名人-家族长老-家族栋梁-组织架构
+ * 省级-家族名人-祖先-名人精英-组织架构
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-17
  */
-@TableName("Pro_news_famous_person")
+@TableName("pro_news_famous_person")
 public class ProNewsFamousPerson extends Model<ProNewsFamousPerson> {
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -197,19 +197,19 @@ public class ProNewsFamousPerson extends Model<ProNewsFamousPerson> {
 
     @Override
     public String toString() {
-        return "FanNewsFamousPerson{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", personName=" + personName +
-                ", personSummary=" + personSummary +
-                ", picFileSrc=" + picFileSrc +
-                ", picFileName=" + picFileName +
-                ", visitNum=" + visitNum +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        return "ProNewsFamousPerson{" +
+        ", id=" + id +
+        ", showId=" + showId +
+        ", personName=" + personName +
+        ", personSummary=" + personSummary +
+        ", picFileSrc=" + picFileSrc +
+        ", picFileName=" + picFileName +
+        ", visitNum=" + visitNum +
+        ", status=" + status +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

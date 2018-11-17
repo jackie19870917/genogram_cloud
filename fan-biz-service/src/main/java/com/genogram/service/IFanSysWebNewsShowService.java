@@ -1,7 +1,5 @@
 package com.genogram.service;
 
-
-
 import com.genogram.entity.FanSysWebNewsShow;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.SysWebMenuVo;
@@ -56,7 +54,7 @@ public interface IFanSysWebNewsShowService extends IService<FanSysWebNewsShow> {
     public void initWebMenu(int siteId);
 
     /**
-     * 开网站初始化菜单
+     * 修改菜单
      * @Author: wang,wei
      * @Date: 2018-11-05
      * @Time: 22:04
@@ -67,4 +65,32 @@ public interface IFanSysWebNewsShowService extends IService<FanSysWebNewsShow> {
      *
      */
     public void updateTitlesById(int id,String menuName);
+
+    /**
+     * 删除菜单
+     * @Author: wang,wei
+     * @Date: 2018-11-05
+     * @Time: 22:04
+     * @param id
+     * @param id
+     * @return:
+     * @Description:
+     *
+     */
+    public String delTitlesById(int id);
+
+    /**
+     * 删除菜单
+     * @Author: wang,wei
+     * @Date: 2018-11-05
+     * @Time: 22:04
+     * @param siteId
+     * @param menuName
+     * @param parentId
+     * @return:
+     * @Description:
+     *
+     */
+    public void addTitles(int siteId, String menuName,int parentId);
+
 }

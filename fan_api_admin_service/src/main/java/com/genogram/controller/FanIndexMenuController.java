@@ -38,12 +38,31 @@ public class FanIndexMenuController {
         return ResponseUtlis.success(list);
     }
 
+    @ApiOperation(value = "后台子栏初始化" ,  notes="开通网站时候使用")
+    @RequestMapping(value = "/initWebMenu", method = RequestMethod.POST)
+    public Response initWebMenu(@RequestParam("siteId") int siteId) {
+        fanSysWebfNewsShowService.initWebMenu(siteId);
+        return ResponseUtlis.success(true);
+    }
 
-    @ApiOperation(value = "后台子栏目修改" ,  notes="siteId:网站id;menuName:菜单名称")
+    @ApiOperation(value = "后台子栏目修改" ,  notes="id:菜单id;menuName:菜单名称")
     @RequestMapping(value = "/updateTitlesById", method = RequestMethod.POST)
-    public Response updateTitlesById(@RequestParam("siteId") int siteId, @RequestParam(name = "menuName") String menuName) {
-        fanSysWebfNewsShowService.updateTitlesById(siteId,menuName);
+    public Response updateTitlesById(@RequestParam("id") int id, @RequestParam(name = "menuName") String menuName) {
+        fanSysWebfNewsShowService.updateTitlesById(id,menuName);
+        return ResponseUtlis.success(true);
+    }
+
+    @ApiOperation(value = "后台子栏目删除" ,  notes="id:菜单id")
+    @RequestMapping(value = "/delTitlesById", method = RequestMethod.POST)
+    public Response delTitlesById(@RequestParam("id") int id, @RequestParam(name = "menuName") String menuName) {
+        fanSysWebfNewsShowService.delTitlesById(id);
+        return ResponseUtlis.success(true);
+    }
+
+    @ApiOperation(value = "后台子栏添加" ,  notes="")
+    @RequestMapping(value = "/addTitles", method = RequestMethod.POST)
+    public Response addTitles(@RequestParam("siteId") int siteId, @RequestParam(name = "menuName") String menuName, @RequestParam(name = "parentId") int parentId) {
+        fanSysWebfNewsShowService.addTitles(siteId,menuName,parentId);
         return ResponseUtlis.success(true);
     }
 }
-
