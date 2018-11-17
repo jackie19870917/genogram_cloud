@@ -2,6 +2,10 @@ package com.genogram.mapper;
 
 import com.genogram.entity.FanNewsFamousPerson;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.genogram.entityvo.FamilyPersonVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,10 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface FanNewsFamousPersonMapper extends BaseMapper<FanNewsFamousPerson> {
 
+    /**
+     * 省级首页县级推荐人物查询
+     * @param map 查询条件
+     * @return
+     */
+    List<FamilyPersonVo> getRecommendFigure(Map map);
 }

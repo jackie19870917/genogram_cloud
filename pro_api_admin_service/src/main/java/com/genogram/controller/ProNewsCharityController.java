@@ -18,6 +18,9 @@ import com.genogram.service.IProNewsCharityOutService;
 import com.genogram.service.IProNewsCharityPayInService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +37,7 @@ import java.util.Map;
  * @author wangwei
  * @since 2018-11-05
  */
+@Api(description = "慈善公益菜单(后台)")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/proNewsCharity")
@@ -44,9 +48,6 @@ public class ProNewsCharityController {
 
     @Autowired
     private IProNewsCharityPayInService proNewsCharityPayInService;
-
-    @Autowired
-    private IProIndexFundService proIndexFundService;
 
     @Autowired
     private IProIndexFundDrowingService proIndexFundDrowingService;
@@ -65,8 +66,9 @@ public class ProNewsCharityController {
      * @param pageSize 每页记录数
      * @return
      */
+    @ApiOperation("慈善收支")
     @RequestMapping(value = "index/getProNewsCharityOutPage", method = RequestMethod.GET)
-    public Response<NewsCharityOutVo> getProNewsCharityOutPage(@RequestParam("showId") Integer showId,
+    public Response<NewsCharityOutVo> getProNewsCharityOutPage(@ApiParam(value = "显示位置") @RequestParam Integer showId,
                                                                @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
@@ -97,8 +99,9 @@ public class ProNewsCharityController {
      * @param id 慈善收支详情显示位置
      * @return
      */
+    @ApiOperation("慈善收支(文章)详情")
     @RequestMapping(value = "getNewsDetail", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getNewsDetail(@RequestParam(value = "id") Integer id) {
+    public Response<NewsDetailVo> getNewsDetail(@ApiParam(value = "主键") @RequestParam Integer id) {
 
         NewsDetailVo newsCharityOutDetail = proNewsCharityOutService.getNewsCharityOutDetail(id);
 
@@ -112,8 +115,11 @@ public class ProNewsCharityController {
      * @param filePath
      * @return
      */
+    @ApiOperation(value = "新增/修改  慈善收支(文章)",notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数")
     @RequestMapping(value = "insertOrUpdateProNewsCharityOut", method = RequestMethod.POST)
-    public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOut(ProNewsCharityOut proNewsCharityOut, String fileName,String filePath) {
+    public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOut(ProNewsCharityOut proNewsCharityOut,
+                                                                      @ApiParam(value = "图片名称")String fileName,
+                                                                      @ApiParam(value = "图片url")String filePath) {
 
         //状态   (1:已发布;2:草稿)
         proNewsCharityOut.setStatus(1);
@@ -133,8 +139,11 @@ public class ProNewsCharityController {
      * @param filePath
      * @return
      */
+    @ApiOperation(value = "慈善收支(文章)草稿",notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数")
     @RequestMapping(value = "insertOrUpdateProNewsCharityOutDeft", method = RequestMethod.POST)
-    public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOutDeft(ProNewsCharityOut proNewsCharityOut, String fileName,String filePath) {
+    public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOutDeft(ProNewsCharityOut proNewsCharityOut,
+                                                                          @ApiParam(value = "图片名称")String fileName,
+                                                                          @ApiParam(value = "图片url")String filePath) {
 
         //状态   (1:已发布;2:草稿)
         proNewsCharityOut.setStatus(2);
@@ -152,8 +161,9 @@ public class ProNewsCharityController {
      * @param id
      * @return
      */
+    @ApiOperation("删除慈善收支(文章)")
     @RequestMapping(value = "deleteProNewsCharityOut", method = RequestMethod.GET)
-    public Response<ProNewsCharityOut> deleteProNewsCharityOut(Integer id) {
+    public Response<ProNewsCharityOut> deleteProNewsCharityOut(@ApiParam(value = "主键")Integer id) {
 
         Boolean result = proNewsCharityOutService.deleteProNewsCharityOut(id);
 
@@ -169,6 +179,7 @@ public class ProNewsCharityController {
      * @param proIndexFundDrowing
      * @return
      */
+    @ApiOperation(value = "新增线上提现",notes = "")
     @RequestMapping(value = "insertProIndexFundDrowing", method = RequestMethod.POST)
     public Response<ProIndexFundDrowing> insertProIndexFundDrowing(ProIndexFundDrowing proIndexFundDrowing) {
 
@@ -188,8 +199,9 @@ public class ProNewsCharityController {
      * @param pageSize
      * @return
      */
+    @ApiOperation("线上提现记录")
     @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.GET)
-    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@RequestParam("siteId") Integer siteId,
+    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam(value = "网站Id") Integer siteId,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -208,6 +220,7 @@ public class ProNewsCharityController {
      * @param proNewsCharityPayIn
      * @return
      */
+    @ApiOperation(value = "新增线下捐款",notes = "")
     @RequestMapping(value = "insertProNewsCharityPayIn", method = RequestMethod.POST)
     public Response<ProNewsCharityPayIn> insertProNewsCharityPayIn(ProNewsCharityPayIn proNewsCharityPayIn) {
 

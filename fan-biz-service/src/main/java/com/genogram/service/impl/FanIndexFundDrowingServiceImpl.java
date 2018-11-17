@@ -32,6 +32,7 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
 
         fanIndexFundDrowing.setCreateTime(DateUtil.getCurrentTimeStamp());
         fanIndexFundDrowing.setApproveStatus(1);
+        fanIndexFundDrowing.setUpdateTime(DateUtil.getCurrentTimeStamp());
 
         return this.insert(fanIndexFundDrowing);
     }

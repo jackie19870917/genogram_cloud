@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanIndexFundDrowing;
 import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.entity.FanNewsCharityPayIn;
@@ -11,6 +12,7 @@ import com.genogram.entityvo.IndexFundDrowingVo;
 import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanIndexFundDrowingService;
+import com.genogram.service.IFanIndexFundService;
 import com.genogram.service.IFanNewsCharityOutService;
 import com.genogram.service.IFanNewsCharityPayInService;
 import com.genogram.unit.Response;
@@ -42,6 +44,26 @@ public class FanNewsCharityController {
 
     @Autowired
     private IFanNewsCharityPayInService fanNewsCharityPayInService;
+
+    @Autowired
+    private IFanIndexFundService fanIndexFundService;
+    /**
+     * 慈善基金
+     *
+     * @param siteId 慈善基金ID
+     * @return
+     */
+    @RequestMapping(value = "getFanIndexFund", method = RequestMethod.GET)
+    public Response<FanIndexFund> getFanIndexFund(@RequestParam("siteId") Integer siteId) {
+
+        if (siteId==null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
+
+        return ResponseUtlis.success(fanIndexFund);
+    }
 
     /**
      * 慈善收支

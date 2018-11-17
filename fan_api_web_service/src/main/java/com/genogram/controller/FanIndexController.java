@@ -76,7 +76,7 @@ public class FanIndexController {
     @RequestMapping(value = "index/getFanIndexFamilySummarysPage", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+                                                                          @RequestParam(value = "pageSize",defaultValue = "2333") Integer pageSize) {
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);

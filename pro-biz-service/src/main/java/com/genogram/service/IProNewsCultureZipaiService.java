@@ -2,6 +2,7 @@ package com.genogram.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entity.ProNewsCultureNews;
 import com.genogram.entity.ProNewsCultureZipai;
 import com.baomidou.mybatisplus.service.IService;
@@ -59,4 +60,13 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      * @return
      */
     Boolean deleteZipaiById(Integer id, int status);
+
+    /**
+     * 省级字派按地区查询
+     * @param sizeId  省级网站Id
+     * @param mapPage  分页条件
+     * @param map  查询条件
+     * @return
+     */
+    Page<FanNewsCultureZipai> getZipaiRegionPage(Integer sizeId,Page mapPage, Map map);
 }

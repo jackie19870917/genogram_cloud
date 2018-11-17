@@ -23,4 +23,23 @@
         id, show_id AS showId, person_name AS personName, person_summary AS personSummary, pic_file_src AS picFileSrc, pic_file_name AS picFileName, visit_num AS visitNum, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
+    <select id="getRecommendFigure" parameterType="java.util.Map" resultType="com.genogram.entityvo.FamilyPersonVo">
+        SELECT
+        '3' as source,f.id, f.show_id AS showId, f.person_name AS personName, f.person_summary AS personSummary, f.pic_file_src AS picFileSrc, f.pic_file_name AS picFileName, f.visit_num AS visitNum, f.status, f.create_time AS createTime, f.create_user AS createUser, f.update_time AS updateTime, f.update_user AS updateUser
+        FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_famous_person f
+        where
+        1=1
+        <if test="parent!=null">
+            and e.parent=#{parent}
+        </if>
+        and s.id=n.fan_sys_site_id and  n.show_id=m.show_id
+        <if test="status!=null">
+            and m.`status`=#{status}
+        </if>
+        <if test="newsSource!=null">
+            and m.news_source=#{newsSource}
+        </if>
+        and m.show_id=f.show_id and m.news_id=f.id
+    </select>
+
 </mapper>

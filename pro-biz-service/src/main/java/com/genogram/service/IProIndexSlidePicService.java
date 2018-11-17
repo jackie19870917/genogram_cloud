@@ -22,4 +22,18 @@ public interface IProIndexSlidePicService extends IService<ProIndexSlidePic> {
      * @return
      */
     List<ProIndexSlidePic> getProIndexSlidePic(Integer siteId, List list);
+
+    /**
+     * 新增/修改  轮播图
+     * @param proIndexSlidePic
+     * @return
+     */
+    Boolean insertOrUpdateProIndexSlidePic(ProIndexSlidePic proIndexSlidePic);
+
+    /**
+     * 逻辑删除  轮播图
+     * @param id
+     * @return
+     */
+    Boolean deleteProIndexSlidePic(Integer id);
 }

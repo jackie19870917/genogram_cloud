@@ -54,4 +54,8 @@ public class IndexInfoVo {
      * 网站名称
      */
     private String siteName;
+    /**
+     * 地区编号
+     */
+    private String regionCode;
 }

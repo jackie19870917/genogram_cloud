@@ -22,4 +22,19 @@
         id, show_id AS showId, ziapi_location AS ziapiLocation, ancestors_name AS ancestorsName, zipai_txt AS zipaiTxt, visit_num AS visitNum, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
+    <select id="getZipaiRegionPage" parameterType="java.util.Map"  resultType="com.genogram.entity.FanNewsCultureZipai">
+     SELECT
+     z.id, z.show_id AS showId, z.ziapi_location AS ziapiLocation, z.ancestors_name AS ancestorsName, z.zipai_txt AS zipaiTxt, z.visit_num AS visitNum, z.status, z.create_time AS createTime, z.create_user AS createUser, z.update_time AS updateTime, z.update_user AS updateUser
+     FROM fan_sys_site s,fan_sys_web_news_show a,fan_news_culture_zipai z
+     where
+     1=1
+     <if test="familyCode!=null">
+         and s.family_code=#{familyCode}
+     </if>
+      and s.region_code=#{code} and s.id=a.fan_sys_site_id and a.show_id=z.show_id
+        <if test="status!=null">
+            and z.`status`=#{status}
+        </if>
+
+    </select>
 </mapper>

@@ -4,11 +4,17 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.FamilyPersonVo;
+import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -206,7 +212,7 @@ public class FanRecommendController {
     }
 
     /**
-     *省级首页推荐查询
+     *省级首页县级推荐文章查询
      *@Author: yuzhou
      *@Date: 2018-11-14
      *@Time: 17:47
@@ -214,32 +220,75 @@ public class FanRecommendController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value = "/index/getRecommendPage",method = RequestMethod.GET)
-    public Response<FanSysRecommend> getIndexRecommendPage(
-            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
+    @RequestMapping(value = "/index/getRecommendArticle",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getRecommendArticle(
+            @RequestParam(value = "sizeId") Integer sizeId
     ) {
         try {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=2;
             //来源:(1县级,2省级)
             int newsSource=1;
-            //查询条件
-            Wrapper<FanSysRecommend> entity = new EntityWrapper();
-            entity.eq("status",status);
-            entity.eq("news_source",newsSource);
-            entity.orderBy("create_time", false);
-            Page<FanSysRecommend> recommendPage = proSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
-            if(recommendPage==null){
-                //没有取到参数,返回空参
-                Page<FanSysRecommend> emptfamilyCultureVo = new Page<FanSysRecommend>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
-            }
-            return ResponseUtlis.success(recommendPage);
+            Map map=new HashMap();
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            List<NewsDetailVo> newsDetailVo=proSysRecommendService.getRecommendArticle(map);
+            return ResponseUtlis.success(newsDetailVo);
         }catch (Exception e){
             e.printStackTrace();
             return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
+    /**
+     *省级首页县级推荐人物查询
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 18:07
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/index/getRecommendFigure",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getRecommendFigure(
+            @RequestParam(value = "sizeId") Integer sizeId
+    ) {
+        try {
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=2;
+            //来源:(1县级,2省级)
+            int newsSource=1;
+            Map map=new HashMap();
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            List<FamilyPersonVo> familyPersonVo=proSysRecommendService.getRecommendFigure(map);
+            return ResponseUtlis.success(familyPersonVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级首页文章推荐详情查询
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 19:08
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @RequestMapping(value = "/index/getRecommendParticulars",method = RequestMethod.GET)
+    public Response<NewsDetailVo> getRecommendParticulars(
+            @RequestParam(value = "id") Integer id,
+            @RequestParam(value = "source") Integer source
+    ) {
+        if(id==null && source==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        }
+        NewsDetailVo newsDetailVo=proSysRecommendService.getRecommendParticulars(id,source);
+        return null;
+    }
 }
