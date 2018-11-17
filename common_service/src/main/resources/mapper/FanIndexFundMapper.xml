@@ -8,6 +8,7 @@
         <result column="site_id" property="siteId" />
         <result column="remain" property="remain" />
         <result column="pay_num" property="payNum" />
+        <result column="unuse_amount" property="unuseAmount" />
         <result column="pay_online" property="payOnline" />
         <result column="pay_underline" property="payUnderline" />
         <result column="pay_genogram" property="payGenogram" />
@@ -19,7 +20,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, site_id AS siteId, remain, pay_num AS payNum, pay_online AS payOnline, pay_underline AS payUnderline, pay_genogram AS payGenogram, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, site_id AS siteId, remain, pay_num AS payNum, unuse_amount AS unuseAmount, pay_online AS payOnline, pay_underline AS payUnderline, pay_genogram AS payGenogram, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-17
  */
 @TableName("fan_index_fund")
 public class FanIndexFund extends Model<FanIndexFund> {
@@ -41,6 +41,11 @@ public class FanIndexFund extends Model<FanIndexFund> {
      */
     @TableField("pay_num")
     private Integer payNum;
+    /**
+     * 不可用金额(冻结金额)
+     */
+    @TableField("unuse_amount")
+    private BigDecimal unuseAmount;
     /**
      * 线上捐款金额
      */
@@ -111,6 +116,15 @@ public class FanIndexFund extends Model<FanIndexFund> {
 
     public FanIndexFund setPayNum(Integer payNum) {
         this.payNum = payNum;
+        return this;
+    }
+
+    public BigDecimal getUnuseAmount() {
+        return unuseAmount;
+    }
+
+    public FanIndexFund setUnuseAmount(BigDecimal unuseAmount) {
+        this.unuseAmount = unuseAmount;
         return this;
     }
 
@@ -189,6 +203,7 @@ public class FanIndexFund extends Model<FanIndexFund> {
         ", siteId=" + siteId +
         ", remain=" + remain +
         ", payNum=" + payNum +
+        ", unuseAmount=" + unuseAmount +
         ", payOnline=" + payOnline +
         ", payUnderline=" + payUnderline +
         ", payGenogram=" + payGenogram +
