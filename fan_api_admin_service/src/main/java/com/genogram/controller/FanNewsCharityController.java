@@ -47,6 +47,7 @@ public class FanNewsCharityController {
 
     @Autowired
     private IFanIndexFundService fanIndexFundService;
+
     /**
      * 慈善基金
      *
@@ -56,7 +57,7 @@ public class FanNewsCharityController {
     @RequestMapping(value = "getFanIndexFund", method = RequestMethod.GET)
     public Response<FanIndexFund> getFanIndexFund(@RequestParam("siteId") Integer siteId) {
 
-        if (siteId==null) {
+        if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
@@ -104,7 +105,7 @@ public class FanNewsCharityController {
     /**
      * 慈善收支详情
      *
-     * @param id     慈善收支详情显示位置
+     * @param id 慈善收支详情显示位置
      * @return
      */
     @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
@@ -117,17 +118,18 @@ public class FanNewsCharityController {
 
     /**
      * 新增/修改    慈善收支
+     *
      * @param fanNewsCharityOut
      * @param fileName
      * @param filePath
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)
-    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut, String fileName,String filePath) {
+    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut, String fileName, String filePath) {
 
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(1);
-        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,fileName,filePath);
+        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut, fileName, filePath);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -137,18 +139,19 @@ public class FanNewsCharityController {
     }
 
     /**
-     *  慈善收支草稿
+     * 慈善收支草稿
+     *
      * @param fanNewsCharityOut
      * @param fileName
      * @param filePath
      * @return
      */
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDeft", method = RequestMethod.POST)
-    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut, String fileName,String filePath) {
+    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut, String fileName, String filePath) {
 
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(2);
-        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut,fileName,filePath);
+        Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut, fileName, filePath);
 
         if (result) {
             return ResponseUtlis.success(200);
@@ -159,6 +162,7 @@ public class FanNewsCharityController {
 
     /**
      * 逻辑删除
+     *
      * @param id
      * @return
      */
@@ -176,6 +180,7 @@ public class FanNewsCharityController {
 
     /**
      * 新增线上提现
+     *
      * @param fanIndexFundDrowing
      * @return
      */
@@ -193,6 +198,7 @@ public class FanNewsCharityController {
 
     /**
      * 线上提现记录
+     *
      * @param siteId
      * @param pageNo
      * @param pageSize
@@ -200,10 +206,10 @@ public class FanNewsCharityController {
      */
     @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.GET)
     public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@RequestParam("siteId") Integer siteId,
-                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+                                                               @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
-        if (siteId==null) {
+        if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
@@ -215,6 +221,7 @@ public class FanNewsCharityController {
 
     /**
      * 新增线下捐款
+     *
      * @param fanNewsCharityPayIn
      * @return
      */
