@@ -71,8 +71,7 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
     /**
      * 省级首页名人推荐详情查询
      * @param id
-     * @param source
      * @return
      */
-    FamilyPersonVo getRecommendFigureParticulars(Integer id, Integer source);
+    FamilyPersonVo getRecommendFigureParticulars(Integer id);
 }

@@ -5,6 +5,7 @@ import com.genogram.entity.AllRegion;
 import com.genogram.service.IAllRegionService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

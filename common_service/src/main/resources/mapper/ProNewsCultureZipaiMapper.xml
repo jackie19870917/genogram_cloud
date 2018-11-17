@@ -41,14 +41,16 @@
             AND n.zipai_txt LIKE CONCAT('%',#{zipaiTxt},'%')
         </if>
     union all
-    SELECT '2' as source,
-        <include refid="Base_Column_List" />
-        from fan_news_culture_zipai z
+        SELECT '2' as source,
+        z.id, z.show_id AS showId, z.ziapi_location AS ziapiLocation, z.ancestors_name AS ancestorsName, z.zipai_txt AS zipaiTxt, z.visit_num AS visitNum, z.status, z.create_time AS createTime, z.create_user AS createUser, z.update_time AS updateTime, z.update_user AS updateUser
+        from fan_sys_site s,fan_sys_web_news_show n,fan_news_culture_zipai z
         where
         1=1
-        <if test="showId!=null">
-            AND  z.show_id=#{showId}
+        <if test="siteId!=null">
+            AND s.parent=#{siteId}
         </if>
+        AND s.id=n.site_id
+        AND n.show_id=z.show_id
         <if test="status!=null">
             AND z.status=#{status}
         </if>

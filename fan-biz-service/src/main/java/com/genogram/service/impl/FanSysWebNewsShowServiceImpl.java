@@ -40,8 +40,8 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         list.forEach((a)->{
             SysWebMenuVo vo = new SysWebMenuVo();
             vo.setShowId(a.getId());
-            vo.setFanSysSiteId(a.getFanSysSiteId());
-            vo.setFanSysWebMenuId(a.getFanSysWebMenuId());
+            //vo.setFanSysSiteId(a.getFanSysSiteId());
+            //vo.setFanSysWebMenuId(a.getFanSysWebMenuId());
             //获取菜单信息
             FanSysWebMenu menu = fanSysWebMenuService.selectById(vo.getFanSysWebMenuId());
             vo.setMenuName(menu.getMenuName());

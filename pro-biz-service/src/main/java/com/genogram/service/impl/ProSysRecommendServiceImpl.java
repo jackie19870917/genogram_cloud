@@ -9,10 +9,7 @@ import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.FanNewsFamousPersonMapper;
 import com.genogram.mapper.FanSysRecommendMapper;
-import com.genogram.service.IFanNewsCultureNewsService;
-import com.genogram.service.IFanNewsFamilyRecordService;
-import com.genogram.service.IFanNewsIndustryService;
-import com.genogram.service.IProSysRecommendService;
+import com.genogram.service.*;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +44,9 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
 
     @Autowired
     private IFanNewsIndustryService fanNewsIndustryService;
+
+    @Autowired
+    private IFanNewsFamousPersonService fanNewsFamousPersonService;
 
     @Override
     public Boolean addRecommend(FanSysRecommend fanSysRecommend) {
@@ -146,12 +146,21 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
         //1代表家族文化 2 代表记录家族 3代表家族产业
         if(source==1){
             NewsDetailVo familyCultureDetail = fanNewsCultureNewsService.getFamilyCultureDetail(id);
+            if(familyCultureDetail!=null){
+                fanNewsCultureNewsService.addVisitNum(id);
+            }
             return familyCultureDetail;
         }else if(source==2){
             NewsDetailVo familyRecord = fanNewsFamilyRecordService.getFamilyRecord(id);
+            if(familyRecord!=null){
+               // fanNewsFamilyRecordService.addVisitNum(id);
+            }
             return familyRecord;
         }else if(source==3){
             IndustryDetailVo familyIndustryDetail = fanNewsIndustryService.getFamilyIndustryDetail(id);
+            if(familyIndustryDetail!=null){
+                fanNewsIndustryService.addVisitNum(id);
+            }
             return familyIndustryDetail;
         }else{
             return null;
@@ -168,8 +177,11 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      *@Description:
     */
     @Override
-    public FamilyPersonVo getRecommendFigureParticulars(Integer id, Integer source) {
-
-        return null;
+    public FamilyPersonVo getRecommendFigureParticulars(Integer id) {
+        FamilyPersonVo familyFamilyDetail = fanNewsFamousPersonService.getFamilyFamilyDetail(id);
+        if(familyFamilyDetail!=null){
+            fanNewsFamousPersonService.addVisitNum(id);
+        }
+        return familyFamilyDetail;
     }
 }

@@ -31,7 +31,10 @@
      <if test="familyCode!=null">
          and s.family_code=#{familyCode}
      </if>
-      and s.region_code=#{code} and s.id=a.fan_sys_site_id and a.show_id=z.show_id
+        <if test="code!=null">
+            and s.region_code=#{code}
+        </if>
+      and s.id=a.site_id and a.show_id=z.show_id
         <if test="status!=null">
             and z.`status`=#{status}
         </if>

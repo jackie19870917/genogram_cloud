@@ -16,7 +16,11 @@ import com.genogram.service.IProNewsCultureNewsService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -35,6 +39,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/proNewsCulture")
+@Api(description = "省级家族文化前台增删改查")
 public class ProNewsCultureController {
 
     @Autowired
@@ -52,11 +57,12 @@ public class ProNewsCultureController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "省级家族字派详情页查询" ,  notes="根据showIdId查询")
     @RequestMapping(value = "/getCommonalityPage", method = RequestMethod.GET)
     public Response<ProNewsCultureZipai> getCommonalityPage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try {
             //判断showId是否有值
@@ -93,18 +99,20 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "省级家族字派模糊查询" ,  notes="根据showIdId,zipaiTxt查询")
     @RequestMapping(value = "/getZipaiVaguePage",method = RequestMethod.GET)
     public Response<ProNewsCultureZipai> getZipaiVaguePage(
-            @RequestParam(value = "showId") Integer showId, //
-            @RequestParam(value = "zipaiTxt") String zipaiTxt, // 家族字派模糊查询参数
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "省级显示位置Id")@RequestParam(value = "showId") Integer showId,
+            @ApiParam(value = "省级网站Id")@RequestParam(value = "siteId") Integer siteId,
+            @ApiParam(value = "模糊查询的参数")@RequestParam(value = "zipaiTxt") String zipaiTxt, // 家族字派模糊查询参数
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try{
             //返回的空list集合结构
             List<ProNewsCultureZipai> list=new ArrayList<>();
             //判断showId是否有值
-            if(showId==null){
+            if(showId==null && siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,list);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -113,6 +121,7 @@ public class ProNewsCultureController {
 
             Map map=new HashMap<>();
             map.put("showId",showId);
+            map.put("siteId",siteId);
             map.put("zipaiTxt",zipaiTxt);
             map.put("status",status);
             Page<ProNewsCultureZipaiVo> zipaiVaguePage = proNewsCultureZipaiService.getZipaiVaguePage(mapPage,map);
@@ -135,12 +144,13 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "省级查出各个地区的字派" ,  notes="根据sizeId,code查询")
     @RequestMapping(value = "/getZipaiRegionPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getZipaiRegionPage(
-            @RequestParam(value = "sizeId") Integer sizeId, // 家族字派显示位置
-            @RequestParam(value = "code") Integer code, // 省级下属县级的地区编号
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId, // 家族字派显示位置
+            @ApiParam(value = "省级下属县级的地区编号")@RequestParam(value = "code") Integer code, // 省级下属县级的地区编号
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         //判断sizeId是否有值
         if (sizeId==null && code==null) {
@@ -159,7 +169,7 @@ public class ProNewsCultureController {
     }
 
     /**
-     * 省级家族文化查询
+     * 省级家族文化详情页查询
      *
      * @Author: yuzhou
      * @Date: 2018-11-09
@@ -168,11 +178,12 @@ public class ProNewsCultureController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "省级家族文化详情页查询" ,  notes="根据showId查询")
     @RequestMapping(value = "/getFamilyCulturePage", method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         //判断showId是否有值
         if (showId==null) {
@@ -191,11 +202,12 @@ public class ProNewsCultureController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "省级首页家族文化查询" ,  notes="根据showId查询")
     @RequestMapping(value = "/index/getFamilyIndexCulturePage", method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyIndexCulturePage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         //判断showId是否有值
         if (showId==null) {
@@ -247,9 +259,10 @@ public class ProNewsCultureController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "省级家族文化详情查询" ,  notes="根据showId查询")
     @RequestMapping(value = "/getFamilyCultureDetail", method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "id") Integer id // 家族文化文章ID
+            @ApiParam(value = "主键")@RequestParam(value = "id") Integer id // 家族文化文章ID
     ) {
         try {
             //返回空参
