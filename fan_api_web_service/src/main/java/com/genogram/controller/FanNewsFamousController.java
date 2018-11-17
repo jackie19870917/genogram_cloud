@@ -48,6 +48,40 @@ public class FanNewsFamousController {
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
+
+    /**
+     * 联谊会家族文化详情查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/getFamilyFamilyDetail", method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getFamilyCultureDetail(
+            @RequestParam(value = "id") Integer id // 家族文化文章ID
+    ) {
+        try {
+            //返回空参
+            FamilyPersonVo familyPersonVo = new FamilyPersonVo();
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,familyPersonVo);
+            }
+            FamilyPersonVo newsDetailVo = iFanNewsFamousPersonService.getFamilyFamilyDetail(id);
+            if (newsDetailVo == null) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, familyPersonVo);
+            }
+            //增加查看数
+            iFanNewsFamousPersonService.addVisitNum(id);
+            return ResponseUtlis.success(newsDetailVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
 //    /**
 //     * 组织架构
 //     */

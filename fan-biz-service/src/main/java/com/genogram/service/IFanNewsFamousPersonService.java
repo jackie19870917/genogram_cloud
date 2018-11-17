@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamousPerson;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanNewsIndustry;
-import com.genogram.entityvo.FamilyIndustryVo;
-import com.genogram.entityvo.FamilyPersonVo;
-import com.genogram.entityvo.FamilyRecordVo;
-import com.genogram.entityvo.IndustryDetailVo;
+import com.genogram.entityvo.*;
 
 /**
  * <p>
@@ -38,16 +35,16 @@ public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerso
      */
     Page<FamilyPersonVo> getFamilyPersionPages(Wrapper<FanNewsFamousPerson> entity, Integer pageNo, Integer pageSize);
     /**
-     * 联谊会家族产业各个产业的详情
+     * 联谊会家族名人的详情
      * @param id  主键
      * @return
      */
     FamilyPersonVo getFamilyPersionDetail(Integer id);
 
     /**
-     * 联谊会家族产业后台新增
+     * 联谊会家族名人后台新增
      * @param fanNewsFamousPerson  家族名人上传实体类
-     * @param fileNames  上传的图片的字符串
+     * @param
      * @return
      */
     boolean addOrUpdatePersion(FanNewsFamousPerson fanNewsFamousPerson,String fileName, String filePath);
@@ -59,4 +56,15 @@ public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerso
      * @return
      */
     Boolean deletePersionById(Integer id, int status);
+    /**
+     * 联谊会家族名人增加查看数
+     * @param id
+     */
+    void addVisitNum(Integer id);
+    /**
+     *联谊会家族名人详情查询
+     * @param id  文章ID
+     * @return
+     */
+    FamilyPersonVo getFamilyFamilyDetail(Integer id);
 }
