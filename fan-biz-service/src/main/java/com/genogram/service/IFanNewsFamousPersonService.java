@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamousPerson;
 import com.baomidou.mybatisplus.service.IService;
-import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entityvo.*;
 
 /**
