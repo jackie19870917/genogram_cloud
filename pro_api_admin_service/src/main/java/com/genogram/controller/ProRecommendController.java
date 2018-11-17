@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.FamilyPersonVo;
+import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.Response;
@@ -29,7 +30,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/proRecommend")
-public class FanRecommendController {
+public class ProRecommendController {
 
     @Autowired
     private IProSysRecommendService proSysRecommendService;
@@ -221,7 +222,7 @@ public class FanRecommendController {
      *@Description:
     */
     @RequestMapping(value = "/index/getRecommendArticle",method = RequestMethod.GET)
-    public Response<NewsDetailVo> getRecommendArticle(
+    public Response<IndustryDetailVo> getRecommendArticle(
             @RequestParam(value = "sizeId") Integer sizeId
     ) {
         try {
@@ -233,8 +234,8 @@ public class FanRecommendController {
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
-            List<NewsDetailVo> newsDetailVo=proSysRecommendService.getRecommendArticle(map);
-            return ResponseUtlis.success(newsDetailVo);
+            List<IndustryDetailVo> industryDetailVo=proSysRecommendService.getRecommendArticle(map);
+            return ResponseUtlis.success(industryDetailVo);
         }catch (Exception e){
             e.printStackTrace();
             return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
@@ -281,14 +282,44 @@ public class FanRecommendController {
      *@Description:
     */
     @RequestMapping(value = "/index/getRecommendParticulars",method = RequestMethod.GET)
-    public Response<NewsDetailVo> getRecommendParticulars(
+    public Response<Object> getRecommendParticulars(
             @RequestParam(value = "id") Integer id,
             @RequestParam(value = "source") Integer source
     ) {
-        if(id==null && source==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        try {
+            //1代表家族文化 2 代表记录家族 3代表家族产业
+            if(id==null && source==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            Object newsDetailVo=proSysRecommendService.getRecommendParticulars(id,source);
+            if(newsDetailVo==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
+            return ResponseUtlis.success(newsDetailVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
-        NewsDetailVo newsDetailVo=proSysRecommendService.getRecommendParticulars(id,source);
-        return null;
+    }
+
+    @RequestMapping(value = "/index/getRecommendFigureParticulars",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getRecommendFigureParticulars(
+            @RequestParam(value = "id") Integer id,
+            @RequestParam(value = "source") Integer source
+    ) {
+        try {
+            //1代表家族文化 2 代表记录家族 3代表家族产业
+            if(id==null && source==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            FamilyPersonVo familyPersonVo=proSysRecommendService.getRecommendFigureParticulars(id,source);
+            if(familyPersonVo==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
+            return ResponseUtlis.success(familyPersonVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
     }
 }

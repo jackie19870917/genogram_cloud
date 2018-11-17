@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.FamilyPersonVo;
+import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
 
 import java.util.List;
@@ -50,7 +51,7 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      * @param map 查询条件
      * @return
      */
-    List<NewsDetailVo> getRecommendArticle(Map map);
+    List<IndustryDetailVo> getRecommendArticle(Map map);
 
     /**
      * 省级首页县级推荐人物查询
@@ -65,5 +66,13 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      * @param source 分类 1代表家族文化 2 代表记录家族 3代表家族名人
      * @return
      */
-    NewsDetailVo getRecommendParticulars(Integer id, Integer source);
+    Object getRecommendParticulars(Integer id, Integer source);
+
+    /**
+     * 省级首页名人推荐详情查询
+     * @param id
+     * @param source
+     * @return
+     */
+    FamilyPersonVo getRecommendFigureParticulars(Integer id, Integer source);
 }

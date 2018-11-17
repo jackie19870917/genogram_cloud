@@ -41,10 +41,6 @@ public class IndustryDetailVo {
      */
     private String industryLocation;
     /**
-     * 种类(1:家族产业;2:个人产业)
-     */
-    private String type;
-    /**
      * 查看数
      */
     private Integer visitNum;
@@ -68,6 +64,11 @@ public class IndustryDetailVo {
      * 修改人
      */
     private Integer updateUser;
+
+    /**
+     * 分类1代表家族文化 2代表记录家族 3代表家族产业
+     */
+    private int source;
 
     /**
      * 用户名

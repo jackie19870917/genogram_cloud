@@ -22,15 +22,15 @@
         id, show_id AS showId, news_id AS newsId, isProvince, isCountry, is_auto AS isAuto, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
-    <select id="getIndexRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.NewsDetailVo">
+    <select id="getIndexRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.IndustryDetailVo">
     select temp1.* from (
     SELECT
-        '1' as source,w.id, w.show_id AS showId, w.news_title AS newsTitle, w.news_text AS newsText, w.visit_num AS visitNum, w.status, w.create_time AS createTime, w.create_user AS createUser, w.update_time AS updateTime, w.update_user AS updateUser
+        '1' as source,w.id, w.show_id AS showId, w.news_title AS newsTitle, w.news_text AS newsText,null as industryLocation, w.visit_num AS visitNum, w.status, w.create_time AS createTime, w.create_user AS createUser, w.update_time AS updateTime, w.update_user AS updateUser
      FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_culture_news w
     where
     1=1
-    <if test="parent!=null">
-       and e.parent=#{parent}
+    <if test="sizeId!=null">
+       and e.parent=#{sizeId}
     </if>
     and e.id=s.fan_sys_site_id and s.show_id=m.show_id
         <if test="status!=null">
@@ -42,12 +42,12 @@
          and m.show_id=w.show_id and m.news_id=w.id
     union all
     SELECT
-        '2' as source,r.id, r.show_id AS showId, r.news_title AS newsTitle, r.news_text AS newsText, r.visit_num AS visitNum, r.status, r.create_time AS createTime, r.create_user AS createUser, r.update_time AS updateTime, r.update_user AS updateUser
+        '2' as source,r.id, r.show_id AS showId, r.news_title AS newsTitle, r.news_text AS newsText,null as industryLocation ,r.visit_num AS visitNum, r.status, r.create_time AS createTime, r.create_user AS createUser, r.update_time AS updateTime, r.update_user AS updateUser
       FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_family_record r
     where
         1=1
-        <if test="parent!=null">
-            and e.parent=#{parent}
+        <if test="sizeId!=null">
+            and e.parent=#{sizeId}
         </if>
         and e.id=s.fan_sys_site_id and s.show_id=m.show_id
         <if test="status!=null">
@@ -57,6 +57,23 @@
             and m.news_source=#{newsSource}
         </if>
         and m.show_id=r.show_id and m.news_id=r.id
+        union all
+        SELECT
+        '3' as source,a.id, a.show_id AS showId, a.news_title AS newsTitle, a.news_text AS newsText, a.industry_location AS industryLocation, a.visit_num AS visitNum, a.status, a.create_time AS createTime, a.create_user AS createUser, a.update_time AS updateTime, a.update_user AS updateUser
+        FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_industry a
+        where
+        1=1
+        <if test="sizeId!=null">
+            and e.parent=#{sizeId}
+        </if>
+        and e.id=s.fan_sys_site_id and s.show_id=m.show_id
+        <if test="status!=null">
+            and m.`status`=#{status}
+        </if>
+        <if test="newsSource!=null">
+            and m.news_source=#{newsSource}
+        </if>
+        and m.show_id=a.show_id and m.news_id=a.id
     ) temp1
         order by temp1.updateTime desc
     </select>

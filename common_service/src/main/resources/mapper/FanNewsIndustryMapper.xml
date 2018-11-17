@@ -9,7 +9,6 @@
         <result column="news_title" property="newsTitle" />
         <result column="news_text" property="newsText" />
         <result column="industry_location" property="industryLocation" />
-        <result column="type" property="type" />
         <result column="visit_num" property="visitNum" />
         <result column="status" property="status" />
         <result column="create_time" property="createTime" />

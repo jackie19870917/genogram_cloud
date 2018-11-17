@@ -5,9 +5,13 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.FamilyPersonVo;
+import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.FanNewsFamousPersonMapper;
 import com.genogram.mapper.FanSysRecommendMapper;
+import com.genogram.service.IFanNewsCultureNewsService;
+import com.genogram.service.IFanNewsFamilyRecordService;
+import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,14 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     @Autowired
     private FanNewsFamousPersonMapper fanNewsFamousPersonMapper;
 
+    @Autowired
+    private IFanNewsCultureNewsService fanNewsCultureNewsService;
+
+    @Autowired
+    private IFanNewsFamilyRecordService fanNewsFamilyRecordService;
+
+    @Autowired
+    private IFanNewsIndustryService fanNewsIndustryService;
 
     @Override
     public Boolean addRecommend(FanSysRecommend fanSysRecommend) {
@@ -100,9 +112,9 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      *@Description:
     */
     @Override
-    public List<NewsDetailVo> getRecommendArticle(Map map) {
-        List<NewsDetailVo> newsDetailVo=fanSysRecommendMapper.getIndexRecommend(map);
-        return newsDetailVo;
+    public List<IndustryDetailVo> getRecommendArticle(Map map) {
+        List<IndustryDetailVo> industryDetailVo=fanSysRecommendMapper.getIndexRecommend(map);
+        return industryDetailVo;
     }
 
     /**
@@ -130,11 +142,34 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      *@Description:
     */
     @Override
-    public NewsDetailVo getRecommendParticulars(Integer id, Integer source) {
-        //1代表家族文化 2 代表记录家族 3代表家族名人
+    public Object getRecommendParticulars(Integer id, Integer source) {
+        //1代表家族文化 2 代表记录家族 3代表家族产业
         if(source==1){
-
+            NewsDetailVo familyCultureDetail = fanNewsCultureNewsService.getFamilyCultureDetail(id);
+            return familyCultureDetail;
+        }else if(source==2){
+            NewsDetailVo familyRecord = fanNewsFamilyRecordService.getFamilyRecord(id);
+            return familyRecord;
+        }else if(source==3){
+            IndustryDetailVo familyIndustryDetail = fanNewsIndustryService.getFamilyIndustryDetail(id);
+            return familyIndustryDetail;
+        }else{
+            return null;
         }
+    }
+
+    /**
+     *省级首页人物推荐详情查询
+     *@Author: yuzhou
+     *@Date: 2018-11-17
+     *@Time: 11:34
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public FamilyPersonVo getRecommendFigureParticulars(Integer id, Integer source) {
+
         return null;
     }
 }
