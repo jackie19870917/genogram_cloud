@@ -9,6 +9,9 @@ import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +26,7 @@ import java.util.List;
  * @author wangwei
  * @since 2018-11-05
  */
+@Api(description = "联谊会首页(前台)")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/fanIndex")
@@ -46,12 +50,14 @@ public class FanIndexController {
     Integer status = 1;
 
     /**
-     *      轮播图
-     * @param siteId  网站ID
+     * 轮播图
+     *
+     * @param siteId 网站ID
      * @return
      */
+    @ApiOperation(value = "轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "index/getFanIndexSlidePicList", method = RequestMethod.GET)
-    public Response<FanIndexSlidePic> getFanIndexSlidePicList(@RequestParam(value = "siteId") Integer siteId) {
+    public Response<FanIndexSlidePic> getFanIndexSlidePicList(@ApiParam("网站ID") @RequestParam Integer siteId) {
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -68,15 +74,23 @@ public class FanIndexController {
     /**
      * 联谊堂
      *
-     * @param siteId   网站ID
+     * @param siteId   网站IDid
+     *                 site_id
+     *                 root_group
+     *                 root_person
+     *                 leader
+     *                 leader_phone
+     *                 worship_num
+     *                 praise_num
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
      */
+    @ApiOperation(value = "联谊堂", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "index/getFanIndexFamilySummarysPage", method = RequestMethod.GET)
-    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@RequestParam(value = "siteId") Integer siteId,
+    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@ApiParam("网站ID") @RequestParam Integer siteId,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                                          @RequestParam(value = "pageSize",defaultValue = "2333") Integer pageSize) {
+                                                                          @RequestParam(value = "pageSize", defaultValue = "2333") Integer pageSize) {
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -96,8 +110,9 @@ public class FanIndexController {
      * @param siteId 网站ID
      * @return
      */
+    @ApiOperation(value = "基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名称,regionCode;地区编号,totemPicSrc:图腾,title:宣言,description;简介")
     @RequestMapping(value = "index/getFanIndexInfo", method = RequestMethod.GET)
-    public Response<IndexInfoVo> getFanIndexInfo(@RequestParam("siteId") Integer siteId) {
+    public Response<IndexInfoVo> getFanIndexInfo(@ApiParam("网站ID") @RequestParam Integer siteId) {
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -109,19 +124,21 @@ public class FanIndexController {
     }
 
     /**
-     *联谊会首页聊天记录
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 19:26
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会首页聊天记录
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 19:26
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @ApiOperation("联谊会首页聊天记录")
     @RequestMapping(value = "/index/getChatRecordList", method = RequestMethod.GET)
     public Response<FanIndexMessage> getChatRecordList(
-            @RequestParam(value = "siteId") Integer siteId,
-            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
+            @ApiParam("网站ID") @RequestParam Integer siteId,
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize
     ) {
         try {
             //判断showId是否有值

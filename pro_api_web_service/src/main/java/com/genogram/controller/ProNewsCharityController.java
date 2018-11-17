@@ -57,7 +57,7 @@ public class ProNewsCharityController {
      * @param siteId 慈善基金ID
      * @return
      */
-    @ApiOperation(value = "基金查询",notes = "id:主键,siteId:网站Id,remian:基金总额,payNum:捐款人数,payOnline:线上捐款,payUnderline:线下捐款,payGenogram:网络修普金额")
+    @ApiOperation(value = "基金查询", notes = "id:主键,siteId:网站Id,remian:基金总额,payNum:捐款人数,payOnline:线上捐款,payUnderline:线下捐款,payGenogram:网络修普金额")
     @RequestMapping(value = "index/getProIndexFund", method = RequestMethod.GET)
     public Response<ProIndexFund> getProIndexFund(@ApiParam(value = "网站id") @RequestParam Integer siteId) {
 
@@ -79,7 +79,7 @@ public class ProNewsCharityController {
      * @param pageSize 每页记录数
      * @return
      */
-    @ApiOperation(value = "捐款名录查询(最多)",notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
+    @ApiOperation(value = "捐款名录查询(最多)", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
     @RequestMapping(value = "index/getDonorBySum", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageBySum(@ApiParam(value = "显示位置") @RequestParam Integer showId,
                                                  @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -114,7 +114,7 @@ public class ProNewsCharityController {
      * @param pageSize 每页记录数
      * @return
      */
-    @ApiOperation( value = "捐款名录查询(最新)",notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
+    @ApiOperation(value = "捐款名录查询(最新)", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
     @RequestMapping(value = "index/getDonorVoByCreateTime", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageByCreateTime(@ApiParam(value = "显示位置") @RequestParam Integer showId,
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -137,12 +137,12 @@ public class ProNewsCharityController {
      * 慈善收支
      *
      * @param showId   慈善收支显示位置
-     //@param newsType 种类(1.财政支出;2.财政收入)
+     *                 //@param newsType 种类(1.财政支出;2.财政收入)
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
      */
-    @ApiOperation(value = "慈善收支",notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
+    @ApiOperation(value = "慈善收支", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "index/getProNewsCharityOut", method = RequestMethod.GET)
     public Response<NewsCharityOutVo> getProNewsCharityOutPage(@ApiParam(value = "显示位置") @RequestParam Integer showId,
                                                                //    @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
@@ -173,7 +173,7 @@ public class ProNewsCharityController {
      * @param id 慈善收支详情显示位置
      * @return
      */
-    @ApiOperation(value = "慈善收支(文章)详情",notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
+    @ApiOperation(value = "慈善收支(文章)详情", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "getNewsDetail", method = RequestMethod.GET)
     public Response<NewsDetailVo> getNewsDetail(@ApiParam(value = "主键") @RequestParam Integer id) {
 
