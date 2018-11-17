@@ -3,6 +3,7 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamilyRecord;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
 
@@ -47,5 +48,17 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
      * @return
      */
     Boolean deleteRecordById(Integer id, int status);
+    /**
+     *联谊会记录家族详情查询
+     * @param id  文章ID
+     * @return
+     */
+    FamilyRecordVo getFamilyRecordDetail(Integer id);
+
+    /**
+     * 联谊会家族名人增加查看数
+     * @param id
+     */
+    void addVisitNum(Integer id);
 }
 

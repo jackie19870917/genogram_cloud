@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsFamilyRecord;
 import com.genogram.entity.FanNewsFamilyRecordVedio;
+import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -56,7 +57,38 @@ public class FanNewsFamilyRecordController {
         }
     }
 
-
+    /**
+     * 联谊会家族动态详情查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @RequestMapping(value = "/getFamilyRecordDetail", method = RequestMethod.GET)
+    public Response<FamilyRecordVo> getFamilyRecordDetail(
+            @RequestParam(value = "id") Integer id // 家族文化文章ID
+    ) {
+        try {
+            //返回空参
+            FamilyRecordVo familyRecordVo = new FamilyRecordVo();
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,familyRecordVo);
+            }
+            FamilyRecordVo newsDetailVo = iFanNewsFamilyRecordService.getFamilyRecordDetail(id);
+            if (newsDetailVo == null) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, familyRecordVo);
+            }
+            //增加查看数
+            iFanNewsFamilyRecordService.addVisitNum(id);
+            return ResponseUtlis.success(newsDetailVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
 
     /**
      * 视频查询

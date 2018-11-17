@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyPersonVo;
-import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.FanNewsFamousPersonMapper;
 import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.*;
