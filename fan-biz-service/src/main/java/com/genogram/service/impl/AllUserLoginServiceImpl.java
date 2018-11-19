@@ -34,6 +34,11 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
     @Override
     public Boolean insertAllUserLogin(AllUserLogin allUserLogin) {
 
+        Wrapper<AllUserLogin> wrapper = new EntityWrapper<AllUserLogin>();
+        // wrapper.eq("user_name", allUserLogin.getUserName());
+        wrapper.eq("mobile_phone", allUserLogin.getMobilePhone());
+        AllUserLogin login = this.selectOne(wrapper);
+
         String userId="user"+ DateUtil.getAllTime()+String.format("%02d", new Random().nextInt(100));
         allUserLogin.setUserId(userId);
         allUserLogin.setCreateTime(DateUtil.getCurrentTimeStamp());

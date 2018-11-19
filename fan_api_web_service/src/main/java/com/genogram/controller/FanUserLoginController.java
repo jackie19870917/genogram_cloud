@@ -4,6 +4,8 @@ import com.genogram.entity.AllUserLogin;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  *@return:
  *@Description:
  */
+@Api(description = "登录注册")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("genogram/userLogin")
@@ -33,6 +36,7 @@ public class FanUserLoginController {
      * @param allUserLogin
      * @return
      */
+    @ApiOperation("登陆")
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public Response<AllUserLogin> getAllUserLogin(AllUserLogin allUserLogin) {
 
@@ -55,6 +59,7 @@ public class FanUserLoginController {
      * @param allUserLogin
      * @return
      */
+    @ApiOperation("注册")
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
     public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin) {
 
