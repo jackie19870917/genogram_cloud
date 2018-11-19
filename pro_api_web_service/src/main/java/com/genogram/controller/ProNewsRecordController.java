@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/genogram/admin/fanNewsFamilyRecord")
+@RequestMapping("/genogram/proNewsFamilyRecord")
 public class ProNewsRecordController {
     @Autowired
     private IProNewsFamilyRecordService iProNewsFamilyRecordService;
@@ -27,9 +27,9 @@ public class ProNewsRecordController {
      * 省级家族动态查询
      */
     @ResponseBody
-    @RequestMapping(value = "ProSelectRecortPage",method = RequestMethod.GET)
+    @RequestMapping(value = "proSelectRecortPage",method = RequestMethod.GET)
     public Response<ProNewsFamilyRecord> selectRecortPage(
-            @RequestParam(value = "showId") Integer showId, // 产业显示位置
+            @RequestParam(value = "showId") Integer showId, // 显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ){

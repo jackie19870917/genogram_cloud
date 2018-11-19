@@ -31,7 +31,6 @@ import java.util.List;
 public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements IFanNewsFamousPersonService {
     @Autowired
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
-
     @Autowired
     private IUploadFileService iuploadFileService;
     @Autowired
