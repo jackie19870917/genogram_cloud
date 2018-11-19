@@ -19,7 +19,7 @@ public class ProFamilyRecordVedioVo extends FamilyRecordVedioVo {
     /**
      * 封面
      */
-    private List<ProNewsUploadFile> ProNewsUploadFile;
+    private List<ProNewsUploadFile> proNewsUploadFile;
 
 
     /**

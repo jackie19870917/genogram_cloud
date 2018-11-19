@@ -36,6 +36,8 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
     /**
      * 联谊会家族产业后台新增
      * @param fanNewsRecord
+     * @param fileName 文件列表
+     * @param filePath 文件路径
      * @param
      * @return
      */

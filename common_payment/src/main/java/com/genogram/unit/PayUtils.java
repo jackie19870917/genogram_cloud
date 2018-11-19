@@ -12,23 +12,29 @@ import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *支付
+ *
+ * @author Toxicant
+ * @date 2016/10/31
+ */
 public class PayUtils extends WXPayUtil {
 	/**
 	 * @param payid:付款ID<br/>
 	 * @param userip:用户ip<br/>
-	 * @param total_fee:总金额<br/>
+	 * @param totalFee:总金额<br/>
 	 * @param body:商品描述<br/>
 	 * @param callback:支付成功后调用的servlet地址<br/>
 	 * @return
 	 */
-	public static String pay(String payid, String userip, String total_fee, String body, String callback) {
-		Map<String, String> data = new HashMap<String, String>();
+	public static String pay(String payid, String userip, String totalFee, String body, String callback) {
+		Map<String, String> data = new HashMap<String, String>(16);
 		data.put("body", body);
 		data.put("out_trade_no", payid);
 		data.put("device_info", "");
 		// 货币类型
 		data.put("fee_type", "CNY");
-		data.put("total_fee", Integer.valueOf(total_fee) * 100 + "");
+		data.put("total_fee", Integer.valueOf(totalFee) * 100 + "");
 		data.put("spbill_create_ip", "127.0.0.1");
 		data.put("notify_url", callback);
 		// 支付方式
@@ -56,10 +62,10 @@ public class PayUtils extends WXPayUtil {
 			ServletInputStream is = request.getInputStream();
 			ByteArrayOutputStream bos = new ByteArrayOutputStream(is.available());
 			BufferedInputStream in = new BufferedInputStream(is);
-			int buf_size = 1024;
-			byte[] buffer = new byte[buf_size];
+			int bufSize = 1024;
+			byte[] buffer = new byte[bufSize];
 			int len = 0;
-			while ((len = in.read(buffer, 0, buf_size)) != -1) {
+			while ((len = in.read(buffer, 0, bufSize)) != -1) {
 				bos.write(buffer, 0, len);
 			}
 			String xmlResult = new String(bos.toByteArray(), "UTF-8");

@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 省级公共
+ *
+ * @author Toxicant
+ * @date 2016/10/31
+ */
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/proPublic")

@@ -9,6 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 文件上传
+ *
+ * @author Toxicant
+ * @date 2016/10/31
+ */
 @Service
 public class UploadFastDfsImpl implements IUploadFastDfsService {
     @Value("${fan_api_admin_service.fastDfs_ip}")

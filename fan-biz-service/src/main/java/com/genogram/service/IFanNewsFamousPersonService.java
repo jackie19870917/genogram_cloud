@@ -43,7 +43,8 @@ public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerso
     /**
      * 联谊会家族名人后台新增
      * @param fanNewsFamousPerson  家族名人上传实体类
-     * @param
+     * @param fileName 文件列表
+     * @param filePath 文件路径
      * @return
      */
     boolean addOrUpdatePersion(FanNewsFamousPerson fanNewsFamousPerson,String fileName, String filePath);

@@ -78,24 +78,24 @@ public class StringsUtils
         // other characters
         String regExSpace = "\\s+|\t|\r|\n";
 
-        Pattern p_script = Pattern.compile(regExScript,
+        Pattern pScript = Pattern.compile(regExScript,
                 Pattern.CASE_INSENSITIVE);
-        Matcher m_script = p_script.matcher(htmlStr);
-        htmlStr = m_script.replaceAll("");
+        Matcher mScript = pScript.matcher(htmlStr);
+        htmlStr = mScript.replaceAll("");
 
-        Pattern p_style = Pattern
+        Pattern pStyle = Pattern
                 .compile(regExStyle, Pattern.CASE_INSENSITIVE);
-        Matcher m_style = p_style.matcher(htmlStr);
-        htmlStr = m_style.replaceAll("");
+        Matcher mStyle = pStyle.matcher(htmlStr);
+        htmlStr = mStyle.replaceAll("");
 
-        Pattern p_html = Pattern.compile(regExHtml, Pattern.CASE_INSENSITIVE);
-        Matcher m_html = p_html.matcher(htmlStr);
-        htmlStr = m_html.replaceAll("");
+        Pattern pHtml = Pattern.compile(regExHtml, Pattern.CASE_INSENSITIVE);
+        Matcher mHtml = pHtml.matcher(htmlStr);
+        htmlStr = mHtml.replaceAll("");
 
-        Pattern p_space = Pattern
+        Pattern pSpace = Pattern
                 .compile(regExSpace, Pattern.CASE_INSENSITIVE);
-        Matcher m_space = p_space.matcher(htmlStr);
-        htmlStr = m_space.replaceAll(" ");
+        Matcher mSpace = pSpace.matcher(htmlStr);
+        htmlStr = mSpace.replaceAll(" ");
 
         return htmlStr;
     }

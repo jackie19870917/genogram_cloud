@@ -52,7 +52,7 @@ public class ProRecommendController {
             int status=2;
             //来源:(1县级,2省级)
             int newsSource=1;
-            Map map=new HashMap();
+            Map map=new HashMap(16);
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
@@ -82,7 +82,7 @@ public class ProRecommendController {
             int status=2;
             //来源:(1县级,2省级)
             int newsSource=1;
-            Map map=new HashMap();
+            Map map=new HashMap(16);
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);

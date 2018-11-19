@@ -15,7 +15,8 @@ public interface IUploadFileService {
      * @Author: wang,wei
      * @Date: 2018-11-11
      * @Time: 23:13
-     * @param fileNames 文件列表，已分号分隔，或者单个文件
+     * @param fileName 文件列表
+     * @param filePath 文件路径
      * @param showId
      * @param newsId
      * @return:
@@ -30,7 +31,8 @@ public interface IUploadFileService {
      * @Author: wang,wei
      * @Date: 2018-11-11
      * @Time: 23:13
-     * @param fileNames 文件列表，已分号分隔，或者单个文件
+     * @param fileName 文件列表
+     * @param filePath 文件路径
      * @param showId
      * @param newsId
      * @return:

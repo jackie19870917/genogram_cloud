@@ -8,6 +8,7 @@ import com.genogram.service.IAllUserLoginService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Random;
 
@@ -35,9 +36,13 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
     public Boolean insertAllUserLogin(AllUserLogin allUserLogin) {
 
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<AllUserLogin>();
-        // wrapper.eq("user_name", allUserLogin.getUserName());
+
         wrapper.eq("mobile_phone", allUserLogin.getMobilePhone());
         AllUserLogin login = this.selectOne(wrapper);
+
+        if (!StringUtils.isEmpty(login)) {
+            return false;
+        }
 
         String userId="user"+ DateUtil.getAllTime()+String.format("%02d", new Random().nextInt(100));
         allUserLogin.setUserId(userId);
