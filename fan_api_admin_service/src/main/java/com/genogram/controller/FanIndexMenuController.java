@@ -53,13 +53,13 @@ public class FanIndexMenuController {
     }
 
     @ApiOperation(value = "后台子栏目删除" ,  notes="id:菜单id")
-    @RequestMapping(value = "/delTitlesById", method = RequestMethod.POST)
-    public Response delTitlesById(@RequestParam("id") int id, @RequestParam(name = "menuName") String menuName) {
+    @RequestMapping(value = "/delTitlesById", method = RequestMethod.GET)
+    public Response delTitlesById(@RequestParam("id") int id) {
         fanSysWebfNewsShowService.delTitlesById(id);
         return ResponseUtlis.success(true);
     }
 
-    @ApiOperation(value = "后台子栏添加" ,  notes="")
+    @ApiOperation(value = "后台子栏添加" ,  notes="siteId:网站id;menuName:菜单名")
     @RequestMapping(value = "/addTitles", method = RequestMethod.POST)
     public Response addTitles(@RequestParam("siteId") int siteId, @RequestParam(name = "menuName") String menuName, @RequestParam(name = "parentId") int parentId) {
         fanSysWebfNewsShowService.addTitles(siteId,menuName,parentId);
