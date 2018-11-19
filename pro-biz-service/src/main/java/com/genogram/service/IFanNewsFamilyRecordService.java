@@ -23,5 +23,10 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
      */
     NewsDetailVo getFamilyRecord(Integer id);
 
+    /**
+     * 联谊会家族名人增加查看数
+     * @param id
+     */
+    void addVisitNum(Integer id);
 }
 

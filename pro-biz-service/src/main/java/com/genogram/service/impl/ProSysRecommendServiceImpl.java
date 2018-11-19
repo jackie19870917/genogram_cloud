@@ -131,20 +131,20 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     */
     @Override
     public Object getRecommendParticulars(Integer id, Integer source) {
-        //1代表家族文化 2 代表记录家族 3代表家族产业
+        //1代表家族文化 3 代表记录家族 2代表家族产业
         if(source==1){
             NewsDetailVo familyCultureDetail = fanNewsCultureNewsService.getFamilyCultureDetail(id);
             if(familyCultureDetail!=null){
                 fanNewsCultureNewsService.addVisitNum(id);
             }
             return familyCultureDetail;
-        }else if(source==2){
+        }else if(source==3){
             NewsDetailVo familyRecord = fanNewsFamilyRecordService.getFamilyRecord(id);
             if(familyRecord!=null){
-               // fanNewsFamilyRecordService.addVisitNum(id);
+                fanNewsFamilyRecordService.addVisitNum(id);
             }
             return familyRecord;
-        }else if(source==3){
+        }else if(source==2){
             IndustryDetailVo familyIndustryDetail = fanNewsIndustryService.getFamilyIndustryDetail(id);
             if(familyIndustryDetail!=null){
                 fanNewsIndustryService.addVisitNum(id);
@@ -167,6 +167,7 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     @Override
     public FamilyPersonVo getRecommendFigureParticulars(Integer id) {
         FamilyPersonVo familyFamilyDetail = fanNewsFamousPersonService.getFamilyFamilyDetail(id);
+        //增加查看数
         if(familyFamilyDetail!=null){
             fanNewsFamousPersonService.addVisitNum(id);
         }

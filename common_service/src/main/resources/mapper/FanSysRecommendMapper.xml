@@ -26,7 +26,7 @@
     <select id="getIndexRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.IndustryDetailVo">
     select temp1.* from (
     SELECT
-        '1' as source,s.name as sizeName,m.id as recommendId,w.id, w.show_id AS showId, w.news_title AS newsTitle, w.news_text AS newsText,null as industryLocation, w.visit_num AS visitNum, w.status, w.create_time AS createTime, w.create_user AS createUser, w.update_time AS updateTime, w.update_user AS updateUser
+        '1' as source,e.name as sizeName,m.id as recommendId,w.id, w.show_id AS showId, w.news_title AS newsTitle, w.news_text AS newsText,null as industryLocation, w.visit_num AS visitNum, w.status, w.create_time AS createTime, w.create_user AS createUser, w.update_time AS updateTime, w.update_user AS updateUser
      FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_culture_news w
     where
     1=1
@@ -49,7 +49,7 @@
         </if>
     union all
     SELECT
-        '2' as source,s.name as sizeName,m.id as recommendId,r.id, r.show_id AS showId, r.news_title AS newsTitle, r.news_text AS newsText,null as industryLocation ,r.visit_num AS visitNum, r.status, r.create_time AS createTime, r.create_user AS createUser, r.update_time AS updateTime, r.update_user AS updateUser
+        '3' as source,e.name as sizeName,m.id as recommendId,r.id, r.show_id AS showId, r.news_title AS newsTitle, r.news_text AS newsText,null as industryLocation ,r.visit_num AS visitNum, r.status, r.create_time AS createTime, r.create_user AS createUser, r.update_time AS updateTime, r.update_user AS updateUser
       FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_family_record r
     where
         1=1
@@ -72,7 +72,7 @@
         </if>
         union all
         SELECT
-        '3' as source,s.name as sizeName,m.id as recommendId,a.id, a.show_id AS showId, a.news_title AS newsTitle, a.news_text AS newsText, a.industry_location AS industryLocation, a.visit_num AS visitNum, a.status, a.create_time AS createTime, a.create_user AS createUser, a.update_time AS updateTime, a.update_user AS updateUser
+        '2' as source,e.name as sizeName,m.id as recommendId,a.id, a.show_id AS showId, a.news_title AS newsTitle, a.news_text AS newsText, a.industry_location AS industryLocation, a.visit_num AS visitNum, a.status, a.create_time AS createTime, a.create_user AS createUser, a.update_time AS updateTime, a.update_user AS updateUser
         FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_industry a
         where
         1=1

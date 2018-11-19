@@ -46,6 +46,12 @@
         <if test="personName!=null">
             and f.person_name LIKE CONCAT('%',#{personName},'%')
         </if>
+        <if test="showId==21">
+           and right(m.show_id,2) ='21';
+        </if>
+        <if test="showId==22">
+          and  right(m.show_id,2) ='22';
+        </if>
     </select>
 
 </mapper>

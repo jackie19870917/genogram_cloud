@@ -9,6 +9,9 @@ import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +32,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/proRecommend")
+@Api(description = "省级下属联谊会推荐文章人物查询")
 public class ProRecommendController {
 
     @Autowired
@@ -43,9 +47,11 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "省级首页县级推荐文章查询" ,  notes="recommendId 推荐表主键/ sizeName 网站名称/ id 文章主键Id/ " +
+            "showId 显示位置Id/ newsTitle 标题/ newsText 内容/ industryLocation 家族产业具体地址/ visitNum 查看数/ status 状态(0:删除;1:已发布;2:草稿3:不显示)/  ")
     @RequestMapping(value = "/index/getRecommendArticle",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getRecommendArticle(
-            @RequestParam(value = "sizeId") Integer sizeId
+            @ApiParam(value = "网站Id") @RequestParam(value = "sizeId") Integer sizeId
     ) {
         try {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
@@ -65,7 +71,7 @@ public class ProRecommendController {
     }
 
     /**
-     *省级首页县级推荐人物查询
+     *省级首页县级推荐人物家族栋梁查询
      *@Author: yuzhou
      *@Date: 2018-11-16
      *@Time: 18:07
@@ -73,19 +79,56 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value = "/index/getRecommendFigure",method = RequestMethod.GET)
-    public Response<FamilyPersonVo> getRecommendFigure(
-            @RequestParam(value = "sizeId") Integer sizeId
+    @ApiOperation(value = "省级首页县级推荐人物家族栋梁查询" ,  notes="根据sizeId查询")
+    @RequestMapping(value = "/index/getRecommendFigureRooftree",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getRecommendFigureRooftree(
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
     ) {
         try {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=2;
+            int status=1;
             //来源:(1县级,2省级)
             int newsSource=1;
             Map map=new HashMap(16);
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
+            //家族栋梁
+            map.put("showId","22");
+            List<FamilyPersonVo> familyPersonVo=proSysRecommendService.getRecommendFigure(map);
+            return ResponseUtlis.success(familyPersonVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+
+    /**
+     *省级首页县级推荐人物家族长老查询
+     *@Author: yuzhou
+     *@Date: 2018-11-19
+     *@Time: 18:36
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "省级首页县级推荐人物家族长老查询" ,  notes="根据sizeId查询")
+    @RequestMapping(value = "/index/getRecommendFigureElder",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getRecommendFigure(
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
+    ) {
+        try {
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=1;
+            //来源:(1县级,2省级)
+            int newsSource=1;
+            Map map=new HashMap(16);
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            //家族长老
+            map.put("showId","21");
             List<FamilyPersonVo> familyPersonVo=proSysRecommendService.getRecommendFigure(map);
             return ResponseUtlis.success(familyPersonVo);
         }catch (Exception e){
@@ -103,10 +146,11 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value = "/index/getRecommendParticulars",method = RequestMethod.GET)
+    @ApiOperation(value = "省级首页文章推荐详情查询" ,  notes="根据id查询")
+    @RequestMapping(value = "/index/getRecommendDetails",method = RequestMethod.GET)
     public Response<Object> getRecommendParticulars(
-            @RequestParam(value = "id") Integer id,
-            @RequestParam(value = "source") Integer source
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id,
+            @ApiParam(value = "1代表家族文化 2 代表家族产业 3代表记录家族")@RequestParam(value = "source") Integer source
     ) {
         try {
             //1代表家族文化 2 代表记录家族 3代表家族产业
@@ -133,9 +177,10 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value = "/index/getRecommendFigureParticulars",method = RequestMethod.GET)
+    @ApiOperation(value = "省级首页人物推荐详情查询" ,  notes="根据sizeId查询")
+    @RequestMapping(value = "/index/getRecommendFigureDetails",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getRecommendFigureParticulars(
-            @RequestParam(value = "id") Integer id
+            @ApiParam(value = "家族名人主键Id")@RequestParam(value = "id") Integer id
     ) {
         try {
             if(id==null){

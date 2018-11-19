@@ -134,14 +134,14 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置个人推荐取消展示" ,  notes="根据id删除")
     @RequestMapping(value = "/deleteRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommend(
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //推荐主键
+            @ApiParam(value = "推荐表主键Id")@RequestParam(value = "recommendId") Integer recommendId //推荐主键
     ) {
-        if(id==null){
+        if(recommendId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
         int status=3;
-        return getFanSysRecommendResponse(id, status);
+        return getFanSysRecommendResponse(recommendId, status);
     }
 
     /**
@@ -156,14 +156,14 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置个人推荐展示" ,  notes="根据id")
     @RequestMapping(value = "/updateRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> updateRecommend(
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //推荐主键
+            @ApiParam(value = "主键Id")@RequestParam(value = "recommendId") Integer recommendId //推荐主键
     ) {
-        if(id==null){
+        if(recommendId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
         int status=2;
-        return getFanSysRecommendResponse(id, status);
+        return getFanSysRecommendResponse(recommendId, status);
     }
 
     /**
@@ -175,11 +175,11 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
-    private Response<FanSysRecommend> getFanSysRecommendResponse(@RequestParam("id") Integer id, int status) {
+    private Response<FanSysRecommend> getFanSysRecommendResponse(@RequestParam("recommendId") Integer recommendId, int status) {
         try {
 
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
-            entity.eq("id", id);
+            entity.eq("id", recommendId);
             Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
@@ -201,7 +201,7 @@ public class ProRecommendController {
     */
     @ApiOperation(value = "省级后台设置手动推荐查询" ,  notes="")
     @RequestMapping(value = "/getManualRecommend",method = RequestMethod.GET)
-    public Response<FanSysRecommend> getManualRecommend(
+    public Response<CommonRecommendVo> getManualRecommend(
             @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
     ) {
         try{
@@ -241,7 +241,7 @@ public class ProRecommendController {
      */
     @ApiOperation(value = "省级后台设置手动推荐模糊查询" ,  notes="")
     @RequestMapping(value = "/getManualVagueRecommend",method = RequestMethod.GET)
-    public Response<FanSysRecommend> getManualVagueRecommend(
+    public Response<CommonRecommendVo> getManualVagueRecommend(
             @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
             @ApiParam(value = "标题")@RequestParam(value = "newsTitle") String newsTitle
     ) {
@@ -283,7 +283,7 @@ public class ProRecommendController {
     */
     @ApiOperation(value = "省级后台设置自动推荐文章查询" ,  notes="")
     @RequestMapping(value = "/getAutomaticRecommendArticle",method = RequestMethod.GET)
-    public Response<FanSysRecommend> getAutomaticRecommendArticle(
+    public Response<IndustryDetailVo> getAutomaticRecommendArticle(
             @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
     ) {
         try {
@@ -320,7 +320,7 @@ public class ProRecommendController {
      */
     @ApiOperation(value = "省级后台设置自动推荐文章模糊查询" ,  notes="")
     @RequestMapping(value = "/getAutomaticRecommendVagueArticle",method = RequestMethod.GET)
-    public Response<FanSysRecommend> getAutomaticRecommendVagueArticle(
+    public Response<IndustryDetailVo> getAutomaticRecommendVagueArticle(
             @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
             @ApiParam(value = "标题")@RequestParam(value = "newsTitle") String newsTitle
     ) {

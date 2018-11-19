@@ -84,7 +84,7 @@ public class FamilyPersonVo{
     private Integer updateUser;
 
     /**
-     * 1代表家族文化 2 代表记录家族 3代表家族名人
+     * 1代表家族文化 2 代表家族产业 3代表记录家族 4代表家族名人
      */
     private int source;
 }

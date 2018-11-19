@@ -128,14 +128,14 @@ public class FanRecommendController {
     */
     @RequestMapping(value = "/deleteRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommend(
-            @RequestParam(value = "id") Integer id //推荐主键
+            @RequestParam(value = "recommendId") Integer recommendId //推荐主键
     ) {
-        if(id==null){
+        if(recommendId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
         int status=3;
-        return getFanSysRecommendResponse(id, status);
+        return getFanSysRecommendResponse(recommendId, status);
     }
 
     /**
@@ -149,14 +149,14 @@ public class FanRecommendController {
     */
     @RequestMapping(value = "/updateRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> updateRecommend(
-            @RequestParam(value = "id") Integer id //推荐主键
+            @RequestParam(value = "recommendId") Integer recommendId //推荐主键
     ) {
-        if(id==null){
+        if(recommendId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
         int status=2;
-        return getFanSysRecommendResponse(id, status);
+        return getFanSysRecommendResponse(recommendId, status);
     }
 
     /**
@@ -168,11 +168,11 @@ public class FanRecommendController {
      *@return:
      *@Description:
     */
-    private Response<FanSysRecommend> getFanSysRecommendResponse(@RequestParam("id") Integer id, int status) {
+    private Response<FanSysRecommend> getFanSysRecommendResponse(@RequestParam("recommendId") Integer recommendId, int status) {
         try {
 
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
-            entity.eq("id", id);
+            entity.eq("id", recommendId);
             Boolean aBoolean = fanSysRecommendService.deleteRecommend(entity, status);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
