@@ -20,6 +20,19 @@ import java.util.List;
 */
 @Data
 public class IndustryDetailVo {
+
+    /**
+     * 推荐表主键
+     */
+    private int recommendId;
+
+    /**
+     * 联谊会名称
+     */
+    private String sizeName;
+
+
+
     /**
      * 主键
      */

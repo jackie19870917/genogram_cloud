@@ -63,11 +63,14 @@ public class ProRecommendController {
             int status=1;
             //来源:(1县级,2省级)
             int newsSource=2;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=0;
             //要插入的实体类
             FanSysRecommend fanSysRecommend=new FanSysRecommend();
             fanSysRecommend.setNewsId(id);
             fanSysRecommend.setShowId(showId);
             fanSysRecommend.setStatus(status);
+            fanSysRecommend.setIsAuto(isAuto);
             fanSysRecommend.setNewsSource(newsSource);
             Boolean aBoolean = proSysRecommendService.addRecommend(fanSysRecommend);
             if(!aBoolean){
@@ -100,9 +103,13 @@ public class ProRecommendController {
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=3;
+            int status=0;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=0;
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("show_id",showId);
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            entity.eq("status",1);
             entity.eq("news_id",id);
             Boolean aBoolean = proSysRecommendService.deleteRecommend(entity,status);
             if(!aBoolean){
@@ -236,7 +243,7 @@ public class ProRecommendController {
     @RequestMapping(value = "/getManualVagueRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> getManualVagueRecommend(
             @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
-            @ApiParam(value = "标题")@RequestParam(value = "newsTitle") Integer newsTitle
+            @ApiParam(value = "标题")@RequestParam(value = "newsTitle") String newsTitle
     ) {
         try{
             if(sizeId==null){
@@ -315,7 +322,7 @@ public class ProRecommendController {
     @RequestMapping(value = "/getAutomaticRecommendVagueArticle",method = RequestMethod.GET)
     public Response<FanSysRecommend> getAutomaticRecommendVagueArticle(
             @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
-            @ApiParam(value = "标题")@RequestParam(value = "newsTitle") Integer newsTitle
+            @ApiParam(value = "标题")@RequestParam(value = "newsTitle") String newsTitle
     ) {
         try {
             if(sizeId==null){
@@ -391,7 +398,7 @@ public class ProRecommendController {
     @RequestMapping(value = "/getRecommendVagueFigure",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getRecommendVagueFigure(
             @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
-            @ApiParam(value = "人物名称")@RequestParam(value = "personName") Integer personName
+            @ApiParam(value = "人物名称")@RequestParam(value = "personName") String personName
     ) {
         try {
             if(sizeId==null){

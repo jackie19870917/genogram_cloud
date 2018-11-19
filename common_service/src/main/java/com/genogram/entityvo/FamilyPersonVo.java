@@ -8,6 +8,20 @@ import java.util.List;
 
 @Data
 public class FamilyPersonVo{
+
+
+    /**
+     * 推荐表主键
+     */
+    private int recommendId;
+
+    /**
+     * 联谊会名称
+     */
+    private String sizeName;
+
+
+
     /**
      * 家族名人
      */

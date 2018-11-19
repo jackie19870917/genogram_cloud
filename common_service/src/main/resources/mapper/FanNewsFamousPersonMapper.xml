@@ -25,14 +25,14 @@
 
     <select id="getRecommendFigure" parameterType="java.util.Map" resultType="com.genogram.entityvo.FamilyPersonVo">
         SELECT
-        '4' as source,f.id, f.show_id AS showId, f.person_name AS personName, f.person_summary AS personSummary, f.pic_file_src AS picFileSrc, f.pic_file_name AS picFileName, f.visit_num AS visitNum, f.status, f.create_time AS createTime, f.create_user AS createUser, f.update_time AS updateTime, f.update_user AS updateUser
+        '4' as source,s.name as sizeName,m.id as recommendId,f.id, f.show_id AS showId, f.person_name AS personName, f.person_summary AS personSummary, f.pic_file_src AS picFileSrc, f.pic_file_name AS picFileName, f.visit_num AS visitNum, f.status, f.create_time AS createTime, f.create_user AS createUser, f.update_time AS updateTime, f.update_user AS updateUser
         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_famous_person f
         where
         1=1
         <if test="parent!=null">
             and e.parent=#{parent}
         </if>
-        and s.id=n.fan_sys_site_id and  n.show_id=m.show_id
+        and s.id=n.site_id and  n.show_id=m.show_id
         <if test="isAuto!=null">
             and m.is_auto=#{isAuto}
         </if>
@@ -44,7 +44,7 @@
         </if>
         and m.show_id=f.show_id and m.news_id=f.id
         <if test="personName!=null">
-            and f.person_name=${personName}
+            and f.person_name LIKE CONCAT('%',#{personName},'%')
         </if>
     </select>
 

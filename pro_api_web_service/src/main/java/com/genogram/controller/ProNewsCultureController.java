@@ -89,7 +89,6 @@ public class ProNewsCultureController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
-
     /**
      *省级家族字派模糊查询
      *@Author: yuzhou

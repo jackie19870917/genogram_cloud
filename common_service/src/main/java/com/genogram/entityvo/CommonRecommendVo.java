@@ -20,6 +20,16 @@ import java.util.Date;
 public class CommonRecommendVo {
 
     /**
+     * 推荐表主键
+     */
+    private int recommendId;
+
+    /**
+     * 联谊会名称
+     */
+    private String sizeName;
+
+    /**
      * 分类1代表家族文化 2代表记录家族 3代表家族产业 4代表家族名人
      */
     private int source;
