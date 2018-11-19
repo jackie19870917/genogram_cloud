@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -182,42 +183,82 @@ public class ProRecommendController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
-
     /**
      *省级后台设置手动推荐查询
      *@Author: yuzhou
-     *@Date: 2018-11-13
-     *@Time: 11:16
+     *@Date: 2018-11-19
+     *@Time: 11:10
      *@Param:
      *@return:
      *@Description:
     */
     @ApiOperation(value = "省级后台设置手动推荐查询" ,  notes="")
-    @RequestMapping(value = "/getRecommendPage",method = RequestMethod.GET)
-    public Response<FanSysRecommend> getRecommendPage(
-            @ApiParam(value = "当前页")@RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
+    @RequestMapping(value = "/getManualRecommend",method = RequestMethod.GET)
+    public Response<FanSysRecommend> getManualRecommend(
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
     ) {
-        try {
+        try{
+        if(sizeId==null){
+            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+        }
+        //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+        int status=1;
+        //来源:(1县级,2省级)
+        int newsSource=1;
+        //是否自动推荐(0:否;1:是)
+        int isAuto=0;
+        Map map=new HashMap();
+        map.put("sizeId",sizeId);
+        map.put("status",status);
+        map.put("newsSource",newsSource);
+        map.put("isAuto",isAuto);
+        List<CommonRecommendVo> commonRecommendVo=proSysRecommendService.getManualRecommend(map);
+        if(commonRecommendVo==null){
+            return ResponseUtlis.error(Constants.ERRO_CODE,null);
+        }
+            return ResponseUtlis.success(commonRecommendVo);
+    }catch (Exception e){
+        e.printStackTrace();
+        return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+    }
+    }
+
+    /**
+     *省级后台设置手动推荐模糊查询
+     *@Author: yuzhou
+     *@Date: 2018-11-19
+     *@Time: 11:10
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @ApiOperation(value = "省级后台设置手动推荐模糊查询" ,  notes="")
+    @RequestMapping(value = "/getManualVagueRecommend",method = RequestMethod.GET)
+    public Response<FanSysRecommend> getManualVagueRecommend(
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
+            @ApiParam(value = "标题")@RequestParam(value = "newsTitle") Integer newsTitle
+    ) {
+        try{
+            if(sizeId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
             //来源:(1县级,2省级)
-            int newsSource=2;
+            int newsSource=1;
             //是否自动推荐(0:否;1:是)
             int isAuto=0;
-            //查询条件
-            Wrapper<FanSysRecommend> entity = new EntityWrapper();
-            entity.eq("status",status);
-            entity.eq("news_source",newsSource);
-            entity.eq("isAuto",isAuto);
-            entity.orderBy("create_time", false);
-            Page<FanSysRecommend> recommendPage = proSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
-            if(recommendPage==null){
-                //没有取到参数,返回空参
-                Page<FanSysRecommend> emptfamilyCultureVo = new Page<FanSysRecommend>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+            Map map=new HashMap();
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            map.put("newsTitle",newsTitle);
+            map.put("isAuto",isAuto);
+            List<CommonRecommendVo> commonRecommendVo=proSysRecommendService.getManualRecommend(map);
+            if(commonRecommendVo==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
-            return ResponseUtlis.success(recommendPage);
+            return ResponseUtlis.success(commonRecommendVo);
         }catch (Exception e){
             e.printStackTrace();
             return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
@@ -233,22 +274,64 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
-    @ApiOperation(value = "省级后台设置自动推荐查询" ,  notes="")
+    @ApiOperation(value = "省级后台设置自动推荐文章查询" ,  notes="")
     @RequestMapping(value = "/getAutomaticRecommendArticle",method = RequestMethod.GET)
     public Response<FanSysRecommend> getAutomaticRecommendArticle(
             @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
     ) {
         try {
+            if(sizeId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=1;
+            int status=2;
             //来源:(1县级,2省级)
-            int newsSource=2;
+            int newsSource=1;
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
-            Map map=new HashMap(16);
+            Map map=new HashMap();
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
+            map.put("isAuto",isAuto);
+            List<IndustryDetailVo> industryDetailVo=proSysRecommendService.getRecommendArticle(map);
+            return ResponseUtlis.success(industryDetailVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级后台设置自动推荐文章模糊查询
+     *@Author: yuzhou
+     *@Date: 2018-11-17
+     *@Time: 17:55
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @ApiOperation(value = "省级后台设置自动推荐文章模糊查询" ,  notes="")
+    @RequestMapping(value = "/getAutomaticRecommendVagueArticle",method = RequestMethod.GET)
+    public Response<FanSysRecommend> getAutomaticRecommendVagueArticle(
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
+            @ApiParam(value = "标题")@RequestParam(value = "newsTitle") Integer newsTitle
+    ) {
+        try {
+            if(sizeId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=2;
+            //来源:(1县级,2省级)
+            int newsSource=1;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=1;
+            Map map=new HashMap();
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            map.put("newsTitle",newsTitle);
             map.put("isAuto",isAuto);
             List<IndustryDetailVo> industryDetailVo=proSysRecommendService.getRecommendArticle(map);
             return ResponseUtlis.success(industryDetailVo);
@@ -267,21 +350,64 @@ public class ProRecommendController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value = "/index/getRecommendFigure",method = RequestMethod.GET)
+    @ApiOperation(value = "省级后台设置自动推荐人物查询" ,  notes="")
+    @RequestMapping(value = "/getRecommendFigure",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getRecommendFigure(
-            @RequestParam(value = "sizeId") Integer sizeId
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
     ) {
         try {
+            if(sizeId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=1;
+            int status=2;
             //来源:(1县级,2省级)
-            int newsSource=2;
+            int newsSource=1;
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
-            Map map=new HashMap(16);
+            Map map=new HashMap();
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
+            map.put("isAuto",isAuto);
+            List<FamilyPersonVo> familyPersonVo=proSysRecommendService.getRecommendFigure(map);
+            return ResponseUtlis.success(familyPersonVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级后台设置自动推荐人物模糊查询
+     *@Author: yuzhou
+     *@Date: 2018-11-16
+     *@Time: 18:07
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @ApiOperation(value = "省级后台设置自动推荐人物模糊查询" ,  notes="")
+    @RequestMapping(value = "/getRecommendVagueFigure",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getRecommendVagueFigure(
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
+            @ApiParam(value = "人物名称")@RequestParam(value = "personName") Integer personName
+    ) {
+        try {
+            if(sizeId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=2;
+            //来源:(1县级,2省级)
+            int newsSource=1;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=1;
+            Map map=new HashMap();
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            map.put("personName",personName);
             map.put("isAuto",isAuto);
             List<FamilyPersonVo> familyPersonVo=proSysRecommendService.getRecommendFigure(map);
             return ResponseUtlis.success(familyPersonVo);

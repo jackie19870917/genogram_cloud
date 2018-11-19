@@ -2,6 +2,7 @@ package com.genogram.mapper;
 
 import com.genogram.entity.FanSysRecommend;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -20,9 +21,16 @@ import java.util.Map;
 public interface FanSysRecommendMapper extends BaseMapper<FanSysRecommend> {
 
     /**
-     * 省级首页县级推荐文章查询
+     * 省级首页县级自动推荐文章查询
      * @param map 查询条件
      * @return
      */
     List<IndustryDetailVo> getIndexRecommend(Map map);
+
+    /**
+     * 省级首页县级手动推荐文章查询
+     * @param map
+     * @return
+     */
+    List<CommonRecommendVo> getManualRecommend(Map map);
 }

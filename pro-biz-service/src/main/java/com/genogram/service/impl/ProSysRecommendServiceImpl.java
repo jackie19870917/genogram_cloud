@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -89,23 +90,6 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
 
         return result;
     }
-
-    /**
-     *省级后台设置推荐查询
-     *@Author: yuzhou
-     *@Date: 2018-11-14
-     *@Time: 17:41
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    @Override
-    public Page<FanSysRecommend> getRecommendPage(Wrapper<FanSysRecommend> entity, Integer pageNo, Integer pageSize) {
-        //查询分页
-        Page<FanSysRecommend> fanSysRecommendPage = this.selectPage(new Page<FanSysRecommend>(pageNo, pageSize), entity);
-        return fanSysRecommendPage;
-    }
-
     /**
      *省级首页县级推荐文章查询
      *@Author: yuzhou
@@ -187,5 +171,20 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
             fanNewsFamousPersonService.addVisitNum(id);
         }
         return familyFamilyDetail;
+    }
+
+    /**
+     *省级后台设置手动推荐查询
+     *@Author: yuzhou
+     *@Date: 2018-11-19
+     *@Time: 10:10
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public List<CommonRecommendVo> getManualRecommend(Map map) {
+        List<CommonRecommendVo> commonRecommendVo=fanSysRecommendMapper.getManualRecommend(map);
+        return commonRecommendVo;
     }
 }

@@ -22,7 +22,7 @@
         id, show_id AS showId, news_id AS newsId, isProvince, isCountry, is_auto AS isAuto, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
-    <!--省级首页县级推荐文章查询-->
+    <!--省级首页县级自动推荐文章查询-->
     <select id="getIndexRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.IndustryDetailVo">
     select temp1.* from (
     SELECT
@@ -44,6 +44,9 @@
             and m.news_source=#{newsSource}
         </if>
          and m.show_id=w.show_id and m.news_id=w.id
+        <if test="newsTitle!=null">
+            and w.news_title=#{newsTitle}
+        </if>
     union all
     SELECT
         '2' as source,r.id, r.show_id AS showId, r.news_title AS newsTitle, r.news_text AS newsText,null as industryLocation ,r.visit_num AS visitNum, r.status, r.create_time AS createTime, r.create_user AS createUser, r.update_time AS updateTime, r.update_user AS updateUser
@@ -64,6 +67,9 @@
             and m.news_source=#{newsSource}
         </if>
         and m.show_id=r.show_id and m.news_id=r.id
+        <if test="newsTitle!=null">
+            and w.news_title=#{newsTitle}
+        </if>
         union all
         SELECT
         '3' as source,a.id, a.show_id AS showId, a.news_title AS newsTitle, a.news_text AS newsText, a.industry_location AS industryLocation, a.visit_num AS visitNum, a.status, a.create_time AS createTime, a.create_user AS createUser, a.update_time AS updateTime, a.update_user AS updateUser
@@ -84,8 +90,94 @@
             and m.news_source=#{newsSource}
         </if>
         and m.show_id=a.show_id and m.news_id=a.id
+        <if test="newsTitle!=null">
+            and w.news_title=#{newsTitle}
+        </if>
     ) temp1
         order by temp1.updateTime desc
+    </select>
+
+    <!--省级首页县级手动推荐文章查询-->
+    <select id="getManualRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.CommonRecommendVo">
+        SELECT
+          '1' as source,u.id, u.show_id AS showId, u.news_title AS newsTitle, u.news_text AS newsText, u.visit_num AS visitNum, u.status, u.create_time AS createTime, u.create_user AS createUser, u.update_time AS updateTime, u.update_user AS updateUser,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
+        FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_culture_news u
+        WHERE
+        1=1
+        <if test="sizeId!=null">
+            and s.parent=#{sizeId}
+        </if>
+        AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=u.show_id AND m.news_id=u.id
+        <if test="newsTitle!=null">
+            AND u.news_title LIKE CONCAT('%',#{newsTitle},'%')
+        </if>
+        union all
+        SELECT
+         '2' as source,w.id, w.show_id AS showId, w.news_title AS newsTitle, w.news_text AS newsText, w.visit_num AS visitNum, w.status, w.create_time AS createTime, w.create_user AS createUser, w.update_time AS updateTime, w.update_user AS updateUser ,w.industry_location as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
+        FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_industry w
+        WHERE
+        1=1
+        <if test="sizeId!=null">
+            and s.parent=#{sizeId}
+        </if>
+        AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=w.show_id AND m.news_id=w.id
+        <if test="newsTitle!=null">
+            AND w.news_title LIKE CONCAT('%',#{newsTitle},'%')
+        </if>
+        union all
+        SELECT
+        '3' as source,e.id, e.show_id AS showId, e.news_title AS newsTitle, e.news_text AS newsText, e.visit_num AS visitNum, e.status, e.create_time AS createTime, e.create_user AS createUser, e.update_time AS updateTime, e.update_user AS updateUser ,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
+         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_family_record e
+         WHERE
+        1=1
+        <if test="sizeId!=null">
+            and s.parent=#{sizeId}
+        </if>
+         AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=e.show_id AND m.news_id=e.id
+        <if test="newsTitle!=null">
+            AND e.news_title LIKE CONCAT('%',#{newsTitle},'%')
+        </if>
+        union all
+        SELECT
+        '4' as source,b.id, b.show_id AS showId, null AS newsTitle, null AS newsText, b.visit_num AS visitNum, b.status, b.create_time AS createTime, b.create_user AS createUser, b.update_time AS updateTime, b.update_user AS updateUser ,null as industryLocation, b.person_name as personName,b.person_summary as  personSummary,b.pic_file_src as picFileSrc,b.pic_file_name as picFileName
+         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_famous_person b
+         WHERE
+        1=1
+        <if test="sizeId!=null">
+            and s.parent=#{sizeId}
+        </if>
+         AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=b.show_id AND m.news_id=b.id
+        <if test="newsTitle!=null">
+            AND b.news_title LIKE CONCAT('%',#{newsTitle},'%')
+        </if>
     </select>
 
 </mapper>

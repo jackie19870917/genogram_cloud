@@ -19,6 +19,11 @@ import java.util.Date;
 @Data
 public class CommonRecommendVo {
 
+    /**
+     * 分类1代表家族文化 2代表记录家族 3代表家族产业 4代表家族名人
+     */
+    private int source;
+
     /*家族文化 家族动态*/
     /**
      * 编号

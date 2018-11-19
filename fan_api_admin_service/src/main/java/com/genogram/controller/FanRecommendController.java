@@ -4,12 +4,18 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.service.IFanSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -187,28 +193,31 @@ public class FanRecommendController {
      *@return:
      *@Description:
     */
-    @RequestMapping(value = "/getRecommendPage",method = RequestMethod.GET)
-    public Response<FanSysRecommend> getRecommendPage(
-            @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize
+    @ApiOperation(value = "县级后台设置手动推荐查询" ,  notes="")
+    @RequestMapping(value = "/getManualRecommend",method = RequestMethod.GET)
+    public Response<FanSysRecommend> getManualRecommend(
+            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
     ) {
-        try {
+        try{
+            if(sizeId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
             //来源:(1县级,2省级)
             int newsSource=1;
-            //查询条件
-            Wrapper<FanSysRecommend> entity = new EntityWrapper();
-            entity.eq("status",status);
-            entity.eq("news_source",newsSource);
-            entity.orderBy("create_time", false);
-            Page<FanSysRecommend> recommendPage = fanSysRecommendService.getRecommendPage(entity, pageNo, pageSize);
-            if(recommendPage==null){
-                //没有取到参数,返回空参
-                Page<FanSysRecommend> emptfamilyCultureVo = new Page<FanSysRecommend>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+            //是否自动推荐(0:否;1:是)
+            int isAuto=0;
+            Map map=new HashMap();
+            map.put("sizeId",sizeId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            map.put("isAuto",isAuto);
+            List<CommonRecommendVo> commonRecommendVo=fanSysRecommendService.getManualRecommend(map);
+            if(commonRecommendVo==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
-            return ResponseUtlis.success(recommendPage);
+            return ResponseUtlis.success(commonRecommendVo);
         }catch (Exception e){
             e.printStackTrace();
             return  ResponseUtlis.error(Constants.FAILURE_CODE,null);

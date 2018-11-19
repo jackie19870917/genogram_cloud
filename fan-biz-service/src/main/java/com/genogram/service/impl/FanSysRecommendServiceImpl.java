@@ -3,13 +3,16 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.mapper.FanSysRecommendMapper;
 import com.genogram.service.IFanSysRecommendService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -23,6 +26,8 @@ import java.util.List;
 @Service
 public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMapper, FanSysRecommend> implements IFanSysRecommendService {
 
+    @Autowired
+    private FanSysRecommendMapper fanSysRecommendMapper;
 
     /**
      *联谊会后台点击推荐
@@ -75,19 +80,18 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     }
 
     /**
-     *联谊会后台设置推荐查询
+     *县级后台设置手动推荐查询
      *@Author: yuzhou
-     *@Date: 2018-11-13
-     *@Time: 11:39
+     *@Date: 2018-11-19
+     *@Time: 10:10
      *@Param:
      *@return:
      *@Description:
-    */
+     */
     @Override
-    public Page<FanSysRecommend> getRecommendPage(Wrapper<FanSysRecommend> entity,Integer pageNo, Integer pageSize) {
-        //查询分页
-        Page<FanSysRecommend> fanSysRecommendPage = this.selectPage(new Page<FanSysRecommend>(pageNo, pageSize), entity);
-        return fanSysRecommendPage;
+    public List<CommonRecommendVo> getManualRecommend(Map map) {
+        List<CommonRecommendVo> commonRecommendVo=fanSysRecommendMapper.getManualRecommend(map);
+        return commonRecommendVo;
     }
 
 }

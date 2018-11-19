@@ -76,7 +76,7 @@ public class NewsDetailVo {
     private String updateUserName;
 
     /**
-     * 分类1代表家族文化 2代表记录家族
+     * 分类1代表家族文化 2代表记录家族 3代表家族产业
      */
     private int source;
 

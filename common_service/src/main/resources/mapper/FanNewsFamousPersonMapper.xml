@@ -43,6 +43,9 @@
             and m.news_source=#{newsSource}
         </if>
         and m.show_id=f.show_id and m.news_id=f.id
+        <if test="personName!=null">
+            and f.person_name=${personName}
+        </if>
     </select>
 
 </mapper>

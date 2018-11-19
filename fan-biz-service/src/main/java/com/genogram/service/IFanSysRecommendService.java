@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanSysRecommend;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.CommonRecommendVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -32,11 +36,9 @@ public interface IFanSysRecommendService extends IService<FanSysRecommend> {
     Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status);
 
     /**
-     * 联谊会后台设置推荐查询
-     * @param entity  查询条件
-     * @param pageNo  当前页
-     * @param pageSize 每页显示条数
+     * 县级后台设置手动推荐查询
+     * @param map
      * @return
      */
-    Page<FanSysRecommend> getRecommendPage(Wrapper<FanSysRecommend> entity,Integer pageNo, Integer pageSize);
+    List<CommonRecommendVo> getManualRecommend(Map map);
 }

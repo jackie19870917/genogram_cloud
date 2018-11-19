@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanSysRecommend;
+import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -36,16 +37,6 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      * @return
      */
     Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status);
-
-    /**
-     * 省级后台设置推荐查询
-     * @param entity
-     * @param pageNo
-     * @param pageSize
-     * @return
-     */
-    Page<FanSysRecommend> getRecommendPage(Wrapper<FanSysRecommend> entity, Integer pageNo, Integer pageSize);
-
     /**
      * 省级首页县级推荐文章查询
      * @param map 查询条件
@@ -74,4 +65,11 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      * @return
      */
     FamilyPersonVo getRecommendFigureParticulars(Integer id);
+
+    /**
+     * 省级后台设置手动推荐查询
+     * @param map
+     * @return
+     */
+    List<CommonRecommendVo> getManualRecommend(Map map);
 }
