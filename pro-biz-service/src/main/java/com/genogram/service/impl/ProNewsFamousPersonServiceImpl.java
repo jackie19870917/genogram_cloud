@@ -29,7 +29,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
     @Autowired
     private IAllUserLoginService allUserLoginService;
     @Autowired
-    private IFanSysRecommendService fanSysRecommendService;
+    private IProSysRecommendService proSysRecommendService;
 
     @Autowired
     private IProNewsUploadFileService iProNewsUploadFileService;
@@ -127,7 +127,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
             fanSysRecommend.setNewsSource(newsSource);
             fanSysRecommend.setShowId(fanNewsFamousPerson.getShowId());
             fanSysRecommend.setNewsId(fanNewsFamousPerson.getId());
-            fanSysRecommendService.addRecommend(fanSysRecommend);
+            proSysRecommendService.addRecommend(fanSysRecommend);
         }
     }
     /**
