@@ -5,6 +5,7 @@ import com.genogram.entityvo.SysWebMenuVo;
 import com.genogram.service.IProSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author wangwei
  * @since 2018-11-05
  */
+@Api(description = "省级菜单管理(前台)")
 @RestController
 @RequestMapping("/genogram/admin/proMenu")
 @CrossOrigin(origins = "*")

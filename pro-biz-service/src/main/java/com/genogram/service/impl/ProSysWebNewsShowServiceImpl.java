@@ -47,22 +47,22 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
 
         SysWebMenuVo vo = new SysWebMenuVo();
         //轮播图
-        vo = setIndexMenu(siteId,"轮播图","fan_index_slide_pic","","");
+        vo = setIndexMenu(siteId,"轮播图","fan_index_slide_pic","genogram/proIndex/index/getProIndexSlidePic?siteId=","");
         volist.add(vo);
         //简介
-        vo = setIndexMenu(siteId,"简介","index_summary","","");
+        vo = setIndexMenu(siteId,"简介","index_summary","genogram/proIndex/index/getIndexInfo?siteId=","");
         volist.add(vo);
 
         //支出公开栏;收益公开栏
-        vo = setIndexMenu(siteId,"支出公开栏",INDEX_CHARITY_PAY_OUT,"","");
+        vo = setIndexMenu(siteId,"支出公开栏",INDEX_CHARITY_PAY_OUT,"genogram/proNewsCharity/index/getProNewsCharityOut?showId=","");
         volist.add(vo);
-        vo = setIndexMenu(siteId,"收益公开栏","index_architecture_pay_in","","");
+        vo = setIndexMenu(siteId,"收益公开栏","index_architecture_pay_in","genogram/proNewsCharity/index/getProNewsCharityOut?showId=","");
         volist.add(vo);
         //公益基金(共享code 特殊处理)
-        vo = setIndexMenu(siteId,"公益基金","index_fund_1","","");
+        vo = setIndexMenu(siteId,"公益基金","index_fund_1","genogram/proNewsCharity/index/getProIndexFund?siteId=","");
         volist.add(vo);
         //捐款名人(共享code 特殊处理)
-        vo = setIndexMenu(siteId,"捐款名人",INDEX_ARCHITECHTURE_PAY_IN_PERSON_1,"","");
+        vo = setIndexMenu(siteId,"捐款名人",INDEX_ARCHITECHTURE_PAY_IN_PERSON_1,"genogram/proNewsCharity/index/getDonorVoByCreateTime?showId=","");
         //家族头条
         vo = setIndexMenu(siteId,"家族头条","index_family_record1","","");
         volist.add(vo);
@@ -81,13 +81,13 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         volist.add(vo);
 
         //文化 - 字派 - 省级
-        vo = setIndexMenu(siteId,"字派","index_zipai","","");
+        vo = setIndexMenu(siteId,"字派","index_zipai","genogram/proNewsCulture/getCommonalityPage?showId=","");
         volist.add(vo);
         //文化 - 迁徙之源 - 省级
-        vo = setIndexMenu(siteId,"迁徙之源","index_family_qianxi","","");
+        vo = setIndexMenu(siteId,"迁徙之源","index_family_qianxi","genogram/proNewsCulture/index/getFamilyIndexCulturePage?showId=","");
         volist.add(vo);
         //文化 - 家族祠堂 - 省级
-        vo = setIndexMenu(siteId,"家族祠堂","index_family_culture","","");
+        vo = setIndexMenu(siteId,"家族祠堂","index_family_culture","genogram/proNewsCulture/index/getFamilyIndexCulturePage?showId=","");
         volist.add(vo);
 
         //人物 - 祖先 - 省级
@@ -102,13 +102,15 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
 
 
         //慈善公益第二页的
-        vo = setIndexMenu(siteId,"公益总金额","index_fund_3","","慈善公益第二页的");
+        vo = setIndexMenu(siteId,"公益总金额","index_fund_3","genogram/proNewsCharity/index/getProIndexFund?siteId=","慈善公益第二页的");
         volist.add(vo);
-        vo = setIndexMenu(siteId,"捐款名人",INDEX_ARCHITECHTURE_PAY_IN_PERSON_3,"","慈善公益第二页的");
+        vo = setIndexMenu(siteId,"捐款名人",INDEX_ARCHITECHTURE_PAY_IN_PERSON_3,"genogram/proNewsCharity/index/getDonorVoByCreateTime?showId=","慈善公益第二页的");
         volist.add(vo);
         //财政用途支出第二页的
-        vo = setIndexMenu(siteId,"支出公开栏",INDEX_CHARITY_PAY_OUT_3,"","慈善公益第二页的");
+        vo = setIndexMenu(siteId,"支出公开栏",INDEX_CHARITY_PAY_OUT_3,"genogram/proNewsCharity/index/getProNewsCharityOut?showId=","慈善公益第二页的");
         volist.add(vo);
+
+
         return volist;
 
 

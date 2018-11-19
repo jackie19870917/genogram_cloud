@@ -24,7 +24,7 @@ import java.util.List;
  * @author wangwei
  * @since 2018-11-05
  */
-@Api(description = "省级首页(前台)")
+@Api(description = "省级菜单首页(前台)")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("genogram/proIndex")
