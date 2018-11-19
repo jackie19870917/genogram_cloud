@@ -262,4 +262,13 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
 
         this.insert(lastOne);
     }
+
+    @Override
+    public FanSysWebNewsShow getSysWebNewsShowBySiteIdAndMenuCode(int siteId, String menuCode) {
+        Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<>();
+        entity.eq("site_id", siteId);
+        entity.eq("menu_code", menuCode);
+        FanSysWebNewsShow fanSysWebNewsShow = this.selectOne(entity);
+        return fanSysWebNewsShow;
+    }
 }

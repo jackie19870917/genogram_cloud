@@ -2,6 +2,7 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entity.ProSysWebMenu;
 import com.genogram.entity.ProSysWebNewsShow;
 import com.genogram.entityvo.SysWebMenuVo;
@@ -213,6 +214,15 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         lastOne.setCreateTime(DateUtil.getCurrentTimeStamp());
 
         this.insert(lastOne);
+    }
+
+    @Override
+    public ProSysWebNewsShow getSysWebNewsShowBySiteIdAndMenuCode(int siteId, String menuCode) {
+        Wrapper<ProSysWebNewsShow> entity = new EntityWrapper<>();
+        entity.eq("site_id", siteId);
+        entity.eq("menu_code", menuCode);
+        ProSysWebNewsShow proSysWebNewsShow = this.selectOne(entity);
+        return proSysWebNewsShow;
     }
 
     private SysWebMenuVo setIndexMenu(String siteId, String menuName, String menuCode, String api, String comments){
