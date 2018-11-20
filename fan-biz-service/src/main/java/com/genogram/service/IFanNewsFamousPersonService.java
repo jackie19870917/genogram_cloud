@@ -23,7 +23,7 @@ public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerso
      * @param pageSize
      * @return
      */
-    Page<FamilyPersonVo> getFamilyPersionPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FanNewsFamousPerson> getFamilyPersionPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 
     /**
      * 后台查询

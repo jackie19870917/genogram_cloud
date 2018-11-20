@@ -31,7 +31,6 @@ import java.util.List;
 public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements IFanNewsFamousPersonService {
     @Autowired
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
-
     @Autowired
     private IUploadFileService iuploadFileService;
     @Autowired
@@ -42,7 +41,7 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
     private IAllUserLoginService allUserLoginService;
 
     @Override
-    public Page<FamilyPersonVo> getFamilyPersionPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsFamousPerson> getFamilyPersionPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
         List<FamilyPersonVo> familyPersonVoList=new ArrayList<>();
 
@@ -53,64 +52,8 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         //分页查询文章主表
         Page<FanNewsFamousPerson> fanNewsFamousPerson =this.selectPage(new Page<FanNewsFamousPerson>(pageNo, pageSize), entity);
 
-        //得到文件当前页list集合
-        List<FanNewsFamousPerson> list = fanNewsFamousPerson.getRecords();
-        if(list.size()==0){
-            return null;
-        }
 
-        //得到所有文章id
-        List newsids =  new ArrayList<>();
-        list.forEach(( news)->{
-            newsids.add(news.getId());
-        });
-
-        //查询图片
-        Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
-        uploadentity.eq("show_id", showId);
-        uploadentity.eq("status", status);
-        uploadentity.in("news_id",newsids);
-        //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> files =  fanNewsUploadFileMapper.selectList(uploadentity);
-
-        //遍历主表文章集合,赋值新对象vo
-        list.forEach(( news)->{
-            FamilyPersonVo familyPersonVo=new FamilyPersonVo();
-            familyPersonVo.setId(news.getId());
-            familyPersonVo.setShowId(news.getShowId());
-            familyPersonVo.setPersonName(news.getPersonName());
-            familyPersonVo.setPersonSummary(news.getPersonSummary());
-            familyPersonVo.setVisitNum(news.getVisitNum());
-            familyPersonVo.setStatus(news.getStatus());
-            familyPersonVo.setCreateTime(news.getCreateTime());
-            familyPersonVo.setCreateUser(news.getCreateUser());
-            familyPersonVo.setUpdateTime(news.getUpdateTime());
-            familyPersonVo.setUpdateUser(news.getUpdateUser());
-
-
-            //判断改图片文章id是否一样
-            List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
-
-            files.forEach(( data)->{
-                if(news.getId().equals(data.getNewsId())){
-                    fanNewsUploadFile.add(data);
-                }
-            });
-
-            //存储图片list集合
-            familyPersonVo.setFanNewsUploadFileList(fanNewsUploadFile);
-
-
-            //存储到新的集合中
-            familyPersonVoList.add(familyPersonVo);
-
-        });
-        //重新设置page对象
-        Page<FamilyPersonVo> mapPage = new Page<>(pageNo,pageSize);
-        mapPage.setRecords(familyPersonVoList);
-        mapPage.setSize(fanNewsFamousPerson.getSize());
-        mapPage.setTotal(fanNewsFamousPerson.getTotal());
-        return mapPage;
+        return fanNewsFamousPerson;
     }
 
     /**

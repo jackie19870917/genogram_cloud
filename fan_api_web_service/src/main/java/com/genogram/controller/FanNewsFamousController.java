@@ -36,7 +36,7 @@ public class FanNewsFamousController {
     ){
         try {
             int status=1;
-            Page<FamilyPersonVo> familyPersonVo = iFanNewsFamousPersonService.getFamilyPersionPage(showId, status, pageNo, pageSize);
+            Page<FanNewsFamousPerson> familyPersonVo = iFanNewsFamousPersonService.getFamilyPersionPage(showId, status, pageNo, pageSize);
             if(familyPersonVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
