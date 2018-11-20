@@ -83,7 +83,7 @@ public class ProNewsCharityController {
     @RequestMapping(value = "index/getDonorBySum", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageBySum(@ApiParam(value = "显示位置") @RequestParam Integer showId,
                                                  @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                 @ApiParam(value = "每页条数") @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+                                                 @ApiParam(value = "每页条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
 
         if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -118,7 +118,7 @@ public class ProNewsCharityController {
     @RequestMapping(value = "index/getDonorVoByCreateTime", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageByCreateTime(@ApiParam(value = "显示位置") @RequestParam Integer showId,
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                        @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+                                                        @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
 
         if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);

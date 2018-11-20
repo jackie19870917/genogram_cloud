@@ -65,4 +65,11 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      * @return
      */
     FamilyPersonVo getRecommendFigureParticulars(Integer id);
+
+    /**
+     * 省级手动文章查询
+     * @param map
+     * @return
+     */
+    List<CommonRecommendVo> getManualRecommend(Map map);
 }

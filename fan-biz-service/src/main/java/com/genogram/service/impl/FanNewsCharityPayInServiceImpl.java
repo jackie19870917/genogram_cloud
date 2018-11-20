@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -120,9 +121,30 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
-        fanNewsCharityPayIn.setCreateTime(timeStamp);
+        if (StringUtils.isEmpty(this.selectOne(fanNewsCharityPayIn))) {
+            fanNewsCharityPayIn.setCreateTime(timeStamp);
+            fanNewsCharityPayIn.setCreateUser(fanNewsCharityPayIn.getPayUsrId());
+            fanNewsCharityPayIn.setUpdateUser(fanNewsCharityPayIn.getPayUsrId());
+        }
+
         fanNewsCharityPayIn.setUpdateTime(timeStamp);
 
-        return this.insert(fanNewsCharityPayIn);
+        return this.insertOrUpdate(fanNewsCharityPayIn);
     }
+
+    @Override
+    public FanNewsCharityPayIn selectOne(FanNewsCharityPayIn fanNewsCharityPayIn) {
+
+        Wrapper wrapper = new EntityWrapper();
+        wrapper.eq("order_id", fanNewsCharityPayIn.getOrderId());
+
+        FanNewsCharityPayIn fanNewsCharityPayIn1 = this.selectOne(wrapper);
+
+        if (StringUtils.isEmpty(fanNewsCharityPayIn1)) {
+            return null;
+        }
+
+        return fanNewsCharityPayIn1;
+    }
+
 }

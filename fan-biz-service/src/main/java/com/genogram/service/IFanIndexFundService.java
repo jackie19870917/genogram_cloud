@@ -14,9 +14,25 @@ import com.baomidou.mybatisplus.service.IService;
 public interface IFanIndexFundService extends IService<FanIndexFund> {
 
     /**
-     *                  查询基金金额
-     * @param siteId    网站ID
+     * 查询基金金额
+     *
+     * @param siteId 网站ID
      * @return
      */
     FanIndexFund getFanIndexFund(Integer siteId);
+
+    /**
+     * 新增/修改 基金金额
+     *
+     * @param fanIndexFund
+     * @return
+     */
+    Boolean insertOrUpdateFanIndexFund(FanIndexFund fanIndexFund);
+
+    /**
+     * 修改 基金金额
+     * @param fanIndexFund
+     * @return
+     */
+    Boolean updateFanIndexFund(FanIndexFund fanIndexFund);
 }

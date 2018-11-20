@@ -41,4 +41,12 @@ public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayI
      * @return
      */
     Boolean insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn);
+
+    /**
+     * 单一查询
+     * @param fanNewsCharityPayIn
+     * @return
+     */
+    FanNewsCharityPayIn selectOne(FanNewsCharityPayIn fanNewsCharityPayIn);
+
 }

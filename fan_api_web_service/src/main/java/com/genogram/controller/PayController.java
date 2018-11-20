@@ -6,26 +6,29 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.genogram.config.AlipayConfig;
+import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityPayIn;
+import com.genogram.entityvo.SysWebMenuVo;
+import com.genogram.service.IFanIndexFundService;
 import com.genogram.service.IFanNewsCharityPayInService;
+import com.genogram.service.IFanSysWebMenuService;
+import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.PayUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 支付
@@ -33,6 +36,7 @@ import java.util.Map;
  * @author Toxicant
  * @date 2016/10/31
  */
+@Api(description = "支付")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/pay")
@@ -41,10 +45,17 @@ public class PayController {
     Logger log = LoggerFactory.getLogger(PayController.class);
 
     @Autowired
-    private IFanNewsCharityPayInService iFanNewsCharityPayInService;
+    private IFanNewsCharityPayInService fanNewsCharityPayInService;
 
+    @Autowired
+    private IFanSysWebNewsShowService fanSysWebNewsShowService;
+
+    @Autowired
+    private IFanIndexFundService fanIndexFundService;
+
+    @ApiOperation(value = "支付宝支付",notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
-    public String aLiPay(String money) {
+    public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,@ApiParam("网站ID")@RequestParam Integer  siteId) {
 
         // 获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id,
@@ -57,17 +68,30 @@ public class PayController {
         alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
 
         // 商户订单号，商户网站订单系统中唯一订单号，必填
-        String outTradeNo = null;
+        String outTradeNo = DateUtil.getAllTime()+String.format("%02d", new Random().nextInt(100));
 
         // 付款金额，必填
-        String totalAmount = money;
+        String totalAmount = fanNewsCharityPayIn.getPayAmount().toString();
 
         // 订单名称，必填
-        String subject = "炎黄网在线支付宝扫码支付";
+        String subject = "炎黄网在线支付宝支付";
 
         // 该笔订单允许的最晚付款时间，逾期将关闭交易。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天（1c-当天的情况下，无论交易何时创建，都在0点关闭）。
         // 该参数数值不接受小数点， 如 1.5h，可转换为 90m。
         String timeoutExpress = "2h";
+
+        Integer showId = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
+
+        String payChannel = "支付宝支付";
+
+        fanNewsCharityPayIn.setOrderId(outTradeNo);
+        fanNewsCharityPayIn.setShowId(showId);
+        fanNewsCharityPayIn.setPayUsrId(1);
+        fanNewsCharityPayIn.setType(1);
+        fanNewsCharityPayIn.setStatus(2);
+        fanNewsCharityPayIn.setPayChannel(payChannel);
+
+        fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
 
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + outTradeNo + "\"," + "\"total_amount\":\"" + totalAmount
                 + "\"," + "\"subject\":\"" + subject + "\"," + "\"timeout_express\":\"" + timeoutExpress + "\","
@@ -86,11 +110,7 @@ public class PayController {
     }
 
     @RequestMapping(value = "/return_url")
-    public String alipayReturnNotice(HttpServletRequest request, HttpServletResponse response,
-                                     FanNewsCharityPayIn fanNewsCharityPayIn, String url) throws Exception {
-
-        // 跨域解决
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public String alipayReturnNotice(HttpServletRequest request) throws Exception {
 
         log.info("支付成功, 进入同步通知接口...");
 
@@ -124,21 +144,25 @@ public class PayController {
             // 付款金额
             String totalAmount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");
 
-            url = new String(request.getParameter("url").getBytes("ISO-8859-1"), "UTF-8");
-            // 支付方式
-            String payChannel = "支付宝支付";
-            BigDecimal payAmount = new BigDecimal(totalAmount);
-            Timestamp format = DateUtil.getCurrentTimeStamp();
+            FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
 
-            fanNewsCharityPayIn.setShowId(Integer.parseInt(outTradeNo));
-            fanNewsCharityPayIn.setPayAmount(payAmount);
-            fanNewsCharityPayIn.setType(1);
-            fanNewsCharityPayIn.setCreateTime(format);
-            fanNewsCharityPayIn.setUpdateTime(format);
-            fanNewsCharityPayIn.setCreateUser(1);
-            fanNewsCharityPayIn.setPayChannel(payChannel);
+            fanNewsCharityPayIn.setOrderId(outTradeNo);
+            fanNewsCharityPayIn = fanNewsCharityPayInService.selectOne(fanNewsCharityPayIn);
 
-            iFanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+            fanNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
+            fanNewsCharityPayIn.setStatus(1);
+
+            fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+
+            //修改基金金额
+            Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
+
+            FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
+
+            fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal(totalAmount)));
+            fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
+
+            fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
 
             log.info("********************** 支付成功(支付宝同步通知) **********************");
             log.info("* 订单号: {}", outTradeNo);
@@ -147,54 +171,17 @@ public class PayController {
             log.info("* 购买产品: {}", "炎黄统谱网在线支付宝扫码支付");
             log.info("***************************************************************");
 
-            System.out.println(url);
-            return "'" + url + "'" + "?out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount
+            return "out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount
                     + "'" + "&productName='炎黄统谱网在线支付宝扫码支付'";
         } else {
             log.info("支付, 验签失败...");
             return null;
         }
-        /*
-         * ModelAndView mv = new ModelAndView("success"); // ——请在这里编写您的程序（以下代码仅作参考）—— if
-         * (signVerified) { // 商户订单号 String out_trade_no = new
-         * String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8");
-         *
-         * // 支付宝交易号 String trade_no = new
-         * String(request.getParameter("trade_no").getBytes("ISO-8859-1"), "UTF-8");
-         *
-         * // 付款金额 String total_amount = new
-         * String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");
-         *
-         * // 修改叮当状态，改为 支付成功，已付款; 同时新增支付流水 //
-         * orderService.updateOrderStatus(out_trade_no, trade_no, total_amount);
-         *
-         * // 支付方式 String payChannel = "支付宝支付"; BigDecimal payAmount = new
-         * BigDecimal(total_amount); String creator = "user2018093014268912"; Timestamp
-         * format = DateUtil.format(new Date());
-         * sysDonationInfoService.insert(out_trade_no, payAmount, creator, format,
-         * payChannel);
-         *
-         * log.info("********************** 支付成功(支付宝同步通知) **********************");
-         * log.info("* 订单号: {}", out_trade_no); log.info("* 支付宝交易号: {}", trade_no);
-         * log.info("* 实付金额: {}", total_amount); log.info("* 购买产品: {}",
-         * "炎黄统谱网在线支付宝扫码支付");
-         * log.info("***************************************************************");
-         *
-         * mv.addObject("out_trade_no", out_trade_no); mv.addObject("trade_no",
-         * trade_no); mv.addObject("total_amount", total_amount);
-         * mv.addObject("productName", "炎黄统谱网在线支付宝扫码支付");
-         *
-         * } else { log.info("支付, 验签失败..."); }
-         *
-         * return mv;
-         */
+
     }
 
     @RequestMapping("/notify_url")
-    public String alipayNotifyNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        // 跨域解决
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public String alipayNotifyNotice(HttpServletRequest request ) throws Exception {
 
         log.info("支付成功, 进入异步通知接口...");
 
@@ -273,6 +260,7 @@ public class PayController {
         return "success";
     }
 
+    @ApiOperation("微信支付")
     @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
     public void weChatPay(Model model,HttpServletRequest request,FanNewsCharityPayIn fanNewsCharityPayIn) {
 
