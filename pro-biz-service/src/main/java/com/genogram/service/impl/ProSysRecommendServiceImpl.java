@@ -202,4 +202,19 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
         }
         return familyFamilyDetail;
     }
+
+    /**
+     *省级手动文章查询
+     *@Author: yuzhou
+     *@Date: 2018-11-20
+     *@Time: 15:40
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public List<CommonRecommendVo> getManualRecommend(Map map) {
+        List<CommonRecommendVo> manualRecommend = fanSysRecommendMapper.getManualRecommend(map);
+        return manualRecommend;
+    }
 }

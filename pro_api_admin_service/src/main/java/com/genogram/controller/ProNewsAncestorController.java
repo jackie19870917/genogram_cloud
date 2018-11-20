@@ -27,14 +27,14 @@ import org.springframework.web.bind.annotation.*;
 @Api(description = "省级祖先分支")
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/genogram/proNewsAncestor")
+@RequestMapping("/genogram/admin/proNewsAncestor")
 public class ProNewsAncestorController {
 
     @Autowired
     private IProNewsFamousAncestorService proNewsFamousAncestorService;
 
     /**
-     *省级祖先查询
+     *省级祖先后台查询
      *@Author: yuzhou
      *@Date: 2018-11-20
      *@Time: 11:52
@@ -47,7 +47,7 @@ public class ProNewsAncestorController {
     public Response<ProNewsFamousAncestor> getFamousAncestorPage(
             @ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId, // 显示位置
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "14") Integer pageSize
+            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ){
         try {
             if(showId==null){
@@ -89,6 +89,32 @@ public class ProNewsAncestorController {
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             AncestorsBranchVo ancestorsBranchVo = proNewsFamousAncestorService.getFamousAncestorDetails(id);
+            if(ancestorsBranchVo==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
+            return ResponseUtlis.success(ancestorsBranchVo);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /**
+     *省级祖先后台添加模糊查询
+     *@Author: yuzhou
+     *@Date: 2018-11-20
+     *@Time: 15:17
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "省级祖先后台添加模糊查询", notes = "")
+    @RequestMapping(value = "/getFamousAncestorVaguePage",method = RequestMethod.GET)
+    public Response<ProNewsFamousAncestor> getFamousAncestorVaguePage(
+            @ApiParam(value = "主键Id")@RequestParam(value = "ancestorName") String ancestorName// 显示位置
+    ){
+        try {
+            AncestorsBranchVo ancestorsBranchVo = proNewsFamousAncestorService.getFamousAncestorVaguePage(ancestorName);
             if(ancestorsBranchVo==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }

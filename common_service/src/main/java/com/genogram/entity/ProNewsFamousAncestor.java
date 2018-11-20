@@ -69,10 +69,15 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
      * 字派
      */
     private String zipai;
+
+    /**
+     * 郡望
+     */
+    private String junwang;
+
     /**
      * 堂号
      */
-    private String junwang;
     private String tanghao;
     /**
      * 创建时间
