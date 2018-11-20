@@ -3,16 +3,21 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.FanNewsFamousAncestor;
+import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.mapper.ProNewsFamousAncestorMapper;
+import com.genogram.service.IFanNewsFamousAncestorService;
 import com.genogram.service.IProNewsFamousAncestorService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -27,6 +32,12 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
 
     @Autowired
     private IProNewsFamousAncestorService proNewsFamousAncestorService;
+
+    @Autowired
+    private ProNewsFamousAncestorMapper proNewsFamousAncestorMapper;
+
+    @Autowired
+    private IFanNewsFamousAncestorService fanNewsFamousAncestorService;
 
     /**
      *省级祖先分支查询
@@ -69,8 +80,58 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
         return ancestorsBranchVo;
     }
 
+    /**
+     *省级祖先后台添加模糊查询
+     *@Author: yuzhou
+     *@Date: 2018-11-20
+     *@Time: 15:58
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
-    public AncestorsBranchVo getFamousAncestorVaguePage(String ancestorName) {
-        return null;
+    public Page<AncestorsBranchVo> getFamousAncestorVaguePage(Page<AncestorsBranchVo> mapPage, Map map) {
+        List<AncestorsBranchVo> famousAncestorVaguePage = proNewsFamousAncestorMapper.getFamousAncestorVaguePage(mapPage, map);
+        if(famousAncestorVaguePage.size()==0){
+            return null;
+        }
+        mapPage.setRecords(famousAncestorVaguePage);
+        return mapPage;
     }
+
+    /**
+     * 省级添加
+     * @param proNewsFamousAncestor
+     * @param proSplit
+     * @param fanSplit
+     */
+    @Override
+    public Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit) {
+        //插入主数据
+        boolean insert = proNewsFamousAncestorService.insertOrUpdate(proNewsFamousAncestor);
+        //查询主键
+        Wrapper<ProNewsFamousAncestor> entity=new EntityWrapper();
+        entity.eq("show_id",proNewsFamousAncestor.getShowId());
+        ProNewsFamousAncestor proNews = proNewsFamousAncestorService.selectOne(entity);
+        //查询省级
+        List<ProNewsFamousAncestor> proNewsFamousAncestors = proNewsFamousAncestorService.selectBatchIds(proSplit);
+
+        //查询县级
+        List<FanNewsFamousAncestor> fanNewsFamousAncestors = fanNewsFamousAncestorService.selectBatchIds(fanSplit);
+        for (FanNewsFamousAncestor fanNewsFamousAncestor : fanNewsFamousAncestors) {
+            ProNewsFamousAncestor famousAncestor=new ProNewsFamousAncestor();
+            BeanUtils.copyProperties(fanNewsFamousAncestor,famousAncestor);
+            proNewsFamousAncestors.add(famousAncestor);
+        }
+
+        //修改父Id
+        for (ProNewsFamousAncestor newsFamousAncestor : proNewsFamousAncestors) {
+            newsFamousAncestor.setShowId(null);
+            newsFamousAncestor.setParentId(proNews.getId());
+        }
+        //批量插入
+        proNewsFamousAncestorService.insertBatch(proNewsFamousAncestors);
+         return insert;
+    }
+
 }

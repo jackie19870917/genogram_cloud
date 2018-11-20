@@ -2,9 +2,13 @@ package com.genogram.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.AncestorsBranchVo;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -33,9 +37,22 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
     AncestorsBranchVo getFamousAncestorDetails(Integer id);
 
     /**
-     * 省级
-     * @param ancestorName
+     * 省级祖先后台添加模糊查询
+     * @param map
+     * @param mapPage
      * @return
      */
-    AncestorsBranchVo getFamousAncestorVaguePage(String ancestorName);
+    Page<AncestorsBranchVo> getFamousAncestorVaguePage(Page<AncestorsBranchVo> mapPage, Map map);
+
+    /**
+     * 省级添加
+     * @param proNewsFamousAncestor
+     * @param proSplit
+     * @param fanSplit
+     */
+    Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit);
+
+
+
+
 }

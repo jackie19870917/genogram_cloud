@@ -4,16 +4,23 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.service.IProNewsFamousAncestorService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *省级祖先分支
@@ -111,10 +118,15 @@ public class ProNewsAncestorController {
     @ApiOperation(value = "省级祖先后台添加模糊查询", notes = "")
     @RequestMapping(value = "/getFamousAncestorVaguePage",method = RequestMethod.GET)
     public Response<ProNewsFamousAncestor> getFamousAncestorVaguePage(
-            @ApiParam(value = "主键Id")@RequestParam(value = "ancestorName") String ancestorName// 显示位置
+            @ApiParam(value = "祖先名")@RequestParam(value = "ancestorName") String ancestorName,// 显示位置
+            @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ){
         try {
-            AncestorsBranchVo ancestorsBranchVo = proNewsFamousAncestorService.getFamousAncestorVaguePage(ancestorName);
+            Page<AncestorsBranchVo> mapPage = new Page<>(pageNo, pageSize);
+            Map map=new HashMap();
+            map.put("ancestorName",ancestorName);
+            Page<AncestorsBranchVo> ancestorsBranchVo = proNewsFamousAncestorService.getFamousAncestorVaguePage(mapPage,map);
             if(ancestorsBranchVo==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
@@ -124,5 +136,66 @@ public class ProNewsAncestorController {
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
+
+    /**
+     *省级祖先分支添加 修改
+     *@Author: yuzhou
+     *@Date: 2018-11-20
+     *@Time: 17:32
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "省级祖先后台添加 修改", notes = "")
+    @RequestMapping(value = "/addFamousAncestor",method = RequestMethod.GET)
+    public Response<ProNewsFamousAncestor> addFamousAncestor(
+            @ApiParam(value = "省级主键Id")@RequestParam(value = "proIds") String proIds,// 显示位置
+            @ApiParam(value = "县级主键Id")@RequestParam(value = "fanIds") String fanIds,// 显示位置
+            @ApiParam(value = "祖先分支表")ProNewsFamousAncestor proNewsFamousAncestor
+    ){
+        try {
+            //省级主键Id
+            List<String> proSplit=null;
+            //县级主键Id
+            List<String> fanSplit=null;
+            if (StringsUtils.isNotEmpty(proIds)){
+                proSplit = Arrays.asList(proIds.split(","));
+
+            }
+            if (StringsUtils.isNotEmpty(fanIds)){
+                fanSplit = Arrays.asList(fanIds.split(","));
+            }
+            Boolean aBoolean = proNewsFamousAncestorService.addFamousAncestor(proNewsFamousAncestor, proSplit, fanSplit);
+            return null;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }
+
+    /*@ApiOperation(value = "省级祖先后台删除", notes = "")
+    @RequestMapping(value = "/deleteFamousAncestor",method = RequestMethod.GET)
+    public Response<ProNewsFamousAncestor> deleteFamousAncestor(
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id
+    ){
+        try {
+            //省级主键Id
+            List<String> proSplit=null;
+            //县级主键Id
+            List<String> fanSplit=null;
+            if (StringsUtils.isNotEmpty(proIds)){
+                proSplit = Arrays.asList(proIds.split(","));
+
+            }
+            if (StringsUtils.isNotEmpty(fanIds)){
+                fanSplit = Arrays.asList(fanIds.split(","));
+            }
+            Boolean aBoolean = proNewsFamousAncestorService.addFamousAncestor(proNewsFamousAncestor, proSplit, fanSplit);
+            return null;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        }
+    }*/
 }
 
