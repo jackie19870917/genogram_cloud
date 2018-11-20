@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-20
  */
 @TableName("pro_news_famous_ancestor")
 public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
@@ -65,6 +65,15 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
      * 状态(0:删除;1:发布;3:不显示)
      */
     private Integer status;
+    /**
+     * 字派
+     */
+    private String zipai;
+    /**
+     * 堂号
+     */
+    private String junwang;
+    private String tanghao;
     /**
      * 创建时间
      */
@@ -168,6 +177,33 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
         return this;
     }
 
+    public String getZipai() {
+        return zipai;
+    }
+
+    public ProNewsFamousAncestor setZipai(String zipai) {
+        this.zipai = zipai;
+        return this;
+    }
+
+    public String getJunwang() {
+        return junwang;
+    }
+
+    public ProNewsFamousAncestor setJunwang(String junwang) {
+        this.junwang = junwang;
+        return this;
+    }
+
+    public String getTanghao() {
+        return tanghao;
+    }
+
+    public ProNewsFamousAncestor setTanghao(String tanghao) {
+        this.tanghao = tanghao;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -221,6 +257,9 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
         ", picFileSrc=" + picFileSrc +
         ", picFileName=" + picFileName +
         ", status=" + status +
+        ", zipai=" + zipai +
+        ", junwang=" + junwang +
+        ", tanghao=" + tanghao +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-20
  */
 @TableName("fan_news_famous_ancestor")
 public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
@@ -65,6 +65,15 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
      * 状态(0:删除;1:发布;3:不显示)
      */
     private Integer status;
+    /**
+     * 字派
+     */
+    private String zipai;
+    /**
+     * 堂号
+     */
+    private String junwang;
+    private String tanghao;
     /**
      * 创建时间
      */
@@ -168,6 +177,33 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
         return this;
     }
 
+    public String getZipai() {
+        return zipai;
+    }
+
+    public FanNewsFamousAncestor setZipai(String zipai) {
+        this.zipai = zipai;
+        return this;
+    }
+
+    public String getJunwang() {
+        return junwang;
+    }
+
+    public FanNewsFamousAncestor setJunwang(String junwang) {
+        this.junwang = junwang;
+        return this;
+    }
+
+    public String getTanghao() {
+        return tanghao;
+    }
+
+    public FanNewsFamousAncestor setTanghao(String tanghao) {
+        this.tanghao = tanghao;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -221,6 +257,9 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
         ", picFileSrc=" + picFileSrc +
         ", picFileName=" + picFileName +
         ", status=" + status +
+        ", zipai=" + zipai +
+        ", junwang=" + junwang +
+        ", tanghao=" + tanghao +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +
