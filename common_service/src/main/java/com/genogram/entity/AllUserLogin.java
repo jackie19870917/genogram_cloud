@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-20
  */
 @TableName("all_user_login")
 public class AllUserLogin extends Model<AllUserLogin> {
@@ -49,32 +49,29 @@ public class AllUserLogin extends Model<AllUserLogin> {
     @TableField("mobile_phone")
     private String mobilePhone;
     /**
-     * 省份
+     * 头像url
      */
-    @TableField("province_code")
-    private Integer provinceCode;
-    /**
-     * 市
-     */
-    @TableField("city_code")
-    private Integer cityCode;
-    /**
-     * 县
-     */
-    @TableField("county_code")
-    private Integer countyCode;
+    @TableField("pic_src")
+    private String picSrc;
     /**
      * 密码
      */
     private String password;
     /**
-     * 国家
-     */
-    private Integer country;
-    /**
      * 状态(0:删除;1:正常;2:异常)
      */
     private Integer status;
+    /**
+     * 角色
+     */
+    private Integer role;
+    /**
+     * sys_family:id
+     */
+    @TableField("family_code")
+    private Integer familyCode;
+    @TableField("region_code")
+    private Integer regionCode;
     /**
      * 创建时间
      */
@@ -151,30 +148,12 @@ public class AllUserLogin extends Model<AllUserLogin> {
         return this;
     }
 
-    public Integer getProvinceCode() {
-        return provinceCode;
+    public String getPicSrc() {
+        return picSrc;
     }
 
-    public AllUserLogin setProvinceCode(Integer provinceCode) {
-        this.provinceCode = provinceCode;
-        return this;
-    }
-
-    public Integer getCityCode() {
-        return cityCode;
-    }
-
-    public AllUserLogin setCityCode(Integer cityCode) {
-        this.cityCode = cityCode;
-        return this;
-    }
-
-    public Integer getCountyCode() {
-        return countyCode;
-    }
-
-    public AllUserLogin setCountyCode(Integer countyCode) {
-        this.countyCode = countyCode;
+    public AllUserLogin setPicSrc(String picSrc) {
+        this.picSrc = picSrc;
         return this;
     }
 
@@ -187,21 +166,39 @@ public class AllUserLogin extends Model<AllUserLogin> {
         return this;
     }
 
-    public Integer getCountry() {
-        return country;
-    }
-
-    public AllUserLogin setCountry(Integer country) {
-        this.country = country;
-        return this;
-    }
-
     public Integer getStatus() {
         return status;
     }
 
     public AllUserLogin setStatus(Integer status) {
         this.status = status;
+        return this;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public AllUserLogin setRole(Integer role) {
+        this.role = role;
+        return this;
+    }
+
+    public Integer getFamilyCode() {
+        return familyCode;
+    }
+
+    public AllUserLogin setFamilyCode(Integer familyCode) {
+        this.familyCode = familyCode;
+        return this;
+    }
+
+    public Integer getRegionCode() {
+        return regionCode;
+    }
+
+    public AllUserLogin setRegionCode(Integer regionCode) {
+        this.regionCode = regionCode;
         return this;
     }
 
@@ -255,12 +252,12 @@ public class AllUserLogin extends Model<AllUserLogin> {
         ", realName=" + realName +
         ", nickName=" + nickName +
         ", mobilePhone=" + mobilePhone +
-        ", provinceCode=" + provinceCode +
-        ", cityCode=" + cityCode +
-        ", countyCode=" + countyCode +
+        ", picSrc=" + picSrc +
         ", password=" + password +
-        ", country=" + country +
         ", status=" + status +
+        ", role=" + role +
+        ", familyCode=" + familyCode +
+        ", regionCode=" + regionCode +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +
