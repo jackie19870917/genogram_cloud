@@ -31,7 +31,7 @@
     where
     1=1
     <if test="sizeId!=null">
-       and e.parent=#{sizeId}
+       and e.parent=#{siteId}
     </if>
     and e.id=s.site_id and s.show_id=m.show_id
         <if test="isAuto!=null">
@@ -54,7 +54,7 @@
     where
         1=1
         <if test="sizeId!=null">
-            and e.parent=#{sizeId}
+            and e.parent=#{siteId}
         </if>
         and e.id=s.site_id and s.show_id=m.show_id
         <if test="isAuto!=null">
@@ -77,7 +77,7 @@
         where
         1=1
         <if test="sizeId!=null">
-            and e.parent=#{sizeId}
+            and e.parent=#{siteId}
         </if>
         and e.id=s.site_id and s.show_id=m.show_id
         <if test="isAuto!=null">
@@ -105,7 +105,7 @@
         WHERE
         1=1
         <if test="sizeId!=null">
-            and s.parent=#{sizeId}
+            and s.parent=#{siteId}
         </if>
         AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
@@ -125,7 +125,7 @@
         WHERE
         1=1
         <if test="sizeId!=null">
-            and s.parent=#{sizeId}
+            and s.parent=#{siteId}
         </if>
         AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
@@ -145,7 +145,7 @@
          WHERE
         1=1
         <if test="sizeId!=null">
-            and s.parent=#{sizeId}
+            and s.parent=#{siteId}
         </if>
          AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
@@ -165,7 +165,7 @@
          WHERE
         1=1
         <if test="sizeId!=null">
-            and s.parent=#{sizeId}
+            and s.parent=#{siteId}
         </if>
          AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">

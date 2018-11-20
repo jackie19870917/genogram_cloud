@@ -30,7 +30,7 @@
         where
         1=1
         <if test="parent!=null">
-            and e.parent=#{parent}
+            and e.parent=#{siteId}
         </if>
         and s.id=n.site_id and  n.show_id=m.show_id
         <if test="isAuto!=null">

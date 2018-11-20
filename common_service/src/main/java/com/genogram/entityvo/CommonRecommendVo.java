@@ -101,4 +101,5 @@ public class CommonRecommendVo {
      * 头像名
      */
     private String picFileName;
+
 }

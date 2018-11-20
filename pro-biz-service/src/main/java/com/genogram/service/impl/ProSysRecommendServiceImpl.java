@@ -1,8 +1,10 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.entityvo.FamilyPersonVo;
@@ -15,6 +17,7 @@ import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +51,9 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
 
     @Autowired
     private IFanNewsFamousPersonService fanNewsFamousPersonService;
+
+    @Autowired
+    private IFanNewsUploadFileService fanNewsUploadFileService;
 
     @Override
     public Boolean addRecommend(FanSysRecommend fanSysRecommend) {
@@ -102,6 +108,29 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     @Override
     public List<IndustryDetailVo> getRecommendArticle(Map map) {
         List<IndustryDetailVo> industryDetailVo=fanSysRecommendMapper.getIndexRecommend(map);
+        //得到所有文章Id
+        List<Integer> ids= new ArrayList<>();
+        //得到所有showId
+        List<Integer> showIds= new ArrayList<>();
+        for (IndustryDetailVo detailVo : industryDetailVo) {
+            ids.add(detailVo.getId());
+            showIds.add((detailVo.getShowId()));
+        }
+        //查询附件
+        Wrapper<FanNewsUploadFile> entity=new EntityWrapper();
+        entity.in("id",ids);
+        entity.in("show_id",showIds);
+        List<FanNewsUploadFile> fanNewsUploadFiles = fanNewsUploadFileService.selectList(entity);
+        //封装附件
+            for (IndustryDetailVo detailVo : industryDetailVo) {
+                for (FanNewsUploadFile fanNewsUploadFile : fanNewsUploadFiles) {
+                    if(detailVo.getId().equals(fanNewsUploadFile.getNewsId()) && detailVo.getShowId().equals(fanNewsUploadFile.getShowId())){
+                        List<FanNewsUploadFile> list=new ArrayList<>();
+                        list.add(fanNewsUploadFile);
+                        detailVo.setFanNewsUploadFileList(list);
+                    }
+                }
+            }
         return industryDetailVo;
     }
 
@@ -172,20 +201,5 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
             fanNewsFamousPersonService.addVisitNum(id);
         }
         return familyFamilyDetail;
-    }
-
-    /**
-     *省级后台设置手动推荐查询
-     *@Author: yuzhou
-     *@Date: 2018-11-19
-     *@Time: 10:10
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    @Override
-    public List<CommonRecommendVo> getManualRecommend(Map map) {
-        List<CommonRecommendVo> commonRecommendVo=fanSysRecommendMapper.getManualRecommend(map);
-        return commonRecommendVo;
     }
 }
