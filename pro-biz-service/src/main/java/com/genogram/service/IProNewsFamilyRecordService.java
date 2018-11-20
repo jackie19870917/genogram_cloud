@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamilyRecord;
 import com.genogram.entity.ProNewsFamilyRecord;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.entityvo.ProFamilyRecordVo;
@@ -25,14 +26,14 @@ public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecor
     Page<ProFamilyRecordVo> getProFamilyRecordPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 
     /**
-     * 联谊会记录家族详情
+     * 省级记录家族详情
      * @param id  主键
      * @return
      */
     NewsDetailVo getProFamilyRecord(Integer id);
 
     /**
-     * 联谊会家族产业后台新增
+     * 省级后台新增
      * @param
      * @param
      * @return
@@ -46,6 +47,5 @@ public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecor
      * @return
      */
     Boolean deleteProRecordById(Integer id, int status);
-
 
 }

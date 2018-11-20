@@ -1,14 +1,16 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entity.FanNewsFamousPerson;
 import com.genogram.entity.ProNewsFamousPerson;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
 
 public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPerson> {
     /**
-     * 前台查询
+     * 前后台查询
      * @param showId
      * @param status
      * @param pageNo
@@ -27,4 +29,34 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
      * @return
      */
     ProFamilyPersonVo getFamilyFamilyDetail(Integer id);
+
+    /**
+     * 省级家族名人的详情
+     * @param id  主键Pro
+     * @return
+     */
+    ProFamilyPersonVo getFamilyPersionDetail(Integer id);
+    /**
+     * 后台查询
+     * @param entity
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Page<ProFamilyPersonVo> getFamilyPersionPages(Wrapper<ProNewsFamousPerson> entity, Integer pageNo, Integer pageSize);
+    /**
+     * 联谊会家族名人后台新增
+     * @param proNewsFamousPerson  家族名人上传实体类
+     * @param fileName 文件列表
+     * @param filePath 文件路径
+     * @return
+     */
+    boolean addOrUpdatePersion(ProNewsFamousPerson proNewsFamousPerson,String fileName, String filePath);
+    /**
+     *删除
+     * @param id
+     * @param status
+     * @return
+     */
+    Boolean deletePersionById(Integer id, int status);
 }
