@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-20
  */
 @TableName("fan_news_charity_pay_in")
 public class FanNewsCharityPayIn extends Model<FanNewsCharityPayIn> {
@@ -42,6 +42,11 @@ public class FanNewsCharityPayIn extends Model<FanNewsCharityPayIn> {
      */
     private Integer type;
     /**
+     * (支付宝)订单id
+     */
+    @TableField("order_id")
+    private String orderId;
+    /**
      * 捐款金额
      */
     @TableField("pay_amount")
@@ -67,7 +72,7 @@ public class FanNewsCharityPayIn extends Model<FanNewsCharityPayIn> {
     @TableField("agent_id")
     private String agentId;
     /**
-     * 状态(0:删除;1:显示;2:不显示)
+     * 状态(0:删除;1:成功;2:支付中)
      */
     private Integer status;
     /**
@@ -125,6 +130,15 @@ public class FanNewsCharityPayIn extends Model<FanNewsCharityPayIn> {
 
     public FanNewsCharityPayIn setType(Integer type) {
         this.type = type;
+        return this;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public FanNewsCharityPayIn setOrderId(String orderId) {
+        this.orderId = orderId;
         return this;
     }
 
@@ -230,6 +244,7 @@ public class FanNewsCharityPayIn extends Model<FanNewsCharityPayIn> {
         ", showId=" + showId +
         ", payUsrId=" + payUsrId +
         ", type=" + type +
+        ", orderId=" + orderId +
         ", payAmount=" + payAmount +
         ", payChannel=" + payChannel +
         ", payTime=" + payTime +

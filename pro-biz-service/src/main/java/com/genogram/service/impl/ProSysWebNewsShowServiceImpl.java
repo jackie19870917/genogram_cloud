@@ -2,7 +2,6 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entity.ProSysWebMenu;
 import com.genogram.entity.ProSysWebNewsShow;
 import com.genogram.entityvo.SysWebMenuVo;
@@ -65,20 +64,20 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         //捐款名人(共享code 特殊处理)
         vo = setIndexMenu(siteId,"捐款名人",INDEX_ARCHITECHTURE_PAY_IN_PERSON_1,"genogram/proNewsCharity/index/getDonorVoByCreateTime?showId=","");
         //家族头条
-        vo = setIndexMenu(siteId,"家族头条","index_family_record1","","");
+        vo = setIndexMenu(siteId,"家族头条","index_family_record1","genogram/proNewsFamilyRecord/proSelectRecortPage?showId=","");
         volist.add(vo);
         //省级公告
-        vo = setIndexMenu(siteId,"省级公告","index_family_record2","","");
+        vo = setIndexMenu(siteId,"省级公告","index_family_record2","genogram/proNewsFamilyRecord/proSelectRecortPage?showId=","");
         volist.add(vo);
 
         //资讯-联谊会发布-家族文化除去字派,记录家族除去视频
-        vo = setIndexMenu(siteId,"联谊会发布","index_fan_news_recommend","","");
+        vo = setIndexMenu(siteId,"联谊会发布","index_fan_news_recommend","genogram/admin/proRecommend/index/getRecommendArticle?siteId=","");
         volist.add(vo);
         //人物 - 家族长老 - 联谊会
-        vo = setIndexMenu(siteId,"家族长老","index_fan_person_recommend_1","","");
+        vo = setIndexMenu(siteId,"家族长老","index_fan_person_recommend_1","/genogram/admin/proRecommend/index/getRecommendFigureRooftree?siteId=","");
         volist.add(vo);
         //人物 - 家族栋梁 - 联谊会
-        vo = setIndexMenu(siteId,"家族栋梁","index_fan_person_recommend_2","","");
+        vo = setIndexMenu(siteId,"家族栋梁","index_fan_person_recommend_2","/genogram/admin/proRecommend/index/getRecommendFigureElder?siteId=","");
         volist.add(vo);
 
         //文化 - 字派 - 省级
@@ -92,13 +91,13 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         volist.add(vo);
 
         //人物 - 祖先 - 省级
-        vo = setIndexMenu(siteId,"祖先","index_family_person_1","","");
+        vo = setIndexMenu(siteId,"祖先","index_family_person_1","genogram/proNewsFamous/selectPersonPage?showId=","");
         volist.add(vo);
         //人物 - 名人 - 省级
-        vo = setIndexMenu(siteId,"名人","index_family_person_2","","");
+        vo = setIndexMenu(siteId,"名人","index_family_person_2","genogram/proNewsFamous/selectPersonPage?showId=","");
         volist.add(vo);
         //人物 - 精英 - 省级
-        vo = setIndexMenu(siteId,"精英","index_family_person_3","","");
+        vo = setIndexMenu(siteId,"精英","index_family_person_3","genogram/proNewsFamous/selectPersonPage?showId=","");
         volist.add(vo);
 
 

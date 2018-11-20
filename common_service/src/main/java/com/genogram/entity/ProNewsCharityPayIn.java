@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-20
  */
 @TableName("pro_news_charity_pay_in")
 public class ProNewsCharityPayIn extends Model<ProNewsCharityPayIn> {
@@ -41,6 +41,11 @@ public class ProNewsCharityPayIn extends Model<ProNewsCharityPayIn> {
      * 捐款方式(1-线上,2-线下)
      */
     private Integer type;
+    /**
+     * (支付宝)订单id
+     */
+    @TableField("order_id")
+    private String orderId;
     /**
      * 捐款金额
      */
@@ -125,6 +130,15 @@ public class ProNewsCharityPayIn extends Model<ProNewsCharityPayIn> {
 
     public ProNewsCharityPayIn setType(Integer type) {
         this.type = type;
+        return this;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public ProNewsCharityPayIn setOrderId(String orderId) {
+        this.orderId = orderId;
         return this;
     }
 
@@ -230,6 +244,7 @@ public class ProNewsCharityPayIn extends Model<ProNewsCharityPayIn> {
         ", showId=" + showId +
         ", payUsrId=" + payUsrId +
         ", type=" + type +
+        ", orderId=" + orderId +
         ", payAmount=" + payAmount +
         ", payChannel=" + payChannel +
         ", payTime=" + payTime +
