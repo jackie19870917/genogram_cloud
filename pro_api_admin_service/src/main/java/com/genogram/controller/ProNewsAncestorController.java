@@ -173,29 +173,30 @@ public class ProNewsAncestorController {
         }
     }
 
-    /*@ApiOperation(value = "省级祖先后台删除", notes = "")
+    /**
+     *省级祖先后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-20
+     *@Time: 19:21
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "省级祖先后台删除", notes = "")
     @RequestMapping(value = "/deleteFamousAncestor",method = RequestMethod.GET)
     public Response<ProNewsFamousAncestor> deleteFamousAncestor(
             @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id
     ){
         try {
-            //省级主键Id
-            List<String> proSplit=null;
-            //县级主键Id
-            List<String> fanSplit=null;
-            if (StringsUtils.isNotEmpty(proIds)){
-                proSplit = Arrays.asList(proIds.split(","));
-
+            if(id==null){
+                ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
-            if (StringsUtils.isNotEmpty(fanIds)){
-                fanSplit = Arrays.asList(fanIds.split(","));
-            }
-            Boolean aBoolean = proNewsFamousAncestorService.addFamousAncestor(proNewsFamousAncestor, proSplit, fanSplit);
+            Boolean aBoolean =proNewsFamousAncestorService.deleteFamousAncestor(id);
             return null;
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
-    }*/
+    }
 }
 

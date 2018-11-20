@@ -53,6 +53,10 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
     Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit);
 
 
-
-
+    /**
+     * 省级删除
+     * @param id
+     * @return
+     */
+    Boolean deleteFamousAncestor(Integer id);
 }

@@ -11,6 +11,7 @@ import com.genogram.mapper.ProNewsFamousAncestorMapper;
 import com.genogram.service.IFanNewsFamousAncestorService;
 import com.genogram.service.IProNewsFamousAncestorService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -109,29 +110,95 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
     public Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit) {
         //插入主数据
         boolean insert = proNewsFamousAncestorService.insertOrUpdate(proNewsFamousAncestor);
+        if(proNewsFamousAncestor.getId()!=null){
+            //根据父ID查询人物对象集合
+            Wrapper<ProNewsFamousAncestor> entity=new EntityWrapper<ProNewsFamousAncestor>();
+            entity.eq("parent_id",proNewsFamousAncestor.getId());
+            List<ProNewsFamousAncestor> proNewsFamousAncestors = proNewsFamousAncestorService.selectList(entity);
+            //判断是否有分支
+            if (proNewsFamousAncestors!=null){
+                //获取祖先分支id集合
+                List<Integer> list=new ArrayList<>();
+                for (ProNewsFamousAncestor proNewsFamous: proNewsFamousAncestors) {
+                    list.add(proNewsFamous.getId());
+                }
+                //删除祖先分支
+                proNewsFamousAncestorService.deleteBatchIds(list);
+            }
+        }
         //查询主键
         Wrapper<ProNewsFamousAncestor> entity=new EntityWrapper();
         entity.eq("show_id",proNewsFamousAncestor.getShowId());
         ProNewsFamousAncestor proNews = proNewsFamousAncestorService.selectOne(entity);
-        //查询省级
-        List<ProNewsFamousAncestor> proNewsFamousAncestors = proNewsFamousAncestorService.selectBatchIds(proSplit);
 
-        //查询县级
-        List<FanNewsFamousAncestor> fanNewsFamousAncestors = fanNewsFamousAncestorService.selectBatchIds(fanSplit);
-        for (FanNewsFamousAncestor fanNewsFamousAncestor : fanNewsFamousAncestors) {
-            ProNewsFamousAncestor famousAncestor=new ProNewsFamousAncestor();
-            BeanUtils.copyProperties(fanNewsFamousAncestor,famousAncestor);
-            proNewsFamousAncestors.add(famousAncestor);
+        //省级数据list集合
+        List<ProNewsFamousAncestor> proNewsFamousAncestors=null;
+
+        //县级数据list集合
+        List<FanNewsFamousAncestor> fanNewsFamousAncestors=null;
+        //判断是否有省级数据
+        if(proSplit.size()!=0){
+            //查询省级
+             proNewsFamousAncestors = proNewsFamousAncestorService.selectBatchIds(proSplit);
+            //修改父Id
+            for (ProNewsFamousAncestor newsFamousAncestor : proNewsFamousAncestors) {
+                newsFamousAncestor.setShowId(null);
+                newsFamousAncestor.setParentId(proNews.getId());
+            }
+            if(proNewsFamousAncestors.size()!=0){
+                //批量插入
+                proNewsFamousAncestorService.insertBatch(proNewsFamousAncestors);
+            }
+
         }
 
-        //修改父Id
-        for (ProNewsFamousAncestor newsFamousAncestor : proNewsFamousAncestors) {
-            newsFamousAncestor.setShowId(null);
-            newsFamousAncestor.setParentId(proNews.getId());
+        //判断是否有县级数据
+        if(fanSplit.size()!=0){
+            //查询县级
+            fanNewsFamousAncestors = fanNewsFamousAncestorService.selectBatchIds(fanSplit);
+            for (FanNewsFamousAncestor fanNewsFamousAncestor : fanNewsFamousAncestors) {
+                ProNewsFamousAncestor famousAncestor=new ProNewsFamousAncestor();
+                BeanUtils.copyProperties(fanNewsFamousAncestor,famousAncestor);
+                proNewsFamousAncestors.add(famousAncestor);
+            }
+            for (ProNewsFamousAncestor newsFamousAncestor : proNewsFamousAncestors) {
+                newsFamousAncestor.setShowId(111111111);
+                newsFamousAncestor.setParentId(proNews.getId());
+                newsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
+                newsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
+            }
+            if(fanNewsFamousAncestors.size()!=0){
+                //批量插入
+                proNewsFamousAncestorService.insertBatch(proNewsFamousAncestors);
+            }
         }
-        //批量插入
-        proNewsFamousAncestorService.insertBatch(proNewsFamousAncestors);
          return insert;
+    }
+
+    /**
+     * 省级删除
+     * @param id
+     * @return
+     */
+    @Override
+    public Boolean deleteFamousAncestor(Integer id) {
+        //根据父ID查询人物对象集合
+        Wrapper<ProNewsFamousAncestor> entity=new EntityWrapper();
+        entity.eq("parent_id",id);
+        List<ProNewsFamousAncestor> proNewsFamousAncestors = proNewsFamousAncestorService.selectList(entity);
+        //判断是否有分支
+        if (proNewsFamousAncestors!=null){
+            //获取祖先分支id集合
+            List<Integer> list=new ArrayList<>();
+            for (ProNewsFamousAncestor proNewsFamousAncestor : proNewsFamousAncestors) {
+                list.add(proNewsFamousAncestor.getId());
+            }
+            //删除祖先分支
+            proNewsFamousAncestorService.deleteBatchIds(list);
+        }
+        //删除主表
+        Boolean aBoolean = proNewsFamousAncestorService.deleteFamousAncestor(id);
+        return aBoolean;
     }
 
 }
