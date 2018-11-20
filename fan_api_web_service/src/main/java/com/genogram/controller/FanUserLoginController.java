@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  *用户登录
  *@Author: Toxicant
@@ -38,7 +41,7 @@ public class FanUserLoginController {
      */
     @ApiOperation("登陆")
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    public Response<AllUserLogin> getAllUserLogin(AllUserLogin allUserLogin) {
+    public Response<AllUserLogin> getAllUserLogin(AllUserLogin allUserLogin, HttpServletRequest request) {
 
         AllUserLogin userLogin = allUserLoginService.getAllUserLogin(allUserLogin);
 
@@ -46,6 +49,10 @@ public class FanUserLoginController {
             return ResponseUtlis.error(400, "用户名不存在");
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
+
+                HttpSession session = request.getSession();
+                session.setAttribute("userLogin",userLogin);
+
                 return ResponseUtlis.success(200);
             } else {
                 return ResponseUtlis.error(500, "用户名或密码错误");

@@ -29,6 +29,17 @@ public interface IFanSysWebNewsShowService extends IService<FanSysWebNewsShow> {
      */
     public List<SysWebMenuVo> getIndexMenu(String siteId);
 
+    /**
+     * 获取网站ID
+     * @Author: wang,wei
+     * @Date: 2018-11-05
+     * @Time: 22:04
+     * @param showId
+     * @return:
+     * @Description:
+     *
+     */
+    public SysWebMenuVo getSiteIdByShowId(Integer showId);
 
     /**
      * 读取栏目
