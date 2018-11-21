@@ -4,13 +4,17 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entityvo.FamilyIndustryVo;
 import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.service.IFanNewsIndustryService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -34,6 +38,9 @@ public class FanNewsIndustryController {
     @Autowired
     private IFanNewsIndustryService fanNewsIndustryService;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      *联谊会家族产业后台查询
      *@Author: yuzhou
@@ -47,8 +54,13 @@ public class FanNewsIndustryController {
     public Response<FamilyIndustryVo> getFamilyCulturePage(
             @RequestParam(value = "showId") Integer showId,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam("token") String token
+            ) {
         try {
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
             //判断showId是否有值
             if(showId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -88,8 +100,12 @@ public class FanNewsIndustryController {
     */
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getFamilyIndustryDetail(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") String token
     ) {
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
         return getNewsDetailVoResponse(id);
     }
 
@@ -104,8 +120,12 @@ public class FanNewsIndustryController {
     */
     @RequestMapping(value ="/getFamilyIndustryAmend",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getFamilyIndustryAmend(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") String token
     ) {
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
         return getNewsDetailVoResponse(id);
     }
 
@@ -120,6 +140,9 @@ public class FanNewsIndustryController {
     */
     private Response<IndustryDetailVo> getNewsDetailVoResponse( @RequestParam("id") Integer id) {
         try {
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
             IndustryDetailVo industryDetailVo = fanNewsIndustryService.getFamilyIndustryDetail(id);
             return ResponseUtlis.success(industryDetailVo);
         } catch (Exception e) {
@@ -139,10 +162,15 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateIndustry", method = RequestMethod.POST)
-    public Response<FanNewsIndustry> addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileName,String filePath) {
+    public Response<FanNewsIndustry> addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry,
+                                                         String fileName,String filePath,
+                                                         @ApiParam("token") String token) {
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(1);
-        return getFanNewsIndustryResponse(fanNewsIndustry, fileName,filePath);
+        return getFanNewsIndustryResponse(fanNewsIndustry, fileName,filePath,token);
     }
 
     /**
@@ -155,10 +183,15 @@ public class FanNewsIndustryController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
-    public Response<FanNewsIndustry> addOrUpdateIndustryDrft(FanNewsIndustry fanNewsIndustry, String fileName,String filePath) {
+    public Response<FanNewsIndustry> addOrUpdateIndustryDrft(FanNewsIndustry fanNewsIndustry,
+                                                             String fileName,String filePath,
+                                                             @ApiParam("token") String token) {
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(2);
-        return getFanNewsIndustryResponse(fanNewsIndustry, fileName,filePath);
+        return getFanNewsIndustryResponse(fanNewsIndustry, fileName,filePath,token);
     }
 
     /**
@@ -170,8 +203,21 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
-    private Response<FanNewsIndustry> getFanNewsIndustryResponse(FanNewsIndustry fanNewsIndustry, String fileName,String filePath) {
+    private Response<FanNewsIndustry> getFanNewsIndustryResponse(FanNewsIndustry fanNewsIndustry,
+                                                                 String fileName,String filePath,
+                                                                 String token) {
         try {
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            if(fanNewsIndustry.getId()==null){
+                //创建人
+                fanNewsIndustry.setCreateUser(userLoginInfoByToken.getId());
+                //修改人
+                fanNewsIndustry.setUpdateUser(userLoginInfoByToken.getId());
+            }else{
+                //修改人
+                fanNewsIndustry.setUpdateUser(userLoginInfoByToken.getId());
+            }
             // 插入数据
             fanNewsIndustryService.addOrUpdateIndustry(fanNewsIndustry, fileName,filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -193,9 +239,14 @@ public class FanNewsIndustryController {
     */
     @RequestMapping(value ="/deleteIndustryById",method = RequestMethod.GET)
     public Response<FanNewsIndustry> deleteIndustryById(
-            @RequestParam(value = "id")Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id")Integer id, // 家族文化详情显示位置
+            @ApiParam("token") String token
     ) {
         try {
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //判断id是否为空
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
