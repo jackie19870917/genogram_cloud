@@ -106,7 +106,11 @@ public class FanIndexController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
-        fanIndexSlidePic.setCreateUser(userLogin.getId());
+
+        if (StringUtils.isEmpty(fanIndexSlidePic.getId())) {
+            fanIndexSlidePic.setCreateUser(userLogin.getId());
+        }
+
         fanIndexSlidePic.setUpdateUser(userLogin.getId());
 
         Boolean result = fanIndexSlidePicService.insertOrUpdateFanIndexSlidePic(fanIndexSlidePic);
@@ -185,7 +189,10 @@ public class FanIndexController {
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
-        indexInfoVo.setCreateUser(userLogin.getId());
+        if (StringUtils.isEmpty(indexInfoVo.getId())) {
+            indexInfoVo.setCreateUser(userLogin.getId());
+        }
+
         indexInfoVo.setUpdateUser(userLogin.getId());
         Boolean result = fanIndexInfoService.insertOrUpdateIndexInfoVo(indexInfoVo);
 
@@ -295,7 +302,11 @@ public class FanIndexController {
         fanIndexFamilySummarys.setStatus(1);
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
-        fanIndexFamilySummarys.setCreateUser(userLogin.getId());
+
+        if (StringUtils.isEmpty(fanIndexFamilySummarys.getId())) {
+            fanIndexFamilySummarys.setCreateUser(userLogin.getId());
+        }
+
         fanIndexFamilySummarys.setUpdateUser(userLogin.getId());
 
         Boolean result = fanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);

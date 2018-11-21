@@ -6,6 +6,7 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.genogram.config.AlipayConfig;
+import com.genogram.config.Constants;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.entityvo.SysWebMenuVo;
@@ -15,6 +16,7 @@ import com.genogram.service.IFanSysWebMenuService;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.PayUtils;
+import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +58,13 @@ public class PayController {
 
     @ApiOperation(value = "支付宝支付",notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
-    public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,@ApiParam("网站ID")@RequestParam Integer  siteId) {
+    public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
+                         @ApiParam("网站ID")@RequestParam Integer  siteId,
+                        @ApiParam("token")String token) {
+
+       /* if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }*/
 
         // 获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id,
