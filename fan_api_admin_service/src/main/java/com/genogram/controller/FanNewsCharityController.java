@@ -4,23 +4,18 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
-import com.genogram.entity.FanIndexFund;
-import com.genogram.entity.FanIndexFundDrowing;
-import com.genogram.entity.FanNewsCharityOut;
-import com.genogram.entity.FanNewsCharityPayIn;
+import com.genogram.entity.*;
 import com.genogram.entityvo.IndexFundDrowingVo;
 import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
-import com.genogram.service.IFanIndexFundDrowingService;
-import com.genogram.service.IFanIndexFundService;
-import com.genogram.service.IFanNewsCharityOutService;
-import com.genogram.service.IFanNewsCharityPayInService;
+import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -52,6 +47,9 @@ public class FanNewsCharityController {
     @Autowired
     private IFanIndexFundService fanIndexFundService;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      * 慈善基金
      *
@@ -60,7 +58,12 @@ public class FanNewsCharityController {
      */
     @ApiOperation(value = "基金查询", notes = "id:主键,siteId:网站Id,remian:基金总额,payNum:捐款人数,payOnline:线上捐款,payUnderline:线下捐款,payGenogram:网络修普金额")
     @RequestMapping(value = "getFanIndexFund", method = RequestMethod.GET)
-    public Response<FanIndexFund> getFanIndexFund(@ApiParam(value = "网站id") @RequestParam Integer siteId) {
+    public Response<FanIndexFund> getFanIndexFund(@ApiParam(value = "网站id") @RequestParam Integer siteId,
+                                                  @ApiParam(value = "token")String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+        }
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -83,9 +86,14 @@ public class FanNewsCharityController {
     @ApiOperation(value = "慈善收支", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "getFanNewsCharityOutPage", method = RequestMethod.GET)
     public Response<NewsCharityOutVo> getFanNewsCharityOutVo(@ApiParam(value = "显示位置") @RequestParam Integer showId,
+                                                             @ApiParam(value = "token")String token,
                                                              // @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                              @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+        }
 
         if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -115,7 +123,12 @@ public class FanNewsCharityController {
      */
     @ApiOperation(value = "慈善收支(文章)详情", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFanNewsCharityDetail(@ApiParam(value = "主键") @RequestParam Integer id) {
+    public Response<NewsDetailVo> getFanNewsCharityDetail(@ApiParam(value = "主键") @RequestParam Integer id,
+                                                          @ApiParam(value = "token")String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+        }
 
         NewsDetailVo newsCharityOutDetail = fanNewsCharityOutService.getNewsCharityOutDetail(id);
 
@@ -134,16 +147,29 @@ public class FanNewsCharityController {
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)
     public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut,
                                                                       @ApiParam(value = "图片名称") String fileName,
-                                                                      @ApiParam(value = "图片url") String filePath) {
+                                                                      @ApiParam(value = "图片url") String filePath,
+                                                                      @ApiParam(value = "token")String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (fanNewsCharityOut.getId() == null) {
+            fanNewsCharityOut.setCreateUser(userLogin.getId());
+        }
+
+        fanNewsCharityOut.setUpdateUser(userLogin.getId());
 
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(1);
         Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut, fileName, filePath);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
