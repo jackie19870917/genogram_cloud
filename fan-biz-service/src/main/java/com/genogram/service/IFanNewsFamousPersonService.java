@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamousPerson;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entity.ProNewsFamousPerson;
 import com.genogram.entityvo.*;
 
 /**
@@ -77,4 +78,10 @@ public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerso
      * @return
      */
     Page<FanNewsFamousPerson> getFamilyFramePage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    /**
+     * 组织架构
+     * @param showId
+     * @return
+     */
+    FanNewsFamousPerson getFamilyFrameList(Integer showId);
 }

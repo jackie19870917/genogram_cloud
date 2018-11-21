@@ -17,6 +17,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
  * 联谊会-记录家族-家族动态,家族通告文章表 前端控制器
@@ -47,8 +50,10 @@ public class FanNewsFamilyRecordController {
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
             ){
         try {
-            int status = 1;
-            Page<FamilyRecordVo> familyRecordVo = iFanNewsFamilyRecordService.getFamilyRecordPage(showId, status, pageNo, pageSize);
+            List<Integer> list =new ArrayList<>();
+            list.add(1);
+            list.add(2);
+            Page<FamilyRecordVo> familyRecordVo = iFanNewsFamilyRecordService.getFamilyRecordPage(showId, list, pageNo, pageSize);
             if(familyRecordVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();

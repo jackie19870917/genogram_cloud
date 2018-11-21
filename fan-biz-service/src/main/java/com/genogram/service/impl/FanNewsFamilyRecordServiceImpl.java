@@ -46,19 +46,19 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
     /**
      * 前后台查询
      * @param showId
-     * @param status
+     * @param slist
      * @param pageNo
      * @param pageSize
      * @return
      */
     @Override
-    public Page<FamilyRecordVo> getFamilyRecordPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FamilyRecordVo> getFamilyRecordPage(Integer showId, List<Integer> slist, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
         List<FamilyRecordVo> familyRecordVoList=new ArrayList<>();
 
         Wrapper<FanNewsFamilyRecord> entity = new EntityWrapper<FanNewsFamilyRecord>();
         entity.eq("show_id", showId);
-        entity.eq("status", status);
+        entity.in("status", slist);
         entity.orderBy("create_time", false);
         //分页查询文章主表
         Page<FanNewsFamilyRecord> fanNewsFamilyRecord =this.selectPage(new Page<FanNewsFamilyRecord>(pageNo, pageSize), entity);
@@ -78,7 +78,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", showId);
-        uploadentity.eq("status", status);
+        uploadentity.eq("status", 1);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);

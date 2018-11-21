@@ -2,10 +2,9 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
-import com.genogram.entity.FanIndexFamilySummarys;
-import com.genogram.entity.FanIndexMessage;
-import com.genogram.entity.FanIndexSlidePic;
+import com.genogram.entity.*;
 import com.genogram.entityvo.IndexInfoVo;
+import com.genogram.entityvo.ProFamilyPersonVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -16,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,6 +45,11 @@ public class FanIndexController {
     @Autowired
     private IFanIndexInfoService fanIndexInfoService;
 
+    @Autowired
+    private IFanSysWebNewsShowService iFanSysWebNewsShowService;
+
+    @Autowired
+    private IFanNewsFamousPersonService iFanNewsFamousPersonService;
     /**
      * 状态
      */
@@ -160,4 +166,36 @@ public class FanIndexController {
         }
     }
 
+    /**
+     *组织架构查询会长副会长
+     * @param siteId
+     * @return
+     */
+    @ApiOperation(value = "组织架构查询会长副会长", notes = "siteId:网站id")
+    @RequestMapping(value = "/getFamilyStructureList", method = RequestMethod.GET)
+    public Response<ProFamilyPersonVo> getFamilyStructureList(
+            @RequestParam(value = "siteId") Integer siteId
+    ){
+        try {
+            Map map = new LinkedHashMap();
+            //拿到会长的showid
+            FanSysWebNewsShow show = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_huizhang");
+            FanNewsFamousPerson familyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
+            map.put(show.getMenuName(),familyFrameList);
+            //拿到副会长的fushowid
+            FanSysWebNewsShow fushow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_fuhuizhang");
+            FanNewsFamousPerson fufamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(fushow.getShowId());
+            map.put(fushow.getMenuName(),familyFrameList);
+
+            if (familyFrameList == null) {
+                //没有取到参数,返回空参
+                Page<ProFamilyPersonVo> emptfamilyCultureVo = new Page<ProFamilyPersonVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
+            }
+            return ResponseUtlis.success(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
 }

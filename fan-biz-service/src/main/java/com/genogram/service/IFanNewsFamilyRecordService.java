@@ -7,6 +7,8 @@ import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
 
+import java.util.List;
+
 /**
  * <p>
  * 联谊会-记录家族-家族动态,家族通告文章表 服务类
@@ -19,12 +21,12 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
     /**
      * 前台查询
      * @param showId
-     * @param status
+     * @param List<Integer> list
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<FamilyRecordVo> getFamilyRecordPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FamilyRecordVo> getFamilyRecordPage(Integer showId, List<Integer> list, Integer pageNo, Integer pageSize);
 
     /**
      * 联谊会记录家族详情

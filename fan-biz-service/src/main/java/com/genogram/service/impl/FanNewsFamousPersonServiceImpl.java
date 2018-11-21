@@ -305,4 +305,13 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         Page<FanNewsFamousPerson> fanNewsFamousPerson =this.selectPage(new Page<FanNewsFamousPerson>(pageNo, pageSize), entity);
         return fanNewsFamousPerson;
     }
+
+    @Override
+    public FanNewsFamousPerson getFamilyFrameList(Integer showId) {
+        Wrapper<FanNewsFamousPerson> entity = new EntityWrapper<FanNewsFamousPerson>();
+        entity.eq("show_id", showId);
+        //分页查询文章主表
+        FanNewsFamousPerson fanNewsFamousPerson = this.selectOne(entity);
+        return fanNewsFamousPerson;
+    }
 }

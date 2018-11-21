@@ -14,6 +14,9 @@ import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsFamilyRecord")
@@ -34,8 +37,10 @@ public class FanNewsFamilyRecordController {
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ){
         try {
-            int status = 1;
-            Page<FamilyRecordVo> familyRecordVo = fanNewsFamilyRecordService.getFamilyRecordPage(showId, status, pageNo, pageSize);
+            List<Integer> list =new ArrayList<>();
+            list.add(1);
+            list.add(2);
+            Page<FamilyRecordVo> familyRecordVo = fanNewsFamilyRecordService.getFamilyRecordPage(showId,list, pageNo, pageSize);
             if(familyRecordVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
@@ -113,7 +118,7 @@ public class FanNewsFamilyRecordController {
     }
 
     /**
-     *联谊会家族产业后台添加和修改 草稿
+     *联谊会记录家族后台添加和修改 草稿
      *@Author: yuzhou
      *@Date: 2018-11-10
      *@Time: 12:10
