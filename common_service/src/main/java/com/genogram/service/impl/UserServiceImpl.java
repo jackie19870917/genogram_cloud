@@ -19,6 +19,8 @@ public class UserServiceImpl extends ServiceImpl<AllUserLoginMapper, AllUserLogi
         //Base64解密
         str= new String(Base64.decodeBase64(str));
 
+        str=str.substring(str.indexOf("{")+1, str.lastIndexOf("}"));
+
         List<String> list = Arrays.asList(str.split("="));
 
         AllUserLogin allUserLogin = new AllUserLogin();

@@ -117,7 +117,7 @@ public class FanUserLoginController {
 
         AllUserLogin login = allUserLoginService.getAllUserLogin(userLogin);
 
-        if (!login.getPassword().equals(oldPassword)) {
+        if (!oldPassword.equals(login.getPassword())) {
             return ResponseUtlis.error(400, "您输入的密码不正确");
         }
 
@@ -125,7 +125,8 @@ public class FanUserLoginController {
         allUserLogin.setId(login.getId());
         allUserLogin.setPassword(newPassword);
 
+        allUserLoginService.updateAllUserLogin(allUserLogin);
 
-        return null;
+        return ResponseUtlis.success(200);
     }
 }
