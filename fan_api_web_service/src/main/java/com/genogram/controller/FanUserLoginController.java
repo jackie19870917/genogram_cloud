@@ -111,7 +111,11 @@ public class FanUserLoginController {
     @RequestMapping(value = "updatePassword",method = RequestMethod.POST)
     public Response<AllUserLogin> updatePassword(@ApiParam("旧密码")@RequestParam String oldPassword,
                                                  @ApiParam("新密码")@RequestParam String newPassword,
-                                                 @ApiParam("token")@RequestParam String token) {
+                                                 @ApiParam("token")String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 

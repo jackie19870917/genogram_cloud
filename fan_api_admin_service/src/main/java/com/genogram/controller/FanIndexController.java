@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -60,8 +61,11 @@ public class FanIndexController {
     @ApiOperation(value = "轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "getFanIndexSlidePicList", method = RequestMethod.GET)
     public Response<FanIndexSlidePic> getFanIndexSlidePicList(@ApiParam("网站Id") @RequestParam Integer siteId,
-                                                              @ApiParam("token") @RequestParam String token) {
+                                                              @ApiParam("token")String token) {
 
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -95,7 +99,11 @@ public class FanIndexController {
      */
     @ApiOperation(value = "新增/修改 轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片,sort:排序")
     @RequestMapping(value = "insertOrUpdateFanIndexSlidePic", method = RequestMethod.POST)
-    public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic, @ApiParam("token") @RequestParam String token) {
+    public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic, @ApiParam("token") String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
         fanIndexSlidePic.setCreateUser(userLogin.getId());
@@ -119,7 +127,11 @@ public class FanIndexController {
     @ApiOperation(value = "删除轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "deleteFanIndexSlidePic", method = RequestMethod.GET)
     public Response<FanIndexSlidePic> deleteFanIndexSlidePic(@ApiParam("主键") @RequestParam Integer id,
-                                                             @ApiParam("token") @RequestParam String token) {
+                                                             @ApiParam("token") String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         //用户Id
         Integer userId = userService.getUserLoginInfoByToken(token).getId();
@@ -142,7 +154,11 @@ public class FanIndexController {
     @ApiOperation(value = "基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名称,regionCode;地区编号,totemPicSrc:图腾,title:宣言,description;简介")
     @RequestMapping(value = "getFanIndexInfo", method = RequestMethod.GET)
     public Response<IndexInfoVo> getFanIndexInfo(@ApiParam("网站Id") @RequestParam Integer siteId,
-                                                 @ApiParam("token") @RequestParam String token) {
+                                                 @ApiParam("token") String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -161,7 +177,11 @@ public class FanIndexController {
      */
     @ApiOperation(value = "新增/修改基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名字,totemPicSrc:图腾,title:宣言,description:简介")
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
-    public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo, @ApiParam("token") @RequestParam String token) {
+    public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo, @ApiParam("token")String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
@@ -185,7 +205,11 @@ public class FanIndexController {
     @ApiOperation(value = "删除基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名字,totemPicSrc:图腾,title:宣言,description:简介")
     @RequestMapping(value = "deleteFanIndexInfo", method = RequestMethod.POST)
     public Response<FanIndexInfo> deleteFanIndexInfo(FanIndexInfo fanIndexInfo,
-                                                     @ApiParam("token") @RequestParam String token) {
+                                                     @ApiParam("token") String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
         fanIndexInfo.setUpdateUser(userLogin.getId());
@@ -210,9 +234,13 @@ public class FanIndexController {
     @ApiOperation(value = "联谊堂", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "getFanIndexFamilySummarysPage", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@ApiParam("网站Id") @RequestParam Integer siteId,
-                                                                          @ApiParam("token") @RequestParam String token,
+                                                                          @ApiParam("token")  String token,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -237,7 +265,11 @@ public class FanIndexController {
     @ApiOperation(value = "联谊堂详情", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "getFanIndexFamilySummarys", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarys(@ApiParam("主键") @RequestParam Integer id,
-                                                                      @ApiParam("token") @RequestParam String token) {
+                                                                      @ApiParam("token") String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         FanIndexFamilySummarys fanIndexFamilySummarys = fanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
 
@@ -252,8 +284,12 @@ public class FanIndexController {
      */
     @ApiOperation(value = "新增或修改    联谊堂", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarys", method = RequestMethod.POST)
-    public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarys(@ApiParam("token") @RequestParam String token,
+    public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarys(@ApiParam("token")  String token,
                                                                                  FanIndexFamilySummarys fanIndexFamilySummarys) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         //状态   1-正常  2-草稿
         fanIndexFamilySummarys.setStatus(1);
@@ -280,7 +316,11 @@ public class FanIndexController {
     @ApiOperation(value = "联谊堂 草稿    联谊堂", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarysDrft", method = RequestMethod.POST)
     public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarysDrft(FanIndexFamilySummarys fanIndexFamilySummarys,
-                                                                                     @ApiParam("token") @RequestParam String token) {
+                                                                                     @ApiParam("token")  String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         //状态   1-正常  2-草稿
         fanIndexFamilySummarys.setStatus(2);
@@ -302,8 +342,11 @@ public class FanIndexController {
     @ApiOperation(value = "删除 联谊堂 ", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "deleteFanIndexFamilySummarys", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(@ApiParam("主键") @RequestParam Integer id,
-                                                                         @ApiParam("token") @RequestParam String token) {
+                                                                         @ApiParam("token")String token) {
 
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(204, "token不能为空");
+        }
 
         //用户Id
         Integer userId = userService.getUserLoginInfoByToken(token).getId();
