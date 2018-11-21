@@ -24,13 +24,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *用户登录
- *@Author: Toxicant
- *@Date: 2018-11-09
- *@Time: 14:23
- *@Param:
- *@return:
- *@Description:
+ * 用户登录
+ *
+ * @Author: Toxicant
+ * @Date: 2018-11-09
+ * @Time: 14:23
+ * @Param:
+ * @return:
+ * @Description:
  */
 @Api(description = "登录注册")
 @RestController
@@ -46,13 +47,14 @@ public class FanUserLoginController {
 
     /**
      * 登陆
-     // @param allUserLogin
+     * // @param allUserLogin
+     *
      * @return
      */
-    @ApiOperation(value = "登陆",notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
-    @RequestMapping(value = "login",method = RequestMethod.POST)
-    public Response<UserVo> getAllUserLogin(@ApiParam("用户名")@RequestParam String userName,
-                                            @ApiParam("密码")@RequestParam String password) {
+    @ApiOperation(value = "登陆", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public Response<UserVo> getAllUserLogin(@ApiParam("用户名") @RequestParam String userName,
+                                            @ApiParam("密码") @RequestParam String password) {
 
         AllUserLogin allUserLogin = new AllUserLogin();
         allUserLogin.setMobilePhone(userName);
@@ -65,20 +67,20 @@ public class FanUserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                Map<String,Object> map = new HashMap();
+                Map<String, Object> map = new HashMap();
 
                 String time = DateUtil.getAllTime();
 
-                String user = userLogin.getMobilePhone() +"="+ userLogin.getPassword()+"=" + time;
-                String value = userLogin.getId()+"="+userLogin.getUserName();
+                String user = userLogin.getMobilePhone() + "=" + userLogin.getPassword() + "=" + time;
+                String value = userLogin.getId() + "=" + userLogin.getUserName();
                 map.put(user, value);
 
                 //Base64加密
-                byte[] bytes = Base64.encodeBase64(map.toString().getBytes(),true);
+                byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
                 String str = new String(bytes);
 
                 UserVo userVo = new UserVo();
-                BeanUtils.copyProperties(userLogin,userVo);
+                BeanUtils.copyProperties(userLogin, userVo);
                 userVo.setToken(str);
 
                 return ResponseUtlis.success(userVo);
@@ -91,10 +93,11 @@ public class FanUserLoginController {
 
     /**
      * 注册
+     *
      * @param allUserLogin
      * @return
      */
-    @ApiOperation(value = "注册",notes = "userName:用户名,mobilePhone:手机号,password:密码,familyCode:姓氏,region:地区")
+    @ApiOperation(value = "注册", notes = "userName:用户名,mobilePhone:手机号,password:密码,familyCode:姓氏,region:地区")
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
     public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin) {
 
@@ -108,10 +111,10 @@ public class FanUserLoginController {
     }
 
     @ApiOperation("修改密码")
-    @RequestMapping(value = "updatePassword",method = RequestMethod.POST)
-    public Response<AllUserLogin> updatePassword(@ApiParam("旧密码")@RequestParam String oldPassword,
-                                                 @ApiParam("新密码")@RequestParam String newPassword,
-                                                 @ApiParam("token")String token) {
+    @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
+    public Response<AllUserLogin> updatePassword(@ApiParam("旧密码") @RequestParam String oldPassword,
+                                                 @ApiParam("新密码") @RequestParam String newPassword,
+                                                 @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(204, "token不能为空");

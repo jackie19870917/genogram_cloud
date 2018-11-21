@@ -77,6 +77,15 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
         List list = new ArrayList();
         for (FanNewsCharityPayIn fanNewsCharityPayIn : fanNewsCharityPayInList) {
             for (AllUserLogin allUserLogin : allUserLoginList) {
+
+                if (StringUtils.isEmpty(allUserLogin.getPicSrc())) {
+                    allUserLogin.setPicSrc("http://47.105.177.1:6090/00/00/rB_QCFv0uzGAWsd6AABYCUDwssM470.jpg");
+                }
+
+                if (StringUtils.isEmpty(allUserLogin.getUserName())) {
+                    allUserLogin.setUserName("张某某");
+                }
+
                 if (allUserLogin.getId().equals(fanNewsCharityPayIn.getPayUsrId())) {
                     DonorVo donorVo = new DonorVo();
                     donorVo.setAllUserLogin(allUserLogin);
