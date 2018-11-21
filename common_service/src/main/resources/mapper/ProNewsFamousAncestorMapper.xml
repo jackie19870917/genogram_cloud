@@ -33,7 +33,7 @@
         <if test="ancestorName!=null">
         and ancestor_name LIKE CONCAT('%',#{ancestorName},'%')
         </if>
-        and parent_id !='-1'
+        and parent_id ='0'
         union all
         SELECT
         '1' as source,<include refid="Base_Column_List" />
@@ -43,7 +43,7 @@
         <if test="ancestorName!=null">
          and   ancestor_name LIKE CONCAT('%',#{ancestorName},'%')
         </if>
-        and parent_id !='-1'
+        and parent_id ='0'
         ) temp1
         order by temp1.updateTime desc
     </select>

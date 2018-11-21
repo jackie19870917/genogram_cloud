@@ -10,9 +10,7 @@ import com.genogram.service.IFanNewsFamousAncestorService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import com.genogram.unit.StringsUtils;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +46,23 @@ public class FanNewsAncestorController {
      *@return:
      *@Description:
     */
-    @ApiOperation(value = "联谊会后台祖先查询", notes = "")
+    @ApiOperation(value = "联谊会后台祖先查询", notes =
+                    "ancestorName 祖先名 --" +
+                    "ancestorSummary 人物简介 --" +
+                    "ancestorTitle 祖先头衔 --" +
+                    "createTime 创建时间 --" +
+                    "createUser 创建人 --" +
+                    "id 主键 --" +
+                    "junwang 郡望 --" +
+                    "parentId 父id --" +
+                    "picFileName 头像名 --" +
+                    "picFileSrc 头像图片位置 --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:发布;3:不显示) --" +
+                    "tanghao 堂号 --" +
+                    "updateTime 修改时间 --" +
+                    "updateUser 修改人 --" +
+                    "zipai 字派")
     @RequestMapping(value = "/getFamousAncestorPage",method = RequestMethod.GET)
     public Response<FanNewsFamousAncestor> getFamousAncestorPage(
             @ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId, // 显示位置
@@ -85,7 +99,24 @@ public class FanNewsAncestorController {
      *@return:
      *@Description:
     */
-    @ApiOperation(value = "联谊会后台祖先人物详情查询", notes = "")
+    @ApiOperation(value = "联谊会后台祖先人物详情查询", notes =
+                    "ancestorName 祖先名 --" +
+                    "ancestorSummary 人物简介 --" +
+                    "ancestorTitle 祖先头衔 --" +
+                    "createTime 创建时间 --" +
+                    "createUser 创建人 --" +
+                    "id 主键 --" +
+                    "junwang 郡望 --" +
+                    "parentId 父id --" +
+                    "picFileName 头像名 --" +
+                    "picFileSrc 头像图片位置 --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:发布;3:不显示) --" +
+                    "tanghao 堂号 --" +
+                    "updateTime 修改时间 --" +
+                    "updateUser 修改人 --" +
+                    "zipai 字派 --"+
+                    "fanNewsFamousAncestorList 联谊会分支后裔集合")
     @RequestMapping(value = "/getFamousAncestorDetails",method = RequestMethod.GET)
     public Response<FanNewsFamousAncestor> getFamousAncestorDetails(
             @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id// 显示位置
@@ -114,7 +145,24 @@ public class FanNewsAncestorController {
      *@return:
      *@Description:
      */
-    @ApiOperation(value = "联谊会祖先后台添加模糊查询", notes = "")
+    @ApiOperation(value = "联谊会祖先后台添加模糊查询", notes =
+            "source 1:县级 2省级 --" +
+            "ancestorName 祖先名 --" +
+            "ancestorSummary 人物简介 --" +
+            "ancestorTitle 祖先头衔 --" +
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键 --" +
+            "junwang 郡望 --" +
+            "parentId 父id --" +
+            "picFileName 头像名 --" +
+            "picFileSrc 头像图片位置 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:发布;3:不显示) --" +
+            "tanghao 堂号 --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "zipai 字派")
     @RequestMapping(value = "/getFamousAncestorVaguePage",method = RequestMethod.GET)
     public Response<FanNewsFamousAncestor> getFamousAncestorVaguePage(
             @ApiParam(value = "祖先名")@RequestParam(value = "ancestorName") String ancestorName,// 显示位置
@@ -145,7 +193,22 @@ public class FanNewsAncestorController {
      *@return:
      *@Description:
      */
-    @ApiOperation(value = "联谊会祖先后台添加 修改", notes = "")
+    @ApiOperation(value = "联谊会祖先后台添加 修改", notes = "ancestorName 祖先名 --" +
+            "ancestorSummary 人物简介 --" +
+            "ancestorTitle 祖先头衔 --" +
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键 --" +
+            "junwang 郡望 --" +
+            "parentId 父id --" +
+            "picFileName 头像名 --" +
+            "picFileSrc 头像图片位置 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:发布;3:不显示) --" +
+            "tanghao 堂号 --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "zipai 字派")
     @RequestMapping(value = "/addFamousAncestor",method = RequestMethod.GET)
     public Response<FanNewsFamousAncestor> addFamousAncestor(
             @ApiParam(value = "省级主键Id")@RequestParam(value = "proIds") String proIds,// 显示位置
