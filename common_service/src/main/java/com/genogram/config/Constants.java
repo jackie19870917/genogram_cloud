@@ -43,4 +43,9 @@ public final class Constants {
      * 返回状态码 数据为空
      */
     public static final Integer IS_EMPTY = 204;
+
+    /**
+     * 返回状态码 未被授权
+     */
+    public static final Integer UNAUTHORIZED = 401;
 }
