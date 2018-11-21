@@ -97,7 +97,7 @@ public class FanUserLoginController {
      * @param allUserLogin
      * @return
      */
-    @ApiOperation(value = "注册", notes = "userName:用户名,mobilePhone:手机号,password:密码,familyCode:姓氏,region:地区")
+    @ApiOperation(value = "注册", notes = "userName:用户名,mobilePhone:手机号,password:密码,familyCode:姓氏,regionCode:地区")
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
     public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin) {
 

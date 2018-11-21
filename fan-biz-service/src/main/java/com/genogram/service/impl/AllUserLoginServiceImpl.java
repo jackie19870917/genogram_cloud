@@ -47,12 +47,12 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
         String userId="user"+ DateUtil.getAllTime()+String.format("%02d", new Random().nextInt(100));
         allUserLogin.setUserId(userId);
         allUserLogin.setStatus(1);
+        allUserLogin.setSiteId(1);
         allUserLogin.setRole(0);
         allUserLogin.setCreateUser(1);
         allUserLogin.setUpdateUser(1);
         allUserLogin.setCreateTime(DateUtil.getCurrentTimeStamp());
         allUserLogin.setUpdateTime(DateUtil.getCurrentTimeStamp());
-       // allUserLogin.s
 
         return this.insert(allUserLogin);
     }
