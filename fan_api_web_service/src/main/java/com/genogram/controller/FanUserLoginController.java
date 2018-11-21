@@ -2,19 +2,23 @@ package com.genogram.controller;
 
 import com.genogram.entity.AllUserLogin;
 import com.genogram.service.IAllUserLoginService;
+import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *用户登录
@@ -36,12 +40,17 @@ public class FanUserLoginController {
 
     /**
      * 登陆
-     * @param allUserLogin
+     // @param allUserLogin
      * @return
      */
     @ApiOperation("登陆")
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    public Response<AllUserLogin> getAllUserLogin(AllUserLogin allUserLogin, HttpServletRequest request) {
+    public Response<AllUserLogin> getAllUserLogin(@ApiParam("用户名")@RequestParam String userName,
+                                                  @ApiParam("密码")@RequestParam String password) {
+
+        AllUserLogin allUserLogin = new AllUserLogin();
+        allUserLogin.setMobilePhone(userName);
+        allUserLogin.setPassword(password);
 
         AllUserLogin userLogin = allUserLoginService.getAllUserLogin(allUserLogin);
 
@@ -50,10 +59,26 @@ public class FanUserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                HttpSession session = request.getSession();
-                session.setAttribute("userLogin",userLogin);
+                Map<String,Object> map = new HashMap();
 
-                return ResponseUtlis.success(200);
+                String time = DateUtil.getAllTime();
+
+                String user = userLogin.getMobilePhone() +"="+ userLogin.getPassword()+"=" + time;
+                String value = userLogin.getId()+"="+userLogin.getUserName();
+                map.put(user, value);
+
+//                String token = DigestUtils.md5DigestAsHex(map.toString().getBytes());
+//                System.out.println(token);
+
+                //Base64加密
+                byte[] bytes = Base64.encodeBase64(map.toString().getBytes(),true);
+                String str = new String(bytes);
+
+              /*  List<String> strings = Arrays.asList(str.split("="));
+                for (String string : strings) {
+                    System.out.println(string);
+                }*/
+                return ResponseUtlis.success(str);
             } else {
                 return ResponseUtlis.error(500, "用户名或密码错误");
             }

@@ -2,6 +2,7 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexFamilySummarys;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanIndexSlidePic;
@@ -9,6 +10,7 @@ import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.service.IFanIndexFamilySummarysService;
 import com.genogram.service.IFanIndexInfoService;
 import com.genogram.service.IFanIndexSlidePicService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -46,6 +48,8 @@ public class FanIndexController {
     @Autowired
     private IFanIndexSlidePicService fanIndexSlidePicService;
 
+    @Autowired
+    private IUserService userService;
     /**
      * 轮播图
      *
@@ -54,7 +58,8 @@ public class FanIndexController {
      */
     @ApiOperation(value = "轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "getFanIndexSlidePicList", method = RequestMethod.GET)
-    public Response<FanIndexSlidePic> getFanIndexSlidePicList(@ApiParam("网站Id") @RequestParam Integer siteId) {
+    public Response<FanIndexSlidePic> getFanIndexSlidePicList(@ApiParam("网站Id") @RequestParam Integer siteId
+                                                             /*,@ApiParam("token") @RequestParam String token*/) {
 
 
         if (siteId == null) {
@@ -79,7 +84,11 @@ public class FanIndexController {
      */
     @ApiOperation(value = "新增/修改 轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片,sort:排序")
     @RequestMapping(value = "insertOrUpdateFanIndexSlidePic", method = RequestMethod.POST)
-    public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
+    public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic,@ApiParam("token") @RequestParam String token) {
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+        fanIndexSlidePic.setCreateUser(userLogin.getId());
+        fanIndexSlidePic.setUpdateUser(userLogin.getId());
 
         Boolean result = fanIndexSlidePicService.insertOrUpdateFanIndexSlidePic(fanIndexSlidePic);
 
@@ -98,7 +107,9 @@ public class FanIndexController {
      */
     @ApiOperation(value = "删除轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "deleteFanIndexSlidePic", method = RequestMethod.GET)
-    public Response<FanIndexSlidePic> deleteFanIndexSlidePic(@ApiParam("主键") @RequestParam Integer id) {
+    public Response<FanIndexSlidePic> deleteFanIndexSlidePic(@ApiParam("主键") @RequestParam Integer id,
+                                                             @ApiParam("token") @RequestParam String token) {
+
 
         Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(id);
 
@@ -117,7 +128,8 @@ public class FanIndexController {
      */
     @ApiOperation(value = "基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名称,regionCode;地区编号,totemPicSrc:图腾,title:宣言,description;简介")
     @RequestMapping(value = "getFanIndexInfo", method = RequestMethod.GET)
-    public Response<IndexInfoVo> getFanIndexInfo(@ApiParam("网站Id") @RequestParam Integer siteId) {
+    public Response<IndexInfoVo> getFanIndexInfo(@ApiParam("网站Id") @RequestParam Integer siteId
+                                                 /* ,@ApiParam("token") @RequestParam String token*/) {
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -136,8 +148,12 @@ public class FanIndexController {
      */
     @ApiOperation(value = "新增/修改基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名字,totemPicSrc:图腾,title:宣言,description:简介")
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
-    public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo) {
+    public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo,@ApiParam("token") @RequestParam String token) {
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        indexInfoVo.setCreateUser(userLogin.getId());
+        indexInfoVo.setUpdateUser(userLogin.getId());
         Boolean result = fanIndexInfoService.insertOrUpdateIndexInfoVo(indexInfoVo);
 
         if (result) {
@@ -155,8 +171,11 @@ public class FanIndexController {
      */
     @ApiOperation(value = "删除基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名字,totemPicSrc:图腾,title:宣言,description:简介")
     @RequestMapping(value = "deleteFanIndexInfo", method = RequestMethod.POST)
-    public Response<FanIndexInfo> deleteFanIndexInfo(FanIndexInfo fanIndexInfo) {
+    public Response<FanIndexInfo> deleteFanIndexInfo(FanIndexInfo fanIndexInfo,
+                                                     @ApiParam("token") @RequestParam String token) {
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+        fanIndexInfo.setUpdateUser(userLogin.getId());
         Boolean result = fanIndexInfoService.deleteFanIndexInfo(fanIndexInfo);
 
         if (result) {
@@ -177,6 +196,7 @@ public class FanIndexController {
     @ApiOperation(value = "联谊堂", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "getFanIndexFamilySummarysPage", method = RequestMethod.GET)
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(@ApiParam("网站Id") @RequestParam Integer siteId,
+                                                                          //@ApiParam("token") @RequestParam String token,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -188,6 +208,7 @@ public class FanIndexController {
         //  1-正常    2-草稿
         list.add(1);
         list.add(2);
+
         Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = fanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
 
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
@@ -201,7 +222,7 @@ public class FanIndexController {
      */
     @ApiOperation(value = "联谊堂详情", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "getFanIndexFamilySummarys", method = RequestMethod.GET)
-    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarys(@ApiParam("主键") @RequestParam Integer id) {
+    public Response<FanIndexFamilySummarys> getFanIndexFamilySummarys(@ApiParam("主键") @RequestParam Integer id /*@ApiParam("token") @RequestParam String token*/) {
 
         FanIndexFamilySummarys fanIndexFamilySummarys = fanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
 
@@ -216,10 +237,15 @@ public class FanIndexController {
      */
     @ApiOperation(value = "新增或修改    联谊堂", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarys", method = RequestMethod.POST)
-    public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarys(FanIndexFamilySummarys fanIndexFamilySummarys) {
+    public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarys(@ApiParam("token") @RequestParam String token,FanIndexFamilySummarys fanIndexFamilySummarys) {
 
         //状态   1-正常  2-草稿
         fanIndexFamilySummarys.setStatus(1);
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+        fanIndexFamilySummarys.setCreateUser(userLogin.getId());
+        fanIndexFamilySummarys.setUpdateUser(userLogin.getId());
+
         Boolean result = fanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
 
         if (result) {
@@ -237,7 +263,8 @@ public class FanIndexController {
      */
     @ApiOperation(value = "联谊堂 草稿    联谊堂", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "insertOrUpdateFanIndexFamilySummarysDrft", method = RequestMethod.POST)
-    public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarysDrft(FanIndexFamilySummarys fanIndexFamilySummarys) {
+    public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarysDrft(FanIndexFamilySummarys fanIndexFamilySummarys
+                                                                                    /* @ApiParam("token") @RequestParam String token*/) {
 
         //状态   1-正常  2-草稿
         fanIndexFamilySummarys.setStatus(2);
@@ -258,7 +285,8 @@ public class FanIndexController {
      */
     @ApiOperation(value = "删除 联谊堂 ", notes = "id:主键,siteId:网站Id,rootGroup:堂号,rootPerson:始迁祖,leader:负责人,leaderPhone:负责人电话,worshipNum:膜拜,praiseNum:赞")
     @RequestMapping(value = "deleteFanIndexFamilySummarys", method = RequestMethod.GET)
-    public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(@ApiParam("主键") @RequestParam Integer id) {
+    public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(@ApiParam("主键") @RequestParam Integer id,
+                                                                         @ApiParam("token") @RequestParam String token ) {
 
         Boolean result = fanIndexFamilySummarysService.deleteFanIndexFamilySummarys(id);
 

@@ -243,6 +243,7 @@ public class FanNewsCharityController {
     public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn) {
 
         fanNewsCharityPayIn.setType(2);
+
         Boolean result = fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
 
         if (result) {

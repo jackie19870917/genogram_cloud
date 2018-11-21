@@ -4,12 +4,15 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
+import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.mapper.FanNewsCharityPayInMapper;
 import com.genogram.service.IAllUserLoginService;
+import com.genogram.service.IFanIndexFundService;
 import com.genogram.service.IFanNewsCharityPayInService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,12 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
+
+    @Autowired
+    private IFanIndexFundService fanIndexFundService;
+
+    @Autowired
+    private IFanSysWebNewsShowService fanSysWebNewsShowService;
 
     @Override
     public Page<DonorVo> getDonorVoPage(Page<FanNewsCharityPayIn> mapPage, Map map) {
@@ -121,10 +130,19 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
+        Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
+
         if (StringUtils.isEmpty(this.selectOne(fanNewsCharityPayIn))) {
             fanNewsCharityPayIn.setCreateTime(timeStamp);
             fanNewsCharityPayIn.setCreateUser(fanNewsCharityPayIn.getPayUsrId());
             fanNewsCharityPayIn.setUpdateUser(fanNewsCharityPayIn.getPayUsrId());
+
+            FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
+
+            fanIndexFund.setRemain(fanIndexFund.getRemain().add(fanNewsCharityPayIn.getPayAmount()));
+            fanIndexFund.setPayUnderline(fanIndexFund.getPayUnderline().add(fanNewsCharityPayIn.getPayAmount()));
+
+            fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
         }
 
         fanNewsCharityPayIn.setUpdateTime(timeStamp);
