@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanNewsFamousPerson;
+import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entity.ProNewsFamousPerson;
+import com.genogram.entity.ProSysWebNewsShow;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
 
@@ -59,4 +61,24 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
      * @return
      */
     Boolean deletePersionById(Integer id, int status);
+
+    /**
+     * 通过siteId menuCode 找到菜单对象
+     * @Author: wang,wei
+     * @Date: 2018-11-05
+     * @Time: 22:04
+     * @param siteId
+     * @param menuCode
+     * @return:
+     * @Description:
+     *
+     */
+    //public ProNewsFamousPerson getSysWebNewsShowBySiteIdAndMenuCode(int siteId, String menuCode);
+
+    /**
+     * 组织架构
+     * @param showId
+     * @return
+     */
+    ProNewsFamousPerson getFamilyFrameList(Integer showId);
 }

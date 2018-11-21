@@ -40,6 +40,8 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
     private  UploadServiceImpl uploadService;
     @Autowired
     private ProNewsUploadFileMapper ProNewsUploadFileMapper;
+    @Autowired
+    private IProNewsFamilyPersionService iProNewsFamilyPersionService;
 
     /**
      * 省级家族名人分页
@@ -346,5 +348,28 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         //修改人 待写
         boolean result = this.updateAllColumnById(proNewsFamousPerson);
         return result;
+    }
+
+//    @Override
+//    public ProNewsFamousPerson getSysWebNewsShowBySiteIdAndMenuCode(int siteId, String menuCode) {
+//        return null;
+//    }
+
+//    @Override
+//    public ProNewsFamousPerson getSysWebNewsShowBySiteIdAndMenuCode(int siteId, String menuCode) {
+//        Wrapper<ProNewsFamousPerson> entity=new EntityWrapper();
+//        entity.eq("site_id",siteId);
+//        entity.eq("menu_code",menuCode);
+//        iProNewsFamilyPersionService.selectOne(entity);
+//        return null;
+//    }
+
+    @Override
+    public ProNewsFamousPerson getFamilyFrameList(Integer showId) {
+        Wrapper<ProNewsFamousPerson> entity = new EntityWrapper<ProNewsFamousPerson>();
+        entity.eq("show_id", showId);
+        //分页查询文章主表
+        ProNewsFamousPerson proNewsFamousPerson = this.selectOne(entity);
+        return proNewsFamousPerson;
     }
 }

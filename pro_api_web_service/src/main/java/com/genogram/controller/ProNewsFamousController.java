@@ -3,13 +3,18 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.ProNewsFamousPerson;
+import com.genogram.entity.ProSysWebNewsShow;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
 import com.genogram.service.IProNewsFamilyPersionService;
+import com.genogram.service.IProSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -19,6 +24,8 @@ public class ProNewsFamousController {
     @Autowired
     private IProNewsFamilyPersionService iProNewsFamousPersonService;
 
+    @Autowired
+    private IProSysWebNewsShowService iProSysWebNewsShowService;
     /**
      * 家族长老查询,组织架构
      */
@@ -70,6 +77,46 @@ public class ProNewsFamousController {
             //增加查看数
             iProNewsFamousPersonService.addVisitNum(id);
             return ResponseUtlis.success(newsDetailVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+    /**
+     * 组织架构
+     */
+    @RequestMapping(value = "/getFamilyStructureList", method = RequestMethod.GET)
+    public Response<ProFamilyPersonVo> getFamilyStructureList(
+            @RequestParam(value = "siteId") Integer siteId
+    ){
+        try {
+            Map map = new LinkedHashMap();
+            //拿到会长的showid
+            ProSysWebNewsShow show = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_huizhang");
+            ProNewsFamousPerson familyFrameList = iProNewsFamousPersonService.getFamilyFrameList(show.getShowId());
+            map.put(show.getMenuName(),familyFrameList);
+
+            //拿到执行会长的showid
+            ProSysWebNewsShow zhixinshow = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_zhixin_huizhang");
+            ProNewsFamousPerson zhixinfamilyFrameList = iProNewsFamousPersonService.getFamilyFrameList(zhixinshow.getShowId());
+            map.put(zhixinshow.getMenuName(),zhixinfamilyFrameList);
+
+            //拿到名誉会长的showid
+            ProSysWebNewsShow mingyushow = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_mingyu_huizhang");
+            ProNewsFamousPerson mingyufamilyFrameList = iProNewsFamousPersonService.getFamilyFrameList(mingyushow.getShowId());
+            map.put(mingyushow.getMenuName(),mingyufamilyFrameList);
+
+            //拿到副会长的showid
+            ProSysWebNewsShow fushow = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_fuhuizhang");
+            ProNewsFamousPerson fufamilyFrameList = iProNewsFamousPersonService.getFamilyFrameList(fushow.getShowId());
+            map.put(fushow.getMenuName(),fufamilyFrameList);
+
+            if (familyFrameList == null) {
+                //没有取到参数,返回空参
+                Page<ProFamilyPersonVo> emptfamilyCultureVo = new Page<ProFamilyPersonVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
+            }
+            return ResponseUtlis.success(map);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);

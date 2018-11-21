@@ -67,4 +67,14 @@ public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerso
      * @return
      */
     FamilyPersonVo getFamilyFamilyDetail(Integer id);
+
+    /**
+     * 组织架构
+     * @param showId
+     * @param status
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Page<FanNewsFamousPerson> getFamilyFramePage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 }

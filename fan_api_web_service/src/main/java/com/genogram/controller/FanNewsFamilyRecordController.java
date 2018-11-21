@@ -12,6 +12,8 @@ import com.genogram.service.IFanNewsFamilyRecordService;
 import com.genogram.service.IFanNewsFamilyRecordVedioService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @CrossOrigin(origins = "*")
+@Api(description = "家族动态")
 @RequestMapping("/genogram/fanNewsFamilyRecord")
 public class FanNewsFamilyRecordController {
     @Autowired
@@ -36,6 +39,7 @@ public class FanNewsFamilyRecordController {
      * 家族动态查询
      */
     @ResponseBody
+    @ApiOperation(value = "家族动态", notes = "showId:显示位置,pageNo:当前页,pageSize:总页数")
     @RequestMapping(value = "selectRecortPage",method = RequestMethod.GET)
     public Response<FanNewsFamilyRecord> selectRecortPage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
@@ -67,6 +71,7 @@ public class FanNewsFamilyRecordController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "动态详情")
     @RequestMapping(value = "/getFamilyRecordDetail", method = RequestMethod.GET)
     public Response<FamilyRecordVo> getFamilyRecordDetail(
             @RequestParam(value = "id") Integer id // 家族文化文章ID
@@ -95,6 +100,7 @@ public class FanNewsFamilyRecordController {
      * @return
      */
     @ResponseBody
+    @ApiOperation(value = "视频查询")
     @RequestMapping(value = "selectVedioPage",method = RequestMethod.GET)
     public  Response<FanNewsFamilyRecord> selectVedioPage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
@@ -124,6 +130,7 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "记录家族详情")
     @RequestMapping(value ="/getFamilyRecordVedio",method = RequestMethod.GET)
     public Response<FamilyRecordVedioVo> getFamilyRecordVedioDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -139,6 +146,7 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "纪录家族视频修改")
     @RequestMapping(value ="/getFamilyRecordVedioAmend",method = RequestMethod.GET)
     public Response<FamilyRecordVedioVo> getFamilyRecordVedioAmend(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -173,6 +181,7 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "视频添加修改")
     @RequestMapping(value = "/addOrUpdateVedioRecord", method = RequestMethod.POST)
     public Response<FanNewsFamilyRecordVedio> addOrUpdateVedioRecord(FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio, String picfileName, String picPath, String vedioFileName, String vedioPath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -208,6 +217,7 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "视频删除")
     @RequestMapping(value ="/deleteRecordById",method = RequestMethod.GET)
     public Response<FanNewsFamilyRecordVedio> deleteVedioRecordById(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置

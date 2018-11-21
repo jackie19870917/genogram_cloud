@@ -51,8 +51,6 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         entity.orderBy("create_time", false);
         //分页查询文章主表
         Page<FanNewsFamousPerson> fanNewsFamousPerson =this.selectPage(new Page<FanNewsFamousPerson>(pageNo, pageSize), entity);
-
-
         return fanNewsFamousPerson;
     }
 
@@ -284,5 +282,27 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         familyPersonVo.setCreateUserName(null);
         familyPersonVo.setCreateUserName(null);
         return familyPersonVo;
+    }
+
+    /**
+     *组织架构
+     * @param showId
+     * @param status
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Page<FanNewsFamousPerson> getFamilyFramePage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+        //返回新VO的集合
+        List<FamilyPersonVo> familyPersonVoList=new ArrayList<>();
+
+        Wrapper<FanNewsFamousPerson> entity = new EntityWrapper<FanNewsFamousPerson>();
+        entity.eq("show_id", showId);
+        entity.eq("status", status);
+        entity.orderBy("create_time", false);
+        //分页查询文章主表
+        Page<FanNewsFamousPerson> fanNewsFamousPerson =this.selectPage(new Page<FanNewsFamousPerson>(pageNo, pageSize), entity);
+        return fanNewsFamousPerson;
     }
 }
