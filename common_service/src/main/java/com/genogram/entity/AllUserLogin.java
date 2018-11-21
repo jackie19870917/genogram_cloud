@@ -74,7 +74,7 @@ public class AllUserLogin extends Model<AllUserLogin> {
      * sys_family:id
      */
     @TableField("family_code")
-    private Integer familyCode;
+    private String familyCode;
     @TableField("region_code")
     private Integer regionCode;
     /**
@@ -198,11 +198,11 @@ public class AllUserLogin extends Model<AllUserLogin> {
         return this;
     }
 
-    public Integer getFamilyCode() {
+    public String getFamilyCode() {
         return familyCode;
     }
 
-    public AllUserLogin setFamilyCode(Integer familyCode) {
+    public AllUserLogin setFamilyCode(String familyCode) {
         this.familyCode = familyCode;
         return this;
     }
