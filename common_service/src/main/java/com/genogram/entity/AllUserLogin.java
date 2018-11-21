@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-20
+ * @since 2018-11-21
  */
 @TableName("all_user_login")
 public class AllUserLogin extends Model<AllUserLogin> {
@@ -62,7 +62,12 @@ public class AllUserLogin extends Model<AllUserLogin> {
      */
     private Integer status;
     /**
-     * 角色
+     * 网站id(省或者县的网站id)
+     */
+    @TableField("site_id")
+    private Integer siteId;
+    /**
+     * 角色1.(县级管理员,省级管理员)
      */
     private Integer role;
     /**
@@ -175,6 +180,15 @@ public class AllUserLogin extends Model<AllUserLogin> {
         return this;
     }
 
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public AllUserLogin setSiteId(Integer siteId) {
+        this.siteId = siteId;
+        return this;
+    }
+
     public Integer getRole() {
         return role;
     }
@@ -255,6 +269,7 @@ public class AllUserLogin extends Model<AllUserLogin> {
         ", picSrc=" + picSrc +
         ", password=" + password +
         ", status=" + status +
+        ", siteId=" + siteId +
         ", role=" + role +
         ", familyCode=" + familyCode +
         ", regionCode=" + regionCode +
