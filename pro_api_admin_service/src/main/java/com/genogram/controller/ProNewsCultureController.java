@@ -51,7 +51,18 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
-    @ApiOperation(value = "省级后台字派查询" ,  notes="根据showId查询")
+    @ApiOperation(value = "省级后台字派查询" ,  notes=
+            "ancestorsName 祖先名 --" +
+                    "createTime 创建时间 --" +
+                    "createUser 创建人 --" +
+                    "id 主键id --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:已发布;2:草稿3:不显示)" +
+                    "updateTime 修改时间 --" +
+                    "updateUser 修改人 --" +
+                    "visitNum 查看数" +
+                    "ziapiLocation 字派具体地域 --" +
+                    "zipaiTxt 字派数组:数字和字的组合 --")
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<ProNewsCultureZipai> getCommonalityPage(
             @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
@@ -95,7 +106,18 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
-    @ApiOperation(value = "省级字派进入后台修改页面" ,  notes="根据id查询")
+    @ApiOperation(value = "省级字派进入后台修改页面" ,  notes=
+            "ancestorsName 祖先名 --" +
+                    "createTime 创建时间 --" +
+                    "createUser 创建人 --" +
+                    "id 主键id --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:已发布;2:草稿3:不显示)" +
+                    "updateTime 修改时间 --" +
+                    "updateUser 修改人 --" +
+                    "visitNum 查看数" +
+                    "ziapiLocation 字派具体地域 --" +
+                    "zipaiTxt 字派数组:数字和字的组合 --")
     @RequestMapping(value = "/getZiPaiDetail",method = RequestMethod.GET)
     public Response<ProNewsCultureZipai> getZiPaiDetail(
             @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id // 家族字派文章ID
@@ -121,7 +143,18 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
-    @ApiOperation(value = "省级家族字派后台新增修改 发表" ,  notes="根据ProNewsCultureZipai实体类查询")
+    @ApiOperation(value = "省级家族字派后台新增修改 发表" , notes=
+                    "ancestorsName 祖先名 --" +
+                    "createTime 创建时间 --" +
+                    "createUser 创建人 --" +
+                    "id 主键id --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:已发布;2:草稿3:不显示)" +
+                    "updateTime 修改时间 --" +
+                    "updateUser 修改人 --" +
+                    "visitNum 查看数" +
+                    "ziapiLocation 字派具体地域 --" +
+                    "zipaiTxt 字派数组:数字和字的组合 --")
     @RequestMapping(value = "/addOrUpdateZiPai",method = RequestMethod.POST)
     public Response<ProNewsCultureZipai> addOrUpdateZiPai(@ApiParam(value = "省级字派实体类")ProNewsCultureZipai proNewsCultureZipai){
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -138,7 +171,18 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
-    @ApiOperation(value = "省级家族字派后台新增修改 草稿" ,  notes="根据ProNewsCultureZipai实体类查询")
+    @ApiOperation(value = "省级家族字派后台新增修改 草稿" ,  notes=
+                    "ancestorsName 祖先名 --" +
+                    "createTime 创建时间 --" +
+                    "createUser 创建人 --" +
+                    "id 主键id --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:已发布;2:草稿3:不显示)" +
+                    "updateTime 修改时间 --" +
+                    "updateUser 修改人 --" +
+                    "visitNum 查看数" +
+                    "ziapiLocation 字派具体地域 --" +
+                    "zipaiTxt 字派数组:数字和字的组合 --")
     @RequestMapping(value = "/addOrUpdateZiPaiDrft",method = RequestMethod.POST)
     public Response<ProNewsCultureZipai> addOrUpdateZiPaiDrft(@ApiParam(value = "省级字派实体类")ProNewsCultureZipai proNewsCultureZipai){
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -208,7 +252,21 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
-    @ApiOperation(value = "省级家族文化查询" ,  notes="根据showId查询")
+    @ApiOperation(value = "省级家族文化查询" ,  notes=
+                    "createTime 创建时间 --" +
+                    "createTimeLong 创建时间转换Long --" +
+                    "createUser 创建人" +
+                    "fanNewsUploadFileList 县级附件集合 --" +
+                    "id 主键Id" +
+                    "newsText 内容 --" +
+                    "newsTitle 标题 --" +
+                    "proNewsUploadFileList 省级附件集合 --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+                    "updateTime 修改时间 --" +
+                    "updateTimeLong 修改时间转换为Long --" +
+                    "updateUser 修改人 --" +
+                    "visitNum 查看数")
     @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
             @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
@@ -253,7 +311,25 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
     */
-    @ApiOperation(value = "省级家族文化详情 进入修改页面" ,  notes="根据id查询")
+    @ApiOperation(value = "省级家族文化详情 进入修改页面" ,  notes=
+                    "createTime 创建时间 --" +
+                    "createTimeLong 创建时间转换Long --" +
+                    "createUser 创建人" +
+                    "fanNewsUploadFileList 县级附件集合 --" +
+                    "id 主键Id" +
+                    "newsText 内容 --" +
+                    "newsTitle 标题 --" +
+                    "proNewsUploadFileList 省级附件集合 --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+                    "updateTime 修改时间 --" +
+                    "updateTimeLong 修改时间转换为Long --" +
+                    "updateUser 修改人 --" +
+                    "visitNum 查看数 --"+
+                    "fileName 附件文件名 --"+
+                    "filePath 附件文件路径 --"+
+                    "picIndex 附件是否封面(0.否;1:是封面) --"+
+                    "newsId 文章文化表的主键")
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
             @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -279,7 +355,21 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
-    @ApiOperation(value = "省级家族文化后台添加和修改 发表" ,  notes="根据ProNewsCultureNews实体类新增修改")
+    @ApiOperation(value = "省级家族文化后台添加和修改 发表" ,  notes=
+                    "createTime 创建时间 --" +
+                    "createTimeLong 创建时间转换Long --" +
+                    "createUser 创建人" +
+                    "fanNewsUploadFileList 县级附件集合 --" +
+                    "id 主键Id" +
+                    "newsText 内容 --" +
+                    "newsTitle 标题 --" +
+                    "proNewsUploadFileList 省级附件集合 --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+                    "updateTime 修改时间 --" +
+                    "updateTimeLong 修改时间转换为Long --" +
+                    "updateUser 修改人 --" +
+                    "visitNum 查看数")
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
     public Response<ProNewsCultureNews> addOrUpdateCulture(@ApiParam(value = "家族文化表")ProNewsCultureNews proNewsCultureNews, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -296,7 +386,21 @@ public class ProNewsCultureController {
      *@return:
      *@Description:
      */
-    @ApiOperation(value = "省级家族文化后台添加和修改 草稿" ,  notes="根据ProNewsCultureNews实体类新增修改")
+    @ApiOperation(value = "省级家族文化后台添加和修改 草稿" ,  notes=
+                    "createTime 创建时间 --" +
+                    "createTimeLong 创建时间转换Long --" +
+                    "createUser 创建人" +
+                    "fanNewsUploadFileList 县级附件集合 --" +
+                    "id 主键Id" +
+                    "newsText 内容 --" +
+                    "newsTitle 标题 --" +
+                    "proNewsUploadFileList 省级附件集合 --" +
+                    "showId 显示位置Id --" +
+                    "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+                    "updateTime 修改时间 --" +
+                    "updateTimeLong 修改时间转换为Long --" +
+                    "updateUser 修改人 --" +
+                    "visitNum 查看数")
     @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
     public Response<ProNewsCultureNews> addOrUpdateCultureDrft(@ApiParam(value = "家族文化表")ProNewsCultureNews proNewsCultureNews, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
