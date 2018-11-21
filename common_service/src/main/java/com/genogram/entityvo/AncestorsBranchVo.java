@@ -1,5 +1,6 @@
 package com.genogram.entityvo;
 
+import com.genogram.entity.FanNewsFamousAncestor;
 import com.genogram.entity.ProNewsFamousAncestor;
 import lombok.Data;
 
@@ -94,4 +95,9 @@ public class AncestorsBranchVo {
      * 省级祖先分支
      */
     private List<ProNewsFamousAncestor> proNewsFamousAncestorList;
+    /**
+     * 县级祖先分支
+     */
+    private List<FanNewsFamousAncestor> fanNewsFamousAncestorList;
+
 }
