@@ -77,7 +77,9 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
         List<ProNewsFamousAncestor> proNewsFamousAncestorList = proNewsFamousAncestorService.selectList(entity);
         //封装到要返回的实体类中
         BeanUtils.copyProperties(proNewsFamousAncestor,ancestorsBranchVo);
-        ancestorsBranchVo.setProNewsFamousAncestorList(proNewsFamousAncestorList);
+        if(proNewsFamousAncestorList.size()!=0){
+            ancestorsBranchVo.setProNewsFamousAncestorList(proNewsFamousAncestorList);
+        }
         return ancestorsBranchVo;
     }
 
@@ -108,6 +110,8 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
      */
     @Override
     public Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit) {
+        //父iD第一级为0
+        proNewsFamousAncestor.setParentId(0);
         //插入主数据
         boolean insert = proNewsFamousAncestorService.insertOrUpdate(proNewsFamousAncestor);
         if(proNewsFamousAncestor.getId()!=null){
@@ -116,7 +120,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
             entity.eq("parent_id",proNewsFamousAncestor.getId());
             List<ProNewsFamousAncestor> proNewsFamousAncestors = proNewsFamousAncestorService.selectList(entity);
             //判断是否有分支
-            if (proNewsFamousAncestors!=null){
+            if (proNewsFamousAncestors.size()!=0){
                 //获取祖先分支id集合
                 List<Integer> list=new ArrayList<>();
                 for (ProNewsFamousAncestor proNewsFamous: proNewsFamousAncestors) {
@@ -162,7 +166,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
                 proNewsFamousAncestors.add(famousAncestor);
             }
             for (ProNewsFamousAncestor newsFamousAncestor : proNewsFamousAncestors) {
-                newsFamousAncestor.setShowId(111111111);
+                newsFamousAncestor.setShowId(-1);
                 newsFamousAncestor.setParentId(proNews.getId());
                 newsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
                 newsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
@@ -187,7 +191,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
         entity.eq("parent_id",id);
         List<ProNewsFamousAncestor> proNewsFamousAncestors = proNewsFamousAncestorService.selectList(entity);
         //判断是否有分支
-        if (proNewsFamousAncestors!=null){
+        if (proNewsFamousAncestors.size()!=0){
             //获取祖先分支id集合
             List<Integer> list=new ArrayList<>();
             for (ProNewsFamousAncestor proNewsFamousAncestor : proNewsFamousAncestors) {
@@ -197,7 +201,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
             proNewsFamousAncestorService.deleteBatchIds(list);
         }
         //删除主表
-        Boolean aBoolean = proNewsFamousAncestorService.deleteFamousAncestor(id);
+        Boolean aBoolean = proNewsFamousAncestorService.deleteById(id);
         return aBoolean;
     }
 

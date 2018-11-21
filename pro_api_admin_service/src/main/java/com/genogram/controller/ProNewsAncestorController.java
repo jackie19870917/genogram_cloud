@@ -31,7 +31,7 @@ import java.util.Map;
  *@return:
  *@Description:
 */
-@Api(description = "省级祖先分支")
+@Api(description = "省级后台祖先分支")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/proNewsAncestor")

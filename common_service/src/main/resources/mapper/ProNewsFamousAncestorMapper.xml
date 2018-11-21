@@ -27,17 +27,23 @@
         select temp1.* from (
         SELECT
         '2' as source,<include refid="Base_Column_List" />
-        FROM pro_news_famous_ancestor  WHERE
+        FROM pro_news_famous_ancestor
+        WHERE
+        1=1
         <if test="ancestorName!=null">
-        ancestor_name LIKE CONCAT('%',#{ancestorName},'%')
+        and ancestor_name LIKE CONCAT('%',#{ancestorName},'%')
         </if>
+        and parent_id !='-1'
         union all
         SELECT
         '1' as source,<include refid="Base_Column_List" />
-        FROM fan_news_famous_ancestor  WHERE
+        FROM fan_news_famous_ancestor
+        WHERE
+        1=1
         <if test="ancestorName!=null">
-            ancestor_name LIKE CONCAT('%',#{ancestorName},'%')
+         and   ancestor_name LIKE CONCAT('%',#{ancestorName},'%')
         </if>
+        and parent_id !='-1'
         ) temp1
         order by temp1.updateTime desc
     </select>

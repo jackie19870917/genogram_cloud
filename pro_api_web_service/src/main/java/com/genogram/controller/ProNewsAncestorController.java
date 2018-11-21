@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  *@return:
  *@Description:
 */
-@Api(description = "省级祖先分支")
+@Api(description = "省级前台祖先分支")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/proNewsAncestor")
