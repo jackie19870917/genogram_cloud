@@ -5,10 +5,12 @@ import com.genogram.entity.AllUserLogin;
 import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.service.IUserService;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Service
 public class UserServiceImpl extends ServiceImpl<AllUserLoginMapper, AllUserLogin> implements IUserService {
 
     @Override
