@@ -120,17 +120,14 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if(fanNewsCultureZipai.getId()==null){
             //存入创建时间
-            fanNewsCultureZipai.setCreateUser(null);
             fanNewsCultureZipai.setCreateTime(format);
             //存入修改时间
             fanNewsCultureZipai.setUpdateTime(format);
-            fanNewsCultureZipai.setUpdateUser(null);
             //初始化查看数为0
             fanNewsCultureZipai.setVisitNum(0);
         }else{
             //存入修改时间
             fanNewsCultureZipai.setUpdateTime(format);
-            fanNewsCultureZipai.setUpdateUser(null);
         }
         return this.insertOrUpdate(fanNewsCultureZipai);
     }

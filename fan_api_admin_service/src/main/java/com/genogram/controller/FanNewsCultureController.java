@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsCultureNews;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
@@ -11,9 +12,12 @@ import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -39,6 +43,9 @@ public class FanNewsCultureController {
     @Autowired
     private IFanNewsCultureNewsService fanNewsCultureNewsService;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      *联谊会家族字派后台查询
      *@Author: yuzhou
@@ -52,9 +59,14 @@ public class FanNewsCultureController {
     public Response<FanNewsCultureZipai> getCommonalityPage(
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam("token") String token
     ) {
         try {
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+
             //判断showId是否有值
             if(showId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -93,9 +105,14 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value = "/getZiPaiDetail",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getZiPaiDetail(
-            @RequestParam(value = "id") Integer id // 家族字派文章ID
+            @RequestParam(value = "id") Integer id, // 家族字派文章ID
+            @ApiParam("token") String token
     ){
         try {
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //判断id是否有值
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -117,10 +134,14 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateZiPai",method = RequestMethod.POST)
-    public Response<FanNewsCultureZipai> addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai){
+    public Response<FanNewsCultureZipai> addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai,
+                                                          @ApiParam("token") String token){
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureZipai.setStatus(1);
-        return getFanNewsCultureZipaiResponse(fanNewsCultureZipai);
+        return getFanNewsCultureZipaiResponse(fanNewsCultureZipai,token);
     }
 
     /**
@@ -133,10 +154,14 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateZiPaiDrft",method = RequestMethod.POST)
-    public Response<FanNewsCultureZipai> addOrUpdateZiPaiDrft(FanNewsCultureZipai fanNewsCultureZipai){
+    public Response<FanNewsCultureZipai> addOrUpdateZiPaiDrft(FanNewsCultureZipai fanNewsCultureZipai,
+                                                                    @ApiParam("token") String token){
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureZipai.setStatus(2);
-        return getFanNewsCultureZipaiResponse(fanNewsCultureZipai);
+        return getFanNewsCultureZipaiResponse(fanNewsCultureZipai,token);
     }
 
     /**
@@ -148,8 +173,19 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
-    private Response<FanNewsCultureZipai> getFanNewsCultureZipaiResponse(FanNewsCultureZipai fanNewsCultureZipai) {
+    private Response<FanNewsCultureZipai> getFanNewsCultureZipaiResponse(FanNewsCultureZipai fanNewsCultureZipai,String token) {
         try {
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            if(fanNewsCultureZipai.getId()==null){
+                //创建人
+             fanNewsCultureZipai.setCreateUser(userLoginInfoByToken.getId());
+             //修改人
+             fanNewsCultureZipai.setUpdateUser(userLoginInfoByToken.getId());
+            }else{
+                //修改人
+                fanNewsCultureZipai.setUpdateUser(userLoginInfoByToken.getId());
+            }
             boolean result=fanNewsCultureZipaiService.addOrUpdateZiPai(fanNewsCultureZipai);
             if( ! result){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
@@ -172,9 +208,14 @@ public class FanNewsCultureController {
  */
     @RequestMapping(value ="/deleteZipaiById",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> deleteZipaiById(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") String token
     ) {
         try {
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //判断id是否为空
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -204,9 +245,13 @@ public class FanNewsCultureController {
     public Response<FamilyCultureVo> getFamilyCulturePage(
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam("token") String token
     ) {
         try{
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
         //判断showId是否有值
         if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -246,8 +291,13 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") String token
     ) {
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+        //判断id是否为空
         if(id==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
@@ -265,8 +315,13 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value ="/getFamilyCultureAmend",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureAmend(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") String token
     ) {
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+        //判断id是否为空
         if(id==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
@@ -302,10 +357,15 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews, String fileName,String filePath) {
+    public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,
+                                                           String fileName,String filePath,
+                                                         @ApiParam("token") String token) {
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureNews.setStatus(1);
-        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileName,filePath);
+        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileName,filePath,token);
     }
 
     /**
@@ -318,10 +378,15 @@ public class FanNewsCultureController {
      *@Description:
     */
     @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews, String fileName,String filePath) {
+    public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews,
+                                                               String fileName,String filePath,
+                                                               @ApiParam("token") String token) {
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureNews.setStatus(2);
-        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileName,filePath);
+        return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileName,filePath,token);
     }
 
     /**
@@ -333,8 +398,21 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
-    private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews, String fileName,String filePath) {
+    private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews,
+                                                                       String fileName,String filePath,
+                                                                       String token) {
         try{
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            if(fanNewsCultureNews.getId()==null){
+                //创建人
+                fanNewsCultureNews.setCreateUser(userLoginInfoByToken.getId());
+                //修改人
+                fanNewsCultureNews.setUpdateUser(userLoginInfoByToken.getId());
+            }else{
+                //修改人
+                fanNewsCultureNews.setUpdateUser(userLoginInfoByToken.getId());
+            }
             // 插入数据
             boolean insert = fanNewsCultureNewsService.addOrUpdateCulture(fanNewsCultureNews,fileName,filePath);
             if( ! insert){
