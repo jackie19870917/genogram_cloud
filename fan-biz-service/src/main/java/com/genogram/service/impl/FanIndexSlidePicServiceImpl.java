@@ -52,7 +52,6 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
             fanIndexSlidePic.setSort(fanIndexSlidePicList.size() + 1);
             fanIndexSlidePic.setStatus(1);
             fanIndexSlidePic.setCreateTime(format);
-            fanIndexSlidePic.setCreateUser(1);
         }
         fanIndexSlidePic.setUpdateTime(format);
 
@@ -60,7 +59,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
     }
 
     @Override
-    public Boolean deleteFanIndexSlidePic(Integer id) {
+    public Boolean deleteFanIndexSlidePic(Integer id,Integer userId) {
 
         FanIndexSlidePic indexSlidePic = this.selectById(id);
 
@@ -82,6 +81,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
         FanIndexSlidePic fanIndexSlidePic = new FanIndexSlidePic();
 
         fanIndexSlidePic.setId(id);
+        fanIndexSlidePic.setUpdateUser(userId);
         fanIndexSlidePic.setStatus(0);
         fanIndexSlidePic.setUpdateTime(DateUtil.format(new Date()));
 

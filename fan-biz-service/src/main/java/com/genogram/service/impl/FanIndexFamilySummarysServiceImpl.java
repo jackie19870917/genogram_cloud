@@ -65,12 +65,13 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
     }
 
     @Override
-    public Boolean deleteFanIndexFamilySummarys(Integer id) {
+    public Boolean deleteFanIndexFamilySummarys(Integer id,Integer userId) {
 
         FanIndexFamilySummarys fanIndexFamilySummarys = new FanIndexFamilySummarys();
 
         fanIndexFamilySummarys.setId(id);
         fanIndexFamilySummarys.setStatus(0);
+        fanIndexFamilySummarys.setUpdateUser(userId);
         fanIndexFamilySummarys.setUpdateTime(DateUtil.getCurrentTimeStamp());
 
         return this.updateById(fanIndexFamilySummarys);

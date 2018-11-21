@@ -26,4 +26,14 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
      * @return
      */
     Boolean insertAllUserLogin(AllUserLogin allUserLogin);
+
+    /**
+     * 查询
+     */
+    AllUserLogin getAllUserLoginById(Integer id);
+
+    /**
+     * 修改密码
+     */
+    Boolean updateAllUserLogin(AllUserLogin allUserLogin);
 }

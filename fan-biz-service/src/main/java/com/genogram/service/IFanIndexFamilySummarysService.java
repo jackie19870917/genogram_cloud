@@ -43,7 +43,8 @@ public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilyS
     /**
      *  逻辑删除
      * @param id
+     * @param userId
      * @return
      */
-    Boolean deleteFanIndexFamilySummarys(Integer id);
+    Boolean deleteFanIndexFamilySummarys(Integer id,Integer userId);
 }

@@ -3,6 +3,7 @@ package com.genogram.controller;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entityvo.UserVo;
 import com.genogram.service.IAllUserLoginService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -39,6 +40,9 @@ public class FanUserLoginController {
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * 登陆
@@ -101,5 +105,27 @@ public class FanUserLoginController {
         } else {
             return ResponseUtlis.success(400);
         }
+    }
+
+    @ApiOperation("修改密码")
+    @RequestMapping(value = "updatePassword",method = RequestMethod.POST)
+    public Response<AllUserLogin> updatePassword(@ApiParam("旧密码")@RequestParam String oldPassword,
+                                                 @ApiParam("新密码")@RequestParam String newPassword,
+                                                 @ApiParam("token")@RequestParam String token) {
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        AllUserLogin login = allUserLoginService.getAllUserLogin(userLogin);
+
+        if (!login.getPassword().equals(oldPassword)) {
+            return ResponseUtlis.error(400, "您输入的密码不正确");
+        }
+
+        AllUserLogin allUserLogin = new AllUserLogin();
+        allUserLogin.setId(login.getId());
+        allUserLogin.setPassword(newPassword);
+
+
+        return null;
     }
 }
