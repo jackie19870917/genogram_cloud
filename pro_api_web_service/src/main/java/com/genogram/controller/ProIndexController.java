@@ -58,7 +58,7 @@ public class ProIndexController {
         }
 
         List list = new ArrayList();
-        //状态   1-前后台显示    2-前台不显示      0-前后台都不显示
+        //状态   1-前后台显示   2-前台不显示      0-前后台都不显示
         list.add(1);
 
         List<ProIndexSlidePic> proIndexSlidePic = proIndexSlidePicService.getProIndexSlidePic(siteId, list);
