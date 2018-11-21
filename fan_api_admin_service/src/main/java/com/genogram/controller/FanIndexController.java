@@ -64,7 +64,7 @@ public class FanIndexController {
                                                               @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         if (siteId == null) {
@@ -102,7 +102,7 @@ public class FanIndexController {
     public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic, @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -112,9 +112,9 @@ public class FanIndexController {
         Boolean result = fanIndexSlidePicService.insertOrUpdateFanIndexSlidePic(fanIndexSlidePic);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
@@ -130,7 +130,7 @@ public class FanIndexController {
                                                              @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         //用户Id
@@ -139,9 +139,9 @@ public class FanIndexController {
         Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(id, userId);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.FAILURE_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
@@ -157,7 +157,7 @@ public class FanIndexController {
                                                  @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         if (siteId == null) {
@@ -180,7 +180,7 @@ public class FanIndexController {
     public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo, @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -190,9 +190,9 @@ public class FanIndexController {
         Boolean result = fanIndexInfoService.insertOrUpdateIndexInfoVo(indexInfoVo);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
@@ -208,7 +208,7 @@ public class FanIndexController {
                                                      @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -217,9 +217,9 @@ public class FanIndexController {
         Boolean result = fanIndexInfoService.deleteFanIndexInfo(fanIndexInfo);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
@@ -239,7 +239,7 @@ public class FanIndexController {
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         if (siteId == null) {
@@ -268,7 +268,7 @@ public class FanIndexController {
                                                                       @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         FanIndexFamilySummarys fanIndexFamilySummarys = fanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
@@ -288,7 +288,7 @@ public class FanIndexController {
                                                                                  FanIndexFamilySummarys fanIndexFamilySummarys) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         //状态   1-正常  2-草稿
@@ -301,9 +301,9 @@ public class FanIndexController {
         Boolean result = fanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
@@ -319,7 +319,7 @@ public class FanIndexController {
                                                                                      @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         //状态   1-正常  2-草稿
@@ -327,9 +327,9 @@ public class FanIndexController {
         Boolean result = fanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
@@ -345,7 +345,7 @@ public class FanIndexController {
                                                                          @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         //用户Id
@@ -354,9 +354,9 @@ public class FanIndexController {
         Boolean result = fanIndexFamilySummarysService.deleteFanIndexFamilySummarys(id, userId);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
     }
 
