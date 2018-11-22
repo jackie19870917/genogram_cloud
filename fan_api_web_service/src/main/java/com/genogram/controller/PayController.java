@@ -6,31 +6,23 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.genogram.config.AlipayConfig;
-import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityPayIn;
-import com.genogram.entityvo.SysWebMenuVo;
 import com.genogram.service.*;
 import com.genogram.unit.DateUtil;
-import com.genogram.unit.PayUtils;
-import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.velocity.runtime.directive.Break;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -59,15 +51,13 @@ public class PayController {
     @ApiParam
     private IUserService userService;
 
-    @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
-    @RequestMapping(value = "aLiPay", method = RequestMethod.GET)
+    @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额,anonymous:是否匿名(1-是,2-否)")
+    @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
     public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
                          @ApiParam("网站ID") @RequestParam Integer siteId,
-                         @ApiParam("token")@RequestParam("token")String token) throws IOException {
+                         @ApiParam("token")@RequestParam("token")String token,
+                         @ApiParam("是否匿名")Integer anonymous) throws IOException {
 
-        if (StringUtils.isEmpty(token)) {
-            return "您没有登陆";
-        }
 
         // 获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id,
@@ -96,7 +86,17 @@ public class PayController {
 
         String payChannel = "支付宝支付";
 
-        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+        AllUserLogin userLogin = null;
+
+        if (1==anonymous) {
+            userLogin.setId(1);
+        }else {
+            if (StringUtils.isEmpty(token)) {
+                return "您没有登陆";
+            } else {
+                userLogin = userService.getUserLoginInfoByToken(token);
+            }
+        }
 
         fanNewsCharityPayIn.setOrderId(outTradeNo);
         fanNewsCharityPayIn.setShowId(showId);
@@ -274,7 +274,7 @@ public class PayController {
         return "success";
     }
 
-    @ApiOperation("微信支付")
+   /* @ApiOperation("微信支付")
     @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
     public void weChatPay(Model model, HttpServletRequest request, FanNewsCharityPayIn fanNewsCharityPayIn) {
 
@@ -306,5 +306,5 @@ public class PayController {
         // 进入到二维码生成页面
         //return "saoma";
 
-    }
+    }*/
 }

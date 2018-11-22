@@ -105,7 +105,25 @@ public class FanUserLoginController {
         Boolean result = allUserLoginService.insertAllUserLogin(allUserLogin);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+
+            Map<String, Object> map = new HashMap();
+
+            String time = DateUtil.getAllTime();
+
+            String user = allUserLogin.getMobilePhone() + "=" + allUserLogin.getPassword() + "=" + time;
+            String value = allUserLogin.getId() + "=" + allUserLogin.getUserName();
+            map.put(user, value);
+
+            //Base64加密
+            byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
+            String str = new String(bytes);
+
+            UserVo userVo = new UserVo();
+            BeanUtils.copyProperties(allUserLogin, userVo);
+            userVo.setToken(str);
+
+            return ResponseUtlis.success(userVo);
+
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不可用");
         }
