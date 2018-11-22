@@ -51,12 +51,12 @@ public class PayController {
     @ApiParam
     private IUserService userService;
 
-    @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额,anonymous:是否匿名(1-是,2-否)")
+    @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
     public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
                          @ApiParam("网站ID") @RequestParam Integer siteId,
                          @ApiParam("token")@RequestParam("token")String token,
-                         @ApiParam("是否匿名")Integer anonymous) throws IOException {
+                         @ApiParam("是否匿名(1-匿名,2-不匿名)")@RequestParam("anonymous") Integer anonymous) throws IOException {
 
 
         // 获得初始化的AlipayClient
