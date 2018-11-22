@@ -195,7 +195,7 @@ public class PayController {
                     + "'" + "&productName='炎黄统谱网在线支付宝扫码支付'");*/
             /*return "redirect:"+this.baseUrl+"out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount
                     + "'" + "&productName='炎黄统谱网在线支付宝扫码支付'";*/
-            response.sendRedirect("http://"+this.baseUrl  + "out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount
+            response.sendRedirect(this.baseUrl  + "out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount
                     + "'" + "&productName='炎黄统谱网在线支付宝扫码支付'");
            // return "redirect:https://www.baidu.com";
         } else {
