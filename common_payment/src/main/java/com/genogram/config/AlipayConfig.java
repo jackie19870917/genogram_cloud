@@ -29,15 +29,17 @@ public class AlipayConfig {
 
     /**
      * 服务器异步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+     * http://192.168.2.179:8090/genogram/pay/notify_url
      */
-    @Value("${pay_notify_url.pay_notify_url}")
-    public static String notify_url;
+    @Value("${fan_api_web_service.pay_return_url}")
+    public String notify_url;
 
     /**
      * 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+     * http://192.168.2.179:8090/genogram/pay/return_url
      */
-    @Value("${pay_return_url.pay_return_url}")
-    public static String return_url;
+    @Value("${fan_api_web_service.pay_return_url}")
+    public String return_url ;
 
     /**
      *  签名方式
