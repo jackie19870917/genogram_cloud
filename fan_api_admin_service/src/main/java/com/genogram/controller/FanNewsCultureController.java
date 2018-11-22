@@ -60,7 +60,7 @@ public class FanNewsCultureController {
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
-            @ApiParam("token") String token
+            @ApiParam("token")@RequestParam("token")String token
     ) {
         try {
             if (StringUtils.isEmpty(token)) {
@@ -106,7 +106,7 @@ public class FanNewsCultureController {
     @RequestMapping(value = "/getZiPaiDetail",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getZiPaiDetail(
             @RequestParam(value = "id") Integer id, // 家族字派文章ID
-            @ApiParam("token") String token
+            @ApiParam("token")@RequestParam("token")String token
     ){
         try {
             if (StringUtils.isEmpty(token)) {
@@ -135,7 +135,7 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value = "/addOrUpdateZiPai",method = RequestMethod.POST)
     public Response<FanNewsCultureZipai> addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai,
-                                                          @ApiParam("token") String token){
+                                                          @ApiParam("token")@RequestParam("token")String token){
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
@@ -155,7 +155,7 @@ public class FanNewsCultureController {
     */
     @RequestMapping(value = "/addOrUpdateZiPaiDrft",method = RequestMethod.POST)
     public Response<FanNewsCultureZipai> addOrUpdateZiPaiDrft(FanNewsCultureZipai fanNewsCultureZipai,
-                                                                    @ApiParam("token") String token){
+                                                              @ApiParam("token")@RequestParam("token")String token){
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
@@ -173,7 +173,7 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
-    private Response<FanNewsCultureZipai> getFanNewsCultureZipaiResponse(FanNewsCultureZipai fanNewsCultureZipai,String token) {
+    private Response<FanNewsCultureZipai> getFanNewsCultureZipaiResponse(FanNewsCultureZipai fanNewsCultureZipai,@ApiParam("token")@RequestParam("token")String token) {
         try {
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
@@ -209,7 +209,7 @@ public class FanNewsCultureController {
     @RequestMapping(value ="/deleteZipaiById",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> deleteZipaiById(
             @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
-            @ApiParam("token") String token
+            @ApiParam("token")@RequestParam("token")String token
     ) {
         try {
             if (StringUtils.isEmpty(token)) {
@@ -246,7 +246,7 @@ public class FanNewsCultureController {
             @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
-            @ApiParam("token") String token
+            @ApiParam("token")@RequestParam("token")String token
     ) {
         try{
             if (StringUtils.isEmpty(token)) {
@@ -292,7 +292,7 @@ public class FanNewsCultureController {
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
             @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
-            @ApiParam("token") String token
+            @ApiParam("token")@RequestParam("token")String token
     ) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -316,7 +316,7 @@ public class FanNewsCultureController {
     @RequestMapping(value ="/getFamilyCultureAmend",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureAmend(
             @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
-            @ApiParam("token") String token
+            @ApiParam("token")@RequestParam("token")String token
     ) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -359,7 +359,7 @@ public class FanNewsCultureController {
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
     public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,
                                                            String fileName,String filePath,
-                                                         @ApiParam("token") String token) {
+                                                           @ApiParam("token")@RequestParam("token")String token) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
@@ -380,7 +380,7 @@ public class FanNewsCultureController {
     @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
     public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews,
                                                                String fileName,String filePath,
-                                                               @ApiParam("token") String token) {
+                                                               @ApiParam("token")@RequestParam("token")String token) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
@@ -400,7 +400,7 @@ public class FanNewsCultureController {
     */
     private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews,
                                                                        String fileName,String filePath,
-                                                                       String token) {
+                                                                       @ApiParam("token")@RequestParam("token")String token) {
         try{
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
