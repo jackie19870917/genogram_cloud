@@ -27,19 +27,19 @@ public class AlipayConfig {
      */
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgR4qMfqEcSQ4V1PO4cVl50mzEx0Tr9F/EMQT1Uagr3fhIddHfvSzJfuYDnmBRNUSkwLTMTvqi7Zct4rLtG8FUqv4VZh6wKS79+lppmllj6pwZkEQR4GtiqqBLw5USeTl0H+nkUOdOeq1cGqy41xUEiDygJSNuAhCFAGqhwepOCdysChX9jDFcWADTyN2TmuRCx2PMjuMueTKOYg2z6pv2gKXbrDDaZkp0C9+gTqPybhgyX1Tl53yhEd+oD2goUqgzfCQ1kdOAKzwmZDZkBuwVPLxPGb1+m7WT7Vm/CuvR60BBjd43q5/vXt3emrsikF/TqRi50LynNkyE7ROF+uaWwIDAQAB";
 
-    /**
-     * 服务器异步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-     * http://192.168.2.179:8090/genogram/pay/notify_url
-     */
-    @Value("${fan_api_web_service.pay_return_url}")
-    public String notify_url;
-
-    /**
-     * 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-     * http://192.168.2.179:8090/genogram/pay/return_url
-     */
-    @Value("${fan_api_web_service.pay_return_url}")
-    public String return_url ;
+//    /**
+//     * 服务器异步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+//     * http://192.168.2.179:8090/genogram/pay/notify_url
+//     */
+//    @Value("${fan_api_web_service.pay_return_url}")
+//    public String notify_url;
+//
+//    /**
+//     * 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
+//     * http://192.168.2.179:8090/genogram/pay/return_url
+//     */
+//    @Value("${fan_api_web_service.pay_return_url}")
+//    public String return_url ;
 
     /**
      *  签名方式
