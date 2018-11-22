@@ -3,6 +3,10 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.AllUserLogin;
+import com.genogram.entity.FanSysSite;
+import com.genogram.entity.ProSysSite;
+
+import java.util.List;
 
 /**
  * <p>
@@ -50,8 +54,25 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
     Boolean updateUserLogin(AllUserLogin allUserLogin);
 
     /**
-     * 查询所有用户
+     * 查询用户
+     * @param allUserLogin
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    Page<AllUserLogin> getAllUserLoginPage();
+    Page<AllUserLogin> getAllUserLoginPage(AllUserLogin allUserLogin, Integer pageNo, Integer pageSize);
+
+    /**
+     * 联谊会网站
+     * @param fanSysSite
+     * @return
+     */
+    List<FanSysSite> getFanSysSite(FanSysSite fanSysSite);
+
+    /**
+     * 省级网站
+     * @param proSysSite
+     * @return
+     */
+    List<ProSysSite> getProSysSite(ProSysSite proSysSite);
 }

@@ -19,4 +19,6 @@ public interface IFanSysSiteService extends IService<FanSysSite> {
      * @return
      */
     FanSysSite getFanSysSite(Integer siteId);
+
+
 }

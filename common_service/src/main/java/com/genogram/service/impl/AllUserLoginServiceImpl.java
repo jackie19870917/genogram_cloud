@@ -5,13 +5,21 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.AllUserLogin;
+import com.genogram.entity.FanSysSite;
+import com.genogram.entity.ProSysSite;
 import com.genogram.mapper.AllUserLoginMapper;
+import com.genogram.mapper.FanSysSiteMapper;
+import com.genogram.mapper.ProSysSiteMapper;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Random;
+
+import static com.baomidou.mybatisplus.enums.SqlLike.LEFT;
 
 /**
  * <p>
@@ -24,11 +32,17 @@ import java.util.Random;
 @Service
 public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, AllUserLogin> implements IAllUserLoginService {
 
+    @Autowired
+    private FanSysSiteMapper fanSysSiteMapper;
+
+    @Autowired
+    private ProSysSiteMapper proSysSiteMapper;
+
     @Override
     public AllUserLogin getAllUserLogin(AllUserLogin allUserLogin) {
 
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<AllUserLogin>();
-       // wrapper.eq("user_name", allUserLogin.getUserName());
+        // wrapper.eq("user_name", allUserLogin.getUserName());
         wrapper.eq("mobile_phone", allUserLogin.getMobilePhone());
         return this.selectOne(wrapper);
     }
@@ -45,7 +59,7 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
             return false;
         }
 
-        String userId="user"+ DateUtil.getAllTime()+String.format("%02d", new Random().nextInt(100));
+        String userId = "user" + DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
         allUserLogin.setUserId(userId);
         allUserLogin.setStatus(1);
         allUserLogin.setSiteId(1);
@@ -78,13 +92,43 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
     public Boolean updateUserLogin(AllUserLogin allUserLogin) {
 
         allUserLogin.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        return  this.updateById(allUserLogin);
+        return this.updateById(allUserLogin);
     }
 
     @Override
-    public Page<AllUserLogin> getAllUserLoginPage() {
+    public Page<AllUserLogin> getAllUserLoginPage(AllUserLogin allUserLogin, Integer pageNo, Integer pageSize) {
 
-        Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
-        return null;
+        if (StringUtils.isEmpty(allUserLogin)) {
+            return this.selectPage(new Page<>(pageNo, pageSize),null);
+        } else {
+            Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
+            if (allUserLogin.getUserName() != null) {
+                wrapper.like("user_name", allUserLogin.getUserName());
+               // wrapper.lik
+                return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    @Override
+    public List<FanSysSite> getFanSysSite(FanSysSite fanSysSite) {
+
+        if (StringUtils.isEmpty(fanSysSite)) {
+            return fanSysSiteMapper.selectList(null);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<ProSysSite> getProSysSite(ProSysSite proSysSite) {
+
+        if (StringUtils.isEmpty(proSysSite)) {
+            return proSysSiteMapper.selectList(null);
+        } else {
+            return null;
+        }
     }
 }
