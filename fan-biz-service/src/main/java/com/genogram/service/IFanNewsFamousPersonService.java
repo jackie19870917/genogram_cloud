@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.ProNewsFamousPerson;
 import com.genogram.entityvo.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 联谊会-家族名人-家族长老-家族栋梁-组织架构 服务类
@@ -83,5 +85,5 @@ public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerso
      * @param showId
      * @return
      */
-    FanNewsFamousPerson getFamilyFrameList(Integer showId);
+    List<FanNewsFamousPerson> getFamilyFrameList(Integer showId);
 }

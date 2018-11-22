@@ -306,12 +306,17 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         return fanNewsFamousPerson;
     }
 
+    /**
+     * 组织架构查询会长副会长
+     * @param showId
+     * @return
+     */
     @Override
-    public FanNewsFamousPerson getFamilyFrameList(Integer showId) {
+    public List<FanNewsFamousPerson> getFamilyFrameList(Integer showId) {
         Wrapper<FanNewsFamousPerson> entity = new EntityWrapper<FanNewsFamousPerson>();
         entity.eq("show_id", showId);
         //分页查询文章主表
-        FanNewsFamousPerson fanNewsFamousPerson = this.selectOne(entity);
-        return fanNewsFamousPerson;
+        List<FanNewsFamousPerson> fanNewsFamousPeople = this.selectList(entity);
+        return fanNewsFamousPeople;
     }
 }

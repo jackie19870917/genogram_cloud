@@ -10,12 +10,15 @@ import com.genogram.service.IProNewsFamilyPersionService;
 import com.genogram.service.IProSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+@Api(description = "省级家族长老，组织架构")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/proNewsFamous")
@@ -29,6 +32,7 @@ public class ProNewsFamousController {
     /**
      * 家族长老查询,组织架构
      */
+    @ApiOperation(value = "家族长老，组织架构", notes = "showId:显示位置,pageNo:页数,pageSize:总页数")
     @ResponseBody
     @RequestMapping(value = "selectPersonPage",method = RequestMethod.GET)
     public Response<ProNewsFamousPerson> selectPersonPage(
@@ -60,6 +64,7 @@ public class ProNewsFamousController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "家族长老，组织架构", notes = "showId:显示位置,pageNo:页数,pageSize:总页数")
     @RequestMapping(value = "/getFamilyPersionDetail", method = RequestMethod.GET)
     public Response<ProFamilyPersonVo> getFamilyPersionDetail(
             @RequestParam(value = "id") Integer id // 家族文化文章ID
@@ -85,6 +90,7 @@ public class ProNewsFamousController {
     /**
      * 组织架构
      */
+    @ApiOperation(value = "组织架构", notes = "siteId:网站id")
     @RequestMapping(value = "/getFamilyStructureList", method = RequestMethod.GET)
     public Response<ProFamilyPersonVo> getFamilyStructureList(
             @RequestParam(value = "siteId") Integer siteId
