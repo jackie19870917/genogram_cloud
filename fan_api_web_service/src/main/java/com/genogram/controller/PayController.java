@@ -191,7 +191,7 @@ public class PayController {
             log.info("* 购买产品: {}", "炎黄统谱网在线支付宝扫码支付");
             log.info("***************************************************************");
 
-            response.sendRedirect(this.baseUrl  + "result=success&out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount);
+            response.sendRedirect(this.baseUrl  + "result=success&out_trade_no=" +  outTradeNo  + "&total_amount=" + totalAmount);
 
         } else {
             log.info("支付, 验签失败...");
