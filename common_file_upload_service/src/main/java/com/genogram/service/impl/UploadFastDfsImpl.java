@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Service
 public class UploadFastDfsImpl implements IUploadFastDfsService {
-    @Value("${fan_api_admin_service.fastDfs_ip}")
+    @Value("${fastDfs_ip}")
     private String fastDfsIp;
     @Override
     public Map<String, Object> uploadFastDfs(MultipartFile file) {

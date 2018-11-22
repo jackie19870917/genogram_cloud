@@ -31,8 +31,6 @@ import java.util.List;
 @RequestMapping("/swagger")
 @CrossOrigin(origins = "*")
 public class SwaggerController {
-    @Value("${pro_api_web_service.ip}")
-    private String hostIp;
     @Autowired
     private IProSysWebNewsShowService proSysWebNewsShowService;
 
