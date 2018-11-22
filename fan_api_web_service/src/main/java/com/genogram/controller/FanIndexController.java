@@ -172,50 +172,51 @@ public class FanIndexController {
         try {
             //最大的map
             Map zongmap = new LinkedHashMap();
-            List list = new ArrayList();
+           // List list = new ArrayList();
             //会长类
-            Map huizhangmap = new LinkedHashMap();
-            Map map = new LinkedHashMap();
+           // Map huizhangmap = new LinkedHashMap();
+           // Map map = new LinkedHashMap();
             //拿到会长的showid
             FanSysWebNewsShow show = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_huizhang");
             List<FanNewsFamousPerson> familyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
-            map.put(show.getMenuName(), familyFrameList);
+            //zongmap.put(show.getMenuName(), familyFrameList);
 
             //拿到副会长的fushowid
             FanSysWebNewsShow fushow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_fuhuizhang");
             List<FanNewsFamousPerson> fufamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(fushow.getShowId());
-            map.put(fushow.getMenuName(), fufamilyFrameList);
+            familyFrameList.addAll(fufamilyFrameList);
+            zongmap.put(show.getMenuName(), familyFrameList);
 
             //族长类
             FanSysWebNewsShow zuzhangshow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_zuzhang");
             List<FanNewsFamousPerson> zuzhangfamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(zuzhangshow.getShowId());
-            zongmap.put(zuzhangshow.getMenuName(), zuzhangfamilyFrameList);
+            zongmap.put(zuzhangshow.getMenuName(),zuzhangfamilyFrameList);
 
             //官员类
             List guanyuan = new ArrayList<>();
             FanSysWebNewsShow guanyuanshow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_guanyuan");
             List<FanNewsFamousPerson> guanyuanfamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(guanyuanshow.getShowId());
-            zongmap.put(guanyuanshow.getMenuName(), guanyuanfamilyFrameList);
+            zongmap.put(guanyuanshow.getMenuName(),guanyuanfamilyFrameList);
 
             //企业家
             FanSysWebNewsShow qiyejiashow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_qiyejia");
             List<FanNewsFamousPerson> qiyejiafamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(qiyejiashow.getShowId());
-            zongmap.put(qiyejiashow.getMenuName(), qiyejiafamilyFrameList);
+            zongmap.put(qiyejiashow.getMenuName(),qiyejiafamilyFrameList);
 
             //店主
             FanSysWebNewsShow dianzhushow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_dianzhu");
             List<FanNewsFamousPerson> dianzhufamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(dianzhushow.getShowId());
-            zongmap.put(dianzhushow.getMenuName(), dianzhufamilyFrameList);
+            zongmap.put(dianzhushow.getMenuName(),dianzhufamilyFrameList);
 
-            huizhangmap.put(show.getMenuName(), map);
-            list.add(huizhangmap);
-            list.add(zongmap);
+//            huizhangmap.put(show.getMenuName(),familyFrameList);
+//            list.add(huizhangmap);
+//            list.add(zongmap);
             if (familyFrameList == null) {
                 //没有取到参数,返回空参
                 Page<ProFamilyPersonVo> emptfamilyCultureVo = new Page<ProFamilyPersonVo>();
                 return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
             }
-            return ResponseUtlis.success(list);
+            return ResponseUtlis.success(zongmap);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
