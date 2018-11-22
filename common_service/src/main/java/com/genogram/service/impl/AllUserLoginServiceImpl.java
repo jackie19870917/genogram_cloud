@@ -2,6 +2,7 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.mapper.AllUserLoginMapper;
@@ -78,5 +79,12 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
 
         allUserLogin.setUpdateTime(DateUtil.getCurrentTimeStamp());
         return  this.updateById(allUserLogin);
+    }
+
+    @Override
+    public Page<AllUserLogin> getAllUserLoginPage() {
+
+        Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
+        return null;
     }
 }

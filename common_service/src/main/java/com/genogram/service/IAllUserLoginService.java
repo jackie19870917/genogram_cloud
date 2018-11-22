@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.AllUserLogin;
 
@@ -47,4 +48,10 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
      * @return
      */
     Boolean updateUserLogin(AllUserLogin allUserLogin);
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    Page<AllUserLogin> getAllUserLoginPage();
 }

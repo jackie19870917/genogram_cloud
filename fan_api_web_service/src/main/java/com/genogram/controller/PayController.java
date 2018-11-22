@@ -52,10 +52,10 @@ public class PayController {
     private IUserService userService;
 
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
-    @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
+    @RequestMapping(value = "aLiPay", method = RequestMethod.GET)
     public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
                          @ApiParam("网站ID") @RequestParam Integer siteId,
-                         @ApiParam("token")@RequestParam("token")String token,
+                         @ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token,
                          @ApiParam("是否匿名(1-匿名,2-不匿名)")@RequestParam("anonymous") Integer anonymous) throws IOException {
 
 
@@ -86,7 +86,7 @@ public class PayController {
 
         String payChannel = "支付宝支付";
 
-        AllUserLogin userLogin = null;
+        AllUserLogin userLogin = new AllUserLogin();
 
         if (1==anonymous) {
             userLogin.setId(1);
