@@ -1,7 +1,7 @@
 #http://localhost:8090/genogram/fanMenu/getMenuBySiteId?siteId=1
 fan_api_web_service:
   pay_notify_url: http://192.168.2.179:8090/genogram/pay/notify_url
-  pay_return_url: http://192.168.2.179:8090/genogram/pay/notify_url
+  pay_return_url: http://192.168.2.179:8090/genogram/pay/return_url
   ip: http://192.168.2.179:8090
   fastDfs_ip: http://192.168.2.132:8090
 fan_api_admin_service:
