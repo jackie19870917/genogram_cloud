@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
@@ -51,14 +52,19 @@ public class PayController {
     @ApiParam
     private IUserService userService;
 
+    private String baseUrl;
+
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
-    @RequestMapping(value = "aLiPay", method = RequestMethod.GET)
+    @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
     public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
                          @ApiParam("网站ID") @RequestParam Integer siteId,
                          @ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token,
-                         @ApiParam("是否匿名(1-匿名,2-不匿名)")@RequestParam("anonymous") Integer anonymous) throws IOException {
+                         @ApiParam("是否匿名(1-匿名,2-不匿名)")@RequestParam("anonymous") Integer anonymous,
+                         @RequestParam(value = "url")String url) throws IOException {
 
 
+
+        this.baseUrl = url;
         // 获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayConfig.gatewayUrl, AlipayConfig.app_id,
                 AlipayConfig.merchant_private_key, "json", AlipayConfig.charset, AlipayConfig.alipay_public_key,
@@ -124,7 +130,7 @@ public class PayController {
     }
 
     @RequestMapping(value = "/return_url")
-    public String aLiPayReturnNotice(HttpServletRequest request) throws Exception {
+    public void aLiPayReturnNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         log.info("支付成功, 进入同步通知接口...");
 
@@ -185,11 +191,16 @@ public class PayController {
             log.info("* 购买产品: {}", "炎黄统谱网在线支付宝扫码支付");
             log.info("***************************************************************");
 
-            return "out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount
-                    + "'" + "&productName='炎黄统谱网在线支付宝扫码支付'";
+            /*response.sendRedirect(this.baseUrl  + "out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount
+                    + "'" + "&productName='炎黄统谱网在线支付宝扫码支付'");*/
+            /*return "redirect:"+this.baseUrl+"out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount
+                    + "'" + "&productName='炎黄统谱网在线支付宝扫码支付'";*/
+            response.sendRedirect("http://"+this.baseUrl  + "out_trade_no=" + "'" + outTradeNo + "'" + "&total_amount=" + "'" + totalAmount
+                    + "'" + "&productName='炎黄统谱网在线支付宝扫码支付'");
+           // return "redirect:https://www.baidu.com";
         } else {
             log.info("支付, 验签失败...");
-            return null;
+          //  return null;
         }
 
     }
