@@ -59,14 +59,14 @@ public class PayController {
     @ApiParam
     private IUserService userService;
 
-    @ApiOperation(value = "支付宝支付",notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
+    @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.GET)
     public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
-                         @ApiParam("网站ID")@RequestParam Integer  siteId,
-                         @ApiParam("token")String token) throws IOException {
+                         @ApiParam("网站ID") @RequestParam Integer siteId,
+                         @ApiParam("token") String token) throws IOException {
 
-       if (StringUtils.isEmpty(token)) {
-           return "您没有登陆";
+        if (StringUtils.isEmpty(token)) {
+            return "您没有登陆";
         }
 
         // 获得初始化的AlipayClient
@@ -80,7 +80,7 @@ public class PayController {
         alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
 
         // 商户订单号，商户网站订单系统中唯一订单号，必填
-        String outTradeNo = DateUtil.getAllTime()+String.format("%02d", new Random().nextInt(100));
+        String outTradeNo = DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
 
         // 付款金额，必填
         String totalAmount = fanNewsCharityPayIn.getPayAmount().toString();
@@ -124,14 +124,14 @@ public class PayController {
     }
 
     @RequestMapping(value = "/return_url")
-    public String alipayReturnNotice(HttpServletRequest request) throws Exception {
+    public String aLiPayReturnNotice(HttpServletRequest request) throws Exception {
 
         log.info("支付成功, 进入同步通知接口...");
 
         // 获取支付宝GET过来反馈信息
         Map<String, String> params = new HashMap<String, String>(16);
         Map<String, String[]> requestParams = request.getParameterMap();
-        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
             String name = (String) iter.next();
             String[] values = (String[]) requestParams.get(name);
             String valueStr = "";
@@ -195,14 +195,14 @@ public class PayController {
     }
 
     @RequestMapping("/notify_url")
-    public String alipayNotifyNotice(HttpServletRequest request ) throws Exception {
+    public String aLiPayNotifyNotice(HttpServletRequest request) throws Exception {
 
         log.info("支付成功, 进入异步通知接口...");
 
         // 获取支付宝POST过来反馈信息
         Map<String, String> params = new HashMap<String, String>(16);
         Map<String, String[]> requestParams = request.getParameterMap();
-        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+        for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
             String name = (String) iter.next();
             String[] values = (String[]) requestParams.get(name);
             String valueStr = "";
@@ -276,7 +276,7 @@ public class PayController {
 
     @ApiOperation("微信支付")
     @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
-    public void weChatPay(Model model,HttpServletRequest request,FanNewsCharityPayIn fanNewsCharityPayIn) {
+    public void weChatPay(Model model, HttpServletRequest request, FanNewsCharityPayIn fanNewsCharityPayIn) {
 
         // 订单编号
         String payId = null;
@@ -285,7 +285,7 @@ public class PayController {
         String userIp = PayUtils.getRemoteAddr(null);
 
         // 支付金额
-        String totalFee = fanNewsCharityPayIn.getPayAmount()+"";
+        String totalFee = fanNewsCharityPayIn.getPayAmount() + "";
 
         // 商品描述
         String body = "炎黄統譜网在线微信扫码支付";

@@ -81,13 +81,6 @@ public class FanIndexController {
      * 联谊堂
      *
      * @param siteId   网站IDid
-     *                 site_id
-     *                 root_group
-     *                 root_person
-     *                 leader
-     *                 leader_phone
-     *                 worship_num
-     *                 praise_num
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
@@ -167,7 +160,8 @@ public class FanIndexController {
     }
 
     /**
-     *组织架构查询会长副会长
+     * 组织架构查询会长副会长
+     *
      * @param siteId
      * @return
      */
@@ -175,17 +169,17 @@ public class FanIndexController {
     @RequestMapping(value = "/getFamilyStructureList", method = RequestMethod.GET)
     public Response<ProFamilyPersonVo> getFamilyStructureList(
             @RequestParam(value = "siteId") Integer siteId
-    ){
+    ) {
         try {
             Map map = new LinkedHashMap();
             //拿到会长的showid
-            FanSysWebNewsShow show = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_huizhang");
+            FanSysWebNewsShow show = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_huizhang");
             FanNewsFamousPerson familyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
-            map.put(show.getMenuName(),familyFrameList);
+            map.put(show.getMenuName(), familyFrameList);
             //拿到副会长的fushowid
-            FanSysWebNewsShow fushow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_fuhuizhang");
+            FanSysWebNewsShow fushow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_fuhuizhang");
             FanNewsFamousPerson fufamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(fushow.getShowId());
-            map.put(fushow.getMenuName(),familyFrameList);
+            map.put(fushow.getMenuName(), familyFrameList);
 
             if (familyFrameList == null) {
                 //没有取到参数,返回空参

@@ -199,9 +199,9 @@ public class FanNewsCharityController {
         Boolean result = fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 }

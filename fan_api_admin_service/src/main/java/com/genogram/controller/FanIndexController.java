@@ -118,7 +118,7 @@ public class FanIndexController {
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -143,9 +143,9 @@ public class FanIndexController {
         Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(id, userId);
 
         if (result) {
-            return ResponseUtlis.success(Constants.FAILURE_CODE);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -199,7 +199,7 @@ public class FanIndexController {
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -226,7 +226,7 @@ public class FanIndexController {
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -314,7 +314,7 @@ public class FanIndexController {
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -340,7 +340,7 @@ public class FanIndexController {
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -367,7 +367,7 @@ public class FanIndexController {
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 

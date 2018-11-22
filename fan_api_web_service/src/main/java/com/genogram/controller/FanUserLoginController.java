@@ -1,5 +1,6 @@
 package com.genogram.controller;
 
+import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entityvo.UserVo;
 import com.genogram.service.IAllUserLoginService;
@@ -63,7 +64,7 @@ public class FanUserLoginController {
         AllUserLogin userLogin = allUserLoginService.getAllUserLogin(allUserLogin);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(400, "用户名不存在");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不存在");
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
@@ -85,7 +86,7 @@ public class FanUserLoginController {
 
                 return ResponseUtlis.success(userVo);
             } else {
-                return ResponseUtlis.error(500, "用户名或密码错误");
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名或密码错误");
             }
         }
 
@@ -104,9 +105,9 @@ public class FanUserLoginController {
         Boolean result = allUserLoginService.insertAllUserLogin(allUserLogin);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不可用");
         }
     }
 
@@ -117,7 +118,7 @@ public class FanUserLoginController {
                                                  @ApiParam("token") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(204, "token不能为空");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -125,7 +126,7 @@ public class FanUserLoginController {
         AllUserLogin login = allUserLoginService.getAllUserLogin(userLogin);
 
         if (!oldPassword.equals(login.getPassword())) {
-            return ResponseUtlis.error(400, "您输入的密码不正确");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "您输入的密码不正确");
         }
 
         AllUserLogin allUserLogin = new AllUserLogin();
@@ -134,6 +135,6 @@ public class FanUserLoginController {
 
         allUserLoginService.updateAllUserLogin(allUserLogin);
 
-        return ResponseUtlis.success(200);
+        return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
     }
 }
