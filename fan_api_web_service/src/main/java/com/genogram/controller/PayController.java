@@ -63,7 +63,7 @@ public class PayController {
     @RequestMapping(value = "aLiPay", method = RequestMethod.GET)
     public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
                          @ApiParam("网站ID") @RequestParam Integer siteId,
-                         @ApiParam("token") String token) throws IOException {
+                         @ApiParam("token")@RequestParam("token")String token) throws IOException {
 
         if (StringUtils.isEmpty(token)) {
             return "您没有登陆";

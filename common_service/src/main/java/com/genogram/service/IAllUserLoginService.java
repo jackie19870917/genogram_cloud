@@ -1,7 +1,7 @@
 package com.genogram.service;
 
-import com.genogram.entity.AllUserLogin;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entity.AllUserLogin;
 
 /**
  * <p>
@@ -40,4 +40,11 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
      * @return
      */
     Boolean updateAllUserLogin(AllUserLogin allUserLogin);
+
+    /**
+     * 修改个人资料
+     * @param allUserLogin
+     * @return
+     */
+    Boolean updateUserLogin(AllUserLogin allUserLogin);
 }
