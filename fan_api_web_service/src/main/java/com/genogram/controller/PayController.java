@@ -6,11 +6,14 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.genogram.config.AlipayConfig;
+import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.service.*;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.Response;
+import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -56,11 +59,11 @@ public class PayController {
 
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
-    public String aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
-                         @ApiParam("网站ID") @RequestParam Integer siteId,
-                         @ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token,
-                         @ApiParam("是否匿名(1-匿名,2-不匿名)")@RequestParam("anonymous") Integer anonymous,
-                         @RequestParam(value = "url")String url) throws IOException {
+    public Response<FanNewsCharityPayIn> aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
+                           @ApiParam("网站ID") @RequestParam Integer siteId,
+                           @ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token,
+                           @ApiParam("是否匿名(1-匿名,2-不匿名)")@RequestParam("anonymous") Integer anonymous,
+                           @RequestParam(value = "url")String url) throws IOException {
 
 
 
@@ -98,7 +101,7 @@ public class PayController {
             userLogin.setId(1);
         }else {
             if (StringUtils.isEmpty(token)) {
-                return "您没有登陆";
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"您还没有登陆");
             } else {
                 userLogin = userService.getUserLoginInfoByToken(token);
             }
@@ -121,7 +124,7 @@ public class PayController {
         try {
             String result = alipayClient.pageExecute(alipayRequest).getBody();
 
-            return result;
+            return ResponseUtlis.success(result);
         } catch (AlipayApiException e) {
             e.printStackTrace();
 

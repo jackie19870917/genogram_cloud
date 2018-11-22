@@ -137,12 +137,6 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
             fanNewsCharityPayIn.setCreateUser(fanNewsCharityPayIn.getPayUsrId());
             fanNewsCharityPayIn.setUpdateUser(fanNewsCharityPayIn.getPayUsrId());
 
-            FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
-
-            fanIndexFund.setRemain(fanIndexFund.getRemain().add(fanNewsCharityPayIn.getPayAmount()));
-            fanIndexFund.setPayUnderline(fanIndexFund.getPayUnderline().add(fanNewsCharityPayIn.getPayAmount()));
-
-            fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
         }
 
         fanNewsCharityPayIn.setUpdateTime(timeStamp);
