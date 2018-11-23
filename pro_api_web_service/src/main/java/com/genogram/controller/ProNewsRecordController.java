@@ -39,7 +39,7 @@ public class ProNewsRecordController {
             if(proFamilyRecordPage==null){
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyRecordVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             return ResponseUtlis.success(proFamilyRecordPage);
         }catch (Exception e) {
@@ -192,7 +192,7 @@ public class ProNewsRecordController {
             if(familyRecordVedioVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyRecordVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             return ResponseUtlis.success(familyRecordVedioVo);
         }catch (Exception e) {

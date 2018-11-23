@@ -61,7 +61,7 @@ public class ProNewsAncestorController {
             if(proFamilyRecordPage==null){
                 //没有取到参数,返回空参
                 Page<ProNewsFamousAncestor> proNewsFamousAncestor = new Page<ProNewsFamousAncestor>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,proNewsFamousAncestor);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             return ResponseUtlis.success(proFamilyRecordPage);
         }catch (Exception e) {

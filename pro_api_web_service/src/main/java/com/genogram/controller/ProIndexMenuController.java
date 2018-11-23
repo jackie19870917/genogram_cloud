@@ -57,7 +57,7 @@ public class ProIndexMenuController {
     public Response getTitlesByMenuId(@RequestParam("siteId") int siteId, @RequestParam(name = "menuId") int menuId) {
         List<SysWebMenuVo> list = proSysWebNewsShowService.getTitlesByMenuId(siteId, menuId);
         if (list.isEmpty()) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, list);
+            return ResponseUtlis.error(Constants.IS_EMPTY, "数据为空");
         }
         return ResponseUtlis.success(list);
     }
