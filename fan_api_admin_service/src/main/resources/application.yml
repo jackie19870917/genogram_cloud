@@ -1,5 +1,4 @@
 #http://localhost:8050/test/test1?username=ss&pwd=1
-fastDfs_ip: http://192.168.2.132:8090/
 server:
   port: 8050
 spring:

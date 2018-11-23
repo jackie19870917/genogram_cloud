@@ -1,8 +1,9 @@
-#http://localhost:8090/test/test1?username=ss&pwd=1
-server:
-  port: 8090
+#测试服务器浏览图片(提供给前端IP)
+fastDfs_ip: http://47.105.177.1:6090/
+#测试服务器fastDFS 配置文件地址(上传测试服务器配置) 记得改tracker_server=47.105.177.1:22122
+fastDfs_path: /devlop1/boot/fastDFS.properties
 spring:
-  profiles: local
+  profiles: pro
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name:  com.mysql.jdbc.Driver

@@ -6,6 +6,7 @@ import org.csource.fastdfs.StorageClient1;
 import org.csource.fastdfs.StorageServer;
 import org.csource.fastdfs.TrackerClient;
 import org.csource.fastdfs.TrackerServer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 
 /**
@@ -19,17 +20,13 @@ import org.springframework.core.io.ClassPathResource;
  * @Description:
  */
 public class FastdfsClient {
-
-    //public String conf_filename = "E:\\fastDFS.properties";
-    public String conf_filename = "/devlop1/boot/fastDFS.properties";
-
     private TrackerClient trackerClient = null;
     private TrackerServer trackerServer = null;
     private StorageServer storageServer = null;
     private StorageClient1 storageClient = null;
 
-    public FastdfsClient() throws Exception {
-        ClientGlobal.init(conf_filename);
+    public FastdfsClient(String conf_filePath) throws Exception {
+        ClientGlobal.init(conf_filePath);
         trackerClient = new TrackerClient();
         trackerServer = trackerClient.getConnection();
         storageServer = null;
