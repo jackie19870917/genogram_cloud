@@ -9,4 +9,39 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <modules>
+        <module>common_payment</module>
+        <module>common_service</module>
+        <module>common_file_upload_service</module>
+        <module>fan-biz-service</module>
+        <module>fan_api_admin_service</module>
+        <module>fan_api_web_service</module>
+        <module>pro-biz-service</module>
+        <module>pro_api_admin_service</module>
+        <module>pro_api_web_service</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <skipTests>true</skipTests>  <!--默认关掉单元测试 -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

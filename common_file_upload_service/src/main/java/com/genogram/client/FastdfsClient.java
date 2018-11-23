@@ -20,13 +20,16 @@ import org.springframework.core.io.ClassPathResource;
  */
 public class FastdfsClient {
 
+    //public String conf_filename = "E:\\fastDFS.properties";
+    public String conf_filename = "/devlop1/boot/fastDFS.properties";
+
     private TrackerClient trackerClient = null;
     private TrackerServer trackerServer = null;
     private StorageServer storageServer = null;
     private StorageClient1 storageClient = null;
 
     public FastdfsClient() throws Exception {
-        ClientGlobal.init(new ClassPathResource("fastDFS.properties").getFile().getAbsolutePath());
+        ClientGlobal.init(conf_filename);
         trackerClient = new TrackerClient();
         trackerServer = trackerClient.getConnection();
         storageServer = null;
