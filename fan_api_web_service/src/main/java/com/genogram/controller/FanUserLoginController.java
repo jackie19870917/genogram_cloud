@@ -180,6 +180,8 @@ public class FanUserLoginController {
 
         Boolean result = allUserLoginService.updateUserLogin(allUserLogin);
 
+        allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(allUserLogin, userVo);
         userVo.setToken(token);
