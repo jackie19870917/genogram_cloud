@@ -21,9 +21,6 @@ public class AllMessageBoardServicesImpl extends ServiceImpl<AllMessageBoardMapp
         //插入修改时间
         allMessageBoard.setUpdateTime(format);
         allMessageBoard.setUpdateUser(null);
-        //存入修改时间
-        allMessageBoard.setUpdateTime(format);
-        allMessageBoard.setUpdateUser(null);
         boolean result = this.insertOrUpdate(allMessageBoard);
         return result;
     }
