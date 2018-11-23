@@ -125,7 +125,7 @@ public class FanUserLoginController {
             return ResponseUtlis.success(userVo);
 
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不可用");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名已注册");
         }
     }
 

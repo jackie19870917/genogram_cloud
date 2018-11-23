@@ -55,7 +55,7 @@ public class FanNewsIndustryController {
             @RequestParam(value = "showId") Integer showId,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
-            @ApiParam("token")@RequestParam("token")String token
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
             ) {
         try {
             if (StringUtils.isEmpty(token)) {
@@ -101,7 +101,7 @@ public class FanNewsIndustryController {
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getFamilyIndustryDetail(
             @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
-            @ApiParam("token")@RequestParam("token")String token
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -121,7 +121,7 @@ public class FanNewsIndustryController {
     @RequestMapping(value ="/getFamilyIndustryAmend",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getFamilyIndustryAmend(
             @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
-            @ApiParam("token")@RequestParam("token")String token
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -164,7 +164,7 @@ public class FanNewsIndustryController {
     @RequestMapping(value = "/addOrUpdateIndustry", method = RequestMethod.POST)
     public Response<FanNewsIndustry> addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry,
                                                          String fileName,String filePath,
-                                                         @ApiParam("token")@RequestParam("token")String token) {
+                                                         @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
@@ -185,7 +185,7 @@ public class FanNewsIndustryController {
     @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
     public Response<FanNewsIndustry> addOrUpdateIndustryDrft(FanNewsIndustry fanNewsIndustry,
                                                              String fileName,String filePath,
-                                                             @ApiParam("token")@RequestParam("token")String token) {
+                                                             @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
@@ -205,7 +205,7 @@ public class FanNewsIndustryController {
     */
     private Response<FanNewsIndustry> getFanNewsIndustryResponse(FanNewsIndustry fanNewsIndustry,
                                                                  String fileName,String filePath,
-                                                                 @ApiParam("token")@RequestParam("token")String token) {
+                                                                 @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         try {
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
@@ -240,7 +240,7 @@ public class FanNewsIndustryController {
     @RequestMapping(value ="/deleteIndustryById",method = RequestMethod.GET)
     public Response<FanNewsIndustry> deleteIndustryById(
             @RequestParam(value = "id")Integer id, // 家族文化详情显示位置
-            @ApiParam("token")@RequestParam("token")String token
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
             if (StringUtils.isEmpty(token)) {
