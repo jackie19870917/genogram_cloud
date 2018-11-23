@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *@author: Toxicant
+ *@date: 2018-11-23
+*/
 @Service
 public class UserServiceImpl extends ServiceImpl<AllUserLoginMapper, AllUserLogin> implements IUserService {
 

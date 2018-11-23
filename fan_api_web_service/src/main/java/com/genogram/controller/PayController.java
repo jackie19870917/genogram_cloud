@@ -59,14 +59,14 @@ public class PayController {
     private String baseUrl;
 
     @Value("${pay_notify_url}")
-    public String notify_url;
+    public String notifyUrl;
 
     /**
      * 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
      * http://192.168.2.179:8090/genogram/pay/return_url
      */
     @Value("${pay_return_url}")
-    public String return_url ;
+    public String returnUrl ;
 
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
@@ -86,8 +86,8 @@ public class PayController {
 
         // 设置请求参数
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
-        alipayRequest.setReturnUrl(return_url);
-        alipayRequest.setNotifyUrl(notify_url);
+        alipayRequest.setReturnUrl(returnUrl);
+        alipayRequest.setNotifyUrl(notifyUrl);
 
         // 商户订单号，商户网站订单系统中唯一订单号，必填
         String outTradeNo = DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));

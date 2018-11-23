@@ -13,6 +13,7 @@ import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +31,11 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
     @Override
     public Boolean insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing) {
 
-        fanIndexFundDrowing.setCreateTime(DateUtil.getCurrentTimeStamp());
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
+        fanIndexFundDrowing.setCreateTime(timeStamp);
         fanIndexFundDrowing.setApproveStatus(1);
-        fanIndexFundDrowing.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        fanIndexFundDrowing.setUpdateTime(timeStamp);
 
         return this.insert(fanIndexFundDrowing);
     }

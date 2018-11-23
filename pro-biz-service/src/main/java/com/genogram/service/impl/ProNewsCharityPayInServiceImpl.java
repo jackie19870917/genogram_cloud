@@ -107,7 +107,6 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
 
         proNewsCharityPayIn.setCreateTime(timeStamp);
         proNewsCharityPayIn.setUpdateTime(timeStamp);
-        proNewsCharityPayIn.setCreateUser(1);
 
         return this.insert(proNewsCharityPayIn);
     }

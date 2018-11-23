@@ -53,17 +53,15 @@ public class ProIndexSlidePicServiceImpl extends ServiceImpl<ProIndexSlidePicMap
             proIndexSlidePic.setSort(proIndexSlidePicList.size() + 1);
             proIndexSlidePic.setStatus(1);
             proIndexSlidePic.setCreateTime(format);
-            proIndexSlidePic.setCreateUser(1);
         }
         proIndexSlidePic.setUpdateTime(format);
-        proIndexSlidePic.setUpdateUser(1);
 
         return this.insertOrUpdate(proIndexSlidePic);
 
     }
 
     @Override
-    public Boolean deleteProIndexSlidePic(Integer id) {
+    public Boolean deleteProIndexSlidePic(Integer id,Integer userId) {
 
         ProIndexSlidePic proIndexSlidePic = this.selectById(id);
 
@@ -85,8 +83,9 @@ public class ProIndexSlidePicServiceImpl extends ServiceImpl<ProIndexSlidePicMap
         proIndexSlidePic = new ProIndexSlidePic();
 
         proIndexSlidePic.setId(id);
+        proIndexSlidePic.setUpdateUser(userId);
         proIndexSlidePic.setStatus(0);
-        proIndexSlidePic.setUpdateTime(DateUtil.format(new Date()));
+        proIndexSlidePic.setUpdateTime(DateUtil.getCurrentTimeStamp());
 
         return this.updateById(proIndexSlidePic);
     }

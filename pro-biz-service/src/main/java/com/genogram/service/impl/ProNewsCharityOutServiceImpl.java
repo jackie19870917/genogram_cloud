@@ -75,14 +75,14 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
         });
 
         //查询图片
-        Wrapper<ProNewsUploadFile> fanNewsUploadFileWrapper = new EntityWrapper<ProNewsUploadFile>();
-        fanNewsUploadFileWrapper.eq("show_id", proNewsCharityOutList.get(0).getShowId());
-        fanNewsUploadFileWrapper.eq("status", 1);
-        fanNewsUploadFileWrapper.eq("pic_index", 1);
-        fanNewsUploadFileWrapper.in("news_id", list);
+        Wrapper<ProNewsUploadFile> proNewsUploadFileWrapper = new EntityWrapper<ProNewsUploadFile>();
+        proNewsUploadFileWrapper.eq("show_id", proNewsCharityOutList.get(0).getShowId());
+        proNewsUploadFileWrapper.eq("status", 1);
+        proNewsUploadFileWrapper.eq("pic_index", 1);
+        proNewsUploadFileWrapper.in("news_id", list);
 
         //查询所有文章id下的图片附件
-        List<ProNewsUploadFile> proNewsUploadFileList = proNewsUploadFileService.selectList(fanNewsUploadFileWrapper);
+        List<ProNewsUploadFile> proNewsUploadFileList = proNewsUploadFileService.selectList(proNewsUploadFileWrapper);
 
         //遍历主表文章集合,赋值新对象vo
 
@@ -98,7 +98,6 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
             proNewsUploadFileList.forEach((data) -> {
                 if (proNewsCharityOut.getId() .equals(data.getNewsId())) {
                     proNewsUploadFiles.add(data);
-
                 }
             });
             //存储图片list集合
@@ -174,8 +173,6 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
     public Boolean insertOrUpdateProNewsCharityOutVo(ProNewsCharityOut proNewsCharityOut,String fileName,String filePath) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-        proNewsCharityOut.setCreateUser(1);
-        proNewsCharityOut.setUpdateUser(1);
         proNewsCharityOut.setVisitNum(0);
 
         proNewsCharityOut.setUpdateTime(timeStamp);
@@ -195,11 +192,12 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
     }
 
     @Override
-    public Boolean deleteProNewsCharityOut(Integer id) {
+    public Boolean deleteProNewsCharityOut(Integer id,Integer userId) {
 
         ProNewsCharityOut proNewsCharityOut = new ProNewsCharityOut();
 
         proNewsCharityOut.setId(id);
+        proNewsCharityOut.setUpdateUser(userId);
         proNewsCharityOut.setStatus(0);
         proNewsCharityOut.setUpdateTime(DateUtil.getCurrentTimeStamp());
 

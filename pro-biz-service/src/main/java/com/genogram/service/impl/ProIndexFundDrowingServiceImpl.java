@@ -12,6 +12,7 @@ import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +30,10 @@ public class ProIndexFundDrowingServiceImpl extends ServiceImpl<ProIndexFundDrow
     @Override
     public Boolean insertProIndexFundDrowing(ProIndexFundDrowing proIndexFundDrowing) {
 
-        proIndexFundDrowing.setCreateTime(DateUtil.getCurrentTimeStamp());
-        proIndexFundDrowing.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+        proIndexFundDrowing.setCreateTime(timeStamp);
+        proIndexFundDrowing.setUpdateTime(timeStamp);
         proIndexFundDrowing.setApproveStatus(1);
-        proIndexFundDrowing.setCreateUser(1);
 
         return this.insert(proIndexFundDrowing);
     }

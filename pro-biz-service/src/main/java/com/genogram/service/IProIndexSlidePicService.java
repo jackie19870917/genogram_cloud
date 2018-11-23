@@ -33,7 +33,8 @@ public interface IProIndexSlidePicService extends IService<ProIndexSlidePic> {
     /**
      * 逻辑删除  轮播图
      * @param id
+     * @param userId
      * @return
      */
-    Boolean deleteProIndexSlidePic(Integer id);
+    Boolean deleteProIndexSlidePic(Integer id,Integer userId);
 }

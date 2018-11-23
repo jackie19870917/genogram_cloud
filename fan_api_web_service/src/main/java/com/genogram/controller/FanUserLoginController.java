@@ -68,21 +68,7 @@ public class FanUserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                Map<String, Object> map = new HashMap();
-
-                String time = DateUtil.getAllTime();
-
-                String user = userLogin.getMobilePhone() + "=" + userLogin.getPassword() + "=" + time;
-                String value = userLogin.getId() + "=" + userLogin.getUserName();
-                map.put(user, value);
-
-                //Base64加密
-                byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
-                String str = new String(bytes);
-
-                UserVo userVo = new UserVo();
-                BeanUtils.copyProperties(userLogin, userVo);
-                userVo.setToken(str);
+                UserVo userVo = getUserVo(userLogin);
 
                 return ResponseUtlis.success(userVo);
             } else {
@@ -106,27 +92,32 @@ public class FanUserLoginController {
 
         if (result) {
 
-            Map<String, Object> map = new HashMap();
-
-            String time = DateUtil.getAllTime();
-
-            String user = allUserLogin.getMobilePhone() + "=" + allUserLogin.getPassword() + "=" + time;
-            String value = allUserLogin.getId() + "=" + allUserLogin.getUserName();
-            map.put(user, value);
-
-            //Base64加密
-            byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
-            String str = new String(bytes);
-
-            UserVo userVo = new UserVo();
-            BeanUtils.copyProperties(allUserLogin, userVo);
-            userVo.setToken(str);
+            UserVo userVo = getUserVo(allUserLogin);
 
             return ResponseUtlis.success(userVo);
 
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名已注册");
         }
+    }
+
+    private UserVo getUserVo(AllUserLogin allUserLogin) {
+        Map<String, Object> map = new HashMap(16);
+
+        String time = DateUtil.getAllTime();
+
+        String user = allUserLogin.getMobilePhone() + "=" + allUserLogin.getPassword() + "=" + time;
+        String value = allUserLogin.getId() + "=" + allUserLogin.getUserName();
+        map.put(user, value);
+
+        //Base64加密
+        byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
+        String str = new String(bytes);
+
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(allUserLogin, userVo);
+        userVo.setToken(str);
+        return userVo;
     }
 
     @ApiOperation("修改密码")
@@ -168,7 +159,9 @@ public class FanUserLoginController {
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        return ResponseUtlis.success(allUserLogin);
+        UserVo userVo = getUserVo(userLogin);
+
+        return ResponseUtlis.success(userVo);
     }
     /**
      * 修改个人资料
@@ -189,8 +182,10 @@ public class FanUserLoginController {
 
         Boolean result = allUserLoginService.updateUserLogin(allUserLogin);
 
+        UserVo userVo = getUserVo(allUserLogin);
+
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtlis.success(userVo);
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不可用");
         }

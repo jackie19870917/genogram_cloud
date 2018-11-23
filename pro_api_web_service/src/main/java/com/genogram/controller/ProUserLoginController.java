@@ -64,7 +64,7 @@ public class ProUserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                Map<String, Object> map = new HashMap();
+                Map<String, Object> map = new HashMap(16);
 
                 String time = DateUtil.getAllTime();
 

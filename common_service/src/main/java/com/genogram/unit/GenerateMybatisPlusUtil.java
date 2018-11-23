@@ -11,14 +11,14 @@ import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 public class GenerateMybatisPlusUtil {
-    final static String  dirPath = "C:\\genogram_cloud\\";
+    final static String  DIR_PATH = "C:\\genogram_cloud\\";
     public void contextLoads() {
         AutoGenerator mpg = new AutoGenerator();
 
 
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        gc.setOutputDir(dirPath);
+        gc.setOutputDir(DIR_PATH);
         gc.setAuthor("wangwei");//作者
         gc.setFileOverride(true); //是否覆盖
         gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false

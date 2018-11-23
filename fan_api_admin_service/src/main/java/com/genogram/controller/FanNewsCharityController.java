@@ -279,7 +279,6 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
-
         Page<IndexFundDrowingVo> indexFundDrowingVoPage = fanIndexFundDrowingService.getIndexFundDrowingVoPage(siteId, pageNo, pageSize);
 
         return ResponseUtlis.success(indexFundDrowingVoPage);

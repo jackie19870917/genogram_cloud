@@ -83,7 +83,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
         fanIndexSlidePic.setId(id);
         fanIndexSlidePic.setUpdateUser(userId);
         fanIndexSlidePic.setStatus(0);
-        fanIndexSlidePic.setUpdateTime(DateUtil.format(new Date()));
+        fanIndexSlidePic.setUpdateTime(DateUtil.getCurrentTimeStamp());
 
         return this.updateById(fanIndexSlidePic);
     }

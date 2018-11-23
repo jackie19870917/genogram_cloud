@@ -1,17 +1,20 @@
 package com.genogram.controller;
 
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProIndexInfo;
 import com.genogram.entity.ProIndexSlidePic;
 import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.service.IProIndexInfoService;
 import com.genogram.service.IProIndexSlidePicService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -37,6 +40,9 @@ public class ProIndexController {
     @Autowired
     private IProIndexSlidePicService proIndexSlidePicService;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      * 省级网站信息
      *
@@ -45,7 +51,12 @@ public class ProIndexController {
      */
     @ApiOperation(value = "基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名称,regionCode;地区编号,totemPicSrc:图腾,title:宣言,description;简介")
     @RequestMapping(value = "getIndexInfo", method = RequestMethod.GET)
-    public Response<IndexInfoVo> getIndexInfoVo(@ApiParam("网站Id") @RequestParam Integer siteId) {
+    public Response<IndexInfoVo> getIndexInfoVo(@ApiParam("网站Id") @RequestParam Integer siteId,
+                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -58,14 +69,26 @@ public class ProIndexController {
 
     @ApiOperation(value = "新增/修改基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名字,totemPicSrc:图腾,title:宣言,description:简介")
     @RequestMapping(value = "insertOrUpdateIndexInfo", method = RequestMethod.POST)
-    public Response<IndexInfoVo> insertOrUpdateIndexInfo(IndexInfoVo indexInfoVo) {
+    public Response<IndexInfoVo> insertOrUpdateIndexInfo(IndexInfoVo indexInfoVo,
+                                                         @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(indexInfoVo.getId())) {
+            indexInfoVo.setCreateUser(userLogin.getId());
+        }
+
+        indexInfoVo.setUpdateUser(userLogin.getId());
         Boolean result = proIndexInfoService.insertOrUpdateIndexInfoVo(indexInfoVo);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -77,14 +100,22 @@ public class ProIndexController {
      */
     @ApiOperation(value = "删除基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名字,totemPicSrc:图腾,title:宣言,description:简介")
     @RequestMapping(value = "deleteProIndexInfo", method = RequestMethod.POST)
-    public Response<ProIndexInfo> deleteFanIndexInfo(ProIndexInfo proIndexInfo) {
+    public Response<ProIndexInfo> deleteFanIndexInfo(ProIndexInfo proIndexInfo,
+                                                     @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+        proIndexInfo.setUpdateUser(userLogin.getId());
 
         Boolean result = proIndexInfoService.deleteProIndexInfo(proIndexInfo);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -95,7 +126,12 @@ public class ProIndexController {
      */
     @ApiOperation(value = "轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "index/getProIndexSlidePic", method = RequestMethod.GET)
-    public Response<ProIndexSlidePic> getProIndexSlidePic(@ApiParam("网站Id") @RequestParam Integer siteId) {
+    public Response<ProIndexSlidePic> getProIndexSlidePic(@ApiParam("网站Id") @RequestParam Integer siteId,
+                                                          @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -120,14 +156,26 @@ public class ProIndexController {
      */
     @ApiOperation(value = "新增/修改 轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片,sort:排序")
     @RequestMapping(value = "insertOrUpdateProIndexSlidePic", method = RequestMethod.POST)
-    public Response<ProIndexSlidePic> insertOrUpdateProIndexSlidePic(ProIndexSlidePic proIndexSlidePic) {
+    public Response<ProIndexSlidePic> insertOrUpdateProIndexSlidePic(ProIndexSlidePic proIndexSlidePic,
+                                                                     @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(proIndexSlidePic.getId())) {
+            proIndexSlidePic.setCreateUser(userLogin.getId());
+        }
+
+        proIndexSlidePic.setUpdateUser(userLogin.getId());
         Boolean result = proIndexSlidePicService.insertOrUpdateProIndexSlidePic(proIndexSlidePic);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -139,14 +187,22 @@ public class ProIndexController {
      */
     @ApiOperation(value = "删除轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "deleteProIndexSlidePic", method = RequestMethod.GET)
-    public Response<ProIndexSlidePic> deleteProIndexSlidePic(@ApiParam("主键") @RequestParam Integer id) {
+    public Response<ProIndexSlidePic> deleteProIndexSlidePic(@ApiParam("主键") @RequestParam Integer id,
+                                                             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
-        Boolean result = proIndexSlidePicService.deleteProIndexSlidePic(id);
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        //用户Id
+        Integer userId = userService.getUserLoginInfoByToken(token).getId();
+
+        Boolean result = proIndexSlidePicService.deleteProIndexSlidePic(id,userId);
 
         if (result) {
-            return ResponseUtlis.success(200);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.success(400);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
