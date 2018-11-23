@@ -1,7 +1,10 @@
-#测试服务器浏览图片(提供给前端IP)
+#阿里服务器浏览图片(提供给前端IP)
 fastDfs_ip: http://47.105.177.1:6090/
-#测试服务器fastDFS 配置文件地址(上传测试服务器配置) 记得改tracker_server=47.105.177.1:22122
+#阿里服务器fastDFS 配置文件地址(上传测试服务器配置) 记得改tracker_server=47.105.177.1:22122
 fastDfs_path: /devlop1/boot/fastDFS.properties
+#阿里pay测试服务器
+pay_notify_url: http://47.105.177.1:8090/genogram/pay/notify_url
+pay_return_url: http://47.105.177.1:8090/genogram/pay/return_url
 server:
   port: 8090
 spring:

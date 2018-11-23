@@ -58,14 +58,14 @@ public class PayController {
 
     private String baseUrl;
 
-    @Value("${fan_api_web_service.pay_return_url}")
+    @Value("${pay_notify_url}")
     public String notify_url;
 
     /**
      * 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
      * http://192.168.2.179:8090/genogram/pay/return_url
      */
-    @Value("${fan_api_web_service.pay_return_url}")
+    @Value("${pay_return_url}")
     public String return_url ;
 
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
