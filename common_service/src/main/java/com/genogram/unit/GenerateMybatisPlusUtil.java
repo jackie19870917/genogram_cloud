@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
-public class GenerateMybatisPlus {
+public class GenerateMybatisPlusUtil {
     final static String  dirPath = "C:\\genogram_cloud\\";
     public void contextLoads() {
         AutoGenerator mpg = new AutoGenerator();
@@ -68,7 +68,7 @@ public class GenerateMybatisPlus {
     }
 
     public static void main(String[] args) {
-        GenerateMybatisPlus p = new GenerateMybatisPlus();
+        GenerateMybatisPlusUtil p = new GenerateMybatisPlusUtil();
         p.contextLoads();
     }
 
