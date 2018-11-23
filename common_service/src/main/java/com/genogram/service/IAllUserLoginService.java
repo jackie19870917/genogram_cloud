@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.AllUserLogin;
@@ -20,6 +21,7 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
 
     /**
      * 登陆
+     *
      * @param allUserLogin
      * @return
      */
@@ -27,6 +29,7 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
 
     /**
      * 注册
+     *
      * @param allUserLogin
      * @return
      */
@@ -34,6 +37,7 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
 
     /**
      * 查询
+     *
      * @param id 主键
      * @return
      */
@@ -41,6 +45,7 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
 
     /**
      * 修改密码
+     *
      * @param allUserLogin
      * @return
      */
@@ -48,6 +53,7 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
 
     /**
      * 修改个人资料
+     *
      * @param allUserLogin
      * @return
      */
@@ -55,24 +61,27 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
 
     /**
      * 查询用户
-     * @param allUserLogin
+     *
+     * @param wrapper
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<AllUserLogin> getAllUserLoginPage(AllUserLogin allUserLogin, Integer pageNo, Integer pageSize);
+    Page<AllUserLogin> getAllUserLoginPage(Wrapper<AllUserLogin> wrapper, Integer pageNo, Integer pageSize);
 
     /**
      * 联谊会网站
-     * @param fanSysSite
+     *
+     * @param wrapper
      * @return
      */
-    List<FanSysSite> getFanSysSite(FanSysSite fanSysSite);
+    List<FanSysSite> getFanSysSite(Wrapper<FanSysSite> wrapper);
 
     /**
      * 省级网站
-     * @param proSysSite
+     *
+     * @param wrapper
      * @return
      */
-    List<ProSysSite> getProSysSite(ProSysSite proSysSite);
+    List<ProSysSite> getProSysSite(Wrapper<ProSysSite> wrapper);
 }

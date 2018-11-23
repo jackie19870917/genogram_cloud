@@ -96,39 +96,32 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
     }
 
     @Override
-    public Page<AllUserLogin> getAllUserLoginPage(AllUserLogin allUserLogin, Integer pageNo, Integer pageSize) {
+    public Page<AllUserLogin> getAllUserLoginPage(Wrapper<AllUserLogin> wrapper, Integer pageNo, Integer pageSize) {
 
-        if (StringUtils.isEmpty(allUserLogin)) {
-            return this.selectPage(new Page<>(pageNo, pageSize),null);
+        if (StringUtils.isEmpty(wrapper)) {
+            return this.selectPage(new Page<>(pageNo, pageSize), null);
         } else {
-            Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
-            if (allUserLogin.getUserName() != null) {
-                wrapper.like("user_name", allUserLogin.getUserName());
-               // wrapper.lik
-                return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
-            } else {
-                return null;
-            }
+            return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
         }
     }
 
     @Override
-    public List<FanSysSite> getFanSysSite(FanSysSite fanSysSite) {
+    public List<FanSysSite> getFanSysSite(Wrapper<FanSysSite> wrapper) {
 
-        if (StringUtils.isEmpty(fanSysSite)) {
+        if (StringUtils.isEmpty(wrapper)) {
             return fanSysSiteMapper.selectList(null);
         } else {
-            return null;
+            return fanSysSiteMapper.selectList(wrapper);
         }
     }
 
     @Override
-    public List<ProSysSite> getProSysSite(ProSysSite proSysSite) {
+    public List<ProSysSite> getProSysSite(Wrapper<ProSysSite> wrapper) {
 
-        if (StringUtils.isEmpty(proSysSite)) {
+        if (StringUtils.isEmpty(wrapper)) {
             return proSysSiteMapper.selectList(null);
         } else {
-            return null;
+            return proSysSiteMapper.selectList(wrapper);
         }
     }
 }

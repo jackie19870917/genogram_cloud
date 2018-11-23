@@ -1,5 +1,7 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
@@ -51,7 +53,8 @@ public class PersonController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
         }
 
-        Page<AllUserLogin> userLoginPage = allUserLoginService.getAllUserLoginPage(allUserLogin, pageNo, pageSize);
+        Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
+        Page<AllUserLogin> userLoginPage = allUserLoginService.getAllUserLoginPage(wrapper, pageNo, pageSize);
 
         return ResponseUtlis.success(userLoginPage);
     }
@@ -64,7 +67,9 @@ public class PersonController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
         }
 
-        List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(fanSysSite);
+        Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
+
+        List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
 
         return ResponseUtlis.success(fanSysSiteList);
     }
@@ -77,7 +82,8 @@ public class PersonController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
         }
 
-        List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(proSysSite);
+        Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
+        List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
 
         return ResponseUtlis.success(proSysSiteList);
     }
