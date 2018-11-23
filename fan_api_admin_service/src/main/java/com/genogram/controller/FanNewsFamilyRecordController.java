@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author xiaohei
+ */
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsFamilyRecord")

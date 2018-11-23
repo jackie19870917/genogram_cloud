@@ -1,10 +1,8 @@
 package com.genogram.controller;
 
-
 import com.genogram.config.Constants;
 import com.genogram.entity.AllMessageBoard;
-import com.genogram.entity.FanNewsFamilyRecord;
-import com.genogram.service.IFanMessageBoardService;
+import com.genogram.service.IProMessageBoardServices;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -14,25 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
-
-/**
- * <p>
- *  前端控制器
- * </p>
- *
- * @author wangwei
- * @since 2018-11-23
- */
-@Api(description = "联谊会留言板")
+@Api(description = "省级留言板")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/allMessageBoard")
-public class FanMessageBoardController {
+public class ProMessageBoardController {
     @Autowired
-    private IFanMessageBoardService iFanMessageBoardService;
+    private IProMessageBoardServices iProMessageBoardServices;
     /**
-     *联谊会留言板添加
+     *省级留言板添加
      *@Author: yuzhou
      *@Date: 2018-11-10
      *@Time: 12:10
@@ -49,11 +37,11 @@ public class FanMessageBoardController {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
-        int sourceType = 1;
+        int sourceType = 2;
         allMessageBoard.setSourceType(sourceType);
         try {
             // 插入数据
-            boolean b = iFanMessageBoardService.addOrUpdateRecord(allMessageBoard);
+            boolean b = iProMessageBoardServices.addOrUpdateRecord(allMessageBoard);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,4 +49,3 @@ public class FanMessageBoardController {
         }
     }
 }
-
