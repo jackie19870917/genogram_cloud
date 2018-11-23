@@ -46,7 +46,7 @@ public class ProNewsFamousController {
             if(familyPersonVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"familyPersonVo为空");
             }
             return ResponseUtlis.success(familyPersonVo);
         }catch (Exception e) {
@@ -73,11 +73,11 @@ public class ProNewsFamousController {
             //返回空参
             ProFamilyPersonVo proFamilyPersonVo = new ProFamilyPersonVo();
             if(id==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,proFamilyPersonVo);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"id为空");
             }
             ProFamilyPersonVo newsDetailVo = iProNewsFamousPersonService.getFamilyFamilyDetail(id);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, proFamilyPersonVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, "newsDetailVo为空");
             }
             //增加查看数
             iProNewsFamousPersonService.addVisitNum(id);
@@ -120,7 +120,7 @@ public class ProNewsFamousController {
             if (familyFrameList == null) {
                 //没有取到参数,返回空参
                 Page<ProFamilyPersonVo> emptfamilyCultureVo = new Page<ProFamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, "familyFrameList为空");
             }
             return ResponseUtlis.success(map);
         } catch (Exception e) {

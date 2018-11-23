@@ -85,7 +85,7 @@ public class FanNewsCultureController {
             if(fanNewsCultureZipai==null){
                 //没有取到参数,返回空参
                 Page<FanNewsCultureZipai> emptfanNewsCultureZipai = new Page<FanNewsCultureZipai>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfanNewsCultureZipai);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"fanNewsCultureZipai为空");
             }
             return ResponseUtlis.success(fanNewsCultureZipai);
         }catch (Exception e) {
@@ -271,7 +271,7 @@ public class FanNewsCultureController {
         if (familyCultureVoList == null) {
             //没有取到参数,返回空参
             Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-            return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+            return ResponseUtlis.error(Constants.ERRO_CODE,"familyCultureVoList为空");
         }
         return ResponseUtlis.success(familyCultureVoList);
     } catch (Exception e) {

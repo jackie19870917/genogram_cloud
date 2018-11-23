@@ -60,7 +60,7 @@ public class ProNewsFamousPersionController {
             if (familyPersonVoPage == null) {
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"familyPersonVoPage为空");
             }
             return ResponseUtlis.success(familyPersonVoPage);
         } catch (Exception e) {

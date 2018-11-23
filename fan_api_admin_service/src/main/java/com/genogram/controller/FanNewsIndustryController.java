@@ -80,7 +80,7 @@ public class FanNewsIndustryController {
             if (familyCultureVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyIndustryVo> emptfamilyCultureVo = new Page<FamilyIndustryVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"familyCultureVo为空");
             }
             return ResponseUtlis.success(familyCultureVo);
         } catch (Exception e) {

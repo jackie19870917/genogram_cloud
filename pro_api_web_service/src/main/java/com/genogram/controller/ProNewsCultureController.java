@@ -134,7 +134,7 @@ public class ProNewsCultureController {
             List<ProNewsCultureZipai> list=new ArrayList<>();
             //判断showId是否有值
             if(showId==null && siteId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,list);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"list为空");
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=1;
@@ -147,7 +147,7 @@ public class ProNewsCultureController {
             map.put("status",status);
             Page<ProNewsCultureZipaiVo> zipaiVaguePage = proNewsCultureZipaiService.getZipaiVaguePage(mapPage,map);
             if(zipaiVaguePage==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE,list);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"zipaiVaguePage为空");
             }
             return ResponseUtlis.success(zipaiVaguePage);
         }catch (Exception e){
@@ -299,7 +299,7 @@ public class ProNewsCultureController {
             if (familyCultureVoList == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, "familyCultureVoList为空");
             }
             return ResponseUtlis.success(familyCultureVoList);
         } catch (Exception e) {
@@ -345,11 +345,11 @@ public class ProNewsCultureController {
             //返回空参
             NewsDetailVo newsDetail = new NewsDetailVo();
             if(id==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,newsDetail);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"id为空");
             }
             NewsDetailVo newsDetailVo = proNewsCultureNewsService.getFamilyCultureDetail(id);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, newsDetail);
+                return ResponseUtlis.error(Constants.ERRO_CODE, "newsDetailVo为空");
             }
             //增加查看数
             proNewsCultureNewsService.addVisitNum(id);
