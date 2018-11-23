@@ -182,9 +182,22 @@ public class FanUserLoginController {
 
         allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
+        Map<String, Object> map = new HashMap();
+
+        String time = DateUtil.getAllTime();
+
+        String user = userLogin.getMobilePhone() + "=" + userLogin.getPassword() + "=" + time;
+        String value = allUserLogin.getId() + "=" + allUserLogin.getUserName();
+        map.put(user, value);
+
+        //Base64加密
+        byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
+        String str = new String(bytes);
+
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(allUserLogin, userVo);
-        userVo.setToken(token);
+
+        userVo.setToken(str);
 
         if (result) {
             return ResponseUtlis.success(userVo);
