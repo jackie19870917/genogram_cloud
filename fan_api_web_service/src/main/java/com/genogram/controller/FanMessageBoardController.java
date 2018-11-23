@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 @RequestMapping("/genogram/allMessageBoard")
-public class AllMessageBoardController {
+public class FanMessageBoardController {
 
 }
 
