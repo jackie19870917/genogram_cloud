@@ -150,7 +150,7 @@ public class FanIndexController {
             if (fanIndexMessage == null) {
                 //没有取到参数,返回空参
                 Page<FanIndexMessage> emptfamilyCultureVo = new Page<FanIndexMessage>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, "没有取到参数,返回空参");
             }
             return ResponseUtlis.success(fanIndexMessage);
         } catch (Exception e) {
@@ -214,7 +214,7 @@ public class FanIndexController {
             if (familyFrameList == null) {
                 //没有取到参数,返回空参
                 Page<ProFamilyPersonVo> emptfamilyCultureVo = new Page<ProFamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, "没有取到参数,返回空参");
             }
             return ResponseUtlis.success(zongmap);
         } catch (Exception e) {

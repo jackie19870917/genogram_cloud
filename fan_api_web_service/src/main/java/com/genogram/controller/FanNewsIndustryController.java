@@ -106,7 +106,7 @@ public class FanNewsIndustryController {
             if (familyCultureVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyIndustryVo> emptfamilyCultureVo = new Page<FamilyIndustryVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             return ResponseUtlis.success(familyCultureVo);
         } catch (Exception e) {
@@ -131,12 +131,12 @@ public class FanNewsIndustryController {
         try{
             NewsDetailVo newsDetailEmpty=new NewsDetailVo();
             if(id==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,newsDetailEmpty);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"数据为空");
             }
             IndustryDetailVo familyIndustryDetail = fanNewsIndustryService.getFamilyIndustryDetail(id);
             //判断是否返回为空
             if (familyIndustryDetail==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE,newsDetailEmpty);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             //增加查看数
             fanNewsIndustryService.addVisitNum(id);

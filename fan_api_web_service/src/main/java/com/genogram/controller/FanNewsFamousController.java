@@ -51,7 +51,7 @@ public class FanNewsFamousController {
             if(familyPersonVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             return ResponseUtlis.success(familyPersonVo);
         }catch (Exception e) {
@@ -79,11 +79,11 @@ public class FanNewsFamousController {
             //返回空参
             FamilyPersonVo familyPersonVo = new FamilyPersonVo();
             if(id==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,familyPersonVo);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"数据为空");
             }
             FamilyPersonVo newsDetailVo = iFanNewsFamousPersonService.getFamilyFamilyDetail(id);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, familyPersonVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
             }
             //增加查看数
             iFanNewsFamousPersonService.addVisitNum(id);

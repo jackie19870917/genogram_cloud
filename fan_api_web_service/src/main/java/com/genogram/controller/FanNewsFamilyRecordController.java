@@ -57,7 +57,7 @@ public class FanNewsFamilyRecordController {
             if(familyRecordVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyRecordVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             return ResponseUtlis.success(familyRecordVo);
         }catch (Exception e) {
@@ -85,11 +85,11 @@ public class FanNewsFamilyRecordController {
             //返回空参
             FamilyRecordVo familyRecordVo = new FamilyRecordVo();
             if(id==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,familyRecordVo);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"数据为空");
             }
             FamilyRecordVo newsDetailVo = iFanNewsFamilyRecordService.getFamilyRecordDetail(id);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, familyRecordVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
             }
             //增加查看数
             iFanNewsFamilyRecordService.addVisitNum(id);
@@ -118,7 +118,7 @@ public class FanNewsFamilyRecordController {
             if(familyRecordVedioVo==null){
                 //没有取到参数,返回空参
                 Page<FamilyRecordVedioVo> emptfamilyRecordVedioVo = new Page<FamilyRecordVedioVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyRecordVedioVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             return ResponseUtlis.success(familyRecordVedioVo);
         }catch (Exception e) {
