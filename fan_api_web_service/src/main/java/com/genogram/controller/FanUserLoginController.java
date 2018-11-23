@@ -159,9 +159,7 @@ public class FanUserLoginController {
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        UserVo userVo = getUserVo(userLogin);
-
-        return ResponseUtlis.success(userVo);
+        return ResponseUtlis.success(allUserLogin);
     }
     /**
      * 修改个人资料
@@ -178,16 +176,24 @@ public class FanUserLoginController {
         }
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
-        allUserLogin.setId(userLogin.getId());
+        Integer id = userLogin.getId();
+
+        if (allUserLogin.getId()!=id) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "没有权限");
+        }
+
+        allUserLogin.setId(id);
 
         Boolean result = allUserLoginService.updateUserLogin(allUserLogin);
 
-        UserVo userVo = getUserVo(allUserLogin);
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(allUserLogin, userVo);
+        userVo.setToken(token);
 
         if (result) {
             return ResponseUtlis.success(userVo);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不可用");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 }
