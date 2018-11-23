@@ -72,7 +72,7 @@ public class PayController {
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
                            @ApiParam("网站ID") @RequestParam Integer siteId,
-                           @ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token,
+                           @ApiParam("token")@RequestParam(value = "token",required = false)String token,
                            @ApiParam("是否匿名(1-匿名,2-不匿名)")@RequestParam("anonymous") Integer anonymous,
                            @RequestParam(value = "url")String url) throws IOException {
 

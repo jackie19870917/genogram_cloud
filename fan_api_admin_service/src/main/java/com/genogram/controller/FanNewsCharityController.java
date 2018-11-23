@@ -59,7 +59,7 @@ public class FanNewsCharityController {
     @ApiOperation(value = "基金查询", notes = "id:主键,siteId:网站Id,remain:基金总额,payNum:捐款人数,payOnline:线上捐款,payUnderline:线下捐款,payGenogram:网络修普金额")
     @RequestMapping(value = "getFanIndexFund", method = RequestMethod.GET)
     public Response<FanIndexFund> getFanIndexFund(@ApiParam(value = "网站id") @RequestParam Integer siteId,
-                                                  @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
+                                                  @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
@@ -86,7 +86,7 @@ public class FanNewsCharityController {
     @ApiOperation(value = "慈善收支", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "getFanNewsCharityOutPage", method = RequestMethod.GET)
     public Response<NewsCharityOutVo> getFanNewsCharityOutVo(@ApiParam(value = "显示位置") @RequestParam Integer showId,
-                                                             @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token,
+                                                             @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                              // @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                              @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
@@ -124,7 +124,7 @@ public class FanNewsCharityController {
     @ApiOperation(value = "慈善收支(文章)详情", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
     public Response<NewsDetailVo> getFanNewsCharityDetail(@ApiParam(value = "主键") @RequestParam Integer id,
-                                                          @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
+                                                          @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
@@ -148,7 +148,7 @@ public class FanNewsCharityController {
     public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut,
                                                                       @ApiParam(value = "图片名称") String fileName,
                                                                       @ApiParam(value = "图片url") String filePath,
-                                                                      @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
+                                                                      @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
@@ -186,7 +186,7 @@ public class FanNewsCharityController {
     public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut,
                                                                           @ApiParam(value = "图片名称") String fileName,
                                                                           @ApiParam(value = "图片url") String filePath,
-                                                                          @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
+                                                                          @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
@@ -212,7 +212,7 @@ public class FanNewsCharityController {
     @ApiOperation("删除慈善收支(文章)")
     @RequestMapping(value = "deleteFanNewsCharityOut", method = RequestMethod.POST)
     public Response<FanNewsCharityOut> deleteFanNewsCharityOut(@ApiParam(value = "主键") @RequestParam Integer id,
-                                                               @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
+                                                               @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
@@ -238,7 +238,7 @@ public class FanNewsCharityController {
     @ApiOperation(value = "新增线上提现", notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
     @RequestMapping(value = "insertFanIndexFundDrowing", method = RequestMethod.POST)
     public Response<FanIndexFundDrowing> insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing,
-                                                                   @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
+                                                                   @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
@@ -267,7 +267,7 @@ public class FanNewsCharityController {
     @ApiOperation(value = "线上提现记录", notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
     @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.GET)
     public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam(value = "网站Id") @RequestParam Integer siteId,
-                                                               @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token,
+                                                               @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -294,7 +294,7 @@ public class FanNewsCharityController {
     @ApiOperation(value = "新增线下捐款", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "insertFanNewsCharityPayIn", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn,
-                                                                   @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
+                                                                   @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");

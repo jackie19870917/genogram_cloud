@@ -45,7 +45,7 @@ public class PersonController {
     @ApiOperation(value = "查询用户",notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUserLogin", method = RequestMethod.POST)
     public Response<AllUserLogin> getUserLogin(AllUserLogin allUserLogin,
-                                               @ApiParam("token")@RequestParam("token")String token,
+                                               @ApiParam("token")@RequestParam(value = "token",required = false)String token,
                                                @RequestParam(value = "pageNo",defaultValue = "1")Integer pageNo,
                                                @RequestParam(value = "pageSize",defaultValue = "5")Integer pageSize) {
 
@@ -61,7 +61,7 @@ public class PersonController {
 
     @ApiOperation(value = "县级网站",notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getFanSysSite", method = RequestMethod.POST)
-    public Response<FanSysSite> getFanSysSite(FanSysSite fanSysSite,@ApiParam("token")@RequestParam("token")String token) {
+    public Response<FanSysSite> getFanSysSite(FanSysSite fanSysSite,@ApiParam("token")@RequestParam(value = "token", required = false)String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
@@ -76,7 +76,7 @@ public class PersonController {
 
     @ApiOperation(value = "省级网站",notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getProSysSite", method = RequestMethod.POST)
-    public Response<ProSysSite> getProSysSite(ProSysSite proSysSite, @ApiParam("token")@RequestParam("token")String token) {
+    public Response<ProSysSite> getProSysSite(ProSysSite proSysSite, @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
