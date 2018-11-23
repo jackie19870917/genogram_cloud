@@ -176,13 +176,7 @@ public class FanUserLoginController {
         }
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
-        Integer id = userLogin.getId();
-
-        if (allUserLogin.getId()!=id) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "没有权限");
-        }
-
-        allUserLogin.setId(id);
+        allUserLogin.setId(userLogin.getId());
 
         Boolean result = allUserLoginService.updateUserLogin(allUserLogin);
 
