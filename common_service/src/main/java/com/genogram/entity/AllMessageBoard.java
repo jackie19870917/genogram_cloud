@@ -27,6 +27,11 @@ public class AllMessageBoard extends Model<AllMessageBoard> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
+     * 网站id
+     */
+    @TableField("site_id")
+    private Integer siteId;
+    /**
      * 名字
      */
     private String name;
@@ -71,6 +76,15 @@ public class AllMessageBoard extends Model<AllMessageBoard> {
 
     public AllMessageBoard setId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    public Integer getSiteId() {
+        return siteId;
+    }
+
+    public AllMessageBoard setSiteId(Integer siteId) {
+        this.siteId = siteId;
         return this;
     }
 
@@ -155,6 +169,7 @@ public class AllMessageBoard extends Model<AllMessageBoard> {
     public String toString() {
         return "AllMessageBoard{" +
         ", id=" + id +
+        ", siteId=" + siteId +
         ", name=" + name +
         ", phone=" + phone +
         ", content=" + content +
