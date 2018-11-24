@@ -74,7 +74,7 @@ public class ProNewsCultureController {
             Page<ProNewsCultureZipai> emptfanNewsCultureZipai = new Page<ProNewsCultureZipai>();
             //判断showId是否有值
             if(showId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,emptfanNewsCultureZipai);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"showId 为空");
             }
             //状态
             List statusList  = new ArrayList();
@@ -88,7 +88,7 @@ public class ProNewsCultureController {
             entity.orderBy("create_time", false);
             Page<ProNewsCultureZipai> commonality = proNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if(commonality==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfanNewsCultureZipai);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             return ResponseUtlis.success(commonality);
         }catch (Exception e) {
@@ -293,7 +293,7 @@ public class ProNewsCultureController {
             if (familyCultureVoList == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,emptfamilyCultureVo);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");
             }
             return ResponseUtlis.success(familyCultureVoList);
         } catch (Exception e) {
