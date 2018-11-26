@@ -41,9 +41,6 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     private IAllUserLoginService allUserLoginService;
 
     @Autowired
-    private IFanIndexFundService fanIndexFundService;
-
-    @Autowired
     private IFanSysWebNewsShowService fanSysWebNewsShowService;
 
     @Override
@@ -51,7 +48,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInMapper.getDonorVoPage(mapPage, map);
 
-        if (fanNewsCharityPayInList.size()==0) {
+        if (fanNewsCharityPayInList.size() == 0) {
             return null;
         }
 
@@ -62,6 +59,10 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
         entity.in("id", list);
+
+        if (!StringUtils.isEmpty(map.get("nick_name"))) {
+            entity.like("nick_name", (String) map.get("nick_name"));
+        }
 
         List<AllUserLogin> allUserLoginList = allUserLoginService.selectList(entity);
 
@@ -89,20 +90,29 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     }
 
     @Override
-    public Page<DonorVo> getDonorVoPageByTime(Integer showId, List status, Integer pageNo, Integer pageSize) {
+    public Page<DonorVo> getDonorVoPageByTime(Integer showId, List status, String nickName, Integer pageNo, Integer pageSize, String order, String label) {
 
         Wrapper<FanNewsCharityPayIn> fanNewsCharityPayInWrapper = new EntityWrapper<FanNewsCharityPayIn>();
 
         fanNewsCharityPayInWrapper.eq("show_id", showId);
         fanNewsCharityPayInWrapper.in("status", status);
-        fanNewsCharityPayInWrapper.orderBy("create_time", false);
-        fanNewsCharityPayInWrapper.groupBy("pay_usr_id");
+
+        String sort = "time";
+
+        if (sort.equals(order)) {
+            sort = "asc";
+            if (sort.equals(label)) {
+                fanNewsCharityPayInWrapper.orderBy("create_time", true);
+            } else {
+                fanNewsCharityPayInWrapper.orderBy("create_time", false);
+            }
+        }
 
         Page<FanNewsCharityPayIn> fanNewsCharityPayInPage = this.selectPage(new Page<FanNewsCharityPayIn>(pageNo, pageSize), fanNewsCharityPayInWrapper);
 
         List<FanNewsCharityPayIn> fanNewsCharityPayInList = fanNewsCharityPayInPage.getRecords();
 
-        if (fanNewsCharityPayInList.size()==0) {
+        if (fanNewsCharityPayInList.size() == 0) {
             return null;
         }
 
@@ -113,6 +123,10 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
         entity.in("id", list);
+
+        if (!StringUtils.isEmpty(nickName)) {
+            entity.like("nick_name", nickName);
+        }
 
         List<AllUserLogin> allUserLoginList = allUserLoginService.selectList(entity);
 

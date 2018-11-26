@@ -19,6 +19,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -74,6 +75,54 @@ public class FanNewsCharityController {
         return ResponseUtlis.success(fanIndexFund);
     }
 
+    /**
+     * 捐款名录
+     * @param showId   捐款名录显示位置
+     * @param nickName  别名
+     * @param order   排序
+     * @param label    升序,降序
+     * @param pageNo   当前页
+     * @param pageSize 每页记录数
+     * @return
+     */
+    @ApiOperation(value = "捐款名录查询", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
+    @RequestMapping(value = "index/getPayUser", method = RequestMethod.GET)
+    public Response<DonorVo> getPayUser(@ApiParam(value = "显示位置") @RequestParam Integer showId,
+                                        @ApiParam(value = "捐款人")@RequestParam(value = "nickName", required = false) String nickName,
+                                        @ApiParam(value = "排序(time-时间,money-金额,null-缺省)")@RequestParam(value = "order", required = false) String order,
+                                        @ApiParam(value = "升序-asc,降序-desc")@RequestParam(value = "label", required = false) String label,
+                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                        @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+
+        if (showId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        List list = new ArrayList();
+        list.add(status);
+
+        Page<DonorVo> donorVoPage = null;
+        if ("money".equals(order)) {
+            Map map = new HashMap(16);
+            map.put("showId", showId);
+            map.put("status", list);
+            if (!StringUtils.isEmpty(nickName)) {
+                map.put("nick_name", nickName);
+            }
+            map.put("label", label);
+
+            Page page = new Page();
+            page.setCurrent(pageNo);
+            page.setSize(pageSize);
+            Page<FanNewsCharityPayIn> mapPage = new Page<>(page.getCurrent(), page.getSize());
+            donorVoPage = fanNewsCharityPayInService.getDonorVoPage(mapPage, map);
+        } else  {
+            donorVoPage = fanNewsCharityPayInService.getDonorVoPageByTime(showId, list,nickName, pageNo, pageSize,order,label);
+        }
+
+        return ResponseUtlis.success(donorVoPage);
+
+    }
 
     /**
      * 捐款名录         (个人总金额)
@@ -82,7 +131,7 @@ public class FanNewsCharityController {
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
-     */
+     *//*
     @ApiOperation(value = "捐款名录查询(最多)", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
     @RequestMapping(value = "index/getDonorPage", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageBySum(@ApiParam(value = "显示位置") @RequestParam Integer showId,
@@ -99,6 +148,9 @@ public class FanNewsCharityController {
         Map map = new HashMap(16);
         map.put("showId", showId);
         map.put("status", list);
+        if (!StringUtils.isEmpty(nickName)) {
+            map.put("nick_name", nickName);
+        }
 
         Page page = new Page();
         page.setCurrent(pageNo);
@@ -110,14 +162,14 @@ public class FanNewsCharityController {
 
     }
 
-    /**
+    *//**
      * 捐款名录          (最新捐款记录)
      *
      * @param showId   捐款名录显示位置
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
-     */
+     *//*
     @ApiOperation(value = "捐款名录查询(最新)", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
     @RequestMapping(value = "index/getDonorVoPageByCreateTime", method = RequestMethod.GET)
     public Response<DonorVo> getDonorVoPageByCreateTime(@ApiParam(value = "显示位置") @RequestParam Integer showId,
@@ -134,7 +186,7 @@ public class FanNewsCharityController {
         Page<DonorVo> donorVoPageByTime = fanNewsCharityPayInService.getDonorVoPageByTime(showId, list, pageNo, pageSize);
 
         return ResponseUtlis.success(donorVoPageByTime);
-    }
+    }*/
 
 
     /**
