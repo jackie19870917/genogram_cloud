@@ -77,7 +77,7 @@ public class PayController {
                            @ApiParam("网站ID") @RequestParam Integer siteId,
                            @ApiParam("token")@RequestParam(value = "token",required = false)String token,
                            @ApiParam("是否匿名(1-匿名,0-不匿名)")@RequestParam("anonymous") Integer anonymous,
-                           @RequestParam(value = "url")String url) throws IOException {
+                                                @ApiParam("回调地址")@RequestParam(value = "url")String url) throws IOException {
 
 
 
