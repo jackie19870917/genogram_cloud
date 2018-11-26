@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-26
  */
 @TableName("pro_news_family_record")
 public class ProNewsFamilyRecord extends Model<ProNewsFamilyRecord> {
@@ -50,6 +50,11 @@ public class ProNewsFamilyRecord extends Model<ProNewsFamilyRecord> {
      * 状态(0:删除;1:已发布;2:草稿3:不显示)
      */
     private Integer status;
+    /**
+     * 是否置顶(0:不置顶;1.置顶;)
+     */
+    @TableField("is_top")
+    private Integer isTop;
     /**
      * 创建时间
      */
@@ -126,6 +131,15 @@ public class ProNewsFamilyRecord extends Model<ProNewsFamilyRecord> {
         return this;
     }
 
+    public Integer getIsTop() {
+        return isTop;
+    }
+
+    public ProNewsFamilyRecord setIsTop(Integer isTop) {
+        this.isTop = isTop;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -176,6 +190,7 @@ public class ProNewsFamilyRecord extends Model<ProNewsFamilyRecord> {
         ", newsText=" + newsText +
         ", visitNum=" + visitNum +
         ", status=" + status +
+        ", isTop=" + isTop +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +
