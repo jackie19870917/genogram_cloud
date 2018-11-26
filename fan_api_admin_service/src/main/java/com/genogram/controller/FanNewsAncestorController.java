@@ -65,7 +65,7 @@ public class FanNewsAncestorController {
                     "zipai 字派")
     @RequestMapping(value = "/getFamousAncestorPage",method = RequestMethod.GET)
     public Response<FanNewsFamousAncestor> getFamousAncestorPage(
-            @ApiParam(value = "显示位置Id") @RequestParam(value = "siteId") Integer siteId, // 显示位置
+            @ApiParam(value = "网站Id") @RequestParam(value = "siteId") Integer siteId, // 显示位置
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "14") Integer pageSize
     ){
