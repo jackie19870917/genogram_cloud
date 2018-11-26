@@ -1,16 +1,30 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.AllMessageBoard;
+import com.genogram.entity.FanNewsFamilyRecord;
+import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.mapper.AllMessageBoardMapper;
 import com.genogram.service.IFanMessageBoardService;
 import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
+
+/**
+ * 联谊会留言板
+ */
 @Service
 public class AllMessageBoardServicesImpl extends ServiceImpl<AllMessageBoardMapper, AllMessageBoard> implements IFanMessageBoardService {
-//生成时间
+    /**
+     * 留言板添加
+     * @param allMessageBoard
+     * @return
+     */
     @Override
     public boolean addOrUpdateRecord(AllMessageBoard allMessageBoard) {
         //生成时间
@@ -24,5 +38,18 @@ public class AllMessageBoardServicesImpl extends ServiceImpl<AllMessageBoardMapp
         boolean result = this.insertOrUpdate(allMessageBoard);
 
         return result;
+    }
+    /**
+     * 留言板查询
+     * @param
+     * @return
+     */
+    @Override
+    public Page<AllMessageBoard> getMessageBoard(Integer siteId,Integer sourceType, Integer pageNo, Integer pageSize) {
+        Wrapper<AllMessageBoard> entity = new EntityWrapper<AllMessageBoard>();
+        entity.eq("site_id", siteId);
+        entity.eq("source_type",sourceType);
+        Page<AllMessageBoard> fanNewsFamilyRecord =this.selectPage(new Page<AllMessageBoard>(pageNo, pageSize), entity);
+        return fanNewsFamilyRecord;
     }
 }

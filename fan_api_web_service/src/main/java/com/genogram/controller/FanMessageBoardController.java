@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
+ *联谊会留言板
  * @author wangwei
  * @since 2018-11-23
  */
