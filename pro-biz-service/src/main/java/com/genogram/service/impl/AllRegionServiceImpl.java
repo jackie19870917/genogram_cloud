@@ -2,16 +2,20 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.AllRegion;
 import com.genogram.entity.FanSysSite;
+import com.genogram.entity.ProSysSite;
 import com.genogram.mapper.AllRegionMapper;
 import com.genogram.service.IAllRegionService;
 import com.genogram.service.IFanSysSiteService;
+import com.genogram.service.IProSysSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,6 +34,9 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
 
     @Autowired
     private IAllRegionService allRegionService;
+
+    @Autowired
+    private IProSysSiteService proSysSiteService;
 
     /**
      * 省级下属县级官网查询
@@ -65,5 +72,47 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
         regionEntity.in("code",regionCode);
         List<AllRegion> allRegions = this.selectList(regionEntity);
         return allRegions;
+    }
+
+    /**
+     * 省级下属地图查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-14
+     * @Time: 19:00
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @Override
+    public List<AllRegion> getRegion(Wrapper<AllRegion> entity) {
+        List<AllRegion> allRegions = this.selectList(entity);
+        return allRegions;
+    }
+
+    /**
+     * 省级下属地图联谊会查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-14
+     * @Time: 19:00
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @Override
+    public Page<FanSysSite> getSodalityRegion(String parentCode, Integer siteId, Integer pageNo, Integer pageSize) {
+        //查询姓氏
+        Wrapper<ProSysSite> entity=new EntityWrapper<>();
+        entity.eq("id",siteId);
+        ProSysSite proSysSite = proSysSiteService.selectOne(entity);
+        //字符串转换集合
+        List<String> result = Arrays.asList(parentCode.split(","));
+        //查询地区联谊会
+        Wrapper<FanSysSite> entitySite=new EntityWrapper<>();
+        entitySite.eq("family_code",proSysSite.getFamilyCode());
+        entitySite.in("region_code",result);
+        Page<FanSysSite> fanSysSitePage = fanSysSiteService.selectPage(new Page<FanSysSite>(pageNo, pageSize), entitySite);
+        return fanSysSitePage;
     }
 }
