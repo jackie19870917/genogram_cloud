@@ -10,7 +10,10 @@ import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityPayIn;
-import com.genogram.service.*;
+import com.genogram.service.IFanIndexFundService;
+import com.genogram.service.IFanNewsCharityPayInService;
+import com.genogram.service.IFanSysWebNewsShowService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -53,7 +56,7 @@ public class PayController {
     @Autowired
     private IFanIndexFundService fanIndexFundService;
 
-    @ApiParam
+    @Autowired
     private IUserService userService;
 
     private String baseUrl;
@@ -73,7 +76,7 @@ public class PayController {
     public Response<FanNewsCharityPayIn> aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
                            @ApiParam("网站ID") @RequestParam Integer siteId,
                            @ApiParam("token")@RequestParam(value = "token",required = false)String token,
-                           @ApiParam("是否匿名(1-匿名,2-不匿名)")@RequestParam("anonymous") Integer anonymous,
+                           @ApiParam("是否匿名(1-匿名,0-不匿名)")@RequestParam("anonymous") Integer anonymous,
                            @RequestParam(value = "url")String url) throws IOException {
 
 

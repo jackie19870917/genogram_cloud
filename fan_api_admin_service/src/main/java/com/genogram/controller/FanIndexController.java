@@ -49,9 +49,6 @@ public class FanIndexController {
     @Autowired
     private IUserService userService;
 
-    @Autowired
-    private IAllUserLoginService allUserLoginService;
-
     /**
      * 轮播图
      *
@@ -183,9 +180,7 @@ public class FanIndexController {
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
     public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo, @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
+        if (getToken(token)) return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
@@ -201,6 +196,13 @@ public class FanIndexController {
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
+    }
+
+    private boolean getToken(@RequestParam(value = "token", required = false) @ApiParam("token") String token) {
+        if (StringUtils.isEmpty(token)) {
+            return true;
+        }
+        return false;
     }
 
     /**
