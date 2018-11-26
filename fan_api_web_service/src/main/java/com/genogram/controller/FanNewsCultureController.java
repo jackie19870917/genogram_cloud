@@ -13,6 +13,9 @@ import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +33,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/fanNewsCulture")
+@Api(description = "联谊会家族文化前台增删改查")
 public class FanNewsCultureController {
 
     @Autowired
@@ -47,11 +51,23 @@ public class FanNewsCultureController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "联谊会家族字派查询", notes =
+            "ancestorsName 祖先名 --" +
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数 --" +
+            "ziapiLocation 字派具体地域 --" +
+            "zipaiTxt 字派数组:数字和字的组合")
     @RequestMapping(value = "/getCommonalityPage", method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try {
             //判断showId是否有值
@@ -89,10 +105,21 @@ public class FanNewsCultureController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "联谊会首页家族字派", notes =
+            "ancestorsName 祖先名 --" +
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数 --" +
+            "ziapiLocation 字派具体地域 --" +
+            "zipaiTxt 字派数组:数字和字的组合")
     @RequestMapping(value = "/index/getCommonalityIndexPage", method = RequestMethod.GET)
     public Response<StringBuffer> getCommonalityIndexPage(
-            @RequestParam(value = "showId") Integer
-                    showId // 家族文化显示位置
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId // 家族文化显示位置
     ) {
         try {
             //判断showId是否有值
@@ -129,12 +156,24 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "联谊会家族字派模糊查询", notes =
+            "ancestorsName 祖先名 --" +
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数 --" +
+            "ziapiLocation 字派具体地域 --" +
+            "zipaiTxt 字派数组:数字和字的组合")
     @RequestMapping(value = "/getZipaiVaguePage",method = RequestMethod.POST)
     public Response<FanNewsCultureZipai> getGrabblePage(
-            @RequestParam(value = "showId") Integer showId, // 家族字派显示位置
-            @RequestParam(value = "zipaiTxt") String zipaiTxt, // 家族字派模糊查询参数
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId,
+            @ApiParam(value = "家族字派模糊查询参数")@RequestParam(value = "zipaiTxt") String zipaiTxt,
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try{
             //返回的空list集合结构
@@ -172,11 +211,22 @@ public class FanNewsCultureController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "联谊会家族文化查询", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置ID --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value = "/getFamilyCulturePage", method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId,
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         //判断showId是否有值
         if (showId==null) {
@@ -195,11 +245,22 @@ public class FanNewsCultureController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "联谊会首页家族文化查询", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置ID --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value = "/index/getFamilyIndexCulturePage", method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyIndexCulturePage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId,
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         //判断showId是否有值
         if (showId==null) {
@@ -251,9 +312,27 @@ public class FanNewsCultureController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "联谊会家族文化详情查询", notes =
+            "createTime 创建时间 --" +
+            "createTimeLong 创建时间Long --" +
+            "createUser 创建人ID --" +
+            "createUserName 创建人姓名 --" +
+            "fanNewsUploadFileList 县级附件 --" +
+            "id 主键ID" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "proNewsUploadFileList 省级附件 --" +
+            "showId 显示位置Id" +
+            "source " +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateTimeLong 修改时间Long --" +
+            "updateUser 修改人Id --" +
+            "updateUserName 修改人名称" +
+            "visitNum 查看数")
     @RequestMapping(value = "/getFamilyCultureDetail", method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "id") Integer id // 家族文化文章ID
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id // 家族文化文章ID
     ) {
         try {
             //返回空参

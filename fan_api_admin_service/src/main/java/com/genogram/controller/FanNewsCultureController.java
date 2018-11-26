@@ -37,7 +37,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsCulture")
-@Api(description = "联谊会家族文化增删改查")
+@Api(description = "联谊会家族文化后台增删改查")
 public class FanNewsCultureController {
 
     @Autowired
