@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamousAncestor;
+import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.mapper.FanNewsFamousAncestorMapper;
 import com.genogram.service.IFanNewsFamousAncestorService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.service.IProNewsFamousAncestorService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
@@ -36,6 +38,9 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
     @Autowired
     private FanNewsFamousAncestorMapper fanNewsFamousAncestorMapper;
 
+    @Autowired
+    private IFanSysWebNewsShowService fanSysWebNewsShowService;
+
     /**
      *联谊会联谊会祖先查询
      *@Author: yuzhou
@@ -46,8 +51,18 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
      *@Description:
     */
     @Override
-    public Page<FanNewsFamousAncestor> getFamousAncestorPage(Wrapper<FanNewsFamousAncestor> entity, Integer pageNo, Integer pageSize) {
-        Page<FanNewsFamousAncestor> fanNewsFamousAncestorPage = this.selectPage(new Page<FanNewsFamousAncestor>(pageNo, pageSize), entity);
+    public Page<FanNewsFamousAncestor> getFamousAncestorPage(Integer siteId, Integer pageNo, Integer pageSize) {
+
+        //查询showId 显示位置Id
+        Wrapper<FanSysWebNewsShow> entity=new EntityWrapper<>();
+        entity.eq("site_Id",siteId);
+        entity.eq("menu_type","ancestors");
+        FanSysWebNewsShow fanSysWebNewsShow = fanSysWebNewsShowService.selectOne(entity);
+        //查询条件
+        Wrapper<FanNewsFamousAncestor> entityAncestor=new EntityWrapper<>();
+        entity.eq("show_id",fanSysWebNewsShow.getShowId());
+        entity.orderBy("update_time", false);
+        Page<FanNewsFamousAncestor> fanNewsFamousAncestorPage = this.selectPage(new Page<FanNewsFamousAncestor>(pageNo, pageSize), entityAncestor);
         return fanNewsFamousAncestorPage;
     }
 

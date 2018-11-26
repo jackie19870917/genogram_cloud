@@ -26,19 +26,11 @@ public interface IAllRegionService extends IService<AllRegion> {
     List<AllRegion> getProvincialSubordinate(Integer siteId);
 
     /**
-     * 省级下属地图查询
-     * @param entity 地区ID
-     * @return
-     */
-    List<AllRegion> getRegion(Wrapper<AllRegion> entity);
-
-    /**
      * 省级下属地图联谊会查询
-     * @param parentCode
      * @param siteId
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<FanSysSite> getSodalityRegion(String parentCode, Integer siteId, Integer pageNo, Integer pageSize);
+    Page<FanSysSite> getSodalityRegion( Integer siteId, Integer pageNo, Integer pageSize);
 }
