@@ -13,14 +13,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
- *
- *@author: Toxicant
- *@date: 2018-11-26
- *@time: 14:19
- *@param:
- *@return:
- *@Description:
-*/
+ * @author: Toxicant
+ * @date: 2018-11-26
+ * @time: 14:19
+ * @param:
+ * @return:
+ * @Description:
+ */
 @Api(description = "开通网站")
 @RestController
 @CrossOrigin(origins = "*")
@@ -32,7 +31,7 @@ public class SysSiteController {
 
     @ApiOperation("开通网站")
     @RequestMapping(value = "insertSysSite", method = RequestMethod.POST)
-    public Response<FanSysSite> insertSysSite(@ApiParam("token")@RequestParam(value = "token",required = false) String token) {
+    public Response<FanSysSite> insertSysSite(@ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");

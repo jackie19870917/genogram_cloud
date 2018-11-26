@@ -96,6 +96,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
 
         fanNewsCharityPayInWrapper.eq("show_id", showId);
         fanNewsCharityPayInWrapper.in("status", status);
+       // fanNewsCharityPayInWrapper.groupBy("pay_usr_id");
 
         String sort = "time";
 
