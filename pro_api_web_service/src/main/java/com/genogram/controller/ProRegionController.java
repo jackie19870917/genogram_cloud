@@ -18,6 +18,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ *省级地图查询地区
+ *@Author: yuzhou
+ *@Date: 2018-11-26
+ *@Time: 11:13
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/proRegion")

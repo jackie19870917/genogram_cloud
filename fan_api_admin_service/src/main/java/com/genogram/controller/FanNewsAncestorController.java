@@ -171,7 +171,7 @@ public class FanNewsAncestorController {
     ){
         try {
             Page<AncestorsBranchVo> mapPage = new Page<>(pageNo, pageSize);
-            Map map=new HashMap();
+            Map map=new HashMap(16);
             map.put("ancestorName",ancestorName);
             Page<AncestorsBranchVo> ancestorsBranchVo = fanNewsFamousAncestorService.getFamousAncestorVaguePage(mapPage,map);
             if(ancestorsBranchVo==null){

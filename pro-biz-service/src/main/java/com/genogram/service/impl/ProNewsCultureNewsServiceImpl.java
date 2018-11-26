@@ -3,6 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entity.ProNewsCultureNews;
@@ -10,12 +11,10 @@ import com.genogram.entity.ProNewsUploadFile;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.ProNewsCultureNewsMapper;
-import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.IProNewsCultureNewsService;
+import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.genogram.service.IProNewsUploadFileService;
-import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +42,9 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
 
     @Autowired
     private IProSysRecommendService proSysRecommendService;
+
+    @Autowired
+    private IUploadFileService uploadFileService;
 
     /**
      *省级家族文化查询
@@ -184,7 +186,7 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
         Integer visitNum = proNewsCultureNews.getVisitNum()+1;
         proNewsCultureNews.setVisitNum(visitNum);
         this.updateAllColumnById(proNewsCultureNews);
-        if(visitNum >200 || visitNum==200){
+        if(visitNum > Constants.PRO_VISIT_NUM || visitNum.equals(Constants.PRO_VISIT_NUM)){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
             //来源:(1县级,2省级)
@@ -229,9 +231,9 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
         //插入数据
         boolean result = this.insertOrUpdate(proNewsCultureNews);
         //存储图片
-      /*  if(result && StringsUtils.isNotEmpty(filePath)){
-            proNewsUploadFileService.storageFanFile(fileName,filePath,proNewsCultureNews.getId(),proNewsCultureNews.getShowId());
-        }*/
+        if(result && StringsUtils.isNotEmpty(filePath)){
+            uploadFileService.storageFanFile(fileName,filePath,proNewsCultureNews.getId(),proNewsCultureNews.getShowId());
+        }
         return result;
     }
 

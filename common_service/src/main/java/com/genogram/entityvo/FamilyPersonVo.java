@@ -6,6 +6,15 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 推荐表Vo表
+ *@Author: yuzhou
+ *@Date: 2018-11-26
+ *@Time: 11:10
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @Data
 public class FamilyPersonVo{
 

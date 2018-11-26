@@ -50,6 +50,7 @@ public interface IFanNewsFamousAncestorService extends IService<FanNewsFamousAnc
      * @param fanNewsFamousAncestor
      * @param proSplit
      * @param fanSplit
+     * @return
      */
     Boolean addFamousAncestor(FanNewsFamousAncestor fanNewsFamousAncestor, List<String> proSplit, List<String> fanSplit);
 

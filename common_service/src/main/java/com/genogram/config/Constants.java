@@ -48,4 +48,14 @@ public final class Constants {
      * 返回状态码 未被授权
      */
     public static final Integer UNAUTHORIZED = 401;
+
+    /**
+     * visitNum  省级查看数超过400推荐
+     */
+    public static final Integer PRO_VISIT_NUM = 400;
+
+    /**
+     * visitNum  县级查看数超过200推荐
+     */
+    public static final Integer FAN_VISIT_NUM = 200;
 }

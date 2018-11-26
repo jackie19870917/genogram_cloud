@@ -36,7 +36,7 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
     NewsDetailVo getFamilyRecord(Integer id);
 
     /**
-     * 联谊会家族产业后台新增
+     * 联谊会记录家族后台新增
      * @param fanNewsRecord
      * @param fileName 文件列表
      * @param filePath 文件路径
