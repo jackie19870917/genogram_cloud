@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entity.FanNewsUploadFile;
@@ -104,7 +105,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         Integer visitNum = fanNewsIndustry.getVisitNum()+1;
         fanNewsIndustry.setVisitNum(visitNum);
         this.updateAllColumnById(fanNewsIndustry);
-        if(visitNum >400 || visitNum==400){
+        if(visitNum > Constants.PRO_VISIT_NUM || visitNum.equals(Constants.PRO_VISIT_NUM)){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
             //来源:(1县级,2省级)

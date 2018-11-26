@@ -35,7 +35,7 @@ public class FanNewsFamilyRecordController {
     @ResponseBody
     @RequestMapping(value = "selectRecortPage",method = RequestMethod.GET)
     public Response<FanNewsFamilyRecord> selectRecortPage(
-            @RequestParam(value = "showId") Integer showId, // 产业显示位置
+            @RequestParam(value = "showId") Integer showId, // 显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ){

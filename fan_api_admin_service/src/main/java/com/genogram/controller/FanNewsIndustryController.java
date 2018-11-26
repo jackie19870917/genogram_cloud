@@ -12,6 +12,8 @@ import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -33,6 +35,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsIndustry")
+@Api(description = "联谊会家族产业增删改查")
 public class FanNewsIndustryController {
 
     @Autowired
@@ -50,11 +53,23 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族产业后台查询", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "industryLocation 家族产业具体地址 --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId,
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
             ) {
         try {
@@ -98,9 +113,21 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族产业各个产业的详情", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "industryLocation 家族产业具体地址 --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getFamilyIndustryDetail(
-            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id, // 家族文化详情显示位置
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         if (StringUtils.isEmpty(token)) {
@@ -118,9 +145,21 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族产业各个产业进入修改", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "industryLocation 家族产业具体地址 --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value ="/getFamilyIndustryAmend",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getFamilyIndustryAmend(
-            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id, // 家族文化详情显示位置
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         if (StringUtils.isEmpty(token)) {
@@ -161,9 +200,23 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族产业后台添加和修改 发表", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "industryLocation 家族产业具体地址 --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value = "/addOrUpdateIndustry", method = RequestMethod.POST)
-    public Response<FanNewsIndustry> addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry,
-                                                         String fileName,String filePath,
+    public Response<FanNewsIndustry> addOrUpdateIndustry(
+                                                         @ApiParam(value = "县级家族产业表")FanNewsIndustry fanNewsIndustry,
+                                                         @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
+                                                         @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
                                                          @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -182,9 +235,22 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族产业后台添加和修改 草稿", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "industryLocation 家族产业具体地址 --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
-    public Response<FanNewsIndustry> addOrUpdateIndustryDrft(FanNewsIndustry fanNewsIndustry,
-                                                             String fileName,String filePath,
+    public Response<FanNewsIndustry> addOrUpdateIndustryDrft(@ApiParam(value = "县级家族产业表")FanNewsIndustry fanNewsIndustry,
+                                                             @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
+                                                             @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
                                                              @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");

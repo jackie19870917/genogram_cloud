@@ -4,6 +4,15 @@ package com.genogram.entityvo;
 import lombok.Data;
 
 import java.util.Date;
+/**
+ * 省级字派Vo表
+ *@Author: yuzhou
+ *@Date: 2018-11-26
+ *@Time: 11:12
+ *@Param:
+ *@return:
+ *@Description:
+*/
 @Data
 public class ProNewsCultureZipaiVo {
 

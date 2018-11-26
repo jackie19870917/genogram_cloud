@@ -35,7 +35,7 @@ public class FanNewsAncestorController {
     private IFanNewsFamousAncestorService fanNewsFamousAncestorService;
 
     /**
-     *省级祖先查询
+     *联谊会祖先查询
      *@Author: yuzhou
      *@Date: 2018-11-20
      *@Time: 11:52
@@ -62,19 +62,15 @@ public class FanNewsAncestorController {
                     "zipai 字派")
     @RequestMapping(value = "/getFamousAncestorPage",method = RequestMethod.GET)
     public Response<FanNewsFamousAncestor> getFamousAncestorPage(
-            @ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId, // 显示位置
+            @ApiParam(value = "网站Id") @RequestParam(value = "siteId") Integer siteId, // 显示位置
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "14") Integer pageSize
     ){
         try {
-            if(showId==null){
+            if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
-            //查询条件
-            Wrapper<FanNewsFamousAncestor> entity=new EntityWrapper<>();
-            entity.eq("show_id",showId);
-            entity.orderBy("update_time", false);
-            Page<FanNewsFamousAncestor> proFamilyRecordPage = fanNewsFamousAncestorService.getFamousAncestorPage(entity, pageNo, pageSize);
+            Page<FanNewsFamousAncestor> proFamilyRecordPage = fanNewsFamousAncestorService.getFamousAncestorPage(siteId, pageNo, pageSize);
             if(proFamilyRecordPage==null){
                 //没有取到参数,返回空参
                 Page<FanNewsFamousAncestor> proNewsFamousAncestor = new Page<FanNewsFamousAncestor>();
@@ -88,7 +84,7 @@ public class FanNewsAncestorController {
     }
 
     /**
-     *省级祖先人物详情查询
+     *联谊会祖先人物详情查询
      *@Author: yuzhou
      *@Date: 2018-11-20
      *@Time: 14:22

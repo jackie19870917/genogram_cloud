@@ -214,7 +214,7 @@ public class ProRecommendController {
         int newsSource=1;
         //是否自动推荐(0:否;1:是)
         int isAuto=0;
-        Map map=new HashMap();
+        Map map=new HashMap(16);
         map.put("sizeId",sizeId);
         map.put("status",status);
         map.put("newsSource",newsSource);
@@ -255,7 +255,7 @@ public class ProRecommendController {
             int newsSource=1;
             //是否自动推荐(0:否;1:是)
             int isAuto=0;
-            Map map=new HashMap();
+            Map map=new HashMap(16);
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
@@ -296,7 +296,7 @@ public class ProRecommendController {
             int newsSource=1;
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
-            Map map=new HashMap();
+            Map map=new HashMap(16);
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
@@ -334,7 +334,7 @@ public class ProRecommendController {
             int newsSource=1;
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
-            Map map=new HashMap();
+            Map map=new HashMap(16);
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
@@ -372,7 +372,7 @@ public class ProRecommendController {
             int newsSource=1;
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
-            Map map=new HashMap();
+            Map map=new HashMap(16);
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);
@@ -410,7 +410,7 @@ public class ProRecommendController {
             int newsSource=1;
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
-            Map map=new HashMap();
+            Map map=new HashMap(16);
             map.put("sizeId",sizeId);
             map.put("status",status);
             map.put("newsSource",newsSource);

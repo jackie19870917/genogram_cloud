@@ -56,6 +56,7 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
         Wrapper<ProNewsFamilyRecord> entity = new EntityWrapper<ProNewsFamilyRecord>();
         entity.eq("show_id", showId);
         entity.eq("status", status);
+        entity.orderBy("is_top",false);
         entity.orderBy("create_time", false);
         //分页查询文章主表
         Page<ProNewsFamilyRecord> proNewsFamilyRecord =this.selectPage(new Page<ProNewsFamilyRecord>(pageNo, pageSize), entity);

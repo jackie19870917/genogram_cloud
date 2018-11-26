@@ -45,10 +45,11 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
     Page<AncestorsBranchVo> getFamousAncestorVaguePage(Page<AncestorsBranchVo> mapPage, Map map);
 
     /**
-     * 省级添加
+     * 省级添加 修改
      * @param proNewsFamousAncestor
      * @param proSplit
      * @param fanSplit
+     * @return
      */
     Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit);
 

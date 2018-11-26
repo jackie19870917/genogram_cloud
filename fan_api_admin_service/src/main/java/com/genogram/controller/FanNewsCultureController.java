@@ -15,6 +15,8 @@ import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -35,6 +37,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsCulture")
+@Api(description = "联谊会家族文化增删改查")
 public class FanNewsCultureController {
 
     @Autowired
@@ -55,11 +58,23 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族字派后台查询", notes =
+            "ancestorsName 祖先名 --" +
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数 --" +
+            "ziapiLocation 字派具体地域 --" +
+            "zipaiTxt 字派数组:数字和字的组合")
     @RequestMapping(value = "/getCommonalityPage",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getCommonalityPage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
@@ -103,9 +118,21 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族字派后台进入修改", notes =
+            "ancestorsName 祖先名 --" +
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数 --" +
+            "ziapiLocation 字派具体地域 --" +
+            "zipaiTxt 字派数组:数字和字的组合")
     @RequestMapping(value = "/getZiPaiDetail",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> getZiPaiDetail(
-            @RequestParam(value = "id") Integer id, // 家族字派文章ID
+            @ApiParam(value = "主键Id") @RequestParam(value = "id") Integer id, // 家族字派文章ID
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
@@ -133,8 +160,21 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族字派后台新增修改 发表", notes =
+            "ancestorsName 祖先名 --" +
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数 --" +
+            "ziapiLocation 字派具体地域 --" +
+            "zipaiTxt 字派数组:数字和字的组合")
     @RequestMapping(value = "/addOrUpdateZiPai",method = RequestMethod.POST)
-    public Response<FanNewsCultureZipai> addOrUpdateZiPai(FanNewsCultureZipai fanNewsCultureZipai,
+    public Response<FanNewsCultureZipai> addOrUpdateZiPai(
+                                                          @ApiParam(value = "联谊会字派表")FanNewsCultureZipai fanNewsCultureZipai,
                                                           @ApiParam("token")@RequestParam(value = "token",required = false)String token){
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -153,8 +193,21 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族字派后台新增修改 草稿", notes =
+            "ancestorsName 祖先名 --" +
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数 --" +
+            "ziapiLocation 字派具体地域 --" +
+            "zipaiTxt 字派数组:数字和字的组合")
     @RequestMapping(value = "/addOrUpdateZiPaiDrft",method = RequestMethod.POST)
-    public Response<FanNewsCultureZipai> addOrUpdateZiPaiDrft(FanNewsCultureZipai fanNewsCultureZipai,
+    public Response<FanNewsCultureZipai> addOrUpdateZiPaiDrft(
+                                                              @ApiParam(value = "联谊会字派表")FanNewsCultureZipai fanNewsCultureZipai,
                                                               @ApiParam("token")@RequestParam(value = "token",required = false)String token){
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -197,18 +250,19 @@ public class FanNewsCultureController {
         }
     }
 
- /**
-  *联谊会家族字派后台删除
-  *@Author: yuzhou
-  *@Date: 2018-11-10
-  *@Time: 10:05
-  *@Param:
-  *@return:
-  *@Description:
- */
+    /**
+     *联谊会家族字派后台删除
+     *@Author: yuzhou
+     *@Date: 2018-11-26
+     *@Time: 13:40
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "联谊会家族字派后台删除", notes ="")
     @RequestMapping(value ="/deleteZipaiById",method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> deleteZipaiById(
-            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("主键Id")@RequestParam(value = "id") Integer id,
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
@@ -241,11 +295,22 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族文化后台查询", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置ID --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value ="/getFamilyCulturePage",method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try{
@@ -289,9 +354,27 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族文化后台详情查询", notes =
+            "createTime 创建时间 --" +
+            "createTimeLong 创建时间Long --" +
+            "createUser 创建人ID --" +
+            "createUserName 创建人姓名 --" +
+            "fanNewsUploadFileList 县级附件 --" +
+            "id 主键ID" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "proNewsUploadFileList 省级附件 --" +
+            "showId 显示位置Id" +
+            "source " +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateTimeLong 修改时间Long --" +
+            "updateUser 修改人Id --" +
+            "updateUserName 修改人名称" +
+            "visitNum 查看数")
     @RequestMapping(value ="/getFamilyCultureDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureDetail(
-            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam(value = "主键ID")@RequestParam(value = "id") Integer id,
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         if (StringUtils.isEmpty(token)) {
@@ -313,9 +396,27 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族文化后台进入修改页面", notes =
+            "createTime 创建时间 --" +
+            "createTimeLong 创建时间Long --" +
+            "createUser 创建人ID --" +
+            "createUserName 创建人姓名 --" +
+            "fanNewsUploadFileList 县级附件 --" +
+            "id 主键ID" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "proNewsUploadFileList 省级附件 --" +
+            "showId 显示位置Id" +
+            "source " +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateTimeLong 修改时间Long --" +
+            "updateUser 修改人Id --" +
+            "updateUserName 修改人名称" +
+            "visitNum 查看数")
     @RequestMapping(value ="/getFamilyCultureAmend",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyCultureAmend(
-            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam(value = "主键ID")@RequestParam(value = "id") Integer id, // 家族文化详情显示位置
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         if (StringUtils.isEmpty(token)) {
@@ -356,10 +457,23 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族文化后台添加和修改 发表", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置ID --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value = "/addOrUpdateCulture", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,
-                                                           String fileName,String filePath,
-                                                           @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
+    public Response<FanNewsCultureNews> addOrUpdateCulture(
+                                                        @ApiParam(value = "县级家族文化表")FanNewsCultureNews fanNewsCultureNews,
+                                                        @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
+                                                        @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
+                                                        @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
@@ -377,9 +491,22 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族文化后台添加和修改 草稿", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置ID --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
-    public Response<FanNewsCultureNews> addOrUpdateCultureDrft(FanNewsCultureNews fanNewsCultureNews,
-                                                               String fileName,String filePath,
+    public Response<FanNewsCultureNews> addOrUpdateCultureDrft(
+                                                               @ApiParam(value = "县级家族文化表")FanNewsCultureNews fanNewsCultureNews,
+                                                               @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
+                                                               @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
                                                                @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -400,7 +527,7 @@ public class FanNewsCultureController {
     */
     private Response<FanNewsCultureNews> getFanNewsCultureNewsResponse(FanNewsCultureNews fanNewsCultureNews,
                                                                        String fileName,String filePath,
-                                                                       @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
+                                                                       String token) {
         try{
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
@@ -436,9 +563,10 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族文化后台删除", notes ="")
     @RequestMapping(value ="/deleteCulturById",method = RequestMethod.GET)
     public Response<FanNewsCultureNews> deleteCulturById(
-            @RequestParam(value = "id")Integer id // 家族文化详情显示位置
+            @ApiParam(value = "主键ID")@RequestParam(value = "id")Integer id // 家族文化详情显示位置
     ) {
         try {
             if(id==null){

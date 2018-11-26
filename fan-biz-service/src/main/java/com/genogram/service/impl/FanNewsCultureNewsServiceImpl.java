@@ -3,6 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.config.Constants;
 import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -233,7 +234,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         Integer visitNum = fanNewsCultureNews.getVisitNum()+1;
         fanNewsCultureNews.setVisitNum(visitNum);
          this.updateAllColumnById(fanNewsCultureNews);
-        if(visitNum >200 || visitNum==200){
+        if(visitNum > Constants.FAN_VISIT_NUM || visitNum.equals(Constants.FAN_VISIT_NUM)){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
             //来源:(1县级,2省级)

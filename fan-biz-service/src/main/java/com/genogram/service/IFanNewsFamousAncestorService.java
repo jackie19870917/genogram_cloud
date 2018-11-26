@@ -23,12 +23,12 @@ public interface IFanNewsFamousAncestorService extends IService<FanNewsFamousAnc
 
     /**
      * 联谊会联谊会祖先查询
-     * @param entity
+     * @param siteId
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<FanNewsFamousAncestor> getFamousAncestorPage(Wrapper<FanNewsFamousAncestor> entity, Integer pageNo, Integer pageSize);
+    Page<FanNewsFamousAncestor> getFamousAncestorPage(Integer siteId, Integer pageNo, Integer pageSize);
 
     /**
      * 联谊会祖先人物详情查询
@@ -50,6 +50,7 @@ public interface IFanNewsFamousAncestorService extends IService<FanNewsFamousAnc
      * @param fanNewsFamousAncestor
      * @param proSplit
      * @param fanSplit
+     * @return
      */
     Boolean addFamousAncestor(FanNewsFamousAncestor fanNewsFamousAncestor, List<String> proSplit, List<String> fanSplit);
 

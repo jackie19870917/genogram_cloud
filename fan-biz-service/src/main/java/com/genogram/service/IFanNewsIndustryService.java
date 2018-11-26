@@ -39,8 +39,9 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
 
     /**
      * 联谊会家族产业后台新增
-     * @param fanNewsIndustry  家族产业上传实体类
-     * @param fileNames  上传的图片的字符串
+     * @param fanNewsIndustry 家族产业上传实体类
+     * @param fileName 上传的图片名称
+     * @param filePath 上传的图片路径
      * @return
      */
     boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileName,String filePath);

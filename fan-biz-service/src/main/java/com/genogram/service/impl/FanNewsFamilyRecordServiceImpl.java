@@ -59,6 +59,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         Wrapper<FanNewsFamilyRecord> entity = new EntityWrapper<FanNewsFamilyRecord>();
         entity.eq("show_id", showId);
         entity.in("status", slist);
+        entity.orderBy("is_top",false);
         entity.orderBy("create_time", false);
         //分页查询文章主表
         Page<FanNewsFamilyRecord> fanNewsFamilyRecord =this.selectPage(new Page<FanNewsFamilyRecord>(pageNo, pageSize), entity);

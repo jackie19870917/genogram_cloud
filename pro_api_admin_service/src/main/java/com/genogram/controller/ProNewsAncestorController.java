@@ -174,7 +174,7 @@ public class ProNewsAncestorController {
     ){
         try {
             Page<AncestorsBranchVo> mapPage = new Page<>(pageNo, pageSize);
-            Map map=new HashMap();
+            Map map=new HashMap(16);
             map.put("ancestorName",ancestorName);
             Page<AncestorsBranchVo> ancestorsBranchVo = proNewsFamousAncestorService.getFamousAncestorVaguePage(mapPage,map);
             if(ancestorsBranchVo==null){
