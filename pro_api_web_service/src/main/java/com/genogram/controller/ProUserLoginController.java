@@ -64,21 +64,7 @@ public class ProUserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                Map<String, Object> map = new HashMap(16);
-
-                String time = DateUtil.getAllTime();
-
-                String user = userLogin.getMobilePhone() + "=" + userLogin.getPassword() + "=" + time;
-                String value = userLogin.getId() + "=" + userLogin.getUserName();
-                map.put(user, value);
-
-                //Base64加密
-                byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
-                String str = new String(bytes);
-
-                UserVo userVo = new UserVo();
-                BeanUtils.copyProperties(userLogin, userVo);
-                userVo.setToken(str);
+                UserVo userVo = getUserVo(userLogin);
 
                 return ResponseUtlis.success(userVo);
             } else {
@@ -101,17 +87,47 @@ public class ProUserLoginController {
         Boolean result = allUserLoginService.insertAllUserLogin(allUserLogin);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+
+            UserVo userVo = getUserVo(allUserLogin);
+
+            return ResponseUtlis.success(userVo);
+
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不可用");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名已注册");
         }
     }
 
+    private UserVo getUserVo(AllUserLogin allUserLogin) {
+        Map<String, Object> map = new HashMap(16);
+
+        String time = DateUtil.getAllTime();
+
+        String user = allUserLogin.getMobilePhone() + "=" + allUserLogin.getPassword() + "=" + time;
+        String value = allUserLogin.getId() + "=" + allUserLogin.getUserName();
+        map.put(user, value);
+
+        //Base64加密
+        byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
+        String str = new String(bytes);
+
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(allUserLogin, userVo);
+        userVo.setToken(str);
+        return userVo;
+    }
+
+    /**
+     * 修改密码
+     * @param oldPassword
+     * @param newPassword
+     * @param token
+     * @return
+     */
     @ApiOperation("修改密码")
     @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
     public Response<AllUserLogin> updatePassword(@ApiParam("旧密码") @RequestParam String oldPassword,
                                                  @ApiParam("新密码") @RequestParam String newPassword,
-                                                 @ApiParam("token")@RequestParam("token")String token) {
+                                                 @ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -134,9 +150,14 @@ public class ProUserLoginController {
         return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
     }
 
+    /**
+     * 个人资料查询
+     * @param token
+     * @return
+     */
     @ApiOperation(value = "个人资料查询", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUserLogin", method = RequestMethod.POST)
-    public Response<AllUserLogin> getUserLogin(@ApiParam("token")@RequestParam("token")String token) {
+    public Response<AllUserLogin> getUserLogin(@ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -148,6 +169,7 @@ public class ProUserLoginController {
 
         return ResponseUtlis.success(allUserLogin);
     }
+
     /**
      * 修改个人资料
      * @param allUserLogin
@@ -156,7 +178,7 @@ public class ProUserLoginController {
      */
     @ApiOperation(value = "个人资料修改", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "updatePerson", method = RequestMethod.POST)
-    public Response<AllUserLogin> updatePerson(AllUserLogin allUserLogin,@ApiParam("token")@RequestParam("token")String token) {
+    public Response<AllUserLogin> updatePerson(AllUserLogin allUserLogin,@ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -167,10 +189,30 @@ public class ProUserLoginController {
 
         Boolean result = allUserLoginService.updateUserLogin(allUserLogin);
 
+        allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        Map<String, Object> map = new HashMap(16);
+
+        String time = DateUtil.getAllTime();
+
+        String user = userLogin.getMobilePhone() + "=" + userLogin.getPassword() + "=" + time;
+        String value = allUserLogin.getId() + "=" + allUserLogin.getUserName();
+        map.put(user, value);
+
+        //Base64加密
+        byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
+        String str = new String(bytes);
+
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(allUserLogin, userVo);
+
+        userVo.setToken(str);
+
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtlis.success(userVo);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不可用");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
 }
