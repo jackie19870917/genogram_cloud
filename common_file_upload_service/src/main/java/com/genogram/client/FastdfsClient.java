@@ -25,8 +25,8 @@ public class FastdfsClient {
     private StorageServer storageServer = null;
     private StorageClient1 storageClient = null;
 
-    public FastdfsClient(String conf_filePath) throws Exception {
-        ClientGlobal.init(conf_filePath);
+    public FastdfsClient(String confFilePath) throws Exception {
+        ClientGlobal.init(confFilePath);
         trackerClient = new TrackerClient();
         trackerServer = trackerClient.getConnection();
         storageServer = null;

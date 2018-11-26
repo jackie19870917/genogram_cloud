@@ -20,13 +20,13 @@ public class UploadFastDfsImpl implements IUploadFastDfsService {
     @Value("${fastDfs_ip}")
     private String fastDfsIp;
     @Value("${fastDfs_path}")
-    public String conf_filePath;
+    public String confFilePath;
     @Override
     public Map<String, Object> uploadFastDfs(MultipartFile file) {
         Map<String, Object> map = new HashMap<>(16);
         //FanNewsUploadFile fanNewsUploadFile = new FanNewsUploadFile();
         try {
-            FastdfsClient client = new FastdfsClient(conf_filePath);
+            FastdfsClient client = new FastdfsClient(confFilePath);
             //获取到要上传文件对象的原始文件名(Original：原始的)
             String oldName = file.getOriginalFilename();
             //获取原始文件名中的扩展名(a.b.jpg)

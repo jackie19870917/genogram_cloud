@@ -182,7 +182,7 @@ public class FanUserLoginController {
 
         allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        Map<String, Object> map = new HashMap();
+        Map<String, Object> map = new HashMap(16);
 
         String time = DateUtil.getAllTime();
 
