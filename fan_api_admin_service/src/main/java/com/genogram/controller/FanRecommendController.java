@@ -47,7 +47,7 @@ public class FanRecommendController {
     */
     @RequestMapping(value = "/addRecommendButton",method = RequestMethod.GET)
     public Response<FanSysRecommend> addRecommendButton(
-            @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+            @RequestParam(value = "showId") Integer showId,
             @RequestParam(value = "id") Integer id //主键
     ) {
         try {

@@ -12,6 +12,9 @@ import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +32,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/fanNewsIndustry")
+@Api(description = "联谊会家族产业前台增删改查")
 public class FanNewsIndustryController {
 
     @Autowired
@@ -45,11 +49,23 @@ public class FanNewsIndustryController {
      * @Description:
      *
      */
+    @ApiOperation(value = "联谊会家族产业  详情页查询", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "industryLocation 家族产业具体地址 --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value ="/getFamilyIndustryPage",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyCulturePage(
-            @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId,
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
         if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -67,11 +83,23 @@ public class FanNewsIndustryController {
      * @Description:
      *
      */
+    @ApiOperation(value = "联谊会家族产业 首页查询", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "industryLocation 家族产业具体地址 --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value ="/index/getFamilyIndexIndustryList",method = RequestMethod.GET)
     public Response<FamilyIndustryVo> getFamilyIndexIndustryList(
-            @RequestParam(value = "showId") Integer showId,
-            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId,
+            @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
         if(showId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -124,9 +152,21 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
+    @ApiOperation(value = "联谊会家族产业各个产业的详情", notes =
+            "createTime 创建时间 --" +
+            "createUser 创建人 --" +
+            "id 主键Id --" +
+            "industryLocation 家族产业具体地址 --" +
+            "newsText 内容 --" +
+            "newsTitle 标题 --" +
+            "showId 显示位置Id --" +
+            "status 状态(0:删除;1:已发布;2:草稿3:不显示) --" +
+            "updateTime 修改时间 --" +
+            "updateUser 修改人 --" +
+            "visitNum 查看数")
     @RequestMapping(value ="/getFamilyIndustryDetail",method = RequestMethod.GET)
     public Response<NewsDetailVo> getFamilyIndustryDetail(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id
     ) {
         try{
             NewsDetailVo newsDetailEmpty=new NewsDetailVo();
