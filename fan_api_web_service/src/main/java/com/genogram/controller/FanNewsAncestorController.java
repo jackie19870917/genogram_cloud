@@ -35,7 +35,7 @@ public class FanNewsAncestorController {
     private IFanNewsFamousAncestorService fanNewsFamousAncestorService;
 
     /**
-     *省级祖先查询
+     *联谊会祖先查询
      *@Author: yuzhou
      *@Date: 2018-11-20
      *@Time: 11:52
@@ -84,7 +84,7 @@ public class FanNewsAncestorController {
     }
 
     /**
-     *省级祖先人物详情查询
+     *联谊会祖先人物详情查询
      *@Author: yuzhou
      *@Date: 2018-11-20
      *@Time: 14:22
