@@ -54,7 +54,7 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     }
 
     /**
-     *联谊会后台点击取消推荐
+     *联谊会后台设置个人推荐取消展示
      *@Author: yuzhou
      *@Date: 2018-11-13
      *@Time: 10:06
@@ -63,19 +63,8 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      *@Description:
     */
     @Override
-    public Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status) {
-        boolean result=false;
-        //查询文章
-        List<FanSysRecommend> list = this.selectList(entity);
-        for (FanSysRecommend fanSysRecommend : list) {
-            //修改状态
-            fanSysRecommend.setStatus(status);
-            //修改人
-            fanSysRecommend.setUpdateUser(null);
-            //修改时间
-            fanSysRecommend.setUpdateTime(DateUtil.getCurrentTimeStamp());
-            result = this.updateAllColumnById(fanSysRecommend);
-        }
+    public Boolean deleteRecommend(Integer recommend) {
+        boolean result = this.deleteById(recommend);
         return result;
     }
 
@@ -92,6 +81,22 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     public List<CommonRecommendVo> getManualRecommend(Map map) {
         List<CommonRecommendVo> commonRecommendVo=fanSysRecommendMapper.getManualRecommend(map);
         return commonRecommendVo;
+    }
+
+    /**
+     *联谊会后台点击取消
+     *@Author: yuzhou
+     *@Date: 2018-11-26
+     *@Time: 17:14
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean recommendDelete(Wrapper<FanSysRecommend> entity) {
+        //status 数据库删除一条数据
+        Boolean aBoolean = this.delete(entity);
+        return aBoolean;
     }
 
 }

@@ -202,10 +202,10 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置手动推荐查询" ,  notes="")
     @RequestMapping(value = "/getManualRecommend",method = RequestMethod.GET)
     public Response<CommonRecommendVo> getManualRecommend(
-            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
     ) {
         try{
-        if(sizeId==null){
+        if(siteId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,null);
         }
         //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
@@ -215,7 +215,7 @@ public class ProRecommendController {
         //是否自动推荐(0:否;1:是)
         int isAuto=0;
         Map map=new HashMap(16);
-        map.put("sizeId",sizeId);
+        map.put("siteId",siteId);
         map.put("status",status);
         map.put("newsSource",newsSource);
         map.put("isAuto",isAuto);
@@ -242,11 +242,11 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置手动推荐模糊查询" ,  notes="")
     @RequestMapping(value = "/getManualVagueRecommend",method = RequestMethod.GET)
     public Response<CommonRecommendVo> getManualVagueRecommend(
-            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
             @ApiParam(value = "标题")@RequestParam(value = "newsTitle") String newsTitle
     ) {
         try{
-            if(sizeId==null){
+            if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
@@ -256,7 +256,7 @@ public class ProRecommendController {
             //是否自动推荐(0:否;1:是)
             int isAuto=0;
             Map map=new HashMap(16);
-            map.put("sizeId",sizeId);
+            map.put("siteId",siteId);
             map.put("status",status);
             map.put("newsSource",newsSource);
             map.put("newsTitle",newsTitle);
@@ -284,10 +284,10 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置自动推荐文章查询" ,  notes="")
     @RequestMapping(value = "/getAutomaticRecommendArticle",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getAutomaticRecommendArticle(
-            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
     ) {
         try {
-            if(sizeId==null){
+            if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
@@ -297,7 +297,7 @@ public class ProRecommendController {
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
             Map map=new HashMap(16);
-            map.put("sizeId",sizeId);
+            map.put("siteId",siteId);
             map.put("status",status);
             map.put("newsSource",newsSource);
             map.put("isAuto",isAuto);
@@ -321,11 +321,11 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置自动推荐文章模糊查询" ,  notes="")
     @RequestMapping(value = "/getAutomaticRecommendVagueArticle",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getAutomaticRecommendVagueArticle(
-            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
             @ApiParam(value = "标题")@RequestParam(value = "newsTitle") String newsTitle
     ) {
         try {
-            if(sizeId==null){
+            if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
@@ -335,7 +335,7 @@ public class ProRecommendController {
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
             Map map=new HashMap(16);
-            map.put("sizeId",sizeId);
+            map.put("siteId",siteId);
             map.put("status",status);
             map.put("newsSource",newsSource);
             map.put("newsTitle",newsTitle);
@@ -360,10 +360,10 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置自动推荐人物查询" ,  notes="")
     @RequestMapping(value = "/getRecommendFigure",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getRecommendFigure(
-            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
     ) {
         try {
-            if(sizeId==null){
+            if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
@@ -373,7 +373,7 @@ public class ProRecommendController {
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
             Map map=new HashMap(16);
-            map.put("sizeId",sizeId);
+            map.put("siteId",siteId);
             map.put("status",status);
             map.put("newsSource",newsSource);
             map.put("isAuto",isAuto);
@@ -397,11 +397,11 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置自动推荐人物模糊查询" ,  notes="")
     @RequestMapping(value = "/getRecommendVagueFigure",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getRecommendVagueFigure(
-            @ApiParam(value = "网站Id")@RequestParam(value = "sizeId") Integer sizeId,
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
             @ApiParam(value = "人物名称")@RequestParam(value = "personName") String personName
     ) {
         try {
-            if(sizeId==null){
+            if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
@@ -411,7 +411,7 @@ public class ProRecommendController {
             //是否自动推荐(0:否;1:是)
             int isAuto=1;
             Map map=new HashMap(16);
-            map.put("sizeId",sizeId);
+            map.put("siteId",siteId);
             map.put("status",status);
             map.put("newsSource",newsSource);
             map.put("personName",personName);

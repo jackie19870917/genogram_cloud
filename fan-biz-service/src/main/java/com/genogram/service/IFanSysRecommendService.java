@@ -28,12 +28,11 @@ public interface IFanSysRecommendService extends IService<FanSysRecommend> {
     Boolean addRecommend(FanSysRecommend fanSysRecommend);
 
     /**
-     * 联谊会后台点击取消
-     * @param entity  查询条件
-     * @param status  状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+     * 联谊会后台设置个人推荐取消展示
+     * @param recommendId 推荐表主键
      * @return
      */
-    Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status);
+    Boolean deleteRecommend(Integer recommendId);
 
     /**
      * 县级后台设置手动推荐查询
@@ -41,4 +40,11 @@ public interface IFanSysRecommendService extends IService<FanSysRecommend> {
      * @return
      */
     List<CommonRecommendVo> getManualRecommend(Map map);
+
+    /**
+     * 联谊会后台点击取消
+     * @param entity
+     * @return
+     */
+    Boolean recommendDelete(Wrapper<FanSysRecommend> entity);
 }

@@ -30,10 +30,10 @@
      FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_culture_news w
     where
     1=1
-    <if test="sizeId!=null">
+    <if test="siteId!=null">
        and e.parent=#{siteId}
     </if>
-    and e.id=s.site_id and s.show_id=m.show_id
+        and s.menu_type='culture_home' and e.id=s.site_id and s.show_id=m.show_id
         <if test="isAuto!=null">
             and m.is_auto=#{isAuto}
         </if>
@@ -53,10 +53,10 @@
       FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_family_record r
     where
         1=1
-        <if test="sizeId!=null">
+        <if test="siteId!=null">
             and e.parent=#{siteId}
         </if>
-        and e.id=s.site_id and s.show_id=m.show_id
+        and s.menu_type='family_record' and e.id=s.site_id and s.show_id=m.show_id
         <if test="isAuto!=null">
             and m.is_auto=#{isAuto}
         </if>
@@ -76,10 +76,10 @@
         FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_industry a
         where
         1=1
-        <if test="sizeId!=null">
+        <if test="siteId!=null">
             and e.parent=#{siteId}
         </if>
-        and e.id=s.site_id and s.show_id=m.show_id
+        and s.menu_type='industry_home' and e.id=s.site_id and s.show_id=m.show_id
         <if test="isAuto!=null">
             and m.is_auto=#{isAuto}
         </if>
@@ -99,15 +99,21 @@
 
     <!--省级首页县级手动推荐文章查询-->
     <select id="getManualRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.CommonRecommendVo">
+        select temp1.* from (
         SELECT
           '1' as source,s.name as sizeName,m.id as recommendId,u.id, u.show_id AS showId, u.news_title AS newsTitle, u.news_text AS newsText, u.visit_num AS visitNum, u.status, u.create_time AS createTime, u.create_user AS createUser, u.update_time AS updateTime, u.update_user AS updateUser,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_culture_news u
         WHERE
         1=1
-        <if test="sizeId!=null">
-            and s.parent=#{siteId}
+        /*siteId省级*/
+        <if test="siteId!=null">
+        AND s.parent=#{siteId}
         </if>
-        AND s.id=n.site_id AND n.show_id=m.show_id
+        /*fanSiteId县级*/
+        <if test="fanSiteId">
+        AND n.site_id=#{fanSiteId}
+        </if>
+        AND n.menu_type='culture_home' AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
             AND m.is_auto=#{isAuto}
         </if>
@@ -124,10 +130,15 @@
         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_industry w
         WHERE
         1=1
-        <if test="sizeId!=null">
-            and s.parent=#{siteId}
+        /*siteId省级*/
+        <if test="siteId!=null">
+            AND s.parent=#{siteId}
         </if>
-        AND s.id=n.site_id AND n.show_id=m.show_id
+        /*fanSiteId县级*/
+        <if test="fanSiteId">
+            AND n.site_id=#{fanSiteId}
+        </if>
+        AND n.menu_type='industry_home' AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
             AND m.is_auto=#{isAuto}
         </if>
@@ -144,10 +155,15 @@
          FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_family_record e
          WHERE
         1=1
-        <if test="sizeId!=null">
-            and s.parent=#{siteId}
+        /*siteId省级*/
+        <if test="siteId!=null">
+            AND s.parent=#{siteId}
         </if>
-         AND s.id=n.site_id AND n.show_id=m.show_id
+        /*fanSiteId县级*/
+        <if test="fanSiteId">
+            AND n.site_id=#{fanSiteId}
+        </if>
+         AND n.menu_type='family_record' AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
             AND m.is_auto=#{isAuto}
         </if>
@@ -164,10 +180,15 @@
          FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_famous_person b
          WHERE
         1=1
-        <if test="sizeId!=null">
-            and s.parent=#{siteId}
+        /*siteId省级*/
+        <if test="siteId!=null">
+            AND s.parent=#{siteId}
         </if>
-         AND s.id=n.site_id AND n.show_id=m.show_id
+        /*fanSiteId县级*/
+        <if test="fanSiteId">
+            AND n.site_id=#{fanSiteId}
+        </if>
+         AND n.menu_type='famous_home' AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
             AND m.is_auto=#{isAuto}
         </if>
@@ -178,6 +199,8 @@
         <if test="newsTitle!=null">
             AND b.person_name LIKE CONCAT('%',#{newsTitle},'%')
         </if>
+        ) temp1
+        order by temp1.updateTime desc
     </select>
 
 </mapper>
