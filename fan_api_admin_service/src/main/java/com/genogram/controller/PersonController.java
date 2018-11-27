@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +72,47 @@ public class PersonController {
         return ResponseUtlis.success(userLoginPage);
     }
 
+    @ApiOperation(value = "查询网站管理员", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
+    @RequestMapping(value = "getUserLoginRoleList", method = RequestMethod.POST)
+    public Response<AllUserLogin> getUserLoginRoleList(@ApiParam("网站ID") @RequestParam("siteId") Integer siteId,
+                                                       @ApiParam("网站级别(fan-县级,pro-省级)") @RequestParam("siteType") String siteType,
+                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                                                       @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
+        }
+
+        AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
+
+        AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
+
+        if (userLogin.getRole() != 0) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
+        }
+
+        List list = new ArrayList();
+        // 角色(0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+        Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
+
+        wrapper.eq("site_id",siteId);
+        if ("fan".equals(siteType)) {
+            list.add(1);
+            list.add(4);
+        } else if ("pro".equals(siteType)) {
+            list.add(2);
+            list.add(5);
+        } else {
+            list.add(3);
+            list.add(6);
+        }
+        wrapper.in("role",list);
+
+        Page<AllUserLogin> userLoginPage = allUserLoginService.getAllUserLoginPage(wrapper,pageNo,pageSize);
+
+        return ResponseUtlis.success(userLoginPage);
+    }
     @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)
     public Response<ProSysSite> getSysSite(ProSysSite proSysSite,FanSysSite fanSysSite,
@@ -98,35 +140,6 @@ public class PersonController {
         }
 
     }
-
-   /* @ApiOperation(value = "县级网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
-    @RequestMapping(value = "getFanSysSite", method = RequestMethod.POST)
-    public Response<FanSysSite> getFanSysSite(FanSysSite fanSysSite, @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
-
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
-        }
-
-        Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
-
-        List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
-
-        return ResponseUtlis.success(fanSysSiteList);
-    }
-
-    @ApiOperation(value = "省级网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
-    @RequestMapping(value = "getProSysSite", method = RequestMethod.POST)
-    public Response<ProSysSite> getProSysSite(ProSysSite proSysSite, @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
-
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
-        }
-
-        Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
-        List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
-
-        return ResponseUtlis.success(proSysSiteList);
-    }*/
 
     @ApiOperation(value = "个人资料查询", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUserLogin", method = RequestMethod.POST)

@@ -32,13 +32,4 @@ public class FanSysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysS
         }
     }
 
-    @Override
-    public Boolean insertFanSysSite(FanSysSite fanSysSite) {
-
-        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-        fanSysSite.setCreateTime(timeStamp);
-        fanSysSite.setUpdateTime(timeStamp);
-        fanSysSite.setStatus(3);
-        return null;
-    }
 }

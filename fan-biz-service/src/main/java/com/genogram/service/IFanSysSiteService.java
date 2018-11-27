@@ -20,10 +20,4 @@ public interface IFanSysSiteService extends IService<FanSysSite> {
      */
     FanSysSite getFanSysSite(Integer siteId);
 
-    /**
-     * 开通县级网站
-     * @param fanSysSite
-     * @return
-     */
-    Boolean insertFanSysSite(FanSysSite fanSysSite);
 }

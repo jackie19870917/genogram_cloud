@@ -1,5 +1,7 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
@@ -12,12 +14,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -50,10 +50,31 @@ public class FanIndexController {
 
     @Autowired
     private IFanNewsFamousPersonService iFanNewsFamousPersonService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
     /**
      * 状态
      */
     Integer status = 1;
+
+    @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
+    @RequestMapping(value = "getIndexSysSite", method = RequestMethod.GET)
+    public Response<ProSysSite> getIndexSysSite() {
+
+        Wrapper<FanSysSite> fanSysSiteWrapper = new EntityWrapper<>();
+        List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(fanSysSiteWrapper);
+
+        Wrapper<ProSysSite> proSysSiteWrapper = new EntityWrapper<>();
+        List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(proSysSiteWrapper);
+
+        Map map = new HashMap();
+        map.put("fan", fanSysSiteList);
+        map.put("pro", proSysSiteList);
+
+        return ResponseUtlis.success(map);
+    }
 
     /**
      * 轮播图
@@ -168,14 +189,14 @@ public class FanIndexController {
     @ApiOperation(value = "组织架构查询会长副会长", notes = "siteId:网站id")
     @RequestMapping(value = "/getFamilyStructureList", method = RequestMethod.GET)
     public Response<ProFamilyPersonVo> getFamilyStructureList(
-            @RequestParam(value = "siteId") Integer siteId ) {
+            @RequestParam(value = "siteId") Integer siteId) {
         try {
             //最大的map
             Map zongmap = new LinkedHashMap();
-           // List list = new ArrayList();
+            // List list = new ArrayList();
             //会长类
-           // Map huizhangmap = new LinkedHashMap();
-           // Map map = new LinkedHashMap();
+            // Map huizhangmap = new LinkedHashMap();
+            // Map map = new LinkedHashMap();
             //拿到会长的showid
             FanSysWebNewsShow show = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_huizhang");
             List<FanNewsFamousPerson> familyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
@@ -190,23 +211,23 @@ public class FanIndexController {
             //族长类
             FanSysWebNewsShow zuzhangshow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_zuzhang");
             List<FanNewsFamousPerson> zuzhangfamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(zuzhangshow.getShowId());
-            zongmap.put(zuzhangshow.getMenuName(),zuzhangfamilyFrameList);
+            zongmap.put(zuzhangshow.getMenuName(), zuzhangfamilyFrameList);
 
             //官员类
             List guanyuan = new ArrayList<>();
             FanSysWebNewsShow guanyuanshow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_guanyuan");
             List<FanNewsFamousPerson> guanyuanfamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(guanyuanshow.getShowId());
-            zongmap.put(guanyuanshow.getMenuName(),guanyuanfamilyFrameList);
+            zongmap.put(guanyuanshow.getMenuName(), guanyuanfamilyFrameList);
 
             //企业家
             FanSysWebNewsShow qiyejiashow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_qiyejia");
             List<FanNewsFamousPerson> qiyejiafamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(qiyejiashow.getShowId());
-            zongmap.put(qiyejiashow.getMenuName(),qiyejiafamilyFrameList);
+            zongmap.put(qiyejiashow.getMenuName(), qiyejiafamilyFrameList);
 
             //店主
             FanSysWebNewsShow dianzhushow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_dianzhu");
             List<FanNewsFamousPerson> dianzhufamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(dianzhushow.getShowId());
-            zongmap.put(dianzhushow.getMenuName(),dianzhufamilyFrameList);
+            zongmap.put(dianzhushow.getMenuName(), dianzhufamilyFrameList);
 
 //            huizhangmap.put(show.getMenuName(),familyFrameList);
 //            list.add(huizhangmap);
