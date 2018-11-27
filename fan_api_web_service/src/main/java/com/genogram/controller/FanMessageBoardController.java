@@ -41,11 +41,7 @@ public class FanMessageBoardController {
     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
     public Response<AllMessageBoard> addMessage(
             AllMessageBoard allMessageBoard,
-            @RequestParam(value = "siteId")Integer siteId,
-            @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
+            @RequestParam(value = "siteId")String siteId) {
         int sourceType = 1;
         String createUser = null;
         String updateUser = null;
