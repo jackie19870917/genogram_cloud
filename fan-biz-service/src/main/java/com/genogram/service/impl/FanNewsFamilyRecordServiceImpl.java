@@ -270,6 +270,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         Integer visitNum = fanNewsFamilyRecord.getVisitNum()+1;
         fanNewsFamilyRecord.setVisitNum(visitNum);
         this.updateAllColumnById(fanNewsFamilyRecord);
+
         if(visitNum >200 || visitNum==200){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;

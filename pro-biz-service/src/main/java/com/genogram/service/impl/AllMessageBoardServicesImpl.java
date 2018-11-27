@@ -39,6 +39,7 @@ public class AllMessageBoardServicesImpl extends ServiceImpl<AllMessageBoardMapp
     @Override
     public Page<AllMessageBoard> getMessageBoard(Integer siteId, Integer sourceType, Integer pageNo, Integer pageSize) {
         Wrapper<AllMessageBoard> entity = new EntityWrapper<AllMessageBoard>();
+        entity.orderBy("id",false);
         entity.eq("site_id", siteId);
         entity.eq("source_type",sourceType);
         Page<AllMessageBoard> fanNewsFamilyRecord =this.selectPage(new Page<AllMessageBoard>(pageNo, pageSize), entity);

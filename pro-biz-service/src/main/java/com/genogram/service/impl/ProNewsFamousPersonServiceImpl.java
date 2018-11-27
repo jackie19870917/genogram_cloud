@@ -40,7 +40,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
     @Autowired
     private  UploadServiceImpl uploadService;
     @Autowired
-    private ProNewsUploadFileMapper ProNewsUploadFileMapper;
+    private ProNewsUploadFileMapper proNewsUploadFileMapper;
     @Autowired
     private IProNewsFamilyPersionService iProNewsFamilyPersionService;
 
@@ -82,7 +82,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         uploadentity.eq("status", status);
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
-        List<ProNewsUploadFile> files =  ProNewsUploadFileMapper.selectList(uploadentity);
+        List<ProNewsUploadFile> files =  proNewsUploadFileMapper.selectList(uploadentity);
 
         //遍历主表文章集合,赋值新对象vo
         list.forEach(( news)->{
