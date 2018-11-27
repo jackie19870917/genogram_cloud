@@ -38,7 +38,7 @@ public class AllMessageBoard extends Model<AllMessageBoard> {
     /**
      * 电话
      */
-    private Integer phone;
+    private String phone;
     /**
      * 内容
      */
@@ -97,11 +97,11 @@ public class AllMessageBoard extends Model<AllMessageBoard> {
         return this;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public AllMessageBoard setPhone(Integer phone) {
+    public AllMessageBoard setPhone(String phone) {
         this.phone = phone;
         return this;
     }
