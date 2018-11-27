@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.entity.AllFamily;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entity.ProSysSite;
+import com.genogram.mapper.AllFamilyMapper;
 import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.mapper.ProSysSiteMapper;
@@ -37,6 +39,9 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
 
     @Autowired
     private ProSysSiteMapper proSysSiteMapper;
+
+    @Autowired
+    private AllFamilyMapper allFamilyMapper;
 
     @Override
     public AllUserLogin getAllUserLogin(AllUserLogin allUserLogin) {
@@ -122,6 +127,16 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
             return proSysSiteMapper.selectList(null);
         } else {
             return proSysSiteMapper.selectList(wrapper);
+        }
+    }
+
+    @Override
+    public List<AllFamily> getAllFamily(Wrapper<AllFamily> wrapper) {
+
+        if (StringUtils.isEmpty(wrapper)) {
+            return allFamilyMapper.selectList(null);
+        } else {
+            return allFamilyMapper.selectList(wrapper);
         }
     }
 }

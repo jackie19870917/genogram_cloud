@@ -1,6 +1,9 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllFamily;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entityvo.UserVo;
 import com.genogram.service.IAllUserLoginService;
@@ -17,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -72,6 +77,21 @@ public class FanUserLoginController {
             }
         }
 
+    }
+
+    @ApiOperation(value = "姓氏",notes = "value-姓氏姓名")
+    @RequestMapping(value = "getAllFamily",method = RequestMethod.GET)
+    public Response<AllFamily> getAllFamily(@ApiParam("姓氏") @RequestParam(value = "value",required = false) String value) {
+
+        Wrapper<AllFamily> wrapper = new EntityWrapper<>();
+
+        if (!StringUtils.isEmpty(value)) {
+            wrapper.eq("value", value);
+        }
+
+        List<AllFamily> familyList = allUserLoginService.getAllFamily(wrapper);
+
+        return ResponseUtlis.success(familyList);
     }
 
     /**
