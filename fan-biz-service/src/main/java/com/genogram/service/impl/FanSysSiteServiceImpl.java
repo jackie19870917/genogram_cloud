@@ -4,8 +4,11 @@ import com.genogram.entity.FanSysSite;
 import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.service.IFanSysSiteService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.sql.Timestamp;
 
 /**
  * <p>
@@ -27,5 +30,15 @@ public class FanSysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysS
         } else {
             return fanSysSite;
         }
+    }
+
+    @Override
+    public Boolean insertFanSysSite(FanSysSite fanSysSite) {
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+        fanSysSite.setCreateTime(timeStamp);
+        fanSysSite.setUpdateTime(timeStamp);
+        fanSysSite.setStatus(3);
+        return null;
     }
 }

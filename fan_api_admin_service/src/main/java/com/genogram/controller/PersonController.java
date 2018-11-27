@@ -71,7 +71,35 @@ public class PersonController {
         return ResponseUtlis.success(userLoginPage);
     }
 
-    @ApiOperation(value = "县级网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
+    @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
+    @RequestMapping(value = "getSysSite", method = RequestMethod.POST)
+    public Response<ProSysSite> getSysSite(ProSysSite proSysSite,FanSysSite fanSysSite,
+                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                                           @ApiParam("type(联谊会-fan,省级-pro)")@RequestParam(value = "type")String type) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+        }
+
+        if ("fan".equals(type)) {
+
+            Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
+            List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
+
+            return ResponseUtlis.success(fanSysSiteList);
+
+        } else if ("pro".equals(type)) {
+            Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
+            List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
+
+            return ResponseUtlis.success(proSysSiteList);
+        } else {
+            return null;
+        }
+
+    }
+
+   /* @ApiOperation(value = "县级网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getFanSysSite", method = RequestMethod.POST)
     public Response<FanSysSite> getFanSysSite(FanSysSite fanSysSite, @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
@@ -98,7 +126,7 @@ public class PersonController {
         List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
 
         return ResponseUtlis.success(proSysSiteList);
-    }
+    }*/
 
     @ApiOperation(value = "个人资料查询", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUserLogin", method = RequestMethod.POST)

@@ -14,10 +14,16 @@ import com.baomidou.mybatisplus.service.IService;
 public interface IFanSysSiteService extends IService<FanSysSite> {
 
     /**
-     *         网站信息
-     * @param siteId   网站ID
+     * 网站信息
+     * @param siteId
      * @return
      */
     FanSysSite getFanSysSite(Integer siteId);
 
+    /**
+     * 开通县级网站
+     * @param fanSysSite
+     * @return
+     */
+    Boolean insertFanSysSite(FanSysSite fanSysSite);
 }
