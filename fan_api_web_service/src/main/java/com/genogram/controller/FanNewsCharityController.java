@@ -106,9 +106,11 @@ public class FanNewsCharityController {
             Map map = new HashMap(16);
             map.put("showId", showId);
             map.put("status", list);
+
             if (!StringUtils.isEmpty(nickName)) {
                 map.put("nick_name", nickName);
             }
+
             map.put("label", label);
 
             Page page = new Page();
