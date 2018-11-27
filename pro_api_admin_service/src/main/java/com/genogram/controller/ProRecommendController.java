@@ -11,6 +11,7 @@ import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -210,7 +211,7 @@ public class ProRecommendController {
     ) {
         try{
         if(siteId==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
         }
         //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
         int status=1;
@@ -225,12 +226,12 @@ public class ProRecommendController {
         map.put("isAuto",isAuto);
         List<CommonRecommendVo> commonRecommendVo=proSysRecommendService.getManualRecommend(map);
         if(commonRecommendVo==null){
-            return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            return ResponseUtlis.error(Constants.ERRO_CODE,"您好,没有您想要的数据");
         }
             return ResponseUtlis.success(commonRecommendVo);
     }catch (Exception e){
         e.printStackTrace();
-        return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+        return  ResponseUtlis.error(Constants.FAILURE_CODE,"请联系客服");
     }
     }
 
@@ -247,11 +248,11 @@ public class ProRecommendController {
     @RequestMapping(value = "/getManualVagueRecommend",method = RequestMethod.GET)
     public Response<CommonRecommendVo> getManualVagueRecommend(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
-            @ApiParam(value = "标题")@RequestParam(value = "newsTitle") String newsTitle
+            @ApiParam(value = "标题")@RequestParam(value = "newsTitle",required = false) String newsTitle
     ) {
         try{
             if(siteId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
@@ -263,16 +264,18 @@ public class ProRecommendController {
             map.put("siteId",siteId);
             map.put("status",status);
             map.put("newsSource",newsSource);
-            map.put("newsTitle",newsTitle);
+            if(StringsUtils.isNotEmpty(newsTitle)){
+                map.put("newsTitle",newsTitle);
+            }
             map.put("isAuto",isAuto);
             List<CommonRecommendVo> commonRecommendVo=proSysRecommendService.getManualRecommend(map);
             if(commonRecommendVo==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+                return ResponseUtlis.error(Constants.ERRO_CODE,"您好,没有您想要的数据");
             }
             return ResponseUtlis.success(commonRecommendVo);
         }catch (Exception e){
             e.printStackTrace();
-            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,"请联系客服");
         }
     }
 
@@ -292,7 +295,7 @@ public class ProRecommendController {
     ) {
         try {
             if(siteId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=2;
@@ -306,10 +309,13 @@ public class ProRecommendController {
             map.put("newsSource",newsSource);
             map.put("isAuto",isAuto);
             List<IndustryDetailVo> industryDetailVo=proSysRecommendService.getRecommendArticle(map);
+            if(industryDetailVo.size()==0){
+                return ResponseUtlis.error(Constants.ERRO_CODE,"您好,没有您想要的数据");
+            }
             return ResponseUtlis.success(industryDetailVo);
         }catch (Exception e){
             e.printStackTrace();
-            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,"请联系客服");
         }
     }
 
@@ -326,11 +332,11 @@ public class ProRecommendController {
     @RequestMapping(value = "/getAutomaticRecommendVagueArticle",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getAutomaticRecommendVagueArticle(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
-            @ApiParam(value = "标题")@RequestParam(value = "newsTitle") String newsTitle
+            @ApiParam(value = "标题")@RequestParam(value = "newsTitle",required = false) String newsTitle
     ) {
         try {
             if(siteId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=2;
@@ -345,11 +351,14 @@ public class ProRecommendController {
             map.put("newsTitle",newsTitle);
             map.put("isAuto",isAuto);
             List<IndustryDetailVo> industryDetailVo=proSysRecommendService.getRecommendArticle(map);
+            if(industryDetailVo.size()==0){
+                return ResponseUtlis.error(Constants.ERRO_CODE,"您好,没有您想要的数据");
+            }
             return ResponseUtlis.success(industryDetailVo);
         }catch (Exception e){
             e.printStackTrace();
-            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
-        }
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,"请联系客服");
+}
     }
 
     /**
@@ -368,7 +377,7 @@ public class ProRecommendController {
     ) {
         try {
             if(siteId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=2;
@@ -382,10 +391,13 @@ public class ProRecommendController {
             map.put("newsSource",newsSource);
             map.put("isAuto",isAuto);
             List<FamilyPersonVo> familyPersonVo=proSysRecommendService.getRecommendFigure(map);
+            if(familyPersonVo.size()==0){
+                return ResponseUtlis.error(Constants.ERRO_CODE,"您好,没有您想要的数据");
+            }
             return ResponseUtlis.success(familyPersonVo);
         }catch (Exception e){
             e.printStackTrace();
-            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,"请联系客服");
         }
     }
 
@@ -402,11 +414,11 @@ public class ProRecommendController {
     @RequestMapping(value = "/getRecommendVagueFigure",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getRecommendVagueFigure(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
-            @ApiParam(value = "人物名称")@RequestParam(value = "personName") String personName
+            @ApiParam(value = "人物名称")@RequestParam(value = "personName",required = false) String personName
     ) {
         try {
             if(siteId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+                return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=2;
@@ -418,13 +430,18 @@ public class ProRecommendController {
             map.put("siteId",siteId);
             map.put("status",status);
             map.put("newsSource",newsSource);
-            map.put("personName",personName);
+            if(personName!=null){
+                map.put("personName",personName);
+            }
             map.put("isAuto",isAuto);
             List<FamilyPersonVo> familyPersonVo=proSysRecommendService.getRecommendFigure(map);
+            if(familyPersonVo.size()==0){
+                return ResponseUtlis.error(Constants.ERRO_CODE,"您好,没有您想要的数据");
+            }
             return ResponseUtlis.success(familyPersonVo);
         }catch (Exception e){
             e.printStackTrace();
-            return  ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,"请联系客服");
         }
     }
 }
