@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-27
  */
 @TableName("fan_sys_site")
 public class FanSysSite extends Model<FanSysSite> {
@@ -30,7 +30,7 @@ public class FanSysSite extends Model<FanSysSite> {
      * sys_family:id
      */
     @TableField("family_code")
-    private Integer familyCode;
+    private String familyCode;
     /**
      * sys_region:code
      */
@@ -43,23 +43,25 @@ public class FanSysSite extends Model<FanSysSite> {
     /**
      * 管理员id
      */
-    private String admin;
-    /**
-     * 管理员电话
-     */
-    private String tel;
+    private Integer admin;
     /**
      * 状态(0:删除1:已开通;2:未开通;3:待开通)
      */
     private Integer status;
     /**
-     * 图腾连接
-     */
-    private String pic;
-    /**
      * 父网站id
      */
     private Integer parent;
+    /**
+     * 一级域名
+     */
+    @TableField("one_url")
+    private String oneUrl;
+    /**
+     * 2域名
+     */
+    @TableField("two_url")
+    private String twoUrl;
     /**
      * 管理员是否可以操作:1:可用;0禁用;
      */
@@ -96,11 +98,11 @@ public class FanSysSite extends Model<FanSysSite> {
         return this;
     }
 
-    public Integer getFamilyCode() {
+    public String getFamilyCode() {
         return familyCode;
     }
 
-    public FanSysSite setFamilyCode(Integer familyCode) {
+    public FanSysSite setFamilyCode(String familyCode) {
         this.familyCode = familyCode;
         return this;
     }
@@ -123,21 +125,12 @@ public class FanSysSite extends Model<FanSysSite> {
         return this;
     }
 
-    public String getAdmin() {
+    public Integer getAdmin() {
         return admin;
     }
 
-    public FanSysSite setAdmin(String admin) {
+    public FanSysSite setAdmin(Integer admin) {
         this.admin = admin;
-        return this;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public FanSysSite setTel(String tel) {
-        this.tel = tel;
         return this;
     }
 
@@ -150,21 +143,30 @@ public class FanSysSite extends Model<FanSysSite> {
         return this;
     }
 
-    public String getPic() {
-        return pic;
-    }
-
-    public FanSysSite setPic(String pic) {
-        this.pic = pic;
-        return this;
-    }
-
     public Integer getParent() {
         return parent;
     }
 
     public FanSysSite setParent(Integer parent) {
         this.parent = parent;
+        return this;
+    }
+
+    public String getOneUrl() {
+        return oneUrl;
+    }
+
+    public FanSysSite setOneUrl(String oneUrl) {
+        this.oneUrl = oneUrl;
+        return this;
+    }
+
+    public String getTwoUrl() {
+        return twoUrl;
+    }
+
+    public FanSysSite setTwoUrl(String twoUrl) {
+        this.twoUrl = twoUrl;
         return this;
     }
 
@@ -226,10 +228,10 @@ public class FanSysSite extends Model<FanSysSite> {
         ", regionCode=" + regionCode +
         ", name=" + name +
         ", admin=" + admin +
-        ", tel=" + tel +
         ", status=" + status +
-        ", pic=" + pic +
         ", parent=" + parent +
+        ", oneUrl=" + oneUrl +
+        ", twoUrl=" + twoUrl +
         ", adminEnable=" + adminEnable +
         ", createTime=" + createTime +
         ", createUser=" + createUser +

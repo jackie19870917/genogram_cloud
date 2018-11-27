@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-11-27
  */
 @TableName("pro_sys_site")
 public class ProSysSite extends Model<ProSysSite> {
@@ -43,19 +43,11 @@ public class ProSysSite extends Model<ProSysSite> {
     /**
      * 管理员id
      */
-    private String admin;
-    /**
-     * 管理员电话
-     */
-    private String tel;
+    private Integer admin;
     /**
      * 状态(0:删除1:已开通;2:未开通;3:待开通)
      */
     private Integer status;
-    /**
-     * 图腾连接
-     */
-    private String pic;
     /**
      * 父网站id
      */
@@ -123,21 +115,12 @@ public class ProSysSite extends Model<ProSysSite> {
         return this;
     }
 
-    public String getAdmin() {
+    public Integer getAdmin() {
         return admin;
     }
 
-    public ProSysSite setAdmin(String admin) {
+    public ProSysSite setAdmin(Integer admin) {
         this.admin = admin;
-        return this;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public ProSysSite setTel(String tel) {
-        this.tel = tel;
         return this;
     }
 
@@ -147,15 +130,6 @@ public class ProSysSite extends Model<ProSysSite> {
 
     public ProSysSite setStatus(Integer status) {
         this.status = status;
-        return this;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public ProSysSite setPic(String pic) {
-        this.pic = pic;
         return this;
     }
 
@@ -226,9 +200,7 @@ public class ProSysSite extends Model<ProSysSite> {
         ", regionCode=" + regionCode +
         ", name=" + name +
         ", admin=" + admin +
-        ", tel=" + tel +
         ", status=" + status +
-        ", pic=" + pic +
         ", parent=" + parent +
         ", adminEnable=" + adminEnable +
         ", createTime=" + createTime +

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-21
+ * @since 2018-11-27
  */
 @TableName("all_user_login")
 public class AllUserLogin extends Model<AllUserLogin> {
@@ -67,7 +67,7 @@ public class AllUserLogin extends Model<AllUserLogin> {
     @TableField("site_id")
     private Integer siteId;
     /**
-     * 角色1.(县级管理员,省级管理员)
+     * 角色(0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
      */
     private Integer role;
     /**
