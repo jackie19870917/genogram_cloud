@@ -4,6 +4,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entity.ProSysSite;
+import com.genogram.entityvo.SysSiteVo;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.service.ISysSiteService;
@@ -13,6 +14,7 @@ import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +49,7 @@ public class SysSiteController {
     @RequestMapping(value = "insertSysSite", method = RequestMethod.POST)
     public Response<FanSysSite> insertSysSite(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                               @ApiParam("网站级别(fan-县级,pro-省级)") @RequestParam("siteType") String siteType,
-                                              FanSysSite fanSysSite, ProSysSite proSysSite) {
+                                              SysSiteVo sysSiteVo) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -62,6 +64,10 @@ public class SysSiteController {
 
         AllUserLogin userLogin = new AllUserLogin();
         if ("fan".equals(siteType)) {
+
+            FanSysSite fanSysSite = new FanSysSite();
+            BeanUtils.copyProperties(sysSiteVo,fanSysSite);
+
             fanSysSite.setCreateUser(id);
             fanSysSite.setUpdateUser(id);
             String name = fanSysSite.getFamilyCode() + "氏联谊会";
@@ -80,6 +86,9 @@ public class SysSiteController {
             userLogin.setRole(1);
 
         } else if ("pro".equals(siteType)) {
+            ProSysSite proSysSite = new ProSysSite();
+            BeanUtils.copyProperties(sysSiteVo,proSysSite);
+
             proSysSite.setCreateUser(id);
             proSysSite.setUpdateUser(id);
             String name = proSysSite.getFamilyCode() + "氏官网";

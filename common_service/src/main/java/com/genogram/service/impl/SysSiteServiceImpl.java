@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.service.IService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entity.ProSysSite;
+import com.genogram.entityvo.SysSiteVo;
 import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.mapper.ProSysSiteMapper;
 import com.genogram.service.ISysSiteService;
@@ -21,7 +22,7 @@ import java.util.List;
  *@date: 2018-11-23
  */
 @Service
-public class SysSiteServiceImpl extends ServiceImpl implements ISysSiteService {
+public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite> implements ISysSiteService {
 
     @Autowired
     private FanSysSiteMapper fanSysSiteMapper;

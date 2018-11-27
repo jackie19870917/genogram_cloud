@@ -8,7 +8,7 @@ import com.genogram.entity.ProSysSite;
  *@author: Toxicant
  *@date: 2018-11-23
  */
-public interface ISysSiteService extends IService {
+public interface ISysSiteService extends IService<FanSysSite> {
 
     /**
      * 县级开通网站
