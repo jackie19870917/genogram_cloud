@@ -166,9 +166,27 @@ public class FanRecommendController {
      *@return:
      *@Description:
     */
-    @ApiOperation(value = "县级后台设置手动推荐查询" ,  notes="")
+    @ApiOperation(value = "县级后台设置手动推荐查询" ,  notes=
+            " 推荐表主键 recommendId --" +
+            " 联谊会名称 sizeName --" +
+            " 分类1代表家族文化 2代表记录家族 3代表家族产业 4代表家族名人 source --" +
+            " 主键 id" +
+            " 显示位置id(fan_sys_web_news_show_id) showId --" +
+            " 标题 newsTitle --" +
+            " 内容 newsText --" +
+            " 查看数 visitNum --" +
+            " 状态(0:删除;1:已发布;2:草稿3:不显示) status --" +
+            " 创建时间 createTime --" +
+            " 创建人 createUser --" +
+            " 修改时间 updateTime --" +
+            " 修改人 updateUser --" +
+            " 家族产业具体地址 industryLocation --" +
+            " 人名 personName --" +
+            " 人物简介 personSummary --" +
+            " 头像图片位置 picFileSrc --" +
+            " 头像名 picFileName")
     @RequestMapping(value = "/getManualRecommend",method = RequestMethod.GET)
-    public Response<FanSysRecommend> getManualRecommend(
+    public Response<CommonRecommendVo> getManualRecommend(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
     ) {
         try{
@@ -206,9 +224,27 @@ public class FanRecommendController {
      *@return:
      *@Description:
     */
-    @ApiOperation(value = "县级后台设置手动推荐模糊查询" ,  notes="")
+    @ApiOperation(value = "县级后台设置手动推荐模糊查询" ,  notes=
+            " 推荐表主键 recommendId --" +
+            " 联谊会名称 sizeName --" +
+            " 分类1代表家族文化 2代表记录家族 3代表家族产业 4代表家族名人 source --" +
+            " 主键 id" +
+            " 显示位置id(fan_sys_web_news_show_id) showId --" +
+            " 标题 newsTitle --" +
+            " 内容 newsText --" +
+            " 查看数 visitNum --" +
+            " 状态(0:删除;1:已发布;2:草稿3:不显示) status --" +
+            " 创建时间 createTime --" +
+            " 创建人 createUser --" +
+            " 修改时间 updateTime --" +
+            " 修改人 updateUser --" +
+            " 家族产业具体地址 industryLocation --" +
+            " 人名 personName --" +
+            " 人物简介 personSummary --" +
+            " 头像图片位置 picFileSrc --" +
+            " 头像名 picFileName")
     @RequestMapping(value = "/getManualRecommendVague",method = RequestMethod.GET)
-    public Response<FanSysRecommend> getManualRecommendVague(
+    public Response<CommonRecommendVo> getManualRecommendVague(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
             @ApiParam(value = "标题模糊")@RequestParam(value = "title",required = false) String title
     ) {
