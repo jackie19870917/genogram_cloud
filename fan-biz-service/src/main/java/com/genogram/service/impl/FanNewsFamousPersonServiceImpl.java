@@ -224,6 +224,8 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         Integer visitNum = fanNewsFamousPerson.getVisitNum()+1;
         fanNewsFamousPerson.setVisitNum(visitNum);
         this.updateAllColumnById(fanNewsFamousPerson);
+
+
         if(visitNum >200 || visitNum==200){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;

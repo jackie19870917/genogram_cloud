@@ -11,6 +11,8 @@ import com.genogram.service.IFanNewsFamilyRecordService;
 import com.genogram.service.IFanNewsFamilyRecordVedioService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,7 @@ import java.util.List;
 /**
  * @author xiaohei
  */
+@Api(description = "家族动态(后台)")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsFamilyRecord")
@@ -33,6 +36,18 @@ public class FanNewsFamilyRecordController {
      * 后台家族动态查询
      */
     @ResponseBody
+    @ApiOperation(value = "后台家族动态查询", notes = "id  编号 __"+
+                                               "show_id  显示位置id(fan_sys_web_news_show_id)"+
+                                                "news_title  标题"+
+                                                "news_text  内容"+
+                                                "visit_num  查看数"+
+                                                "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+                                                "is_top  是否置顶(0:不置顶;1.置顶;)"+
+                                                "create_time  创建时间"+
+                                                "create_user  创建人"+
+                                                "update_time  修改时间"+
+                                                "update_user  修改人"
+                                                )
     @RequestMapping(value = "selectRecortPage",method = RequestMethod.GET)
     public Response<FanNewsFamilyRecord> selectRecortPage(
             @RequestParam(value = "showId") Integer showId, // 显示位置
@@ -64,6 +79,18 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "联谊会记录家族的详情", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "news_title  标题"+
+            "news_text  内容"+
+            "visit_num  查看数"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value ="/getFamilyRecord",method = RequestMethod.GET)
     public Response<FamilyRecordVo> getFamilyRecordDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -79,6 +106,18 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "联谊会记录家族进入修改", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "news_title  标题"+
+            "news_text  内容"+
+            "visit_num  查看数"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value ="/getFamilyRecordAmend",method = RequestMethod.GET)
     public Response<FamilyRecordVo> getFamilyRecordAmend(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -113,6 +152,18 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "记录家族后台添加和修改 发表", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "news_title  标题"+
+            "news_text  内容"+
+            "visit_num  查看数"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value = "/addOrUpdateRecord", method = RequestMethod.POST)
     public Response<FanNewsFamilyRecord> addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -129,6 +180,18 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "记录家族后台添加和修改 草稿", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "news_title  标题"+
+            "news_text  内容"+
+            "visit_num  查看数"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value = "/addOrUpdateRecordDrft", method = RequestMethod.POST)
     public Response<FanNewsFamilyRecord> addOrUpdateRecordDrft(FanNewsFamilyRecord fanNewsRecord,String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -164,9 +227,21 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "录家族后台删除", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "news_title  标题"+
+            "news_text  内容"+
+            "visit_num  查看数"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value ="/deleteRecordById",method = RequestMethod.GET)
     public Response<FanNewsFamilyRecord> deleteRecordById(
-            @RequestParam(value = "id")Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id")Integer id // 详情显示位置
     ) {
         try {
             if(id==null){
@@ -189,6 +264,18 @@ public class FanNewsFamilyRecordController {
      * 官方视频
      */
     @ResponseBody
+    @ApiOperation(value = "官方视频", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "vedio_type  视频种类1.个人;2官方"+
+            "title  视频标题"+
+            "auth  视频作者"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value = "selectRecortVedioPage",method = RequestMethod.GET)
     public Response<FanNewsFamilyRecordVedio> selectRecortVedioPage (
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
@@ -218,6 +305,18 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "联谊会记录家族视频详情", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "vedio_type  视频种类1.个人;2官方"+
+            "title  视频标题"+
+            "auth  视频作者"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value ="/getFamilyRecordVedioDetail",method = RequestMethod.GET)
     public Response<FamilyRecordVedioVo> getFamilyRecordVedioDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -233,6 +332,18 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "联谊会记录家族视频进入修改", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "vedio_type  视频种类1.个人;2官方"+
+            "title  视频标题"+
+            "auth  视频作者"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value ="/getFamilyRecordVedioAmend",method = RequestMethod.GET)
     public Response<FamilyRecordVedioVo> getFamilyRecordVedioAmend(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -278,6 +389,18 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "联谊会记录家族后台视频添加和修改 发表", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "vedio_type  视频种类1.个人;2官方"+
+            "title  视频标题"+
+            "auth  视频作者"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value = "/addOrUpdateVedioRecord", method = RequestMethod.POST)
     public Response<FanNewsFamilyRecordVedio> addOrUpdateVedioRecord(FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio, String picfileName,String picPath,String vedioFileName,String vedioPath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -313,6 +436,18 @@ public class FanNewsFamilyRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation(value = "联谊会记录家族后台视频删除", notes = "id  编号 __"+
+            "show_id  显示位置id(fan_sys_web_news_show_id)"+
+            "vedio_type  视频种类1.个人;2官方"+
+            "title  视频标题"+
+            "auth  视频作者"+
+            "status  状态(0:删除;1:已发布;2:草稿3:不显示)"+
+            "is_top  是否置顶(0:不置顶;1.置顶;)"+
+            "create_time  创建时间"+
+            "create_user  创建人"+
+            "update_time  修改时间"+
+            "update_user  修改人"
+    )
     @RequestMapping(value ="/deleteRecordVedioById",method = RequestMethod.GET)
     public Response<FanNewsFamilyRecordVedio> deleteRecordVedioById(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置

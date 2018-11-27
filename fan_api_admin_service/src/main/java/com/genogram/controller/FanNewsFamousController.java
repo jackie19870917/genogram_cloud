@@ -9,6 +9,7 @@ import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.service.IFanNewsFamousPersonService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * 家族名人
  */
 @RestController
+@Api(description = "家族名人(后台)")
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanNewsFamous")
 public class FanNewsFamousController {

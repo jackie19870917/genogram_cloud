@@ -47,6 +47,10 @@ public class FanMessageBoardController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
         int sourceType = 1;
+        String createUser = null;
+        String updateUser = null;
+        allMessageBoard.setUpdateUser(updateUser);
+        allMessageBoard.setCreateUser(createUser);
         allMessageBoard.setSourceType(sourceType);
         try {
             // 插入数据
