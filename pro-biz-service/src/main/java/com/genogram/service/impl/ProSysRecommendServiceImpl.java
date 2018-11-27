@@ -55,6 +55,15 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;
 
+    /**
+     *省级后台点击推荐
+     *@Author: yuzhou
+     *@Date: 2018-11-27
+     *@Time: 14:23
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public Boolean addRecommend(FanSysRecommend fanSysRecommend) {
         //是否全国显示(0:否;1是)
@@ -71,7 +80,7 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     }
 
     /**
-     *省级后台点击取消
+     *省级后台设置个人推荐取消展示
      *@Author: yuzhou
      *@Date: 2018-11-14
      *@Time: 17:38
@@ -93,7 +102,6 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
             fanSysRecommend.setUpdateTime(DateUtil.getCurrentTimeStamp());
             result = this.updateAllColumnById(fanSysRecommend);
         }
-
         return result;
     }
     /**

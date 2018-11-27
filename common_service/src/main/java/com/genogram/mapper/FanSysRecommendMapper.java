@@ -33,4 +33,11 @@ public interface FanSysRecommendMapper extends BaseMapper<FanSysRecommend> {
      * @return
      */
     List<CommonRecommendVo> getManualRecommend(Map map);
+
+    /**
+     * 县级手动联谊会推荐
+     * @param map
+     * @return
+     */
+    List<CommonRecommendVo> getCountyManualRecommend(Map map);
 }

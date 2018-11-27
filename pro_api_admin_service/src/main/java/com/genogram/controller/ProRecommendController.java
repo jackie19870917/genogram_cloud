@@ -106,11 +106,15 @@ public class ProRecommendController {
             int status=0;
             //是否自动推荐(0:否;1:是)
             int isAuto=0;
+            //来源:(1县级,2省级)
+            int newsSource=2;
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("show_id",showId);
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             entity.eq("status",1);
             entity.eq("news_id",id);
+            entity.eq("is_auto",isAuto);
+            entity.eq("news_source",newsSource);
             Boolean aBoolean = proSysRecommendService.deleteRecommend(entity,status);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);

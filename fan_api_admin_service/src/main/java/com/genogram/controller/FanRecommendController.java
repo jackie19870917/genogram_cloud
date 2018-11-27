@@ -8,6 +8,7 @@ import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.service.IFanSysRecommendService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -100,6 +101,8 @@ public class FanRecommendController {
             if(showId==null || id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=1;
             //来源:(1县级,2省级)
             int newsSource=1;
             //是否自动推荐(0:否;1:是)
@@ -109,6 +112,7 @@ public class FanRecommendController {
             entity.eq("news_id",id);
             entity.eq("news_source",newsSource);
             entity.eq("is_auto",isAuto);
+            entity.eq("status",status);
             Boolean aBoolean = fanSysRecommendService.recommendDelete(entity);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
@@ -206,7 +210,7 @@ public class FanRecommendController {
     @RequestMapping(value = "/getManualRecommendVague",method = RequestMethod.GET)
     public Response<FanSysRecommend> getManualRecommendVague(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
-            @ApiParam(value = "标题模糊")@RequestParam(value = "title") Integer title
+            @ApiParam(value = "标题模糊")@RequestParam(value = "title",required = false) String title
     ) {
         try{
             if(siteId==null){
@@ -223,7 +227,9 @@ public class FanRecommendController {
             map.put("status",status);
             map.put("newsSource",newsSource);
             map.put("isAuto",isAuto);
-            map.put("newsTitle",title);
+            if(StringsUtils.isNotEmpty(title)){
+                map.put("newsTitle",title);
+            }
             List<CommonRecommendVo> commonRecommendVo=fanSysRecommendService.getManualRecommend(map);
             if(commonRecommendVo==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);

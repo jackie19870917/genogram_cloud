@@ -79,7 +79,7 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      */
     @Override
     public List<CommonRecommendVo> getManualRecommend(Map map) {
-        List<CommonRecommendVo> commonRecommendVo=fanSysRecommendMapper.getManualRecommend(map);
+        List<CommonRecommendVo> commonRecommendVo=fanSysRecommendMapper.getCountyManualRecommend(map);
         return commonRecommendVo;
     }
 

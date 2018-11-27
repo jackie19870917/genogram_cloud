@@ -72,4 +72,6 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      * @return
      */
     List<CommonRecommendVo> getManualRecommend(Map map);
+
+
 }

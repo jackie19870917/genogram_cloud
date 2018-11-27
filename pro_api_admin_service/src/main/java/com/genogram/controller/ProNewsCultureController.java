@@ -52,7 +52,7 @@ public class ProNewsCultureController {
      *@Description:
     */
     @ApiOperation(value = "省级后台字派查询" ,  notes=
-            "ancestorsName 祖先名 --" +
+                    "ancestorsName 祖先名 --" +
                     "createTime 创建时间 --" +
                     "createUser 创建人 --" +
                     "id 主键id --" +
