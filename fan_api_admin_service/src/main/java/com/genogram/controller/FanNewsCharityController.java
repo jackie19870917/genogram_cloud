@@ -58,7 +58,7 @@ public class FanNewsCharityController {
      */
     @ApiOperation(value = "基金查询", notes = "id:主键,siteId:网站Id,remain:基金总额,payNum:捐款人数,payOnline:线上捐款,payUnderline:线下捐款,payGenogram:网络修普金额")
     @RequestMapping(value = "getFanIndexFund", method = RequestMethod.GET)
-    public Response<FanIndexFund> getFanIndexFund(@ApiParam(value = "网站id") @RequestParam Integer siteId,
+    public Response<FanIndexFund> getFanIndexFund(@ApiParam("网站id") @RequestParam Integer siteId,
                                                   @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -85,7 +85,7 @@ public class FanNewsCharityController {
      */
     @ApiOperation(value = "慈善收支", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "getFanNewsCharityOutPage", method = RequestMethod.GET)
-    public Response<NewsCharityOutVo> getFanNewsCharityOutVo(@ApiParam(value = "显示位置") @RequestParam Integer showId,
+    public Response<NewsCharityOutVo> getFanNewsCharityOutVo(@ApiParam("显示位置") @RequestParam Integer showId,
                                                              @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                              // @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                              @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -123,7 +123,7 @@ public class FanNewsCharityController {
      */
     @ApiOperation(value = "慈善收支(文章)详情", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getFanNewsCharityDetail(@ApiParam(value = "主键") @RequestParam Integer id,
+    public Response<NewsDetailVo> getFanNewsCharityDetail(@ApiParam("主键") @RequestParam Integer id,
                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -146,8 +146,8 @@ public class FanNewsCharityController {
     @ApiOperation(value = "新增/修改  慈善收支(文章)", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数")
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)
     public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut,
-                                                                      @ApiParam(value = "图片名称") String fileName,
-                                                                      @ApiParam(value = "图片url") String filePath,
+                                                                      @ApiParam("图片名称") String fileName,
+                                                                      @ApiParam("图片url") String filePath,
                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -184,8 +184,8 @@ public class FanNewsCharityController {
     @ApiOperation(value = "慈善收支(文章)草稿", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数")
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDeft", method = RequestMethod.POST)
     public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut,
-                                                                          @ApiParam(value = "图片名称") String fileName,
-                                                                          @ApiParam(value = "图片url") String filePath,
+                                                                          @ApiParam("图片名称") String fileName,
+                                                                          @ApiParam("图片url") String filePath,
                                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -211,7 +211,7 @@ public class FanNewsCharityController {
      */
     @ApiOperation("删除慈善收支(文章)")
     @RequestMapping(value = "deleteFanNewsCharityOut", method = RequestMethod.POST)
-    public Response<FanNewsCharityOut> deleteFanNewsCharityOut(@ApiParam(value = "主键") @RequestParam Integer id,
+    public Response<FanNewsCharityOut> deleteFanNewsCharityOut(@ApiParam("主键") @RequestParam Integer id,
                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -245,6 +245,11 @@ public class FanNewsCharityController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (!"1".equals(userLogin.getRole())) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
+        }
+
         fanIndexFundDrowing.setCreateUser(userLogin.getId());
 
         Boolean result = fanIndexFundDrowingService.insertFanIndexFundDrowing(fanIndexFundDrowing);
@@ -266,7 +271,7 @@ public class FanNewsCharityController {
      */
     @ApiOperation(value = "线上提现记录", notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
     @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.GET)
-    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam(value = "网站Id") @RequestParam Integer siteId,
+    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam("网站Id") @RequestParam Integer siteId,
                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
@@ -300,6 +305,11 @@ public class FanNewsCharityController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (!"1".equals(userLogin.getRole()) || !"4".equals(userLogin.getRole())) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
+        }
+
         fanNewsCharityPayIn.setType(2);
         fanNewsCharityPayIn.setPayUsrId(userLogin.getId());
 

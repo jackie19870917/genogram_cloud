@@ -50,7 +50,7 @@ public class ProIndexController {
      * @return
      */
     @ApiOperation(value = "基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名称,regionCode;地区编号,totemPicSrc:图腾,title:宣言,description;简介")
-    @RequestMapping(value = "getIndexInfo", method = RequestMethod.GET)
+    @RequestMapping(value = "getIndexInfo", method = RequestMethod.POST)
     public Response<IndexInfoVo> getIndexInfoVo(@ApiParam("网站Id") @RequestParam Integer siteId,
                                                 @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
@@ -121,11 +121,12 @@ public class ProIndexController {
 
     /**
      * 轮播图
+     *
      * @param siteId
      * @return
      */
     @ApiOperation(value = "轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
-    @RequestMapping(value = "index/getProIndexSlidePic", method = RequestMethod.GET)
+    @RequestMapping(value = "index/getProIndexSlidePic", method = RequestMethod.POST)
     public Response<ProIndexSlidePic> getProIndexSlidePic(@ApiParam("网站Id") @RequestParam Integer siteId,
                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
@@ -186,7 +187,7 @@ public class ProIndexController {
      * @return
      */
     @ApiOperation(value = "删除轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
-    @RequestMapping(value = "deleteProIndexSlidePic", method = RequestMethod.GET)
+    @RequestMapping(value = "deleteProIndexSlidePic", method = RequestMethod.POST)
     public Response<ProIndexSlidePic> deleteProIndexSlidePic(@ApiParam("主键") @RequestParam Integer id,
                                                              @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
@@ -197,7 +198,7 @@ public class ProIndexController {
         //用户Id
         Integer userId = userService.getUserLoginInfoByToken(token).getId();
 
-        Boolean result = proIndexSlidePicService.deleteProIndexSlidePic(id,userId);
+        Boolean result = proIndexSlidePicService.deleteProIndexSlidePic(id, userId);
 
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);

@@ -14,7 +14,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -69,7 +68,7 @@ public class FanIndexController {
         Wrapper<ProSysSite> proSysSiteWrapper = new EntityWrapper<>();
         List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(proSysSiteWrapper);
 
-        Map map = new HashMap();
+        Map map = new HashMap(16);
         map.put("fan", fanSysSiteList);
         map.put("pro", proSysSiteList);
 

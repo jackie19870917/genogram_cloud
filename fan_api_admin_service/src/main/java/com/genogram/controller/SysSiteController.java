@@ -45,7 +45,7 @@ public class SysSiteController {
     @Autowired
     private IAllUserLoginService allUserLoginService;
 
-    @ApiOperation(value = "开通网站",notes = "id-网站ID,familyCode-姓氏,regionCode-地区编号,name-网站名称,oneUrl-公司指定域名,twoUrl-自费域名")
+    @ApiOperation(value = "开通网站", notes = "id-网站ID,familyCode-姓氏,regionCode-地区编号,name-网站名称,oneUrl-公司指定域名,twoUrl-自费域名")
     @RequestMapping(value = "insertSysSite", method = RequestMethod.POST)
     public Response<FanSysSite> insertSysSite(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                               @ApiParam("网站级别(fan-县级,pro-省级)") @RequestParam("siteType") String siteType,
@@ -59,21 +59,21 @@ public class SysSiteController {
         Integer id = allUserLogin.getId();
 
         Integer siteId = null;
-        Boolean result=true;
+        Boolean result = true;
         Integer userId = null;
 
         AllUserLogin userLogin = new AllUserLogin();
         if ("fan".equals(siteType)) {
 
             FanSysSite fanSysSite = new FanSysSite();
-            BeanUtils.copyProperties(sysSiteVo,fanSysSite);
+            BeanUtils.copyProperties(sysSiteVo, fanSysSite);
 
             fanSysSite.setCreateUser(id);
             fanSysSite.setUpdateUser(id);
             String name = fanSysSite.getFamilyCode() + "氏联谊会";
             fanSysSite.setName(name);
 
-            result=sysSiteService.insertFanSysSite(fanSysSite);
+            result = sysSiteService.insertFanSysSite(fanSysSite);
 
             //新增的网站ID
             siteId = sysSiteService.getFanSysSite().getId();
@@ -87,7 +87,7 @@ public class SysSiteController {
 
         } else if ("pro".equals(siteType)) {
             ProSysSite proSysSite = new ProSysSite();
-            BeanUtils.copyProperties(sysSiteVo,proSysSite);
+            BeanUtils.copyProperties(sysSiteVo, proSysSite);
 
             proSysSite.setCreateUser(id);
             proSysSite.setUpdateUser(id);
@@ -97,7 +97,7 @@ public class SysSiteController {
 
             result = sysSiteService.insertProSysSite(proSysSite);
 
-            siteId =sysSiteService.getProSysSite().getId();
+            siteId = sysSiteService.getProSysSite().getId();
             userId = sysSiteService.getProSysSite().getAdmin();
             userLogin = allUserLoginService.getAllUserLoginById(userId);
             userLogin.setRole(2);

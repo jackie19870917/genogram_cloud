@@ -96,7 +96,8 @@ public class FanIndexController {
      */
     @ApiOperation(value = "新增/修改 轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片,sort:排序")
     @RequestMapping(value = "insertOrUpdateFanIndexSlidePic", method = RequestMethod.POST)
-    public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic, @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+    public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic,
+                                                                     @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -134,7 +135,7 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
-        //用户Id
+        //o8likl
         Integer userId = userService.getUserLoginInfoByToken(token).getId();
 
         Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(id, userId);
@@ -178,7 +179,8 @@ public class FanIndexController {
      */
     @ApiOperation(value = "新增/修改基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名字,totemPicSrc:图腾,title:宣言,description:简介")
     @RequestMapping(value = "insertOrUpdateFanIndexInfo", method = RequestMethod.POST)
-    public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo, @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+    public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo,
+                                                             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");

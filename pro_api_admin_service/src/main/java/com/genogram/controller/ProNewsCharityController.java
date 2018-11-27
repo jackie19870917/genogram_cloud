@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
-import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.IndexFundDrowingVo;
 import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -20,9 +19,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -65,8 +62,8 @@ public class ProNewsCharityController {
      * @return
      */
     @ApiOperation(value = "基金查询", notes = "id:主键,siteId:网站Id,remain:基金总额,payNum:捐款人数,payOnline:线上捐款,payUnderline:线下捐款,payGenogram:网络修普金额")
-    @RequestMapping(value = "getProIndexFund", method = RequestMethod.GET)
-    public Response<ProIndexFund> getProIndexFund(@ApiParam(value = "网站id") @RequestParam Integer siteId,
+    @RequestMapping(value = "getProIndexFund", method = RequestMethod.POST)
+    public Response<ProIndexFund> getProIndexFund(@ApiParam("网站id") @RequestParam Integer siteId,
                                                   @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -77,7 +74,7 @@ public class ProNewsCharityController {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
-        ProIndexFund proIndexFund =proIndexFundService.getProIndexFund(siteId);
+        ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(siteId);
 
         return ResponseUtlis.success(proIndexFund);
     }
@@ -92,8 +89,8 @@ public class ProNewsCharityController {
      * @return
      */
     @ApiOperation(value = "慈善收支", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
-    @RequestMapping(value = "index/getProNewsCharityOutPage", method = RequestMethod.GET)
-    public Response<NewsCharityOutVo> getProNewsCharityOutPage(@ApiParam(value = "显示位置") @RequestParam Integer showId,
+    @RequestMapping(value = "index/getProNewsCharityOutPage", method = RequestMethod.POST)
+    public Response<NewsCharityOutVo> getProNewsCharityOutPage(@ApiParam("显示位置") @RequestParam Integer showId,
                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                //  @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -130,8 +127,8 @@ public class ProNewsCharityController {
      * @return
      */
     @ApiOperation(value = "慈善收支(文章)详情", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
-    @RequestMapping(value = "getNewsDetail", method = RequestMethod.GET)
-    public Response<NewsDetailVo> getNewsDetail(@ApiParam(value = "主键") @RequestParam Integer id,
+    @RequestMapping(value = "getNewsDetail", method = RequestMethod.POST)
+    public Response<NewsDetailVo> getNewsDetail(@ApiParam("主键") @RequestParam Integer id,
                                                 @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -155,8 +152,8 @@ public class ProNewsCharityController {
     @RequestMapping(value = "insertOrUpdateProNewsCharityOut", method = RequestMethod.POST)
     public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOut(ProNewsCharityOut proNewsCharityOut,
                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                                                      @ApiParam(value = "图片名称") String fileName,
-                                                                      @ApiParam(value = "图片url") String filePath) {
+                                                                      @ApiParam("图片名称") String fileName,
+                                                                      @ApiParam("图片url") String filePath) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
@@ -177,7 +174,7 @@ public class ProNewsCharityController {
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -193,8 +190,8 @@ public class ProNewsCharityController {
     @RequestMapping(value = "insertOrUpdateProNewsCharityOutDeft", method = RequestMethod.POST)
     public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOutDeft(ProNewsCharityOut proNewsCharityOut,
                                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                                                          @ApiParam(value = "图片名称") String fileName,
-                                                                          @ApiParam(value = "图片url") String filePath) {
+                                                                          @ApiParam("图片名称") String fileName,
+                                                                          @ApiParam("图片url") String filePath) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
@@ -218,8 +215,8 @@ public class ProNewsCharityController {
      * @return
      */
     @ApiOperation("删除慈善收支(文章)")
-    @RequestMapping(value = "deleteProNewsCharityOut", method = RequestMethod.GET)
-    public Response<ProNewsCharityOut> deleteProNewsCharityOut(@ApiParam(value = "主键") @RequestParam Integer id,
+    @RequestMapping(value = "deleteProNewsCharityOut", method = RequestMethod.POST)
+    public Response<ProNewsCharityOut> deleteProNewsCharityOut(@ApiParam("主键") @RequestParam Integer id,
                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
 
@@ -228,12 +225,12 @@ public class ProNewsCharityController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
-        Boolean result = proNewsCharityOutService.deleteProNewsCharityOut(id,userLogin.getId());
+        Boolean result = proNewsCharityOutService.deleteProNewsCharityOut(id, userLogin.getId());
 
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -260,7 +257,7 @@ public class ProNewsCharityController {
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -273,8 +270,8 @@ public class ProNewsCharityController {
      * @return
      */
     @ApiOperation(value = "线上提现记录", notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
-    @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.GET)
-    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam(value = "网站Id") @RequestParam Integer siteId,
+    @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.POST)
+    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam("网站Id") @RequestParam Integer siteId,
                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
@@ -316,7 +313,7 @@ public class ProNewsCharityController {
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 

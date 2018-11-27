@@ -7,25 +7,20 @@ import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entity.ProSysSite;
-import com.genogram.entityvo.UserVo;
+import com.genogram.entityvo.SysSiteVo;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IUserService;
-import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.commons.codec.binary.Base64;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 联谊会后台
@@ -96,7 +91,7 @@ public class PersonController {
         // 角色(0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
 
-        wrapper.eq("site_id",siteId);
+        wrapper.eq("site_id", siteId);
         if ("fan".equals(siteType)) {
             list.add(1);
             list.add(4);
@@ -107,30 +102,31 @@ public class PersonController {
             list.add(3);
             list.add(6);
         }
-        wrapper.in("role",list);
+        wrapper.in("role", list);
 
-        Page<AllUserLogin> userLoginPage = allUserLoginService.getAllUserLoginPage(wrapper,pageNo,pageSize);
+        Page<AllUserLogin> userLoginPage = allUserLoginService.getAllUserLoginPage(wrapper, pageNo, pageSize);
 
         return ResponseUtlis.success(userLoginPage);
     }
+
     @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)
-    public Response<ProSysSite> getSysSite(ProSysSite proSysSite,FanSysSite fanSysSite,
+    public Response<ProSysSite> getSysSite(SysSiteVo sysSiteVo,
                                            @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                           @ApiParam("type(联谊会-fan,省级-pro)")@RequestParam(value = "type")String type) {
+                                           @ApiParam("siteType(联谊会-fan,省级-pro)") @RequestParam(value = "siteType") String siteType) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
-        if ("fan".equals(type)) {
+        if ("fan".equals(siteType)) {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
             List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
 
             return ResponseUtlis.success(fanSysSiteList);
 
-        } else if ("pro".equals(type)) {
+        } else if ("pro".equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
             List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
 
@@ -143,7 +139,7 @@ public class PersonController {
 
     @ApiOperation(value = "个人资料查询", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUserLogin", method = RequestMethod.POST)
-    public Response<AllUserLogin> getUserLogin(@ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token,
+    public Response<AllUserLogin> getUserLogin(@ApiParam("token") @RequestParam(value = "token",required = false) String token,
                                                @ApiParam("主键") @RequestParam("id") Integer id) {
 
         if (StringUtils.isEmpty(token)) {
@@ -172,7 +168,8 @@ public class PersonController {
      */
     @ApiOperation(value = "个人资料修改", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "updatePerson", method = RequestMethod.POST)
-    public Response<AllUserLogin> updatePerson(AllUserLogin allUserLogin, @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
+    public Response<AllUserLogin> updatePerson(AllUserLogin allUserLogin,
+                                               @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
