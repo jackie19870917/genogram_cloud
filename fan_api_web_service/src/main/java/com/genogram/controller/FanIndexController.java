@@ -14,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -72,6 +73,10 @@ public class FanIndexController {
         map.put("fan", fanSysSiteList);
         map.put("pro", proSysSiteList);
 
+        if (StringUtils.isEmpty(map)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(map);
     }
 
@@ -93,6 +98,10 @@ public class FanIndexController {
         list.add(status);
 
         List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
+
+        if (StringUtils.isEmpty(fanIndexSlidePicList)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(fanIndexSlidePicList);
     }
@@ -120,6 +129,10 @@ public class FanIndexController {
 
         Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = fanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
 
+        if (StringUtils.isEmpty(fanIndexFamilySummarysPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }
 
@@ -138,6 +151,10 @@ public class FanIndexController {
         }
 
         IndexInfoVo indexInfoVo = fanIndexInfoService.getFanIndexInfoVo(siteId);
+
+        if (StringUtils.isEmpty(indexInfoVo)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(indexInfoVo);
     }

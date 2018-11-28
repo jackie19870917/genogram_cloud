@@ -77,6 +77,10 @@ public class FanNewsCharityController {
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
 
+        if (StringUtils.isEmpty(fanIndexFund)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(fanIndexFund);
     }
 
@@ -331,6 +335,10 @@ public class FanNewsCharityController {
         }
 
         Page<IndexFundDrowingVo> indexFundDrowingVoPage = fanIndexFundDrowingService.getIndexFundDrowingVoPage(siteId, pageNo, pageSize);
+
+        if (StringUtils.isEmpty(indexFundDrowingVoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(indexFundDrowingVoPage);
     }

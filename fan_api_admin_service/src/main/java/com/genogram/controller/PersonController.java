@@ -68,6 +68,10 @@ public class PersonController {
         }
         Page<AllUserLogin> userLoginPage = allUserLoginService.getAllUserLoginPage(wrapper, pageNo, pageSize);
 
+        if (StringUtils.isEmpty(userLoginPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(userLoginPage);
     }
 
@@ -109,6 +113,10 @@ public class PersonController {
         wrapper.in("role", list);
 
         Page<AllUserLogin> userLoginPage = allUserLoginService.getAllUserLoginPage(wrapper, pageNo, pageSize);
+
+        if (StringUtils.isEmpty(userLoginPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(userLoginPage);
     }
@@ -166,6 +174,10 @@ public class PersonController {
                 });
                 sysSiteVoList.add(sysSiteVo1);
             });
+
+            if (StringUtils.isEmpty(sysSiteVoList)) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
 
             return ResponseUtlis.success(sysSiteVoList);
 
@@ -241,6 +253,10 @@ public class PersonController {
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(id);
+
+        if (StringUtils.isEmpty(allUserLogin)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(allUserLogin);
     }

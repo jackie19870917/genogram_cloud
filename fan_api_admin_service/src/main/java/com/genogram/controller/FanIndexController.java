@@ -81,6 +81,10 @@ public class FanIndexController {
 
         List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
 
+        if (StringUtils.isEmpty(fanIndexSlidePicList)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(fanIndexSlidePicList);
     }
 
@@ -176,6 +180,10 @@ public class FanIndexController {
         }
 
         IndexInfoVo indexInfoVo = fanIndexInfoService.getFanIndexInfoVo(siteId);
+
+        if (StringUtils.isEmpty(indexInfoVo)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(indexInfoVo);
     }
@@ -282,6 +290,10 @@ public class FanIndexController {
         list.add(2);
 
         Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = fanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
+
+        if (StringUtils.isEmpty(fanIndexFamilySummarysPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(fanIndexFamilySummarysPage);
     }

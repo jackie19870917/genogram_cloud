@@ -62,6 +62,10 @@ public class SysSiteController {
 
         List<AllFamily> familyList = allUserLoginService.getAllFamily(wrapper);
 
+        if (StringUtils.isEmpty(familyList)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(familyList);
     }
 

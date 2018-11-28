@@ -72,6 +72,10 @@ public class FanNewsCharityController {
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
 
+        if (StringUtils.isEmpty(fanIndexFund)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(fanIndexFund);
     }
 
@@ -120,6 +124,10 @@ public class FanNewsCharityController {
             donorVoPage = fanNewsCharityPayInService.getDonorVoPage(mapPage, map);
         } else  {
             donorVoPage = fanNewsCharityPayInService.getDonorVoPageByTime(showId, list,nickName, pageNo, pageSize,order,label);
+        }
+
+        if (StringUtils.isEmpty(donorVoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
         }
 
         return ResponseUtlis.success(donorVoPage);
