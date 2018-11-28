@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsUploadFileService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,6 +73,9 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         List list = new ArrayList<>();
         fanNewsCharityOutList.forEach((fanNewsCharityOuts) -> {
             list.add(fanNewsCharityOuts.getId());
+
+            //去掉文章标签
+            fanNewsCharityOuts.setNewsText(StringsUtils.removeTag(fanNewsCharityOuts.getNewsText()));
         });
 
         //查询图片
