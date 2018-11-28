@@ -148,7 +148,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
         //县级数据list集合
         List<FanNewsFamousAncestor> fanNewsFamousAncestors=null;
         //判断是否有省级数据
-        if(proSplit.size()!=0){
+        if(proSplit!=null){
             //查询省级
              proNewsFamousAncestors = proNewsFamousAncestorService.selectBatchIds(proSplit);
             //修改父Id
@@ -164,7 +164,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
         }
 
         //判断是否有县级数据
-        if(fanSplit.size()!=0){
+        if(fanSplit!=null){
             //查询县级
             fanNewsFamousAncestors = fanNewsFamousAncestorService.selectBatchIds(fanSplit);
             for (FanNewsFamousAncestor fanNewsFamousAncestor : fanNewsFamousAncestors) {

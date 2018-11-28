@@ -242,8 +242,8 @@ public class FanNewsAncestorController {
             "zipai 字派")
     @RequestMapping(value = "/addFamousAncestor",method = RequestMethod.POST)
     public Response<FanNewsFamousAncestor> addFamousAncestor(
-            @ApiParam(value = "省级主键Id")@RequestParam(value = "proIds") String proIds,// 显示位置
-            @ApiParam(value = "县级主键Id")@RequestParam(value = "fanIds") String fanIds,// 显示位置
+            @ApiParam(value = "省级主键Id")@RequestParam(value = "proIds",required = false) String proIds,// 显示位置
+            @ApiParam(value = "县级主键Id")@RequestParam(value = "fanIds",required = false) String fanIds,// 显示位置
             @ApiParam(value = "祖先分支表")FanNewsFamousAncestor fanNewsFamousAncestor,
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
