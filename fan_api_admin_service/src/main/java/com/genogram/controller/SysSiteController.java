@@ -80,7 +80,7 @@ public class SysSiteController {
 
         Integer siteId = null;
         Boolean result = true;
-        Integer userId = null;
+        Integer userId;
 
         AllUserLogin userLogin = new AllUserLogin();
         if ("fan".equals(siteType)) {
