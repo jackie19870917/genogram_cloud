@@ -72,7 +72,10 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //得到所有产业文章id
         List newsids =  new ArrayList<>();
         list.forEach(( news)->{
+            //获取主键
             newsids.add(news.getId());
+            //去掉文章标签
+          news.setNewsText(StringsUtils.removeTag(news.getNewsText()));
         });
 
         //查询图片
