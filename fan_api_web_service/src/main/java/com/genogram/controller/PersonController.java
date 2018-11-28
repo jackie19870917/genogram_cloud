@@ -7,7 +7,7 @@ import com.genogram.entity.*;
 import com.genogram.entityvo.SysSiteVo;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanIndexInfoService;
-import com.genogram.service.IProIndexInfoService;
+import com.genogram.service.IFanProIndexInfoService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -34,7 +34,7 @@ public class PersonController {
     private IFanIndexInfoService fanIndexInfoService;
 
     @Autowired
-    private IProIndexInfoService proIndexInfoService;
+    private IFanProIndexInfoService proIndexInfoService;
 
     @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)

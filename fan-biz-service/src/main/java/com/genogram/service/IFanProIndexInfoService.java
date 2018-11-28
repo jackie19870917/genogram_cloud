@@ -12,7 +12,7 @@ import com.genogram.entityvo.IndexInfoVo;
  * @author wangwei
  * @since 2018-11-13
  */
-public interface IProIndexInfoService extends IService<ProIndexInfo> {
+public interface IFanProIndexInfoService extends IService<ProIndexInfo> {
 
     /**
      * 省级图腾,宣言,公告
@@ -30,17 +30,5 @@ public interface IProIndexInfoService extends IService<ProIndexInfo> {
      */
     IndexInfoVo getFanIndexInfoVo(Integer siteId);
 
-    /**
-     * 新增/修改  省级信息
-     * @param indexInfoVo
-     * @return
-     */
-    Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo);
 
-    /**
-     *  删除 省级信息
-     * @param proIndexInfo
-     * @return
-     */
-    Boolean deleteProIndexInfo(ProIndexInfo proIndexInfo);
 }
