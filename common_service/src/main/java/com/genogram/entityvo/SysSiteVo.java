@@ -15,7 +15,11 @@ public class SysSiteVo {
     /**
      * sys_family:id
      */
-    private String familyCode;
+    private Integer familyCode;
+    /**
+     * sys_family:id
+     */
+    private String familyName;
     /**
      * sys_region:code
      */

@@ -40,6 +40,7 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
 
         Integer result = fanSysSiteMapper.insert(fanSysSite);
 
+        System.out.println(fanSysSite.getId());
         if (result == 1) {
             return true;
         } else {

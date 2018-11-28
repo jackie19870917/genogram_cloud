@@ -86,6 +86,10 @@ public class SysSiteController {
         Boolean result = true;
         Integer userId;
 
+        Wrapper<AllFamily> familyWrapper = new EntityWrapper<>();
+        familyWrapper.eq("id", sysSiteVo.getFamilyCode());
+        AllFamily allFamily = allUserLoginService.getAllFamily(familyWrapper).get(0);
+
         AllUserLogin userLogin = new AllUserLogin();
         if ("fan".equals(siteType)) {
 
@@ -94,7 +98,7 @@ public class SysSiteController {
 
             fanSysSite.setCreateUser(id);
             fanSysSite.setUpdateUser(id);
-            String name = fanSysSite.getFamilyCode() + "氏联谊会";
+            String name = allFamily.getValue() + "氏联谊会";
             fanSysSite.setName(name);
 
             result = sysSiteService.insertFanSysSite(fanSysSite);
@@ -115,7 +119,7 @@ public class SysSiteController {
 
             proSysSite.setCreateUser(id);
             proSysSite.setUpdateUser(id);
-            String name = proSysSite.getFamilyCode() + "氏官网";
+            String name = allFamily.getValue() + "氏官网";
             proSysSite.setName(name);
             proSysSite.setParent(0);
 

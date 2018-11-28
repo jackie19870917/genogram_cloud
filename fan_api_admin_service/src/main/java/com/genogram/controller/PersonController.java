@@ -160,7 +160,7 @@ public class PersonController {
 
                     if (allFamily.getId().equals(fanSysSite.getFamilyCode())) {
                         families.add(allFamily);
-                        sysSiteVo1.setFamilyCode(allFamily.getValue());
+                        sysSiteVo1.setFamilyName(allFamily.getValue());
                     }
                 });
 
@@ -214,7 +214,7 @@ public class PersonController {
 
                     if (allFamily.getId().equals(proSysSite.getFamilyCode())) {
                         families.add(allFamily);
-                        sysSiteVo1.setFamilyCode(allFamily.getValue());
+                        sysSiteVo1.setFamilyName(allFamily.getValue());
                     }
                 });
 
