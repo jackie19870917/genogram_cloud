@@ -221,7 +221,7 @@ public class PersonController {
                 List<ProIndexInfo> proIndexInfos = new ArrayList<>();
                 proIndexInfoList.forEach((ProIndexInfo proIndexInfo) -> {
 
-                    if (proSysSite.getId().equals(proIndexInfo.getSiteId())) {
+                    if (!StringUtils.isEmpty(proIndexInfo)&&proIndexInfo.getSiteId().equals(proSysSite.getId())) {
                         proIndexInfos.add(proIndexInfo);
                         sysSiteVo1.setUrl(proIndexInfo.getTotemPicSrc());
                     }
