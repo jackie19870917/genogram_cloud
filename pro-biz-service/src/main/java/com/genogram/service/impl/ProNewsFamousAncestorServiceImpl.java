@@ -174,7 +174,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
             }
             for (ProNewsFamousAncestor newsFamousAncestor : proNewsFamousAncestors) {
                 newsFamousAncestor.setShowId(-1);
-                newsFamousAncestor.setParentId(proNews.getId());
+                newsFamousAncestor.setParentId(proNewsFamousAncestor.getId());
                 newsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
                 newsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
             }

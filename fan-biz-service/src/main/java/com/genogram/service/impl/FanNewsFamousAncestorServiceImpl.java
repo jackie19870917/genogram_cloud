@@ -170,7 +170,7 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
             fanNewsFamousAncestors = this.selectBatchIds(fanSplit);
             for (FanNewsFamousAncestor newsFamousAncestor : fanNewsFamousAncestors) {
                 newsFamousAncestor.setShowId(-1);
-                newsFamousAncestor.setParentId(fanNews.getId());
+                newsFamousAncestor.setParentId(fanNewsFamousAncestor.getId());
                 newsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
                 newsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
             }
