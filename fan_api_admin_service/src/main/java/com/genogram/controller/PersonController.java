@@ -124,7 +124,7 @@ public class PersonController {
     @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)
     public Response<SysSiteVo> getSysSite(SysSiteVo sysSiteVo,
-                                           @ApiParam("siteType(联谊会-fan,省级-pro)") @RequestParam(value = "siteType") String siteType) {
+                                          @ApiParam("siteType(联谊会-fan,省级-pro)") @RequestParam(value = "siteType") String siteType) {
 
         if ("fan".equals(siteType)) {
 
@@ -153,7 +153,7 @@ public class PersonController {
 
                 SysSiteVo sysSiteVo1 = new SysSiteVo();
 
-                BeanUtils.copyProperties(fanSysSite,sysSiteVo1);
+                BeanUtils.copyProperties(fanSysSite, sysSiteVo1);
 
                 List<AllFamily> families = new ArrayList<>();
                 allFamilies.forEach((AllFamily allFamily) -> {
@@ -167,7 +167,7 @@ public class PersonController {
                 List<FanIndexInfo> fanIndexInfos = new ArrayList<>();
                 fanIndexInfoList.forEach((FanIndexInfo fanIndexInfo) -> {
 
-                    if (fanSysSite.getId().equals(fanIndexInfo.getSiteId())) {
+                    if (!StringUtils.isEmpty(fanIndexInfo) && fanSysSite.getId().equals(fanIndexInfo.getSiteId())) {
                         fanIndexInfos.add(fanIndexInfo);
                         sysSiteVo1.setUrl(fanIndexInfo.getTotemPicSrc());
                     }
@@ -207,7 +207,7 @@ public class PersonController {
 
                 SysSiteVo sysSiteVo1 = new SysSiteVo();
 
-                BeanUtils.copyProperties(proSysSite,sysSiteVo1);
+                BeanUtils.copyProperties(proSysSite, sysSiteVo1);
 
                 List<AllFamily> families = new ArrayList<>();
                 allFamilies.forEach((AllFamily allFamily) -> {
@@ -228,7 +228,7 @@ public class PersonController {
                 });
                 sysSiteVoList.add(sysSiteVo1);
             });
-                return ResponseUtlis.success(sysSiteVoList);
+            return ResponseUtlis.success(sysSiteVoList);
         } else {
             return null;
         }
@@ -237,7 +237,7 @@ public class PersonController {
 
     @ApiOperation(value = "个人资料查询", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUserLogin", method = RequestMethod.POST)
-    public Response<AllUserLogin> getUserLogin(@ApiParam("token") @RequestParam(value = "token",required = false) String token,
+    public Response<AllUserLogin> getUserLogin(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                @ApiParam("主键") @RequestParam("id") Integer id) {
 
         if (StringUtils.isEmpty(token)) {
