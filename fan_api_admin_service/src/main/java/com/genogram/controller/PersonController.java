@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
 import com.genogram.entityvo.SysSiteVo;
-import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.IFanIndexFundService;
-import com.genogram.service.IFanIndexInfoService;
-import com.genogram.service.IUserService;
+import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -47,6 +44,9 @@ public class PersonController {
 
     @Autowired
     private IFanIndexInfoService fanIndexInfoService;
+
+    @Autowired
+    private IProIndexInfoService proIndexInfoService;
 
     @ApiOperation(value = "查询用户", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUserLoginList", method = RequestMethod.POST)
@@ -115,7 +115,7 @@ public class PersonController {
 
     @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)
-    public Response<ProSysSite> getSysSite(SysSiteVo sysSiteVo,
+    public Response<SysSiteVo> getSysSite(SysSiteVo sysSiteVo,
                                            @ApiParam("siteType(联谊会-fan,省级-pro)") @RequestParam(value = "siteType") String siteType) {
 
         if ("fan".equals(siteType)) {
@@ -173,7 +173,50 @@ public class PersonController {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
             List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
 
-            return ResponseUtlis.success(proSysSiteList);
+            List<Integer> siteIdList = new ArrayList();
+            List familyList = new ArrayList();
+            proSysSiteList.forEach((ProSysSite proSysSite) -> {
+                siteIdList.add(proSysSite.getId());
+                familyList.add(proSysSite.getFamilyCode());
+            });
+
+            Wrapper<AllFamily> allFamilyWrapper = new EntityWrapper<>();
+            allFamilyWrapper.in("id", familyList);
+            List<AllFamily> allFamilies = allUserLoginService.getAllFamily(allFamilyWrapper);
+
+            List<ProIndexInfo> proIndexInfoList = new ArrayList<>();
+            for (Integer siteId : siteIdList) {
+                ProIndexInfo proIndexInfo = proIndexInfoService.getProIndexInfo(siteId);
+                proIndexInfoList.add(proIndexInfo);
+            }
+
+            List<SysSiteVo> sysSiteVoList = new ArrayList<>();
+            proSysSiteList.forEach((ProSysSite proSysSite) -> {
+
+                SysSiteVo sysSiteVo1 = new SysSiteVo();
+
+                BeanUtils.copyProperties(proSysSite,sysSiteVo1);
+
+                List<AllFamily> families = new ArrayList<>();
+                allFamilies.forEach((AllFamily allFamily) -> {
+
+                    if (allFamily.getId().equals(proSysSite.getFamilyCode())) {
+                        families.add(allFamily);
+                        sysSiteVo1.setFamilyCode(allFamily.getValue());
+                    }
+                });
+
+                List<ProIndexInfo> proIndexInfos = new ArrayList<>();
+                proIndexInfoList.forEach((ProIndexInfo proIndexInfo) -> {
+
+                    if (proIndexInfo.getSiteId().equals(proSysSite.getId())) {
+                        proIndexInfos.add(proIndexInfo);
+                        sysSiteVo1.setUrl(proIndexInfo.getTotemPicSrc());
+                    }
+                });
+                sysSiteVoList.add(sysSiteVo1);
+            });
+                return ResponseUtlis.success(sysSiteVoList);
         } else {
             return null;
         }
