@@ -199,13 +199,13 @@ public class FanIndexController {
             //拿到会长的showid
             FanSysWebNewsShow show = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_huizhang");
             List<FanNewsFamousPerson> familyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
-            //zongmap.put(show.getMenuName(), familyFrameList);
+            zongmap.put(show.getMenuName(), familyFrameList);
 
             //拿到副会长的fushowid
             FanSysWebNewsShow fushow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_fuhuizhang");
             List<FanNewsFamousPerson> fufamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(fushow.getShowId());
-            familyFrameList.addAll(fufamilyFrameList);
-            zongmap.put(show.getMenuName(), familyFrameList);
+            //familyFrameList.addAll(fufamilyFrameList);
+            zongmap.put(fushow.getMenuName(), fufamilyFrameList);
 
             //族长类
             FanSysWebNewsShow zuzhangshow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_zuzhang");
