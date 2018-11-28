@@ -80,6 +80,10 @@ public class FanNewsAncestorController {
             if(StringsUtils.isEmpty(token)){
                 return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
             }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -133,6 +137,10 @@ public class FanNewsAncestorController {
             //判断token是否为空
             if(StringsUtils.isEmpty(token)){
                 return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
             }
             //判断主键是否为空
             if(id==null){
@@ -188,6 +196,10 @@ public class FanNewsAncestorController {
             if(StringsUtils.isEmpty(token)){
                 return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
             }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             //分页条件
             Page<AncestorsBranchVo> mapPage = new Page<>(pageNo, pageSize);
             Map map=new HashMap(16);
@@ -228,7 +240,7 @@ public class FanNewsAncestorController {
             "updateTime 修改时间 --" +
             "updateUser 修改人 --" +
             "zipai 字派")
-    @RequestMapping(value = "/addFamousAncestor",method = RequestMethod.GET)
+    @RequestMapping(value = "/addFamousAncestor",method = RequestMethod.POST)
     public Response<FanNewsFamousAncestor> addFamousAncestor(
             @ApiParam(value = "省级主键Id")@RequestParam(value = "proIds") String proIds,// 显示位置
             @ApiParam(value = "县级主键Id")@RequestParam(value = "fanIds") String fanIds,// 显示位置
@@ -242,6 +254,10 @@ public class FanNewsAncestorController {
             }
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userLoginInfoByToken)){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             //省级主键Id
             List<String> proSplit=null;
             //县级主键Id
@@ -280,6 +296,10 @@ public class FanNewsAncestorController {
             //判断token是否为空
             if(StringsUtils.isEmpty(token)){
                 return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
             }
             //判断主键是否为空
             if(id==null){

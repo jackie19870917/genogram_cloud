@@ -12,6 +12,7 @@ import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -73,8 +74,13 @@ public class FanNewsIndustryController {
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
             ) {
         try {
+            //判断token是否为空
             if (StringUtils.isEmpty(token)) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
             }
             //判断showId是否有值
             if(showId==null){
@@ -130,10 +136,7 @@ public class FanNewsIndustryController {
             @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id, // 家族文化详情显示位置
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
-        return getNewsDetailVoResponse(id);
+        return getNewsDetailVoResponse(id,token);
     }
 
     /**
@@ -162,10 +165,7 @@ public class FanNewsIndustryController {
             @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id, // 家族文化详情显示位置
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
-        return getNewsDetailVoResponse(id);
+        return getNewsDetailVoResponse(id,token);
     }
 
     /**
@@ -177,8 +177,16 @@ public class FanNewsIndustryController {
      *@return:
      *@Description:
     */
-    private Response<IndustryDetailVo> getNewsDetailVoResponse( @RequestParam("id") Integer id) {
+    private Response<IndustryDetailVo> getNewsDetailVoResponse( @RequestParam("id") Integer id,String token) {
         try {
+            //判断token是否为空
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -218,9 +226,6 @@ public class FanNewsIndustryController {
                                                          @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
                                                          @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
                                                          @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(1);
         return getFanNewsIndustryResponse(fanNewsIndustry, fileName,filePath,token);
@@ -252,9 +257,6 @@ public class FanNewsIndustryController {
                                                              @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
                                                              @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
                                                              @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(2);
         return getFanNewsIndustryResponse(fanNewsIndustry, fileName,filePath,token);
@@ -273,8 +275,16 @@ public class FanNewsIndustryController {
                                                                  String fileName,String filePath,
                                                                  @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         try {
+            //判断token不能为空
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userLoginInfoByToken)){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             if(fanNewsIndustry.getId()==null) {
                 //创建人
                 fanNewsIndustry.setCreateUser(userLoginInfoByToken.getId());
@@ -311,6 +321,10 @@ public class FanNewsIndustryController {
             }
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userLoginInfoByToken)){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             //判断id是否为空
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);

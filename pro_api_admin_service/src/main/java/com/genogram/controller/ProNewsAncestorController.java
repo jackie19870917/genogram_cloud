@@ -212,7 +212,7 @@ public class ProNewsAncestorController {
             "updateTime 修改时间 --" +
             "updateUser 修改人 --" +
             "zipai 字派")
-    @RequestMapping(value = "/addFamousAncestor",method = RequestMethod.GET)
+    @RequestMapping(value = "/addFamousAncestor",method = RequestMethod.POST)
     public Response<ProNewsFamousAncestor> addFamousAncestor(
             @ApiParam(value = "省级主键Id")@RequestParam(value = "proIds") String proIds,// 显示位置
             @ApiParam(value = "县级主键Id")@RequestParam(value = "fanIds") String fanIds,// 显示位置
