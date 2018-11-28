@@ -358,8 +358,14 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         //用户Id
-        Integer userId = userService.getUserLoginInfoByToken(token).getId();
+        Integer userId = userLogin.getId();
 
         Boolean result = fanIndexFamilySummarysService.deleteFanIndexFamilySummarys(id, userId);
 

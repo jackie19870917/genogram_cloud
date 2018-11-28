@@ -20,23 +20,28 @@ public class UserServiceImpl extends ServiceImpl<AllUserLoginMapper, AllUserLogi
     @Override
     public AllUserLogin getUserLoginInfoByToken(String str) {
 
-        //Base64解密
-        str= new String(Base64.decodeBase64(str));
+        try {
 
-        str=str.substring(str.indexOf("{")+1, str.lastIndexOf("}"));
+            //Base64解密
+            str= new String(Base64.decodeBase64(str));
 
-        List<String> list = Arrays.asList(str.split("="));
+            str=str.substring(str.indexOf("{")+1, str.lastIndexOf("}"));
 
-        AllUserLogin allUserLogin = new AllUserLogin();
-        allUserLogin.setId(Integer.valueOf(list.get(3)));
-        allUserLogin.setUserName(list.get(4));
-        allUserLogin.setMobilePhone(list.get(0));
-        allUserLogin.setPassword(list.get(1));
+            List<String> list = Arrays.asList(str.split("="));
 
-        if(allUserLogin.getId()==null){
-            allUserLogin.setId(1);
+            AllUserLogin allUserLogin = new AllUserLogin();
+            allUserLogin.setId(Integer.valueOf(list.get(3)));
+            allUserLogin.setUserName(list.get(4));
+            allUserLogin.setMobilePhone(list.get(0));
+            allUserLogin.setPassword(list.get(1));
+
+            if(allUserLogin.getId()==null){
+                allUserLogin.setId(1);
+            }
+
+            return allUserLogin;
+        } catch (Exception e) {
+            return null;
         }
-
-        return allUserLogin;
     }
 }
