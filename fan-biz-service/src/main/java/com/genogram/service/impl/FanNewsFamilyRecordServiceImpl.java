@@ -105,6 +105,8 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
             files.forEach(( data)->{
                 if(news.getId().equals(data.getNewsId())){
                     fanNewsUploadFile.add(data);
+                    //去除html标签
+                    news.setNewsText(StringsUtils.removeTag(news.getNewsText()));
                 }
             });
 

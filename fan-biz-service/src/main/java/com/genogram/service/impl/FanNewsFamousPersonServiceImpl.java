@@ -80,6 +80,9 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         List newsids =  new ArrayList<>();
         list.forEach(( news)->{
             newsids.add(news.getId());
+            //去除html标签
+            news.setPersonName(StringsUtils.removeTag(news.getPersonName()));
+
         });
 
         //查询图片
