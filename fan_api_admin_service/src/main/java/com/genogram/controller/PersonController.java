@@ -112,12 +112,7 @@ public class PersonController {
     @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)
     public Response<ProSysSite> getSysSite(SysSiteVo sysSiteVo,
-                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                            @ApiParam("siteType(联谊会-fan,省级-pro)") @RequestParam(value = "siteType") String siteType) {
-
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
-        }
 
         if ("fan".equals(siteType)) {
 

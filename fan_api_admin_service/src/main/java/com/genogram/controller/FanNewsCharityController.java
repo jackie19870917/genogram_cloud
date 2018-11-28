@@ -65,6 +65,12 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
@@ -93,6 +99,12 @@ public class FanNewsCharityController {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
         if (showId == null) {
@@ -130,6 +142,12 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         NewsDetailVo newsCharityOutDetail = fanNewsCharityOutService.getNewsCharityOutDetail(id);
 
         return ResponseUtlis.success(newsCharityOutDetail);
@@ -155,6 +173,10 @@ public class FanNewsCharityController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         if (fanNewsCharityOut.getId() == null) {
             fanNewsCharityOut.setCreateUser(userLogin.getId());
@@ -192,6 +214,12 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(2);
         Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut, fileName, filePath);
@@ -220,6 +248,10 @@ public class FanNewsCharityController {
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         Boolean result = fanNewsCharityOutService.deleteFanNewsCharityOut(id, userLogin.getId());
 
         if (result) {
@@ -245,6 +277,10 @@ public class FanNewsCharityController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         if (!"1".equals(userLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
@@ -280,6 +316,12 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
@@ -305,6 +347,10 @@ public class FanNewsCharityController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         if (!"1".equals(userLogin.getRole()) || !"4".equals(userLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
