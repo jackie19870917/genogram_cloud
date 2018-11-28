@@ -330,6 +330,7 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
     public List<FanNewsFamousPerson> getFamilyFrameList(Integer showId) {
         Wrapper<FanNewsFamousPerson> entity = new EntityWrapper<FanNewsFamousPerson>();
         entity.eq("show_id", showId);
+        entity.eq("status", 1);
         //分页查询文章主表
         List<FanNewsFamousPerson> fanNewsFamousPeople = this.selectList(entity);
         for (FanNewsFamousPerson fanNewsFamousPerson : fanNewsFamousPeople) {
