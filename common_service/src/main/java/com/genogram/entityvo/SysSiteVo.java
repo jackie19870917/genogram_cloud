@@ -21,6 +21,10 @@ public class SysSiteVo {
      */
     private String regionCode;
     /**
+     * 图腾
+     */
+    private String url;
+    /**
      * 网站名称
      */
     private String name;
