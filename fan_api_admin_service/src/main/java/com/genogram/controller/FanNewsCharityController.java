@@ -291,7 +291,7 @@ public class FanNewsCharityController {
         }
 
         if (!"1".equals(userLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
+            return ResponseUtlis.error(Constants.ERRO_CODE, "您没有权限");
         }
 
         fanIndexFundDrowing.setCreateUser(userLogin.getId());
