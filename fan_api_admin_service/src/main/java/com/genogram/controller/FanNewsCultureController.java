@@ -79,10 +79,14 @@ public class FanNewsCultureController {
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
             if (StringUtils.isEmpty(token)) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
             }
-
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             //判断showId是否有值
             if(showId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
@@ -137,8 +141,13 @@ public class FanNewsCultureController {
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
             if (StringUtils.isEmpty(token)) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
             }
             //判断id是否有值
             if(id==null){
@@ -177,9 +186,6 @@ public class FanNewsCultureController {
     public Response<FanNewsCultureZipai> addOrUpdateZiPai(
                                                           @ApiParam(value = "联谊会字派表")FanNewsCultureZipai fanNewsCultureZipai,
                                                           @ApiParam("token")@RequestParam(value = "token",required = false)String token){
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureZipai.setStatus(1);
         return getFanNewsCultureZipaiResponse(fanNewsCultureZipai,token);
@@ -210,9 +216,6 @@ public class FanNewsCultureController {
     public Response<FanNewsCultureZipai> addOrUpdateZiPaiDrft(
                                                               @ApiParam(value = "联谊会字派表")FanNewsCultureZipai fanNewsCultureZipai,
                                                               @ApiParam("token")@RequestParam(value = "token",required = false)String token){
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureZipai.setStatus(2);
         return getFanNewsCultureZipaiResponse(fanNewsCultureZipai,token);
@@ -229,8 +232,17 @@ public class FanNewsCultureController {
     */
     private Response<FanNewsCultureZipai> getFanNewsCultureZipaiResponse(FanNewsCultureZipai fanNewsCultureZipai,@ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         try {
+            //判断token是否为空
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userLoginInfoByToken)){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断是否有主键 有修改 否新增
             if(fanNewsCultureZipai.getId()==null){
                 //创建人
              fanNewsCultureZipai.setCreateUser(userLoginInfoByToken.getId());
@@ -265,15 +277,20 @@ public class FanNewsCultureController {
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
             if (StringUtils.isEmpty(token)) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userLoginInfoByToken)){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
             }
             //判断id是否为空
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
             Boolean aBoolean = fanNewsCultureZipaiService.deleteZipaiById(id, status,userLoginInfoByToken);
@@ -315,8 +332,13 @@ public class FanNewsCultureController {
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try{
+            //判断token是否为空
             if (StringUtils.isEmpty(token)) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
             }
         //判断showId是否有值
         if(showId==null){
@@ -378,14 +400,7 @@ public class FanNewsCultureController {
             @ApiParam(value = "主键ID")@RequestParam(value = "id") Integer id,
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
-        //判断id是否为空
-        if(id==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
-        }
-        return getNewsDetailVoResponse( id);
+        return getNewsDetailVoResponse(id,token);
     }
 
     /**
@@ -420,14 +435,7 @@ public class FanNewsCultureController {
             @ApiParam(value = "主键ID")@RequestParam(value = "id") Integer id, // 家族文化详情显示位置
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
-        //判断id是否为空
-        if(id==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
-        }
-        return getNewsDetailVoResponse(id);
+        return getNewsDetailVoResponse(id,token);
     }
 
     /**
@@ -439,8 +447,19 @@ public class FanNewsCultureController {
      *@return:
      *@Description:
     */
-    private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("id") Integer id) {
+    private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("id") Integer id,String token) {
         try {
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断id是否为空
+            if(id==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
             NewsDetailVo newsDetailVo = fanNewsCultureNewsService.getFamilyCultureDetail(id);
             return ResponseUtlis.success(newsDetailVo);
         } catch (Exception e) {
@@ -475,9 +494,6 @@ public class FanNewsCultureController {
                                                         @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
                                                         @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
                                                         @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureNews.setStatus(1);
         return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileName,filePath,token);
@@ -509,9 +525,6 @@ public class FanNewsCultureController {
                                                                @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
                                                                @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
                                                                @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureNews.setStatus(2);
         return getFanNewsCultureNewsResponse(fanNewsCultureNews, fileName,filePath,token);
@@ -530,8 +543,16 @@ public class FanNewsCultureController {
                                                                        String fileName,String filePath,
                                                                        String token) {
         try{
+            //判断token是否为空
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userLoginInfoByToken)){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             if(fanNewsCultureNews.getId()==null){
                 //创建人
                 fanNewsCultureNews.setCreateUser(userLoginInfoByToken.getId());
@@ -572,14 +593,18 @@ public class FanNewsCultureController {
             if(StringsUtils.isEmpty(token)){
                 return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
             }
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userLoginInfoByToken)){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             //判断主键是否为空
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
             Boolean aBoolean = fanNewsCultureNewsService.deleteCulturById(id, status,userLoginInfoByToken);
             if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
