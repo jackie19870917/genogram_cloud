@@ -107,7 +107,9 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
                     fanNewsUploadFile.add(data);
                 }
             });
-
+            //去除html标签
+            news.setPersonName(StringsUtils.removeTag(news.getPersonName()));
+            
             //存储图片list集合
             familyPersonVo.setFanNewsUploadFileList(fanNewsUploadFile);
 
