@@ -91,9 +91,12 @@ public class ProNewsAncestorController {
             if(showId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
+            //parent_id 为0代表主数据
+            Integer parentId=0;
             //查询条件
             Wrapper<ProNewsFamousAncestor> entity=new EntityWrapper<>();
             entity.eq("show_id",showId);
+            entity.eq("parent_id",parentId);
             entity.orderBy("update_time", false);
             Page<ProNewsFamousAncestor> proFamilyRecordPage = proNewsFamousAncestorService.getFamousAncestorPage(entity, pageNo, pageSize);
             if(proFamilyRecordPage==null){
@@ -193,7 +196,7 @@ public class ProNewsAncestorController {
                     "zipai 字派")
     @RequestMapping(value = "/getFamousAncestorVaguePage",method = RequestMethod.GET)
     public Response<ProNewsFamousAncestor> getFamousAncestorVaguePage(
-            @ApiParam(value = "祖先名")@RequestParam(value = "ancestorName") String ancestorName,// 显示位置
+            @ApiParam(value = "祖先名")@RequestParam(value = "ancestorName",required = false) String ancestorName,// 显示位置
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
@@ -210,7 +213,9 @@ public class ProNewsAncestorController {
             //分页
             Page<AncestorsBranchVo> mapPage = new Page<>(pageNo, pageSize);
             Map map=new HashMap(16);
-            map.put("ancestorName",ancestorName);
+            if(StringsUtils.isEmpty(ancestorName)){
+                map.put("ancestorName",ancestorName);
+            }
             Page<AncestorsBranchVo> ancestorsBranchVo = proNewsFamousAncestorService.getFamousAncestorVaguePage(mapPage,map);
             if(ancestorsBranchVo==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);

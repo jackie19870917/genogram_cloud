@@ -53,16 +53,18 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
     */
     @Override
     public Page<FanNewsFamousAncestor> getFamousAncestorPage(Integer siteId, Integer pageNo, Integer pageSize) {
-
         //查询showId 显示位置Id
         Wrapper<FanSysWebNewsShow> entity=new EntityWrapper<>();
         entity.eq("site_Id",siteId);
         entity.eq("menu_type","ancestors");
         FanSysWebNewsShow fanSysWebNewsShow = fanSysWebNewsShowService.selectOne(entity);
+        //parent_id 为0代表主数据
+        Integer parentId=0;
         //查询条件
         Wrapper<FanNewsFamousAncestor> entityAncestor=new EntityWrapper<>();
-        entity.eq("show_id",fanSysWebNewsShow.getShowId());
-        entity.orderBy("update_time", false);
+        entityAncestor.eq("show_id",fanSysWebNewsShow.getShowId());
+        entityAncestor.eq("parent_id",parentId);
+        entityAncestor.orderBy("update_time", false);
         Page<FanNewsFamousAncestor> fanNewsFamousAncestorPage = this.selectPage(new Page<FanNewsFamousAncestor>(pageNo, pageSize), entityAncestor);
         return fanNewsFamousAncestorPage;
     }

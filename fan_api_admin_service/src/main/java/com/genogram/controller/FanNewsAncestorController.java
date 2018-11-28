@@ -186,7 +186,7 @@ public class FanNewsAncestorController {
             "zipai 字派")
     @RequestMapping(value = "/getFamousAncestorVaguePage",method = RequestMethod.GET)
     public Response<FanNewsFamousAncestor> getFamousAncestorVaguePage(
-            @ApiParam(value = "祖先名")@RequestParam(value = "ancestorName") String ancestorName,// 显示位置
+            @ApiParam(value = "祖先名")@RequestParam(value = "ancestorName",required = false) String ancestorName,
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @ApiParam("token")@RequestParam(value = "token",required = false)String token
@@ -203,7 +203,9 @@ public class FanNewsAncestorController {
             //分页条件
             Page<AncestorsBranchVo> mapPage = new Page<>(pageNo, pageSize);
             Map map=new HashMap(16);
-            map.put("ancestorName",ancestorName);
+            if(StringsUtils.isEmpty(ancestorName)){
+                map.put("ancestorName",ancestorName);
+            }
             Page<AncestorsBranchVo> ancestorsBranchVo = fanNewsFamousAncestorService.getFamousAncestorVaguePage(mapPage,map);
             if(ancestorsBranchVo==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
