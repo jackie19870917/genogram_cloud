@@ -157,6 +157,10 @@ public class FanNewsCharityController {
 
         Page<NewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
 
+        if (StringUtils.isEmpty(fanNewsCharityOutPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(fanNewsCharityOutPage);
     }
 
