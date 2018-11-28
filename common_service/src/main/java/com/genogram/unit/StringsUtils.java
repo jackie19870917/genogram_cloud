@@ -1,5 +1,7 @@
 package com.genogram.unit;
 
+import org.springframework.util.StringUtils;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,7 +14,7 @@ import java.util.regex.Pattern;
  *@return:
  *@Description:
 */
-public class StringsUtils
+public class StringsUtils extends StringUtils
 {
     /**
      * 字符串为空

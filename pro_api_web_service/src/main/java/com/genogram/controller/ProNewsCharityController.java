@@ -137,7 +137,7 @@ public class ProNewsCharityController {
      * 慈善收支
      *
      * @param showId   慈善收支显示位置
-     *                 //@param newsType 种类(1.财政支出;2.财政收入)
+     // @param newsType 种类(1.财政支出;2.财政收入)
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return

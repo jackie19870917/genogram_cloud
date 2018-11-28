@@ -64,6 +64,12 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
@@ -72,16 +78,6 @@ public class FanIndexController {
         //状态   1-前后台显示    2-前台不显示      0-前后台都不显示
         list.add(1);
         list.add(2);
-
-        /*//根据token获取用户对象
-        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
-
-        //根据用户对象获取用户信息
-        AllUserLogin login = allUserLoginService.getAllUserLoginById(userLogin.getId());
-
-        if (login.getRole() != 1 && !login.getSiteId().equals(siteId)) {
-            return ResponseUtlis.error(403, "您没有权限访问");
-        }*/
 
         List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
 
@@ -104,6 +100,10 @@ public class FanIndexController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         if (StringUtils.isEmpty(fanIndexSlidePic.getId())) {
             fanIndexSlidePic.setCreateUser(userLogin.getId());
@@ -135,10 +135,13 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
-        //o8likl
-        Integer userId = userService.getUserLoginInfoByToken(token).getId();
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
-        Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(id, userId);
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(id, userLogin.getId());
 
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
@@ -160,6 +163,12 @@ public class FanIndexController {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
         if (siteId == null) {
@@ -187,6 +196,10 @@ public class FanIndexController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         if (StringUtils.isEmpty(indexInfoVo.getId())) {
             indexInfoVo.setCreateUser(userLogin.getId());
@@ -218,6 +231,11 @@ public class FanIndexController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         fanIndexInfo.setUpdateUser(userLogin.getId());
 
         Boolean result = fanIndexInfoService.deleteFanIndexInfo(fanIndexInfo);
@@ -246,6 +264,12 @@ public class FanIndexController {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
         if (siteId == null) {
@@ -277,6 +301,12 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         FanIndexFamilySummarys fanIndexFamilySummarys = fanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
 
         return ResponseUtlis.success(fanIndexFamilySummarys);
@@ -301,6 +331,10 @@ public class FanIndexController {
         fanIndexFamilySummarys.setStatus(1);
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         if (StringUtils.isEmpty(fanIndexFamilySummarys.getId())) {
             fanIndexFamilySummarys.setCreateUser(userLogin.getId());
@@ -332,6 +366,12 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         //状态   1-正常  2-草稿
         fanIndexFamilySummarys.setStatus(2);
         Boolean result = fanIndexFamilySummarysService.insertOrUpdateFanIndexFamilySummarys(fanIndexFamilySummarys);
@@ -358,8 +398,14 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         //用户Id
-        Integer userId = userService.getUserLoginInfoByToken(token).getId();
+        Integer userId = userLogin.getId();
 
         Boolean result = fanIndexFamilySummarysService.deleteFanIndexFamilySummarys(id, userId);
 

@@ -55,6 +55,7 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;
 
+
     /**
      *省级后台点击推荐
      *@Author: yuzhou
@@ -224,5 +225,20 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     public List<CommonRecommendVo> getManualRecommend(Map map) {
         List<CommonRecommendVo> manualRecommend = fanSysRecommendMapper.getManualRecommend(map);
         return manualRecommend;
+    }
+
+    /**
+     *省级后台设置手动推荐到全国
+     *@Author: yuzhou
+     *@Date: 2018-11-28
+     *@Time: 15:15
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public List<CommonRecommendVo> getManuaRecommendNationwide(Map map) {
+        List<CommonRecommendVo> commonRecommendVo=fanSysRecommendMapper.getManuaRecommendNationwide(map);
+        return commonRecommendVo;
     }
 }

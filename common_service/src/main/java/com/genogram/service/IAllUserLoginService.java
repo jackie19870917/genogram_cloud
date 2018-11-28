@@ -3,6 +3,7 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entity.AllFamily;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entity.ProSysSite;
@@ -84,4 +85,11 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
      * @return
      */
     List<ProSysSite> getProSysSite(Wrapper<ProSysSite> wrapper);
+
+    /**
+     * 查询姓氏
+     * @param wrapper
+     * @return
+     */
+    List<AllFamily> getAllFamily(Wrapper<AllFamily> wrapper);
 }

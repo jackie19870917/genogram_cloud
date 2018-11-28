@@ -30,7 +30,7 @@ public class FanSysSite extends Model<FanSysSite> {
      * sys_family:id
      */
     @TableField("family_code")
-    private String familyCode;
+    private Integer familyCode;
     /**
      * sys_region:code
      */
@@ -98,11 +98,11 @@ public class FanSysSite extends Model<FanSysSite> {
         return this;
     }
 
-    public String getFamilyCode() {
+    public Integer getFamilyCode() {
         return familyCode;
     }
 
-    public FanSysSite setFamilyCode(String familyCode) {
+    public FanSysSite setFamilyCode(Integer familyCode) {
         this.familyCode = familyCode;
         return this;
     }

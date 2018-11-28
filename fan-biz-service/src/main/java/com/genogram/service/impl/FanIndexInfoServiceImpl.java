@@ -33,13 +33,16 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
 
     @Override
     public FanIndexInfo getFanIndexInfo(Integer siteId) {
-        return this.selectById(siteId);
+
+        Wrapper<FanIndexInfo> wrapper = new EntityWrapper<>();
+        wrapper.eq("site_id", siteId);
+        return this.selectOne(wrapper);
     }
 
     @Override
     public IndexInfoVo getFanIndexInfoVo(Integer siteId) {
 
-        FanIndexInfo fanIndexInfo = this.selectById(siteId);
+        FanIndexInfo fanIndexInfo = this.getFanIndexInfo(siteId);
         FanSysSite fanSysSite = fanSysSiteService.selectById(siteId);
 
         IndexInfoVo indexInfoVo = new IndexInfoVo();

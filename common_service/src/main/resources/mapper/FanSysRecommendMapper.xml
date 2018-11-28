@@ -25,73 +25,79 @@
     <!--省级首页县级自动推荐文章查询-->
     <select id="getIndexRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.IndustryDetailVo">
     select temp1.* from (
-    SELECT
-        '1' as source,e.name as sizeName,m.id as recommendId,w.id, w.show_id AS showId, w.news_title AS newsTitle, w.news_text AS newsText,null as industryLocation, w.visit_num AS visitNum, w.status, w.create_time AS createTime, w.create_user AS createUser, w.update_time AS updateTime, w.update_user AS updateUser
-     FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_culture_news w
-    where
-    1=1
-    <if test="siteId!=null">
-       and e.parent=#{siteId}
-    </if>
-        and s.menu_type='culture' AND n.id=n.parent_id and e.id=s.site_id and s.show_id=m.show_id
-        <if test="isAuto!=null">
-            and m.is_auto=#{isAuto}
+        SELECT
+        '1' as source,s.name as sizeName,m.id as recommendId,u.id, u.show_id AS showId, u.news_title AS newsTitle, u.news_text AS newsText,null as industryLocation, u.visit_num AS visitNum, u.status, u.create_time AS createTime, u.create_user AS createUser, u.update_time AS updateTime, u.update_user AS updateUser
+        FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_culture_news u
+        WHERE
+        1=1
+        <!--siteId省级-->
+        <if test="siteId!=null">
+            AND s.parent=#{siteId}
         </if>
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_site s,fan_sys_web_news_show n WHERE 1=1 AND s.parent=#{siteId} AND n.site_id=s.id AND n.menu_code='culture'
+        ) AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="status!=null">
-            and m.`status`=#{status}
+            AND m.status=#{status}
+        </if>
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
         </if>
         <if test="newsSource!=null">
-            and m.news_source=#{newsSource}
+            AND m.news_source=#{newsSource}
         </if>
-         and m.show_id=w.show_id and m.news_id=w.id
+        AND m.show_id=u.show_id AND m.news_id=u.id
         <if test="newsTitle!=null">
-            and w.news_title LIKE CONCAT('%',#{newsTitle},'%')
+            AND u.news_title LIKE CONCAT('%',#{newsTitle},'%')
         </if>
     union all
-    SELECT
-        '3' as source,e.name as sizeName,m.id as recommendId,r.id, r.show_id AS showId, r.news_title AS newsTitle, r.news_text AS newsText,null as industryLocation ,r.visit_num AS visitNum, r.status, r.create_time AS createTime, r.create_user AS createUser, r.update_time AS updateTime, r.update_user AS updateUser
-      FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_family_record r
-    where
+     SELECT
+        '3' as source,s.name as sizeName,m.id as recommendId,e.id, e.show_id AS showId, e.news_title AS newsTitle, e.news_text AS newsText,null as industryLocation ,e.visit_num AS visitNum, e.status, e.create_time AS createTime, e.create_user AS createUser, e.update_time AS updateTime, e.update_user AS updateUser
+        FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_family_record e
+        WHERE
         1=1
+        <!--siteId省级-->
         <if test="siteId!=null">
-            and e.parent=#{siteId}
+            AND s.parent=#{siteId}
         </if>
-        and s.menu_type='family_record' AND n.id=n.parent_id and e.id=s.site_id and s.show_id=m.show_id
-        <if test="isAuto!=null">
-            and m.is_auto=#{isAuto}
-        </if>
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_site s,fan_sys_web_news_show n WHERE 1=1 AND s.parent=#{siteId} AND n.site_id=s.id AND n.menu_code='family_record'
+        ) AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="status!=null">
-            and m.`status`=#{status}
+            AND m.status=#{status}
+        </if>
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
         </if>
         <if test="newsSource!=null">
-            and m.news_source=#{newsSource}
+            AND m.news_source=#{newsSource}
         </if>
-        and m.show_id=r.show_id and m.news_id=r.id
+        AND m.show_id=e.show_id AND m.news_id=e.id
         <if test="newsTitle!=null">
-            and r.news_title LIKE CONCAT('%',#{newsTitle},'%')
+            AND e.news_title LIKE CONCAT('%',#{newsTitle},'%')
         </if>
         union all
         SELECT
-        '2' as source,e.name as sizeName,m.id as recommendId,a.id, a.show_id AS showId, a.news_title AS newsTitle, a.news_text AS newsText, a.industry_location AS industryLocation, a.visit_num AS visitNum, a.status, a.create_time AS createTime, a.create_user AS createUser, a.update_time AS updateTime, a.update_user AS updateUser
-        FROM fan_sys_site e,fan_sys_web_news_show s,fan_sys_recommend m,fan_news_industry a
-        where
+        '2' as source,s.name as sizeName,m.id as recommendId,w.id, w.show_id AS showId, w.news_title AS newsTitle, w.news_text AS newsText, w.industry_location AS industryLocation, w.visit_num AS visitNum, w.status, w.create_time AS createTime, w.create_user AS createUser, w.update_time AS updateTime, w.update_user AS updateUser
+        FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_industry w
+        WHERE
         1=1
+        <!--siteId省级-->
         <if test="siteId!=null">
-            and e.parent=#{siteId}
+            AND s.parent=#{siteId}
         </if>
-        and s.menu_type='industry' AND n.id=n.parent_id and e.id=s.site_id and s.show_id=m.show_id
-        <if test="isAuto!=null">
-            and m.is_auto=#{isAuto}
-        </if>
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_site s,fan_sys_web_news_show n WHERE 1=1 AND s.parent=#{siteId} AND n.site_id=s.id AND n.menu_code='industry'
+        ) AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="status!=null">
-            and m.`status`=#{status}
+            AND m.status=#{status}
+        </if>
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
         </if>
         <if test="newsSource!=null">
-            and m.news_source=#{newsSource}
+            AND m.news_source=#{newsSource}
         </if>
-        and m.show_id=a.show_id and m.news_id=a.id
+        AND m.show_id=w.show_id AND m.news_id=w.id
         <if test="newsTitle!=null">
-            and a.news_title LIKE CONCAT('%',#{newsTitle},'%')
+            AND w.news_title LIKE CONCAT('%',#{newsTitle},'%')
         </if>
     ) temp1
         order by temp1.updateTime desc
@@ -101,19 +107,19 @@
     <select id="getManualRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.CommonRecommendVo">
         select temp1.* from (
         SELECT
-          '1' as source,s.name as sizeName,m.id as recommendId,u.id, u.show_id AS showId, u.news_title AS newsTitle, u.news_text AS newsText, u.visit_num AS visitNum, u.status, u.create_time AS createTime, u.create_user AS createUser, u.update_time AS updateTime, u.update_user AS updateUser,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
+        '1' as source,s.name as sizeName,m.id as recommendId,u.id, u.show_id AS showId, u.news_title AS newsTitle, u.news_text AS newsText, u.visit_num AS visitNum, u.status, u.create_time AS createTime, u.create_user AS createUser, u.update_time AS updateTime, u.update_user AS updateUser,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_culture_news u
         WHERE
         1=1
         <!--siteId省级-->
         <if test="siteId!=null">
-        AND s.parent=#{siteId}
+            AND s.parent=#{siteId}
         </if>
-        <!--fanSiteId县级-->
-        <if test="fanSiteId!=null">
-        AND n.site_id=#{fanSiteId}
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_site s,fan_sys_web_news_show n WHERE 1=1 AND s.parent=#{siteId} AND n.site_id=s.id AND n.menu_code='culture'
+        ) AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
         </if>
-        AND n.menu_type='culture' AND n.id=n.parent_id AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
             AND m.is_auto=#{isAuto}
         </if>
@@ -126,7 +132,7 @@
         </if>
         union all
         SELECT
-         '2' as source,s.name as sizeName,m.id as recommendId,w.id, w.show_id AS showId, w.news_title AS newsTitle, w.news_text AS newsText, w.visit_num AS visitNum, w.status, w.create_time AS createTime, w.create_user AS createUser, w.update_time AS updateTime, w.update_user AS updateUser ,w.industry_location as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
+        '2' as source,s.name as sizeName,m.id as recommendId,w.id, w.show_id AS showId, w.news_title AS newsTitle, w.news_text AS newsText, w.visit_num AS visitNum, w.status, w.create_time AS createTime, w.create_user AS createUser, w.update_time AS updateTime, w.update_user AS updateUser ,w.industry_location as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_industry w
         WHERE
         1=1
@@ -134,11 +140,11 @@
         <if test="siteId!=null">
             AND s.parent=#{siteId}
         </if>
-        <!--fanSiteId县级-->
-        <if test="fanSiteId!=null">
-            AND n.site_id=#{fanSiteId}
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_site s,fan_sys_web_news_show n WHERE 1=1 AND s.parent=#{siteId} AND n.site_id=s.id AND n.menu_code='industry'
+        ) AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
         </if>
-        AND n.menu_type='industry' AND n.id=n.parent_id AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
             AND m.is_auto=#{isAuto}
         </if>
@@ -152,18 +158,18 @@
         union all
         SELECT
         '3' as source,s.name as sizeName,m.id as recommendId,e.id, e.show_id AS showId, e.news_title AS newsTitle, e.news_text AS newsText, e.visit_num AS visitNum, e.status, e.create_time AS createTime, e.create_user AS createUser, e.update_time AS updateTime, e.update_user AS updateUser ,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
-         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_family_record e
-         WHERE
+        FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_family_record e
+        WHERE
         1=1
         <!--siteId省级-->
         <if test="siteId!=null">
             AND s.parent=#{siteId}
         </if>
-        <!--fanSiteId县级-->
-        <if test="fanSiteId!=null">
-            AND n.site_id=#{fanSiteId}
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_site s,fan_sys_web_news_show n WHERE 1=1 AND s.parent=#{siteId} AND n.site_id=s.id AND n.menu_code='family_record'
+        ) AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
         </if>
-         AND n.menu_type='family_record' AND n.id=n.parent_id AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
             AND m.is_auto=#{isAuto}
         </if>
@@ -177,18 +183,18 @@
         union all
         SELECT
         '4' as source,s.name as sizeName,m.id as recommendId,b.id, b.show_id AS showId, null AS newsTitle, null AS newsText, b.visit_num AS visitNum, b.status, b.create_time AS createTime, b.create_user AS createUser, b.update_time AS updateTime, b.update_user AS updateUser ,null as industryLocation, b.person_name as personName,b.person_summary as  personSummary,b.pic_file_src as picFileSrc,b.pic_file_name as picFileName
-         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_famous_person b
-         WHERE
+        FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_famous_person b
+        WHERE
         1=1
         <!--siteId省级-->
         <if test="siteId!=null">
             AND s.parent=#{siteId}
         </if>
-        <!--fanSiteId县级-->
-        <if test="fanSiteId!=null">
-            AND n.site_id=#{fanSiteId}
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_site s,fan_sys_web_news_show n WHERE 1=1 AND s.parent=#{siteId} AND n.site_id=s.id AND n.menu_code='famous'
+        ) AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
         </if>
-         AND n.menu_type='famous' AND n.id=n.parent_id AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="isAuto!=null">
             AND m.is_auto=#{isAuto}
         </if>
@@ -197,13 +203,13 @@
         </if>
         AND m.show_id=b.show_id AND m.news_id=b.id
         <if test="newsTitle!=null">
-            AND b.person_name LIKE CONCAT('%',#{newsTitle},'%')
+            AND b.news_title LIKE CONCAT('%',#{newsTitle},'%')
         </if>
         ) temp1
         order by temp1.updateTime desc
     </select>
 
-    <!--县级手动联谊会推荐-->
+    <!--县级手动联谊会推荐到省级-->
     <select id="getCountyManualRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.CommonRecommendVo">
         select temp1.* from (
         SELECT
@@ -238,7 +244,7 @@
         <if test="fanSiteId!=null">
             AND n.site_id=#{fanSiteId}
         </if>
-        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{fanSiteId} AND n.menu_code='culture')
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{fanSiteId} AND n.menu_code='industry')
         AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="status!=null">
            AND m.status=#{status}
@@ -262,7 +268,7 @@
         <if test="fanSiteId!=null">
             AND n.site_id=#{fanSiteId}
         </if>
-        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{fanSiteId} AND n.menu_code='culture')
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{fanSiteId} AND n.menu_code='family_record')
         AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="status!=null">
            AND m.status=#{status}
@@ -286,7 +292,7 @@
         <if test="fanSiteId!=null">
             AND n.site_id=#{fanSiteId}
         </if>
-        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{fanSiteId} AND n.menu_code='culture')
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{fanSiteId} AND n.menu_code='famous')
         AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="status!=null">
            AND m.status=#{status}
@@ -304,5 +310,72 @@
         ) temp1
         order by temp1.updateTime desc
 </select>
+
+
+    <!--省级后台设置手动推荐到全国-->
+    <select id="getManuaRecommendNationwide" parameterType="java.util.Map" resultType="com.genogram.entityvo.CommonRecommendVo">
+        SELECT
+        '1' as source,s.name as sizeName,m.id as recommendId,u.id, u.show_id AS showId, u.news_title AS newsTitle, u.news_text AS newsText, u.visit_num AS visitNum, u.status, u.create_time AS createTime, u.create_user AS createUser, u.update_time AS updateTime, u.update_user AS updateUser,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
+        FROM pro_sys_site s,pro_sys_web_news_show n,fan_sys_recommend m,pro_news_culture_news u
+        WHERE 1=1
+        <!--siteId省级-->
+        <if test="siteId!=null">
+            AND n.site_id=#{siteId}
+        </if>
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{siteId} AND n.menu_code='culture')
+        AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
+        </if>
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=u.show_id AND m.news_id=u.id
+        union all
+        SELECT
+        '3' as source,s.name as sizeName,m.id as recommendId,e.id, e.show_id AS showId, e.news_title AS newsTitle, e.news_text AS newsText, e.visit_num AS visitNum, e.status, e.create_time AS createTime, e.create_user AS createUser, e.update_time AS updateTime, e.update_user AS updateUser ,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
+        FROM pro_sys_site s,pro_sys_web_news_show n,fan_sys_recommend m,pro_news_family_record e
+        WHERE 1=1
+        <!--siteId省级-->
+        <if test="siteId!=null">
+            AND n.site_id=#{fanSiteId}
+        </if>
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{siteId} AND n.menu_code='family_record')
+        AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
+        </if>
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=e.show_id AND m.news_id=e.id
+        union all
+        SELECT
+        '4' as source,s.name as sizeName,m.id as recommendId,b.id, b.show_id AS showId, null AS newsTitle, null AS newsText, b.visit_num AS visitNum, b.status, b.create_time AS createTime, b.create_user AS createUser, b.update_time AS updateTime, b.update_user AS updateUser ,null as industryLocation, b.person_name as personName,b.person_summary as  personSummary,b.pic_file_src as picFileSrc,b.pic_file_name as picFileName
+        FROM pro_sys_site s,pro_sys_web_news_show n,fan_sys_recommend m,pro_news_famous_person b
+        WHERE 1=1
+        <!--siteId省级-->
+        <if test="siteId!=null">
+            AND n.site_id=#{siteId}
+        </if>
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{siteId} AND n.menu_code='famous')
+        AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
+        </if>
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=b.show_id AND m.news_id=b.id
+    </select>
 
 </mapper>

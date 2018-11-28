@@ -3,6 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsFamousAncestor;
 import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entity.ProNewsFamousAncestor;
@@ -120,7 +121,7 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
      * @param fanSplit
      */
     @Override
-    public Boolean addFamousAncestor(FanNewsFamousAncestor fanNewsFamousAncestor, List<String> proSplit, List<String> fanSplit) {
+    public Boolean addFamousAncestor(FanNewsFamousAncestor fanNewsFamousAncestor, List<String> proSplit, List<String> fanSplit, AllUserLogin userLoginInfoByToken) {
         //父iD第一级为0
         fanNewsFamousAncestor.setParentId(0);
         if(fanNewsFamousAncestor.getId()!=null){
@@ -140,11 +141,14 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
             }
             //修改时间
             fanNewsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
+            fanNewsFamousAncestor.setUpdateUser(userLoginInfoByToken.getId());
         }else{
             //创建时间
             fanNewsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
+            fanNewsFamousAncestor.setCreateUser(userLoginInfoByToken.getId());
             //修改时间
             fanNewsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
+            fanNewsFamousAncestor.setUpdateUser(userLoginInfoByToken.getId());
         }
         //插入主数据
         boolean insert = this.insertOrUpdate(fanNewsFamousAncestor);

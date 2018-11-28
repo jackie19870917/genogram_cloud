@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.service.IProNewsFamousAncestorService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import com.genogram.unit.StringsUtils;
@@ -40,6 +42,9 @@ public class ProNewsAncestorController {
     @Autowired
     private IProNewsFamousAncestorService proNewsFamousAncestorService;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      *省级祖先后台查询
      *@Author: yuzhou
@@ -70,9 +75,19 @@ public class ProNewsAncestorController {
     public Response<ProNewsFamousAncestor> getFamousAncestorPage(
             @ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId, // 显示位置
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断显示位置Id是否为空
             if(showId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -122,9 +137,19 @@ public class ProNewsAncestorController {
                     "proNewsFamousAncestorList 联谊会分支后裔集合")
     @RequestMapping(value = "/getFamousAncestorDetails",method = RequestMethod.GET)
     public Response<ProNewsFamousAncestor> getFamousAncestorDetails(
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id// 显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id,// 显示位置
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断Id
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -170,9 +195,19 @@ public class ProNewsAncestorController {
     public Response<ProNewsFamousAncestor> getFamousAncestorVaguePage(
             @ApiParam(value = "祖先名")@RequestParam(value = "ancestorName") String ancestorName,// 显示位置
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //分页
             Page<AncestorsBranchVo> mapPage = new Page<>(pageNo, pageSize);
             Map map=new HashMap(16);
             map.put("ancestorName",ancestorName);
@@ -212,13 +247,24 @@ public class ProNewsAncestorController {
             "updateTime 修改时间 --" +
             "updateUser 修改人 --" +
             "zipai 字派")
-    @RequestMapping(value = "/addFamousAncestor",method = RequestMethod.GET)
+    @RequestMapping(value = "/addFamousAncestor",method = RequestMethod.POST)
     public Response<ProNewsFamousAncestor> addFamousAncestor(
             @ApiParam(value = "省级主键Id")@RequestParam(value = "proIds") String proIds,// 显示位置
             @ApiParam(value = "县级主键Id")@RequestParam(value = "fanIds") String fanIds,// 显示位置
-            @ApiParam(value = "祖先分支表")ProNewsFamousAncestor proNewsFamousAncestor
+            @ApiParam(value = "祖先分支表")ProNewsFamousAncestor proNewsFamousAncestor,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userLoginInfoByToken)){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             //省级主键Id
             List<String> proSplit=null;
             //县级主键Id
@@ -250,9 +296,19 @@ public class ProNewsAncestorController {
     @ApiOperation(value = "省级祖先后台删除", notes = "")
     @RequestMapping(value = "/deleteFamousAncestor",method = RequestMethod.GET)
     public Response<ProNewsFamousAncestor> deleteFamousAncestor(
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断主键是否为空
             if(id==null){
                 ResponseUtlis.error(Constants.IS_EMPTY,null);
             }

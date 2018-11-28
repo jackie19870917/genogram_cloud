@@ -2,6 +2,7 @@ package com.genogram.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.NewsCultureZipaiVo;
@@ -57,5 +58,5 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      * @param status  状态(0:删除;1:已发布;2:草稿3:不显示)
      * @return
      */
-    Boolean deleteZipaiById(Integer id, int status);
+    Boolean deleteZipaiById(Integer id, int status, AllUserLogin userLoginInfoByToken);
 }

@@ -2,6 +2,7 @@ package com.genogram.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsIndustry;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.FamilyIndustryVo;
@@ -50,9 +51,10 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
      *联谊会家族产业后台删除
      * @param id
      * @param status
+     * @param userLoginInfoByToken
      * @return
      */
-    Boolean deleteIndustryById(Integer id, int status);
+    Boolean deleteIndustryById(Integer id, int status, AllUserLogin userLoginInfoByToken);
 
     /**
      * 联谊会家族产业前台增加查看数
