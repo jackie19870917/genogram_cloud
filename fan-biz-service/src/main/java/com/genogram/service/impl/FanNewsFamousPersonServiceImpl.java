@@ -81,8 +81,7 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         list.forEach(( news)->{
             newsids.add(news.getId());
             //去除html标签
-            news.setPersonName(StringsUtils.removeTag(news.getPersonName()));
-
+            news.setPersonSummary(StringsUtils.removeTag(news.getPersonSummary()));
         });
 
         //查询图片
@@ -109,7 +108,7 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
             });
             //去除html标签
             news.setPersonName(StringsUtils.removeTag(news.getPersonName()));
-            
+
             //存储图片list集合
             familyPersonVo.setFanNewsUploadFileList(fanNewsUploadFile);
 
