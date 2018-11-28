@@ -159,8 +159,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         //存储作者名称时间
         industryDetailVo.setUpdateTimeLong(fanNewsIndustry.getUpdateTime().getTime());
         industryDetailVo.setCreateTimeLong(fanNewsIndustry.getCreateTime().getTime());
-        industryDetailVo.setCreateUserName(null);
-        industryDetailVo.setCreateUserName(null);
+        industryDetailVo.setCreateUserName(createUser.getNickName());
+        industryDetailVo.setCreateUserName(updateUser.getNickName());
         return industryDetailVo;
     }
 
@@ -182,14 +182,11 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             fanNewsIndustry.setVisitNum(0);
             //存入创建时间
             fanNewsIndustry.setCreateTime(format);
-            fanNewsIndustry.setCreateUser(null);
             //插入修改时间
             fanNewsIndustry.setUpdateTime(format);
-            fanNewsIndustry.setUpdateUser(null);
         }else{
             //存入修改时间
             fanNewsIndustry.setUpdateTime(format);
-            fanNewsIndustry.setUpdateUser(null);
         }
         boolean result = this.insertOrUpdate(fanNewsIndustry);
         //存储图片
@@ -209,9 +206,13 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
      *@Description:
     */
     @Override
-    public Boolean deleteIndustryById(Integer id, int status) {
+    public Boolean deleteIndustryById(Integer id, int status,AllUserLogin userLoginInfoByToken) {
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
+        //修改状态
         fanNewsIndustry.setStatus(status);
+        //修改人Id
+        fanNewsIndustry.setUpdateUser(userLoginInfoByToken.getId());
+        //修改时间
         fanNewsIndustry.setUpdateTime(DateUtil.getCurrentTimeStamp());
         //修改人 待写
         boolean result = this.updateAllColumnById(fanNewsIndustry);

@@ -2,6 +2,7 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.mapper.FanNewsCultureZipaiMapper;
@@ -142,11 +143,14 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
      *@Description:
     */
     @Override
-    public Boolean deleteZipaiById(Integer id, int status) {
+    public Boolean deleteZipaiById(Integer id, int status, AllUserLogin userLoginInfoByToken) {
         FanNewsCultureZipai fanNewsCultureZipai = this.selectById(id);
+        //修改状态
         fanNewsCultureZipai.setStatus(status);
+        //修改人
+        fanNewsCultureZipai.setUpdateUser(userLoginInfoByToken.getId());
+        //修改时间
         fanNewsCultureZipai.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        //修改人  待写
         return this.updateAllColumnById(fanNewsCultureZipai);
     }
 }

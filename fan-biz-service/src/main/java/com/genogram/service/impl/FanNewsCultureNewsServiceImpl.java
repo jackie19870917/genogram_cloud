@@ -156,8 +156,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //存储作者名称时间
         newsDetail.setUpdateTimeLong(fanNewsCultureNews.getUpdateTime().getTime());
         newsDetail.setCreateTimeLong(fanNewsCultureNews.getCreateTime().getTime());
-        newsDetail.setCreateUserName(null);
-        newsDetail.setCreateUserName(null);
+        newsDetail.setCreateUserName(createUser.getNickName());
+        newsDetail.setCreateUserName(updateUser.getNickName());
         return newsDetail;
     }
 
@@ -180,14 +180,11 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
             fanNewsCultureNews.setVisitNum(0);
             //存入创建时间
             fanNewsCultureNews.setCreateTime(format);
-            fanNewsCultureNews.setCreateUser(null);
             //存入修改时间
             fanNewsCultureNews.setUpdateTime(format);
-            fanNewsCultureNews.setUpdateUser(null);
         }else{
             //存入修改时间
             fanNewsCultureNews.setUpdateTime(format);
-            fanNewsCultureNews.setUpdateUser(null);
         }
         //插入数据
         boolean result = this.insertOrUpdate(fanNewsCultureNews);
@@ -208,9 +205,13 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
      *@Description:
     */
     @Override
-        public Boolean deleteCulturById(Integer id, int status) {
+        public Boolean deleteCulturById(Integer id, int status,AllUserLogin userLoginInfoByToken) {
         FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
+        //修改状态
         fanNewsCultureNews.setStatus(status);
+        //修改人
+        fanNewsCultureNews.setUpdateUser(userLoginInfoByToken.getId());
+        //修改时间
         fanNewsCultureNews.setUpdateTime(DateUtil.getCurrentTimeStamp());
         //修改人待写
         boolean result = this.updateAllColumnById(fanNewsCultureNews);

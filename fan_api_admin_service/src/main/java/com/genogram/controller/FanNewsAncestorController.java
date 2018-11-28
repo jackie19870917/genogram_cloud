@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.service.IFanNewsFamousAncestorService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import com.genogram.unit.StringsUtils;
@@ -36,6 +38,9 @@ public class FanNewsAncestorController {
 
     @Autowired
     private IFanNewsFamousAncestorService fanNewsFamousAncestorService;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      *联谊会祖先查询
@@ -67,9 +72,15 @@ public class FanNewsAncestorController {
     public Response<FanNewsFamousAncestor> getFamousAncestorPage(
             @ApiParam(value = "网站Id") @RequestParam(value = "siteId") Integer siteId, // 显示位置
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "14") Integer pageSize
+            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "14") Integer pageSize,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -115,9 +126,15 @@ public class FanNewsAncestorController {
                     "fanNewsFamousAncestorList 联谊会分支后裔集合")
     @RequestMapping(value = "/getFamousAncestorDetails",method = RequestMethod.GET)
     public Response<FanNewsFamousAncestor> getFamousAncestorDetails(
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id// 显示位置
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id,// 显示位置
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断主键是否为空
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -163,9 +180,15 @@ public class FanNewsAncestorController {
     public Response<FanNewsFamousAncestor> getFamousAncestorVaguePage(
             @ApiParam(value = "祖先名")@RequestParam(value = "ancestorName") String ancestorName,// 显示位置
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
+            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //分页条件
             Page<AncestorsBranchVo> mapPage = new Page<>(pageNo, pageSize);
             Map map=new HashMap(16);
             map.put("ancestorName",ancestorName);
@@ -209,9 +232,16 @@ public class FanNewsAncestorController {
     public Response<FanNewsFamousAncestor> addFamousAncestor(
             @ApiParam(value = "省级主键Id")@RequestParam(value = "proIds") String proIds,// 显示位置
             @ApiParam(value = "县级主键Id")@RequestParam(value = "fanIds") String fanIds,// 显示位置
-            @ApiParam(value = "祖先分支表")FanNewsFamousAncestor fanNewsFamousAncestor
+            @ApiParam(value = "祖先分支表")FanNewsFamousAncestor fanNewsFamousAncestor,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
             //省级主键Id
             List<String> proSplit=null;
             //县级主键Id
@@ -223,7 +253,7 @@ public class FanNewsAncestorController {
             if (StringsUtils.isNotEmpty(fanIds)){
                 fanSplit = Arrays.asList(fanIds.split(","));
             }
-            Boolean aBoolean = fanNewsFamousAncestorService.addFamousAncestor(fanNewsFamousAncestor, proSplit, fanSplit);
+            Boolean aBoolean = fanNewsFamousAncestorService.addFamousAncestor(fanNewsFamousAncestor, proSplit, fanSplit,userLoginInfoByToken);
             return null;
         }catch (Exception e) {
             e.printStackTrace();
@@ -243,11 +273,17 @@ public class FanNewsAncestorController {
     @ApiOperation(value = "联谊会祖先后台删除", notes = "")
     @RequestMapping(value = "/deleteFamousAncestor",method = RequestMethod.GET)
     public Response<FanNewsFamousAncestor> deleteFamousAncestor(
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ){
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断主键是否为空
             if(id==null){
-                ResponseUtlis.error(Constants.IS_EMPTY,null);
+              return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             Boolean aBoolean =fanNewsFamousAncestorService.deleteFamousAncestor(id);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);

@@ -275,15 +275,12 @@ public class FanNewsIndustryController {
         try {
             //获取用户对象
             AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            if(fanNewsIndustry.getId()==null){
+            if(fanNewsIndustry.getId()==null) {
                 //创建人
                 fanNewsIndustry.setCreateUser(userLoginInfoByToken.getId());
-                //修改人
-                fanNewsIndustry.setUpdateUser(userLoginInfoByToken.getId());
-            }else{
-                //修改人
-                fanNewsIndustry.setUpdateUser(userLoginInfoByToken.getId());
             }
+                //修改人
+                fanNewsIndustry.setUpdateUser(userLoginInfoByToken.getId());
             // 插入数据
             fanNewsIndustryService.addOrUpdateIndustry(fanNewsIndustry, fileName,filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -312,13 +309,15 @@ public class FanNewsIndustryController {
             if (StringUtils.isEmpty(token)) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
             }
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
             //判断id是否为空
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean isDel = fanNewsIndustryService.deleteIndustryById(id, status);
+            Boolean isDel = fanNewsIndustryService.deleteIndustryById(id, status,userLoginInfoByToken);
             if (!isDel){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }

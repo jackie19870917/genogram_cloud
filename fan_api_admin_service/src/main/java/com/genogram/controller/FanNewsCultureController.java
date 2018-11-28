@@ -15,6 +15,7 @@ import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -233,12 +234,10 @@ public class FanNewsCultureController {
             if(fanNewsCultureZipai.getId()==null){
                 //创建人
              fanNewsCultureZipai.setCreateUser(userLoginInfoByToken.getId());
-             //修改人
-             fanNewsCultureZipai.setUpdateUser(userLoginInfoByToken.getId());
-            }else{
+            }
                 //修改人
                 fanNewsCultureZipai.setUpdateUser(userLoginInfoByToken.getId());
-            }
+
             boolean result=fanNewsCultureZipaiService.addOrUpdateZiPai(fanNewsCultureZipai);
             if( ! result){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
@@ -273,9 +272,11 @@ public class FanNewsCultureController {
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = fanNewsCultureZipaiService.deleteZipaiById(id, status);
+            Boolean aBoolean = fanNewsCultureZipaiService.deleteZipaiById(id, status,userLoginInfoByToken);
             if(!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
@@ -534,12 +535,9 @@ public class FanNewsCultureController {
             if(fanNewsCultureNews.getId()==null){
                 //创建人
                 fanNewsCultureNews.setCreateUser(userLoginInfoByToken.getId());
-                //修改人
-                fanNewsCultureNews.setUpdateUser(userLoginInfoByToken.getId());
-            }else{
-                //修改人
-                fanNewsCultureNews.setUpdateUser(userLoginInfoByToken.getId());
             }
+                //修改人
+                fanNewsCultureNews.setUpdateUser(userLoginInfoByToken.getId());
             // 插入数据
             boolean insert = fanNewsCultureNewsService.addOrUpdateCulture(fanNewsCultureNews,fileName,filePath);
             if( ! insert){
@@ -566,15 +564,23 @@ public class FanNewsCultureController {
     @ApiOperation(value = "联谊会家族文化后台删除", notes ="")
     @RequestMapping(value ="/deleteCulturById",method = RequestMethod.GET)
     public Response<FanNewsCultureNews> deleteCulturById(
-            @ApiParam(value = "主键ID")@RequestParam(value = "id")Integer id // 家族文化详情显示位置
+            @ApiParam(value = "主键ID")@RequestParam(value = "id")Integer id, // 家族文化详情显示位置
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断主键是否为空
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status=0;
-            Boolean aBoolean = fanNewsCultureNewsService.deleteCulturById(id, status);
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            Boolean aBoolean = fanNewsCultureNewsService.deleteCulturById(id, status,userLoginInfoByToken);
             if (!aBoolean){
                 return ResponseUtlis.error(Constants.ERRO_CODE,null);
             }
