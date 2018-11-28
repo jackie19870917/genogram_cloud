@@ -6,6 +6,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.service.IFanSysRecommendService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import com.genogram.unit.StringsUtils;
@@ -39,6 +40,9 @@ public class FanRecommendController {
     @Autowired
     private IFanSysRecommendService fanSysRecommendService;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      *联谊会后台点击推荐
      *@Author: yuzhou
@@ -52,9 +56,18 @@ public class FanRecommendController {
     @RequestMapping(value = "/addRecommendButton",method = RequestMethod.GET)
     public Response<FanSysRecommend> addRecommendButton(
             @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId,
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //主键
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id, //主键
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             if(showId==null || id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -95,9 +108,18 @@ public class FanRecommendController {
     @RequestMapping(value = "/deleteRecommendButton",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommendButton(
             @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //文章主键
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id, //文章主键
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
             if(showId==null || id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -136,9 +158,19 @@ public class FanRecommendController {
     @ApiOperation(value = "联谊会后台设置个人推荐取消展示", notes ="")
     @RequestMapping(value = "/deleteRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommend(
-            @ApiParam(value = "推荐表主键")@RequestParam(value = "recommendId") Integer recommendId
+            @ApiParam(value = "推荐表主键")@RequestParam(value = "recommendId") Integer recommendId,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断recommendId是否为空
             if(recommendId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -187,9 +219,19 @@ public class FanRecommendController {
             " 头像名 picFileName")
     @RequestMapping(value = "/getManualRecommend",method = RequestMethod.GET)
     public Response<CommonRecommendVo> getManualRecommend(
-            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try{
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -246,9 +288,19 @@ public class FanRecommendController {
     @RequestMapping(value = "/getManualRecommendVague",method = RequestMethod.GET)
     public Response<CommonRecommendVo> getManualRecommendVague(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
-            @ApiParam(value = "标题模糊")@RequestParam(value = "title",required = false) String title
+            @ApiParam(value = "标题模糊")@RequestParam(value = "title",required = false) String title,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try{
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }

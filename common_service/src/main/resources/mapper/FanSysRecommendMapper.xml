@@ -209,7 +209,7 @@
         order by temp1.updateTime desc
     </select>
 
-    <!--县级手动联谊会推荐-->
+    <!--县级手动联谊会推荐到省级-->
     <select id="getCountyManualRecommend" parameterType="java.util.Map" resultType="com.genogram.entityvo.CommonRecommendVo">
         select temp1.* from (
         SELECT
@@ -310,5 +310,72 @@
         ) temp1
         order by temp1.updateTime desc
 </select>
+
+
+    <!--省级后台设置手动推荐到全国-->
+    <select id="getManuaRecommendNationwide" parameterType="java.util.Map" resultType="com.genogram.entityvo.CommonRecommendVo">
+        SELECT
+        '1' as source,s.name as sizeName,m.id as recommendId,u.id, u.show_id AS showId, u.news_title AS newsTitle, u.news_text AS newsText, u.visit_num AS visitNum, u.status, u.create_time AS createTime, u.create_user AS createUser, u.update_time AS updateTime, u.update_user AS updateUser,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
+        FROM pro_sys_site s,pro_sys_web_news_show n,fan_sys_recommend m,pro_news_culture_news u
+        WHERE 1=1
+        <!--siteId省级-->
+        <if test="siteId!=null">
+            AND n.site_id=#{siteId}
+        </if>
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{siteId} AND n.menu_code='culture')
+        AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
+        </if>
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=u.show_id AND m.news_id=u.id
+        union all
+        SELECT
+        '3' as source,s.name as sizeName,m.id as recommendId,e.id, e.show_id AS showId, e.news_title AS newsTitle, e.news_text AS newsText, e.visit_num AS visitNum, e.status, e.create_time AS createTime, e.create_user AS createUser, e.update_time AS updateTime, e.update_user AS updateUser ,null as industryLocation,null as personName,null as personSummary,null as picFileSrc,null as picFileName
+        FROM pro_sys_site s,pro_sys_web_news_show n,fan_sys_recommend m,pro_news_family_record e
+        WHERE 1=1
+        <!--siteId省级-->
+        <if test="siteId!=null">
+            AND n.site_id=#{fanSiteId}
+        </if>
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{siteId} AND n.menu_code='family_record')
+        AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
+        </if>
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=e.show_id AND m.news_id=e.id
+        union all
+        SELECT
+        '4' as source,s.name as sizeName,m.id as recommendId,b.id, b.show_id AS showId, null AS newsTitle, null AS newsText, b.visit_num AS visitNum, b.status, b.create_time AS createTime, b.create_user AS createUser, b.update_time AS updateTime, b.update_user AS updateUser ,null as industryLocation, b.person_name as personName,b.person_summary as  personSummary,b.pic_file_src as picFileSrc,b.pic_file_name as picFileName
+        FROM pro_sys_site s,pro_sys_web_news_show n,fan_sys_recommend m,pro_news_famous_person b
+        WHERE 1=1
+        <!--siteId省级-->
+        <if test="siteId!=null">
+            AND n.site_id=#{siteId}
+        </if>
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{siteId} AND n.menu_code='famous')
+        AND s.id=n.site_id AND n.show_id=m.show_id
+        <if test="status!=null">
+            AND m.status=#{status}
+        </if>
+        <if test="isAuto!=null">
+            AND m.is_auto=#{isAuto}
+        </if>
+        <if test="newsSource!=null">
+            AND m.news_source=#{newsSource}
+        </if>
+        AND m.show_id=b.show_id AND m.news_id=b.id
+    </select>
 
 </mapper>

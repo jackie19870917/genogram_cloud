@@ -54,7 +54,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //得到文件当前页list集合
         List<FanNewsCultureNews> list = fanNewsCultureNews.getRecords();
         //判断改集合是否为空,如果是直接返回结果
-        if(list.size()==0 && list==null){
+        if(list.size()==0){
             return null;
         }
 

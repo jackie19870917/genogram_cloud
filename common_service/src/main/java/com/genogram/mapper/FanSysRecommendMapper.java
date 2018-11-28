@@ -40,4 +40,11 @@ public interface FanSysRecommendMapper extends BaseMapper<FanSysRecommend> {
      * @return
      */
     List<CommonRecommendVo> getCountyManualRecommend(Map map);
+
+    /**
+     * 省级后台设置手动推荐到全国
+     * @param map
+     * @return
+     */
+    List<CommonRecommendVo> getManuaRecommendNationwide(Map map);
 }

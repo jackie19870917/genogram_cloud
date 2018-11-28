@@ -530,7 +530,7 @@ public class ProRecommendController {
     ) {
         try {
             if(siteId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
+                return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入siteId");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=2;
@@ -551,6 +551,46 @@ public class ProRecommendController {
                 return ResponseUtlis.error(Constants.ERRO_CODE,"您好,没有您想要的数据");
             }
             return ResponseUtlis.success(familyPersonVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  ResponseUtlis.error(Constants.FAILURE_CODE,"请联系客服");
+        }
+    }
+
+    /**
+     *省级后台设置手动推荐到全国
+     *@Author: yuzhou
+     *@Date: 2018-11-28
+     *@Time: 15:14
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "省级后台设置手动推荐到全国" ,  notes="")
+    @RequestMapping(value = "/getManuaRecommendNationwide",method = RequestMethod.GET)
+    public Response<CommonRecommendVo> getManuaRecommendNationwide(
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
+    ) {
+        try {
+            if(siteId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入siteId");
+            }
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=1;
+            //来源:(1县级,2省级)
+            int newsSource=2;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=0;
+            Map map=new HashMap(16);
+            map.put("siteId",siteId);
+            map.put("status",status);
+            map.put("newsSource",newsSource);
+            map.put("isAuto",isAuto);
+            List<CommonRecommendVo> commonRecommendVo=proSysRecommendService.getManuaRecommendNationwide(map);
+            if(commonRecommendVo.size()==0){
+                return ResponseUtlis.error(Constants.ERRO_CODE,"您好,没有您想要的数据");
+            }
+            return ResponseUtlis.success(commonRecommendVo);
         }catch (Exception e){
             e.printStackTrace();
             return  ResponseUtlis.error(Constants.FAILURE_CODE,"请联系客服");
