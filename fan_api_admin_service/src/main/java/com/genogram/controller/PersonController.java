@@ -167,7 +167,7 @@ public class PersonController {
                 List<FanIndexInfo> fanIndexInfos = new ArrayList<>();
                 fanIndexInfoList.forEach((FanIndexInfo fanIndexInfo) -> {
 
-                    if (fanIndexInfo.getSiteId().equals(fanSysSite.getId())) {
+                    if (fanSysSite.getId().equals(fanIndexInfo.getSiteId())) {
                         fanIndexInfos.add(fanIndexInfo);
                         sysSiteVo1.setUrl(fanIndexInfo.getTotemPicSrc());
                     }
@@ -221,7 +221,7 @@ public class PersonController {
                 List<ProIndexInfo> proIndexInfos = new ArrayList<>();
                 proIndexInfoList.forEach((ProIndexInfo proIndexInfo) -> {
 
-                    if (proIndexInfo.getSiteId().equals(proSysSite.getId())) {
+                    if (proSysSite.getId().equals(proIndexInfo.getSiteId())) {
                         proIndexInfos.add(proIndexInfo);
                         sysSiteVo1.setUrl(proIndexInfo.getTotemPicSrc());
                     }
