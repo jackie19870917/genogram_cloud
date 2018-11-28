@@ -332,6 +332,10 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         entity.eq("show_id", showId);
         //分页查询文章主表
         List<FanNewsFamousPerson> fanNewsFamousPeople = this.selectList(entity);
+        for (FanNewsFamousPerson fanNewsFamousPerson : fanNewsFamousPeople) {
+            //去除html标签
+            fanNewsFamousPerson.setPersonSummary(StringsUtils.removeTag(fanNewsFamousPerson.getPersonSummary()));
+        }
         return fanNewsFamousPeople;
     }
 }
