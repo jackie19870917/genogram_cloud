@@ -170,6 +170,8 @@ public class PersonController {
                     if (!StringUtils.isEmpty(fanIndexInfo) && fanSysSite.getId().equals(fanIndexInfo.getSiteId())) {
                         fanIndexInfos.add(fanIndexInfo);
                         sysSiteVo1.setUrl(fanIndexInfo.getTotemPicSrc());
+                    } else {
+                        sysSiteVo1.setUrl("00/04/wKgChFv-eoeAHXUWAAIBsiLZEJ4138.png");
                     }
                 });
                 sysSiteVoList.add(sysSiteVo1);
@@ -221,9 +223,11 @@ public class PersonController {
                 List<ProIndexInfo> proIndexInfos = new ArrayList<>();
                 proIndexInfoList.forEach((ProIndexInfo proIndexInfo) -> {
 
-                    if (!StringUtils.isEmpty(proIndexInfo)&&proIndexInfo.getSiteId().equals(proSysSite.getId())) {
+                    if (!StringUtils.isEmpty(proIndexInfo) && proIndexInfo.getSiteId().equals(proSysSite.getId())) {
                         proIndexInfos.add(proIndexInfo);
                         sysSiteVo1.setUrl(proIndexInfo.getTotemPicSrc());
+                    } else {
+                        sysSiteVo1.setUrl("00/04/wKgChFv-eoeAHXUWAAIBsiLZEJ4138.png");
                     }
                 });
                 sysSiteVoList.add(sysSiteVo1);
