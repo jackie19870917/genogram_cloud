@@ -51,6 +51,15 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         entity.orderBy("create_time", false);
         //分页查询文章主表
         Page<FanNewsFamousPerson> fanNewsFamousPerson =this.selectPage(new Page<FanNewsFamousPerson>(pageNo, pageSize), entity);
+        List<FanNewsFamousPerson> records = fanNewsFamousPerson.getRecords();
+        if (records.size()==0){
+            return null;
+        }
+        for (FanNewsFamousPerson record : records) {
+            //去除html标签
+            record.setPersonSummary(StringsUtils.removeTag(record.getPersonSummary()));
+        }
+        fanNewsFamousPerson.setRecords(records);
         return fanNewsFamousPerson;
     }
 
