@@ -92,4 +92,20 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
      * @return
      */
     List<AllFamily> getAllFamily(Wrapper<AllFamily> wrapper);
+
+    /**
+     * 联谊会网站
+     *
+     * @param wrapper
+     * @return
+     */
+    List<FanSysSite> getFanSysSitePage(Wrapper<FanSysSite> wrapper,Integer pageNo,Integer pageSize);
+
+    /**
+     * 省级网站
+     *
+     * @param wrapper
+     * @return
+     */
+    List<ProSysSite> getProSysSitePage(Wrapper<ProSysSite> wrapper,Integer pageNo,Integer pageSize);
 }

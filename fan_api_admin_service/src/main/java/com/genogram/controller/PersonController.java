@@ -124,12 +124,14 @@ public class PersonController {
     @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)
     public Response<SysSiteVo> getSysSite(SysSiteVo sysSiteVo,
-                                          @ApiParam("siteType(联谊会-fan,省级-pro)") @RequestParam(value = "siteType") String siteType) {
+                                          @ApiParam("siteType(联谊会-fan,省级-pro)") @RequestParam(value = "siteType") String siteType,
+                                          @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
+                                          @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize) {
 
         if ("fan".equals(siteType)) {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
-            List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
+            List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSitePage(wrapper,pageNo,pageSize);
 
             List<Integer> siteIdList = new ArrayList();
             List familyList = new ArrayList();
@@ -183,7 +185,7 @@ public class PersonController {
 
         } else if ("pro".equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
-            List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
+            List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSitePage(wrapper,pageNo,pageSize);
 
             List<Integer> siteIdList = new ArrayList();
             List familyList = new ArrayList();
@@ -228,7 +230,11 @@ public class PersonController {
                 });
                 sysSiteVoList.add(sysSiteVo1);
             });
-            return ResponseUtlis.success(sysSiteVoList);
+            Page<SysSiteVo> page = new Page<>(pageNo, pageSize);
+            page.setRecords(sysSiteVoList);
+            page.setTotal(sysSiteVoList.size());
+
+            return ResponseUtlis.success(page);
         } else {
             return null;
         }

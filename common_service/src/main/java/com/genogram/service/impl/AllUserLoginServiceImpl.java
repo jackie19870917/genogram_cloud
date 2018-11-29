@@ -139,4 +139,22 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
             return allFamilyMapper.selectList(wrapper);
         }
     }
+
+    @Override
+    public List<FanSysSite> getFanSysSitePage(Wrapper<FanSysSite> wrapper,Integer pageNo,Integer pageSize) {
+        if (StringUtils.isEmpty(wrapper)) {
+            return fanSysSiteMapper.selectPage(new Page<>(pageNo, pageSize), null);
+        } else {
+            return fanSysSiteMapper.selectPage(new Page<>(pageNo, pageSize),wrapper);
+        }
+    }
+
+    @Override
+    public List<ProSysSite> getProSysSitePage(Wrapper<ProSysSite> wrapper, Integer pageNo, Integer pageSize) {
+        if (StringUtils.isEmpty(wrapper)) {
+            return proSysSiteMapper.selectPage(new Page<>(pageNo, pageSize), null);
+        } else {
+            return proSysSiteMapper.selectPage(new Page<>(pageNo, pageSize),wrapper);
+        }
+    }
 }
