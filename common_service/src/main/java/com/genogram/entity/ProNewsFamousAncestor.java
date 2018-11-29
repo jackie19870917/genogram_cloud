@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-20
+ * @since 2018-11-29
  */
 @TableName("pro_news_famous_ancestor")
 public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
@@ -69,16 +69,23 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
      * 字派
      */
     private String zipai;
-
     /**
      * 郡望
      */
     private String junwang;
-
     /**
      * 堂号
      */
     private String tanghao;
+    /**
+     * 分支ID  (fan或者pro 的主键)
+     */
+    @TableField("branch_id")
+    private Integer branchId;
+    /**
+     * 分类  1 代表县级2代表省级
+     */
+    private Integer source;
     /**
      * 创建时间
      */
@@ -209,6 +216,24 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
         return this;
     }
 
+    public Integer getBranchId() {
+        return branchId;
+    }
+
+    public ProNewsFamousAncestor setBranchId(Integer branchId) {
+        this.branchId = branchId;
+        return this;
+    }
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public ProNewsFamousAncestor setSource(Integer source) {
+        this.source = source;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -265,6 +290,8 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
         ", zipai=" + zipai +
         ", junwang=" + junwang +
         ", tanghao=" + tanghao +
+        ", branchId=" + branchId +
+        ", source=" + source +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +

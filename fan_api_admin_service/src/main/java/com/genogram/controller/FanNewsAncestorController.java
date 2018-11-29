@@ -272,7 +272,7 @@ public class FanNewsAncestorController {
                 fanSplit = Arrays.asList(fanIds.split(","));
             }
             Boolean aBoolean = fanNewsFamousAncestorService.addFamousAncestor(fanNewsFamousAncestor, proSplit, fanSplit,userLoginInfoByToken);
-            return null;
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE,null);

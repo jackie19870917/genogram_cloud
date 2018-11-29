@@ -152,12 +152,62 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
             fanNewsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
             fanNewsFamousAncestor.setUpdateUser(userLoginInfoByToken.getId());
         }
+
+
+        //修改时修改省级县级分支后裔的数据
+        if(fanNewsFamousAncestor.getId()!=null){
+            //查询县级的分支后裔
+            Wrapper<FanNewsFamousAncestor> entity=new EntityWrapper<FanNewsFamousAncestor>();
+            //分支ID  (fan或者pro 的主键)
+            entity.eq("branch_id",fanNewsFamousAncestor.getId());
+            //分类  1 代表县级2代表省级
+            entity.eq("source",1);
+            List<FanNewsFamousAncestor> fanNewsFamousAncestors = this.selectList(entity);
+            //新建县级分支后裔修改集合
+            List<FanNewsFamousAncestor> fanNews= new ArrayList<>();
+            if(fanNewsFamousAncestors.size()!=0){
+                for (FanNewsFamousAncestor newsFamousAncestor : fanNewsFamousAncestors) {
+                    //新建县级祖先分支实体类
+                    FanNewsFamousAncestor fan=new FanNewsFamousAncestor();
+                    //修改数据放入到查询数据中
+                    BeanUtils.copyProperties(fanNewsFamousAncestor,fan);
+                    fan.setId(newsFamousAncestor.getId());
+                    fan.setShowId(newsFamousAncestor.getShowId());
+                    fan.setParentId(newsFamousAncestor.getParentId());
+                    fanNews.add(fan);
+                }
+                this.updateBatchById(fanNews);
+                ////查询省级的分支后裔
+                Wrapper<ProNewsFamousAncestor> entityPro=new EntityWrapper<ProNewsFamousAncestor>();
+                //分支ID  (fan或者pro 的主键)
+                entityPro.eq("branch_id",fanNewsFamousAncestor.getId());
+                //分类  1 代表县级2代表省级
+                entityPro.eq("source",2);
+                List<ProNewsFamousAncestor> proNewsFamousAncestors = proNewsFamousAncestorService.selectList(entityPro);
+                //新建县级分支后裔修改集合
+                List<ProNewsFamousAncestor> proNews = new ArrayList<>();
+                if(proNewsFamousAncestors.size()!=0){
+                    for (ProNewsFamousAncestor proNewsFamousAncestor : proNewsFamousAncestors) {
+                        //新建省级祖先分支实体类
+                        ProNewsFamousAncestor pro=new ProNewsFamousAncestor();
+                        //修改数据放入到查询数据中
+                        BeanUtils.copyProperties(fanNewsFamousAncestor,pro);
+                        pro.setId(proNewsFamousAncestor.getId());
+                        pro.setShowId(proNewsFamousAncestor.getShowId());
+                        pro.setParentId(proNewsFamousAncestor.getParentId());
+                        proNews.add(pro);
+                    }
+                    proNewsFamousAncestorService.updateBatchById(proNews);
+                }
+            }
+        }
+
+
         //插入主数据
         boolean insert = this.insertOrUpdate(fanNewsFamousAncestor);
-        //查询主键
-        Wrapper<FanNewsFamousAncestor> entity=new EntityWrapper();
-        entity.eq("show_id",fanNewsFamousAncestor.getShowId());
-        FanNewsFamousAncestor fanNews = this.selectOne(entity);
+
+
+
 
 
         //省级数据list集合
