@@ -153,7 +153,7 @@ public class PersonController {
         if ("fan".equals(siteType)) {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
-
+            wrapper.eq("status", 1);
             Long total=(long) allUserLoginService.getFanSysSite(wrapper).size();
             List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSitePage(wrapper,pageNo,pageSize);
 
@@ -212,6 +212,7 @@ public class PersonController {
 
         } else if ("pro".equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
+            wrapper.eq("status", 1);
             Long total=(long) allUserLoginService.getProSysSite(wrapper).size();
             List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSitePage(wrapper,pageNo,pageSize);
 
