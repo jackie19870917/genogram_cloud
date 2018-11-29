@@ -181,6 +181,10 @@ public class PersonController {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
 
+            Page<SysSiteVo> page = new Page<>(pageNo, pageSize);
+            page.setRecords(sysSiteVoList);
+            page.setTotal(sysSiteVoList.size());
+
             return ResponseUtlis.success(sysSiteVoList);
 
         } else if ("pro".equals(siteType)) {
@@ -230,6 +234,11 @@ public class PersonController {
                 });
                 sysSiteVoList.add(sysSiteVo1);
             });
+
+            if (StringUtils.isEmpty(sysSiteVoList)) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
+
             Page<SysSiteVo> page = new Page<>(pageNo, pageSize);
             page.setRecords(sysSiteVoList);
             page.setTotal(sysSiteVoList.size());
