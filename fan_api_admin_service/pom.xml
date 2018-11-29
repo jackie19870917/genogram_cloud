@@ -79,6 +79,12 @@
             <scope>test</scope>
         </dependency>
 
+        <!--springboot 热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>
@@ -88,6 +94,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <executable>true</executable>
+                    <fork>true</fork>
                 </configuration>
             </plugin>
         </plugins>
