@@ -12,7 +12,7 @@ import com.genogram.mapper.FanNewsFamousAncestorMapper;
 import com.genogram.service.IFanNewsFamousAncestorService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanSysWebNewsShowService;
-import com.genogram.service.IProNewsFamousAncestorService;
+import com.genogram.service.IFanProNewsFamousAncestorService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +31,10 @@ import java.util.Map;
  * @since 2018-11-05
  */
 @Service
-public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousAncestorMapper, FanNewsFamousAncestor> implements IFanNewsFamousAncestorService {
+public class ProFanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousAncestorMapper, FanNewsFamousAncestor> implements IFanNewsFamousAncestorService {
 
     @Autowired
-    private IProNewsFamousAncestorService proNewsFamousAncestorService;
+    private IFanProNewsFamousAncestorService proNewsFamousAncestorService;
 
     @Autowired
     private FanNewsFamousAncestorMapper fanNewsFamousAncestorMapper;

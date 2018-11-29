@@ -4,11 +4,10 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsFamousAncestor;
-import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.mapper.ProNewsFamousAncestorMapper;
-import com.genogram.service.IFanNewsFamousAncestorService;
+import com.genogram.service.IProFanNewsFamousAncestorService;
 import com.genogram.service.IProNewsFamousAncestorService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
@@ -38,7 +37,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
     private ProNewsFamousAncestorMapper proNewsFamousAncestorMapper;
 
     @Autowired
-    private IFanNewsFamousAncestorService fanNewsFamousAncestorService;
+    private IProFanNewsFamousAncestorService fanNewsFamousAncestorService;
 
     /**
      *省级祖先分支查询

@@ -11,6 +11,6 @@ import com.genogram.entity.FanSysSite;
  * @author wangwei
  * @since 2018-11-05
  */
-public interface IFanSysSiteService extends IService<FanSysSite> {
+public interface IProFanSysSiteService extends IService<FanSysSite> {
 
 }

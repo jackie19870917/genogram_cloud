@@ -17,7 +17,7 @@ import java.util.Map;
  * @author wangwei
  * @since 2018-11-13
  */
-public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAncestor> {
+public interface IFanProNewsFamousAncestorService extends IService<ProNewsFamousAncestor> {
 
 
 }

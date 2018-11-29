@@ -14,7 +14,7 @@ import com.genogram.entityvo.NewsDetailVo;
  * @author wangwei
  * @since 2018-11-05
  */
-public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecord> {
+public interface IProFanNewsFamilyRecordService extends IService<FanNewsFamilyRecord> {
 
     /**
      * 联谊会记录家族详情

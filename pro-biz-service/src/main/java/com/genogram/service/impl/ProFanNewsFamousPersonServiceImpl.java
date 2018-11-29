@@ -2,7 +2,6 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsFamousPerson;
@@ -10,16 +9,11 @@ import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.mapper.FanNewsFamousPersonMapper;
-import com.genogram.mapper.FanNewsUploadFileMapper;
 import com.genogram.service.*;
-import com.genogram.unit.DateUtil;
-import com.genogram.unit.StringsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,10 +25,10 @@ import java.util.List;
  * @since 2018-11-05
  */
 @Service
-public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements IFanNewsFamousPersonService {
+public class ProFanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements IProFanNewsFamousPersonService {
 
     @Autowired
-    private IFanNewsUploadFileService fanNewsUploadFileService;
+    private IProFanNewsUploadFileService fanNewsUploadFileService;
     @Autowired
     private IProSysRecommendService proSysRecommendService;
     @Autowired

@@ -11,6 +11,6 @@ import com.genogram.entity.FanNewsFamousAncestor;
  * @author wangwei
  * @since 2018-11-05
  */
-public interface IFanNewsFamousAncestorService extends IService<FanNewsFamousAncestor> {
+public interface IProFanNewsFamousAncestorService extends IService<FanNewsFamousAncestor> {
 
 }

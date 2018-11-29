@@ -15,7 +15,7 @@ import com.genogram.entityvo.NewsDetailVo;
  * @author wangwei
  * @since 2018-11-05
  */
-public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews> {
+public interface IProFanNewsCultureNewsService extends IService<FanNewsCultureNews> {
 
     /**
      *联谊会家族文化详情查询
