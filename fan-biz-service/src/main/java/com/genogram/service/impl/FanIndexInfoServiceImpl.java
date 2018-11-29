@@ -56,8 +56,8 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     @Override
     public Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo) {
 
-        Wrapper<FanIndexInfo> wrapper = new EntityWrapper<FanIndexInfo>();
-        wrapper.eq("site_id", indexInfoVo.getSiteId());
+       /* Wrapper<FanIndexInfo> wrapper = new EntityWrapper<FanIndexInfo>();
+        wrapper.eq("site_id", indexInfoVo.getSiteId());*/
 
         FanIndexInfo fanIndexInfo = this.selectById(indexInfoVo.getId());
 
@@ -73,18 +73,12 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
 
         FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(fanIndexInfo.getSiteId());
 
-        if (StringUtils.isEmpty(fanSysSite)) {
-            fanSysSite = new FanSysSite();
-            fanSysSite.setCreateTime(DateUtil.format(format));
-        }
+
         fanSysSite.setUpdateTime(DateUtil.format(format));
-
-        BeanUtils.copyProperties(indexInfoVo,fanIndexInfo);
-
         fanSysSite.setName(indexInfoVo.getSiteName());
-        BeanUtils.copyProperties(indexInfoVo,fanSysSite);
+        fanSysSite.setUpdateUser(indexInfoVo.getUpdateUser());
 
-        return this.insertOrUpdate(fanIndexInfo) & fanSysSiteService.insertOrUpdate(fanSysSite);
+        return this.insertOrUpdate(fanIndexInfo) & fanSysSiteService.updateById(fanSysSite);
 
     }
 

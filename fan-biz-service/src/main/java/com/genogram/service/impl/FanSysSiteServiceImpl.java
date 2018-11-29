@@ -25,6 +25,7 @@ public class FanSysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysS
     public FanSysSite getFanSysSite(Integer siteId) {
 
         FanSysSite fanSysSite = this.selectById(siteId);
+
         if (StringUtils.isEmpty(fanSysSite)) {
             return null;
         } else {

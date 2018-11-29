@@ -75,7 +75,7 @@ public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, Fan
     @Override
     public Boolean updateFanIndexFund(FanIndexFund fanIndexFund) {
 
-        FanIndexFund fanIndexFund1 = this.selectById(fanIndexFund.getSiteId());
+        FanIndexFund fanIndexFund1 = this.getFanIndexFund(fanIndexFund.getSiteId());
 
         fanIndexFund.setRemain(fanIndexFund1.getRemain().subtract(fanIndexFund.getPayOnline()));
         fanIndexFund.setRemain(fanIndexFund1.getRemain().subtract(fanIndexFund.getPayUnderline()));
