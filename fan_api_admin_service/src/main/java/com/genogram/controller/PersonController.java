@@ -185,7 +185,7 @@ public class PersonController {
             page.setRecords(sysSiteVoList);
             page.setTotal(sysSiteVoList.size());
 
-            return ResponseUtlis.success(sysSiteVoList);
+            return ResponseUtlis.success(page);
 
         } else if ("pro".equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
