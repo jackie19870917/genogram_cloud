@@ -92,14 +92,21 @@ public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, Fan
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
-        fanIndexFund.setCreateTime(timeStamp);
-        fanIndexFund.setUpdateTime(timeStamp);
-        fanIndexFund.setRemain(new BigDecimal("0"));
-        fanIndexFund.setUnuseAmount(new BigDecimal("0"));
-        fanIndexFund.setPayOnline(new BigDecimal("0"));
-        fanIndexFund.setPayUnderline(new BigDecimal("0"));
-        fanIndexFund.setPayGenogram(new BigDecimal("0"));
+        FanIndexFund fund = this.getFanIndexFund(fanIndexFund.getSiteId());
 
-        return this.insert(fanIndexFund);
+        if (StringUtils.isEmpty(fund)) {
+
+            fanIndexFund.setCreateTime(timeStamp);
+            fanIndexFund.setUpdateTime(timeStamp);
+            fanIndexFund.setRemain(new BigDecimal("0"));
+            fanIndexFund.setUnuseAmount(new BigDecimal("0"));
+            fanIndexFund.setPayOnline(new BigDecimal("0"));
+            fanIndexFund.setPayUnderline(new BigDecimal("0"));
+            fanIndexFund.setPayGenogram(new BigDecimal("0"));
+            return this.insert(fanIndexFund);
+        } else {
+            return null;
+        }
+
     }
 }

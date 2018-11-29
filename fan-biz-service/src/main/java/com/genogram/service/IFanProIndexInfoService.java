@@ -23,12 +23,9 @@ public interface IFanProIndexInfoService extends IService<ProIndexInfo> {
     ProIndexInfo getProIndexInfo(Integer siteId);
 
     /**
-     * 省级信息
-     *
-     * @param siteId 网店ID
+     * 新增  省级信息
+     * @param proIndexInfo
      * @return
      */
-    IndexInfoVo getFanIndexInfoVo(Integer siteId);
-
-
+    Boolean insertProIndexInfo(ProIndexInfo proIndexInfo);
 }

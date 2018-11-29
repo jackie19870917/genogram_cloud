@@ -7,9 +7,13 @@ import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.mapper.ProIndexInfoMapper;
 import com.genogram.mapper.ProSysSiteMapper;
 import com.genogram.service.IFanProIndexInfoService;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
+import java.sql.Timestamp;
 
 /**
  * <p>
@@ -38,18 +42,18 @@ public class FanProIndexInfoServiceImpl extends ServiceImpl<ProIndexInfoMapper, 
     }
 
     @Override
-    public IndexInfoVo getFanIndexInfoVo(Integer siteId) {
+    public Boolean insertProIndexInfo(ProIndexInfo proIndexInfo) {
+        Timestamp format = DateUtil.getCurrentTimeStamp();
 
-        ProIndexInfo proIndexInfo = this.getProIndexInfo(siteId);
+        ProIndexInfo indexInfo = this.getProIndexInfo(proIndexInfo.getSiteId());
 
-        ProSysSite proSysSite = proSysSiteMapper.selectById(siteId);
+        if (StringUtils.isEmpty(indexInfo)) {
+            proIndexInfo.setUpdateTime(format);
+            proIndexInfo.setUpdateTime(format);
 
-        IndexInfoVo indexInfoVo = new IndexInfoVo();
-        BeanUtils.copyProperties(proIndexInfo,indexInfoVo);
-        indexInfoVo.setSiteName(proSysSite.getName());
-        indexInfoVo.setRegionCode(proSysSite.getRegionCode());
-
-        return indexInfoVo;
+            return this.insert(proIndexInfo);
+        } else {
+            return null;
+        }
     }
-
 }

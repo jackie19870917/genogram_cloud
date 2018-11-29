@@ -50,6 +50,12 @@ public class SysSiteController {
     @Autowired
     private IFanIndexInfoService fanIndexInfoService;
 
+    @Autowired
+    private IFanProIndexFundService fanProIndexFundService;
+
+    @Autowired
+    private IFanProIndexInfoService fanProIndexInfoService;
+
     @ApiOperation(value = "姓氏",notes = "value-姓氏姓名")
     @RequestMapping(value = "getAllFamily",method = RequestMethod.GET)
     public Response<AllFamily> getAllFamily(@ApiParam("姓氏") @RequestParam(value = "value",required = false) String value) {
@@ -141,6 +147,21 @@ public class SysSiteController {
             siteId =proSysSite1.getId();
             userId = proSysSite1.getAdmin();
             userLogin = allUserLoginService.getAllUserLoginById(userId);
+
+            ProIndexFund proIndexFund = new ProIndexFund();
+            proIndexFund.setSiteId(siteId);
+            proIndexFund.setCreateUser(id);
+            proIndexFund.setUpdateUser(id);
+
+            fanProIndexFundService.insertProIndexFund(proIndexFund);
+
+            ProIndexInfo proIndexInfo = new ProIndexInfo();
+            proIndexInfo.setSiteId(siteId);
+            proIndexInfo.setCreateUser(id);
+            proIndexInfo.setUpdateUser(id);
+
+            fanProIndexInfoService.insertProIndexInfo(proIndexInfo);
+
             userLogin.setRole(2);
         }
 

@@ -111,9 +111,15 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
 
         Timestamp format = DateUtil.getCurrentTimeStamp();
 
-        fanIndexInfo.setUpdateTime(format);
-        fanIndexInfo.setUpdateTime(format);
+        FanIndexInfo indexInfo = this.getFanIndexInfo(fanIndexInfo.getSiteId());
 
-        return this.insert(fanIndexInfo);
+        if (StringUtils.isEmpty(indexInfo)) {
+            fanIndexInfo.setUpdateTime(format);
+            fanIndexInfo.setUpdateTime(format);
+
+            return this.insert(fanIndexInfo);
+        } else {
+            return null;
+        }
     }
 }
