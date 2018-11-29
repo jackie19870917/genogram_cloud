@@ -85,7 +85,8 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
     /**
      * 分类  1 代表县级2代表省级
      */
-    private Integer source;
+    @TableField("source_classify")
+    private Integer sourceClassify;
     /**
      * 创建时间
      */
@@ -225,12 +226,12 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
         return this;
     }
 
-    public Integer getSource() {
-        return source;
+    public Integer getSourceClassify() {
+        return sourceClassify;
     }
 
-    public ProNewsFamousAncestor setSource(Integer source) {
-        this.source = source;
+    public ProNewsFamousAncestor setSourceClassify(Integer sourceClassify) {
+        this.sourceClassify = sourceClassify;
         return this;
     }
 
@@ -291,7 +292,7 @@ public class ProNewsFamousAncestor extends Model<ProNewsFamousAncestor> {
         ", junwang=" + junwang +
         ", tanghao=" + tanghao +
         ", branchId=" + branchId +
-        ", source=" + source +
+        ", sourceClassify=" + sourceClassify +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +

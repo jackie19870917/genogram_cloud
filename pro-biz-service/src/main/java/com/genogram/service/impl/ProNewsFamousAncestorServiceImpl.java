@@ -203,7 +203,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
                 //父Id
                 newsFamousAncestor.setParentId(proNewsFamousAncestor.getId());
                 //分类  1 代表县级2代表省级
-                newsFamousAncestor.setSource(2);
+                newsFamousAncestor.setSourceClassify(2);
                 //分支ID  (fan或者pro 的主键)
                 newsFamousAncestor.setBranchId(newsFamousAncestor.getId());
                 //时间
@@ -237,7 +237,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
                 //父Id
                 newsFamousAncestor.setParentId(proNewsFamousAncestor.getId());
                 //分类  1 代表县级2代表省级
-                newsFamousAncestor.setSource(1);
+                newsFamousAncestor.setSourceClassify(1);
                 //分支ID  (fan或者pro 的主键)
                 newsFamousAncestor.setBranchId(newsFamousAncestor.getId());
                 //时间

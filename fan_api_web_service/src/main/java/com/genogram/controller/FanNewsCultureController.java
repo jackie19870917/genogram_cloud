@@ -13,6 +13,7 @@ import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -171,7 +172,7 @@ public class FanNewsCultureController {
     @RequestMapping(value = "/getZipaiVaguePage",method = RequestMethod.POST)
     public Response<FanNewsCultureZipai> getGrabblePage(
             @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId,
-            @ApiParam(value = "家族字派模糊查询参数")@RequestParam(value = "zipaiTxt") String zipaiTxt,
+            @ApiParam(value = "家族字派模糊查询参数")@RequestParam(value = "zipaiTxt",required = false) String zipaiTxt,
             @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
@@ -188,7 +189,9 @@ public class FanNewsCultureController {
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
             entity.eq("show_id",showId);
             entity.eq("status",statusList);
-            entity.like("zipai_txt",zipaiTxt);
+            if(StringsUtils.isEmpty(zipaiTxt)){
+                entity.like("zipai_txt",zipaiTxt);
+            }
             Page<NewsCultureZipaiVo> fanNewsCultureZipaiPage = fanNewsCultureZipaiService.commonality(entity,pageNo, pageSize);
             if(fanNewsCultureZipaiPage==null){
                 return ResponseUtlis.error(Constants.ERRO_CODE,"数据为空");

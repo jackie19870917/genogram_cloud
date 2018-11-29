@@ -17,7 +17,7 @@
         <result column="junwang" property="junwang" />
         <result column="tanghao" property="tanghao" />
         <result column="branch_id" property="branchId" />
-        <result column="source" property="source" />
+        <result column="source_classify" property="sourceClassify" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
         <result column="update_time" property="updateTime" />
@@ -26,7 +26,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, show_id AS showId, parent_id AS parentId, ancestor_title AS ancestorTitle, ancestor_name AS ancestorName, ancestor_summary AS ancestorSummary, pic_file_src AS picFileSrc, pic_file_name AS picFileName, status, zipai, junwang, tanghao, branch_id AS branchId, source, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, show_id AS showId, parent_id AS parentId, ancestor_title AS ancestorTitle, ancestor_name AS ancestorName, ancestor_summary AS ancestorSummary, pic_file_src AS picFileSrc, pic_file_name AS picFileName, status, zipai, junwang, tanghao, branch_id AS branchId, source_classify AS sourceClassify, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
     <select id="getFamousAncestorVaguePage" parameterType="java.util.Map" resultType="com.genogram.entityvo.AncestorsBranchVo">
@@ -53,5 +53,6 @@
         ) temp1
         order by temp1.updateTime desc
     </select>
+
 
 </mapper>
