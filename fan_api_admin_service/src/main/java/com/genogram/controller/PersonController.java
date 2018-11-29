@@ -131,6 +131,8 @@ public class PersonController {
         if ("fan".equals(siteType)) {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
+
+            Long total=(long) allUserLoginService.getFanSysSite(wrapper).size();
             List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSitePage(wrapper,pageNo,pageSize);
 
             List<Integer> siteIdList = new ArrayList();
@@ -183,12 +185,12 @@ public class PersonController {
 
             Page<SysSiteVo> page = new Page<>(pageNo, pageSize);
             page.setRecords(sysSiteVoList);
-            page.setTotal(sysSiteVoList.size());
-
+            page.setTotal(total);
             return ResponseUtlis.success(page);
 
         } else if ("pro".equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
+            Long total=(long) allUserLoginService.getProSysSite(wrapper).size();
             List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSitePage(wrapper,pageNo,pageSize);
 
             List<Integer> siteIdList = new ArrayList();
@@ -241,8 +243,7 @@ public class PersonController {
 
             Page<SysSiteVo> page = new Page<>(pageNo, pageSize);
             page.setRecords(sysSiteVoList);
-            page.setTotal(sysSiteVoList.size());
-
+            page.setTotal(total);
             return ResponseUtlis.success(page);
         } else {
             return null;

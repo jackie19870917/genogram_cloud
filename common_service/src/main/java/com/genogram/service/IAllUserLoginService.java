@@ -108,4 +108,5 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
      * @return
      */
     List<ProSysSite> getProSysSitePage(Wrapper<ProSysSite> wrapper,Integer pageNo,Integer pageSize);
+
 }

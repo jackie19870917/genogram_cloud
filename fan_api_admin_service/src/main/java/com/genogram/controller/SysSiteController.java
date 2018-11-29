@@ -104,6 +104,16 @@ public class SysSiteController {
         AllUserLogin userLogin = new AllUserLogin();
         if ("fan".equals(siteType)) {
 
+            Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
+            wrapper.eq("region_code", sysSiteVo.getRegionCode());
+            wrapper.eq("family_code", sysSiteVo.getFamilyCode());
+
+            List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
+
+            if (!StringUtils.isEmpty(fanSysSiteList)) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, "该联谊会已开通");
+            }
+
             FanSysSite fanSysSite = new FanSysSite();
             BeanUtils.copyProperties(sysSiteVo, fanSysSite);
 
@@ -159,6 +169,17 @@ public class SysSiteController {
 
 
         } else if ("pro".equals(siteType)) {
+
+            Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
+            wrapper.eq("region_code", sysSiteVo.getRegionCode());
+            wrapper.eq("family_code", sysSiteVo.getFamilyCode());
+
+            List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
+
+            if (!StringUtils.isEmpty(proSysSiteList)) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, "该省级网站已开通");
+            }
+
             ProSysSite proSysSite = new ProSysSite();
             BeanUtils.copyProperties(sysSiteVo, proSysSite);
 

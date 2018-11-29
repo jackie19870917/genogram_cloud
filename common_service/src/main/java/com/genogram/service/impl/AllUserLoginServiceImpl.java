@@ -157,4 +157,5 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
             return proSysSiteMapper.selectPage(new Page<>(pageNo, pageSize),wrapper);
         }
     }
+
 }
