@@ -87,4 +87,35 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
 
         return this.updateById(fanIndexSlidePic);
     }
+
+    @Override
+    public Boolean insertFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic) {
+
+        Timestamp timestamp = DateUtil.getCurrentTimeStamp();
+
+        fanIndexSlidePic.setCreateTime(timestamp);
+        fanIndexSlidePic.setUpdateTime(timestamp);
+
+        fanIndexSlidePic.setSort(1);
+        fanIndexSlidePic.setStatus(1);
+        fanIndexSlidePic.setPicUrl("00/05/default_lunbo_1.jpg");
+
+
+        this.insert(fanIndexSlidePic);
+
+        fanIndexSlidePic.setSort(2);
+        fanIndexSlidePic.setStatus(1);
+        fanIndexSlidePic.setPicUrl("00/05/default_lunbo_2.png");
+
+        this.insert(fanIndexSlidePic);
+
+        fanIndexSlidePic.setSort(3);
+        fanIndexSlidePic.setStatus(1);
+        fanIndexSlidePic.setPicUrl("00/05/default_lunbo_3.png");
+
+        this.insert(fanIndexSlidePic);
+
+        return true;
+
+    }
 }

@@ -37,4 +37,11 @@ public interface IFanIndexSlidePicService extends IService<FanIndexSlidePic> {
      * @return
      */
     Boolean deleteFanIndexSlidePic(Integer id,Integer userId);
+
+    /**
+     * 新增  轮播图
+     * @param fanIndexSlidePic
+     * @return
+     */
+    Boolean insertFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic);
 }

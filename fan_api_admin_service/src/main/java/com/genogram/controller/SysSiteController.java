@@ -56,6 +56,9 @@ public class SysSiteController {
     @Autowired
     private IFanProIndexInfoService fanProIndexInfoService;
 
+    @Autowired
+    private IFanIndexSlidePicService fanIndexSlidePicService;
+
     @ApiOperation(value = "姓氏",notes = "value-姓氏姓名")
     @RequestMapping(value = "getAllFamily",method = RequestMethod.GET)
     public Response<AllFamily> getAllFamily(@ApiParam("姓氏") @RequestParam(value = "value",required = false) String value) {
@@ -128,9 +131,16 @@ public class SysSiteController {
             fanIndexInfo.setUpdateUser(id);
 
             if (StringUtils.isEmpty(sysSiteVo.getUrl())) {
-                fanIndexInfo.setTotemPicSrc("00/04/wKgChFv-eoeAHXUWAAIBsiLZEJ4138.png");
+                fanIndexInfo.setTotemPicSrc("00/05/default_tuteng.png");
             }
             fanIndexInfoService.insertFanIndexInfo(fanIndexInfo);
+
+            FanIndexSlidePic fanIndexSlidePic = new FanIndexSlidePic();
+            fanIndexSlidePic.setSiteId(siteId);
+            fanIndexSlidePic.setCreateUser(id);
+            fanIndexSlidePic.setUpdateUser(id);
+
+            fanIndexSlidePicService.insertFanIndexSlidePic(fanIndexSlidePic);
 
             //设置管理员权限
             userLogin.setRole(1);
@@ -164,7 +174,7 @@ public class SysSiteController {
             proIndexInfo.setUpdateUser(id);
 
             if (StringUtils.isEmpty(sysSiteVo.getUrl())) {
-                proIndexInfo.setTotemPicSrc("00/04/wKgChFv-eoeAHXUWAAIBsiLZEJ4138.png");
+                proIndexInfo.setTotemPicSrc("00/05/default_tuteng.png");
             }
 
             fanProIndexInfoService.insertProIndexInfo(proIndexInfo);
