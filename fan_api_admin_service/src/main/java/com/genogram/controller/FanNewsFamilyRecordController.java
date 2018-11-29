@@ -164,8 +164,8 @@ public class FanNewsFamilyRecordController {
             "update_time  修改时间"+
             "update_user  修改人"
     )
-    @RequestMapping(value = "/addOrUpdateRecord", method = RequestMethod.POST)
-    public Response<FanNewsFamilyRecord> addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath) {
+        @RequestMapping(value = "/addOrUpdateRecord", method = RequestMethod.POST)
+        public Response<FanNewsFamilyRecord> addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsRecord.setStatus(1);
         return getFanNewsRecordResponse(fanNewsRecord, fileName,filePath);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.FanSysCharitableDeclareMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.FanSysCharitableDeclare">
+        <id column="id" property="id" />
+        <result column="title" property="title" />
+        <result column="apply_name" property="applyName" />
+        <result column="apply_phone" property="applyPhone" />
+        <result column="apply_money" property="applyMoney" />
+        <result column="apply_num" property="applyNum" />
+        <result column="account_bank" property="accountBank" />
+        <result column="account_name" property="accountName" />
+        <result column="account_num" property="accountNum" />
+        <result column="applicant_adress" property="applicantAdress" />
+        <result column="receivables_name" property="receivablesName" />
+        <result column="receivables_phone" property="receivablesPhone" />
+        <result column="receivables_id" property="receivablesId" />
+        <result column="receivables_address" property="receivablesAddress" />
+        <result column="receivables_bank" property="receivablesBank" />
+        <result column="receivables_num" property="receivablesNum" />
+        <result column="abstract_info" property="abstractInfo" />
+        <result column="recommender_name" property="recommenderName" />
+        <result column="recommender_phone" property="recommenderPhone" />
+        <result column="recommender_company" property="recommenderCompany" />
+        <result column="recommender_osition" property="recommenderOsition" />
+        <result column="create_user" property="createUser" />
+        <result column="update_user" property="updateUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="show_id" property="showId" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, title, apply_name AS applyName, apply_phone AS applyPhone, apply_money AS applyMoney, apply_num AS applyNum, account_bank AS accountBank, account_name AS accountName, account_num AS accountNum, applicant_adress AS applicantAdress, receivables_name AS receivablesName, receivables_phone AS receivablesPhone, receivables_id AS receivablesId, receivables_address AS receivablesAddress, receivables_bank AS receivablesBank, receivables_num AS receivablesNum, abstract_info AS abstractInfo, recommender_name AS recommenderName, recommender_phone AS recommenderPhone, recommender_company AS recommenderCompany, recommender_osition AS recommenderOsition, create_user AS createUser, update_user AS updateUser, create_time AS createTime, update_time AS updateTime, show_id AS showId
+    </sql>
+
+</mapper>
