@@ -203,7 +203,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
                 //父Id
                 newsFamousAncestor.setParentId(proNewsFamousAncestor.getId());
                 //分类  1 代表县级2代表省级
-                newsFamousAncestor.setSource(1);
+                newsFamousAncestor.setSource(2);
                 //分支ID  (fan或者pro 的主键)
                 newsFamousAncestor.setBranchId(newsFamousAncestor.getId());
                 //时间
@@ -215,6 +215,11 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
                 proNewsFamousAncestorService.insertBatch(proNewsFamousAncestors);
             }
 
+        }
+
+        //判断proNewsFamousAncestors 集合是否有数据,有 就清空
+        if(proNewsFamousAncestors.size()!=0 || proNewsFamousAncestors!=null){
+            proNewsFamousAncestors.clear();
         }
 
         //判断是否有县级数据

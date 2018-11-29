@@ -153,8 +153,10 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
             fanNewsFamousAncestor.setUpdateUser(userLoginInfoByToken.getId());
         }
 
+        //插入主数据
+        boolean insert = this.insertOrUpdate(fanNewsFamousAncestor);
 
-        //修改时修改省级县级分支后裔的数据
+       //修改时修改省级县级分支后裔的数据
         if(fanNewsFamousAncestor.getId()!=null){
             //查询县级的分支后裔
             Wrapper<FanNewsFamousAncestor> entity=new EntityWrapper<FanNewsFamousAncestor>();
@@ -203,12 +205,6 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
         }
 
 
-        //插入主数据
-        boolean insert = this.insertOrUpdate(fanNewsFamousAncestor);
-
-
-
-
 
         //省级数据list集合
         List<ProNewsFamousAncestor> proNewsFamousAncestors=null;
@@ -239,6 +235,11 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
             }
         }
 
+        //判断fanNewsFamousAncestors 集合是否有数据,有 就清空
+        if(fanNewsFamousAncestors.size()!=0 || fanNewsFamousAncestors!=null){
+            fanNewsFamousAncestors.clear();
+        }
+
         //判断是否有省级数据
         if(proSplit!=null){
             //查询省级
@@ -255,7 +256,7 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
                 //父Id
                 newsFamousAncestor.setParentId(fanNewsFamousAncestor.getId());
                 //分类  1 代表县级2代表省级
-                newsFamousAncestor.setSource(1);
+                newsFamousAncestor.setSource(2);
                 //分支ID  (fan或者pro 的主键)
                 newsFamousAncestor.setBranchId(newsFamousAncestor.getId());
                 //时间
