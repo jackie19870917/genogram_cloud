@@ -41,7 +41,7 @@ public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, Fan
     @Override
     public Boolean insertOrUpdateFanIndexFund(FanIndexFund fanIndexFund) {
 
-        FanIndexFund fanIndexFund1 = this.selectById(fanIndexFund.getSiteId());
+        FanIndexFund fanIndexFund1 = this.getFanIndexFund(fanIndexFund.getSiteId());
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
