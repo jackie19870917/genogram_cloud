@@ -1,14 +1,13 @@
 package com.genogram.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.IndustryDetailVo;
-import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IProSysRecommendService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import com.genogram.unit.StringsUtils;
@@ -41,6 +40,9 @@ public class ProRecommendController {
     @Autowired
     private IProSysRecommendService proSysRecommendService;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      *省级后台点击推荐
      *@Author: yuzhou
@@ -54,9 +56,19 @@ public class ProRecommendController {
     @RequestMapping(value = "/addRecommendButton",method = RequestMethod.GET)
     public Response<FanSysRecommend> addRecommendButton(
             @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //主键
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id, //主键
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断showId id 是否为空
             if(showId==null || id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -97,9 +109,19 @@ public class ProRecommendController {
     @RequestMapping(value = "/deleteRecommendButton",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommendButton(
             @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id //文章主键
+            @ApiParam(value = "主键Id")@RequestParam(value = "id") Integer id, //文章主键
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断showId id 是否为空
             if(showId==null || id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,null);
             }
@@ -139,14 +161,12 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置个人推荐取消展示" ,  notes="根据id删除")
     @RequestMapping(value = "/deleteRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> deleteRecommend(
-            @ApiParam(value = "推荐表主键Id")@RequestParam(value = "recommendId") Integer recommendId //推荐主键
+            @ApiParam(value = "推荐表主键Id")@RequestParam(value = "recommendId") Integer recommendId, //推荐主键
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
-        if(recommendId==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
-        }
         //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
         int status=3;
-        return getFanSysRecommendResponse(recommendId, status);
+        return getFanSysRecommendResponse(recommendId, status,token);
     }
 
     /**
@@ -161,14 +181,12 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置个人推荐展示" ,  notes="根据id")
     @RequestMapping(value = "/updateRecommend",method = RequestMethod.GET)
     public Response<FanSysRecommend> updateRecommend(
-            @ApiParam(value = "主键Id")@RequestParam(value = "recommendId") Integer recommendId //推荐主键
+            @ApiParam(value = "主键Id")@RequestParam(value = "recommendId") Integer recommendId, //推荐主键
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
-        if(recommendId==null){
-            return ResponseUtlis.error(Constants.IS_EMPTY,null);
-        }
         //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
         int status=2;
-        return getFanSysRecommendResponse(recommendId, status);
+        return getFanSysRecommendResponse(recommendId, status,token);
     }
 
     /**
@@ -180,9 +198,20 @@ public class ProRecommendController {
      *@return:
      *@Description:
     */
-    private Response<FanSysRecommend> getFanSysRecommendResponse(@RequestParam("recommendId") Integer recommendId, int status) {
+    private Response<FanSysRecommend> getFanSysRecommendResponse(@RequestParam("recommendId") Integer recommendId, int status,String token) {
         try {
-
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断recommendId是否为空
+            if(recommendId==null){
+                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            }
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("id", recommendId);
             Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status);
@@ -225,9 +254,19 @@ public class ProRecommendController {
             " 头像名 picFileName")
     @RequestMapping(value = "/getManualRecommend",method = RequestMethod.GET)
     public Response<CommonRecommendVo> getManualRecommend(
-            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try{
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断siteId是否为空
         if(siteId==null){
             return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
         }
@@ -284,9 +323,19 @@ public class ProRecommendController {
     @RequestMapping(value = "/getManualVagueRecommend",method = RequestMethod.GET)
     public Response<CommonRecommendVo> getManualVagueRecommend(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
-            @ApiParam(value = "标题")@RequestParam(value = "newsTitle",required = false) String newsTitle
+            @ApiParam(value = "标题")@RequestParam(value = "newsTitle",required = false) String newsTitle,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try{
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
             }
@@ -345,9 +394,19 @@ public class ProRecommendController {
             " 头像名 picFileName")
     @RequestMapping(value = "/getAutomaticRecommendArticle",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getAutomaticRecommendArticle(
-            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
             }
@@ -404,9 +463,19 @@ public class ProRecommendController {
     @RequestMapping(value = "/getAutomaticRecommendVagueArticle",method = RequestMethod.GET)
     public Response<IndustryDetailVo> getAutomaticRecommendVagueArticle(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
-            @ApiParam(value = "标题")@RequestParam(value = "newsTitle",required = false) String newsTitle
+            @ApiParam(value = "标题")@RequestParam(value = "newsTitle",required = false) String newsTitle,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
             }
@@ -420,7 +489,9 @@ public class ProRecommendController {
             map.put("siteId",siteId);
             map.put("status",status);
             map.put("newsSource",newsSource);
-            map.put("newsTitle",newsTitle);
+            if(StringsUtils.isEmpty(newsTitle)){
+                map.put("newsTitle",newsTitle);
+            }
             map.put("isAuto",isAuto);
             List<IndustryDetailVo> industryDetailVo=proSysRecommendService.getRecommendArticle(map);
             if(industryDetailVo.size()==0){
@@ -465,9 +536,19 @@ public class ProRecommendController {
             "visitNum 查看数")
     @RequestMapping(value = "/getRecommendFigure",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getRecommendFigure(
-            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入");
             }
@@ -526,9 +607,19 @@ public class ProRecommendController {
     @RequestMapping(value = "/getRecommendVagueFigure",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getRecommendVagueFigure(
             @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
-            @ApiParam(value = "人物名称")@RequestParam(value = "personName",required = false) String personName
+            @ApiParam(value = "人物名称")@RequestParam(value = "personName",required = false) String personName,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入siteId");
             }
@@ -542,7 +633,7 @@ public class ProRecommendController {
             map.put("siteId",siteId);
             map.put("status",status);
             map.put("newsSource",newsSource);
-            if(personName!=null){
+            if(StringsUtils.isEmpty(personName)){
                 map.put("personName",personName);
             }
             map.put("isAuto",isAuto);
@@ -569,9 +660,19 @@ public class ProRecommendController {
     @ApiOperation(value = "省级后台设置手动推荐到全国" ,  notes="")
     @RequestMapping(value = "/getManuaRecommendNationwide",method = RequestMethod.GET)
     public Response<CommonRecommendVo> getManuaRecommendNationwide(
-            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId
+            @ApiParam(value = "网站Id")@RequestParam(value = "siteId") Integer siteId,
+            @ApiParam("token")@RequestParam(value = "token",required = false)String token
     ) {
         try {
+            //判断token是否为空
+            if(StringsUtils.isEmpty(token)){
+                return ResponseUtlis.error(Constants.UNAUTHORIZED,"token不能为空");
+            }
+            //判断token是否正确
+            if(StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))){
+                return ResponseUtlis.error(Constants.FAILURE_CODE,"请输入正确的token");
+            }
+            //判断siteId是否为空
             if(siteId==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,"您好,请正确输入siteId");
             }
