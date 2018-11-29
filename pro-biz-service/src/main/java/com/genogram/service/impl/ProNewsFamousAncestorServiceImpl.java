@@ -137,7 +137,6 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
         //插入主数据
         boolean insert = proNewsFamousAncestorService.insertOrUpdate(proNewsFamousAncestor);
 
-
         //修改时修改省级县级分支后裔的数据
         if(proNewsFamousAncestor.getId()!=null){
             //查询县级的分支后裔
@@ -145,7 +144,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
             //分支ID  (fan或者pro 的主键)
             entity.eq("branch_id",proNewsFamousAncestor.getId());
             //分类  1 代表县级2代表省级
-            entity.eq("source",1);
+            entity.eq("source_classify",1);
             List<FanNewsFamousAncestor> fanNewsFamousAncestors = fanNewsFamousAncestorService.selectList(entity);
             //新建县级分支后裔修改集合
             List<FanNewsFamousAncestor> fanNews= new ArrayList<>();
@@ -166,7 +165,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
                 //分支ID  (fan或者pro 的主键)
                 entityPro.eq("branch_id",proNewsFamousAncestor.getId());
                 //分类  1 代表县级2代表省级
-                entityPro.eq("source",2);
+                entityPro.eq("source_classify",2);
                 List<ProNewsFamousAncestor> proNewsFamousAncestors = proNewsFamousAncestorService.selectList(entityPro);
                 //新建县级分支后裔修改集合
                 List<ProNewsFamousAncestor> proNews = new ArrayList<>();
@@ -218,7 +217,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
         }
 
         //判断proNewsFamousAncestors 集合是否有数据,有 就清空
-        if(proNewsFamousAncestors.size()!=0 || proNewsFamousAncestors!=null){
+        if(proNewsFamousAncestors.size()!=0 && proNewsFamousAncestors!=null){
             proNewsFamousAncestors.clear();
         }
 

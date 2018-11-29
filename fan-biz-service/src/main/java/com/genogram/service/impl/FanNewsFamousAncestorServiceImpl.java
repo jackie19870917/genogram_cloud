@@ -163,7 +163,7 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
             //分支ID  (fan或者pro 的主键)
             entity.eq("branch_id",fanNewsFamousAncestor.getId());
             //分类  1 代表县级2代表省级
-            entity.eq("source",1);
+            entity.eq("source_classify",1);
             List<FanNewsFamousAncestor> fanNewsFamousAncestors = this.selectList(entity);
             //新建县级分支后裔修改集合
             List<FanNewsFamousAncestor> fanNews= new ArrayList<>();
@@ -184,7 +184,7 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
                 //分支ID  (fan或者pro 的主键)
                 entityPro.eq("branch_id",fanNewsFamousAncestor.getId());
                 //分类  1 代表县级2代表省级
-                entityPro.eq("source",2);
+                entityPro.eq("source_classify",2);
                 List<ProNewsFamousAncestor> proNewsFamousAncestors = proNewsFamousAncestorService.selectList(entityPro);
                 //新建县级分支后裔修改集合
                 List<ProNewsFamousAncestor> proNews = new ArrayList<>();
@@ -235,7 +235,7 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
         }
 
         //判断fanNewsFamousAncestors 集合是否有数据,有 就清空
-        if(fanNewsFamousAncestors.size()!=0 || fanNewsFamousAncestors!=null){
+        if(fanNewsFamousAncestors!=null && fanNewsFamousAncestors.size()!=0){
             fanNewsFamousAncestors.clear();
         }
 
