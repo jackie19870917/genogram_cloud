@@ -110,7 +110,7 @@ public class SysSiteController {
 
             List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
 
-            if (!StringUtils.isEmpty(fanSysSiteList)) {
+            if (fanSysSiteList.size()!=0) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "该联谊会已开通");
             }
 
@@ -176,7 +176,7 @@ public class SysSiteController {
 
             List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
 
-            if (!StringUtils.isEmpty(proSysSiteList)) {
+            if (proSysSiteList.size()!=0) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "该省级网站已开通");
             }
 
