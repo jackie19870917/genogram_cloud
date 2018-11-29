@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @Service
-public class ProFanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZipaiMapper, FanNewsCultureZipai> implements IFanNewsCultureZipaiService {
+public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZipaiMapper, FanNewsCultureZipai> implements IFanNewsCultureZipaiService {
 
     /**
      *联谊会字派查询

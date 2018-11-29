@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-20
+ * @since 2018-11-29
  */
 @TableName("fan_news_famous_ancestor")
 public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
@@ -32,7 +32,7 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
     @TableField("show_id")
     private Integer showId;
     /**
-     * 父id
+     * 父id  0代表主数据
      */
     @TableField("parent_id")
     private Integer parentId;
@@ -70,10 +70,22 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
      */
     private String zipai;
     /**
-     * 堂号
+     * 郡望
      */
     private String junwang;
+    /**
+     * 堂号
+     */
     private String tanghao;
+    /**
+     * 分支ID  (fan或者pro 的主键)
+     */
+    @TableField("branch_id")
+    private Integer branchId;
+    /**
+     * 分类  1 代表县级2代表省级
+     */
+    private Integer source;
     /**
      * 创建时间
      */
@@ -204,6 +216,24 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
         return this;
     }
 
+    public Integer getBranchId() {
+        return branchId;
+    }
+
+    public FanNewsFamousAncestor setBranchId(Integer branchId) {
+        this.branchId = branchId;
+        return this;
+    }
+
+    public Integer getSource() {
+        return source;
+    }
+
+    public FanNewsFamousAncestor setSource(Integer source) {
+        this.source = source;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -260,6 +290,8 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
         ", zipai=" + zipai +
         ", junwang=" + junwang +
         ", tanghao=" + tanghao +
+        ", branchId=" + branchId +
+        ", source=" + source +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +

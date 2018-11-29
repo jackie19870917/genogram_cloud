@@ -19,7 +19,7 @@ import java.sql.Timestamp;
  * @since 2018-11-05
  */
 @Service
-public class ProFanSysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite> implements IFanSysSiteService {
+public class FanSysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite> implements IFanSysSiteService {
 
     @Override
     public FanSysSite getFanSysSite(Integer siteId) {

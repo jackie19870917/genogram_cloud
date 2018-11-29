@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-11-05
  */
 @Service
-public class ProFanSysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite> implements IProFanSysSiteService {
+public class FanSysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite> implements IProFanSysSiteService {
 
 }

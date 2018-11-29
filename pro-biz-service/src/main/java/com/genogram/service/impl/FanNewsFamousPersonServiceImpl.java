@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @Service
-public class ProFanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements IProFanNewsFamousPersonService {
+public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements IProFanNewsFamousPersonService {
 
     @Autowired
     private IProFanNewsUploadFileService fanNewsUploadFileService;

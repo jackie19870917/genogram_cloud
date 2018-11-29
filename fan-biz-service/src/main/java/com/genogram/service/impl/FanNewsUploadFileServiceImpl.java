@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-11-05
  */
 @Service
-public class ProFanNewsUploadFileServiceImpl extends ServiceImpl<FanNewsUploadFileMapper, FanNewsUploadFile> implements IFanNewsUploadFileService {
+public class FanNewsUploadFileServiceImpl extends ServiceImpl<FanNewsUploadFileMapper, FanNewsUploadFile> implements IFanNewsUploadFileService {
 
 }

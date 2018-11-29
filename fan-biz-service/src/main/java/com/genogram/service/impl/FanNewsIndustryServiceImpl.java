@@ -31,7 +31,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @Service
-public class ProFanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMapper, FanNewsIndustry> implements IFanNewsIndustryService {
+public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMapper, FanNewsIndustry> implements IFanNewsIndustryService {
 
     @Autowired
     private IUploadFileService uploadFileService;

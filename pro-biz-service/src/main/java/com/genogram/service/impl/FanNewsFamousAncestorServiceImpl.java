@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-11-05
  */
 @Service
-public class ProFanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousAncestorMapper, FanNewsFamousAncestor> implements IProFanNewsFamousAncestorService {
+public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousAncestorMapper, FanNewsFamousAncestor> implements IProFanNewsFamousAncestorService {
 
 }

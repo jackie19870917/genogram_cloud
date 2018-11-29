@@ -31,7 +31,7 @@ import java.util.Map;
  * @since 2018-11-05
  */
 @Service
-public class ProFanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousAncestorMapper, FanNewsFamousAncestor> implements IFanNewsFamousAncestorService {
+public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousAncestorMapper, FanNewsFamousAncestor> implements IFanNewsFamousAncestorService {
 
     @Autowired
     private IFanProNewsFamousAncestorService proNewsFamousAncestorService;
@@ -171,8 +171,15 @@ public class ProFanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamo
             //查询县级
             fanNewsFamousAncestors = this.selectBatchIds(fanSplit);
             for (FanNewsFamousAncestor newsFamousAncestor : fanNewsFamousAncestors) {
+                //修改分支的showId为-1
                 newsFamousAncestor.setShowId(-1);
+                //父Id
                 newsFamousAncestor.setParentId(fanNewsFamousAncestor.getId());
+                //分类  1 代表县级2代表省级
+                newsFamousAncestor.setSource(1);
+                //分支ID  (fan或者pro 的主键)
+                newsFamousAncestor.setBranchId(newsFamousAncestor.getId());
+                //时间
                 newsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
                 newsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
             }
@@ -193,8 +200,17 @@ public class ProFanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamo
             }
             //修改父Id
             for (FanNewsFamousAncestor newsFamousAncestor : fanNewsFamousAncestors) {
+                //修改分支的showId为-1
                 newsFamousAncestor.setShowId(-1);
-                newsFamousAncestor.setParentId(fanNews.getId());
+                //父Id
+                newsFamousAncestor.setParentId(fanNewsFamousAncestor.getId());
+                //分类  1 代表县级2代表省级
+                newsFamousAncestor.setSource(1);
+                //分支ID  (fan或者pro 的主键)
+                newsFamousAncestor.setBranchId(newsFamousAncestor.getId());
+                //时间
+                newsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
+                newsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
             }
             if(proNewsFamousAncestors.size()!=0){
                 //批量插入

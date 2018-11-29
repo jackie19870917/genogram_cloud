@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  * @since 2018-11-05
  */
 @Service
-public class ProFanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZipaiMapper, FanNewsCultureZipai> implements IProFanNewsCultureZipaiService {
+public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZipaiMapper, FanNewsCultureZipai> implements IProFanNewsCultureZipaiService {
 
 
 }
