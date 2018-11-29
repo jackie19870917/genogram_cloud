@@ -31,7 +31,7 @@ import java.util.Map;
  * @since 2018-11-05
  */
 @Service
-public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousAncestorMapper, FanNewsFamousAncestor> implements IFanNewsFamousAncestorService {
+public class ProFanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousAncestorMapper, FanNewsFamousAncestor> implements IFanNewsFamousAncestorService {
 
     @Autowired
     private IFanProNewsFamousAncestorService proNewsFamousAncestorService;

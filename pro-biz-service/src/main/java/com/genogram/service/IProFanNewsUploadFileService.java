@@ -11,6 +11,6 @@ import com.genogram.entity.FanNewsUploadFile;
  * @author wangwei
  * @since 2018-11-05
  */
-public interface IFanNewsUploadFileService extends IService<FanNewsUploadFile> {
+public interface IProFanNewsUploadFileService extends IService<FanNewsUploadFile> {
 
 }

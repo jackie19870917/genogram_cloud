@@ -2,41 +2,34 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
-import com.genogram.entity.FanNewsIndustry;
+import com.genogram.entity.FanNewsCultureNews;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entity.FanSysRecommend;
-import com.genogram.entityvo.FamilyIndustryVo;
-import com.genogram.entityvo.IndustryDetailVo;
-import com.genogram.mapper.FanNewsIndustryMapper;
+import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.mapper.FanNewsCultureNewsMapper;
 import com.genogram.service.*;
-import com.genogram.unit.DateUtil;
-import com.genogram.unit.StringsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * <p>
- * 联谊会-家族产业 服务实现类
+ * 联谊会-家族文化文章表 服务实现类
  * </p>
  *
  * @author wangwei
  * @since 2018-11-05
  */
 @Service
-public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMapper, FanNewsIndustry> implements IFanNewsIndustryService {
-
+public class ProFanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNewsMapper, FanNewsCultureNews> implements IProFanNewsCultureNewsService {
 
     @Autowired
-    private IFanNewsUploadFileService fanNewsUploadFileService;
+    private IProFanNewsUploadFileService fanNewsUploadFileService;
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
@@ -45,26 +38,26 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
     private IProSysRecommendService proSysRecommendService;
 
     /**
-     *联谊会家族产业各个产业的详情
+     *联谊会家族文化详情查询
      *@Author: yuzhou
      *@Date: 2018-11-09
-     *@Time: 16:25
+     *@Time: 16:22
      *@Param:
      *@return:
      *@Description:
     */
     @Override
-    public IndustryDetailVo getFamilyIndustryDetail(Integer id) {
-        //根据Id查出产业详情
-        FanNewsIndustry fanNewsIndustry = this.selectById(id);
+    public NewsDetailVo getFamilyCultureDetail(Integer id) {
 
-        if(fanNewsIndustry==null){
+        //根据Id查出文章详情
+        FanNewsCultureNews fanNewsCultureNews=  this.selectById(id);
+        if (fanNewsCultureNews==null){
             return null;
         }
 
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
-        uploadentity.eq("show_id", fanNewsIndustry.getShowId());
+        uploadentity.eq("show_id", fanNewsCultureNews.getShowId());
         //置顶封面  是否封面(0.否;1:是封面)
         uploadentity.eq("pic_index",1);
         uploadentity.eq("news_id",id);
@@ -72,27 +65,29 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
-        AllUserLogin createUser = allUserLoginService.selectById(fanNewsIndustry.getCreateUser());
-        AllUserLogin updateUser = allUserLoginService.selectById(fanNewsIndustry.getUpdateUser());
+        AllUserLogin updateUser = allUserLoginService.selectById(fanNewsCultureNews.getUpdateUser());
+        AllUserLogin createUser = allUserLoginService.selectById(fanNewsCultureNews.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
-        IndustryDetailVo industryDetailVo=new IndustryDetailVo();
+        NewsDetailVo newsDetail=new NewsDetailVo();
+
         //调用方法封装集合
-        BeanUtils.copyProperties(fanNewsIndustry,industryDetailVo);
+        BeanUtils.copyProperties(fanNewsCultureNews,newsDetail);
         //存储图片list集合
-        industryDetailVo.setFanNewsUploadFileList(files);
+        newsDetail.setFanNewsUploadFileList(files);
         //存储作者名称时间
-        industryDetailVo.setUpdateTimeLong(fanNewsIndustry.getUpdateTime().getTime());
-        industryDetailVo.setCreateTimeLong(fanNewsIndustry.getCreateTime().getTime());
-        industryDetailVo.setCreateUserName(null);
-        industryDetailVo.setCreateUserName(null);
-        return industryDetailVo;
+        newsDetail.setUpdateTimeLong(fanNewsCultureNews.getUpdateTime().getTime());
+        newsDetail.setCreateTimeLong(fanNewsCultureNews.getCreateTime().getTime());
+        newsDetail.setCreateUserName(null);
+        newsDetail.setCreateUserName(null);
+        return newsDetail;
     }
+
     /**
-     *联谊会家族产业前台增加查看数
+     *联谊会家族文化前台增加查看数
      *@Author: yuzhou
      *@Date: 2018-11-12
-     *@Time: 13:56
+     *@Time: 13:49
      *@Param:
      *@return:
      *@Description:
@@ -100,11 +95,11 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
     @Override
     public void addVisitNum(Integer id) {
         //查出详情
-        FanNewsIndustry fanNewsIndustry = this.selectById(id);
+        FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
         //查看数加一
-        Integer visitNum = fanNewsIndustry.getVisitNum()+1;
-        fanNewsIndustry.setVisitNum(visitNum);
-        this.updateAllColumnById(fanNewsIndustry);
+        Integer visitNum = fanNewsCultureNews.getVisitNum()+1;
+        fanNewsCultureNews.setVisitNum(visitNum);
+         this.updateAllColumnById(fanNewsCultureNews);
         if(visitNum > Constants.PRO_VISIT_NUM || visitNum.equals(Constants.PRO_VISIT_NUM)){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
@@ -114,8 +109,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             FanSysRecommend fanSysRecommend=new FanSysRecommend();
             fanSysRecommend.setStatus(status);
             fanSysRecommend.setNewsSource(newsSource);
-            fanSysRecommend.setShowId(fanNewsIndustry.getShowId());
-            fanSysRecommend.setNewsId(fanNewsIndustry.getId());
+            fanSysRecommend.setShowId(fanNewsCultureNews.getShowId());
+            fanSysRecommend.setNewsId(fanNewsCultureNews.getId());
             proSysRecommendService.addRecommend(fanSysRecommend);
         }
     }

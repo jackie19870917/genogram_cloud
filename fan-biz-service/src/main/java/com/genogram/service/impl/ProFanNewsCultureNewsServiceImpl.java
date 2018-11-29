@@ -29,7 +29,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @Service
-public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNewsMapper, FanNewsCultureNews> implements IFanNewsCultureNewsService {
+public class ProFanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNewsMapper, FanNewsCultureNews> implements IFanNewsCultureNewsService {
 
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;

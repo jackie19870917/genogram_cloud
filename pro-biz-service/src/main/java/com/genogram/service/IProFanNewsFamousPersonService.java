@@ -14,7 +14,7 @@ import com.genogram.entityvo.FamilyPersonVo;
  * @author wangwei
  * @since 2018-11-05
  */
-public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerson> {
+public interface IProFanNewsFamousPersonService extends IService<FanNewsFamousPerson> {
     /**
      * 联谊会家族名人增加查看数
      * @param id

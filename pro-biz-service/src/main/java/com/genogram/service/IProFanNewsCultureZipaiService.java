@@ -14,6 +14,6 @@ import com.genogram.entityvo.NewsCultureZipaiVo;
  * @author wangwei
  * @since 2018-11-05
  */
-public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipai> {
+public interface IProFanNewsCultureZipaiService extends IService<FanNewsCultureZipai> {
 
 }

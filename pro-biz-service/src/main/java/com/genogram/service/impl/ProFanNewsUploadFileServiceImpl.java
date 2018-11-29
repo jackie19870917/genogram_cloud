@@ -3,7 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.mapper.FanNewsUploadFileMapper;
-import com.genogram.service.IFanNewsUploadFileService;
+import com.genogram.service.IProFanNewsUploadFileService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-11-05
  */
 @Service
-public class FanNewsUploadFileServiceImpl extends ServiceImpl<FanNewsUploadFileMapper, FanNewsUploadFile> implements IFanNewsUploadFileService {
+public class ProFanNewsUploadFileServiceImpl extends ServiceImpl<FanNewsUploadFileMapper, FanNewsUploadFile> implements IProFanNewsUploadFileService {
 
 }

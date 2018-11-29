@@ -15,7 +15,7 @@ import com.genogram.entityvo.IndustryDetailVo;
  * @author wangwei
  * @since 2018-11-05
  */
-public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
+public interface IProFanNewsIndustryService extends IService<FanNewsIndustry> {
 
     /**
      * 联谊会家族产业各个产业的详情

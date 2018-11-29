@@ -30,7 +30,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @Service
-public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRecordMapper, FanNewsFamilyRecord> implements IFanNewsFamilyRecordService {
+public class ProFanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRecordMapper, FanNewsFamilyRecord> implements IFanNewsFamilyRecordService {
 
     @Autowired
     private IFanNewsUploadFileService fanNewsUploadFileService;

@@ -9,13 +9,12 @@ import com.genogram.entity.FanSysSite;
 import com.genogram.entity.ProSysSite;
 import com.genogram.mapper.AllRegionMapper;
 import com.genogram.service.IAllRegionService;
-import com.genogram.service.IFanSysSiteService;
+import com.genogram.service.IProFanSysSiteService;
 import com.genogram.service.IProSysSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ import java.util.List;
 public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion> implements IAllRegionService {
 
     @Autowired
-    private IFanSysSiteService fanSysSiteService;
+    private IProFanSysSiteService fanSysSiteService;
 
     @Autowired
     private IAllRegionService allRegionService;
