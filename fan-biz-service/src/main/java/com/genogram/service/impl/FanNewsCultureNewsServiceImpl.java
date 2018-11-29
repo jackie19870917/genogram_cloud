@@ -174,7 +174,6 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     */
     @Override
     public boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,String fileName,String filePath) {
-        /*boolean isAdd=this.insertOrUpdate(fanNewsCultureNews);*/
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if(fanNewsCultureNews.getId()==null){

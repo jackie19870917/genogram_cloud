@@ -522,8 +522,8 @@ public class FanNewsCultureController {
     @RequestMapping(value = "/addOrUpdateCultureDrft", method = RequestMethod.POST)
     public Response<FanNewsCultureNews> addOrUpdateCultureDrft(
                                                                @ApiParam(value = "县级家族文化表")FanNewsCultureNews fanNewsCultureNews,
-                                                               @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
-                                                               @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
+                                                               @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName",required = false) String fileName,
+                                                               @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath",required = false) String filePath,
                                                                @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureNews.setStatus(2);
