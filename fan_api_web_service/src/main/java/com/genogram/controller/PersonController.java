@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Api(description = "后台用户管理")
+@Api(description = "网站管理")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("genogram/sysSite/person")

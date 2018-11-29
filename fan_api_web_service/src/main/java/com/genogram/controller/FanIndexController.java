@@ -59,7 +59,7 @@ public class FanIndexController {
      */
     Integer status = 1;
 
-    @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
+    /*@ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getIndexSysSite", method = RequestMethod.GET)
     public Response<ProSysSite> getIndexSysSite() {
 
@@ -78,7 +78,7 @@ public class FanIndexController {
         }
 
         return ResponseUtlis.success(map);
-    }
+    }*/
 
     /**
      * 轮播图
