@@ -64,12 +64,14 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         Timestamp format = DateUtil.getCurrentTimeStamp();
 
         if (StringUtils.isEmpty(fanIndexInfo)) {
-            fanIndexInfo = new FanIndexInfo();
+
             fanIndexInfo.setCreateTime(format);
             indexInfoVo.setCreateTime(format);
         }
-        fanIndexInfo.setUpdateTime(format);
-        indexInfoVo.setUpdateTime(format);
+
+        FanIndexInfo indexInfo = new FanIndexInfo();
+        BeanUtils.copyProperties(indexInfoVo, indexInfo);
+        indexInfo.setUpdateTime(format);
 
         FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(fanIndexInfo.getSiteId());
 
@@ -78,7 +80,7 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         fanSysSite.setName(indexInfoVo.getSiteName());
         fanSysSite.setUpdateUser(indexInfoVo.getUpdateUser());
 
-        return this.insertOrUpdate(fanIndexInfo) & fanSysSiteService.updateById(fanSysSite);
+        return this.insertOrUpdate(indexInfo) & fanSysSiteService.updateById(fanSysSite);
 
     }
 
