@@ -127,6 +127,9 @@ public class SysSiteController {
             fanIndexInfo.setCreateUser(id);
             fanIndexInfo.setUpdateUser(id);
 
+            if (StringUtils.isEmpty(sysSiteVo.getUrl())) {
+                fanIndexInfo.setTotemPicSrc("00/04/wKgChFv-eoeAHXUWAAIBsiLZEJ4138.png");
+            }
             fanIndexInfoService.insertFanIndexInfo(fanIndexInfo);
 
             //设置管理员权限
@@ -159,6 +162,10 @@ public class SysSiteController {
             proIndexInfo.setSiteId(siteId);
             proIndexInfo.setCreateUser(id);
             proIndexInfo.setUpdateUser(id);
+
+            if (StringUtils.isEmpty(sysSiteVo.getUrl())) {
+                proIndexInfo.setTotemPicSrc("00/04/wKgChFv-eoeAHXUWAAIBsiLZEJ4138.png");
+            }
 
             fanProIndexInfoService.insertProIndexInfo(proIndexInfo);
 
