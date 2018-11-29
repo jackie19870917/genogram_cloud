@@ -59,6 +59,9 @@ public class SysSiteController {
     @Autowired
     private IFanIndexSlidePicService fanIndexSlidePicService;
 
+    @Autowired
+    private IFanProIndexSlidePicService fanProIndexSlidePicService;
+
     @ApiOperation(value = "姓氏",notes = "value-姓氏姓名")
     @RequestMapping(value = "getAllFamily",method = RequestMethod.GET)
     public Response<AllFamily> getAllFamily(@ApiParam("姓氏") @RequestParam(value = "value",required = false) String value) {
@@ -178,6 +181,13 @@ public class SysSiteController {
             }
 
             fanProIndexInfoService.insertProIndexInfo(proIndexInfo);
+
+            ProIndexSlidePic proIndexSlidePic = new ProIndexSlidePic();
+            proIndexSlidePic.setSiteId(siteId);
+            proIndexSlidePic.setCreateUser(id);
+            proIndexSlidePic.setUpdateUser(id);
+
+            fanProIndexSlidePicService.insertProIndexSlidePic(proIndexSlidePic);
 
             userLogin.setRole(2);
         }
