@@ -254,8 +254,8 @@ public class FanNewsIndustryController {
             "visitNum 查看数")
     @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
     public Response<FanNewsIndustry> addOrUpdateIndustryDrft(@ApiParam(value = "县级家族产业表")FanNewsIndustry fanNewsIndustry,
-                                                             @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName") String fileName,
-                                                             @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath") String filePath,
+                                                             @ApiParam(value = "上传文件名称")@RequestParam(value = "fileName",required = false) String fileName,
+                                                             @ApiParam(value = "上传文件地址")@RequestParam(value = "filePath",required = false) String filePath,
                                                              @ApiParam("token")@RequestParam(value = "token",required = false)String token) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(2);
