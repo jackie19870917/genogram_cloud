@@ -103,11 +103,7 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
     @Override
     public Page<AllUserLogin> getAllUserLoginPage(Wrapper<AllUserLogin> wrapper, Integer pageNo, Integer pageSize) {
 
-        if (StringUtils.isEmpty(wrapper)) {
-            return this.selectPage(new Page<>(pageNo, pageSize), null);
-        } else {
-            return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
-        }
+        return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
     }
 
     @Override
