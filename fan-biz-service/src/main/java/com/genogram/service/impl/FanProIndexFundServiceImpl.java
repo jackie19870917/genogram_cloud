@@ -7,6 +7,7 @@ import com.genogram.entity.ProIndexFund;
 import com.genogram.mapper.ProIndexFundMapper;
 import com.genogram.service.IFanProIndexFundService;
 import com.genogram.unit.DateUtil;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ import java.sql.Timestamp;
  * @author wangwei
  * @since 2018-11-05
  */
+@Service
 public class FanProIndexFundServiceImpl extends ServiceImpl<ProIndexFundMapper, ProIndexFund> implements IFanProIndexFundService {
 
     @Override
