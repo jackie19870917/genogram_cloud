@@ -76,7 +76,7 @@ public class PersonController {
     }
 
     @ApiOperation(value = "查询用户", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
-    @RequestMapping(value = "getUserLogin", method = RequestMethod.POST)
+    @RequestMapping(value = "getUser", method = RequestMethod.POST)
     public Response<AllUserLogin> getUserLogin(@ApiParam("主键") @RequestParam(value = "id", required = false) Integer id,
                                                    @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                    @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
