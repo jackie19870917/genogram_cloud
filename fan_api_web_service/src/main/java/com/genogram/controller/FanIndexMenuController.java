@@ -33,7 +33,7 @@ public class FanIndexMenuController {
     @ApiOperation(value = "前台首页静态菜单" ,  notes="siteId:网站id")
     @RequestMapping(value = "/getIndexMenuBySiteId" ,  method = RequestMethod.GET)
     public Response getIndexMenuBySiteId(@RequestParam(name = "siteId") String siteId){
-        System.out.println(3);
+        System.out.println(1);
         List<SysWebMenuVo> indexMenus = fanSysWebNewsShowService.getIndexMenu(siteId);
         Map indexMenusMap = new LinkedHashMap();
         indexMenus.forEach((index)->{

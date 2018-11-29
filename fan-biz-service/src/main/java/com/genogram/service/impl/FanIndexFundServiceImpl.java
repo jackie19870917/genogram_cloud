@@ -55,7 +55,7 @@ public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, Fan
             fanIndexFund.setPayUnderline(new BigDecimal("0"));
             fanIndexFund.setPayGenogram(new BigDecimal("0"));
 
-        }/*else {
+        }else {
 
             fanIndexFund.setRemain(fanIndexFund1.getRemain().add(fanIndexFund1.getPayOnline()));
             fanIndexFund.setRemain(fanIndexFund1.getRemain().add(fanIndexFund1.getPayUnderline()));
@@ -64,7 +64,7 @@ public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, Fan
             fanIndexFund.setPayGenogram(fanIndexFund1.getPayGenogram().add(fanIndexFund1.getPayGenogram()));
             fanIndexFund.setPayOnline(fanIndexFund1.getPayOnline().add(fanIndexFund1.getPayOnline()));
             fanIndexFund.setPayUnderline(fanIndexFund1.getPayUnderline().add(fanIndexFund1.getPayUnderline()));
-        }*/
+        }
 
         fanIndexFund.setUpdateTime(timeStamp);
         fanIndexFund.setUpdateUser(1);
