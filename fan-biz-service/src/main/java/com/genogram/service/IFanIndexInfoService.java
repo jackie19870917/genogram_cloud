@@ -41,4 +41,11 @@ public interface IFanIndexInfoService extends IService<FanIndexInfo> {
      * @return
      */
     Boolean deleteFanIndexInfo(FanIndexInfo fanIndexInfo);
+
+    /**
+     * 新增  联谊会信息
+     * @param fanIndexInfo
+     * @return
+     */
+    Boolean insertFanIndexInfo(FanIndexInfo fanIndexInfo);
 }

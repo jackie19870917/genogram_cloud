@@ -105,4 +105,15 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
 
         return this.updateById(fanIndexInfo);
     }
+
+    @Override
+    public Boolean insertFanIndexInfo(FanIndexInfo fanIndexInfo) {
+
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+
+        fanIndexInfo.setUpdateTime(format);
+        fanIndexInfo.setUpdateTime(format);
+
+        return this.insert(fanIndexInfo);
+    }
 }

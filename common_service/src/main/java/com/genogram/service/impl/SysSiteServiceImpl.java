@@ -31,7 +31,7 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
     private ProSysSiteMapper proSysSiteMapper;
 
     @Override
-    public Boolean insertFanSysSite(FanSysSite fanSysSite) {
+    public FanSysSite insertFanSysSite(FanSysSite fanSysSite) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
         fanSysSite.setCreateTime(timeStamp);
@@ -40,16 +40,15 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
 
         Integer result = fanSysSiteMapper.insert(fanSysSite);
 
-        System.out.println(fanSysSite.getId());
         if (result == 1) {
-            return true;
+            return fanSysSite;
         } else {
-            return false;
+            return null;
         }
     }
 
     @Override
-    public Boolean insertProSysSite(ProSysSite proSysSite) {
+    public ProSysSite insertProSysSite(ProSysSite proSysSite) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
         proSysSite.setCreateTime(timeStamp);
@@ -59,9 +58,9 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
         Integer result = proSysSiteMapper.insert(proSysSite);
 
         if (result == 1) {
-            return true;
+            return proSysSite;
         } else {
-            return false;
+            return null;
         }
     }
 

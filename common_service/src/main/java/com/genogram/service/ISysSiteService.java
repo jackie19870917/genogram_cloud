@@ -15,14 +15,14 @@ public interface ISysSiteService extends IService<FanSysSite> {
      * @param fanSysSite
      * @return
      */
-    Boolean insertFanSysSite(FanSysSite fanSysSite);
+    FanSysSite insertFanSysSite(FanSysSite fanSysSite);
 
     /**
      * 省级开通网站
      * @param proSysSite
      * @return
      */
-    Boolean insertProSysSite(ProSysSite proSysSite);
+    ProSysSite insertProSysSite(ProSysSite proSysSite);
 
     /**
      * 查询

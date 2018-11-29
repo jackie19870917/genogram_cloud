@@ -35,4 +35,11 @@ public interface IFanIndexFundService extends IService<FanIndexFund> {
      * @return
      */
     Boolean updateFanIndexFund(FanIndexFund fanIndexFund);
+
+    /**
+     * 新增 基金金额
+     * @param fanIndexFund
+     * @return
+     */
+    Boolean insertFanIndexFund(FanIndexFund fanIndexFund);
 }

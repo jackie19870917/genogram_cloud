@@ -3,15 +3,9 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.config.Constants;
-import com.genogram.entity.AllFamily;
-import com.genogram.entity.AllUserLogin;
-import com.genogram.entity.FanSysSite;
-import com.genogram.entity.ProSysSite;
+import com.genogram.entity.*;
 import com.genogram.entityvo.SysSiteVo;
-import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.IFanSysWebNewsShowService;
-import com.genogram.service.ISysSiteService;
-import com.genogram.service.IUserService;
+import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -50,6 +44,12 @@ public class SysSiteController {
     @Autowired
     private IAllUserLoginService allUserLoginService;
 
+    @Autowired
+    private IFanIndexFundService fanIndexFundService;
+
+    @Autowired
+    private IFanIndexInfoService fanIndexInfoService;
+
     @ApiOperation(value = "姓氏",notes = "value-姓氏姓名")
     @RequestMapping(value = "getAllFamily",method = RequestMethod.GET)
     public Response<AllFamily> getAllFamily(@ApiParam("姓氏") @RequestParam(value = "value",required = false) String value) {
@@ -83,7 +83,6 @@ public class SysSiteController {
         Integer id = allUserLogin.getId();
 
         Integer siteId = null;
-        Boolean result = true;
         Integer userId;
 
         Wrapper<AllFamily> familyWrapper = new EntityWrapper<>();
@@ -101,14 +100,28 @@ public class SysSiteController {
             String name = allFamily.getValue() + "氏联谊会";
             fanSysSite.setName(name);
 
-            result = sysSiteService.insertFanSysSite(fanSysSite);
+            FanSysSite fanSysSite1 = sysSiteService.insertFanSysSite(fanSysSite);
 
             //新增的网站ID
-            siteId = sysSiteService.getFanSysSite().getId();
+            siteId = fanSysSite1.getId();
 
             //新增的管理员
-            userId = sysSiteService.getFanSysSite().getAdmin();
+            userId = fanSysSite1.getAdmin();
             userLogin = allUserLoginService.getAllUserLoginById(userId);
+
+            FanIndexFund fanIndexFund = new FanIndexFund();
+            fanIndexFund.setSiteId(siteId);
+            fanIndexFund.setCreateUser(id);
+            fanIndexFund.setUpdateUser(id);
+
+            fanIndexFundService.insertFanIndexFund(fanIndexFund);
+
+            FanIndexInfo fanIndexInfo = new FanIndexInfo();
+            fanIndexInfo.setSiteId(siteId);
+            fanIndexInfo.setCreateUser(id);
+            fanIndexInfo.setUpdateUser(id);
+
+            fanIndexInfoService.insertFanIndexInfo(fanIndexInfo);
 
             //设置管理员权限
             userLogin.setRole(1);
@@ -123,15 +136,15 @@ public class SysSiteController {
             proSysSite.setName(name);
             proSysSite.setParent(0);
 
-            result = sysSiteService.insertProSysSite(proSysSite);
+            ProSysSite proSysSite1 = sysSiteService.insertProSysSite(proSysSite);
 
-            siteId = sysSiteService.getProSysSite().getId();
-            userId = sysSiteService.getProSysSite().getAdmin();
+            siteId =proSysSite1.getId();
+            userId = proSysSite1.getAdmin();
             userLogin = allUserLoginService.getAllUserLoginById(userId);
             userLogin.setRole(2);
         }
 
-        if (result) {
+        if (true) {
 
             //修改权限
             allUserLoginService.updateUserLogin(userLogin);
