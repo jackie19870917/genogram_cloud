@@ -109,8 +109,11 @@ public class SysSiteController {
 
             fanSysSite.setCreateUser(id);
             fanSysSite.setUpdateUser(id);
-            String name = allFamily.getValue() + "氏联谊会";
-            fanSysSite.setName(name);
+
+            if (StringUtils.isEmpty(sysSiteVo.getName())) {
+                String name = allFamily.getValue() + "氏联谊会";
+                fanSysSite.setName(name);
+            }
 
             FanSysSite fanSysSite1 = sysSiteService.insertFanSysSite(fanSysSite);
 
@@ -120,6 +123,15 @@ public class SysSiteController {
             //新增的管理员
             userId = fanSysSite1.getAdmin();
             userLogin = allUserLoginService.getAllUserLoginById(userId);
+
+            if (!StringUtils.isEmpty(userId)) {
+                userLogin = allUserLoginService.getAllUserLoginById(userId);
+
+                userLogin.setRole(1);
+                //修改权限
+                allUserLoginService.updateUserLogin(userLogin);
+
+            }
 
             FanIndexFund fanIndexFund = new FanIndexFund();
             fanIndexFund.setSiteId(siteId);
@@ -145,8 +157,6 @@ public class SysSiteController {
 
             fanIndexSlidePicService.insertFanIndexSlidePic(fanIndexSlidePic);
 
-            //设置管理员权限
-            userLogin.setRole(1);
 
         } else if ("pro".equals(siteType)) {
             ProSysSite proSysSite = new ProSysSite();
@@ -154,15 +164,26 @@ public class SysSiteController {
 
             proSysSite.setCreateUser(id);
             proSysSite.setUpdateUser(id);
-            String name = allFamily.getValue() + "氏官网";
-            proSysSite.setName(name);
-            proSysSite.setParent(0);
+
+            if (StringUtils.isEmpty(sysSiteVo.getName())) {
+                String name = allFamily.getValue() + "氏官网";
+                proSysSite.setName(name);
+            }
 
             ProSysSite proSysSite1 = sysSiteService.insertProSysSite(proSysSite);
 
             siteId =proSysSite1.getId();
             userId = proSysSite1.getAdmin();
-            userLogin = allUserLoginService.getAllUserLoginById(userId);
+
+            if (!StringUtils.isEmpty(userId)) {
+                userLogin = allUserLoginService.getAllUserLoginById(userId);
+
+                userLogin.setRole(2);
+                //修改权限
+                allUserLoginService.updateUserLogin(userLogin);
+
+            }
+
 
             ProIndexFund proIndexFund = new ProIndexFund();
             proIndexFund.setSiteId(siteId);
@@ -193,9 +214,6 @@ public class SysSiteController {
         }
 
         if (true) {
-
-            //修改权限
-            allUserLoginService.updateUserLogin(userLogin);
 
             //初始化栏目
             fanSysWebNewsShowService.initWebMenu(siteId);
