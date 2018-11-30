@@ -228,6 +228,12 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
+        if (fanNewsCharityOut.getId() == null) {
+            fanNewsCharityOut.setCreateUser(userLogin.getId());
+        }
+
+        fanNewsCharityOut.setUpdateUser(userLogin.getId());
+
         //状态   (1:已发布;2:草稿)
         fanNewsCharityOut.setStatus(2);
         Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut, fileName, filePath);
