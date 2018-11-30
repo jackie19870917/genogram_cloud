@@ -18,10 +18,10 @@ public class CommonConfig {
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        //文件最大50MB
-        factory.setMaxFileSize(DataSize.ofBytes(52428800));
+        //文件最大150MB
+        factory.setMaxFileSize(DataSize.ofBytes(152428800));
         /// 设置总上传数据总大小
-        factory.setMaxRequestSize(DataSize.ofBytes(52428800));
+        factory.setMaxRequestSize(DataSize.ofBytes(152428800));
         return factory.createMultipartConfig();
     }
 
