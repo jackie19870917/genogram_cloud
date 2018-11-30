@@ -131,7 +131,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         }
 
         //查询图片
-        Wrapper<FanNewsUploadFile> entityWrapper = new EntityWrapper<FanNewsUploadFile>();
+        Wrapper<FanNewsUploadFile> entityWrapper = new EntityWrapper<>();
         entityWrapper.eq("news_id", id);
         entityWrapper.eq("pic_index", 1);
         entityWrapper.eq("show_id", fanNewsCharityOut.getShowId());

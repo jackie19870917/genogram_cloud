@@ -7,6 +7,7 @@ import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entity.ProNewsUploadFile;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,14 @@ public class NewsDetailVo {
      * 显示位置id(fan_sys_web_news_show_id)
      */
     private Integer showId;
+    /**
+     * 财务支出金额
+     */
+    private BigDecimal amount;
+    /**
+     * (财务支出)用途
+     */
+    private String useFor;
     /**
      * 标题
      */
