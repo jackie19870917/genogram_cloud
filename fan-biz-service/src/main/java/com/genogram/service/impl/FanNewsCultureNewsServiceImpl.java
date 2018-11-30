@@ -43,6 +43,9 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     @Autowired
     private IFanSysRecommendService fanSysRecommendService;
 
+    @Autowired
+    private IFanSysWebNewsShowService fanSysWebNewsShowService;
+
     @Override
     public Page<FamilyCultureVo> getFamilyCulturePage(Wrapper<FanNewsCultureNews> entity, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
@@ -252,5 +255,106 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
             fanSysRecommend.setNewsId(fanNewsCultureNews.getId());
             fanSysRecommendService.addRecommend(fanSysRecommend);
         }
+    }
+
+    /**
+     *联谊会首页家族文化文章查询
+     *@Author: yuzhou
+     *@Date: 2018-11-30
+     *@Time: 14:50
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Page<FamilyCultureVo> getFamilyIndexCulturePage(Integer siteId, Integer pageNo, Integer pageSize) {
+        //返回新VO的集合
+        List<FamilyCultureVo> familyCultureVoList=new ArrayList<>();
+        //查询家族文化菜单Id
+        Wrapper<FanSysWebNewsShow> entity=new EntityWrapper();
+        entity.eq("site_id","siteId");
+        entity.eq("menu_code","culture");
+        FanSysWebNewsShow fanSysWebNewsShow = fanSysWebNewsShowService.selectOne(entity);
+        //查询家族文化分类各个showId
+        Wrapper<FanSysWebNewsShow> entityShow=new EntityWrapper();
+        entity.eq("site_id","siteId");
+        entityShow.eq("parent_id",fanSysWebNewsShow.getMenuId());
+        List<FanSysWebNewsShow> fanSysWebNewsShows = fanSysWebNewsShowService.selectList(entityShow);
+        //获取家族文化各个分类的showId
+        List<Integer> list=new ArrayList<>();
+        for (FanSysWebNewsShow sysWebNewsShow : fanSysWebNewsShows) {
+            list.add(sysWebNewsShow.getShowId());
+        }
+        //查询家族文化各个分类的文章
+        Wrapper<FanNewsCultureNews> entityCulture=new EntityWrapper();
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        entity.eq("status", 1);
+        entityCulture.in("show_id",list);
+        entity.orderBy("update_time", false);
+        Page<FanNewsCultureNews> fanNewsCultureNewsPage = this.selectPage(new Page<>(pageNo, pageSize), entityCulture);
+        //得到文件当前页list集合
+        List<FanNewsCultureNews> listCulture = fanNewsCultureNewsPage.getRecords();
+        //判断改集合是否为空,如果是直接返回结果
+        if(listCulture.size()==0){
+            return null;
+        }
+
+        //得到所有文章id
+        List newsids =  new ArrayList<>();
+        listCulture.forEach(( news)->{
+            newsids.add(news.getId());
+            //去掉文章标签
+            news.setNewsText(StringsUtils.removeTag(news.getNewsText()));
+        });
+
+        //查询图片
+        Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
+        uploadentity.eq("show_id", listCulture.get(0).getShowId());
+        //  1 表示图片为显示状态
+        uploadentity.eq("status", 1);
+        //置顶封面
+        uploadentity.eq("pic_index",1);
+        uploadentity.in("news_id",newsids);
+        //查询所有文章id下的图片附件
+        List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
+
+
+        //遍历主表文章集合,赋值新对象vo
+        listCulture.forEach(( news)->{
+            FamilyCultureVo familyCultureVo=new FamilyCultureVo();
+
+            //存储新对象
+            BeanUtils.copyProperties(news,familyCultureVo);
+
+            //去除html标签
+            familyCultureVo.setNewsText(StringsUtils.removeTag(familyCultureVo.getNewsText()));
+
+            //判断改图片文章id是否一样
+            List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
+
+            files.forEach(( data)->{
+                if(news.getId().equals(data.getNewsId())){
+                    fanNewsUploadFile.add(data);
+                }
+            });
+
+            //存储图片list集合
+            familyCultureVo.setFanNewsUploadFileList(fanNewsUploadFile);
+
+            //转换时间为long
+            familyCultureVo.setCreateTimeLong(news.getCreateTime().getTime());
+            familyCultureVo.setUpdateTimeLong(news.getUpdateTime().getTime());
+
+            //存储到新的集合中
+            familyCultureVoList.add(familyCultureVo);
+        });
+
+        //重新设置page对象
+        Page<FamilyCultureVo> mapPage = new Page<>(pageNo,pageSize);
+        mapPage.setRecords(familyCultureVoList);
+        mapPage.setSize(fanNewsCultureNewsPage.getSize());
+        mapPage.setTotal(fanNewsCultureNewsPage.getTotal());
+
+        return mapPage;
     }
 }

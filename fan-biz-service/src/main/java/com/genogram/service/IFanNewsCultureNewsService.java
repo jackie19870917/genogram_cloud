@@ -61,4 +61,13 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      * @param id
      */
     void addVisitNum(Integer id);
+
+    /**
+     * 联谊会首页家族文化文章查询
+     * @param siteId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Page<FamilyCultureVo> getFamilyIndexCulturePage(Integer siteId, Integer pageNo, Integer pageSize);
 }

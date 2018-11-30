@@ -231,11 +231,30 @@ public class FanNewsCultureController {
             @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
+        try {
         //判断showId是否有值
         if (showId==null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
-        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        List statusList = new ArrayList();
+        statusList.add(1);
+        //查询文章信息的条件
+        Wrapper<FanNewsCultureNews> entity = new EntityWrapper<FanNewsCultureNews>();
+        entity.eq("show_id", showId);
+        entity.in("status", statusList);
+        entity.orderBy("create_time", false);
+        Page<FamilyCultureVo> familyCultureVoList = fanNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
+        if (familyCultureVoList == null) {
+            //没有取到参数,返回空参
+            Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
+            return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+        }
+        return ResponseUtlis.success(familyCultureVoList);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+    }
     }
 
     /**
@@ -261,15 +280,24 @@ public class FanNewsCultureController {
             "visitNum 查看数")
     @RequestMapping(value = "/index/getFamilyIndexCulturePage", method = RequestMethod.GET)
     public Response<FamilyCultureVo> getFamilyIndexCulturePage(
-            @ApiParam(value = "显示位置Id")@RequestParam(value = "showId") Integer showId,
+            @ApiParam(value = "显示位置Id")@RequestParam(value = "siteId") Integer siteId,
             @ApiParam(value = "当前页")@RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @ApiParam(value = "每页显示的条数")@RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
-        //判断showId是否有值
-        if (showId==null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        try {
+            //判断showId是否有值
+            if (siteId==null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            }
+            Page<FamilyCultureVo> familyCultureVo= fanNewsCultureNewsService.getFamilyIndexCulturePage(siteId,pageNo,pageSize);
+            if(StringsUtils.isEmpty(familyCultureVo)){
+                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            }
+            return ResponseUtlis.success(familyCultureVo);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
         }
-        return getFamilyCultureVoResponse(showId, pageNo, pageSize);
     }
 
     /**
@@ -282,7 +310,7 @@ public class FanNewsCultureController {
      * @return:
      * @Description:
      */
-    private Response<FamilyCultureVo> getFamilyCultureVoResponse(Integer showId, Integer pageNo, Integer pageSize) {
+    /*private Response<FamilyCultureVo> getFamilyCultureVoResponse(Integer showId, Integer pageNo, Integer pageSize) {
         try {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
@@ -303,7 +331,7 @@ public class FanNewsCultureController {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
-    }
+    }*/
 
     /**
      * 联谊会家族文化详情查询
