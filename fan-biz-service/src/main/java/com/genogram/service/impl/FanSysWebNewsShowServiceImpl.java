@@ -157,6 +157,10 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
                 String showId = siteId+""+menu.getId();
                 show.setShowId( Integer.parseInt(showId));
                 show.setMenuId(menu.getId());
+                //把组织结构状态设置为1  代表删除
+                if(show.getParentId()==7){
+                show.setIstatic(1);
+                }
 
                 show.setUpdateUser(1);
                 show.setUpdateTime(DateUtil.getCurrentTimeStamp());
