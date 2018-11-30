@@ -309,7 +309,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
 
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
-        uploadentity.eq("show_id", listCulture.get(0).getShowId());
+        uploadentity.in("show_id", list);
         //  1 表示图片为显示状态
         uploadentity.eq("status", 1);
         //置顶封面
