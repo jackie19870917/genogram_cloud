@@ -212,8 +212,8 @@ public class FanNewsCharityController {
      * @return
      */
     @ApiOperation(value = "慈善收支(文章)草稿", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数")
-    @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDeft", method = RequestMethod.POST)
-    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDeft(FanNewsCharityOut fanNewsCharityOut,
+    @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDrft", method = RequestMethod.POST)
+    public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDrft(FanNewsCharityOut fanNewsCharityOut,
                                                                           @ApiParam("图片名称")@RequestParam(value = "fileName",required = false) String fileName,
                                                                           @ApiParam("图片url") @RequestParam(value = "filePath",required = false)String filePath,
                                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
