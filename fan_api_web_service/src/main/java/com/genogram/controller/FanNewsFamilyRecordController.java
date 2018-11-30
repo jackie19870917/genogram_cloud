@@ -51,7 +51,7 @@ public class FanNewsFamilyRecordController {
         try {
             List<Integer> list =new ArrayList<>();
             list.add(1);
-            list.add(2);
+            //list.add(2);
             Page<FamilyRecordVo> familyRecordVo = iFanNewsFamilyRecordService.getFamilyRecordPage(showId, list, pageNo, pageSize);
             if(familyRecordVo==null){
                 //没有取到参数,返回空参
