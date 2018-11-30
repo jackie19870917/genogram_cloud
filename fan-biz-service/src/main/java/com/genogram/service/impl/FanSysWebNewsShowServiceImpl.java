@@ -77,7 +77,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         vo = setIndexMenu(siteId,"组织架构","index_architecture","/genogram/fanIndex/getFamilyStructureList?siteId=","");
         volist.add(vo);
         //家族文化
-        vo = setIndexMenu(siteId,"家族文化","index_family_culture","/genogram/fanNewsCulture/index/getFamilyIndexCulturePage?showId=","");
+        vo = setIndexMenu(siteId,"家族文化","index_family_culture","/genogram/fanNewsCulture/index/getFamilyIndexCulturePage?siteId=","");
         volist.add(vo);
         vo = setIndexMenu(siteId,"支出公开栏",INDEX_CHARITY_PAY_OUT,"/genogram/fanNewsCharity/index/getFanNewsCharityOutPage?showId=","");
         volist.add(vo);
