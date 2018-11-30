@@ -106,7 +106,8 @@ public class FanNewsCharityController {
         list.add(status);
 
         Page<DonorVo> donorVoPage = null;
-        if ("money".equals(order)) {
+        String money = "money";
+        if (money.equals(order)) {
             Map map = new HashMap(16);
             map.put("showId", showId);
             map.put("status", list);

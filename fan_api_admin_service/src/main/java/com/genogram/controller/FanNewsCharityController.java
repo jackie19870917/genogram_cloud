@@ -50,6 +50,9 @@ public class FanNewsCharityController {
     @Autowired
     private IUserService userService;
 
+    String role01 = "1";
+
+    String role04 = "4";
     /**
      * 慈善基金
      *
@@ -294,7 +297,7 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        if (!"1".equals(userLogin.getRole())) {
+        if (!role01.equals(userLogin.getRole())) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "您没有权限");
         }
 
@@ -377,7 +380,7 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        if (!"1".equals(userLogin.getRole()) || !"4".equals(userLogin.getRole())) {
+        if (!role01.equals(userLogin.getRole()) || !role04.equals(userLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
         }
 

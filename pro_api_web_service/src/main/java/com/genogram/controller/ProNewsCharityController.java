@@ -145,7 +145,6 @@ public class ProNewsCharityController {
     @ApiOperation(value = "慈善收支", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
     @RequestMapping(value = "index/getProNewsCharityOut", method = RequestMethod.GET)
     public Response<NewsCharityOutVo> getProNewsCharityOutPage(@ApiParam(value = "显示位置") @RequestParam Integer showId,
-                                                               //    @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -158,7 +157,6 @@ public class ProNewsCharityController {
 
         Wrapper<ProNewsCharityOut> entity = new EntityWrapper<ProNewsCharityOut>();
         entity.eq("show_id", showId);
-        //  entity.eq("news_type", newsType);
         entity.in("status", list);
         entity.orderBy("create_time", false);
 

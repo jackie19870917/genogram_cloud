@@ -95,16 +95,19 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
 
     /**
      * 联谊会网站
-     *
      * @param wrapper
+     * @param pageNo
+     * @param pageSize
      * @return
      */
-    List<FanSysSite> getFanSysSitePage(Wrapper<FanSysSite> wrapper,Integer pageNo,Integer pageSize);
+     List<FanSysSite> getFanSysSitePage(Wrapper<FanSysSite> wrapper,Integer pageNo,Integer pageSize);
 
     /**
      * 省级网站
      *
      * @param wrapper
+     * @param pageNo
+     * @param pageSize
      * @return
      */
     List<ProSysSite> getProSysSitePage(Wrapper<ProSysSite> wrapper,Integer pageNo,Integer pageSize);

@@ -48,6 +48,11 @@ public class PersonController {
     @Autowired
     private IFanProIndexInfoService proIndexInfoService;
 
+    String fan = "fan";
+    String pro = "pro";
+    Integer role01 = 1;
+    Integer role09 = 9;
+
     @ApiOperation(value = "查询用户", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUserLoginList", method = RequestMethod.POST)
     public Response<AllUserLogin> getUserLoginList(@ApiParam("主键") @RequestParam(value = "id", required = false) Integer id,
@@ -63,7 +68,7 @@ public class PersonController {
 
         AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
 
-        if (userLogin.getRole() != 9) {
+        if (!userLogin.getRole() .equals(role09)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
         }
 
@@ -130,10 +135,10 @@ public class PersonController {
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
 
         wrapper.eq("site_id", siteId);
-        if ("fan".equals(siteType)) {
+        if (fan.equals(siteType)) {
             list.add(1);
             list.add(4);
-        } else if ("pro".equals(siteType)) {
+        } else if (pro.equals(siteType)) {
             list.add(2);
             list.add(5);
         } else {
@@ -158,7 +163,7 @@ public class PersonController {
                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
-        if ("fan".equals(siteType)) {
+        if (fan.equals(siteType)) {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("status", 1);
@@ -218,7 +223,7 @@ public class PersonController {
             page.setTotal(total);
             return ResponseUtlis.success(page);
 
-        } else if ("pro".equals(siteType)) {
+        } else if (pro.equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("status", 1);
             Long total = (long) allUserLoginService.getProSysSite(wrapper).size();
@@ -295,7 +300,7 @@ public class PersonController {
 
         AllUserLogin login = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        if (login.getRole() != 9) {
+        if (!login.getRole() .equals(role09)) {
             return ResponseUtlis.error(204, "您没有权限");
         }
 
@@ -329,7 +334,7 @@ public class PersonController {
 
         AllUserLogin login = allUserLoginService.getAllUserLoginById(id);
 
-        if (login.getRole() != 9) {
+        if (!login.getRole() .equals(role09)) {
             return ResponseUtlis.error(204, "您没有权限");
         }
 

@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 @Api(description = "网站管理")
 @RestController
 @CrossOrigin(origins = "*")
@@ -36,12 +39,15 @@ public class PersonController {
     @Autowired
     private IFanProIndexInfoService proIndexInfoService;
 
+    String fan = "fan";
+    String pro = "pro";
+
     @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)
     public Response<SysSiteVo> getSysSite(SysSiteVo sysSiteVo,
                                           @ApiParam("siteType(联谊会-fan,省级-pro)") @RequestParam(value = "siteType") String siteType) {
 
-        if ("fan".equals(siteType)) {
+        if (fan.equals(siteType)) {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("status", 1);
@@ -97,7 +103,7 @@ public class PersonController {
 
             return ResponseUtlis.success(sysSiteVoList);
 
-        } else if ("pro".equals(siteType)) {
+        } else if (pro.equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("status", 1);
             List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);

@@ -232,7 +232,6 @@ public class PayController {
                 valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
             }
             // 乱码解决，这段代码在出现乱码时使用
-//			valueStr = new String(valueStr.getBytes("ISO-8859-1"), "utf-8");
             params.put(name, valueStr);
         }
 
@@ -262,14 +261,17 @@ public class PayController {
             // 付款金额
             String totalAmount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");
 
-            if ("TRADE_FINISHED".equals(tradeStatus)) {
+            String tradeFinshed = "TRADE_FINISHED";
+            String tradeSuccess = "TRADE_SUCCESS";
+
+            if (tradeFinshed.equals(tradeStatus)) {
                 // 判断该笔订单是否在商户网站中已经做过处理
                 // 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 // 如果有做过处理，不执行商户的业务程序
 
                 // 注意： 尚自习的订单没有退款功能, 这个条件判断是进不来的, 所以此处不必写代码
                 // 退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
-            } else if ("TRADE_SUCCESS".equals(tradeStatus)) {
+            } else if (tradeSuccess.equals(tradeStatus)) {
                 // 判断该笔订单是否在商户网站中已经做过处理
                 // 如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                 // 如果有做过处理，不执行商户的业务程序
@@ -278,7 +280,6 @@ public class PayController {
                 // 付款完成后，支付宝系统发送该交易状态通知
 
                 // 修改叮当状态，改为 支付成功，已付款; 同时新增支付流水
-                // orderService.updateOrderStatus(out_trade_no, trade_no, total_amount);
 
                 log.info("********************** 支付成功(支付宝异步通知) **********************");
                 log.info("* 订单号: {}", outTradeNo);

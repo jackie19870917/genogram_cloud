@@ -20,10 +20,8 @@ public class CommonConfig {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         //文件最大50MB
         factory.setMaxFileSize(DataSize.ofBytes(52428800));
-        // factory.setMaxFileSize("50MB"); //KB,MB
         /// 设置总上传数据总大小
         factory.setMaxRequestSize(DataSize.ofBytes(52428800));
-        //factory.setMaxRequestSize("50MB");
         return factory.createMultipartConfig();
     }
 

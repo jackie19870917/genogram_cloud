@@ -62,6 +62,9 @@ public class SysSiteController {
     @Autowired
     private IFanProIndexSlidePicService fanProIndexSlidePicService;
 
+    String fan = "fan";
+    String pro = "pro";
+
     @ApiOperation(value = "姓氏", notes = "value-姓氏姓名")
     @RequestMapping(value = "getAllFamily", method = RequestMethod.GET)
     public Response<AllFamily> getAllFamily(@ApiParam("姓氏") @RequestParam(value = "value", required = false) String value) {
@@ -102,7 +105,7 @@ public class SysSiteController {
         AllFamily allFamily = allUserLoginService.getAllFamily(familyWrapper).get(0);
 
         AllUserLogin userLogin = new AllUserLogin();
-        if ("fan".equals(siteType)) {
+        if (fan.equals(siteType)) {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("region_code", sysSiteVo.getRegionCode());
@@ -168,7 +171,7 @@ public class SysSiteController {
             fanIndexSlidePicService.insertFanIndexSlidePic(fanIndexSlidePic);
 
 
-        } else if ("pro".equals(siteType)) {
+        } else if (pro.equals(siteType)) {
 
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("region_code", sysSiteVo.getRegionCode());
