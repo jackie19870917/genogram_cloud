@@ -154,14 +154,10 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
                 FanSysWebNewsShow show = new FanSysWebNewsShow();
                 BeanUtils.copyProperties(menu,show);
                 show.setSiteId(siteId);
-                String showId = siteId+""+menu.getId();
+                //加3个9避免 重复
+                String showId = siteId+"99"+menu.getId();
                 show.setShowId( Integer.parseInt(showId));
                 show.setMenuId(menu.getId());
-                //把组织结构状态设置为1  代表删除
-                if(show.getParentId()==7){
-                show.setIstatic(1);
-                }
-
                 show.setUpdateUser(1);
                 show.setUpdateTime(DateUtil.getCurrentTimeStamp());
                 show.setCreateUser(1);
@@ -265,12 +261,13 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
 
         if(lastOne.getMenuId()<NUM_100){
             //第一次添加100以内的,则组成新方式
-            lastOne.setMenuId(lastOne.getTreeNum() *100);
+            lastOne.setMenuId(lastOne.getParentId() *100);
         }else{
             lastOne.setMenuId(lastOne.getMenuId()+1);
         }
         lastOne.setOrderIndex(lastOne.getOrderIndex()+1);
-        String showId = lastOne.getSiteId() + "" + lastOne.getMenuId();
+        //给个999 避免重复
+        String showId = lastOne.getSiteId() + "99" + lastOne.getMenuId();
         lastOne.setShowId(Integer.parseInt(showId));
         //手动添加的节点
         lastOne.setIstatic(1);
