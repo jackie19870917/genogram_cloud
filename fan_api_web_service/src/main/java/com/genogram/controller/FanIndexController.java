@@ -47,7 +47,7 @@ public class FanIndexController {
     private IFanSysWebNewsShowService fanSysWebNewsShowService;
 
     @Autowired
-    private IFanNewsFamousPersonService iFanNewsFamousPersonService;
+    private IFanNewsFamousPersonService fanNewsFamousPersonService;
 
     /**
      * 状态
@@ -198,9 +198,9 @@ public class FanIndexController {
         }
     }
 
-    private List getPersonListByMenuCode(int siteId, String MenuCode) {
-        FanSysWebNewsShow show = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, MenuCode);
-        List<FanNewsFamousPerson> familyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
+    private List getPersonListByMenuCode(int siteId, String menuCode) {
+        FanSysWebNewsShow show = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, menuCode);
+        List<FanNewsFamousPerson> familyFrameList = fanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
         return familyFrameList;
     }
 }

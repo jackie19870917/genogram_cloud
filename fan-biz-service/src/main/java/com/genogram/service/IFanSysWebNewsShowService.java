@@ -117,6 +117,16 @@ public interface IFanSysWebNewsShowService extends IService<FanSysWebNewsShow> {
      */
     public FanSysWebNewsShow getSysWebNewsShowBySiteIdAndMenuCode(int siteId, String menuCode);
 
-
+    /**
+     * 通过siteId,parentId menuCode 找到菜单对象
+     * @Author: wang,wei
+     * @Date: 2018-11-05
+     * @Time: 22:04
+     * @param siteId
+     * @param parentId
+     * @return:
+     * @Description:
+     *
+     */
     public List<FanSysWebNewsShow> getMenuCodeByParentId(int siteId, int parentId);
 }

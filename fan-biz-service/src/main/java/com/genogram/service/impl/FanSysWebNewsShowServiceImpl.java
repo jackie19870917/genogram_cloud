@@ -87,9 +87,6 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         vo = setIndexMenu(siteId,"公益总金额","index_fund_2","/genogram/fanNewsCharity/index/getFanIndexFund?siteId=","");
         //首页第二个捐款名人,1.按最多
         volist.add(vo);
-//        vo = setIndexMenu(siteId,"捐款名人",INDEX_ARCHITECHTURE_PAY_IN_PERSON_2,"/genogram/fanNewsCharity/index/getPayUser?order=money&label=desc&showId=","按最多排序");
-//        //首页第二个捐款名人,2.按最新
-//        volist.add(vo);
         //捐款名人(最多排序) 公益总金额 首页有2个 所以分开2
         vo = setIndexMenu(siteId,"捐款名人",INDEX_ARCHITECHTURE_PAY_IN_PERSON_2_2,"/genogram/fanNewsCharity/index/getPayUser?order=time&label=desc&pageSize=6&showId=","按最新排序");
         volist.add(vo);
