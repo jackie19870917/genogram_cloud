@@ -67,10 +67,9 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
         String userId = "user" + DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
         allUserLogin.setUserId(userId);
         allUserLogin.setStatus(1);
-        allUserLogin.setSiteId(1);
         allUserLogin.setUserName(allUserLogin.getMobilePhone());
         allUserLogin.setNickName(allUserLogin.getMobilePhone());
-        allUserLogin.setPicSrc("http://47.105.177.1:6090/00/00/rB_QCFv0uzGAWsd6AABYCUDwssM470.jpg");
+        allUserLogin.setPicSrc("00/05/default_person.jpg");
         allUserLogin.setRole(0);
         allUserLogin.setCreateUser(1);
         allUserLogin.setUpdateUser(1);
