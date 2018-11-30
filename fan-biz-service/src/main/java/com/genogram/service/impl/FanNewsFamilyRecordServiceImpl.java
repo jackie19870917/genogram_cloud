@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 
+import com.genogram.config.Constants;
 import com.genogram.entity.*;
 
 import com.genogram.entityvo.FamilyRecordVo;
@@ -273,8 +274,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         fanNewsFamilyRecord.setVisitNum(visitNum);
         this.updateAllColumnById(fanNewsFamilyRecord);
 
-        int a = 200;
-        if(visitNum >a || visitNum==a){
+        if(visitNum > Constants.FAN_VISIT_NUM|| visitNum.equals(Constants.FAN_VISIT_NUM)){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=2;
             //来源:(1县级,2省级)
