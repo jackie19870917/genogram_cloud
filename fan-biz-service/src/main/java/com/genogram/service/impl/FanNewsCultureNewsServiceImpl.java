@@ -272,12 +272,12 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         List<FamilyCultureVo> familyCultureVoList=new ArrayList<>();
         //查询家族文化菜单Id
         Wrapper<FanSysWebNewsShow> entity=new EntityWrapper();
-        entity.eq("site_id","siteId");
+        entity.eq("site_id",siteId);
         entity.eq("menu_code","culture");
         FanSysWebNewsShow fanSysWebNewsShow = fanSysWebNewsShowService.selectOne(entity);
         //查询家族文化分类各个showId
         Wrapper<FanSysWebNewsShow> entityShow=new EntityWrapper();
-        entity.eq("site_id","siteId");
+        entityShow.eq("site_id",siteId);
         entityShow.eq("parent_id",fanSysWebNewsShow.getMenuId());
         List<FanSysWebNewsShow> fanSysWebNewsShows = fanSysWebNewsShowService.selectList(entityShow);
         //获取家族文化各个分类的showId
@@ -288,9 +288,9 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //查询家族文化各个分类的文章
         Wrapper<FanNewsCultureNews> entityCulture=new EntityWrapper();
         //状态(0:删除;1:已发布;2:草稿3:不显示)
-        entity.eq("status", 1);
+        entityCulture.eq("status", 1);
         entityCulture.in("show_id",list);
-        entity.orderBy("update_time", false);
+        entityCulture.orderBy("update_time", false);
         Page<FanNewsCultureNews> fanNewsCultureNewsPage = this.selectPage(new Page<>(pageNo, pageSize), entityCulture);
         //得到文件当前页list集合
         List<FanNewsCultureNews> listCulture = fanNewsCultureNewsPage.getRecords();
