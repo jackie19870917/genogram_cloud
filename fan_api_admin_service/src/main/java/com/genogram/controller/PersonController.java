@@ -59,6 +59,14 @@ public class PersonController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
         }
 
+        AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
+
+        AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
+
+        if (userLogin.getRole() != 9) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
+        }
+
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
 
         if (StringUtils.isEmpty(id)) {
@@ -78,8 +86,8 @@ public class PersonController {
     @ApiOperation(value = "查询非管理员用户", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUser", method = RequestMethod.POST)
     public Response<AllUserLogin> getUserLogin(@ApiParam("主键") @RequestParam(value = "id", required = false) Integer id,
-                                                   @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                   @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+                                               @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
 
@@ -147,15 +155,15 @@ public class PersonController {
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)
     public Response<SysSiteVo> getSysSite(SysSiteVo sysSiteVo,
                                           @ApiParam("siteType(联谊会-fan,省级-pro)") @RequestParam(value = "siteType") String siteType,
-                                          @RequestParam(value = "pageNo",defaultValue = "1") Integer pageNo,
-                                          @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize) {
+                                          @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                          @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if ("fan".equals(siteType)) {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("status", 1);
-            Long total=(long) allUserLoginService.getFanSysSite(wrapper).size();
-            List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSitePage(wrapper,pageNo,pageSize);
+            Long total = (long) allUserLoginService.getFanSysSite(wrapper).size();
+            List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSitePage(wrapper, pageNo, pageSize);
 
             List<Integer> siteIdList = new ArrayList();
             List familyList = new ArrayList();
@@ -213,8 +221,8 @@ public class PersonController {
         } else if ("pro".equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("status", 1);
-            Long total=(long) allUserLoginService.getProSysSite(wrapper).size();
-            List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSitePage(wrapper,pageNo,pageSize);
+            Long total = (long) allUserLoginService.getProSysSite(wrapper).size();
+            List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSitePage(wrapper, pageNo, pageSize);
 
             List<Integer> siteIdList = new ArrayList();
             List familyList = new ArrayList();

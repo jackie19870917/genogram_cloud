@@ -69,16 +69,15 @@ public class PayController {
      * http://192.168.2.179:8090/genogram/pay/return_url
      */
     @Value("${pay_return_url}")
-    public String returnUrl ;
+    public String returnUrl;
 
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
-                           @ApiParam("网站ID") @RequestParam Integer siteId,
-                           @ApiParam("token")@RequestParam(value = "token",required = false)String token,
-                           @ApiParam("是否匿名(1-匿名,0-不匿名)")@RequestParam("anonymous") Integer anonymous,
-                                                @ApiParam("回调地址")@RequestParam(value = "url")String url) throws IOException {
-
+                                                @ApiParam("网站ID") @RequestParam Integer siteId,
+                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                                                @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
+                                                @ApiParam("回调地址") @RequestParam(value = "url") String url) throws IOException {
 
 
         this.baseUrl = url;
@@ -111,11 +110,11 @@ public class PayController {
 
         AllUserLogin userLogin = new AllUserLogin();
 
-        if (1==anonymous) {
+        if (1 == anonymous) {
             userLogin.setId(1);
-        }else {
+        } else {
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE,"您还没有登陆");
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
             } else {
                 userLogin = userService.getUserLoginInfoByToken(token);
             }
@@ -208,11 +207,11 @@ public class PayController {
             log.info("* 购买产品: {}", "炎黄统谱网在线支付宝扫码支付");
             log.info("***************************************************************");
 
-            response.sendRedirect(this.baseUrl  + "result=success&out_trade_no=" +  outTradeNo  + "&total_amount=" + totalAmount);
+            response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
 
         } else {
             log.info("支付, 验签失败...");
-            response.sendRedirect(this.baseUrl  + "result=error" );
+            response.sendRedirect(this.baseUrl + "result=error");
         }
 
     }

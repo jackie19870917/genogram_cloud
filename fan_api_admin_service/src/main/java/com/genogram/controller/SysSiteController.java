@@ -62,9 +62,9 @@ public class SysSiteController {
     @Autowired
     private IFanProIndexSlidePicService fanProIndexSlidePicService;
 
-    @ApiOperation(value = "姓氏",notes = "value-姓氏姓名")
-    @RequestMapping(value = "getAllFamily",method = RequestMethod.GET)
-    public Response<AllFamily> getAllFamily(@ApiParam("姓氏") @RequestParam(value = "value",required = false) String value) {
+    @ApiOperation(value = "姓氏", notes = "value-姓氏姓名")
+    @RequestMapping(value = "getAllFamily", method = RequestMethod.GET)
+    public Response<AllFamily> getAllFamily(@ApiParam("姓氏") @RequestParam(value = "value", required = false) String value) {
 
         Wrapper<AllFamily> wrapper = new EntityWrapper<>();
 
@@ -110,7 +110,7 @@ public class SysSiteController {
 
             List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
 
-            if (fanSysSiteList.size()!=0) {
+            if (fanSysSiteList.size() != 0) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "该联谊会已开通");
             }
 
@@ -176,7 +176,7 @@ public class SysSiteController {
 
             List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
 
-            if (proSysSiteList.size()!=0) {
+            if (proSysSiteList.size() != 0) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "该省级网站已开通");
             }
 
@@ -193,7 +193,7 @@ public class SysSiteController {
 
             ProSysSite proSysSite1 = sysSiteService.insertProSysSite(proSysSite);
 
-            siteId =proSysSite1.getId();
+            siteId = proSysSite1.getId();
             userId = proSysSite1.getAdmin();
 
             if (!StringUtils.isEmpty(userId)) {

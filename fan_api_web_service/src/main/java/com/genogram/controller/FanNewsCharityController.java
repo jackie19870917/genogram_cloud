@@ -55,7 +55,6 @@ public class FanNewsCharityController {
      */
     Integer status = 1;
 
-
     /**
      * 慈善基金
      *
@@ -81,9 +80,10 @@ public class FanNewsCharityController {
 
     /**
      * 捐款名录
+     *
      * @param showId   捐款名录显示位置
-     * @param nickName  别名
-     * @param order   排序
+     * @param nickName 别名
+     * @param order    排序
      * @param label    升序,降序
      * @param pageNo   当前页
      * @param pageSize 每页记录数
@@ -92,9 +92,9 @@ public class FanNewsCharityController {
     @ApiOperation(value = "捐款名录查询", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
     @RequestMapping(value = "index/getPayUser", method = RequestMethod.GET)
     public Response<DonorVo> getPayUser(@ApiParam(value = "显示位置") @RequestParam Integer showId,
-                                        @ApiParam(value = "捐款人")@RequestParam(value = "nickName", required = false) String nickName,
-                                        @ApiParam(value = "排序(time-时间,money-金额,null-缺省)")@RequestParam(value = "order", required = false) String order,
-                                        @ApiParam(value = "升序-asc,降序-desc")@RequestParam(value = "label", required = false) String label,
+                                        @ApiParam(value = "捐款人") @RequestParam(value = "nickName", required = false) String nickName,
+                                        @ApiParam(value = "排序(time-时间,money-金额,null-缺省)") @RequestParam(value = "order", required = false) String order,
+                                        @ApiParam(value = "升序-asc,降序-desc") @RequestParam(value = "label", required = false) String label,
                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
@@ -122,8 +122,8 @@ public class FanNewsCharityController {
             page.setSize(pageSize);
             Page<FanNewsCharityPayIn> mapPage = new Page<>(page.getCurrent(), page.getSize());
             donorVoPage = fanNewsCharityPayInService.getDonorVoPage(mapPage, map);
-        } else  {
-            donorVoPage = fanNewsCharityPayInService.getDonorVoPageByTime(showId, list,nickName, pageNo, pageSize,order,label);
+        } else {
+            donorVoPage = fanNewsCharityPayInService.getDonorVoPageByTime(showId, list, nickName, pageNo, pageSize, order, label);
         }
 
         if (StringUtils.isEmpty(donorVoPage)) {
@@ -159,7 +159,6 @@ public class FanNewsCharityController {
 
         Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
         entity.eq("show_id", showId);
-        // entity.eq("news_type", newsType);
         entity.in("status", list);
         entity.orderBy("create_time", false);
 
@@ -188,22 +187,5 @@ public class FanNewsCharityController {
         return ResponseUtlis.success(newsCharityOutDetail);
     }
 
-    /**
-     * 新增捐款记录
-     *
-     * @param fanNewsCharityPayIn
-     * @return
-     */
-    @RequestMapping(value = "insertFanNewsCharityPayIn", method = RequestMethod.POST)
-    public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn) {
-
-        Boolean result = fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
-
-        if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
-        } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
-        }
-    }
 }
 

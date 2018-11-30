@@ -1,7 +1,5 @@
 package com.genogram.controller;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
@@ -51,34 +49,10 @@ public class FanIndexController {
     @Autowired
     private IFanNewsFamousPersonService iFanNewsFamousPersonService;
 
-    @Autowired
-    private IAllUserLoginService allUserLoginService;
-
     /**
      * 状态
      */
     Integer status = 1;
-
-    /*@ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
-    @RequestMapping(value = "getIndexSysSite", method = RequestMethod.GET)
-    public Response<ProSysSite> getIndexSysSite() {
-
-        Wrapper<FanSysSite> fanSysSiteWrapper = new EntityWrapper<>();
-        List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(fanSysSiteWrapper);
-
-        Wrapper<ProSysSite> proSysSiteWrapper = new EntityWrapper<>();
-        List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(proSysSiteWrapper);
-
-        Map map = new HashMap(16);
-        map.put("fan", fanSysSiteList);
-        map.put("pro", proSysSiteList);
-
-        if (StringUtils.isEmpty(map)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
-        }
-
-        return ResponseUtlis.success(map);
-    }*/
 
     /**
      * 轮播图
@@ -209,10 +183,10 @@ public class FanIndexController {
         try {
             //最大的map
             Map zongmap = new LinkedHashMap();
-            List<FanSysWebNewsShow> list = fanSysWebNewsShowService.getMenuCodeByParentId(siteId,7);
+            List<FanSysWebNewsShow> list = fanSysWebNewsShowService.getMenuCodeByParentId(siteId, 7);
 
-            for(FanSysWebNewsShow show : list ){
-                List listtemp = getPersonListByMenuCode(siteId,show.getMenuCode());
+            for (FanSysWebNewsShow show : list) {
+                List listtemp = getPersonListByMenuCode(siteId, show.getMenuCode());
                 zongmap.put(show.getMenuName(), listtemp);
             }
 
@@ -224,7 +198,7 @@ public class FanIndexController {
         }
     }
 
-    private List getPersonListByMenuCode(int siteId,String MenuCode){
+    private List getPersonListByMenuCode(int siteId, String MenuCode) {
         FanSysWebNewsShow show = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, MenuCode);
         List<FanNewsFamousPerson> familyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
         return familyFrameList;

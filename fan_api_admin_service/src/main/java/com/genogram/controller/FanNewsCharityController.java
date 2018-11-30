@@ -97,7 +97,6 @@ public class FanNewsCharityController {
     @RequestMapping(value = "getFanNewsCharityOutPage", method = RequestMethod.GET)
     public Response<NewsCharityOutVo> getFanNewsCharityOutVo(@ApiParam("显示位置") @RequestParam Integer showId,
                                                              @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                                             // @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
                                                              @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
@@ -122,7 +121,6 @@ public class FanNewsCharityController {
 
         Wrapper<FanNewsCharityOut> entity = new EntityWrapper<FanNewsCharityOut>();
         entity.eq("show_id", showId);
-        //entity.eq("news_type", newsType);
         entity.in("status", list);
         entity.orderBy("create_time", false);
 
