@@ -46,7 +46,7 @@ public class FanIndexController {
     private IFanIndexInfoService fanIndexInfoService;
 
     @Autowired
-    private IFanSysWebNewsShowService iFanSysWebNewsShowService;
+    private IFanSysWebNewsShowService fanSysWebNewsShowService;
 
     @Autowired
     private IFanNewsFamousPersonService iFanNewsFamousPersonService;
@@ -209,54 +209,24 @@ public class FanIndexController {
         try {
             //最大的map
             Map zongmap = new LinkedHashMap();
-            // List list = new ArrayList();
-            //会长类
-            // Map huizhangmap = new LinkedHashMap();
-            // Map map = new LinkedHashMap();
-            //拿到会长的showid
-            FanSysWebNewsShow show = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_huizhang");
-            List<FanNewsFamousPerson> familyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
-            zongmap.put(show.getMenuName(), familyFrameList);
+            List<FanSysWebNewsShow> list = fanSysWebNewsShowService.getMenuCodeByParentId(siteId,7);
 
-            //拿到副会长的fushowid
-            FanSysWebNewsShow fushow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_fuhuizhang");
-            List<FanNewsFamousPerson> fufamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(fushow.getShowId());
-            //familyFrameList.addAll(fufamilyFrameList);
-            zongmap.put(fushow.getMenuName(), fufamilyFrameList);
-
-            //族长类
-            FanSysWebNewsShow zuzhangshow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_zuzhang");
-            List<FanNewsFamousPerson> zuzhangfamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(zuzhangshow.getShowId());
-            zongmap.put(zuzhangshow.getMenuName(), zuzhangfamilyFrameList);
-
-            //官员类
-            List guanyuan = new ArrayList<>();
-            FanSysWebNewsShow guanyuanshow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_guanyuan");
-            List<FanNewsFamousPerson> guanyuanfamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(guanyuanshow.getShowId());
-            zongmap.put(guanyuanshow.getMenuName(), guanyuanfamilyFrameList);
-
-            //企业家
-            FanSysWebNewsShow qiyejiashow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_qiyejia");
-            List<FanNewsFamousPerson> qiyejiafamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(qiyejiashow.getShowId());
-            zongmap.put(qiyejiashow.getMenuName(), qiyejiafamilyFrameList);
-
-            //店主
-            FanSysWebNewsShow dianzhushow = iFanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_dianzhu");
-            List<FanNewsFamousPerson> dianzhufamilyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(dianzhushow.getShowId());
-            zongmap.put(dianzhushow.getMenuName(), dianzhufamilyFrameList);
-
-//            huizhangmap.put(show.getMenuName(),familyFrameList);
-//            list.add(huizhangmap);
-//            list.add(zongmap);
-            if (familyFrameList == null) {
-                //没有取到参数,返回空参
-                Page<ProFamilyPersonVo> emptfamilyCultureVo = new Page<ProFamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "没有取到参数,返回空参");
+            for(FanSysWebNewsShow show : list ){
+                List listtemp = getPersonListByMenuCode(siteId,show.getMenuCode());
+                zongmap.put(show.getMenuName(), listtemp);
             }
+
             return ResponseUtlis.success(zongmap);
+
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
+    }
+
+    private List getPersonListByMenuCode(int siteId,String MenuCode){
+        FanSysWebNewsShow show = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, MenuCode);
+        List<FanNewsFamousPerson> familyFrameList = iFanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
+        return familyFrameList;
     }
 }

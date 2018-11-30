@@ -14,10 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -273,6 +270,7 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         lastOne.setShowId(Integer.parseInt(showId));
         //手动添加的节点
         lastOne.setIstatic(1);
+        lastOne.setMenuCode(UUID.randomUUID().toString().replaceAll("-", ""));
 
         lastOne.setUpdateUser(1);
         lastOne.setUpdateTime(DateUtil.getCurrentTimeStamp());
@@ -289,5 +287,13 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         entity.eq("menu_code", menuCode);
         FanSysWebNewsShow fanSysWebNewsShow = this.selectOne(entity);
         return fanSysWebNewsShow;
+    }
+
+    @Override
+    public List<FanSysWebNewsShow> getMenuCodeByParentId(int siteId, int parentId) {
+        Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<>();
+        entity.eq("site_id", siteId);
+        entity.eq("parent_id", parentId);
+        return this.selectList(entity);
     }
 }

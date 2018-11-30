@@ -1,9 +1,7 @@
 package com.genogram.service;
 
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.entity.FanSysWebNewsShow;
 import com.baomidou.mybatisplus.service.IService;
-import com.genogram.entity.ProIndexInfo;
 import com.genogram.entityvo.SysWebMenuVo;
 import java.util.List;
 
@@ -119,4 +117,6 @@ public interface IFanSysWebNewsShowService extends IService<FanSysWebNewsShow> {
      */
     public FanSysWebNewsShow getSysWebNewsShowBySiteIdAndMenuCode(int siteId, String menuCode);
 
+
+    public List<FanSysWebNewsShow> getMenuCodeByParentId(int siteId, int parentId);
 }
