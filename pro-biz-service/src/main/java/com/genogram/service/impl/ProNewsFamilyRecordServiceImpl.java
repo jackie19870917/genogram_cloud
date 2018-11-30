@@ -3,15 +3,13 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.config.Constants;
 import com.genogram.entity.*;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.entityvo.ProFamilyRecordVo;
 import com.genogram.mapper.ProNewsFamilyRecordMapper;
-import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.IProNewsFamilyRecordService;
+import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.genogram.service.IProNewsUploadFileService;
-import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.StringsUtils;
 import org.springframework.beans.BeanUtils;
@@ -40,6 +38,9 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
 
     @Autowired
     private IUploadFileService iUploadFileService;
+
+    @Autowired
+    private IProSysRecommendService proSysRecommendService;
     /**
      * 前后台查询
      * @param showId
@@ -154,7 +155,40 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
         newsDetailVo.setCreateUserName(null);
         return newsDetailVo;
     }
-
+    /**
+     *省级增加查看数
+     *@Author: yuzhou
+     *@Date: 2018-11-14
+     *@Time: 14:17
+     *@Param:
+     *@return:
+     *@Description:
+     */
+    @Override
+    public void addVisitNum(Integer id) {
+        //查出详情
+        ProNewsFamilyRecord proNewsFamilyRecord = this.selectById(id);
+        //查看数加一
+        Integer visitNum = proNewsFamilyRecord.getVisitNum()+1;
+        proNewsFamilyRecord.setVisitNum(visitNum);
+        this.updateAllColumnById(proNewsFamilyRecord);
+        if(visitNum > Constants.PRO_VISIT_NUM || visitNum.equals(Constants.PRO_VISIT_NUM)){
+            //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
+            int status=2;
+            //来源:(1县级,2省级)
+            int newsSource=2;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=1;
+            //要插入的实体类
+            FanSysRecommend fanSysRecommend=new FanSysRecommend();
+            fanSysRecommend.setStatus(status);
+            fanSysRecommend.setNewsSource(newsSource);
+            fanSysRecommend.setStatus(isAuto);
+            fanSysRecommend.setShowId(proNewsFamilyRecord.getShowId());
+            fanSysRecommend.setNewsId(proNewsFamilyRecord.getId());
+            proSysRecommendService.addRecommend(fanSysRecommend);
+        }
+    }
     /**
      *联谊会记录家族后台新增 修改
      *@Author: yuzhou

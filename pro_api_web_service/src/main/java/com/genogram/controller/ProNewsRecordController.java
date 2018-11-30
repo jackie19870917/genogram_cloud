@@ -78,7 +78,7 @@ public class ProNewsRecordController {
         return getNewsDetailVoProResponse(id);
     }
     /**
-     *省级记录家族各个产业文章进入修改页面抽取方法
+     *省级记录家族文章进入修改页面抽取方法
      *@Author: yuzhou
      *@Date: 2018-11-09
      *@Time: 16:24
@@ -89,7 +89,11 @@ public class ProNewsRecordController {
     private Response<ProFamilyRecordVo> getNewsDetailVoProResponse( @RequestParam("id") Integer id) {
         try {
             NewsDetailVo newsDetailVo = iProNewsFamilyRecordService.getProFamilyRecord(id);
+
+            //增加查看数
+            iProNewsFamilyRecordService.addVisitNum(id);
             return ResponseUtlis.success(newsDetailVo);
+
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);

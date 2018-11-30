@@ -3,6 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.config.Constants;
 import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.mapper.FanNewsFamousPersonMapper;
@@ -239,15 +240,19 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         this.updateAllColumnById(fanNewsFamousPerson);
 
 
-        if(visitNum >200 || visitNum==200){
+        if(visitNum > Constants.FAN_VISIT_NUM|| visitNum.equals(Constants.FAN_VISIT_NUM)){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=1;
+            int status=2;
             //来源:(1县级,2省级)
             int newsSource=1;
+            //是否自动推荐(0:否;1:是)
+            int isAuto=1;
+
             //要插入的实体类
             FanSysRecommend fanSysRecommend=new FanSysRecommend();
             fanSysRecommend.setStatus(status);
             fanSysRecommend.setNewsSource(newsSource);
+            fanSysRecommend.setStatus(isAuto);
             fanSysRecommend.setShowId(fanNewsFamousPerson.getShowId());
             fanSysRecommend.setNewsId(fanNewsFamousPerson.getId());
             fanSysRecommendService.addRecommend(fanSysRecommend);
