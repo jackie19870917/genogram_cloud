@@ -193,7 +193,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         }
         boolean result = this.insertOrUpdate(fanNewsIndustry);
         //存储图片
-        if(result && StringsUtils.isNotEmpty(filePath) && StringsUtils.isEmpty(fileName)){
+        if(result && StringsUtils.isNotEmpty(filePath)){
             uploadFileService.storageFanFile(fileName,filePath,fanNewsIndustry.getId(),fanNewsIndustry.getShowId());
         }
         return result;

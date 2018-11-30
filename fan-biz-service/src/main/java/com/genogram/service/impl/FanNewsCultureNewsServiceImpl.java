@@ -190,7 +190,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //插入数据
         boolean result = this.insertOrUpdate(fanNewsCultureNews);
         //存储图片
-        if(result && StringsUtils.isNotEmpty(filePath) && StringsUtils.isEmpty(fileName)){
+        if(result && StringsUtils.isNotEmpty(filePath)){
             uploadFileService.storageFanFile(fileName,filePath,fanNewsCultureNews.getId(),fanNewsCultureNews.getShowId());
         }
         return result;
