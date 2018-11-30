@@ -238,7 +238,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
          this.updateAllColumnById(fanNewsCultureNews);
         if(visitNum > Constants.FAN_VISIT_NUM || visitNum.equals(Constants.FAN_VISIT_NUM)){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=1;
+            int status=2;
             //来源:(1县级,2省级)
             int newsSource=1;
             //是否自动推荐(0:否;1:是)

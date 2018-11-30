@@ -276,7 +276,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         int a = 200;
         if(visitNum >a || visitNum==a){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=1;
+            int status=2;
             //来源:(1县级,2省级)
             int newsSource=1;
             //要插入的实体类

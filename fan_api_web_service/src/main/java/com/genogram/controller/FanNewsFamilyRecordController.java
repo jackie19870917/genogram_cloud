@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsFamilyRecord;
 import com.genogram.entity.FanNewsFamilyRecordVedio;
-import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
