@@ -84,11 +84,11 @@ public class ProUserLoginController {
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
     public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin) {
 
-        Boolean result = allUserLoginService.insertAllUserLogin(allUserLogin);
+        AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
 
-        if (result) {
+        if (StringUtils.isEmpty(userLogin)) {
 
-            UserVo userVo = getUserVo(allUserLogin);
+            UserVo userVo = getUserVo(userLogin);
 
             return ResponseUtlis.success(userVo);
 
