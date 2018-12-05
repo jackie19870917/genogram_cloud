@@ -53,6 +53,7 @@ public class FanNewsCharityController {
     String role01 = "1";
 
     String role04 = "4";
+
     /**
      * 慈善基金
      *
@@ -60,7 +61,7 @@ public class FanNewsCharityController {
      * @return
      */
     @ApiOperation(value = "基金查询", notes = "id:主键,siteId:网站Id,remain:基金总额,payNum:捐款人数,payOnline:线上捐款,payUnderline:线下捐款,payGenogram:网络修普金额")
-    @RequestMapping(value = "getFanIndexFund", method = RequestMethod.GET)
+    @RequestMapping(value = "getFanIndexFund", method = RequestMethod.POST)
     public Response<FanIndexFund> getFanIndexFund(@ApiParam("网站id") @RequestParam Integer siteId,
                                                   @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
@@ -143,7 +144,7 @@ public class FanNewsCharityController {
      * @return
      */
     @ApiOperation(value = "慈善收支(文章)详情", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
-    @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.POST)
     public Response<NewsDetailVo> getFanNewsCharityDetail(@ApiParam("主键") @RequestParam Integer id,
                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
@@ -331,7 +332,7 @@ public class FanNewsCharityController {
      * @return
      */
     @ApiOperation(value = "线上提现记录", notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
-    @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.GET)
+    @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.POST)
     public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam("网站Id") @RequestParam Integer siteId,
                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,

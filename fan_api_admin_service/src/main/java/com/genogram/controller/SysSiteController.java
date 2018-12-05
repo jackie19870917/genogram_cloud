@@ -69,7 +69,7 @@ public class SysSiteController {
     String pro = "pro";
 
     @ApiOperation(value = "姓氏", notes = "value-姓氏姓名")
-    @RequestMapping(value = "getAllFamily", method = RequestMethod.GET)
+    @RequestMapping(value = "getAllFamily", method = RequestMethod.POST)
     public Response<AllFamily> getAllFamily(@ApiParam("姓氏") @RequestParam(value = "value", required = false) String value) {
 
         Wrapper<AllFamily> wrapper = new EntityWrapper<>();

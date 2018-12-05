@@ -94,7 +94,7 @@ public class ProNewsCharityController {
      * @return
      */
     @ApiOperation(value = "慈善收支", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数,filePath:图片url,fileName:图片名称,picIndex,picIndex:是否封面")
-    @RequestMapping(value = "index/getProNewsCharityOutPage", method = RequestMethod.POST)
+    @RequestMapping(value = "index/getProNewsCharityOutPage", method = RequestMethod.GET)
     public Response<NewsCharityOutVo> getProNewsCharityOutPage(@ApiParam("显示位置") @RequestParam Integer showId,
                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                //  @RequestParam(value = "newsType", defaultValue = "1") Integer newsType,
