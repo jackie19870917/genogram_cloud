@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/ProNewsFamous")
-public class ProNewsFamousPersionController {
+public class ProNewsFamousPersonController {
 
     @Autowired
     private IProNewsFamilyPersionService iProNewsFamilyPersionService;
@@ -39,8 +39,8 @@ public class ProNewsFamousPersionController {
      *@Description:
      */
     @ApiOperation("查询家族名人")
-    @RequestMapping(value ="/getFamilyPersionPage",method = RequestMethod.GET)
-    public Response<ProFamilyPersonVo> getFamilyPersionPage(
+    @RequestMapping(value ="/getFamilyPersonPage",method = RequestMethod.GET)
+    public Response<ProFamilyPersonVo> getFamilyPersonPage(
             @RequestParam(value = "showId") Integer showId,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
@@ -82,8 +82,8 @@ public class ProNewsFamousPersionController {
      *@Description:
      */
     @ApiOperation("查询家族名人详情")
-    @RequestMapping(value ="/getFamilyPersionDetail",method = RequestMethod.GET)
-    public Response<ProFamilyPersonVo> getFamilyPersionDetail(
+    @RequestMapping(value ="/getFamilyPersonDetail",method = RequestMethod.GET)
+    public Response<ProFamilyPersonVo> getFamilyPersonDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         return getNewsDetailVoResponse(id);
@@ -98,8 +98,8 @@ public class ProNewsFamousPersionController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value ="/getFamilyPersionAmend",method = RequestMethod.GET)
-    public Response<ProFamilyPersonVo> getFamilyPersionAmend(
+    @RequestMapping(value ="/getFamilyPersonAmend",method = RequestMethod.GET)
+    public Response<ProFamilyPersonVo> getFamilyPersonAmend(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         return getNewsDetailVoResponse(id);
@@ -135,11 +135,11 @@ public class ProNewsFamousPersionController {
      *@Description:
      */
     @ApiOperation("新增/修改家族名人")
-    @RequestMapping(value = "/addOrUpdatePersion", method = RequestMethod.POST)
+    @RequestMapping(value = "/addOrUpdatePerson", method = RequestMethod.POST)
     public Response<ProNewsFamousPerson> addOrUpdateIndustry(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsFamousPerson.setStatus(1);
-        return getProNewsPersionResponse(proNewsFamousPerson, fileName,  filePath);
+        return getProNewsPersonResponse(proNewsFamousPerson, fileName,  filePath);
     }
 
     /**
@@ -156,7 +156,7 @@ public class ProNewsFamousPersionController {
     public Response<ProNewsFamousPerson> addOrUpdateIndustryDrft(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsFamousPerson.setStatus(2);
-        return getProNewsPersionResponse(proNewsFamousPerson,fileName,filePath);
+        return getProNewsPersonResponse(proNewsFamousPerson,fileName,filePath);
     }
 
     /**
@@ -168,7 +168,7 @@ public class ProNewsFamousPersionController {
      *@return:
      *@Description:
      */
-    private Response<ProNewsFamousPerson> getProNewsPersionResponse(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
+    private Response<ProNewsFamousPerson> getProNewsPersonResponse(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
         try {
             // 插入数据
             boolean b = iProNewsFamilyPersionService.addOrUpdatePersion(proNewsFamousPerson, fileName, filePath);
@@ -189,8 +189,8 @@ public class ProNewsFamousPersionController {
      *@Description:
      */
     @ApiOperation("家族名人删除")
-    @RequestMapping(value ="/deletePersionById",method = RequestMethod.GET)
-    public Response<ProNewsFamousPerson> deletePersionById(
+    @RequestMapping(value ="/deletePersonById",method = RequestMethod.GET)
+    public Response<ProNewsFamousPerson> deletePersonById(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置
     ) {
         try {
