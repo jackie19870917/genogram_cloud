@@ -7,8 +7,18 @@
     <file url="file://$PROJECT_DIR$/fan-biz-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fan_api_admin_service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/fan_api_web_service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/per_center_api_web_service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pro-biz-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pro_api_admin_service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pro_api_web_service" charset="UTF-8" />
+    <file url="file://F:/spring_api/genogram_cloud/common_file_upload_service" charset="UTF-8" />
+    <file url="file://F:/spring_api/genogram_cloud/common_payment" charset="UTF-8" />
+    <file url="file://F:/spring_api/genogram_cloud/common_service" charset="UTF-8" />
+    <file url="file://F:/spring_api/genogram_cloud/fan-biz-service" charset="UTF-8" />
+    <file url="file://F:/spring_api/genogram_cloud/fan_api_admin_service" charset="UTF-8" />
+    <file url="file://F:/spring_api/genogram_cloud/fan_api_web_service" charset="UTF-8" />
+    <file url="file://F:/spring_api/genogram_cloud/pro-biz-service" charset="UTF-8" />
+    <file url="file://F:/spring_api/genogram_cloud/pro_api_admin_service" charset="UTF-8" />
+    <file url="file://F:/spring_api/genogram_cloud/pro_api_web_service" charset="UTF-8" />
   </component>
 </project>

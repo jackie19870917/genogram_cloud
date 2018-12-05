@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/common_service/pom.xml" />
         <option value="$PROJECT_DIR$/fan_api_web_service/pom.xml" />
         <option value="$PROJECT_DIR$/fan_api_admin_service/pom.xml" />
         <option value="$PROJECT_DIR$/common_file_upload_service/pom.xml" />
@@ -14,6 +16,8 @@
         <option value="$PROJECT_DIR$/pro-biz-service/pom.xml" />
         <option value="$PROJECT_DIR$/pro_api_admin_service/pom.xml" />
         <option value="$PROJECT_DIR$/common_payment/pom.xml" />
+        <option value="$PROJECT_DIR$/per_center_api_web_service/pom.xml" />
+        <option value="F:/spring_api/genogram_cloud/pom.xml" />
       </list>
     </option>
   </component>

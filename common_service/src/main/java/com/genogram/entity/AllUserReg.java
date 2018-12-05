@@ -13,8 +13,8 @@ import java.io.Serializable;
  * 用户注册表
  * </p>
  *
- * @author wangwei
- * @since 2018-11-13
+ * @author yizx
+ * @since 2018-12-05
  */
 @TableName("all_user_reg")
 public class AllUserReg extends Model<AllUserReg> {
@@ -32,19 +32,10 @@ public class AllUserReg extends Model<AllUserReg> {
     @TableField("all_user_login_id")
     private Integer allUserLoginId;
     /**
-     * 真实姓名
-     */
-    @TableField("real_name")
-    private String realName;
-    /**
      * 外文名
      */
     @TableField("english_name")
     private String englishName;
-    /**
-     * 手机号
-     */
-    private String phone;
     /**
      * 国籍
      */
@@ -57,6 +48,26 @@ public class AllUserReg extends Model<AllUserReg> {
      * 职业
      */
     private String job;
+    /**
+     * 历代
+     */
+    private Integer lidai;
+    /**
+     * 近世
+     */
+    private Integer jinshi;
+    /**
+     * 老派
+     */
+    private String laopai;
+    /**
+     * 新派
+     */
+    private String xinpai;
+    /**
+     * 统派
+     */
+    private String tongpai;
     /**
      * 现居
      */
@@ -71,14 +82,6 @@ public class AllUserReg extends Model<AllUserReg> {
      * 现居别称
      */
     private String alias;
-    /**
-     * 姓氏
-     */
-    private String surname;
-    /**
-     * 地区（国家country，省province，市city，县（区）county）
-     */
-    private String region;
     /**
      * 简介
      */
@@ -99,11 +102,6 @@ public class AllUserReg extends Model<AllUserReg> {
      * 状态(0:删除;1:正常,2:非正常)
      */
     private Integer status;
-    /**
-     * 个人头像地址
-     */
-    @TableField("pic_src")
-    private String picSrc;
     /**
      * 创建时间
      */
@@ -144,30 +142,12 @@ public class AllUserReg extends Model<AllUserReg> {
         return this;
     }
 
-    public String getRealName() {
-        return realName;
-    }
-
-    public AllUserReg setRealName(String realName) {
-        this.realName = realName;
-        return this;
-    }
-
     public String getEnglishName() {
         return englishName;
     }
 
     public AllUserReg setEnglishName(String englishName) {
         this.englishName = englishName;
-        return this;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public AllUserReg setPhone(String phone) {
-        this.phone = phone;
         return this;
     }
 
@@ -198,6 +178,51 @@ public class AllUserReg extends Model<AllUserReg> {
         return this;
     }
 
+    public Integer getLidai() {
+        return lidai;
+    }
+
+    public AllUserReg setLidai(Integer lidai) {
+        this.lidai = lidai;
+        return this;
+    }
+
+    public Integer getJinshi() {
+        return jinshi;
+    }
+
+    public AllUserReg setJinshi(Integer jinshi) {
+        this.jinshi = jinshi;
+        return this;
+    }
+
+    public String getLaopai() {
+        return laopai;
+    }
+
+    public AllUserReg setLaopai(String laopai) {
+        this.laopai = laopai;
+        return this;
+    }
+
+    public String getXinpai() {
+        return xinpai;
+    }
+
+    public AllUserReg setXinpai(String xinpai) {
+        this.xinpai = xinpai;
+        return this;
+    }
+
+    public String getTongpai() {
+        return tongpai;
+    }
+
+    public AllUserReg setTongpai(String tongpai) {
+        this.tongpai = tongpai;
+        return this;
+    }
+
     public String getPresentAddress() {
         return presentAddress;
     }
@@ -222,24 +247,6 @@ public class AllUserReg extends Model<AllUserReg> {
 
     public AllUserReg setAlias(String alias) {
         this.alias = alias;
-        return this;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public AllUserReg setSurname(String surname) {
-        this.surname = surname;
-        return this;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public AllUserReg setRegion(String region) {
-        this.region = region;
         return this;
     }
 
@@ -285,15 +292,6 @@ public class AllUserReg extends Model<AllUserReg> {
 
     public AllUserReg setStatus(Integer status) {
         this.status = status;
-        return this;
-    }
-
-    public String getPicSrc() {
-        return picSrc;
-    }
-
-    public AllUserReg setPicSrc(String picSrc) {
-        this.picSrc = picSrc;
         return this;
     }
 
@@ -343,23 +341,23 @@ public class AllUserReg extends Model<AllUserReg> {
         return "AllUserReg{" +
         ", id=" + id +
         ", allUserLoginId=" + allUserLoginId +
-        ", realName=" + realName +
         ", englishName=" + englishName +
-        ", phone=" + phone +
         ", nation=" + nation +
         ", birthplace=" + birthplace +
         ", job=" + job +
+        ", lidai=" + lidai +
+        ", jinshi=" + jinshi +
+        ", laopai=" + laopai +
+        ", xinpai=" + xinpai +
+        ", tongpai=" + tongpai +
         ", presentAddress=" + presentAddress +
         ", oldAddress=" + oldAddress +
         ", alias=" + alias +
-        ", surname=" + surname +
-        ", region=" + region +
         ", summary=" + summary +
         ", fans=" + fans +
         ", honesty=" + honesty +
         ", creator=" + creator +
         ", status=" + status +
-        ", picSrc=" + picSrc +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +
