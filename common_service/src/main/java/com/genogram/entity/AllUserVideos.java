@@ -14,14 +14,14 @@ import java.io.Serializable;
  * @author wangwei
  * @since 2018-12-05
  */
-@TableName("all_usrer_videos")
+@TableName("all_user_videos")
 public class AllUserVideos extends Model<AllUserVideos> {
 
     private static final long serialVersionUID = 1L;
 
     private Integer id;
-    @TableField("usr_id")
-    private Integer usrId;
+    @TableField("user_id")
+    private Integer userId;
     private Integer status;
     private String title;
     @TableField("video_pic_url")
@@ -47,12 +47,12 @@ public class AllUserVideos extends Model<AllUserVideos> {
         return this;
     }
 
-    public Integer getUsrId() {
-        return usrId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public AllUserVideos setUsrId(Integer usrId) {
-        this.usrId = usrId;
+    public AllUserVideos setUserId(Integer userId) {
+        this.userId = userId;
         return this;
     }
 
@@ -137,7 +137,7 @@ public class AllUserVideos extends Model<AllUserVideos> {
     public String toString() {
         return "AllUserVideos{" +
         ", id=" + id +
-        ", usrId=" + usrId +
+        ", userId=" + userId +
         ", status=" + status +
         ", title=" + title +
         ", videoPicUrl=" + videoPicUrl +

@@ -25,4 +25,26 @@ public interface IAllUserSaysService extends IService<AllUserSays> {
      * @return
      */
     Page<AllUserSays> getAllUserSaysPage(Integer userId, List list, Integer pageNo, Integer pageSize);
+
+    /**
+     * 新增/修改   说说
+     * @param allUserSays
+     * @return
+     */
+    AllUserSays insertOrUpdateAllUserSays(AllUserSays allUserSays);
+
+    /**
+     * 删除 说说
+     * @param id
+     * @param userId
+     * @return
+     */
+    Boolean deleteAllUserSays(Integer id, Integer userId);
+
+    /**
+     * 说说详情
+     * @param id
+     * @return
+     */
+    AllUserSays getAllUserSaysById(Integer id);
 }

@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserNewsInfo">
         <id column="id" property="id" />
-        <result column="usr_id" property="usrId" />
+        <result column="user_id" property="userId" />
         <result column="status" property="status" />
         <result column="title" property="title" />
         <result column="news_face_url" property="newsFaceUrl" />
@@ -18,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, usr_id AS usrId, status, title, news_face_url AS newsFaceUrl, content, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, user_id AS userId, status, title, news_face_url AS newsFaceUrl, content, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

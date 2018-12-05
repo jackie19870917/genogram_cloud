@@ -49,6 +49,7 @@ public class AllUserPicsServiceImpl extends ServiceImpl<AllUserPicsMapper, AllUs
         allUserPics.setId(id);
         allUserPics.setStatus(0);
         allUserPics.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        allUserPics.setUpdateUser(userId);
 
         return this.updateById(allUserPics);
     }

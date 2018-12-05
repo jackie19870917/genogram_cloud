@@ -7,6 +7,7 @@ import com.genogram.entity.AllUserSays;
 import com.genogram.mapper.AllUserSaysMapper;
 import com.genogram.service.IAllUserSaysService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,5 +32,31 @@ public class AllUserSaysServiceImpl extends ServiceImpl<AllUserSaysMapper, AllUs
         wrapper.orderBy("update_time", false);
 
         return this.selectPage(new Page<>(pageNo,pageSize),wrapper);
+    }
+
+    @Override
+    public AllUserSays insertOrUpdateAllUserSays(AllUserSays allUserSays) {
+
+        this.insertOrUpdate(allUserSays);
+
+        return allUserSays;
+    }
+
+    @Override
+    public Boolean deleteAllUserSays(Integer id, Integer userId) {
+
+        AllUserSays allUserSays = new AllUserSays();
+        allUserSays.setId(id);
+        allUserSays.setStatus(0);
+        allUserSays.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        allUserSays.setUpdateUser(userId);
+
+        return this.updateById(allUserSays);
+    }
+
+    @Override
+    public AllUserSays getAllUserSaysById(Integer id) {
+
+        return this.selectById(id);
     }
 }

@@ -23,8 +23,8 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
     /**
      * 个人id
      */
-    @TableField("usr_id")
-    private Integer usrId;
+    @TableField("user_id")
+    private Integer userId;
     /**
      * 状态（0 删除 1 正常 2 草稿）
      */
@@ -73,12 +73,12 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
         return this;
     }
 
-    public Integer getUsrId() {
-        return usrId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public AllUserNewsInfo setUsrId(Integer usrId) {
-        this.usrId = usrId;
+    public AllUserNewsInfo setUserId(Integer userId) {
+        this.userId = userId;
         return this;
     }
 
@@ -163,7 +163,7 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
     public String toString() {
         return "AllUserNewsInfo{" +
         ", id=" + id +
-        ", usrId=" + usrId +
+        ", userId=" + userId +
         ", status=" + status +
         ", title=" + title +
         ", newsFaceUrl=" + newsFaceUrl +

@@ -7,8 +7,10 @@ import com.genogram.entity.AllUserVideos;
 import com.genogram.mapper.AllUserVideosMapper;
 import com.genogram.service.IAllUserVideosService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -31,5 +33,48 @@ public class AllUserVideosServiceImpl extends ServiceImpl<AllUserVideosMapper, A
         wrapper.orderBy("update_time", false);
 
         return this.selectPage(new Page<>(pageNo,pageSize),wrapper);
+    }
+
+    @Override
+    public AllUserVideos insertAllUserVideos(AllUserVideos allUserVideos) {
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
+        allUserVideos.setCreateTime(timeStamp);
+        allUserVideos.setUpdateTime(timeStamp);
+
+        this.insert(allUserVideos);
+
+        return allUserVideos;
+    }
+
+    @Override
+    public AllUserVideos updateAllUserVideos(AllUserVideos allUserVideos) {
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
+        allUserVideos.setUpdateTime(timeStamp);
+
+        this.updateById(allUserVideos);
+
+        return allUserVideos;
+    }
+
+    @Override
+    public Boolean deleteAllUserVideos(Integer id, Integer userId) {
+
+        AllUserVideos allUserVideos = new AllUserVideos();
+        allUserVideos.setId(id);
+        allUserVideos.setStatus(0);
+        allUserVideos.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        allUserVideos.setUpdateUser(userId);
+
+        return this.updateById(allUserVideos);
+    }
+
+    @Override
+    public AllUserVideos getAllUserVideosById(Integer id) {
+
+        return this.selectById(id);
     }
 }

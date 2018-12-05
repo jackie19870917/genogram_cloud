@@ -25,4 +25,33 @@ public interface IAllUserVideosService extends IService<AllUserVideos> {
      * @return
      */
     Page<AllUserVideos> getAllUserVideosPage(Integer userId, List list, Integer pageNo, Integer pageSize);
+
+    /**
+     * 新增   视频
+     * @param allUserVideos
+     * @return
+     */
+    AllUserVideos insertAllUserVideos(AllUserVideos allUserVideos);
+
+    /**
+     * 修改 视频
+     * @param allUserVideos
+     * @return
+     */
+    AllUserVideos updateAllUserVideos(AllUserVideos allUserVideos);
+
+    /**
+     * 删除视频
+     * @param id
+     * @param userId
+     * @return
+     */
+    Boolean deleteAllUserVideos(Integer id, Integer userId);
+
+    /**
+     * 视频 详情
+     * @param id
+     * @return
+     */
+    AllUserVideos getAllUserVideosById(Integer id);
 }

@@ -47,4 +47,34 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
 
         return allUserNewsInfo;
     }
+
+    @Override
+    public AllUserNewsInfo updateAllUserNewsInfo(AllUserNewsInfo allUserNewsInfo) {
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
+        allUserNewsInfo.setUpdateTime(timeStamp);
+
+        this.updateById(allUserNewsInfo);
+
+        return allUserNewsInfo;
+    }
+
+    @Override
+    public Boolean deleteAllUserNewsInfo(Integer id, Integer userId) {
+
+        AllUserNewsInfo allUserNewsInfo = new AllUserNewsInfo();
+        allUserNewsInfo.setId(id);
+        allUserNewsInfo.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        allUserNewsInfo.setStatus(0);
+        allUserNewsInfo.setUpdateUser(userId);
+
+        return this.updateById(allUserNewsInfo);
+    }
+
+    @Override
+    public AllUserNewsInfo getAllUserNewsInfoById(Integer id) {
+
+        return this.selectById(id);
+    }
 }

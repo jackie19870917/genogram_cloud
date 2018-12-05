@@ -23,8 +23,8 @@ public class AllUserSays extends Model<AllUserSays> {
     /**
      * 个人id
      */
-    @TableField("usr_id")
-    private Integer usrId;
+    @TableField("user_id")
+    private Integer userId;
     /**
      * 说说内容
      */
@@ -64,12 +64,12 @@ public class AllUserSays extends Model<AllUserSays> {
         return this;
     }
 
-    public Integer getUsrId() {
-        return usrId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public AllUserSays setUsrId(Integer usrId) {
-        this.usrId = usrId;
+    public AllUserSays setUserId(Integer userId) {
+        this.userId = userId;
         return this;
     }
 
@@ -136,7 +136,7 @@ public class AllUserSays extends Model<AllUserSays> {
     public String toString() {
         return "AllUserSays{" +
         ", id=" + id +
-        ", usrId=" + usrId +
+        ", userId=" + userId +
         ", content=" + content +
         ", status=" + status +
         ", createTime=" + createTime +

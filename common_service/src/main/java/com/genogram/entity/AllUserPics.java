@@ -26,8 +26,8 @@ public class AllUserPics extends Model<AllUserPics> {
     /**
      * 个人id
      */
-    @TableField("usr_id")
-    private Integer usrId;
+    @TableField("user_id")
+    private Integer userId;
     /**
      * 图片url
      */
@@ -68,12 +68,12 @@ public class AllUserPics extends Model<AllUserPics> {
         return this;
     }
 
-    public Integer getUsrId() {
-        return usrId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public AllUserPics setUsrId(Integer usrId) {
-        this.usrId = usrId;
+    public AllUserPics setUserId(Integer userId) {
+        this.userId = userId;
         return this;
     }
 
@@ -140,7 +140,7 @@ public class AllUserPics extends Model<AllUserPics> {
     public String toString() {
         return "AllUserPics{" +
         ", id=" + id +
-        ", usrId=" + usrId +
+        ", userId=" + userId +
         ", picUrl=" + picUrl +
         ", status=" + status +
         ", createTime=" + createTime +
