@@ -1,4 +1,4 @@
-package genogram.config;
+package com.genogram.config;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package genogram.controller;
+package com.genogram.controller;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -21,10 +21,10 @@ import java.util.List;
 /**
  * 个人中心
  *
- * @author keriezhang
- * @date 2016/10/31
+ * @author yizx
+ * @date 2018/12/5
  */
-@Api(description = "个人中心(前台)")
+@Api(description = "个人中心(后台)")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("genogram/user")
