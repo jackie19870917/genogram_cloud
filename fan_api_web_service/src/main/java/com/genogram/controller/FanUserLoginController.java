@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllFamily;
 import com.genogram.entity.AllUserLogin;
+import com.genogram.entity.AllUserReg;
 import com.genogram.entityvo.UserVo;
 import com.genogram.service.IAllUserLoginService;
+import com.genogram.service.IAllUserRegService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
@@ -46,6 +48,8 @@ public class FanUserLoginController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IAllUserRegService allUserRegService;
     /**
      * 登陆
      * // @param allUserLogin
@@ -108,6 +112,12 @@ public class FanUserLoginController {
         if (StringUtils.isEmpty(userLogin)) {
 
             UserVo userVo = getUserVo(userLogin);
+
+            AllUserReg allUserReg = new AllUserReg();
+            allUserReg.setAllUserLoginId(userLogin.getId());
+            allUserReg.setCreateUser(userLogin.getId());
+
+            allUserRegService.insertAllUserReg(allUserReg);
 
             return ResponseUtlis.success(userVo);
 

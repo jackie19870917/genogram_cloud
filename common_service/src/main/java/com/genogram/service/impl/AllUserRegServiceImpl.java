@@ -57,6 +57,7 @@ public class AllUserRegServiceImpl extends ServiceImpl<AllUserRegMapper, AllUser
         allUserReg.setCreateTime(timeStamp);
         allUserReg.setUpdateTime(timeStamp);
         allUserReg.setStatus(1);
+        allUserReg.setUpdateUser(allUserReg.getCreateUser());
 
         return this.insert(allUserReg);
     }

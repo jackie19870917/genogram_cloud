@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllFamily;
 import com.genogram.entity.AllUserLogin;
+import com.genogram.entity.AllUserReg;
 import com.genogram.entityvo.UserVo;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IAllUserRegService;
@@ -111,6 +112,12 @@ public class UserLoginController {
         if (StringUtils.isEmpty(userLogin)) {
 
             UserVo userVo = getUserVo(userLogin);
+
+            AllUserReg allUserReg = new AllUserReg();
+            allUserReg.setAllUserLoginId(userLogin.getId());
+            allUserReg.setCreateUser(userLogin.getId());
+
+            allUserRegService.insertAllUserReg(allUserReg);
 
             return ResponseUtlis.success(userVo);
 
