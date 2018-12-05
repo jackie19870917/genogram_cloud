@@ -24,4 +24,5 @@
         id, show_id AS showId, amount, use_for AS useFor, news_title AS newsTitle, news_text AS newsText, news_type AS newsType, visit_num AS visitNum, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
+
 </mapper>

@@ -311,6 +311,7 @@ public class FanNewsCharityController {
 
         Boolean result = fanIndexFundDrowingService.insertFanIndexFundDrowing(fanIndexFundDrowing);
 
+        fanIndexFund.setUpdateUser(userLogin.getId());
         fanIndexFund.setUnuseAmount(fanIndexFundDrowing.getDrowAmount());
 
         fanIndexFundService.updateFanIndexFund(fanIndexFund);

@@ -75,7 +75,7 @@ public class PersonController {
 
                 SysSiteVo sysSiteVo1 = new SysSiteVo();
 
-                BeanUtils.copyProperties(fanSysSite,sysSiteVo1);
+                BeanUtils.copyProperties(fanSysSite, sysSiteVo1);
 
                 List<AllFamily> families = new ArrayList<>();
                 allFamilies.forEach((AllFamily allFamily) -> {
@@ -130,7 +130,7 @@ public class PersonController {
 
                 SysSiteVo sysSiteVo1 = new SysSiteVo();
 
-                BeanUtils.copyProperties(proSysSite,sysSiteVo1);
+                BeanUtils.copyProperties(proSysSite, sysSiteVo1);
 
                 List<AllFamily> families = new ArrayList<>();
                 allFamilies.forEach((AllFamily allFamily) -> {
@@ -144,7 +144,7 @@ public class PersonController {
                 List<ProIndexInfo> proIndexInfos = new ArrayList<>();
                 proIndexInfoList.forEach((ProIndexInfo proIndexInfo) -> {
 
-                    if (!StringUtils.isEmpty(proIndexInfo)&&proIndexInfo.getSiteId().equals(proSysSite.getId())) {
+                    if (!StringUtils.isEmpty(proIndexInfo) && proIndexInfo.getSiteId().equals(proSysSite.getId())) {
                         proIndexInfos.add(proIndexInfo);
                         sysSiteVo1.setUrl(proIndexInfo.getTotemPicSrc());
                     }

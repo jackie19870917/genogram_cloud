@@ -64,5 +64,4 @@ public class ProIndexFundDrowingServiceImpl extends ServiceImpl<ProIndexFundDrow
         return mapPage;
     }
 
-
 }

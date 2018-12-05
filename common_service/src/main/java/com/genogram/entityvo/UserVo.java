@@ -37,10 +37,6 @@ public class UserVo {
      */
     private String picSrc;
     /**
-     * 密码
-     *//*
-    private String password;*/
-    /**
      * 状态(0:删除;1:正常;2:异常)
      */
     private Integer status;

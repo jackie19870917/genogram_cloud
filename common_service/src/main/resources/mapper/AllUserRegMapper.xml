@@ -6,23 +6,23 @@
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserReg">
         <id column="id" property="id" />
         <result column="all_user_login_id" property="allUserLoginId" />
-        <result column="real_name" property="realName" />
         <result column="english_name" property="englishName" />
-        <result column="phone" property="phone" />
         <result column="nation" property="nation" />
         <result column="birthplace" property="birthplace" />
         <result column="job" property="job" />
+        <result column="lidai" property="lidai" />
+        <result column="jinshi" property="jinshi" />
+        <result column="laopai" property="laopai" />
+        <result column="xinpai" property="xinpai" />
+        <result column="tongpai" property="tongpai" />
         <result column="present_address" property="presentAddress" />
         <result column="old_address" property="oldAddress" />
         <result column="alias" property="alias" />
-        <result column="surname" property="surname" />
-        <result column="region" property="region" />
         <result column="summary" property="summary" />
         <result column="fans" property="fans" />
         <result column="honesty" property="honesty" />
         <result column="creator" property="creator" />
         <result column="status" property="status" />
-        <result column="pic_src" property="picSrc" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
         <result column="update_time" property="updateTime" />
@@ -31,7 +31,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, all_user_login_id AS allUserLoginId, real_name AS realName, english_name AS englishName, phone, nation, birthplace, job, present_address AS presentAddress, old_address AS oldAddress, alias, surname, region, summary, fans, honesty, creator, status, pic_src AS picSrc, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, all_user_login_id AS allUserLoginId, english_name AS englishName, nation, birthplace, job, lidai, jinshi, laopai, xinpai, tongpai, present_address AS presentAddress, old_address AS oldAddress, alias, summary, fans, honesty, creator, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

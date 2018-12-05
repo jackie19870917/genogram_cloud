@@ -42,6 +42,9 @@ public class SysSiteController {
     private IFanSysWebNewsShowService fanSysWebNewsShowService;
 
     @Autowired
+    private IProSysWebNewsShowService proSysWebNewsShowService;
+
+    @Autowired
     private IAllUserLoginService allUserLoginService;
 
     @Autowired
@@ -95,9 +98,14 @@ public class SysSiteController {
         }
 
         AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(allUserLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         Integer id = allUserLogin.getId();
 
-        Integer siteId = null;
+        Integer siteId;
         Integer userId;
 
         Wrapper<AllFamily> familyWrapper = new EntityWrapper<>();
@@ -170,6 +178,8 @@ public class SysSiteController {
 
             fanIndexSlidePicService.insertFanIndexSlidePic(fanIndexSlidePic);
 
+            //初始化栏目
+            fanSysWebNewsShowService.initWebMenu(siteId);
 
         } else if (pro.equals(siteType)) {
 
@@ -234,14 +244,11 @@ public class SysSiteController {
 
             fanProIndexSlidePicService.insertProIndexSlidePic(proIndexSlidePic);
 
-            userLogin.setRole(2);
+            //初始化栏目
+            proSysWebNewsShowService.initWebMenu(siteId);
         }
 
         if (true) {
-
-            //初始化栏目
-            fanSysWebNewsShowService.initWebMenu(siteId);
-
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);

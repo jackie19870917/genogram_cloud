@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -64,20 +65,28 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
     }
 
     @Override
-    public Page<DonorVo> getDonorVoPageByTime(Integer showId, List status, Integer pageNo, Integer pageSize) {
+    public Page<DonorVo> getDonorVoPageByTime(Integer showId, List status, String nickName, Integer pageNo, Integer pageSize, String order, String label) {
+        Wrapper<ProNewsCharityPayIn> proNewsCharityPayInWrapper = new EntityWrapper<ProNewsCharityPayIn>();
 
-        Wrapper<ProNewsCharityPayIn> entityWrapper = new EntityWrapper<ProNewsCharityPayIn>();
+        proNewsCharityPayInWrapper.eq("show_id", showId);
+        proNewsCharityPayInWrapper.in("status", status);
 
-        entityWrapper.eq("show_id", showId);
-        entityWrapper.in("status", status);
-        entityWrapper.orderBy("create_time", false);
-        entityWrapper.groupBy("pay_usr_id");
+        String sort = "time";
 
-        Page<ProNewsCharityPayIn> proNewsCharityPayInPage = this.selectPage(new Page<ProNewsCharityPayIn>(pageNo, pageSize), entityWrapper);
+        if (sort.equals(order)) {
+            sort = "asc";
+            if (sort.equals(label)) {
+                proNewsCharityPayInWrapper.orderBy("create_time", true);
+            } else {
+                proNewsCharityPayInWrapper.orderBy("create_time", false);
+            }
+        }
+
+        Page<ProNewsCharityPayIn> proNewsCharityPayInPage = this.selectPage(new Page<ProNewsCharityPayIn>(pageNo, pageSize), proNewsCharityPayInWrapper);
 
         List<ProNewsCharityPayIn> proNewsCharityPayInList = proNewsCharityPayInPage.getRecords();
 
-        if (proNewsCharityPayInList.size()==0) {
+        if (proNewsCharityPayInList.size() == 0) {
             return null;
         }
 
@@ -89,6 +98,10 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
         Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
         entity.in("id", list);
 
+        if (!StringUtils.isEmpty(nickName)) {
+            entity.like("nick_name", nickName);
+        }
+
         List<AllUserLogin> allUserLoginList = allUserLoginService.selectList(entity);
 
         list = getList(proNewsCharityPayInList, allUserLoginList);
@@ -99,6 +112,8 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
 
         return mapPage;
     }
+
+
 
     @Override
     public Boolean insertProNewsCharityPayIn(ProNewsCharityPayIn proNewsCharityPayIn) {

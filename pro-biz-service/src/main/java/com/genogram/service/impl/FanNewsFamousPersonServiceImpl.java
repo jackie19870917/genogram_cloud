@@ -35,14 +35,17 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
     private IAllUserLoginService allUserLoginService;
 
     /**
-     *联谊会家族文化前台增加查看数
-     *@Author: yuzhou
-     *@Date: 2018-11-12
-     *@Time: 13:49
-     *@Param:
-     *@return:
-     *@Description:
+     * 联谊会家族文化前台增加查看数
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-12
+     * @Time: 13:49
+     * @Param:
+     * @return:
+     * @Description:
      */
+    Integer num = 200;
+
     @Override
     public void addVisitNum(Integer id) {
         //查出详情
@@ -51,7 +54,7 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         Integer visitNum = fanNewsFamousPerson.getVisitNum()+1;
         fanNewsFamousPerson.setVisitNum(visitNum);
         this.updateAllColumnById(fanNewsFamousPerson);
-        if(visitNum >200 || visitNum==200){
+        if(visitNum >num || visitNum.equals(num)){
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status=1;
             //来源:(1县级,2省级)

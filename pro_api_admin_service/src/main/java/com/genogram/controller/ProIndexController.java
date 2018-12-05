@@ -58,11 +58,21 @@ public class ProIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
         IndexInfoVo indexInfoVo = proIndexInfoService.getFanIndexInfoVo(siteId);
+
+        if (StringUtils.isEmpty(indexInfoVo)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(indexInfoVo);
     }
@@ -77,6 +87,10 @@ public class ProIndexController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         if (StringUtils.isEmpty(indexInfoVo.getId())) {
             indexInfoVo.setCreateUser(userLogin.getId());
@@ -108,6 +122,11 @@ public class ProIndexController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         proIndexInfo.setUpdateUser(userLogin.getId());
 
         Boolean result = proIndexInfoService.deleteProIndexInfo(proIndexInfo);
@@ -134,6 +153,12 @@ public class ProIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
@@ -145,6 +170,10 @@ public class ProIndexController {
         list.add(2);
 
         List<ProIndexSlidePic> proIndexSlidePic = proIndexSlidePicService.getProIndexSlidePic(siteId, list);
+
+        if (StringUtils.isEmpty(proIndexSlidePic)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(proIndexSlidePic);
     }
@@ -165,6 +194,10 @@ public class ProIndexController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         if (StringUtils.isEmpty(proIndexSlidePic.getId())) {
             proIndexSlidePic.setCreateUser(userLogin.getId());
@@ -195,10 +228,14 @@ public class ProIndexController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
-        //用户Id
-        Integer userId = userService.getUserLoginInfoByToken(token).getId();
 
-        Boolean result = proIndexSlidePicService.deleteProIndexSlidePic(id, userId);
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        Boolean result = proIndexSlidePicService.deleteProIndexSlidePic(id, userLogin.getId());
 
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);

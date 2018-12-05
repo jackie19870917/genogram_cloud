@@ -51,11 +51,6 @@ public class ProNewsCharityController {
     private IUserService userService;
 
     /**
-     * 状态(0:删除;1:已发布;2:草稿3:不显示)
-     */
-    Integer status = 1;
-
-    /**
      * 慈善基金
      *
      * @param siteId 慈善基金ID
@@ -70,11 +65,21 @@ public class ProNewsCharityController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
         ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(siteId);
+
+        if (StringUtils.isEmpty(proIndexFund)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(proIndexFund);
     }
@@ -100,6 +105,12 @@ public class ProNewsCharityController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
@@ -111,11 +122,14 @@ public class ProNewsCharityController {
 
         Wrapper<ProNewsCharityOut> entity = new EntityWrapper<ProNewsCharityOut>();
         entity.eq("show_id", showId);
-        // entity.eq("news_type", newsType);
         entity.in("status", list);
         entity.orderBy("create_time", false);
 
         Page<NewsCharityOutVo> newsCharityOutVoPage = proNewsCharityOutService.getNewsCharityOutVoPage(entity, pageNo, pageSize);
+
+        if (StringUtils.isEmpty(newsCharityOutVoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(newsCharityOutVoPage);
     }
@@ -135,6 +149,12 @@ public class ProNewsCharityController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         NewsDetailVo newsCharityOutDetail = proNewsCharityOutService.getNewsCharityOutDetail(id);
 
         return ResponseUtlis.success(newsCharityOutDetail);
@@ -151,15 +171,19 @@ public class ProNewsCharityController {
     @ApiOperation(value = "新增/修改  慈善收支(文章)", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数")
     @RequestMapping(value = "insertOrUpdateProNewsCharityOut", method = RequestMethod.POST)
     public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOut(ProNewsCharityOut proNewsCharityOut,
-                                                                      @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                                                      @ApiParam("图片名称") String fileName,
-                                                                      @ApiParam("图片url") String filePath) {
+                                                                      @ApiParam("图片名称") @RequestParam(value = "fileName", required = false) String fileName,
+                                                                      @ApiParam("图片url") @RequestParam(value = "filePath", required = false) String filePath,
+                                                                      @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         if (proNewsCharityOut.getId() == null) {
             proNewsCharityOut.setCreateUser(userLogin.getId());
@@ -187,15 +211,27 @@ public class ProNewsCharityController {
      * @return
      */
     @ApiOperation(value = "慈善收支(文章)草稿", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数")
-    @RequestMapping(value = "insertOrUpdateProNewsCharityOutDeft", method = RequestMethod.POST)
-    public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOutDeft(ProNewsCharityOut proNewsCharityOut,
-                                                                          @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                                                          @ApiParam("图片名称") String fileName,
-                                                                          @ApiParam("图片url") String filePath) {
+    @RequestMapping(value = "insertOrUpdateProNewsCharityOutDrft", method = RequestMethod.POST)
+    public Response<NewsCharityOutVo> insertOrUpdateProNewsCharityOutDrft(ProNewsCharityOut proNewsCharityOut,
+                                                                          @ApiParam("图片名称") @RequestParam(value = "fileName", required = false) String fileName,
+                                                                          @ApiParam("图片url") @RequestParam(value = "filePath", required = false) String filePath,
+                                                                          @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        if (proNewsCharityOut.getId() == null) {
+            proNewsCharityOut.setCreateUser(userLogin.getId());
+        }
+
+        proNewsCharityOut.setUpdateUser(userLogin.getId());
 
         //状态   (1:已发布;2:草稿)
         proNewsCharityOut.setStatus(2);
@@ -225,6 +261,11 @@ public class ProNewsCharityController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         Boolean result = proNewsCharityOutService.deleteProNewsCharityOut(id, userLogin.getId());
 
         if (result) {
@@ -233,6 +274,8 @@ public class ProNewsCharityController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
+    Integer role02 = 2;
 
     /**
      * 新增线上提现
@@ -250,9 +293,28 @@ public class ProNewsCharityController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        if (!role02.equals(userLogin.getRole())) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "您没有权限");
+        }
+
+        ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(proIndexFundDrowing.getSiteId());
+
+        if (proIndexFund.getRemain().subtract(proIndexFund.getUnuseAmount()).compareTo(proIndexFundDrowing.getDrowAmount()) == -1) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "金额不足");
+        }
+
         proIndexFundDrowing.setCreateUser(userLogin.getId());
 
         Boolean result = proIndexFundDrowingService.insertProIndexFundDrowing(proIndexFundDrowing);
+
+        proIndexFund.setUnuseAmount(proIndexFundDrowing.getDrowAmount());
+
+        proIndexFundService.updateProIndexFund(proIndexFund);
 
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
@@ -280,14 +342,26 @@ public class ProNewsCharityController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
         }
 
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
 
         Page<IndexFundDrowingVo> indexFundDrowingVoPage = proIndexFundDrowingService.getIndexFundDrowingVoPage(siteId, pageNo, pageSize);
 
+        if (StringUtils.isEmpty(indexFundDrowingVoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(indexFundDrowingVoPage);
     }
+
+    Integer role05 = 5;
 
     /**
      * 新增线下捐款
@@ -305,6 +379,15 @@ public class ProNewsCharityController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        if (!role02.equals(userLogin.getRole()) || !role05.equals(userLogin.getRole())) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
+        }
+
         proNewsCharityPayIn.setType(2);
         proNewsCharityPayIn.setPayUsrId(userLogin.getId());
 

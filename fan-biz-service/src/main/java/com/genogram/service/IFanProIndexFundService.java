@@ -3,6 +3,11 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.ProIndexFund;
 
+/**
+ *
+ * @author keriezhang
+ * @date 2016/10/31
+ */
 public interface IFanProIndexFundService extends IService<ProIndexFund> {
 
     /**

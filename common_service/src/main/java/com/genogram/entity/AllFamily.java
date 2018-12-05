@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-12-03
  */
 @TableName("all_family")
 public class AllFamily extends Model<AllFamily> {
@@ -26,6 +26,10 @@ public class AllFamily extends Model<AllFamily> {
      * 姓氏
      */
     private String value;
+    /**
+     * 拼音
+     */
+    private String spell;
     /**
      * 手写字母大写
      */
@@ -52,6 +56,15 @@ public class AllFamily extends Model<AllFamily> {
 
     public AllFamily setValue(String value) {
         this.value = value;
+        return this;
+    }
+
+    public String getSpell() {
+        return spell;
+    }
+
+    public AllFamily setSpell(String spell) {
+        this.spell = spell;
         return this;
     }
 
@@ -83,6 +96,7 @@ public class AllFamily extends Model<AllFamily> {
         return "AllFamily{" +
         ", id=" + id +
         ", value=" + value +
+        ", spell=" + spell +
         ", firstLetter=" + firstLetter +
         ", sort=" + sort +
         "}";
