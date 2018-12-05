@@ -20,4 +20,11 @@ public interface IAllUserRegService extends IService<AllUserReg> {
      * @return
      */
     PersonVo getAllUserRegByUserId(Integer userId);
+
+    /**
+     * 新增用户
+     * @param allUserReg
+     * @return
+     */
+    Boolean insertAllUserReg(AllUserReg allUserReg);
 }

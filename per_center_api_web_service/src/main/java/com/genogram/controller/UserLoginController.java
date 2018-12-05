@@ -7,6 +7,7 @@ import com.genogram.entity.AllFamily;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entityvo.UserVo;
 import com.genogram.service.IAllUserLoginService;
+import com.genogram.service.IAllUserRegService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
@@ -38,7 +39,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("genogram/userLogin")
-public class FanUserLoginController {
+public class UserLoginController {
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
@@ -46,6 +47,8 @@ public class FanUserLoginController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IAllUserRegService allUserRegService;
     /**
      * 登陆
      * // @param allUserLogin

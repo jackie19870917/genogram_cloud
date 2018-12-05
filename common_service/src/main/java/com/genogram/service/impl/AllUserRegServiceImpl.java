@@ -9,9 +9,12 @@ import com.genogram.mapper.AllUserRegMapper;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IAllUserRegService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
 
 /**
  * <p>
@@ -45,5 +48,16 @@ public class AllUserRegServiceImpl extends ServiceImpl<AllUserRegMapper, AllUser
         personVo.setUrl(allUserLogin.getPicSrc());
 
         return personVo;
+    }
+
+    @Override
+    public Boolean insertAllUserReg(AllUserReg allUserReg) {
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+        allUserReg.setCreateTime(timeStamp);
+        allUserReg.setUpdateTime(timeStamp);
+        allUserReg.setStatus(1);
+
+        return this.insert(allUserReg);
     }
 }

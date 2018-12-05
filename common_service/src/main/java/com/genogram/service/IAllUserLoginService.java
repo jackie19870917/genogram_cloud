@@ -34,7 +34,7 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
      * @param allUserLogin
      * @return
      */
-    Boolean insertAllUserLogin(AllUserLogin allUserLogin);
+    AllUserLogin insertAllUserLogin(AllUserLogin allUserLogin);
 
     /**
      * 查询

@@ -53,7 +53,7 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
     }
 
     @Override
-    public Boolean insertAllUserLogin(AllUserLogin allUserLogin) {
+    public AllUserLogin insertAllUserLogin(AllUserLogin allUserLogin) {
 
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<AllUserLogin>();
 
@@ -61,7 +61,7 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
         AllUserLogin login = this.selectOne(wrapper);
 
         if (!StringUtils.isEmpty(login)) {
-            return false;
+            return null;
         }
 
         String userId = "user" + DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
@@ -76,7 +76,9 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
         allUserLogin.setCreateTime(DateUtil.getCurrentTimeStamp());
         allUserLogin.setUpdateTime(DateUtil.getCurrentTimeStamp());
 
-        return this.insert(allUserLogin);
+        this.insert(allUserLogin);
+
+        return allUserLogin;
     }
 
     @Override
