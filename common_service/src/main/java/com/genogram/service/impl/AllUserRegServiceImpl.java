@@ -2,10 +2,15 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.AllUserReg;
+import com.genogram.entityvo.PersonVo;
 import com.genogram.mapper.AllUserRegMapper;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IAllUserRegService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,32 +18,32 @@ import org.springframework.stereotype.Service;
  * 用户注册表 服务实现类
  * </p>
  *
- * @author yizx
+ * @author wangwei
  * @since 2018-12-05
  */
 @Service
 public class AllUserRegServiceImpl extends ServiceImpl<AllUserRegMapper, AllUserReg> implements IAllUserRegService {
 
-    @Override
-    public AllUserReg getAllUserRegById(Integer id) {
-        Wrapper<AllUserReg> wrapper = new EntityWrapper<AllUserReg>();
-        wrapper.eq("all_user_login_id", id);
-        AllUserReg allUserReg=this.selectOne(wrapper);
-        return allUserReg;
-    }
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
 
     @Override
-    public AllUserReg getAllUserReg(AllUserReg allUserReg) {
-        return null;
-    }
+    public PersonVo getAllUserRegByUserId(Integer userId) {
 
-    @Override
-    public Boolean updateUserReg(AllUserReg allUserReg) {
-        return null;
-    }
+        Wrapper<AllUserReg> wrapper = new EntityWrapper<>();
+        wrapper.eq("all_user_login_id", userId);
 
-    @Override
-    public Boolean insertAllUserReg(AllUserReg allUserReg) {
-        return null;
+        AllUserReg allUserReg = this.selectOne(wrapper);
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userId);
+
+        PersonVo personVo = new PersonVo();
+
+        BeanUtils.copyProperties(allUserReg,personVo);
+
+        personVo.setNickName(allUserLogin.getNickName());
+        personVo.setUrl(allUserLogin.getPicSrc());
+
+        return personVo;
     }
 }

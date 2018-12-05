@@ -48,6 +48,9 @@ public class PersonController {
     @Autowired
     private IFanProIndexInfoService proIndexInfoService;
 
+    @Autowired
+    private IAllFamilyService allFamilyService;
+
     String fan = "fan";
     String pro = "pro";
     Integer role01 = 1;
@@ -68,7 +71,7 @@ public class PersonController {
 
         AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
 
-        if (!userLogin.getRole() .equals(role09)) {
+        if (!userLogin.getRole().equals(role09)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
         }
 
@@ -131,6 +134,7 @@ public class PersonController {
         }
 
         List list = new ArrayList();
+
         // 角色(0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
 
@@ -300,7 +304,7 @@ public class PersonController {
 
         AllUserLogin login = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        if (!login.getRole() .equals(role09)) {
+        if (!login.getRole().equals(role09)) {
             return ResponseUtlis.error(204, "您没有权限");
         }
 
@@ -328,13 +332,14 @@ public class PersonController {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
+
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         Integer id = userLogin.getId();
 
         AllUserLogin login = allUserLoginService.getAllUserLoginById(id);
 
-        if (!login.getRole() .equals(role09)) {
+        if (!login.getRole().equals(role09)) {
             return ResponseUtlis.error(204, "您没有权限");
         }
 
@@ -347,5 +352,37 @@ public class PersonController {
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
+    }
+
+    @ApiOperation(value = "姓氏查询", notes = "value-姓氏,spell-拼音,first_letter-首字母")
+    @RequestMapping(value = "familyList",method = RequestMethod.POST)
+    public Response<AllFamily> getFamilyList(@ApiParam("首字母") @RequestParam(value = "firstLetter", required = false) String firstLetter) {
+
+        List<AllFamily> familyList = allFamilyService.getAllFamilyByFirstLetter(firstLetter);
+
+        if (StringUtils.isEmpty(familyList)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+
+        return ResponseUtlis.success(familyList);
+    }
+
+    @ApiOperation(value = "姓氏修改", notes = "value-姓氏,spell-拼音,first_letter-首字母")
+    @RequestMapping(value = "updateAllFamily", method = RequestMethod.POST)
+    public Response<AllFamily> updateAllFamily(@ApiParam("token") @RequestParam(value = "token", required = false) String token,AllFamily allFamily) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token错误");
+        }
+
+        AllFamily family = allFamilyService.updateAllFamily(allFamily);
+
+        return ResponseUtlis.success(family);
     }
 }

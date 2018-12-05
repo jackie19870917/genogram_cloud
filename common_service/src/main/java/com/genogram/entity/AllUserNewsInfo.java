@@ -8,11 +8,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * 个人日志
  * </p>
  *
- * @author yizx
- * @since 2018-12-04
+ * @author wangwei
+ * @since 2018-12-05
  */
 @TableName("all_user_news_info")
 public class AllUserNewsInfo extends Model<AllUserNewsInfo> {

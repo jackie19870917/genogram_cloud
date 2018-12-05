@@ -61,7 +61,7 @@ public class ProIndexSlidePicServiceImpl extends ServiceImpl<ProIndexSlidePicMap
     }
 
     @Override
-    public Boolean deleteProIndexSlidePic(Integer id,Integer userId) {
+    public Boolean deleteProIndexSlidePic(Integer id, Integer userId) {
 
         ProIndexSlidePic proIndexSlidePic = this.selectById(id);
 
@@ -74,7 +74,7 @@ public class ProIndexSlidePicServiceImpl extends ServiceImpl<ProIndexSlidePicMap
         List<ProIndexSlidePic> proIndexSlidePicList = this.getProIndexSlidePic(proIndexSlidePic.getSiteId(), list);
 
         for (ProIndexSlidePic slidePic : proIndexSlidePicList) {
-            if (proIndexSlidePic.getSort()<slidePic.getSort()) {
+            if (proIndexSlidePic.getSort() < slidePic.getSort()) {
                 slidePic.setSort(slidePic.getSort() - 1);
                 this.updateById(slidePic);
             }

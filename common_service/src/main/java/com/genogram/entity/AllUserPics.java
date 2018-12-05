@@ -10,11 +10,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * 个人照片
  * </p>
  *
- * @author yizx
- * @since 2018-12-04
+ * @author wangwei
+ * @since 2018-12-05
  */
 @TableName("all_user_pics")
 public class AllUserPics extends Model<AllUserPics> {
@@ -47,6 +47,16 @@ public class AllUserPics extends Model<AllUserPics> {
      */
     @TableField("create_user")
     private Integer createUser;
+    /**
+     * 修改时间
+     */
+    @TableField("update_time")
+    private Date updateTime;
+    /**
+     * 修改人
+     */
+    @TableField("update_user")
+    private Integer updateUser;
 
 
     public Integer getId() {
@@ -103,6 +113,24 @@ public class AllUserPics extends Model<AllUserPics> {
         return this;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public AllUserPics setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+        return this;
+    }
+
+    public Integer getUpdateUser() {
+        return updateUser;
+    }
+
+    public AllUserPics setUpdateUser(Integer updateUser) {
+        this.updateUser = updateUser;
+        return this;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -117,6 +145,8 @@ public class AllUserPics extends Model<AllUserPics> {
         ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
         "}";
     }
 }

@@ -13,7 +13,7 @@ import java.io.Serializable;
  * 用户注册表
  * </p>
  *
- * @author yizx
+ * @author wangwei
  * @since 2018-12-05
  */
 @TableName("all_user_reg")

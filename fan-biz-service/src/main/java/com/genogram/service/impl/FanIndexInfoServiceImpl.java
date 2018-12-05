@@ -56,9 +56,6 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     @Override
     public Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo) {
 
-       /* Wrapper<FanIndexInfo> wrapper = new EntityWrapper<FanIndexInfo>();
-        wrapper.eq("site_id", indexInfoVo.getSiteId());*/
-
         FanIndexInfo fanIndexInfo = this.selectById(indexInfoVo.getId());
 
         Timestamp format = DateUtil.getCurrentTimeStamp();

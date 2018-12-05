@@ -41,6 +41,11 @@
             </foreach>
         </if>
         group by pay_usr_id
-        order by pay_amount desc
+        <if test="label==asc">
+            order by pay_amount
+        </if>
+        <if test="label==desc">
+            order by pay_amount desc
+        </if>
     </select>
 </mapper>

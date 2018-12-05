@@ -61,4 +61,11 @@ public interface IProNewsCharityOutService extends IService<ProNewsCharityOut> {
      * @return
      */
     Boolean deleteProNewsCharityOut(Integer id,Integer userId);
+
+    /**
+     * 查看慈善收支详情 增加查看数
+     * @param id
+     * @return
+     */
+    Boolean insertVisitNum(Integer id);
 }

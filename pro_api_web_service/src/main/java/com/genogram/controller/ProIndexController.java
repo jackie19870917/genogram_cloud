@@ -11,6 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -46,6 +47,10 @@ public class ProIndexController {
 
         IndexInfoVo indexInfoVo = proIndexInfoService.getFanIndexInfoVo(siteId);
 
+        if (StringUtils.isEmpty(indexInfoVo)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(indexInfoVo);
     }
 
@@ -62,6 +67,10 @@ public class ProIndexController {
         list.add(1);
 
         List<ProIndexSlidePic> proIndexSlidePic = proIndexSlidePicService.getProIndexSlidePic(siteId, list);
+
+        if (StringUtils.isEmpty(proIndexSlidePic)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(proIndexSlidePic);
     }

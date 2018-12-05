@@ -20,5 +20,10 @@ public interface IProIndexFundService extends IService<ProIndexFund> {
      */
     ProIndexFund getProIndexFund(Integer siteId);
 
-
+    /**
+     * 修改 基金金额
+     * @param proIndexFund
+     * @return
+     */
+    Boolean updateProIndexFund(ProIndexFund proIndexFund);
 }

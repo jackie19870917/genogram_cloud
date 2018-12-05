@@ -60,8 +60,9 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
         Wrapper<AllUserLogin> entity = new EntityWrapper<AllUserLogin>();
         entity.in("id", list);
 
-        if (!StringUtils.isEmpty(map.get("nick_name"))) {
-            entity.like("nick_name", (String) map.get("nick_name"));
+        String nickName = "nick_name";
+        if (!StringUtils.isEmpty(map.get(nickName))) {
+            entity.like("nick_name", (String) map.get(nickName));
         }
 
         List<AllUserLogin> allUserLoginList = allUserLoginService.selectList(entity);

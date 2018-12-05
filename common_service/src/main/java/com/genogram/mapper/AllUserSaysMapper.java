@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 个人说说 Mapper 接口
  * </p>
  *
- * @author yizx
- * @since 2018-12-04
+ * @author wangwei
+ * @since 2018-12-05
  */
 public interface AllUserSaysMapper extends BaseMapper<AllUserSays> {
 

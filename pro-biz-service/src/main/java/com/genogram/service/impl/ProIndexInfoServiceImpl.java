@@ -36,6 +36,7 @@ public class ProIndexInfoServiceImpl extends ServiceImpl<ProIndexInfoMapper, Pro
 
         Wrapper<ProIndexInfo> wrapper = new EntityWrapper<>();
         wrapper.eq("site_id", siteId);
+
         return this.selectOne(wrapper);
     }
 

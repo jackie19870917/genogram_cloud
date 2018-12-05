@@ -53,6 +53,7 @@ public class FanProIndexFundServiceImpl extends ServiceImpl<ProIndexFundMapper, 
             proIndexFund.setPayOnline(new BigDecimal("0"));
             proIndexFund.setPayUnderline(new BigDecimal("0"));
             proIndexFund.setPayGenogram(new BigDecimal("0"));
+
             return this.insert(proIndexFund);
         } else {
             return null;

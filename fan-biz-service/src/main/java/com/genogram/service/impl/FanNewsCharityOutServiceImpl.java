@@ -52,7 +52,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         entity.eq("news_type", newsType);
         entity.in("status", status);
         entity.orderBy("create_time", false);
-        Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
+        Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<>(pageNo, pageSize), entity);
         return fanNewsCharityOutPage;
     }
 
@@ -62,7 +62,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         List<NewsCharityOutVo> newsCharityOutVoList = new ArrayList<>();
 
         //得到文件当前页list集合
-        Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<FanNewsCharityOut>(pageNo, pageSize), entity);
+        Page<FanNewsCharityOut> fanNewsCharityOutPage = this.selectPage(new Page<>(pageNo, pageSize), entity);
 
         List<FanNewsCharityOut> fanNewsCharityOutList = fanNewsCharityOutPage.getRecords();
 

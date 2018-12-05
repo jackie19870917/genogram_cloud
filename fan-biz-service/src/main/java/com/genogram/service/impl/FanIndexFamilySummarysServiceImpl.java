@@ -29,12 +29,12 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
     @Override
     public Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId, List list, Integer pageNo, Integer pageSize) {
 
-        Wrapper<FanIndexFamilySummarys> entity = new EntityWrapper<FanIndexFamilySummarys>();
+        Wrapper<FanIndexFamilySummarys> entity = new EntityWrapper<>();
         entity.eq("site_id", siteId);
         entity.in("status", list);
         entity.orderBy("update_time", false);
 
-        return this.selectPage(new Page<FanIndexFamilySummarys>(pageNo, pageSize), entity);
+        return this.selectPage(new Page<>(pageNo, pageSize), entity);
 
     }
 

@@ -172,6 +172,10 @@ public class FanUserLoginController {
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         return ResponseUtlis.success(allUserLogin);
@@ -191,7 +195,12 @@ public class FanUserLoginController {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
+
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         allUserLogin.setId(userLogin.getId());
 

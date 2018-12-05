@@ -204,4 +204,14 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
         return this.updateById(proNewsCharityOut);
     }
 
+    @Override
+    public Boolean insertVisitNum(Integer id) {
+
+        ProNewsCharityOut proNewsCharityOut = this.selectById(id);
+        proNewsCharityOut.setId(id);
+        proNewsCharityOut.setVisitNum(proNewsCharityOut.getVisitNum() + 1);
+
+        return this.updateById(proNewsCharityOut);
+    }
+
 }

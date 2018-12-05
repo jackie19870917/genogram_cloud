@@ -4,17 +4,22 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
-import com.genogram.entity.*;
+import com.genogram.entity.ProIndexFund;
+import com.genogram.entity.ProNewsCharityOut;
+import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
-import com.genogram.service.*;
+import com.genogram.service.IProIndexFundService;
+import com.genogram.service.IProNewsCharityOutService;
+import com.genogram.service.IProNewsCharityPayInService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -67,23 +72,32 @@ public class ProNewsCharityController {
 
         ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(siteId);
 
+        if (StringUtils.isEmpty(proIndexFund)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(proIndexFund);
     }
 
-
     /**
-     * 捐款名录         (个人总金额)
+     * 捐款名录
      *
      * @param showId   捐款名录显示位置
+     * @param nickName 别名
+     * @param order    排序
+     * @param label    升序,降序
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
      */
-    @ApiOperation(value = "捐款名录查询(最多)", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
-    @RequestMapping(value = "index/getDonorBySum", method = RequestMethod.GET)
-    public Response<DonorVo> getDonorVoPageBySum(@ApiParam(value = "显示位置") @RequestParam Integer showId,
-                                                 @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                 @ApiParam(value = "每页条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+    @ApiOperation(value = "捐款名录查询", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
+    @RequestMapping(value = "index/getPayUser", method = RequestMethod.GET)
+    public Response<DonorVo> getPayUser(@ApiParam(value = "显示位置") @RequestParam Integer showId,
+                                        @ApiParam(value = "捐款人") @RequestParam(value = "nickName", required = false) String nickName,
+                                        @ApiParam(value = "排序(time-时间,money-金额,null-缺省)") @RequestParam(value = "order", required = false) String order,
+                                        @ApiParam(value = "升序-asc,降序-desc") @RequestParam(value = "label", required = false) String label,
+                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                        @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         if (showId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -92,52 +106,42 @@ public class ProNewsCharityController {
         List list = new ArrayList();
         list.add(status);
 
-        Map map = new HashMap(16);
-        map.put("showId", showId);
-        map.put("status", list);
+        Page<DonorVo> donorVoPage;
+        String money = "money";
+        if (money.equals(order)) {
+            Map map = new HashMap(16);
+            map.put("showId", showId);
+            map.put("status", list);
 
-        Page page = new Page();
-        page.setCurrent(pageNo);
-        page.setSize(pageSize);
-        Page<ProNewsCharityPayIn> mapPage = new Page<>(page.getCurrent(), page.getSize());
-        Page<DonorVo> donorVoPage = proNewsCharityPayInService.getDonorVoPage(mapPage, map);
+            if (!StringUtils.isEmpty(nickName)) {
+                map.put("nick_name", nickName);
+            }
+
+            map.put("label", label);
+
+            Page page = new Page();
+            page.setCurrent(pageNo);
+            page.setSize(pageSize);
+            Page<ProNewsCharityPayIn> mapPage = new Page<>(page.getCurrent(), page.getSize());
+
+            donorVoPage = proNewsCharityPayInService.getDonorVoPage(mapPage, map);
+        } else {
+            donorVoPage = proNewsCharityPayInService.getDonorVoPageByTime(showId, list, nickName, pageNo, pageSize, order, label);
+        }
+
+        if (StringUtils.isEmpty(donorVoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
 
         return ResponseUtlis.success(donorVoPage);
 
     }
 
     /**
-     * 捐款名录          (最新捐款记录)
-     *
-     * @param showId   捐款名录显示位置
-     * @param pageNo   当前页
-     * @param pageSize 每页记录数
-     * @return
-     */
-    @ApiOperation(value = "捐款名录查询(最新)", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
-    @RequestMapping(value = "index/getDonorVoByCreateTime", method = RequestMethod.GET)
-    public Response<DonorVo> getDonorVoPageByCreateTime(@ApiParam(value = "显示位置") @RequestParam Integer showId,
-                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                        @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
-
-        if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
-        }
-
-        List list = new ArrayList();
-        list.add(status);
-
-        Page<DonorVo> donorVoPageByTime = proNewsCharityPayInService.getDonorVoPageByTime(showId, list, pageNo, pageSize);
-
-        return ResponseUtlis.success(donorVoPageByTime);
-    }
-
-
-    /**
      * 慈善收支
      *
      * @param showId   慈善收支显示位置
-     // @param newsType 种类(1.财政支出;2.财政收入)
+     *                 // @param newsType 种类(1.财政支出;2.财政收入)
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
@@ -162,6 +166,10 @@ public class ProNewsCharityController {
 
         Page<NewsCharityOutVo> newsCharityOutVoPage = proNewsCharityOutService.getNewsCharityOutVoPage(entity, pageNo, pageSize);
 
+        if (StringUtils.isEmpty(newsCharityOutVoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         return ResponseUtlis.success(newsCharityOutVoPage);
     }
 
@@ -176,26 +184,9 @@ public class ProNewsCharityController {
     public Response<NewsDetailVo> getNewsDetail(@ApiParam(value = "主键") @RequestParam Integer id) {
 
         NewsDetailVo newsCharityOutDetail = proNewsCharityOutService.getNewsCharityOutDetail(id);
+        proNewsCharityOutService.insertVisitNum(id);
 
         return ResponseUtlis.success(newsCharityOutDetail);
-    }
-
-    /**
-     * 新增捐款记录
-     *
-     * @param proNewsCharityPayIn
-     * @return
-     */
-    @RequestMapping(value = "insertProNewsCharityPayIn", method = RequestMethod.POST)
-    public Response<ProNewsCharityPayIn> insertProNewsCharityPayIn(ProNewsCharityPayIn proNewsCharityPayIn) {
-
-        Boolean result = proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
-
-        if (result) {
-            return ResponseUtlis.success(200);
-        } else {
-            return ResponseUtlis.success(400);
-        }
     }
 
 }

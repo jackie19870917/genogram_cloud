@@ -9,11 +9,17 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 
+/**
+ *
+ * @author keriezhang
+ * @date 2016/10/31
+ */
 @Service
 public class FanProIndexSlidePicServiceImpl extends ServiceImpl<ProIndexSlidePicMapper, ProIndexSlidePic> implements IFanProIndexSlidePicService {
 
     @Override
     public Boolean insertProIndexSlidePic(ProIndexSlidePic proIndexSlidePic) {
+
         Timestamp timestamp = DateUtil.getCurrentTimeStamp();
 
         proIndexSlidePic.setCreateTime(timestamp);

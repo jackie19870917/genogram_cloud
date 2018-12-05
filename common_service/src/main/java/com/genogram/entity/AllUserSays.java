@@ -8,11 +8,11 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 
+ * 个人说说
  * </p>
  *
- * @author yizx
- * @since 2018-12-04
+ * @author wangwei
+ * @since 2018-12-05
  */
 @TableName("all_user_says")
 public class AllUserSays extends Model<AllUserSays> {
@@ -43,6 +43,16 @@ public class AllUserSays extends Model<AllUserSays> {
      */
     @TableField("create_user")
     private Integer createUser;
+    /**
+     * 修改时间
+     */
+    @TableField("update_time")
+    private Date updateTime;
+    /**
+     * 修改人
+     */
+    @TableField("update_user")
+    private Integer updateUser;
 
 
     public Integer getId() {
@@ -99,6 +109,24 @@ public class AllUserSays extends Model<AllUserSays> {
         return this;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public AllUserSays setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+        return this;
+    }
+
+    public Integer getUpdateUser() {
+        return updateUser;
+    }
+
+    public AllUserSays setUpdateUser(Integer updateUser) {
+        this.updateUser = updateUser;
+        return this;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -113,6 +141,8 @@ public class AllUserSays extends Model<AllUserSays> {
         ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
         "}";
     }
 }
