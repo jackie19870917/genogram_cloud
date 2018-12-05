@@ -10,11 +10,13 @@
         <result column="status" property="status" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, usr_id AS usrId, pic_url AS picUrl, status, create_time AS createTime, create_user AS createUser
+        id, usr_id AS usrId, pic_url AS picUrl, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

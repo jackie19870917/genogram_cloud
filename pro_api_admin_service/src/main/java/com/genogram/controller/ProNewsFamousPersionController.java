@@ -10,6 +10,8 @@ import com.genogram.entityvo.ProFamilyPersonVo;
 import com.genogram.service.IProNewsFamilyPersionService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import java.util.List;
 /**
  * 家族名人
  */
+@Api(description = "家族名人(后台)")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/ProNewsFamous")
@@ -35,6 +38,7 @@ public class ProNewsFamousPersionController {
      *@return:
      *@Description:
      */
+    @ApiOperation("查询家族名人")
     @RequestMapping(value ="/getFamilyPersionPage",method = RequestMethod.GET)
     public Response<ProFamilyPersonVo> getFamilyPersionPage(
             @RequestParam(value = "showId") Integer showId,
@@ -77,6 +81,7 @@ public class ProNewsFamousPersionController {
      *@return:
      *@Description:
      */
+    @ApiOperation("查询家族名人详情")
     @RequestMapping(value ="/getFamilyPersionDetail",method = RequestMethod.GET)
     public Response<ProFamilyPersonVo> getFamilyPersionDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -129,6 +134,7 @@ public class ProNewsFamousPersionController {
      *@return:
      *@Description:
      */
+    @ApiOperation("新增/修改家族名人")
     @RequestMapping(value = "/addOrUpdatePersion", method = RequestMethod.POST)
     public Response<ProNewsFamousPerson> addOrUpdateIndustry(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -145,6 +151,7 @@ public class ProNewsFamousPersionController {
      *@return:
      *@Description:
      */
+    @ApiOperation("新增/修改家族名人(草稿)")
     @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
     public Response<ProNewsFamousPerson> addOrUpdateIndustryDrft(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -181,6 +188,7 @@ public class ProNewsFamousPersionController {
      *@return:
      *@Description:
      */
+    @ApiOperation("家族名人删除")
     @RequestMapping(value ="/deletePersionById",method = RequestMethod.GET)
     public Response<ProNewsFamousPerson> deletePersionById(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置

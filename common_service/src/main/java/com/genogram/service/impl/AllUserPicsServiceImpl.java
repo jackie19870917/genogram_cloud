@@ -7,6 +7,7 @@ import com.genogram.entity.AllUserPics;
 import com.genogram.mapper.AllUserPicsMapper;
 import com.genogram.service.IAllUserPicsService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,5 +32,30 @@ public class AllUserPicsServiceImpl extends ServiceImpl<AllUserPicsMapper, AllUs
         wrapper.orderBy("update_time", false);
 
         return this.selectPage(new Page<>(pageNo,pageSize),wrapper);
+    }
+
+    @Override
+    public AllUserPics insertOrUpdateAllUserPics(AllUserPics allUserPics) {
+
+        this.insertOrUpdate(allUserPics);
+
+        return allUserPics;
+    }
+
+    @Override
+    public Boolean deleteAllUserPics(Integer id, Integer userId) {
+
+        AllUserPics allUserPics = new AllUserPics();
+        allUserPics.setId(id);
+        allUserPics.setStatus(0);
+        allUserPics.setUpdateTime(DateUtil.getCurrentTimeStamp());
+
+        return this.updateById(allUserPics);
+    }
+
+    @Override
+    public AllUserPics getAllUserPicsById(Integer id) {
+
+        return this.selectById(id);
     }
 }

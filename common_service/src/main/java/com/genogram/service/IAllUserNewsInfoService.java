@@ -25,4 +25,11 @@ public interface IAllUserNewsInfoService extends IService<AllUserNewsInfo> {
      * @return
      */
     Page<AllUserNewsInfo> getAllUserNewsInfoPage(Integer userId, List list,Integer pageNo,Integer pageSize);
+
+    /**
+     * 新增日志
+     * @param allUserNewsInfo
+     * @return
+     */
+    AllUserNewsInfo insertAllUserNewsInfo(AllUserNewsInfo allUserNewsInfo);
 }
