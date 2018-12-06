@@ -42,7 +42,7 @@ public class AllUserRegServiceImpl extends ServiceImpl<AllUserRegMapper, AllUser
 
         PersonVo personVo = new PersonVo();
 
-        BeanUtils.copyProperties(allUserReg,personVo);
+        BeanUtils.copyProperties(allUserReg, personVo);
 
         personVo.setNickName(allUserLogin.getNickName());
         personVo.setUrl(allUserLogin.getPicSrc());
@@ -60,5 +60,22 @@ public class AllUserRegServiceImpl extends ServiceImpl<AllUserRegMapper, AllUser
         allUserReg.setUpdateUser(allUserReg.getCreateUser());
 
         return this.insert(allUserReg);
+    }
+
+    @Override
+    public Boolean updateAllUserReg(PersonVo personVo) {
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
+        AllUserReg allUserReg = new AllUserReg();
+        BeanUtils.copyProperties(personVo, allUserReg);
+
+        System.out.println(allUserReg);
+        AllUserLogin allUserLogin = new AllUserLogin();
+        BeanUtils.copyProperties(personVo, allUserLogin);
+        allUserLogin.setId(allUserReg.getAllUserLoginId());
+        System.out.println(allUserLogin);
+
+        return this.updateById(allUserReg) && allUserLoginService.updateById(allUserLogin);
     }
 }

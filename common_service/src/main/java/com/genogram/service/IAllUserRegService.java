@@ -27,4 +27,11 @@ public interface IAllUserRegService extends IService<AllUserReg> {
      * @return
      */
     Boolean insertAllUserReg(AllUserReg allUserReg);
+
+    /**
+     * 修改 用户
+     * @param personVo
+     * @return
+     */
+    Boolean updateAllUserReg(PersonVo personVo);
 }

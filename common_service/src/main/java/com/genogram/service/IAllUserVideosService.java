@@ -31,14 +31,7 @@ public interface IAllUserVideosService extends IService<AllUserVideos> {
      * @param allUserVideos
      * @return
      */
-    AllUserVideos insertAllUserVideos(AllUserVideos allUserVideos);
-
-    /**
-     * 修改 视频
-     * @param allUserVideos
-     * @return
-     */
-    AllUserVideos updateAllUserVideos(AllUserVideos allUserVideos);
+    AllUserVideos insertOrUpdateAllUserVideos(AllUserVideos allUserVideos);
 
     /**
      * 删除视频
