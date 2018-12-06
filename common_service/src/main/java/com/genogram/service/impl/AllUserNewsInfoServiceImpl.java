@@ -36,26 +36,9 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
     }
 
     @Override
-    public AllUserNewsInfo insertAllUserNewsInfo(AllUserNewsInfo allUserNewsInfo) {
+    public AllUserNewsInfo insertOrUpdateAllUserNewsInfo(AllUserNewsInfo allUserNewsInfo) {
 
-        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-
-        allUserNewsInfo.setCreateTime(timeStamp);
-        allUserNewsInfo.setUpdateTime(timeStamp);
-
-        this.insert(allUserNewsInfo);
-
-        return allUserNewsInfo;
-    }
-
-    @Override
-    public AllUserNewsInfo updateAllUserNewsInfo(AllUserNewsInfo allUserNewsInfo) {
-
-        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-
-        allUserNewsInfo.setUpdateTime(timeStamp);
-
-        this.updateById(allUserNewsInfo);
+        this.insertOrUpdate(allUserNewsInfo);
 
         return allUserNewsInfo;
     }

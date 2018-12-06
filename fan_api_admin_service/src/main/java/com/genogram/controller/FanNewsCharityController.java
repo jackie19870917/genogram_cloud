@@ -174,8 +174,8 @@ public class FanNewsCharityController {
     @ApiOperation(value = "新增/修改  慈善收支(文章)", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数")
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOut", method = RequestMethod.POST)
     public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOut(FanNewsCharityOut fanNewsCharityOut,
-                                                                      @ApiParam("图片名称")@RequestParam(value = "fileName",required = false) String fileName,
-                                                                      @ApiParam("图片url") @RequestParam(value = "filePath",required = false)String filePath,
+                                                                      @ApiParam("图片名称") @RequestParam(value = "fileName", required = false) String fileName,
+                                                                      @ApiParam("图片url") @RequestParam(value = "filePath", required = false) String filePath,
                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -216,8 +216,8 @@ public class FanNewsCharityController {
     @ApiOperation(value = "慈善收支(文章)草稿", notes = "id:主键,showId:显示位置,amount:支出金额,useFor:支出用途,newsTitle:标题,newsText:内容,visitNum:查看数")
     @RequestMapping(value = "insertOrUpdateFanNewsCharityOutDrft", method = RequestMethod.POST)
     public Response<NewsCharityOutVo> insertOrUpdateFanNewsCharityOutDrft(FanNewsCharityOut fanNewsCharityOut,
-                                                                          @ApiParam("图片名称")@RequestParam(value = "fileName",required = false) String fileName,
-                                                                          @ApiParam("图片url") @RequestParam(value = "filePath",required = false)String filePath,
+                                                                          @ApiParam("图片名称") @RequestParam(value = "fileName", required = false) String fileName,
+                                                                          @ApiParam("图片url") @RequestParam(value = "filePath", required = false) String filePath,
                                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -304,7 +304,7 @@ public class FanNewsCharityController {
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(fanIndexFundDrowing.getSiteId());
 
-        if (fanIndexFund.getRemain().subtract(fanIndexFund.getUnuseAmount()).compareTo(fanIndexFundDrowing.getDrowAmount())==-1) {
+        if (fanIndexFund.getRemain().subtract(fanIndexFund.getUnuseAmount()).compareTo(fanIndexFundDrowing.getDrowAmount()) == -1) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "金额不足");
         }
 
@@ -346,6 +346,10 @@ public class FanNewsCharityController {
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        if (userLogin.getId() == 0) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "您没有权限");
         }
 
         if (siteId == null) {

@@ -36,26 +36,9 @@ public class AllUserVideosServiceImpl extends ServiceImpl<AllUserVideosMapper, A
     }
 
     @Override
-    public AllUserVideos insertAllUserVideos(AllUserVideos allUserVideos) {
+    public AllUserVideos insertOrUpdateAllUserVideos(AllUserVideos allUserVideos) {
 
-        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-
-        allUserVideos.setCreateTime(timeStamp);
-        allUserVideos.setUpdateTime(timeStamp);
-
-        this.insert(allUserVideos);
-
-        return allUserVideos;
-    }
-
-    @Override
-    public AllUserVideos updateAllUserVideos(AllUserVideos allUserVideos) {
-
-        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-
-        allUserVideos.setUpdateTime(timeStamp);
-
-        this.updateById(allUserVideos);
+        this.insertOrUpdate(allUserVideos);
 
         return allUserVideos;
     }

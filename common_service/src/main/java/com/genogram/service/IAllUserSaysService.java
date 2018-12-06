@@ -27,11 +27,11 @@ public interface IAllUserSaysService extends IService<AllUserSays> {
     Page<AllUserSays> getAllUserSaysPage(Integer userId, List list, Integer pageNo, Integer pageSize);
 
     /**
-     * 新增/修改   说说
+     * 新增   说说
      * @param allUserSays
      * @return
      */
-    AllUserSays insertOrUpdateAllUserSays(AllUserSays allUserSays);
+    AllUserSays insertAllUserSays(AllUserSays allUserSays);
 
     /**
      * 删除 说说

@@ -109,7 +109,7 @@ public class UserLoginController {
 
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
 
-        if (StringUtils.isEmpty(userLogin)) {
+        if (!StringUtils.isEmpty(userLogin)) {
 
             UserVo userVo = getUserVo(userLogin);
 

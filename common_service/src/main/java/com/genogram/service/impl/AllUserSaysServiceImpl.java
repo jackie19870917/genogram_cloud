@@ -35,9 +35,9 @@ public class AllUserSaysServiceImpl extends ServiceImpl<AllUserSaysMapper, AllUs
     }
 
     @Override
-    public AllUserSays insertOrUpdateAllUserSays(AllUserSays allUserSays) {
+    public AllUserSays insertAllUserSays(AllUserSays allUserSays) {
 
-        this.insertOrUpdate(allUserSays);
+        this.insert(allUserSays);
 
         return allUserSays;
     }
