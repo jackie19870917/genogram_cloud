@@ -50,6 +50,9 @@ public class UserController {
     @Autowired
     private IAllUserVideosService allUserVideosService;
 
+    @Autowired
+    private IAllUserPayInService allUserPayInService;
+
     @ApiOperation(value = "个人资料", notes = "nickName-昵称,englishName-英文名,nation-国籍,birthplace-出生地,job-职业,lidai-历代,jinshi-近世,laopai-老派,xinpai-新派,tongpai-统派,presentAddress-现居,oldAddress-故居,alias-现居别称,summary-简介,fans-粉丝,honesty-诚信值,url-头像")
     @RequestMapping(value = "getAllUserReg", method = RequestMethod.POST)
     public Response<PersonVo> getAllUserReg(@ApiParam("token") @RequestParam(value = "token", required = false) String token) {
@@ -98,7 +101,33 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "个人日志")
+    @ApiOperation("捐款记录")
+    @RequestMapping(value = "getPayInList", method = RequestMethod.POST)
+    public Response<FanNewsCharityPayIn> getPayInList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                                                      @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                      @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        Page page = allUserPayInService.getPayInPageByUserId(userLogin.getId(), pageNo, pageSize);
+
+
+        if (StringUtils.isEmpty(page)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        return ResponseUtlis.success(page);
+    }
+
+    @ApiOperation("个人日志")
     @RequestMapping(value = "getAllUserNewsInfoList", method = RequestMethod.POST)
     public Response<AllUserNewsInfo> getAllUserNewsInfoList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,

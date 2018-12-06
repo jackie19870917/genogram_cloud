@@ -37,8 +37,8 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value ="/getFamilyPersionPage",method = RequestMethod.GET)
-    public Response<FamilyPersonVo> getFamilyPersionPage(
+    @RequestMapping(value ="/getFamilyPersonPage",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getFamilyPersonPage(
             @RequestParam(value = "showId") Integer showId,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
@@ -79,8 +79,8 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value ="/getFamilyPersionDetail",method = RequestMethod.GET)
-    public Response<FamilyPersonVo> getFamilyPersionDetail(
+    @RequestMapping(value ="/getFamilyPersonDetail",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getFamilyPersonDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         return getNewsDetailVoResponse(id);
@@ -95,8 +95,8 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value ="/getFamilyPersionAmend",method = RequestMethod.GET)
-    public Response<FamilyPersonVo> getFamilyPersionAmend(
+    @RequestMapping(value ="/getFamilyPersonAmend",method = RequestMethod.GET)
+    public Response<FamilyPersonVo> getFamilyPersonAmend(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
     ) {
         return getNewsDetailVoResponse(id);
@@ -130,11 +130,11 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value = "/addOrUpdatePersion", method = RequestMethod.POST)
-    public Response<FanNewsFamousPerson> addOrUpdateIndustry(FanNewsFamousPerson fanNewsFamousPerson,String fileName, String filePath) {
+    @RequestMapping(value = "/addOrUpdatePerson", method = RequestMethod.POST)
+    public Response<FanNewsFamousPerson> addOrUpdatePerson(FanNewsFamousPerson fanNewsFamousPerson,String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsFamousPerson.setStatus(1);
-        return getFanNewsPersionResponse(fanNewsFamousPerson, fileName,  filePath);
+        return getFanNewsPersonResponse(fanNewsFamousPerson, fileName,  filePath);
     }
 
     /**
@@ -150,7 +150,7 @@ public class FanNewsFamousController {
     public Response<FanNewsFamousPerson> addOrUpdateIndustryDrft(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsFamousPerson.setStatus(2);
-        return getFanNewsPersionResponse(fanNewsFamousPerson,fileName,filePath);
+        return getFanNewsPersonResponse(fanNewsFamousPerson,fileName,filePath);
     }
 
     /**
@@ -162,7 +162,7 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
-    private Response<FanNewsFamousPerson> getFanNewsPersionResponse(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
+    private Response<FanNewsFamousPerson> getFanNewsPersonResponse(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
         try {
             // 插入数据
             boolean b = fanNewsFamousPersonService.addOrUpdatePersion(fanNewsFamousPerson, fileName, filePath);
@@ -182,8 +182,8 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
-    @RequestMapping(value ="/deletePersionById",method = RequestMethod.GET)
-    public Response<FanNewsFamousPerson> deletePersionById(
+    @RequestMapping(value ="/deletePersonById",method = RequestMethod.GET)
+    public Response<FanNewsFamousPerson> deletePersonById(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置
     ) {
         try {
