@@ -10,6 +10,9 @@ import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
+/**
+ * @author Administrator
+ */
 public class GenerateMybatisPlusUtil {
     final static String  DIR_PATH = "C:\\genogram_cloud\\";
     public void contextLoads() {

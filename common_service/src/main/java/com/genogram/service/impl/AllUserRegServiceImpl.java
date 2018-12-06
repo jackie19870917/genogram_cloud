@@ -67,15 +67,16 @@ public class AllUserRegServiceImpl extends ServiceImpl<AllUserRegMapper, AllUser
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
+        personVo.setUpdateTime(timeStamp);
+
         AllUserReg allUserReg = new AllUserReg();
         BeanUtils.copyProperties(personVo, allUserReg);
 
-        System.out.println(allUserReg);
         AllUserLogin allUserLogin = new AllUserLogin();
         BeanUtils.copyProperties(personVo, allUserLogin);
-        allUserLogin.setId(allUserReg.getAllUserLoginId());
-        System.out.println(allUserLogin);
+        allUserLogin.setId(personVo.getAllUserLoginId());
 
         return this.updateById(allUserReg) && allUserLoginService.updateById(allUserLogin);
     }
+
 }

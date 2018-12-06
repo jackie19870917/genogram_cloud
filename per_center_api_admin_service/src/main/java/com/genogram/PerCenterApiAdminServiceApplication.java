@@ -13,10 +13,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-public class PerCenterAPiAdminServiceApplication {
+public class PerCenterApiAdminServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PerCenterAPiAdminServiceApplication.class, args);
+        SpringApplication.run(PerCenterApiAdminServiceApplication.class, args);
     }
 
 }

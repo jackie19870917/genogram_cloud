@@ -13,10 +13,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-public class PerCenterAPiWebServiceApplication {
+public class PerCenterApiWebServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PerCenterAPiWebServiceApplication.class, args);
+        SpringApplication.run(PerCenterApiWebServiceApplication.class, args);
     }
 
 }

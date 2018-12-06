@@ -88,6 +88,7 @@ public class UserController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
+        personVo.setUpdateUser(userLogin.getId());
         Boolean result = allUserRegService.updateAllUserReg(personVo);
 
         if (result) {
@@ -268,7 +269,7 @@ public class UserController {
     @ApiOperation("新增    个人说说")
     @RequestMapping(value = "insertAllUserSays", method = RequestMethod.POST)
     public Response<AllUserSays> insertAllUserSays(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                                           AllUserSays allUserSays) {
+                                                   AllUserSays allUserSays) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
@@ -403,13 +404,13 @@ public class UserController {
         allUserPics.setUpdateTime(timeStamp);
         allUserPics.setUpdateUser(userLogin.getId());
 
-        AllUserPics UserPics = allUserPicsService.insertOrUpdateAllUserPics(allUserPics);
+        AllUserPics userPics = allUserPicsService.insertOrUpdateAllUserPics(allUserPics);
 
-        if (StringUtils.isEmpty(UserPics)) {
+        if (StringUtils.isEmpty(userPics)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(UserPics);
+        return ResponseUtlis.success(userPics);
     }
 
     @ApiOperation("删除照片")
