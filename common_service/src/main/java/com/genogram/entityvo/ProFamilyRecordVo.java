@@ -10,7 +10,7 @@ import java.util.List;
 public class ProFamilyRecordVo {
 
     //记录家族图片
-    private List<ProNewsUploadFile> proNewsUploadFiles;
+    private List newsUploadFiles;
     /**
      * 编号
      */

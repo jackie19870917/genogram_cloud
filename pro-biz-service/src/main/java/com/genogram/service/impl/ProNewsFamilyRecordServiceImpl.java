@@ -104,7 +104,7 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
                 }
             });
             //存储图片list集合
-            proFamilyRecordVo.setProNewsUploadFiles(proNewsUploadFiles);
+            proFamilyRecordVo.setNewsUploadFiles(proNewsUploadFiles);
             //存储到新的集合中
             proFamilyRecordVoList.add(proFamilyRecordVo);
         });
