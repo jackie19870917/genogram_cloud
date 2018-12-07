@@ -100,16 +100,6 @@ public class NewsDetailVo {
     private Long createTimeLong;
 
     /**
-     * 附件图片(联谊会)
-     */
-    private List<FanNewsUploadFile> fanNewsUploadFileList;
-
-    /**
-     * 附件图片(省级)
-     */
-    private List<ProNewsUploadFile> proNewsUploadFileList;
-
-    /**
      * 附件图片
      */
     private List newsUploadFileList;

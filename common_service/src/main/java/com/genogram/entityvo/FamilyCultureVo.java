@@ -77,19 +77,6 @@ public class FamilyCultureVo{
      * 修改时间LONG
      */
     private Long createTimeLong;
-
-
-
-    /**
-     * 联谊会家族文化图片
-     */
-    private List<FanNewsUploadFile> fanNewsUploadFileList;
-
-    /**
-     * 省级家族文化图片
-     */
-    private List<ProNewsUploadFile> proNewsUploadFileList;
-
     /**
      * 图片
      */

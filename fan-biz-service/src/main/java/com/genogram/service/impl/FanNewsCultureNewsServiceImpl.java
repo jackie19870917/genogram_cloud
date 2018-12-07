@@ -102,7 +102,6 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
 
             //存储图片list集合
             familyCultureVo.setNewsUploadFileList(fanNewsUploadFile);
-            //familyCultureVo.setFanNewsUploadFileList(fanNewsUploadFile);
 
             //转换时间为long
              familyCultureVo.setCreateTimeLong(news.getCreateTime().getTime());
@@ -159,7 +158,6 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         BeanUtils.copyProperties(fanNewsCultureNews,newsDetail);
         //存储图片list集合
         newsDetail.setNewsUploadFileList(files);
-        //newsDetail.setFanNewsUploadFileList(files);
         //存储作者名称时间
         newsDetail.setUpdateTimeLong(fanNewsCultureNews.getUpdateTime().getTime());
         newsDetail.setCreateTimeLong(fanNewsCultureNews.getCreateTime().getTime());
@@ -341,7 +339,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
             });
 
             //存储图片list集合
-            familyCultureVo.setFanNewsUploadFileList(fanNewsUploadFile);
+            familyCultureVo.setNewsUploadFileList(fanNewsUploadFile);
 
             //转换时间为long
             familyCultureVo.setCreateTimeLong(news.getCreateTime().getTime());

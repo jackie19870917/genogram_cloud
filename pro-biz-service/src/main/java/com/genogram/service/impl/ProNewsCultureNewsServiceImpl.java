@@ -106,7 +106,6 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
 
             //存储图片list集合
             familyCultureVo.setNewsUploadFileList(proNewsUploadFile);
-          //  familyCultureVo.setProNewsUploadFileList(proNewsUploadFile);
 
             //转换时间为long
             familyCultureVo.setCreateTimeLong(news.getCreateTime().getTime());
@@ -162,7 +161,6 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
         BeanUtils.copyProperties(proNewsCultureNews,newsDetail);
         //存储图片list集合
         newsDetail.setNewsUploadFileList(files);
-      //  newsDetail.setProNewsUploadFileList(files);
         //存储作者名称时间
         newsDetail.setUpdateTimeLong(proNewsCultureNews.getUpdateTime().getTime());
         newsDetail.setCreateTimeLong(proNewsCultureNews.getCreateTime().getTime());

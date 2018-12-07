@@ -75,16 +75,6 @@ public class NewsCharityOutVo {
     private Integer updateUser;
 
     /**
-     * 文章的图片(联谊会)
-     */
-    List<FanNewsUploadFile> fanNewsUploadFileList;
-
-    /**
-     * 文章的图片(省级)
-     */
-    List<ProNewsUploadFile> proNewsUploadFileList;
-
-    /**
      * 图片
      */
     List newsUploadFileList;

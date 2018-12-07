@@ -102,7 +102,6 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
             });
             //存储图片list集合
             newsCharityOutVo.setNewsUploadFileList(proNewsUploadFiles);
-            //newsCharityOutVo.setProNewsUploadFileList(proNewsUploadFiles);
 
             //存储到新的集合中
             newsCharityOutVoList.add(newsCharityOutVo);
@@ -147,7 +146,6 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
 
         //存储图片list集合
         newsDetailVo.setNewsUploadFileList(proNewsUploadFileList);
-        //newsDetailVo.setProNewsUploadFileList(proNewsUploadFileList);
 
         //存储创建人名称
         newsDetailVo.setCreateUserName(allUserLoginCreateUser.getUserName());

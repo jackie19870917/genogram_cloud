@@ -147,7 +147,7 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
         //调用方法封装集合
         BeanUtils.copyProperties(proNewsFamilyRecord,newsDetailVo);
         //存储图片list集合
-        newsDetailVo.setProNewsUploadFileList(files);
+        newsDetailVo.setNewsUploadFileList(files);
         //存储作者名称时间
         newsDetailVo.setUpdateTimeLong(proNewsFamilyRecord.getUpdateTime().getTime());
         newsDetailVo.setCreateTimeLong(proNewsFamilyRecord.getCreateTime().getTime());

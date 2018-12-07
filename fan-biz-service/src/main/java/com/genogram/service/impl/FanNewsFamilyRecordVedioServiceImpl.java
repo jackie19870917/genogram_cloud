@@ -137,7 +137,7 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         //调用方法封装集合
         BeanUtils.copyProperties(fanNewsFamilyRecordVedio,newsDetailVo);
         //存储图片list集合
-        newsDetailVo.setFanNewsUploadFileList(files);
+        newsDetailVo.setNewsUploadFileList(files);
         //存储作者名称时间
         newsDetailVo.setUpdateTimeLong(fanNewsFamilyRecordVedio.getUpdateTime().getTime());
         newsDetailVo.setCreateTimeLong(fanNewsFamilyRecordVedio.getCreateTime().getTime());
