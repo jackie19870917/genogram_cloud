@@ -88,6 +88,6 @@ public class FamilyIndustryVo {
     /**
      * 家族产业图片
      */
-    private List<FanNewsUploadFile> fanNewsUploadFileList;
+    private List newsUploadFileList;
 
 }

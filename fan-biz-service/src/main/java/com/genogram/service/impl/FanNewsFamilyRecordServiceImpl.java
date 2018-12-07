@@ -217,7 +217,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
     }
 
     @Override
-    public FamilyRecordVo getFamilyRecordDetail(Integer id) {
+    public NewsDetailVo getFamilyRecordDetail(Integer id) {
 
         //根据Id查出文章详情
         FanNewsFamilyRecord fanNewsFamilyRecord=  this.selectById(id);
@@ -239,21 +239,21 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         AllUserLogin createUser = allUserLoginService.selectById(fanNewsFamilyRecord.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
-        FamilyRecordVo familyRecordVo=new FamilyRecordVo();
+        NewsDetailVo newsDetailVo=new NewsDetailVo();
 
         //调用方法封装集合
-        BeanUtils.copyProperties(fanNewsFamilyRecord,familyRecordVo);
+        BeanUtils.copyProperties(fanNewsFamilyRecord,newsDetailVo);
         //存储图片list集合
-        familyRecordVo.setFanNewsUploadFileList(files);
+        newsDetailVo.setNewsUploadFileList(files);
         //存储作者名称时间
-        familyRecordVo.setUpdateTime(fanNewsFamilyRecord.getUpdateTime());
-        familyRecordVo.setCreateTime(fanNewsFamilyRecord.getCreateTime());
-        familyRecordVo.setCreateUser(null);
+        newsDetailVo.setUpdateTime(fanNewsFamilyRecord.getUpdateTime());
+        newsDetailVo.setCreateTime(fanNewsFamilyRecord.getCreateTime());
+        newsDetailVo.setCreateUser(null);
 //        familyRecordVo.setUpdateTimeLong(fanNewsFamilyRecord.getUpdateTime().getTime());
 //        familyRecordVo.setCreateTimeLong(fanNewsFamilyRecord.getCreateTime().getTime());
 //        familyRecordVo.setCreateUserName(null);
 //        familyRecordVo.setCreateUserName(null);
-        return familyRecordVo;
+        return newsDetailVo;
     }
 
     /**

@@ -104,7 +104,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             });
 
             //存储图片list集合
-            familyIndustryVo.setFanNewsUploadFileList(fanNewsUploadFile);
+            familyIndustryVo.setNewsUploadFileList(fanNewsUploadFile);
 
             //转换时间为long
             familyIndustryVo.setCreateTimeLong(news.getCreateTime().getTime());
