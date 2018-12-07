@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -49,6 +50,9 @@ public class FanNewsCharityController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     String role01 = "1";
 
@@ -190,6 +194,12 @@ public class FanNewsCharityController {
 
         if (fanNewsCharityOut.getId() == null) {
             fanNewsCharityOut.setCreateUser(userLogin.getId());
+        }
+
+        Set set = allCheckOutService.getSensitiveWord(fanNewsCharityOut.getNewsText());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "您输入的含有敏感词汇  ----    " + set);
         }
 
         fanNewsCharityOut.setUpdateUser(userLogin.getId());

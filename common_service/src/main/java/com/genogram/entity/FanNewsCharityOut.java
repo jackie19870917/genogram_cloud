@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-12-07
  */
 @TableName("fan_news_charity_out")
 public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
@@ -61,6 +61,11 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
      */
     @TableField("visit_num")
     private Integer visitNum;
+    /**
+     * 点赞数
+     */
+    @TableField("praise_num")
+    private Integer praiseNum;
     /**
      * 状态(0:删除;1:已发布;2:草稿3:不显示)
      */
@@ -159,6 +164,15 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
         return this;
     }
 
+    public Integer getPraiseNum() {
+        return praiseNum;
+    }
+
+    public FanNewsCharityOut setPraiseNum(Integer praiseNum) {
+        this.praiseNum = praiseNum;
+        return this;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -220,6 +234,7 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
         ", newsText=" + newsText +
         ", newsType=" + newsType +
         ", visitNum=" + visitNum +
+        ", praiseNum=" + praiseNum +
         ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
