@@ -10,9 +10,12 @@ import com.genogram.service.IProNewsFamilyRecordService;
 import com.genogram.service.IProNewsFamilyRecordVedioService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@Api(description = "省级家族动态")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/proNewsFamilyRecord")
@@ -26,7 +29,7 @@ public class ProNewsRecordController {
     /**
      * 省级家族动态查询
      */
-    @ResponseBody
+    @ApiOperation("省级家族动态查询")
     @RequestMapping(value = "proSelectRecortPage",method = RequestMethod.GET)
     public Response<ProNewsFamilyRecord> selectRecortPage(
             @RequestParam(value = "showId") Integer showId, // 显示位置
@@ -56,6 +59,7 @@ public class ProNewsRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation("省级记录家族的详情")
     @RequestMapping(value ="/getProFamilyRecordDetail",method = RequestMethod.GET)
     public Response<ProFamilyRecordVo> getFamilyRecordDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -71,6 +75,7 @@ public class ProNewsRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation("省级记录家族进入修改")
     @RequestMapping(value ="/getProFamilyRecordAmend",method = RequestMethod.GET)
     public Response<ProFamilyRecordVo> getFamilyRecordAmend(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -104,6 +109,7 @@ public class ProNewsRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation("记录家族后台添加和修改 发表")
     @RequestMapping(value = "/addOrUpdateRecord", method = RequestMethod.POST)
     public Response<ProNewsFamilyRecord> addOrUpdateRecord(ProNewsFamilyRecord proNewsFamilyRecord, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -120,6 +126,7 @@ public class ProNewsRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation("省级家族产业后台添加和修改 草稿")
     @RequestMapping(value = "/addOrUpdateRecordDrft", method = RequestMethod.POST)
     public Response<ProNewsFamilyRecord> addOrUpdateRecordDrft(ProNewsFamilyRecord proNewsFamilyRecord,String fileName,String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -156,6 +163,7 @@ public class ProNewsRecordController {
      *@return:
      *@Description:
      */
+    @ApiOperation("省级记录家族后台删除")
     @RequestMapping(value ="/deleteProRecordById",method = RequestMethod.GET)
     public Response<ProNewsFamilyRecord> deleteProRecordById(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置

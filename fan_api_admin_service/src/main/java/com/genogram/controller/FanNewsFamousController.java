@@ -10,6 +10,7 @@ import com.genogram.service.IFanNewsFamousPersonService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,6 +38,7 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
+    @ApiOperation("家族名人后台查询")
     @RequestMapping(value ="/getFamilyPersonPage",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getFamilyPersonPage(
             @RequestParam(value = "showId") Integer showId,
@@ -79,6 +81,7 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
+    @ApiOperation("家族名人详情后台查询")
     @RequestMapping(value ="/getFamilyPersonDetail",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getFamilyPersonDetail(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -95,6 +98,7 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
+    @ApiOperation("家族名人进入修改")
     @RequestMapping(value ="/getFamilyPersonAmend",method = RequestMethod.GET)
     public Response<FamilyPersonVo> getFamilyPersonAmend(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -130,6 +134,7 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
+    @ApiOperation("家族名人后台添加和修改 发表")
     @RequestMapping(value = "/addOrUpdatePerson", method = RequestMethod.POST)
     public Response<FanNewsFamousPerson> addOrUpdatePerson(FanNewsFamousPerson fanNewsFamousPerson,String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -146,6 +151,7 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
+    @ApiOperation("家族名人后台添加和修改 草稿")
     @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
     public Response<FanNewsFamousPerson> addOrUpdateIndustryDrft(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
@@ -182,6 +188,7 @@ public class FanNewsFamousController {
      *@return:
      *@Description:
      */
+    @ApiOperation("家族名人后台删除")
     @RequestMapping(value ="/deletePersonById",method = RequestMethod.GET)
     public Response<FanNewsFamousPerson> deletePersonById(
             @RequestParam(value = "id")Integer id // 家族文化详情显示位置
