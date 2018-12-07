@@ -83,4 +83,9 @@ public class NewsCharityOutVo {
      * 文章的图片(省级)
      */
     List<ProNewsUploadFile> proNewsUploadFileList;
+
+    /**
+     * 图片
+     */
+    List newsUploadFileList;
 }

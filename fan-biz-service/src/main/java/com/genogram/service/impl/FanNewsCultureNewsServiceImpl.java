@@ -158,7 +158,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         //调用方法封装集合
         BeanUtils.copyProperties(fanNewsCultureNews,newsDetail);
         //存储图片list集合
-        newsDetail.setFanNewsUploadFileList(files);
+        newsDetail.setNewsUploadFileList(files);
+        //newsDetail.setFanNewsUploadFileList(files);
         //存储作者名称时间
         newsDetail.setUpdateTimeLong(fanNewsCultureNews.getUpdateTime().getTime());
         newsDetail.setCreateTimeLong(fanNewsCultureNews.getCreateTime().getTime());

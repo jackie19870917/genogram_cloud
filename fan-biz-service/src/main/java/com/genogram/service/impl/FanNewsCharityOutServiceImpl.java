@@ -106,7 +106,8 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
                 }
             });
             //存储图片list集合
-            newsCharityOutVo.setFanNewsUploadFileList(fanNewsUploadFile);
+            newsCharityOutVo.setNewsUploadFileList(fanNewsUploadFile);
+           // newsCharityOutVo.setFanNewsUploadFileList(fanNewsUploadFile);
 
             //存储到新的集合中
             newsCharityOutVoList.add(newsCharityOutVo);
