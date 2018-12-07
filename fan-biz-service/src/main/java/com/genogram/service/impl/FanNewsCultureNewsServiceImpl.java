@@ -101,7 +101,8 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
             });
 
             //存储图片list集合
-            familyCultureVo.setFanNewsUploadFileList(fanNewsUploadFile);
+            familyCultureVo.setNewsUploadFileList(fanNewsUploadFile);
+            //familyCultureVo.setFanNewsUploadFileList(fanNewsUploadFile);
 
             //转换时间为long
              familyCultureVo.setCreateTimeLong(news.getCreateTime().getTime());

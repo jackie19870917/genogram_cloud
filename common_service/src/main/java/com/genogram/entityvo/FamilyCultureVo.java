@@ -90,4 +90,8 @@ public class FamilyCultureVo{
      */
     private List<ProNewsUploadFile> proNewsUploadFileList;
 
+    /**
+     * 图片
+     */
+    private List newsUploadFileList;
 }
