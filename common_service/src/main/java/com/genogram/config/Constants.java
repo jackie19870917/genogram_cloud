@@ -38,7 +38,10 @@ public final class Constants {
      * 返回状态码 错误 没有查到参数
      */
 	public static final Integer ERRO_CODE = 400;
-
+    /**
+     * 返回状态码 敏感词汇
+     */
+    public static final Integer SENSITIVE_WORD = 205;
     /**
      * 返回状态码 数据为空
      */

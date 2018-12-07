@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsFamousPerson;
 import com.genogram.entityvo.FamilyPersonVo;
+import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IFanNewsFamousPersonService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 家族名人
@@ -29,6 +31,8 @@ public class FanNewsFamousController {
         @Autowired
         private IFanNewsFamousPersonService fanNewsFamousPersonService;
 
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
     /**
      *联谊会家族名人后台查询
      *@Author: yuzhou
@@ -138,6 +142,12 @@ public class FanNewsFamousController {
     @RequestMapping(value = "/addOrUpdatePerson", method = RequestMethod.POST)
     public Response<FanNewsFamousPerson> addOrUpdatePerson(FanNewsFamousPerson fanNewsFamousPerson,String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
+
+        Set set = allCheckOutService.getSensitiveWord(fanNewsFamousPerson.getPersonSummary());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+        }
         fanNewsFamousPerson.setStatus(1);
         return getFanNewsPersonResponse(fanNewsFamousPerson, fileName,  filePath);
     }

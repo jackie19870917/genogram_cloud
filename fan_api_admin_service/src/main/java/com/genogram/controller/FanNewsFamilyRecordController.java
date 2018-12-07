@@ -7,6 +7,7 @@ import com.genogram.entity.FanNewsFamilyRecordVedio;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IFanNewsFamilyRecordService;
 import com.genogram.service.IFanNewsFamilyRecordVedioService;
 import com.genogram.unit.Response;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author xiaohei
@@ -32,6 +34,9 @@ public class FanNewsFamilyRecordController {
 
     @Autowired
     private IFanNewsFamilyRecordVedioService fanNewsFamilyRecordVedioService;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
     /**
      * 后台家族动态查询
      */
@@ -166,6 +171,13 @@ public class FanNewsFamilyRecordController {
     )
         @RequestMapping(value = "/addOrUpdateRecord", method = RequestMethod.POST)
         public Response<FanNewsFamilyRecord> addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName,String filePath) {
+
+
+        Set set = allCheckOutService.getSensitiveWord(fanNewsRecord.getNewsText());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+        }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsRecord.setStatus(1);
         return getFanNewsRecordResponse(fanNewsRecord, fileName,filePath);
