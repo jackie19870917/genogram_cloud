@@ -108,4 +108,9 @@ public class NewsDetailVo {
      * 附件图片(省级)
      */
     private List<ProNewsUploadFile> proNewsUploadFileList;
+
+    /**
+     * 附件图片
+     */
+    private List newsUploadFileList;
 }

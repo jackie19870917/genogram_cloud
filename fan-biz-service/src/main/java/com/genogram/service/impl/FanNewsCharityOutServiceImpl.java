@@ -151,7 +151,8 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         BeanUtils.copyProperties(fanNewsCharityOut,newsDetailVo);
 
         //存储图片list集合
-        newsDetailVo.setFanNewsUploadFileList(fanNewsUploadFileList);
+        newsDetailVo.setNewsUploadFileList(fanNewsUploadFileList);
+       // newsDetailVo.setFanNewsUploadFileList(fanNewsUploadFileList);
 
         //存储创建人名称
         newsDetailVo.setCreateUserName(allUserLoginCreateUser.getUserName());
