@@ -49,7 +49,7 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
 
         fanIndexFamilySummarys.setUpdateTime(timeStamp);
 
-        return  this.insertOrUpdate(fanIndexFamilySummarys);
+        return this.insertOrUpdate(fanIndexFamilySummarys);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class FanIndexFamilySummarysServiceImpl extends ServiceImpl<FanIndexFamil
     }
 
     @Override
-    public Boolean deleteFanIndexFamilySummarys(Integer id,Integer userId) {
+    public Boolean deleteFanIndexFamilySummarys(Integer id, Integer userId) {
 
         FanIndexFamilySummarys fanIndexFamilySummarys = new FanIndexFamilySummarys();
 

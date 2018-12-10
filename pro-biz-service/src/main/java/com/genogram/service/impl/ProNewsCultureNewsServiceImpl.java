@@ -47,32 +47,33 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
     private IUploadFileService uploadFileService;
 
     /**
-     *省级家族文化查询
-     *@Author: yuzhou
-     *@Date: 2018-11-14
-     *@Time: 13:53
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级家族文化查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-14
+     * @Time: 13:53
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Page<FamilyCultureVo> getFamilyCulturePage(Wrapper<ProNewsCultureNews> entity, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
-        List<FamilyCultureVo> familyCultureVoList=new ArrayList<>();
+        List<FamilyCultureVo> familyCultureVoList = new ArrayList<>();
 
         //分页查询文章主表
-        Page<ProNewsCultureNews> fanNewsCultureNews =this.selectPage(new Page<ProNewsCultureNews>(pageNo, pageSize), entity);
+        Page<ProNewsCultureNews> fanNewsCultureNews = this.selectPage(new Page<ProNewsCultureNews>(pageNo, pageSize), entity);
 
         //得到文件当前页list集合
         List<ProNewsCultureNews> list = fanNewsCultureNews.getRecords();
         //判断改集合是否为空,如果是直接返回结果
-        if(list.size()==0){
+        if (list.size() == 0) {
             return null;
         }
 
         //得到所有文章id
-        List newsids =  new ArrayList<>();
-        list.forEach(( news)->{
+        List newsids = new ArrayList<>();
+        list.forEach((news) -> {
             newsids.add(news.getId());
         });
 
@@ -82,24 +83,24 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
         //  1 表示图片为显示状态
         uploadentity.eq("status", 1);
         //置顶封面
-        uploadentity.eq("pic_index",1);
-        uploadentity.in("news_id",newsids);
+        uploadentity.eq("pic_index", 1);
+        uploadentity.in("news_id", newsids);
         //查询所有文章id下的图片附件
-        List<ProNewsUploadFile> files =  proNewsUploadFileService.selectList(uploadentity);
+        List<ProNewsUploadFile> files = proNewsUploadFileService.selectList(uploadentity);
 
 
         //遍历主表文章集合,赋值新对象vo
-        list.forEach(( news)->{
-            FamilyCultureVo familyCultureVo=new FamilyCultureVo();
+        list.forEach((news) -> {
+            FamilyCultureVo familyCultureVo = new FamilyCultureVo();
 
             //存储新对象
-            BeanUtils.copyProperties(news,familyCultureVo);
+            BeanUtils.copyProperties(news, familyCultureVo);
 
             //判断改图片文章id是否一样
-            List<ProNewsUploadFile> proNewsUploadFile=new ArrayList<>();
+            List<ProNewsUploadFile> proNewsUploadFile = new ArrayList<>();
 
-            files.forEach(( data)->{
-                if(news.getId().equals(data.getNewsId())){
+            files.forEach((data) -> {
+                if (news.getId().equals(data.getNewsId())) {
                     proNewsUploadFile.add(data);
                 }
             });
@@ -116,7 +117,7 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
         });
 
         //重新设置page对象
-        Page<FamilyCultureVo> mapPage = new Page<>(pageNo,pageSize);
+        Page<FamilyCultureVo> mapPage = new Page<>(pageNo, pageSize);
         mapPage.setRecords(familyCultureVoList);
         mapPage.setSize(fanNewsCultureNews.getSize());
         mapPage.setTotal(fanNewsCultureNews.getTotal());
@@ -125,19 +126,20 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
     }
 
     /**
-     *省级家族文化详情查询
-     *@Author: yuzhou
-     *@Date: 2018-11-14
-     *@Time: 14:17
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级家族文化详情查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-14
+     * @Time: 14:17
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public NewsDetailVo getFamilyCultureDetail(Integer id) {
         //根据Id查出文章详情
         ProNewsCultureNews proNewsCultureNews = this.selectById(id);
-        if (proNewsCultureNews==null){
+        if (proNewsCultureNews == null) {
             return null;
         }
 
@@ -145,20 +147,20 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
         Wrapper<ProNewsUploadFile> uploadentity = new EntityWrapper<ProNewsUploadFile>();
         uploadentity.eq("show_id", proNewsCultureNews.getShowId());
         //置顶封面  是否封面(0.否;1:是封面)
-        uploadentity.eq("pic_index",1);
-        uploadentity.eq("news_id",id);
+        uploadentity.eq("pic_index", 1);
+        uploadentity.eq("news_id", id);
         //查询所有文章id下的图片附件
-        List<ProNewsUploadFile> files =  proNewsUploadFileService.selectList(uploadentity);
+        List<ProNewsUploadFile> files = proNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
         AllUserLogin updateUser = allUserLoginService.selectById(proNewsCultureNews.getUpdateUser());
         AllUserLogin createUser = allUserLoginService.selectById(proNewsCultureNews.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
-        NewsDetailVo newsDetail=new NewsDetailVo();
+        NewsDetailVo newsDetail = new NewsDetailVo();
 
         //调用方法封装集合
-        BeanUtils.copyProperties(proNewsCultureNews,newsDetail);
+        BeanUtils.copyProperties(proNewsCultureNews, newsDetail);
         //存储图片list集合
         newsDetail.setNewsUploadFileList(files);
         //存储作者名称时间
@@ -170,29 +172,30 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
     }
 
     /**
-     *省级家族文化文章增加查看数
-     *@Author: yuzhou
-     *@Date: 2018-11-14
-     *@Time: 14:17
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级家族文化文章增加查看数
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-14
+     * @Time: 14:17
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public void addVisitNum(Integer id) {
         //查出详情
         ProNewsCultureNews proNewsCultureNews = this.selectById(id);
         //查看数加一
-        Integer visitNum = proNewsCultureNews.getVisitNum()+1;
+        Integer visitNum = proNewsCultureNews.getVisitNum() + 1;
         proNewsCultureNews.setVisitNum(visitNum);
         this.updateAllColumnById(proNewsCultureNews);
-        if(visitNum > Constants.PRO_VISIT_NUM || visitNum.equals(Constants.PRO_VISIT_NUM)){
+        if (visitNum > Constants.PRO_VISIT_NUM || visitNum.equals(Constants.PRO_VISIT_NUM)) {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=1;
+            int status = 1;
             //来源:(1县级,2省级)
-            int newsSource=2;
+            int newsSource = 2;
             //要插入的实体类
-            FanSysRecommend fanSysRecommend=new FanSysRecommend();
+            FanSysRecommend fanSysRecommend = new FanSysRecommend();
             fanSysRecommend.setStatus(status);
             fanSysRecommend.setNewsSource(newsSource);
             fanSysRecommend.setShowId(proNewsCultureNews.getShowId());
@@ -202,19 +205,20 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
     }
 
     /**
-     *省级家族文化新增 修改
-     *@Author: yuzhou
-     *@Date: 2018-11-14
-     *@Time: 17:12
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级家族文化新增 修改
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-14
+     * @Time: 17:12
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
-        if(proNewsCultureNews.getId()==null){
+        if (proNewsCultureNews.getId() == null) {
             //查看数 默认为0
             proNewsCultureNews.setVisitNum(0);
             //存入创建时间
@@ -223,7 +227,7 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
             //存入修改时间
             proNewsCultureNews.setUpdateTime(format);
             proNewsCultureNews.setUpdateUser(null);
-        }else{
+        } else {
             //存入修改时间
             proNewsCultureNews.setUpdateTime(format);
             proNewsCultureNews.setUpdateUser(null);
@@ -231,21 +235,22 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
         //插入数据
         boolean result = this.insertOrUpdate(proNewsCultureNews);
         //存储图片
-        if(result && StringsUtils.isNotEmpty(filePath)){
-            uploadFileService.storageFanFile(fileName,filePath,proNewsCultureNews.getId(),proNewsCultureNews.getShowId());
+        if (result && StringsUtils.isNotEmpty(filePath)) {
+            uploadFileService.storageFanFile(fileName, filePath, proNewsCultureNews.getId(), proNewsCultureNews.getShowId());
         }
         return result;
     }
 
     /**
-     *省级家族文化后台删除
-     *@Author: yuzhou
-     *@Date: 2018-11-14
-     *@Time: 17:21
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级家族文化后台删除
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-14
+     * @Time: 17:21
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean deleteCulturById(Integer id, int status) {
         ProNewsCultureNews proNewsCultureNews = this.selectById(id);

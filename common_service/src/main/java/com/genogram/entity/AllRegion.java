@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -94,11 +95,11 @@ public class AllRegion extends Model<AllRegion> {
     @Override
     public String toString() {
         return "AllRegion{" +
-        ", id=" + id +
-        ", code=" + code +
-        ", name=" + name +
-        ", parentCode=" + parentCode +
-        ", type=" + type +
-        "}";
+                ", id=" + id +
+                ", code=" + code +
+                ", name=" + name +
+                ", parentCode=" + parentCode +
+                ", type=" + type +
+                "}";
     }
 }

@@ -4,23 +4,23 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.FanSysWebMenu">
-        <id column="id" property="id" />
-        <result column="tree_num" property="treeNum" />
-        <result column="menu_name" property="menuName" />
-        <result column="parent_id" property="parentId" />
-        <result column="api_url" property="apiUrl" />
-        <result column="api_admin_url" property="apiAdminUrl" />
-        <result column="order_index" property="orderIndex" />
-        <result column="menu_code" property="menuCode" />
-        <result column="menu_type" property="menuType" />
-        <result column="is_admin" property="isAdmin" />
-        <result column="is_web" property="isWeb" />
-        <result column="istatic" property="istatic" />
-        <result column="comments" property="comments" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="tree_num" property="treeNum"/>
+        <result column="menu_name" property="menuName"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="api_url" property="apiUrl"/>
+        <result column="api_admin_url" property="apiAdminUrl"/>
+        <result column="order_index" property="orderIndex"/>
+        <result column="menu_code" property="menuCode"/>
+        <result column="menu_type" property="menuType"/>
+        <result column="is_admin" property="isAdmin"/>
+        <result column="is_web" property="isWeb"/>
+        <result column="istatic" property="istatic"/>
+        <result column="comments" property="comments"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

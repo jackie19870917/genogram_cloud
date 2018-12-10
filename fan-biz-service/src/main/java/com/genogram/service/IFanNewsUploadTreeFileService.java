@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author wangwei
@@ -18,6 +18,7 @@ public interface IFanNewsUploadTreeFileService extends IService<FanNewsUploadTre
 
     /**
      * 查询电子谱
+     *
      * @param fileName
      * @param list
      * @param pageNo
@@ -28,6 +29,7 @@ public interface IFanNewsUploadTreeFileService extends IService<FanNewsUploadTre
 
     /**
      * 新增/修改 电子谱
+     *
      * @param fanNewsUploadTreeFile
      * @return
      */
@@ -35,6 +37,7 @@ public interface IFanNewsUploadTreeFileService extends IService<FanNewsUploadTre
 
     /**
      * 单一查询
+     *
      * @param id
      * @return
      */
@@ -42,6 +45,7 @@ public interface IFanNewsUploadTreeFileService extends IService<FanNewsUploadTre
 
     /**
      * 删除电子谱
+     *
      * @param id
      * @param userId
      * @return

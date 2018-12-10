@@ -20,17 +20,19 @@ public interface IAllRegionService extends IService<AllRegion> {
 
     /**
      * 省级下属县级官网查询
-     * @param siteId  省级网站Id
+     *
+     * @param siteId 省级网站Id
      * @return
      */
     List<AllRegion> getProvincialSubordinate(Integer siteId);
 
     /**
      * 省级下属地图联谊会查询
+     *
      * @param siteId
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<FanSysSite> getSodalityRegion( Integer siteId, Integer pageNo, Integer pageSize);
+    Page<FanSysSite> getSodalityRegion(Integer siteId, Integer pageNo, Integer pageSize);
 }

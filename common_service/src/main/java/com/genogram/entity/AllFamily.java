@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -94,11 +95,11 @@ public class AllFamily extends Model<AllFamily> {
     @Override
     public String toString() {
         return "AllFamily{" +
-        ", id=" + id +
-        ", value=" + value +
-        ", spell=" + spell +
-        ", firstLetter=" + firstLetter +
-        ", sort=" + sort +
-        "}";
+                ", id=" + id +
+                ", value=" + value +
+                ", spell=" + spell +
+                ", firstLetter=" + firstLetter +
+                ", sort=" + sort +
+                "}";
     }
 }

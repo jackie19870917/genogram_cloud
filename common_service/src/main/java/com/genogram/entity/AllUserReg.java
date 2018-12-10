@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -339,29 +342,29 @@ public class AllUserReg extends Model<AllUserReg> {
     @Override
     public String toString() {
         return "AllUserReg{" +
-        ", id=" + id +
-        ", allUserLoginId=" + allUserLoginId +
-        ", englishName=" + englishName +
-        ", nation=" + nation +
-        ", birthplace=" + birthplace +
-        ", job=" + job +
-        ", lidai=" + lidai +
-        ", jinshi=" + jinshi +
-        ", laopai=" + laopai +
-        ", xinpai=" + xinpai +
-        ", tongpai=" + tongpai +
-        ", presentAddress=" + presentAddress +
-        ", oldAddress=" + oldAddress +
-        ", alias=" + alias +
-        ", summary=" + summary +
-        ", fans=" + fans +
-        ", honesty=" + honesty +
-        ", creator=" + creator +
-        ", status=" + status +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", allUserLoginId=" + allUserLoginId +
+                ", englishName=" + englishName +
+                ", nation=" + nation +
+                ", birthplace=" + birthplace +
+                ", job=" + job +
+                ", lidai=" + lidai +
+                ", jinshi=" + jinshi +
+                ", laopai=" + laopai +
+                ", xinpai=" + xinpai +
+                ", tongpai=" + tongpai +
+                ", presentAddress=" + presentAddress +
+                ", oldAddress=" + oldAddress +
+                ", alias=" + alias +
+                ", summary=" + summary +
+                ", fans=" + fans +
+                ", honesty=" + honesty +
+                ", creator=" + creator +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

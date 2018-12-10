@@ -32,13 +32,15 @@ public interface IProIndexInfoService extends IService<ProIndexInfo> {
 
     /**
      * 新增/修改  省级信息
+     *
      * @param indexInfoVo
      * @return
      */
     Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo);
 
     /**
-     *  删除 省级信息
+     * 删除 省级信息
+     *
      * @param proIndexInfo
      * @return
      */

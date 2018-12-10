@@ -51,16 +51,16 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         //查出详情
         FanNewsFamousPerson fanNewsFamousPerson = this.selectById(id);
         //查看数加一
-        Integer visitNum = fanNewsFamousPerson.getVisitNum()+1;
+        Integer visitNum = fanNewsFamousPerson.getVisitNum() + 1;
         fanNewsFamousPerson.setVisitNum(visitNum);
         this.updateAllColumnById(fanNewsFamousPerson);
-        if(visitNum >num || visitNum.equals(num)){
+        if (visitNum > num || visitNum.equals(num)) {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=1;
+            int status = 1;
             //来源:(1县级,2省级)
-            int newsSource=1;
+            int newsSource = 1;
             //要插入的实体类
-            FanSysRecommend fanSysRecommend=new FanSysRecommend();
+            FanSysRecommend fanSysRecommend = new FanSysRecommend();
             fanSysRecommend.setStatus(status);
             fanSysRecommend.setNewsSource(newsSource);
             fanSysRecommend.setShowId(fanNewsFamousPerson.getShowId());
@@ -68,21 +68,23 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
             proSysRecommendService.addRecommend(fanSysRecommend);
         }
     }
+
     /**
-     *联谊会家族名人详情查询
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:22
-     *@Param:
-     *@return:
-     *@Description:
+     * 联谊会家族名人详情查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:22
+     * @Param:
+     * @return:
+     * @Description:
      */
     @Override
     public FamilyPersonVo getFamilyFamilyDetail(Integer id) {
 
         //根据Id查出文章详情
-        FanNewsFamousPerson fanNewsFamousPerson=  this.selectById(id);
-        if (fanNewsFamousPerson==null){
+        FanNewsFamousPerson fanNewsFamousPerson = this.selectById(id);
+        if (fanNewsFamousPerson == null) {
             return null;
         }
 
@@ -90,20 +92,20 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", fanNewsFamousPerson.getShowId());
         //置顶封面  是否封面(0.否;1:是封面)
-        uploadentity.eq("pic_index",1);
-        uploadentity.eq("news_id",id);
+        uploadentity.eq("pic_index", 1);
+        uploadentity.eq("news_id", id);
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
+        List<FanNewsUploadFile> files = fanNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
         AllUserLogin updateUser = allUserLoginService.selectById(fanNewsFamousPerson.getUpdateUser());
         AllUserLogin createUser = allUserLoginService.selectById(fanNewsFamousPerson.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
-        FamilyPersonVo familyPersonVo=new FamilyPersonVo();
+        FamilyPersonVo familyPersonVo = new FamilyPersonVo();
 
         //调用方法封装集合
-        BeanUtils.copyProperties(fanNewsFamousPerson,familyPersonVo);
+        BeanUtils.copyProperties(fanNewsFamousPerson, familyPersonVo);
         //存储图片list集合
         familyPersonVo.setFanNewsUploadFileList(files);
         //存储作者名称时间

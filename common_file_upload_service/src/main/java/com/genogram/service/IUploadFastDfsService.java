@@ -1,6 +1,7 @@
 package com.genogram.service;
 
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Map;
 
 /**
@@ -9,8 +10,9 @@ import java.util.Map;
 public interface IUploadFastDfsService {
     /**
      * 文件上传
+     *
      * @param file
      * @return
      */
-    Map<String,Object> uploadFastDfs(MultipartFile file);
+    Map<String, Object> uploadFastDfs(MultipartFile file);
 }

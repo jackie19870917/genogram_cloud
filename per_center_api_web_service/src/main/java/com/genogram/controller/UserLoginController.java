@@ -50,6 +50,7 @@ public class UserLoginController {
 
     @Autowired
     private IAllUserRegService allUserRegService;
+
     /**
      * 登陆
      * // @param allUserLogin

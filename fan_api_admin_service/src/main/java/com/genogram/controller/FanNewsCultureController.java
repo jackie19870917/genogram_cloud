@@ -57,13 +57,14 @@ public class FanNewsCultureController {
     private IAllCheckOutService allCheckOutService;
 
     /**
-     *联谊会家族字派后台查询
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:18
-     *@Param:
-     *@return:
-     *@Description:
+     * 联谊会家族字派后台查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:18
+     * @Param:
+     * @return:
+     * @Description:
      */
     @ApiOperation(value = "联谊会家族字派后台查询", notes =
             "ancestorsName 祖先名 --" +

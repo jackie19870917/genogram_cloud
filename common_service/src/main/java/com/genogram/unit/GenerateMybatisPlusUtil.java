@@ -14,7 +14,8 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  * @author Administrator
  */
 public class GenerateMybatisPlusUtil {
-    final static String  DIR_PATH = "C:\\genogram_cloud\\";
+    final static String DIR_PATH = "C:\\genogram_cloud\\";
+
     public void contextLoads() {
         AutoGenerator mpg = new AutoGenerator();
 
@@ -40,7 +41,7 @@ public class GenerateMybatisPlusUtil {
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDbType(DbType.MYSQL);
-        dsc.setTypeConvert(new MySqlTypeConvert(){
+        dsc.setTypeConvert(new MySqlTypeConvert() {
             @Override
             public DbColumnType processTypeConvert(String fieldType) {
                 return super.processTypeConvert(fieldType);
@@ -57,7 +58,7 @@ public class GenerateMybatisPlusUtil {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude(new String[] { "fan_sys_charitable_declare"});
+        strategy.setInclude(new String[]{"fan_sys_charitable_declare"});
         //strategy.setExclude(new String[]{"all_family"}); // 排除生成的表
         strategy.setEntityBuilderModel(true);
         mpg.setStrategy(strategy);

@@ -101,7 +101,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "捐款记录",notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
+    @ApiOperation(value = "捐款记录", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
     @RequestMapping(value = "getPayInList", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> getPayInList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                       @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -127,7 +127,7 @@ public class UserController {
         return ResponseUtlis.success(page);
     }
 
-    @ApiOperation(value = "个人日志",notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
+    @ApiOperation(value = "个人日志", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "getAllUserNewsInfoList", method = RequestMethod.POST)
     public Response<AllUserNewsInfo> getAllUserNewsInfoList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -157,7 +157,7 @@ public class UserController {
         return ResponseUtlis.success(userNewsInfoPage);
     }
 
-    @ApiOperation(value = "新增/修改   个人日志",notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
+    @ApiOperation(value = "新增/修改   个人日志", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "insertAllUserNewsInfo", method = RequestMethod.POST)
     public Response<AllUserNewsInfo> insertAllUserNewsInfo(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                            @ApiParam("日志类型(1-正常,2-草稿)") @RequestParam("status") Integer status,
@@ -193,7 +193,7 @@ public class UserController {
         return ResponseUtlis.success(userNewsInfo);
     }
 
-    @ApiOperation(value = "个人日志详情",notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
+    @ApiOperation(value = "个人日志详情", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "getAllUserNewsInfo", method = RequestMethod.POST)
     public Response<AllUserNewsInfo> getAllUserNewsInfo(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                         @ApiParam("主键") @RequestParam("id") Integer id) {
@@ -241,7 +241,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "个人说说",notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "个人说说", notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "getAllUserSaysList", method = RequestMethod.POST)
     public Response<AllUserSays> getAllUserSaysList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                     @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -271,7 +271,7 @@ public class UserController {
         return ResponseUtlis.success(userSaysPage);
     }
 
-    @ApiOperation(value = "个人说说详情",notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "个人说说详情", notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "getAllUserSays", method = RequestMethod.POST)
     public Response<AllUserSays> getAllUserSays(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                 @ApiParam("主键") @RequestParam("id") Integer id) {
@@ -295,7 +295,7 @@ public class UserController {
         return ResponseUtlis.success(allUserSays);
     }
 
-    @ApiOperation(value = "新增    个人说说",notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "新增    个人说说", notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "insertAllUserSays", method = RequestMethod.POST)
     public Response<AllUserSays> insertAllUserSays(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                    AllUserSays allUserSays) {
@@ -353,7 +353,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "个人照片",notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "个人照片", notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "getAllUserPicsList", method = RequestMethod.POST)
     public Response<AllUserPics> getAllUserPicsList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                     @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -383,7 +383,7 @@ public class UserController {
         return ResponseUtlis.success(userPicsPage);
     }
 
-    @ApiOperation(value = "个人照片详情",notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "个人照片详情", notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "getAllUserPics", method = RequestMethod.POST)
     public Response<AllUserPics> getAllUserPics(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                 @ApiParam("主键") @RequestParam("id") Integer id) {
@@ -407,7 +407,7 @@ public class UserController {
         return ResponseUtlis.success(allUserPics);
     }
 
-    @ApiOperation(value = "新增/修改    个人照片",notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "新增/修改    个人照片", notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "insertOrUpdateAllUserPics", method = RequestMethod.POST)
     public Response<AllUserPics> insertOrUpdateAllUserPics(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                            AllUserPics allUserPics) {
@@ -466,7 +466,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "个人视频",notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+    @ApiOperation(value = "个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
     @RequestMapping(value = "getAllUserVideosList", method = RequestMethod.POST)
     public Response<AllUserVideos> getAllUserVideosList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -496,7 +496,7 @@ public class UserController {
         return ResponseUtlis.success(userVideosPage);
     }
 
-    @ApiOperation(value = "个人视频详情",notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+    @ApiOperation(value = "个人视频详情", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
     @RequestMapping(value = "getAllUserVideos", method = RequestMethod.POST)
     public Response<AllUserVideos> getAllUserVideos(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                     @ApiParam("主键") @RequestParam("id") Integer id) {
@@ -520,7 +520,7 @@ public class UserController {
         return ResponseUtlis.success(allUserVideos);
     }
 
-    @ApiOperation(value = "新增/修改   个人视频",notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+    @ApiOperation(value = "新增/修改   个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
     @RequestMapping(value = "insertAllUserVideos", method = RequestMethod.POST)
     public Response<AllUserVideos> insertAllUserVideos(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                        AllUserVideos allUserVideos) {

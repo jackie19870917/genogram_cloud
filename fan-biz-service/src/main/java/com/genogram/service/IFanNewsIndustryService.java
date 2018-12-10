@@ -23,9 +23,10 @@ import java.util.List;
 public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
 
     /**
-     *联谊会家族产业查询
-     * @param entity 查询条件
-     * @param pageNo 当前页
+     * 联谊会家族产业查询
+     *
+     * @param entity   查询条件
+     * @param pageNo   当前页
      * @param pageSize 每页显示条数
      * @return
      */
@@ -33,22 +34,25 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
 
     /**
      * 联谊会家族产业各个产业的详情
-     * @param id  主键
+     *
+     * @param id 主键
      * @return
      */
     IndustryDetailVo getFamilyIndustryDetail(Integer id);
 
     /**
      * 联谊会家族产业后台新增
+     *
      * @param fanNewsIndustry 家族产业上传实体类
-     * @param fileName 上传的图片名称
-     * @param filePath 上传的图片路径
+     * @param fileName        上传的图片名称
+     * @param filePath        上传的图片路径
      * @return
      */
-    boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileName,String filePath);
+    boolean addOrUpdateIndustry(FanNewsIndustry fanNewsIndustry, String fileName, String filePath);
 
     /**
-     *联谊会家族产业后台删除
+     * 联谊会家族产业后台删除
+     *
      * @param id
      * @param status
      * @param userLoginInfoByToken
@@ -58,7 +62,8 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
 
     /**
      * 联谊会家族产业前台增加查看数
-     * @param id  主键
+     *
+     * @param id 主键
      */
     void addVisitNum(Integer id);
 }

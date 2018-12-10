@@ -4,19 +4,18 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.ProNewsCultureZipai">
-        <id column="id" property="id" />
-        <result column="show_id" property="showId" />
-        <result column="ziapi_location" property="ziapiLocation" />
-        <result column="ancestors_name" property="ancestorsName" />
-        <result column="zipai_txt" property="zipaiTxt" />
-        <result column="visit_num" property="visitNum" />
-        <result column="status" property="status" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="show_id" property="showId"/>
+        <result column="ziapi_location" property="ziapiLocation"/>
+        <result column="ancestors_name" property="ancestorsName"/>
+        <result column="zipai_txt" property="zipaiTxt"/>
+        <result column="visit_num" property="visitNum"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
-
 
 
     <!-- 通用查询结果列 -->
@@ -24,15 +23,15 @@
         id, show_id AS showId, ziapi_location AS ziapiLocation, ancestors_name AS ancestorsName, zipai_txt AS zipaiTxt, visit_num AS visitNum, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
-    <select id="selectLike" parameterType="java.util.Map"  resultType="com.genogram.entityvo.ProNewsCultureZipaiVo">
+    <select id="selectLike" parameterType="java.util.Map" resultType="com.genogram.entityvo.ProNewsCultureZipaiVo">
         select temp1.* from (
-    SELECT '1' as source,
-        <include refid="Base_Column_List" />
-    from pro_news_culture_zipai n
+        SELECT '1' as source,
+        <include refid="Base_Column_List"/>
+        from pro_news_culture_zipai n
         where
         1=1
         <if test="showId!=null">
-         AND  n.show_id=#{showId}
+            AND n.show_id=#{showId}
         </if>
         <if test="status!=null">
             AND n.status=#{status}
@@ -40,9 +39,11 @@
         <if test="zipaiTxt!=null">
             AND n.zipai_txt LIKE CONCAT('%',#{zipaiTxt},'%')
         </if>
-    union all
+        union all
         SELECT '2' as source,
-        z.id, z.show_id AS showId, z.ziapi_location AS ziapiLocation, z.ancestors_name AS ancestorsName, z.zipai_txt AS zipaiTxt, z.visit_num AS visitNum, z.status, z.create_time AS createTime, z.create_user AS createUser, z.update_time AS updateTime, z.update_user AS updateUser
+        z.id, z.show_id AS showId, z.ziapi_location AS ziapiLocation, z.ancestors_name AS ancestorsName, z.zipai_txt AS
+        zipaiTxt, z.visit_num AS visitNum, z.status, z.create_time AS createTime, z.create_user AS createUser,
+        z.update_time AS updateTime, z.update_user AS updateUser
         from fan_sys_site s,fan_sys_web_news_show n,fan_news_culture_zipai z
         where
         1=1
@@ -60,7 +61,6 @@
         ) temp1
         order by temp1.updateTime desc
     </select>
-
 
 
 </mapper>

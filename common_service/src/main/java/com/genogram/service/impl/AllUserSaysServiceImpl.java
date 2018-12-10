@@ -31,7 +31,7 @@ public class AllUserSaysServiceImpl extends ServiceImpl<AllUserSaysMapper, AllUs
         wrapper.in("status", list);
         wrapper.orderBy("update_time", false);
 
-        return this.selectPage(new Page<>(pageNo,pageSize),wrapper);
+        return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
     }
 
     @Override

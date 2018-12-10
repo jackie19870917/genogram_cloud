@@ -29,7 +29,7 @@ public class AllMessageBoardController {
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
-        Page<AllMessageBoard> allMessageBoardPage = iProMessageBoardServices.getMessageBoard(siteId,sourceType,pageNo, pageSize);
+        Page<AllMessageBoard> allMessageBoardPage = iProMessageBoardServices.getMessageBoard(siteId, sourceType, pageNo, pageSize);
         return ResponseUtlis.success(allMessageBoardPage);
     }
 }

@@ -355,7 +355,7 @@ public class PersonController {
     }
 
     @ApiOperation(value = "姓氏查询", notes = "value-姓氏,spell-拼音,first_letter-首字母")
-    @RequestMapping(value = "familyList",method = RequestMethod.POST)
+    @RequestMapping(value = "familyList", method = RequestMethod.POST)
     public Response<AllFamily> getFamilyList(@ApiParam("首字母") @RequestParam(value = "firstLetter", required = false) String firstLetter) {
 
         List<AllFamily> familyList = allFamilyService.getAllFamilyByFirstLetter(firstLetter);
@@ -369,7 +369,7 @@ public class PersonController {
 
     @ApiOperation(value = "姓氏修改", notes = "value-姓氏,spell-拼音,first_letter-首字母")
     @RequestMapping(value = "updateAllFamily", method = RequestMethod.POST)
-    public Response<AllFamily> updateAllFamily(@ApiParam("token") @RequestParam(value = "token", required = false) String token,AllFamily allFamily) {
+    public Response<AllFamily> updateAllFamily(@ApiParam("token") @RequestParam(value = "token", required = false) String token, AllFamily allFamily) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");

@@ -3,6 +3,7 @@ package com.genogram.entity;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -93,11 +94,11 @@ public class FunSysConfig extends Model<FunSysConfig> {
     @Override
     public String toString() {
         return "FunSysConfig{" +
-        ", id=" + id +
-        ", constantGroup=" + constantGroup +
-        ", constantName=" + constantName +
-        ", constantCode=" + constantCode +
-        ", comment=" + comment +
-        "}";
+                ", id=" + id +
+                ", constantGroup=" + constantGroup +
+                ", constantName=" + constantName +
+                ", constantCode=" + constantCode +
+                ", comment=" + comment +
+                "}";
     }
 }

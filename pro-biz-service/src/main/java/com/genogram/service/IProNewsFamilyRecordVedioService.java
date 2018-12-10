@@ -16,6 +16,7 @@ import com.genogram.entityvo.FamilyRecordVedioVo;
 public interface IProNewsFamilyRecordVedioService extends IService<ProNewsFamilyRecordVedio> {
     /**
      * 前台查询
+     *
      * @param showId
      * @param status
      * @param pageNo

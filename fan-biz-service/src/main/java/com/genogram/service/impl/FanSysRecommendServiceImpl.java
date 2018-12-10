@@ -30,14 +30,15 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     private FanSysRecommendMapper fanSysRecommendMapper;
 
     /**
-     *联谊会后台点击推荐
-     *@Author: yuzhou
-     *@Date: 2018-11-13
-     *@Time: 9:51
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会后台点击推荐
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-13
+     * @Time: 9:51
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean addRecommend(FanSysRecommend fanSysRecommend) {
         //是否全国显示(0:否;1是)
@@ -54,14 +55,15 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     }
 
     /**
-     *联谊会后台设置个人推荐取消展示
-     *@Author: yuzhou
-     *@Date: 2018-11-13
-     *@Time: 10:06
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会后台设置个人推荐取消展示
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-13
+     * @Time: 10:06
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean deleteRecommend(Integer recommend) {
         boolean result = this.deleteById(recommend);
@@ -69,29 +71,31 @@ public class FanSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     }
 
     /**
-     *县级后台设置手动推荐查询
-     *@Author: yuzhou
-     *@Date: 2018-11-19
-     *@Time: 10:10
-     *@Param:
-     *@return:
-     *@Description:
+     * 县级后台设置手动推荐查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-19
+     * @Time: 10:10
+     * @Param:
+     * @return:
+     * @Description:
      */
     @Override
     public List<CommonRecommendVo> getManualRecommend(Map map) {
-        List<CommonRecommendVo> commonRecommendVo=fanSysRecommendMapper.getCountyManualRecommend(map);
+        List<CommonRecommendVo> commonRecommendVo = fanSysRecommendMapper.getCountyManualRecommend(map);
         return commonRecommendVo;
     }
 
     /**
-     *联谊会后台点击取消
-     *@Author: yuzhou
-     *@Date: 2018-11-26
-     *@Time: 17:14
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会后台点击取消
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-26
+     * @Time: 17:14
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean recommendDelete(Wrapper<FanSysRecommend> entity) {
         //status 数据库删除一条数据

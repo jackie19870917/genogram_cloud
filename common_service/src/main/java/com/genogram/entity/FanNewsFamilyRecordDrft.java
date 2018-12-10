@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -157,15 +160,15 @@ public class FanNewsFamilyRecordDrft extends Model<FanNewsFamilyRecordDrft> {
     @Override
     public String toString() {
         return "FanNewsFamilyRecordDrft{" +
-        ", id=" + id +
-        ", fanNewsFamilyRecordId=" + fanNewsFamilyRecordId +
-        ", newsTitle=" + newsTitle +
-        ", newsText=" + newsText +
-        ", visitNum=" + visitNum +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", fanNewsFamilyRecordId=" + fanNewsFamilyRecordId +
+                ", newsTitle=" + newsTitle +
+                ", newsText=" + newsText +
+                ", visitNum=" + visitNum +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

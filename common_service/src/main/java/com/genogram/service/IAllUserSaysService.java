@@ -18,6 +18,7 @@ public interface IAllUserSaysService extends IService<AllUserSays> {
 
     /**
      * 根据用户查询说说
+     *
      * @param userId
      * @param list
      * @param pageNo
@@ -28,6 +29,7 @@ public interface IAllUserSaysService extends IService<AllUserSays> {
 
     /**
      * 新增   说说
+     *
      * @param allUserSays
      * @return
      */
@@ -35,6 +37,7 @@ public interface IAllUserSaysService extends IService<AllUserSays> {
 
     /**
      * 删除 说说
+     *
      * @param id
      * @param userId
      * @return
@@ -43,6 +46,7 @@ public interface IAllUserSaysService extends IService<AllUserSays> {
 
     /**
      * 说说详情
+     *
      * @param id
      * @return
      */

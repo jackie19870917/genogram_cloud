@@ -18,13 +18,15 @@ public interface IProFanNewsFamilyRecordService extends IService<FanNewsFamilyRe
 
     /**
      * 联谊会记录家族详情
-     * @param id  主键
+     *
+     * @param id 主键
      * @return
      */
     NewsDetailVo getFamilyRecord(Integer id);
 
     /**
      * 联谊会家族名人增加查看数
+     *
      * @param id
      */
     void addVisitNum(Integer id);

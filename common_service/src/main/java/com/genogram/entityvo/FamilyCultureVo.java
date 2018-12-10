@@ -12,16 +12,17 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *家族文化查询
- *@Author: yuzhou
- *@Date: 2018-11-09
- *@Time: 15:58
- *@Param:
- *@return:
- *@Description:
-*/
+ * 家族文化查询
+ *
+ * @Author: yuzhou
+ * @Date: 2018-11-09
+ * @Time: 15:58
+ * @Param:
+ * @return:
+ * @Description:
+ */
 @Data
-public class FamilyCultureVo{
+public class FamilyCultureVo {
 
     /**
      * 编号
@@ -65,7 +66,6 @@ public class FamilyCultureVo{
      */
 
     private Integer updateUser;
-
 
 
     /**

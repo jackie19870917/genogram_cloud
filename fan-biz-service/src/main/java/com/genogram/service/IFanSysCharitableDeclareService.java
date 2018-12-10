@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author xiaohei
@@ -19,6 +19,7 @@ import java.util.List;
 public interface IFanSysCharitableDeclareService extends IService<FanSysCharitableDeclare> {
     /**
      * 联谊会慈善帮扶后台分页查询
+     *
      * @param showId
      * @param pageNo
      * @param pageSize
@@ -28,14 +29,17 @@ public interface IFanSysCharitableDeclareService extends IService<FanSysCharitab
 
     /**
      * 联谊会慈善帮扶后台新增修改
+     *
      * @param fanSysCharitableDeclare
      * @param fileName
      * @param filePath
      * @return
      */
-    boolean addOrUpdateCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare,String fileName,String filePath);
+    boolean addOrUpdateCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare, String fileName, String filePath);
+
     /**
      * 联谊会慈善帮扶删除
+     *
      * @param id
      * @param status
      * @return

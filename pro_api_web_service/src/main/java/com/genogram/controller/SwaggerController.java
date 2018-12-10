@@ -39,11 +39,12 @@ public class SwaggerController {
 
     /**
      * 第一级菜单查询
+     *
      * @param fan
      * @return
      */
-    @ApiOperation(value = "一级菜单查询" ,  notes="查询")
-    @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.POST,consumes= MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "一级菜单查询", notes = "查询")
+    @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Response getTitlesByMenuId(FanNewsCharityOut fan) {
         System.out.println(fan);
         return ResponseUtlis.success(fan);
@@ -52,11 +53,12 @@ public class SwaggerController {
 
     /**
      * 第二级菜单查询
+     *
      * @param fan
      * @return
      */
-    @ApiOperation(value = "二级级菜单查询" ,  notes="查询")
-    @RequestMapping(value = "/getTitlesByMenuId2", method = RequestMethod.POST,consumes= MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "二级级菜单查询", notes = "查询")
+    @RequestMapping(value = "/getTitlesByMenuId2", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Response getTitlesByMenuId2(@RequestBody FanNewsCharityOut fan) {
         System.out.println(fan);
         return ResponseUtlis.success(fan);

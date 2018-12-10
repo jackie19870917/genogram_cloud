@@ -17,9 +17,10 @@ import java.util.List;
 public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilySummarys> {
 
     /**
-     *     联谊堂信息
+     * 联谊堂信息
+     *
      * @param siteId   网站ID
-     * @param list   状态
+     * @param list     状态
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
@@ -27,7 +28,8 @@ public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilyS
     Page<FanIndexFamilySummarys> getFanIndexFamilySummarysPage(Integer siteId, List list, Integer pageNo, Integer pageSize);
 
     /**
-     *  /新增/修改联谊堂信息
+     * /新增/修改联谊堂信息
+     *
      * @param fanIndexFamilySummarys
      * @return
      */
@@ -35,16 +37,18 @@ public interface IFanIndexFamilySummarysService extends IService<FanIndexFamilyS
 
     /**
      * 单一查询联谊堂信息
-     * @param id   主键
+     *
+     * @param id 主键
      * @return
      */
     FanIndexFamilySummarys getFanIndexFamilySummarys(Integer id);
 
     /**
-     *  逻辑删除
+     * 逻辑删除
+     *
      * @param id
      * @param userId
      * @return
      */
-    Boolean deleteFanIndexFamilySummarys(Integer id,Integer userId);
+    Boolean deleteFanIndexFamilySummarys(Integer id, Integer userId);
 }

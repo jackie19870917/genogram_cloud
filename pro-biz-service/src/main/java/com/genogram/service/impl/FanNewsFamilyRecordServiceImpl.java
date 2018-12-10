@@ -35,9 +35,11 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
 
     @Autowired
     private IProSysRecommendService proSysRecommendService;
+
     /**
      * 记录家族详情
-     * @param id  主键
+     *
+     * @param id 主键
      * @return
      */
     @Override
@@ -45,27 +47,27 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         //根据Id查出记录家族详情
         FanNewsFamilyRecord fanNewsFamilyRecord = this.selectById(id);
 
-        if(fanNewsFamilyRecord==null){
+        if (fanNewsFamilyRecord == null) {
             return null;
         }
 
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.eq("show_id", fanNewsFamilyRecord.getShowId());
-        uploadentity.eq("news_id",id);
+        uploadentity.eq("news_id", id);
         //查询所有文章id下的图片附件
-        List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
+        List<FanNewsUploadFile> files = fanNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
         AllUserLogin createUser = allUserLoginService.selectById(null);
         AllUserLogin updateUser = allUserLoginService.selectById(null);
 
         //返回新VO的集合赋值新对象vo
-        NewsDetailVo newsDetailVo=new NewsDetailVo();
+        NewsDetailVo newsDetailVo = new NewsDetailVo();
         //调用方法封装集合
-        BeanUtils.copyProperties(fanNewsFamilyRecord,newsDetailVo);
+        BeanUtils.copyProperties(fanNewsFamilyRecord, newsDetailVo);
         //存储图片list集合
-        newsDetailVo.setFanNewsUploadFileList(files);
+        newsDetailVo.setNewsUploadFileList(files);
         //存储作者名称时间
         newsDetailVo.setUpdateTimeLong(fanNewsFamilyRecord.getUpdateTime().getTime());
         newsDetailVo.setCreateTimeLong(fanNewsFamilyRecord.getCreateTime().getTime());
@@ -75,30 +77,31 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
     }
 
     /**
-     *联谊会记录家族前台增加查看数
-     *@Author: yuzhou
-     *@Date: 2018-11-12
-     *@Time: 13:49
-     *@Param:
-     *@return:
-     *@Description:
+     * 联谊会记录家族前台增加查看数
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-12
+     * @Time: 13:49
+     * @Param:
+     * @return:
+     * @Description:
      */
     @Override
     public void addVisitNum(Integer id) {
         //查出详情
         FanNewsFamilyRecord fanNewsFamilyRecord = this.selectById(id);
         //查看数加一
-        Integer visitNum = fanNewsFamilyRecord.getVisitNum()+1;
+        Integer visitNum = fanNewsFamilyRecord.getVisitNum() + 1;
         fanNewsFamilyRecord.setVisitNum(visitNum);
         this.updateAllColumnById(fanNewsFamilyRecord);
         int a = 200;
-        if(visitNum >a || visitNum==a){
+        if (visitNum > a || visitNum == a) {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=1;
+            int status = 1;
             //来源:(1县级,2省级)
-            int newsSource=1;
+            int newsSource = 1;
             //要插入的实体类
-            FanSysRecommend fanSysRecommend=new FanSysRecommend();
+            FanSysRecommend fanSysRecommend = new FanSysRecommend();
             fanSysRecommend.setStatus(status);
             fanSysRecommend.setNewsSource(newsSource);
             fanSysRecommend.setShowId(fanNewsFamilyRecord.getShowId());

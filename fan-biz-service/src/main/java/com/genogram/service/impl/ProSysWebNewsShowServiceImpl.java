@@ -35,12 +35,12 @@ import java.util.UUID;
 public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowMapper, ProSysWebNewsShow> implements IProSysWebNewsShowService {
     private final static String SHOW_ID = "showId=";
     private final static String SITE_ID = "siteId=";
-    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_1 ="index_architecture_pay_in_person_1";
-    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2 ="index_architecture_pay_in_person_2";
-    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_3 ="index_architecture_pay_in_person_3";
-    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2_2 ="index_architecture_pay_in_person_2_2";
-    private final static String INDEX_CHARITY_PAY_OUT ="index_charity_pay_out";
-    private final static String INDEX_CHARITY_PAY_OUT_3 ="index_charity_pay_out_3";
+    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_1 = "index_architecture_pay_in_person_1";
+    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2 = "index_architecture_pay_in_person_2";
+    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_3 = "index_architecture_pay_in_person_3";
+    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2_2 = "index_architecture_pay_in_person_2_2";
+    private final static String INDEX_CHARITY_PAY_OUT = "index_charity_pay_out";
+    private final static String INDEX_CHARITY_PAY_OUT_3 = "index_charity_pay_out_3";
     private final static int NUM_100 = 100;
 
     @Autowired
@@ -53,15 +53,15 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         List<ProSysWebNewsShow> list = this.selectList(entity);
         List<ProSysWebNewsShow> showList = new ArrayList<>();
 
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             List<ProSysWebMenu> menuList = proSysWebMenuService.selectList(null);
-            menuList.forEach(menu->{
+            menuList.forEach(menu -> {
                 ProSysWebNewsShow show = new ProSysWebNewsShow();
-                BeanUtils.copyProperties(menu,show);
+                BeanUtils.copyProperties(menu, show);
                 show.setSiteId(siteId);
                 //加3个9避免 重复
-                String showId = siteId+"99"+menu.getId();
-                show.setShowId( Integer.parseInt(showId));
+                String showId = siteId + "99" + menu.getId();
+                show.setShowId(Integer.parseInt(showId));
                 show.setMenuId(menu.getId());
                 show.setUpdateUser(1);
                 show.setUpdateTime(DateUtil.getCurrentTimeStamp());
@@ -71,7 +71,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
                 showList.add(show);
             });
         }
-        if(showList!=null && !showList.isEmpty()){
+        if (showList != null && !showList.isEmpty()) {
             this.insertBatch(showList);
         }
     }

@@ -47,7 +47,7 @@ public class ProIndexInfoServiceImpl extends ServiceImpl<ProIndexInfoMapper, Pro
         ProSysSite proSysSite = proSysSiteService.getProSysSite(siteId);
 
         IndexInfoVo indexInfoVo = new IndexInfoVo();
-        BeanUtils.copyProperties(proIndexInfo,indexInfoVo);
+        BeanUtils.copyProperties(proIndexInfo, indexInfoVo);
         indexInfoVo.setSiteName(proSysSite.getName());
         indexInfoVo.setRegionCode(proSysSite.getRegionCode());
 
@@ -78,15 +78,15 @@ public class ProIndexInfoServiceImpl extends ServiceImpl<ProIndexInfoMapper, Pro
         ProSysSite proSysSite = proSysSiteService.getProSysSite(proIndexInfo.getId());
 
         if (StringUtils.isEmpty(proSysSite)) {
-            proSysSite=new ProSysSite();
+            proSysSite = new ProSysSite();
             proSysSite.setCreateTime(DateUtil.format(format));
         }
         proSysSite.setUpdateTime(DateUtil.format(format));
 
-        BeanUtils.copyProperties(indexInfoVo,proIndexInfo);
+        BeanUtils.copyProperties(indexInfoVo, proIndexInfo);
 
         proSysSite.setName(indexInfoVo.getSiteName());
-        BeanUtils.copyProperties(indexInfoVo,proSysSite);
+        BeanUtils.copyProperties(indexInfoVo, proSysSite);
 
         this.insertOrUpdate(proIndexInfo);
 

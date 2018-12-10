@@ -24,6 +24,7 @@ public interface IFanProIndexInfoService extends IService<ProIndexInfo> {
 
     /**
      * 新增  省级信息
+     *
      * @param proIndexInfo
      * @return
      */

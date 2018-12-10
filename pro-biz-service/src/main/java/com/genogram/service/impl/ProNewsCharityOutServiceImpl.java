@@ -65,7 +65,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
 
         List<ProNewsCharityOut> proNewsCharityOutList = proNewsCharityOutPage.getRecords();
 
-        if (proNewsCharityOutList.size()==0) {
+        if (proNewsCharityOutList.size() == 0) {
             return null;
         }
 
@@ -96,7 +96,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
 
             //判断改图片文章id是否一样
             proNewsUploadFileList.forEach((data) -> {
-                if (proNewsCharityOut.getId() .equals(data.getNewsId())) {
+                if (proNewsCharityOut.getId().equals(data.getNewsId())) {
                     proNewsUploadFiles.add(data);
                 }
             });
@@ -142,7 +142,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetailVo = new NewsDetailVo();
 
-        BeanUtils.copyProperties(proNewsCharityOut,newsDetailVo);
+        BeanUtils.copyProperties(proNewsCharityOut, newsDetailVo);
 
         //存储图片list集合
         newsDetailVo.setNewsUploadFileList(proNewsUploadFileList);
@@ -170,7 +170,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
      * @return
      */
     @Override
-    public Boolean insertOrUpdateProNewsCharityOutVo(ProNewsCharityOut proNewsCharityOut,String fileName,String filePath) {
+    public Boolean insertOrUpdateProNewsCharityOutVo(ProNewsCharityOut proNewsCharityOut, String fileName, String filePath) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
         proNewsCharityOut.setVisitNum(0);
@@ -183,7 +183,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
         Boolean result = this.insertOrUpdate(proNewsCharityOut);
 
         if (result) {
-            result= uploadFileService.storageFanFile(fileName,filePath, proNewsCharityOut.getId(), proNewsCharityOut.getShowId());
+            result = uploadFileService.storageFanFile(fileName, filePath, proNewsCharityOut.getId(), proNewsCharityOut.getShowId());
             return true;
         } else {
             return false;
@@ -192,7 +192,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
     }
 
     @Override
-    public Boolean deleteProNewsCharityOut(Integer id,Integer userId) {
+    public Boolean deleteProNewsCharityOut(Integer id, Integer userId) {
 
         ProNewsCharityOut proNewsCharityOut = new ProNewsCharityOut();
 

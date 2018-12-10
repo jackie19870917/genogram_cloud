@@ -19,6 +19,7 @@ public interface FanNewsFamousPersonMapper extends BaseMapper<FanNewsFamousPerso
 
     /**
      * 省级首页县级推荐人物查询
+     *
      * @param map 查询条件
      * @return
      */

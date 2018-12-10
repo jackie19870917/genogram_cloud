@@ -18,16 +18,18 @@ public interface IAllUserNewsInfoService extends IService<AllUserNewsInfo> {
 
     /**
      * 根据用户查询日志
+     *
      * @param userId
      * @param list
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<AllUserNewsInfo> getAllUserNewsInfoPage(Integer userId, List list,Integer pageNo,Integer pageSize);
+    Page<AllUserNewsInfo> getAllUserNewsInfoPage(Integer userId, List list, Integer pageNo, Integer pageSize);
 
     /**
      * 新增/修改   日志
+     *
      * @param allUserNewsInfo
      * @return
      */
@@ -35,6 +37,7 @@ public interface IAllUserNewsInfoService extends IService<AllUserNewsInfo> {
 
     /**
      * 删除 日志
+     *
      * @param id
      * @param userId
      * @return
@@ -43,6 +46,7 @@ public interface IAllUserNewsInfoService extends IService<AllUserNewsInfo> {
 
     /**
      * 日志 详情
+     *
      * @param id
      * @return
      */

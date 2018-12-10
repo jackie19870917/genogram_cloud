@@ -14,6 +14,7 @@ public interface IAllUserPayInService extends IService<FanNewsCharityPayIn> {
 
     /**
      * 查询联谊会个人捐款记录
+     *
      * @param userId
      * @return
      */
@@ -21,6 +22,7 @@ public interface IAllUserPayInService extends IService<FanNewsCharityPayIn> {
 
     /**
      * 查询省级个人捐款记录
+     *
      * @param userId
      * @return
      */
@@ -28,10 +30,11 @@ public interface IAllUserPayInService extends IService<FanNewsCharityPayIn> {
 
     /**
      * 个人捐款记录
+     *
      * @param userId
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page getPayInPageByUserId(Integer userId,Integer pageNo,Integer pageSize);
+    Page getPayInPageByUserId(Integer userId, Integer pageNo, Integer pageSize);
 }

@@ -4,34 +4,34 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.FanSysCharitableDeclare">
-        <id column="id" property="id" />
-        <result column="status" property="status" />
-        <result column="show_id" property="showId" />
-        <result column="title" property="title" />
-        <result column="picture_address" property="pictureAddress" />
-        <result column="apply_name" property="applyName" />
-        <result column="apply_phone" property="applyPhone" />
-        <result column="apply_money" property="applyMoney" />
-        <result column="apply_num" property="applyNum" />
-        <result column="account_bank" property="accountBank" />
-        <result column="account_name" property="accountName" />
-        <result column="account_num" property="accountNum" />
-        <result column="applicant_adress" property="applicantAdress" />
-        <result column="receivables_name" property="receivablesName" />
-        <result column="receivables_phone" property="receivablesPhone" />
-        <result column="receivables_id" property="receivablesId" />
-        <result column="receivables_address" property="receivablesAddress" />
-        <result column="receivables_bank" property="receivablesBank" />
-        <result column="receivables_num" property="receivablesNum" />
-        <result column="abstract_info" property="abstractInfo" />
-        <result column="recommender_name" property="recommenderName" />
-        <result column="recommender_phone" property="recommenderPhone" />
-        <result column="recommender_company" property="recommenderCompany" />
-        <result column="recommender_osition" property="recommenderOsition" />
-        <result column="create_user" property="createUser" />
-        <result column="update_user" property="updateUser" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
+        <id column="id" property="id"/>
+        <result column="status" property="status"/>
+        <result column="show_id" property="showId"/>
+        <result column="title" property="title"/>
+        <result column="picture_address" property="pictureAddress"/>
+        <result column="apply_name" property="applyName"/>
+        <result column="apply_phone" property="applyPhone"/>
+        <result column="apply_money" property="applyMoney"/>
+        <result column="apply_num" property="applyNum"/>
+        <result column="account_bank" property="accountBank"/>
+        <result column="account_name" property="accountName"/>
+        <result column="account_num" property="accountNum"/>
+        <result column="applicant_adress" property="applicantAdress"/>
+        <result column="receivables_name" property="receivablesName"/>
+        <result column="receivables_phone" property="receivablesPhone"/>
+        <result column="receivables_id" property="receivablesId"/>
+        <result column="receivables_address" property="receivablesAddress"/>
+        <result column="receivables_bank" property="receivablesBank"/>
+        <result column="receivables_num" property="receivablesNum"/>
+        <result column="abstract_info" property="abstractInfo"/>
+        <result column="recommender_name" property="recommenderName"/>
+        <result column="recommender_phone" property="recommenderPhone"/>
+        <result column="recommender_company" property="recommenderCompany"/>
+        <result column="recommender_osition" property="recommenderOsition"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

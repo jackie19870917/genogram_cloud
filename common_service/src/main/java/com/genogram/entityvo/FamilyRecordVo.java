@@ -3,13 +3,15 @@ package com.genogram.entityvo;
 
 import com.genogram.entity.FanNewsUploadFile;
 import lombok.Data;
+
 import java.util.Date;
 import java.util.List;
+
 /**
  * @author Administrator
  */
 @Data
-public class FamilyRecordVo{
+public class FamilyRecordVo {
     /**
      * 记录家族图片
      */

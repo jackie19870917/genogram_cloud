@@ -32,31 +32,33 @@ public class ProNewsFamousController {
 
     @Autowired
     private IProSysWebNewsShowService iProSysWebNewsShowService;
+
     /**
      * 家族长老查询,组织架构
      */
     @ApiOperation(value = "家族长老，组织架构", notes = "showId:显示位置,pageNo:页数,pageSize:总页数")
     @ResponseBody
-    @RequestMapping(value = "selectPersonPage",method = RequestMethod.GET)
+    @RequestMapping(value = "selectPersonPage", method = RequestMethod.GET)
     public Response<ProNewsFamousPerson> selectPersonPage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
-    ){
+    ) {
         try {
-            int status=1;
+            int status = 1;
             Page<ProFamilyPersonVo> familyPersonVo = iProNewsFamousPersonService.getFamilyPersionPage(showId, status, pageNo, pageSize);
-            if(familyPersonVo==null){
+            if (familyPersonVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,"familyPersonVo为空");
+                return ResponseUtlis.error(Constants.ERRO_CODE, "familyPersonVo为空");
             }
             return ResponseUtlis.success(familyPersonVo);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
     /**
      * 联谊会家族文化详情查询一条
      *
@@ -75,8 +77,8 @@ public class ProNewsFamousController {
         try {
             //返回空参
             ProFamilyPersonVo proFamilyPersonVo = new ProFamilyPersonVo();
-            if(id==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,"id为空");
+            if (id == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, "id为空");
             }
             ProFamilyPersonVo newsDetailVo = iProNewsFamousPersonService.getFamilyFamilyDetail(id);
             if (newsDetailVo == null) {
@@ -90,6 +92,7 @@ public class ProNewsFamousController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
     /**
      * 组织架构
      */
@@ -97,28 +100,28 @@ public class ProNewsFamousController {
     @RequestMapping(value = "/getFamilyStructureList", method = RequestMethod.GET)
     public Response<ProFamilyPersonVo> getFamilyStructureList(
             @RequestParam(value = "siteId") Integer siteId
-    ){
+    ) {
         try {
             Map map = new LinkedHashMap();
             //拿到会长的showid
-            ProSysWebNewsShow show = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_huizhang");
+            ProSysWebNewsShow show = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_huizhang");
             ProNewsFamousPerson familyFrameList = iProNewsFamousPersonService.getFamilyFrameList(show.getShowId());
-            map.put(show.getMenuName(),familyFrameList);
+            map.put(show.getMenuName(), familyFrameList);
 
             //拿到执行会长的showid
-            ProSysWebNewsShow zhixinshow = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_zhixin_huizhang");
+            ProSysWebNewsShow zhixinshow = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_zhixin_huizhang");
             ProNewsFamousPerson zhixinfamilyFrameList = iProNewsFamousPersonService.getFamilyFrameList(zhixinshow.getShowId());
-            map.put(zhixinshow.getMenuName(),zhixinfamilyFrameList);
+            map.put(zhixinshow.getMenuName(), zhixinfamilyFrameList);
 
             //拿到名誉会长的showid
-            ProSysWebNewsShow mingyushow = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_mingyu_huizhang");
+            ProSysWebNewsShow mingyushow = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_mingyu_huizhang");
             ProNewsFamousPerson mingyufamilyFrameList = iProNewsFamousPersonService.getFamilyFrameList(mingyushow.getShowId());
-            map.put(mingyushow.getMenuName(),mingyufamilyFrameList);
+            map.put(mingyushow.getMenuName(), mingyufamilyFrameList);
 
             //拿到副会长的showid
-            ProSysWebNewsShow fushow = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId,"persion_fuhuizhang");
+            ProSysWebNewsShow fushow = iProSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "persion_fuhuizhang");
             ProNewsFamousPerson fufamilyFrameList = iProNewsFamousPersonService.getFamilyFrameList(fushow.getShowId());
-            map.put(fushow.getMenuName(),fufamilyFrameList);
+            map.put(fushow.getMenuName(), fufamilyFrameList);
 
             if (familyFrameList == null) {
                 //没有取到参数,返回空参

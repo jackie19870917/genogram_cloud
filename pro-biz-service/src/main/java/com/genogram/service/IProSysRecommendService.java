@@ -25,20 +25,24 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 省级后台点击推荐
-     * @param fanSysRecommend  推荐实体类
+     *
+     * @param fanSysRecommend 推荐实体类
      * @return
      */
     Boolean addRecommend(FanSysRecommend fanSysRecommend);
 
     /**
      * 省级后台点击取消
+     *
      * @param entity
      * @param status
      * @return
      */
     Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status);
+
     /**
      * 省级首页县级推荐文章查询
+     *
      * @param map 查询条件
      * @return
      */
@@ -46,6 +50,7 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 省级首页县级推荐人物查询
+     *
      * @param map
      * @return
      */
@@ -53,7 +58,8 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 省级首页文章推荐详情查询
-     * @param id 主键
+     *
+     * @param id     主键
      * @param source 分类 1代表家族文化 2 代表记录家族 3代表家族名人
      * @return
      */
@@ -61,6 +67,7 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 省级首页名人推荐详情查询
+     *
      * @param id
      * @return
      */
@@ -68,6 +75,7 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 省级手动文章查询
+     *
      * @param map
      * @return
      */
@@ -76,6 +84,7 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 省级后台设置手动推荐到全国
+     *
      * @param map
      * @return
      */

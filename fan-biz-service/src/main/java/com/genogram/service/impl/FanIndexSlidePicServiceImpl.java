@@ -59,7 +59,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
     }
 
     @Override
-    public Boolean deleteFanIndexSlidePic(Integer id,Integer userId) {
+    public Boolean deleteFanIndexSlidePic(Integer id, Integer userId) {
 
         FanIndexSlidePic indexSlidePic = this.selectById(id);
 
@@ -72,7 +72,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
         List<FanIndexSlidePic> fanIndexSlidePicList = this.getFanIndexSlidePicListBySiteId(indexSlidePic.getSiteId(), list);
 
         for (FanIndexSlidePic slidePic : fanIndexSlidePicList) {
-            if (indexSlidePic.getSort()<slidePic.getSort()) {
+            if (indexSlidePic.getSort() < slidePic.getSort()) {
                 slidePic.setSort(slidePic.getSort() - 1);
                 this.updateById(slidePic);
             }

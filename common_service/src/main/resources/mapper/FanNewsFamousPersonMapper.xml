@@ -4,18 +4,18 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.FanNewsFamousPerson">
-        <id column="id" property="id" />
-        <result column="show_id" property="showId" />
-        <result column="person_name" property="personName" />
-        <result column="person_summary" property="personSummary" />
-        <result column="pic_file_src" property="picFileSrc" />
-        <result column="pic_file_name" property="picFileName" />
-        <result column="visit_num" property="visitNum" />
-        <result column="status" property="status" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="show_id" property="showId"/>
+        <result column="person_name" property="personName"/>
+        <result column="person_summary" property="personSummary"/>
+        <result column="pic_file_src" property="picFileSrc"/>
+        <result column="pic_file_name" property="picFileName"/>
+        <result column="visit_num" property="visitNum"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -25,14 +25,18 @@
 
     <select id="getRecommendFigure" parameterType="java.util.Map" resultType="com.genogram.entityvo.FamilyPersonVo">
         SELECT
-        '4' as source,s.name as sizeName,m.id as recommendId,f.id, f.show_id AS showId, f.person_name AS personName, f.person_summary AS personSummary, f.pic_file_src AS picFileSrc, f.pic_file_name AS picFileName, f.visit_num AS visitNum, f.status, f.create_time AS createTime, f.create_user AS createUser, f.update_time AS updateTime, f.update_user AS updateUser
+        '4' as source,s.name as sizeName,m.id as recommendId,f.id, f.show_id AS showId, f.person_name AS personName,
+        f.person_summary AS personSummary, f.pic_file_src AS picFileSrc, f.pic_file_name AS picFileName, f.visit_num AS
+        visitNum, f.status, f.create_time AS createTime, f.create_user AS createUser, f.update_time AS updateTime,
+        f.update_user AS updateUser
         FROM fan_sys_site s,fan_sys_web_news_show n,fan_sys_recommend m,fan_news_famous_person f
         WHERE 1=1
         <!--fanSiteId县级-->
         <if test="siteId!=null">
             AND n.site_id=#{siteId}
         </if>
-        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{siteId} AND n.menu_code='famous')
+        AND n.parent_id in (SELECT n.menu_id FROM fan_sys_web_news_show n WHERE 1=1 AND n.site_id=#{siteId} AND
+        n.menu_code='famous')
         AND s.id=n.site_id AND n.show_id=m.show_id
         <if test="status!=null">
             AND m.status=#{status}
@@ -51,7 +55,7 @@
             and right(m.show_id,2) ='21';
         </if>
         <if test="showId==22">
-            and  right(m.show_id,2) ='22';
+            and right(m.show_id,2) ='22';
         </if>
     </select>
 

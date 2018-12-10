@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -210,19 +213,19 @@ public class FanSysRecommend extends Model<FanSysRecommend> {
     @Override
     public String toString() {
         return "FanSysRecommend{" +
-        ", id=" + id +
-        ", showId=" + showId +
-        ", newsId=" + newsId +
-        ", isProvince=" + isProvince +
-        ", isCountry=" + isCountry +
-        ", isAuto=" + isAuto +
-        ", newsSource=" + newsSource +
-        ", status=" + status +
-        ", newsType=" + newsType +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", showId=" + showId +
+                ", newsId=" + newsId +
+                ", isProvince=" + isProvince +
+                ", isCountry=" + isCountry +
+                ", isAuto=" + isAuto +
+                ", newsSource=" + newsSource +
+                ", status=" + status +
+                ", newsType=" + newsType +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

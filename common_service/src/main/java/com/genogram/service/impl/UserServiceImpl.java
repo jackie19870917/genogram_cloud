@@ -11,9 +11,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *@author: Toxicant
- *@date: 2018-11-23
-*/
+ * @author: Toxicant
+ * @date: 2018-11-23
+ */
 @Service
 public class UserServiceImpl extends ServiceImpl<AllUserLoginMapper, AllUserLogin> implements IUserService {
 
@@ -23,9 +23,9 @@ public class UserServiceImpl extends ServiceImpl<AllUserLoginMapper, AllUserLogi
         try {
 
             //Base64解密
-            str= new String(Base64.decodeBase64(str));
+            str = new String(Base64.decodeBase64(str));
 
-            str=str.substring(str.indexOf("{")+1, str.lastIndexOf("}"));
+            str = str.substring(str.indexOf("{") + 1, str.lastIndexOf("}"));
 
             List<String> list = Arrays.asList(str.split("="));
 
@@ -35,7 +35,7 @@ public class UserServiceImpl extends ServiceImpl<AllUserLoginMapper, AllUserLogi
             allUserLogin.setMobilePhone(list.get(0));
             allUserLogin.setPassword(list.get(1));
 
-            if(allUserLogin.getId()==null){
+            if (allUserLogin.getId() == null) {
                 allUserLogin.setId(1);
             }
 

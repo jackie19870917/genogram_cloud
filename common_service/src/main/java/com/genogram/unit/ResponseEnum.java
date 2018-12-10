@@ -1,17 +1,14 @@
 package com.genogram.unit;
 
 /**
- *
- * @Author: wang,wei
+ * @param null
+ * @Author: wang, wei
  * @Date: 2018-11-05
  * @Time: 22:23
- * @param null
  * @return:
  * @Description:
- *
  */
-public enum ResponseEnum
-{
+public enum ResponseEnum {
     /**
      * agree
      */
@@ -43,24 +40,20 @@ public enum ResponseEnum
     /**
      * agree
      */
-    FILE_SIZE_FULL(205, "文件大小超出")
-    ;
+    FILE_SIZE_FULL(205, "文件大小超出");
     private int code;
     private String msg;
 
-    private ResponseEnum(int code, String msg)
-    {
+    private ResponseEnum(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public int getCode()
-    {
+    public int getCode() {
         return code;
     }
 
-    public String getMsg()
-    {
+    public String getMsg() {
         return msg;
     }
 

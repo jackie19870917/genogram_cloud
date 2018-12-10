@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 /**
  *
- * @Author: wang,wei
+ * @Author: wang, wei
  * @Date: 2018-11-05
  * @Time: 22:19
  * @return:
@@ -15,7 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 public class CommonFileUploadServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(CommonFileUploadServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(CommonFileUploadServiceApplication.class, args);
+    }
 }

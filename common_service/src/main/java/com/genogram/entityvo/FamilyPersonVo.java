@@ -3,20 +3,22 @@ package com.genogram.entityvo;
 import com.genogram.entity.FanNewsFamousPerson;
 import com.genogram.entity.FanNewsUploadFile;
 import lombok.Data;
+
 import java.util.Date;
 import java.util.List;
 
 /**
  * 推荐表Vo表
- *@Author: yuzhou
- *@Date: 2018-11-26
- *@Time: 11:10
- *@Param:
- *@return:
- *@Description:
-*/
+ *
+ * @Author: yuzhou
+ * @Date: 2018-11-26
+ * @Time: 11:10
+ * @Param:
+ * @return:
+ * @Description:
+ */
 @Data
-public class FamilyPersonVo{
+public class FamilyPersonVo {
 
 
     /**
@@ -28,7 +30,6 @@ public class FamilyPersonVo{
      * 联谊会名称
      */
     private String sizeName;
-
 
 
     /**

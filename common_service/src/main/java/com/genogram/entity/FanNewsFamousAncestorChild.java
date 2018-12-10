@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -209,19 +212,19 @@ public class FanNewsFamousAncestorChild extends Model<FanNewsFamousAncestorChild
     @Override
     public String toString() {
         return "FanNewsFamousAncestorChild{" +
-        ", id=" + id +
-        ", fanNewsFamousAncestorId=" + fanNewsFamousAncestorId +
-        ", ancestorTitle=" + ancestorTitle +
-        ", ancestorName=" + ancestorName +
-        ", ancestorSummary=" + ancestorSummary +
-        ", picFileSrc=" + picFileSrc +
-        ", picFileName=" + picFileName +
-        ", visitNum=" + visitNum +
-        ", status=" + status +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", fanNewsFamousAncestorId=" + fanNewsFamousAncestorId +
+                ", ancestorTitle=" + ancestorTitle +
+                ", ancestorName=" + ancestorName +
+                ", ancestorSummary=" + ancestorSummary +
+                ", picFileSrc=" + picFileSrc +
+                ", picFileName=" + picFileName +
+                ", visitNum=" + visitNum +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

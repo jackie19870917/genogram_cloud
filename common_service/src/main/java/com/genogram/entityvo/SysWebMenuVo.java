@@ -1,20 +1,21 @@
 package com.genogram.entityvo;
 
 import lombok.Data;
+
 import java.util.Date;
 import java.util.List;
 
 @Data
 /**
- * @Author: wang,wei
+ * @Author: wang, wei
  * @Date: 2018/11/5
  * @Time: 21:17
- * @Param: 
- * @return: 
+ * @Param:
+ * @return:
  * @Description:
  *
  */
-public class SysWebMenuVo{
+public class SysWebMenuVo {
     private Integer id;
     /**
      * site_id和menuid组合

@@ -15,11 +15,12 @@ public class TestController {
 
     @Autowired
     ITestService iTestService;
+
     //联谊会家族字派查询
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/test1",method = RequestMethod.GET)
-    public AllUserLogin getAllUserLogin(){
+    @RequestMapping(value = "/test1", method = RequestMethod.GET)
+    public AllUserLogin getAllUserLogin() {
         AllUserLogin allUserLogin = iTestService.getAllUserLogin();
         return allUserLogin;
     }

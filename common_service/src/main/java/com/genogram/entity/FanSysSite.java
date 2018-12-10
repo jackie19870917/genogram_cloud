@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -223,20 +226,20 @@ public class FanSysSite extends Model<FanSysSite> {
     @Override
     public String toString() {
         return "FanSysSite{" +
-        ", id=" + id +
-        ", familyCode=" + familyCode +
-        ", regionCode=" + regionCode +
-        ", name=" + name +
-        ", admin=" + admin +
-        ", status=" + status +
-        ", parent=" + parent +
-        ", oneUrl=" + oneUrl +
-        ", twoUrl=" + twoUrl +
-        ", adminEnable=" + adminEnable +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", familyCode=" + familyCode +
+                ", regionCode=" + regionCode +
+                ", name=" + name +
+                ", admin=" + admin +
+                ", status=" + status +
+                ", parent=" + parent +
+                ", oneUrl=" + oneUrl +
+                ", twoUrl=" + twoUrl +
+                ", adminEnable=" + adminEnable +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

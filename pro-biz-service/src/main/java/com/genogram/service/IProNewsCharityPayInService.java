@@ -19,9 +19,10 @@ import java.util.Map;
 public interface IProNewsCharityPayInService extends IService<ProNewsCharityPayIn> {
 
     /**
-     *      捐款名录(个人捐款金额)
-     * @param mapPage  分页
-     * @param map   查询条件
+     * 捐款名录(个人捐款金额)
+     *
+     * @param mapPage 分页
+     * @param map     查询条件
      * @return
      */
     Page<DonorVo> getDonorVoPage(Page<ProNewsCharityPayIn> mapPage, Map map);
@@ -31,9 +32,9 @@ public interface IProNewsCharityPayInService extends IService<ProNewsCharityPayI
      *
      * @param showId   展示位置
      * @param status   状态
-     * @param nickName   昵称
-     * @param order   排序
-     * @param label   升序,降序
+     * @param nickName 昵称
+     * @param order    排序
+     * @param label    升序,降序
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return
@@ -41,7 +42,8 @@ public interface IProNewsCharityPayInService extends IService<ProNewsCharityPayI
     Page<DonorVo> getDonorVoPageByTime(Integer showId, List status, String nickName, Integer pageNo, Integer pageSize, String order, String label);
 
     /**
-     *  新增捐款名录
+     * 新增捐款名录
+     *
      * @param proNewsCharityPayIn 实体类
      * @return
      */

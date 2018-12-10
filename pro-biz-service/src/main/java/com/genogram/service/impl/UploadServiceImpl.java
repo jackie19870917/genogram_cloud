@@ -17,13 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @Author: wang,wei
+ * @Author: wang, wei
  * @Date: 2018-11-11
  * @Time: 23:19
  * @return:
  * @Description:
- *
  */
 @Service
 public class UploadServiceImpl implements IUploadFileService {
@@ -35,12 +33,12 @@ public class UploadServiceImpl implements IUploadFileService {
     private IProNewsUploadVedioService fanNewsUploadVedioService;
 
     @Override
-    public boolean storageFanFile(String fileName,String filePath,Integer newsId,Integer showId) {
-        if(StringsUtils.isEmpty(fileName)) {
+    public boolean storageFanFile(String fileName, String filePath, Integer newsId, Integer showId) {
+        if (StringsUtils.isEmpty(fileName)) {
             return true;
         }
 
-        updateOldFiletoNoIndex(newsId,showId);
+        updateOldFiletoNoIndex(newsId, showId);
 
         Timestamp format = DateUtil.getCurrentTimeStamp();
         ProNewsUploadFile proNewsUploadFile = new ProNewsUploadFile();
@@ -58,11 +56,11 @@ public class UploadServiceImpl implements IUploadFileService {
 
     @Override
     public boolean storageFanVedio(String fileName, String filePath, Integer newsId, Integer showId) {
-        if(StringsUtils.isEmpty(fileName)) {
+        if (StringsUtils.isEmpty(fileName)) {
             return true;
         }
 
-        updateOldVedio(newsId,showId);
+        updateOldVedio(newsId, showId);
 
         Timestamp format = DateUtil.getCurrentTimeStamp();
         ProNewsUploadVedio proNewsUploadVedio = new ProNewsUploadVedio();
@@ -79,47 +77,47 @@ public class UploadServiceImpl implements IUploadFileService {
 
 
     /**
-     *将原来的showid newsid 下的文章的附件首页取消
-     * @Author: wang,wei
+     * 将原来的showid newsid 下的文章的附件首页取消
+     *
+     * @Author: wang, wei
      * @Date: 2018-11-11
      * @Time: 23:19
      * @return:
      * @Description:
-     *
      */
-    private void updateOldFiletoNoIndex(Integer newsId,Integer showId){
+    private void updateOldFiletoNoIndex(Integer newsId, Integer showId) {
         Wrapper<ProNewsUploadFile> entity = new EntityWrapper<>();
         entity.eq("news_id", newsId);
         entity.eq("show_id", showId);
         List<ProNewsUploadFile> list = proNewsUploadFileService.selectList(entity);
-        list.forEach((proNewsUploadFile)->{
+        list.forEach((proNewsUploadFile) -> {
             //取消首页置顶
             proNewsUploadFile.setPicIndex(0);
             //删除
             proNewsUploadFile.setStatus(0);
         });
-        if(!list.isEmpty()){
+        if (!list.isEmpty()) {
             proNewsUploadFileService.insertOrUpdateBatch(list);
         }
     }
 
-    private void updateOldVedio(Integer newsId,Integer showId){
+    private void updateOldVedio(Integer newsId, Integer showId) {
         Wrapper<ProNewsUploadVedio> entity = new EntityWrapper<>();
         entity.eq("news_id", newsId);
         entity.eq("show_id", showId);
         List<ProNewsUploadVedio> list = fanNewsUploadVedioService.selectList(entity);
-        list.forEach((proNewsUploadVedio)->{
+        list.forEach((proNewsUploadVedio) -> {
             //删除
             proNewsUploadVedio.setStatus(0);
         });
-        if(!list.isEmpty()){
+        if (!list.isEmpty()) {
             fanNewsUploadVedioService.insertOrUpdateBatch(list);
         }
     }
 
     @Override
     public boolean storageFanFiles(String fileNames, Integer showId, Integer newsId) {
-        if(StringsUtils.isEmpty(fileNames)) {
+        if (StringsUtils.isEmpty(fileNames)) {
             return true;
         }
         String[] split = fileNames.split(";");

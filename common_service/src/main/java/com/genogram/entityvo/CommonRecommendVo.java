@@ -8,14 +8,15 @@ import lombok.Data;
 import java.util.Date;
 
 /**
- *推荐表封装
- *@Author: yuzhou
- *@Date: 2018-11-17
- *@Time: 18:50
- *@Param:
- *@return:
- *@Description:
-*/
+ * 推荐表封装
+ *
+ * @Author: yuzhou
+ * @Date: 2018-11-17
+ * @Time: 18:50
+ * @Param:
+ * @return:
+ * @Description:
+ */
 @Data
 public class CommonRecommendVo {
 

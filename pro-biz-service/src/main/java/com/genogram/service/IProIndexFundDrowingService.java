@@ -17,6 +17,7 @@ public interface IProIndexFundDrowingService extends IService<ProIndexFundDrowin
 
     /**
      * 新增线上提现记录
+     *
      * @param proIndexFundDrowing
      * @return
      */
@@ -24,6 +25,7 @@ public interface IProIndexFundDrowingService extends IService<ProIndexFundDrowin
 
     /**
      * 线上提现记录
+     *
      * @param siteId
      * @param pageNo
      * @param pageSize

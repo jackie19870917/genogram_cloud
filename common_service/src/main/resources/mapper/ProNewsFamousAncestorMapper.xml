@@ -4,24 +4,24 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.ProNewsFamousAncestor">
-        <id column="id" property="id" />
-        <result column="show_id" property="showId" />
-        <result column="parent_id" property="parentId" />
-        <result column="ancestor_title" property="ancestorTitle" />
-        <result column="ancestor_name" property="ancestorName" />
-        <result column="ancestor_summary" property="ancestorSummary" />
-        <result column="pic_file_src" property="picFileSrc" />
-        <result column="pic_file_name" property="picFileName" />
-        <result column="status" property="status" />
-        <result column="zipai" property="zipai" />
-        <result column="junwang" property="junwang" />
-        <result column="tanghao" property="tanghao" />
-        <result column="branch_id" property="branchId" />
-        <result column="source_classify" property="sourceClassify" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="show_id" property="showId"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="ancestor_title" property="ancestorTitle"/>
+        <result column="ancestor_name" property="ancestorName"/>
+        <result column="ancestor_summary" property="ancestorSummary"/>
+        <result column="pic_file_src" property="picFileSrc"/>
+        <result column="pic_file_name" property="picFileName"/>
+        <result column="status" property="status"/>
+        <result column="zipai" property="zipai"/>
+        <result column="junwang" property="junwang"/>
+        <result column="tanghao" property="tanghao"/>
+        <result column="branch_id" property="branchId"/>
+        <result column="source_classify" property="sourceClassify"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -29,10 +29,12 @@
         id, show_id AS showId, parent_id AS parentId, ancestor_title AS ancestorTitle, ancestor_name AS ancestorName, ancestor_summary AS ancestorSummary, pic_file_src AS picFileSrc, pic_file_name AS picFileName, status, zipai, junwang, tanghao, branch_id AS branchId, source_classify AS sourceClassify, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
-    <select id="getFamousAncestorVaguePage" parameterType="java.util.Map" resultType="com.genogram.entityvo.AncestorsBranchVo">
+    <select id="getFamousAncestorVaguePage" parameterType="java.util.Map"
+            resultType="com.genogram.entityvo.AncestorsBranchVo">
         select temp1.* from (
         SELECT
-        '2' as source,<include refid="Base_Column_List" />
+        '2' as source,
+        <include refid="Base_Column_List"/>
         FROM pro_news_famous_ancestor
         WHERE
         1=1
@@ -42,12 +44,13 @@
         and parent_id ='0'
         union all
         SELECT
-        '1' as source,<include refid="Base_Column_List" />
+        '1' as source,
+        <include refid="Base_Column_List"/>
         FROM fan_news_famous_ancestor
         WHERE
         1=1
         <if test="ancestorName!=null">
-            and   ancestor_name LIKE CONCAT('%',#{ancestorName},'%')
+            and ancestor_name LIKE CONCAT('%',#{ancestorName},'%')
         </if>
         and parent_id ='0'
         ) temp1

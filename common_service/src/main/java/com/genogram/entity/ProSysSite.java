@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -195,18 +198,18 @@ public class ProSysSite extends Model<ProSysSite> {
     @Override
     public String toString() {
         return "ProSysSite{" +
-        ", id=" + id +
-        ", familyCode=" + familyCode +
-        ", regionCode=" + regionCode +
-        ", name=" + name +
-        ", admin=" + admin +
-        ", status=" + status +
-        ", parent=" + parent +
-        ", adminEnable=" + adminEnable +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", familyCode=" + familyCode +
+                ", regionCode=" + regionCode +
+                ", name=" + name +
+                ", admin=" + admin +
+                ", status=" + status +
+                ", parent=" + parent +
+                ", adminEnable=" + adminEnable +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

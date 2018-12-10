@@ -2,45 +2,38 @@ package com.genogram.unit;
 
 /**
  * api返回
- * @author panda
  *
  * @param <T>
+ * @author panda
  */
-public class Response<T>
-{
+public class Response<T> {
     private String msg;
 
     private int code;
 
     private T data;
 
-    public String getMsg()
-    {
+    public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg)
-    {
+    public void setMsg(String msg) {
         this.msg = msg;
     }
 
-    public int getCode()
-    {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(int code)
-    {
+    public void setCode(int code) {
         this.code = code;
     }
 
-    public T getData()
-    {
+    public T getData() {
         return data;
     }
 
-    public void setData(T data)
-    {
+    public void setData(T data) {
         this.data = data;
     }
 }

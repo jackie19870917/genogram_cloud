@@ -24,6 +24,7 @@ public interface IFanNewsFamousAncestorService extends IService<FanNewsFamousAnc
 
     /**
      * 联谊会联谊会祖先查询
+     *
      * @param siteId
      * @param pageNo
      * @param pageSize
@@ -33,6 +34,7 @@ public interface IFanNewsFamousAncestorService extends IService<FanNewsFamousAnc
 
     /**
      * 联谊会祖先人物详情查询
+     *
      * @param id
      * @return
      */
@@ -40,6 +42,7 @@ public interface IFanNewsFamousAncestorService extends IService<FanNewsFamousAnc
 
     /**
      * 联谊会祖先后台添加模糊查询
+     *
      * @param map
      * @param mapPage
      * @return
@@ -48,6 +51,7 @@ public interface IFanNewsFamousAncestorService extends IService<FanNewsFamousAnc
 
     /**
      * 联谊会添加
+     *
      * @param fanNewsFamousAncestor
      * @param proSplit
      * @param fanSplit
@@ -58,6 +62,7 @@ public interface IFanNewsFamousAncestorService extends IService<FanNewsFamousAnc
 
     /**
      * 联谊会删除
+     *
      * @param id
      * @return
      */

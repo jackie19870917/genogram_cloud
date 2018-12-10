@@ -12,14 +12,15 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 /**
- *         时间操作工具类
- *@Author: Toxicant
- *@Date: 2018-11-09
- *@Time: 11:05
- *@Param:
- *@return:
- *@Description:
-*/
+ * 时间操作工具类
+ *
+ * @Author: Toxicant
+ * @Date: 2018-11-09
+ * @Time: 11:05
+ * @Param:
+ * @return:
+ * @Description:
+ */
 public class DateUtil {
 
     /**
@@ -39,8 +40,10 @@ public class DateUtil {
     public static String getYear(Date date) {
         return formatDate(date, "yyyy");
     }
+
     /**
      * 获取yyyyMM格式
+     *
      * @return
      */
     public static String getYearAndMonth() {
@@ -130,12 +133,12 @@ public class DateUtil {
     }
 
     /**
-     * @Title: compareDate
-     * @Description:(日期比较，如果s>=e 返回true 否则返回false)
      * @param s
      * @param e
      * @return boolean
      * @throws
+     * @Title: compareDate
+     * @Description:(日期比较，如果s>=e 返回true 否则返回false)
      */
     public static boolean compareDate(String s, String e) {
         if (parseDate(s) == null || parseDate(e) == null) {
@@ -143,12 +146,14 @@ public class DateUtil {
         }
         return parseDate(s).getTime() >= parseDate(e).getTime();
     }
+
     public static boolean compareDate(Date s, Date e) {
         if (s == null || s == null) {
             return false;
         }
         return s.getTime() >= s.getTime();
     }
+
     public static boolean compareDateNow(Date s) {
         if (s == null || s == null) {
             return false;
@@ -159,30 +164,33 @@ public class DateUtil {
     /**
      * 格式化日期
      * yyyy-MM-dd 格式
+     *
      * @return
      */
     public static Date parseDate(String date) {
-        return parse(date,"yyyy-MM-dd");
+        return parse(date, "yyyy-MM-dd");
     }
 
     /**
      * 格式化日期
      * yyyy-MM-dd HH:mm:ss 格式
+     *
      * @return
      */
     public static Date parseTime(String date) {
-        return parse(date,"yyyy-MM-dd HH:mm:ss");
+        return parse(date, "yyyy-MM-dd HH:mm:ss");
     }
 
     /**
      * 格式化日期
+     *
      * @param date
      * @param pattern 自定义格式
      * @return
      */
     public static Date parse(String date, String pattern) {
         try {
-            return DateUtils.parseDate(date,pattern);
+            return DateUtils.parseDate(date, pattern);
         } catch (ParseException e) {
             e.printStackTrace();
             return null;
@@ -191,6 +199,7 @@ public class DateUtil {
 
     /**
      * 格式化日期
+     *
      * @param date
      * @param pattern 自定义格式
      * @return
@@ -210,30 +219,32 @@ public class DateUtil {
     }
 
     /**
-     *得到当前的Timestamp
-     *@Author: yuzhou
-     *@Date: 2018-11-10
-     *@Time: 12:34
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    public  static Timestamp getCurrentTimeStamp(){
+     * 得到当前的Timestamp
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-10
+     * @Time: 12:34
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    public static Timestamp getCurrentTimeStamp() {
         Date date = new Date();
         return new Timestamp(date.getTime());
     }
-    
+
     /**
      * 增加固定的天数
+     *
      * @param date
      * @param type
      * @param value
      * @return
      */
-    public static Date addDate(Date date,int type , int value){
+    public static Date addDate(Date date, int type, int value) {
         // java.util包
         Calendar canlendar = Calendar.getInstance();
-        if (date!=null) {
+        if (date != null) {
             canlendar.setTime(date);
         }
         // 日期减 如果不够减会将月变动
@@ -338,35 +349,37 @@ public class DateUtil {
 
         return dateStr;
     }
-    
+
     /**
      * 获取一个月的第一天
+     *
      * @param date
      * @return
      */
     public static String getFirstDayMonth(Date date) {
         // java.util包
         Calendar canlendar = Calendar.getInstance();
-        if (date!=null) {
+        if (date != null) {
             canlendar.setTime(date);
         }
         canlendar.set(Calendar.DATE, 1);
         date = canlendar.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateStr = sdf.format(date);
-        
+
         return dateStr;
     }
-    
+
     /**
      * 获取一个月的最后一天
+     *
      * @param date
      * @return
      */
     public static String getLastDayMonth(Date date) {
         // java.util包
         Calendar canlendar = Calendar.getInstance();
-        if (date!=null) {
+        if (date != null) {
             canlendar.setTime(date);
         }
         canlendar.add(Calendar.MONTH, 1);
@@ -375,7 +388,7 @@ public class DateUtil {
         date = canlendar.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateStr = sdf.format(date);
-        
+
         return dateStr;
     }
 

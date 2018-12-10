@@ -23,34 +23,38 @@ import java.util.List;
 public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews> {
 
     /**
-     *联谊会家族文化查询
-     * @param entity 查询条件
-     * @param pageNo 当前页
+     * 联谊会家族文化查询
+     *
+     * @param entity   查询条件
+     * @param pageNo   当前页
      * @param pageSize 每页显示条数
      * @return
      */
     Page<FamilyCultureVo> getFamilyCulturePage(Wrapper<FanNewsCultureNews> entity, Integer pageNo, Integer pageSize);
 
     /**
-     *联谊会家族文化详情查询
-     * @param id  文章ID
+     * 联谊会家族文化详情查询
+     *
+     * @param id 文章ID
      * @return
      */
     NewsDetailVo getFamilyCultureDetail(Integer id);
 
     /**
      * 家族文化后台添加
-     * @param fanNewsCultureNews  家族文化上传实体类
-     * @param fileName  上传的图片的字符串
-     * @param filePath  上传的图片的路径
+     *
+     * @param fanNewsCultureNews 家族文化上传实体类
+     * @param fileName           上传的图片的字符串
+     * @param filePath           上传的图片的路径
      * @return
      */
-    boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews,String fileName,String filePath);
+    boolean addOrUpdateCulture(FanNewsCultureNews fanNewsCultureNews, String fileName, String filePath);
 
     /**
      * 联谊会家族文化后台删除
-     * @param id  主键
-     * @param status  状态(0:删除;1:已发布;2:草稿3:不显示)
+     *
+     * @param id                   主键
+     * @param status               状态(0:删除;1:已发布;2:草稿3:不显示)
      * @param userLoginInfoByToken
      * @return
      */
@@ -58,12 +62,14 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
 
     /**
      * 联谊会家族文化增加查看数
+     *
      * @param id
      */
     void addVisitNum(Integer id);
 
     /**
      * 联谊会首页家族文化文章查询
+     *
      * @param siteId
      * @param pageNo
      * @param pageSize

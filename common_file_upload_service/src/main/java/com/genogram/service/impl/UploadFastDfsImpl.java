@@ -21,6 +21,7 @@ public class UploadFastDfsImpl implements IUploadFastDfsService {
     private String fastDfsIp;
     @Value("${fastDfs_path}")
     public String confFilePath;
+
     @Override
     public Map<String, Object> uploadFastDfs(MultipartFile file) {
         Map<String, Object> map = new HashMap<>(16);
@@ -34,8 +35,8 @@ public class UploadFastDfsImpl implements IUploadFastDfsService {
             //上传到fastDFS文件服务器
             String path = client.uploadFile(file.getBytes(), extName);
             //硬编码
-            path = path.replaceAll("group1/M00/","");
-            String fastDfsPath = fastDfsIp+ path;
+            path = path.replaceAll("group1/M00/", "");
+            String fastDfsPath = fastDfsIp + path;
             System.out.println(fastDfsPath);
             map.put("ok", "upload_success");
             map.put("file_path", path);

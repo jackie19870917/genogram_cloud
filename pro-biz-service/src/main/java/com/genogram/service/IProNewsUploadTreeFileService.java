@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author wangwei
@@ -19,6 +19,7 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
 
     /**
      * 查询省级和县级电子谱
+     *
      * @param regionCode
      * @param fileName
      * @param list
@@ -26,10 +27,11 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
      * @param pageSize
      * @return
      */
-    Page getProNewsUploadTreeFile(String regionCode,String fileName, List list, Integer pageNo, Integer pageSize);
+    Page getProNewsUploadTreeFile(String regionCode, String fileName, List list, Integer pageNo, Integer pageSize);
 
     /**
      * 查询省级电子谱
+     *
      * @param fileName
      * @param list
      * @param pageNo
@@ -37,8 +39,10 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
      * @return
      */
     Page<ProNewsUploadTreeFile> getProNewsUploadTreeFilePage(String fileName, List list, Integer pageNo, Integer pageSize);
+
     /**
      * 新增电子谱
+     *
      * @param proNewsUploadTreeFile
      * @return
      */
@@ -46,6 +50,7 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
 
     /**
      * 单一查询
+     *
      * @param id
      * @return
      */
@@ -53,12 +58,15 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
 
     /**
      * 单一查询
+     *
      * @param id
      * @return
      */
     FanNewsUploadTreeFile getFanNewsUploadTreeFile(Integer id);
+
     /**
      * 修改电子谱
+     *
      * @param proNewsUploadTreeFile
      * @return
      */
@@ -66,6 +74,7 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
 
     /**
      * 删除电子谱
+     *
      * @param id
      * @param userId
      * @return

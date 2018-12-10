@@ -30,7 +30,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author xiaohei
@@ -51,53 +51,56 @@ public class FanSysCharitableDeclareController {
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         try {
             Page<FanSysCharitableDeclare> fanSysCharitableDeclarePage = iFanSysCharitableDeclareService.getCharitableDeclarePage(showId, pageNo, pageSize);
-            if(fanSysCharitableDeclarePage==null){
+            if (fanSysCharitableDeclarePage == null) {
                 //没有取到参数,返回空参
                 Page<FanSysCharitableDeclare> emptfamilyRecordVo = new Page<FanSysCharitableDeclare>();
-                return ResponseUtlis.error(Constants.ERRO_CODE,"fanSysCharitableDeclarePage");
+                return ResponseUtlis.error(Constants.ERRO_CODE, "fanSysCharitableDeclarePage");
             }
             return ResponseUtlis.success(fanSysCharitableDeclarePage);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
     @ApiOperation(value = "慈善帮扶新增或修改", notes = "实体类")
     @RequestMapping(value = "addSysCharitableDeclare", method = RequestMethod.GET)
-    public Response<FanSysCharitableDeclare> addOrUpdateCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare,String fileName,String filePath) {
+    public Response<FanSysCharitableDeclare> addOrUpdateCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanSysCharitableDeclare.setStatus(1);
-        return getCharitableDeclare(fanSysCharitableDeclare,fileName,filePath);
+        return getCharitableDeclare(fanSysCharitableDeclare, fileName, filePath);
     }
-    private Response<FanSysCharitableDeclare> getCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare,String fileName,String filePath) {
+
+    private Response<FanSysCharitableDeclare> getCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare, String fileName, String filePath) {
         try {
             // 插入数据
-            boolean b = iFanSysCharitableDeclareService.addOrUpdateCharitableDeclare(fanSysCharitableDeclare,fileName,filePath);
+            boolean b = iFanSysCharitableDeclareService.addOrUpdateCharitableDeclare(fanSysCharitableDeclare, fileName, filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
     @ApiOperation(value = "慈善帮扶删除", notes = "")
     @RequestMapping(value = "deleteSysCharitableDeclare", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> deleteRecordById(
-            @RequestParam(value = "id")Integer id // 详情显示位置
+            @RequestParam(value = "id") Integer id // 详情显示位置
     ) {
         try {
-            if(id==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            if (id == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
-            int status=0;
+            int status = 0;
             Boolean aBoolean = iFanSysCharitableDeclareService.deleteCharitableDeclareById(id, status);
-            if (!aBoolean){
-                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            if (!aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,null);
-        }catch (Exception e){
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 }

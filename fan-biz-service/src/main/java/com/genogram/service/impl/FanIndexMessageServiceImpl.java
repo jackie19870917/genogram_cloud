@@ -23,16 +23,17 @@ import java.util.List;
 public class FanIndexMessageServiceImpl extends ServiceImpl<FanIndexMessageMapper, FanIndexMessage> implements IFanIndexMessageService {
 
     /**
-     *联谊会首页聊天记录
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:15
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会首页聊天记录
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:15
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
-    public Page<FanIndexMessage> getChatRecordList(Integer siteId, Integer status,Integer pageNo,Integer pageSize) {
+    public Page<FanIndexMessage> getChatRecordList(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
         Wrapper<FanIndexMessage> entity = new EntityWrapper<FanIndexMessage>();
         entity.eq("site_id", siteId);
         entity.eq("status", status);

@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
  * @author Administrator
  */
 @Service
-public class TestServiceImpl implements ITestService{
+public class TestServiceImpl implements ITestService {
     @Autowired
     AllUserLoginMapper allUserLoginMapper;
+
     @Override
     public AllUserLogin getAllUserLogin() {
         AllUserLogin allUserLogin = allUserLoginMapper.selectById(1);

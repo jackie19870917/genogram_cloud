@@ -22,6 +22,7 @@ public interface FanSysRecommendMapper extends BaseMapper<FanSysRecommend> {
 
     /**
      * 省级首页县级自动推荐文章查询
+     *
      * @param map 查询条件
      * @return
      */
@@ -29,6 +30,7 @@ public interface FanSysRecommendMapper extends BaseMapper<FanSysRecommend> {
 
     /**
      * 省级首页县级手动推荐文章查询
+     *
      * @param map
      * @return
      */
@@ -36,6 +38,7 @@ public interface FanSysRecommendMapper extends BaseMapper<FanSysRecommend> {
 
     /**
      * 县级手动联谊会推荐
+     *
      * @param map
      * @return
      */
@@ -43,6 +46,7 @@ public interface FanSysRecommendMapper extends BaseMapper<FanSysRecommend> {
 
     /**
      * 省级后台设置手动推荐到全国
+     *
      * @param map
      * @return
      */

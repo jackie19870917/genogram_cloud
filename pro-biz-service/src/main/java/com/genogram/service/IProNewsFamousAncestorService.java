@@ -22,8 +22,9 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
 
     /**
      * 省级祖先分支查询
-     * @param entity 查询条件
-     * @param pageNo 当前页
+     *
+     * @param entity   查询条件
+     * @param pageNo   当前页
      * @param pageSize 每页显示的条数
      * @return
      */
@@ -31,6 +32,7 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
 
     /**
      * 省级祖先分支详情
+     *
      * @param id
      * @return
      */
@@ -38,6 +40,7 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
 
     /**
      * 省级祖先后台添加模糊查询
+     *
      * @param map
      * @param mapPage
      * @return
@@ -46,6 +49,7 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
 
     /**
      * 省级添加 修改
+     *
      * @param proNewsFamousAncestor
      * @param proSplit
      * @param fanSplit
@@ -56,6 +60,7 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
 
     /**
      * 省级删除
+     *
      * @param id
      * @return
      */

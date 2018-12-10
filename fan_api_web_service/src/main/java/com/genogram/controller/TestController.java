@@ -59,7 +59,7 @@ public class TestController {
     public Response<TestVo> test2(@RequestParam("string") String string) {
         Set set = checkOutService.getSensitiveWord(string);
         if (set.size() >= 1) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您输入的含有敏感词汇----"+set);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "您输入的含有敏感词汇----" + set);
         } else {
             return ResponseUtlis.success("成功");
         }

@@ -4,20 +4,20 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.FanNewsUploadTreeFile">
-        <id column="id" property="id" />
-        <result column="site_id" property="siteId" />
-        <result column="region_code" property="regionCode" />
-        <result column="is_from" property="isFrom" />
-        <result column="file_path" property="filePath" />
-        <result column="file_name" property="fileName" />
-        <result column="contact_user" property="contactUser" />
-        <result column="status" property="status" />
-        <result column="password" property="password" />
-        <result column="pre_thirty" property="preThirty" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="site_id" property="siteId"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="is_from" property="isFrom"/>
+        <result column="file_path" property="filePath"/>
+        <result column="file_name" property="fileName"/>
+        <result column="contact_user" property="contactUser"/>
+        <result column="status" property="status"/>
+        <result column="password" property="password"/>
+        <result column="pre_thirty" property="preThirty"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

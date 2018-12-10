@@ -8,14 +8,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *祖先分支封装类
- *@Author: yuzhou
- *@Date: 2018-11-20
- *@Time: 14:17
- *@Param:
- *@return:
- *@Description:
-*/
+ * 祖先分支封装类
+ *
+ * @Author: yuzhou
+ * @Date: 2018-11-20
+ * @Time: 14:17
+ * @Param:
+ * @return:
+ * @Description:
+ */
 @Data
 public class AncestorsBranchVo {
 

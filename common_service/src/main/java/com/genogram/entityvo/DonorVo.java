@@ -6,16 +6,17 @@ import com.genogram.entity.ProNewsCharityPayIn;
 import lombok.Data;
 
 /**
- *          捐款名录
- *@Author: Toxicant
- *@Date: 2018-11-09
- *@Time: 10:40
- *@Param:
- *@return:
- *@Description:
-*/
+ * 捐款名录
+ *
+ * @Author: Toxicant
+ * @Date: 2018-11-09
+ * @Time: 10:40
+ * @Param:
+ * @return:
+ * @Description:
+ */
 @Data
-public class DonorVo{
+public class DonorVo {
 
     private FanNewsCharityPayIn fanNewsCharityPayIn;
     private AllUserLogin allUserLogin;

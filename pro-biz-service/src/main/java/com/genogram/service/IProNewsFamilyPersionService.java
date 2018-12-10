@@ -16,6 +16,7 @@ import com.genogram.entityvo.ProFamilyPersonVo;
 public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPerson> {
     /**
      * 前后台查询
+     *
      * @param showId
      * @param status
      * @param pageNo
@@ -23,42 +24,53 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
      * @return
      */
     Page<ProFamilyPersonVo> getFamilyPersionPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+
     /**
      * 省级家族名人增加查看数
+     *
      * @param id
      */
     void addVisitNum(Integer id);
+
     /**
-     *省级家族名人详情查询
-     * @param id  文章ID
+     * 省级家族名人详情查询
+     *
+     * @param id 文章ID
      * @return
      */
     ProFamilyPersonVo getFamilyFamilyDetail(Integer id);
 
     /**
      * 省级家族名人的详情
-     * @param id  主键Pro
+     *
+     * @param id 主键Pro
      * @return
      */
     ProFamilyPersonVo getFamilyPersionDetail(Integer id);
+
     /**
      * 后台查询
+     *
      * @param entity
      * @param pageNo
      * @param pageSize
      * @return
      */
     Page<ProFamilyPersonVo> getFamilyPersionPages(Wrapper<ProNewsFamousPerson> entity, Integer pageNo, Integer pageSize);
+
     /**
      * 联谊会家族名人后台新增
-     * @param proNewsFamousPerson  家族名人上传实体类
-     * @param fileName 文件列表
-     * @param filePath 文件路径
+     *
+     * @param proNewsFamousPerson 家族名人上传实体类
+     * @param fileName            文件列表
+     * @param filePath            文件路径
      * @return
      */
-    boolean addOrUpdatePersion(ProNewsFamousPerson proNewsFamousPerson,String fileName, String filePath);
+    boolean addOrUpdatePersion(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath);
+
     /**
-     *删除
+     * 删除
+     *
      * @param id
      * @param status
      * @return
@@ -67,7 +79,7 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
 
     /**
      * 通过siteId menuCode 找到菜单对象
-     * @Author: wang,wei
+     * @Author: wang, wei
      * @Date: 2018-11-05
      * @Time: 22:04
      * @param siteId
@@ -80,6 +92,7 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
 
     /**
      * 组织架构
+     *
      * @param showId
      * @return
      */

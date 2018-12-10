@@ -29,30 +29,31 @@ public class CommonController {
     private IAllRegionService allRegionService;
 
     /**
-     *省级下属县级官网查询
-     *@Author: yuzhou
-     *@Date: 2018-11-14
-     *@Time: 18:47
-     *@Param: 
-     *@return:
-     *@Description:
-    */
-    @ApiOperation(value = "省级下属县级官网查询" ,  notes="根据sizeId查询")
+     * 省级下属县级官网查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-14
+     * @Time: 18:47
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @ApiOperation(value = "省级下属县级官网查询", notes = "根据sizeId查询")
     @RequestMapping(value = "/provincialSubordinate", method = RequestMethod.GET)
     public Response<AllRegion> getProvincialSubordinate(
-            @ApiParam(value = "网站Id")@RequestParam(value = "siteId")Integer siteId){
+            @ApiParam(value = "网站Id") @RequestParam(value = "siteId") Integer siteId) {
         try {
-            if(siteId==null){
-                return ResponseUtlis.error(Constants.IS_EMPTY,null);
+            if (siteId == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             List<AllRegion> provincialSubordinate = allRegionService.getProvincialSubordinate(siteId);
-            if(provincialSubordinate==null){
-                return ResponseUtlis.error(Constants.ERRO_CODE,null);
+            if (provincialSubordinate == null) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.success(provincialSubordinate);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE,null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
 }

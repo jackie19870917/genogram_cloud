@@ -149,7 +149,7 @@ public class AdminUserController {
         }
     }
 
-    @ApiOperation(value = "个人日志",notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
+    @ApiOperation(value = "个人日志", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "getAllUserNewsInfoList", method = RequestMethod.POST)
     public Response<AllUserNewsInfo> getAllUserNewsInfoList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                             @ApiParam("用户Id") @RequestParam("userId") Integer userId,
@@ -180,7 +180,7 @@ public class AdminUserController {
         return ResponseUtlis.success(userNewsInfoPage);
     }
 
-    @ApiOperation(value = "个人日志详情",notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
+    @ApiOperation(value = "个人日志详情", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "getAllUserNewsInfo", method = RequestMethod.POST)
     public Response<AllUserNewsInfo> getAllUserNewsInfo(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                         @ApiParam("主键") @RequestParam("id") Integer id) {
@@ -228,7 +228,7 @@ public class AdminUserController {
         }
     }
 
-    @ApiOperation(value = "个人说说",notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "个人说说", notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "getAllUserSaysList", method = RequestMethod.POST)
     public Response<AllUserSays> getAllUserSaysList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                     @ApiParam("用户Id") @RequestParam("userId") Integer userId,
@@ -259,7 +259,7 @@ public class AdminUserController {
         return ResponseUtlis.success(userSaysPage);
     }
 
-    @ApiOperation(value = "个人说说详情",notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "个人说说详情", notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "getAllUserSays", method = RequestMethod.POST)
     public Response<AllUserSays> getAllUserSays(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                 @ApiParam("主键") @RequestParam("id") Integer id) {
@@ -307,7 +307,7 @@ public class AdminUserController {
         }
     }
 
-    @ApiOperation(value = "个人照片",notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "个人照片", notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "getAllUserPicsList", method = RequestMethod.POST)
     public Response<AllUserPics> getAllUserPicsList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                     @ApiParam("用户Id") @RequestParam("userId") Integer userId,
@@ -338,7 +338,7 @@ public class AdminUserController {
         return ResponseUtlis.success(userPicsPage);
     }
 
-    @ApiOperation(value = "个人照片详情",notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
+    @ApiOperation(value = "个人照片详情", notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
     @RequestMapping(value = "getAllUserPics", method = RequestMethod.POST)
     public Response<AllUserPics> getAllUserPics(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                 @ApiParam("主键") @RequestParam("id") Integer id) {
@@ -386,7 +386,7 @@ public class AdminUserController {
         }
     }
 
-    @ApiOperation(value = "个人视频",notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+    @ApiOperation(value = "个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
     @RequestMapping(value = "getAllUserVideosList", method = RequestMethod.POST)
     public Response<AllUserVideos> getAllUserVideosList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                         @ApiParam("用户Id") @RequestParam("userId") Integer userId,
@@ -417,7 +417,7 @@ public class AdminUserController {
         return ResponseUtlis.success(userVideosPage);
     }
 
-    @ApiOperation(value = "个人视频详情",notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+    @ApiOperation(value = "个人视频详情", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
     @RequestMapping(value = "getAllUserVideos", method = RequestMethod.POST)
     public Response<AllUserVideos> getAllUserVideos(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                     @ApiParam("主键") @RequestParam("id") Integer id) {

@@ -8,6 +8,7 @@ import com.genogram.entity.AllUserLogin;
 public interface ITestService {
     /**
      * 获取登陆
+     *
      * @return
      */
     public AllUserLogin getAllUserLogin();

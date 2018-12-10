@@ -13,6 +13,7 @@ import java.util.List;
 public interface IFanMessageBoardService extends IService<AllMessageBoard> {
     /**
      * 联谊会留言板后台新增
+     *
      * @param allMessageBoard
      * @return
      */
@@ -20,11 +21,12 @@ public interface IFanMessageBoardService extends IService<AllMessageBoard> {
 
     /**
      * 后台查询
+     *
      * @param siteId
      * @param sourceType
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<AllMessageBoard> getMessageBoard(Integer siteId,Integer sourceType,Integer pageNo, Integer pageSize);
+    Page<AllMessageBoard> getMessageBoard(Integer siteId, Integer sourceType, Integer pageNo, Integer pageSize);
 }

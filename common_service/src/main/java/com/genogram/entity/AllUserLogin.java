@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -260,23 +263,23 @@ public class AllUserLogin extends Model<AllUserLogin> {
     @Override
     public String toString() {
         return "AllUserLogin{" +
-        ", id=" + id +
-        ", userId=" + userId +
-        ", userName=" + userName +
-        ", realName=" + realName +
-        ", nickName=" + nickName +
-        ", mobilePhone=" + mobilePhone +
-        ", picSrc=" + picSrc +
-        ", password=" + password +
-        ", status=" + status +
-        ", siteId=" + siteId +
-        ", role=" + role +
-        ", familyCode=" + familyCode +
-        ", regionCode=" + regionCode +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", userId=" + userId +
+                ", userName=" + userName +
+                ", realName=" + realName +
+                ", nickName=" + nickName +
+                ", mobilePhone=" + mobilePhone +
+                ", picSrc=" + picSrc +
+                ", password=" + password +
+                ", status=" + status +
+                ", siteId=" + siteId +
+                ", role=" + role +
+                ", familyCode=" + familyCode +
+                ", regionCode=" + regionCode +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

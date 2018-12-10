@@ -11,14 +11,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *家族产业查询
- *@Author: yuzhou
- *@Date: 2018-11-09
- *@Time: 15:59
- *@Param:
- *@return:
- *@Description:
-*/
+ * 家族产业查询
+ *
+ * @Author: yuzhou
+ * @Date: 2018-11-09
+ * @Time: 15:59
+ * @Param:
+ * @return:
+ * @Description:
+ */
 @Data
 public class FamilyIndustryVo {
 
@@ -82,7 +83,6 @@ public class FamilyIndustryVo {
      * 修改时间LONG
      */
     private Long createTimeLong;
-
 
 
     /**

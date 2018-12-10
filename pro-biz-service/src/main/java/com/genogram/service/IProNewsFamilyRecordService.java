@@ -11,12 +11,14 @@ import com.genogram.entityvo.ProFamilyRecordVo;
 
 /**
  * 省级-记录家族-家族动态,家族通告文章表 服务类
+ *
  * @author wangwei
  * @since 2018-11-13
  */
 public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecord> {
     /**
      * 前台查询
+     *
      * @param showId
      * @param status
      * @param pageNo
@@ -27,13 +29,15 @@ public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecor
 
     /**
      * 省级记录家族详情
-     * @param id  主键
+     *
+     * @param id 主键
      * @return
      */
     NewsDetailVo getProFamilyRecord(Integer id);
 
     /**
      * 省级后台新增
+     *
      * @param proNewsFamilyRecord
      * @param fileName
      * @param filePath
@@ -43,13 +47,16 @@ public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecor
 
     /**
      * 记录家族删除
+     *
      * @param id
      * @param status
      * @return
      */
     Boolean deleteProRecordById(Integer id, int status);
+
     /**
      * 增加查看数
+     *
      * @param id
      */
     void addVisitNum(Integer id);

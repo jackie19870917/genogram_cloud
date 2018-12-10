@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -279,24 +282,24 @@ public class FanNewsFamousAncestor extends Model<FanNewsFamousAncestor> {
     @Override
     public String toString() {
         return "FanNewsFamousAncestor{" +
-        ", id=" + id +
-        ", showId=" + showId +
-        ", parentId=" + parentId +
-        ", ancestorTitle=" + ancestorTitle +
-        ", ancestorName=" + ancestorName +
-        ", ancestorSummary=" + ancestorSummary +
-        ", picFileSrc=" + picFileSrc +
-        ", picFileName=" + picFileName +
-        ", status=" + status +
-        ", zipai=" + zipai +
-        ", junwang=" + junwang +
-        ", tanghao=" + tanghao +
-        ", branchId=" + branchId +
-        ", sourceClassify=" + sourceClassify +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", showId=" + showId +
+                ", parentId=" + parentId +
+                ", ancestorTitle=" + ancestorTitle +
+                ", ancestorName=" + ancestorName +
+                ", ancestorSummary=" + ancestorSummary +
+                ", picFileSrc=" + picFileSrc +
+                ", picFileName=" + picFileName +
+                ", status=" + status +
+                ", zipai=" + zipai +
+                ", junwang=" + junwang +
+                ", tanghao=" + tanghao +
+                ", branchId=" + branchId +
+                ", sourceClassify=" + sourceClassify +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

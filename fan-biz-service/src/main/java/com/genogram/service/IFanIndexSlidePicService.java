@@ -17,6 +17,7 @@ public interface IFanIndexSlidePicService extends IService<FanIndexSlidePic> {
 
     /**
      * 轮播图查询
+     *
      * @param siteId 网站ID
      * @param status 状态
      * @return
@@ -25,6 +26,7 @@ public interface IFanIndexSlidePicService extends IService<FanIndexSlidePic> {
 
     /**
      * 新增/修改  轮播图
+     *
      * @param fanIndexSlidePic
      * @return
      */
@@ -32,14 +34,16 @@ public interface IFanIndexSlidePicService extends IService<FanIndexSlidePic> {
 
     /**
      * 逻辑删除  轮播图
+     *
      * @param id
      * @param userId
      * @return
      */
-    Boolean deleteFanIndexSlidePic(Integer id,Integer userId);
+    Boolean deleteFanIndexSlidePic(Integer id, Integer userId);
 
     /**
      * 新增  轮播图
+     *
      * @param fanIndexSlidePic
      * @return
      */

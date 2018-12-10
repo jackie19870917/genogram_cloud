@@ -4,20 +4,20 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.FanIndexFundDrowing">
-        <id column="id" property="id" />
-        <result column="site_id" property="siteId" />
-        <result column="drow_amount" property="drowAmount" />
-        <result column="drow_bank" property="drowBank" />
-        <result column="drow_bank_sub" property="drowBankSub" />
-        <result column="drow_time" property="drowTime" />
-        <result column="drow_in_account_name" property="drowInAccountName" />
-        <result column="drow_in_account_card" property="drowInAccountCard" />
-        <result column="drow_status" property="drowStatus" />
-        <result column="approve_status" property="approveStatus" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="site_id" property="siteId"/>
+        <result column="drow_amount" property="drowAmount"/>
+        <result column="drow_bank" property="drowBank"/>
+        <result column="drow_bank_sub" property="drowBankSub"/>
+        <result column="drow_time" property="drowTime"/>
+        <result column="drow_in_account_name" property="drowInAccountName"/>
+        <result column="drow_in_account_card" property="drowInAccountCard"/>
+        <result column="drow_status" property="drowStatus"/>
+        <result column="approve_status" property="approveStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

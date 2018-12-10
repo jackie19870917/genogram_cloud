@@ -15,6 +15,7 @@ public interface IAllFamilyService extends IService<AllFamily> {
 
     /**
      * 根据首字母查询
+     *
      * @param firstLetter
      * @return
      */
@@ -22,6 +23,7 @@ public interface IAllFamilyService extends IService<AllFamily> {
 
     /**
      * 修改姓氏
+     *
      * @param allFamily
      * @return
      */

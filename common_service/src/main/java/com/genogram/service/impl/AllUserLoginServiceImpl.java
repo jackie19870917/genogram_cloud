@@ -137,11 +137,11 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
     }
 
     @Override
-    public List<FanSysSite> getFanSysSitePage(Wrapper<FanSysSite> wrapper,Integer pageNo,Integer pageSize) {
+    public List<FanSysSite> getFanSysSitePage(Wrapper<FanSysSite> wrapper, Integer pageNo, Integer pageSize) {
         if (StringUtils.isEmpty(wrapper)) {
             return fanSysSiteMapper.selectPage(new Page<>(pageNo, pageSize), null);
         } else {
-            return fanSysSiteMapper.selectPage(new Page<>(pageNo, pageSize),wrapper);
+            return fanSysSiteMapper.selectPage(new Page<>(pageNo, pageSize), wrapper);
         }
     }
 
@@ -150,7 +150,7 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
         if (StringUtils.isEmpty(wrapper)) {
             return proSysSiteMapper.selectPage(new Page<>(pageNo, pageSize), null);
         } else {
-            return proSysSiteMapper.selectPage(new Page<>(pageNo, pageSize),wrapper);
+            return proSysSiteMapper.selectPage(new Page<>(pageNo, pageSize), wrapper);
         }
     }
 

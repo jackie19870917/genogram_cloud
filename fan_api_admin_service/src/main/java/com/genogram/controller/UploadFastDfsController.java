@@ -13,13 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Map;
 
 /**
- *
- * @Author: wang,wei
+ * @Author: wang, wei
  * @Date: 2018-11-11
  * @Time: 12:37
  * @return:
  * @Description:
- *
  */
 @RestController
 @CrossOrigin(origins = "*")
@@ -30,19 +28,20 @@ public class UploadFastDfsController {
     private IUploadFastDfsService uploadFastDfsService;
     @Autowired
     private IUploadFileService uploadFileService;
+
     /**
      * 文件上传
-     * @Author: wang,wei
+     *
+     * @param file
+     * @Author: wang, wei
      * @Date: 2018-11-11
      * @Time: 13:30
-     * @param file
      * @return:
      * @Description:
-     *
      */
-    @ApiOperation(value = "上传文件" ,  notes="返回文件src")
-    @RequestMapping(value ="/uploadFastdfs",method = RequestMethod.POST)
-    public Response<Map> uploadFastdfs(MultipartFile file){
+    @ApiOperation(value = "上传文件", notes = "返回文件src")
+    @RequestMapping(value = "/uploadFastdfs", method = RequestMethod.POST)
+    public Response<Map> uploadFastdfs(MultipartFile file) {
         return ResponseUtlis.success(uploadFastDfsService.uploadFastDfs(file));
     }
 }

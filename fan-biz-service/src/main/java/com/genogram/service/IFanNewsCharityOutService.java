@@ -20,50 +20,57 @@ import java.util.List;
 public interface IFanNewsCharityOutService extends IService<FanNewsCharityOut> {
 
     /**
-     *                慈善支出(用途)
+     * 慈善支出(用途)
+     *
      * @param showId   慈善支出展示位置
-     * @param newsType   类型(1-慈善支出,2-慈善收益)
-     * @param status     状态
-     * @param pageNo     当前页
-     * @param pageSize   每页记录数
+     * @param newsType 类型(1-慈善支出,2-慈善收益)
+     * @param status   状态
+     * @param pageNo   当前页
+     * @param pageSize 每页记录数
      * @return
      */
     Page<FanNewsCharityOut> getFanNewsCharityOutPage(Integer showId, Integer newsType, List status, Integer pageNo, Integer pageSize);
 
     /**
-     *                慈善支出(文章)
-     * @param entity     实体类
-     * @param pageNo     当前页
-     * @param pageSize   每页记录数
+     * 慈善支出(文章)
+     *
+     * @param entity   实体类
+     * @param pageNo   当前页
+     * @param pageSize 每页记录数
      * @return
      */
     Page<NewsCharityOutVo> getFanNewsCharityOutVoPage(Wrapper<FanNewsCharityOut> entity, Integer pageNo, Integer pageSize);
+
     /**
-     *            慈善收支文章详情
-     * @param id        文章iD
+     * 慈善收支文章详情
+     *
+     * @param id 文章iD
      * @return
      */
     NewsDetailVo getNewsCharityOutDetail(Integer id);
 
     /**
-     *     新增/修改  慈善收支(文章)
-     * @param fanNewsCharityOut   慈善收支
+     * 新增/修改  慈善收支(文章)
+     *
+     * @param fanNewsCharityOut 慈善收支
      * @param fileName
      * @param filePath
      * @return
      */
-    Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut,String fileName,String filePath);
+    Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut, String fileName, String filePath);
 
     /**
      * 逻辑删除  慈善收支(文章)
+     *
      * @param id
      * @param userId
      * @return
      */
-    Boolean deleteFanNewsCharityOut(Integer id,Integer userId);
+    Boolean deleteFanNewsCharityOut(Integer id, Integer userId);
 
     /**
      * 查看慈善收支详情 增加查看数
+     *
      * @param id
      * @return
      */

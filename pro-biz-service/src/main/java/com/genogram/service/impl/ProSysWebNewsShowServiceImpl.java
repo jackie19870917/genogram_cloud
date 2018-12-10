@@ -13,6 +13,7 @@ import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +30,12 @@ import java.util.List;
 public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowMapper, ProSysWebNewsShow> implements IProSysWebNewsShowService {
     private final static String SHOW_ID = "showId=";
     private final static String SITE_ID = "siteId=";
-    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_1 ="index_architecture_pay_in_person_1";
-    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2 ="index_architecture_pay_in_person_2";
-    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_3 ="index_architecture_pay_in_person_3";
-    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2_2 ="index_architecture_pay_in_person_2_2";
-    private final static String INDEX_CHARITY_PAY_OUT ="index_charity_pay_out";
-    private final static String INDEX_CHARITY_PAY_OUT_3 ="index_charity_pay_out_3";
+    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_1 = "index_architecture_pay_in_person_1";
+    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2 = "index_architecture_pay_in_person_2";
+    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_3 = "index_architecture_pay_in_person_3";
+    private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2_2 = "index_architecture_pay_in_person_2_2";
+    private final static String INDEX_CHARITY_PAY_OUT = "index_charity_pay_out";
+    private final static String INDEX_CHARITY_PAY_OUT_3 = "index_charity_pay_out_3";
     private final static int NUM_100 = 100;
 
     @Autowired
@@ -47,67 +48,67 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
 
         SysWebMenuVo vo = new SysWebMenuVo();
         //轮播图
-        vo = setIndexMenu(siteId,"轮播图","fan_index_slide_pic","genogram/proIndex/index/getProIndexSlidePic?siteId=","");
+        vo = setIndexMenu(siteId, "轮播图", "fan_index_slide_pic", "genogram/proIndex/index/getProIndexSlidePic?siteId=", "");
         volist.add(vo);
         //简介
-        vo = setIndexMenu(siteId,"简介","index_summary","genogram/proIndex/index/getIndexInfo?siteId=","");
+        vo = setIndexMenu(siteId, "简介", "index_summary", "genogram/proIndex/index/getIndexInfo?siteId=", "");
         volist.add(vo);
 
         //支出公开栏;收益公开栏
-        vo = setIndexMenu(siteId,"支出公开栏",INDEX_CHARITY_PAY_OUT,"genogram/proNewsCharity/index/getProNewsCharityOut?showId=","");
+        vo = setIndexMenu(siteId, "支出公开栏", INDEX_CHARITY_PAY_OUT, "genogram/proNewsCharity/index/getProNewsCharityOut?showId=", "");
         volist.add(vo);
-        vo = setIndexMenu(siteId,"收益公开栏","index_architecture_pay_in","genogram/proNewsCharity/index/getProNewsCharityOut?showId=","");
+        vo = setIndexMenu(siteId, "收益公开栏", "index_architecture_pay_in", "genogram/proNewsCharity/index/getProNewsCharityOut?showId=", "");
         volist.add(vo);
         //公益基金(共享code 特殊处理)
-        vo = setIndexMenu(siteId,"公益基金","index_fund_1","genogram/proNewsCharity/index/getProIndexFund?siteId=","");
+        vo = setIndexMenu(siteId, "公益基金", "index_fund_1", "genogram/proNewsCharity/index/getProIndexFund?siteId=", "");
         volist.add(vo);
         //捐款名人(共享code 特殊处理)
-        vo = setIndexMenu(siteId,"捐款名人",INDEX_ARCHITECHTURE_PAY_IN_PERSON_1,"genogram/proNewsCharity/index/getDonorVoByCreateTime?showId=","");
+        vo = setIndexMenu(siteId, "捐款名人", INDEX_ARCHITECHTURE_PAY_IN_PERSON_1, "genogram/proNewsCharity/index/getDonorVoByCreateTime?showId=", "");
         //家族头条
-        vo = setIndexMenu(siteId,"家族头条","index_family_record1","genogram/proNewsFamilyRecord/proSelectRecortPage?showId=","");
+        vo = setIndexMenu(siteId, "家族头条", "index_family_record1", "genogram/proNewsFamilyRecord/proSelectRecortPage?showId=", "");
         volist.add(vo);
         //省级公告
-        vo = setIndexMenu(siteId,"省级公告","index_family_record2","genogram/proNewsFamilyRecord/proSelectRecortPage?showId=","");
+        vo = setIndexMenu(siteId, "省级公告", "index_family_record2", "genogram/proNewsFamilyRecord/proSelectRecortPage?showId=", "");
         volist.add(vo);
 
         //资讯-联谊会发布-家族文化除去字派,记录家族除去视频
-        vo = setIndexMenu(siteId,"联谊会发布","index_fan_news_recommend","genogram/admin/proRecommend/index/getRecommendArticle?siteId=","");
+        vo = setIndexMenu(siteId, "联谊会发布", "index_fan_news_recommend", "genogram/admin/proRecommend/index/getRecommendArticle?siteId=", "");
         volist.add(vo);
         //人物 - 家族长老 - 联谊会
-        vo = setIndexMenu(siteId,"家族长老","index_fan_person_recommend_1","/genogram/admin/proRecommend/index/getRecommendFigureRooftree?siteId=","");
+        vo = setIndexMenu(siteId, "家族长老", "index_fan_person_recommend_1", "/genogram/admin/proRecommend/index/getRecommendFigureRooftree?siteId=", "");
         volist.add(vo);
         //人物 - 家族栋梁 - 联谊会
-        vo = setIndexMenu(siteId,"家族栋梁","index_fan_person_recommend_2","/genogram/admin/proRecommend/index/getRecommendFigureElder?siteId=","");
+        vo = setIndexMenu(siteId, "家族栋梁", "index_fan_person_recommend_2", "/genogram/admin/proRecommend/index/getRecommendFigureElder?siteId=", "");
         volist.add(vo);
 
         //文化 - 字派 - 省级
-        vo = setIndexMenu(siteId,"字派","index_zipai","genogram/proNewsCulture/getCommonalityPage?showId=","");
+        vo = setIndexMenu(siteId, "字派", "index_zipai", "genogram/proNewsCulture/getCommonalityPage?showId=", "");
         volist.add(vo);
         //文化 - 迁徙之源 - 省级
-        vo = setIndexMenu(siteId,"迁徙之源","index_family_qianxi","genogram/proNewsCulture/index/getFamilyIndexCulturePage?showId=","");
+        vo = setIndexMenu(siteId, "迁徙之源", "index_family_qianxi", "genogram/proNewsCulture/index/getFamilyIndexCulturePage?showId=", "");
         volist.add(vo);
         //文化 - 家族祠堂 - 省级
-        vo = setIndexMenu(siteId,"家族祠堂","index_family_culture","genogram/proNewsCulture/index/getFamilyIndexCulturePage?showId=","");
+        vo = setIndexMenu(siteId, "家族祠堂", "index_family_culture", "genogram/proNewsCulture/index/getFamilyIndexCulturePage?showId=", "");
         volist.add(vo);
 
         //人物 - 祖先 - 省级
-        vo = setIndexMenu(siteId,"祖先","index_family_person_1","genogram/proNewsFamous/selectPersonPage?showId=","");
+        vo = setIndexMenu(siteId, "祖先", "index_family_person_1", "genogram/proNewsFamous/selectPersonPage?showId=", "");
         volist.add(vo);
         //人物 - 名人 - 省级
-        vo = setIndexMenu(siteId,"名人","index_family_person_2","genogram/proNewsFamous/selectPersonPage?showId=","");
+        vo = setIndexMenu(siteId, "名人", "index_family_person_2", "genogram/proNewsFamous/selectPersonPage?showId=", "");
         volist.add(vo);
         //人物 - 精英 - 省级
-        vo = setIndexMenu(siteId,"精英","index_family_person_3","genogram/proNewsFamous/selectPersonPage?showId=","");
+        vo = setIndexMenu(siteId, "精英", "index_family_person_3", "genogram/proNewsFamous/selectPersonPage?showId=", "");
         volist.add(vo);
 
 
         //慈善公益第二页的
-        vo = setIndexMenu(siteId,"公益总金额","index_fund_3","genogram/proNewsCharity/index/getProIndexFund?siteId=","慈善公益第二页的");
+        vo = setIndexMenu(siteId, "公益总金额", "index_fund_3", "genogram/proNewsCharity/index/getProIndexFund?siteId=", "慈善公益第二页的");
         volist.add(vo);
-        vo = setIndexMenu(siteId,"捐款名人",INDEX_ARCHITECHTURE_PAY_IN_PERSON_3,"genogram/proNewsCharity/index/getDonorVoByCreateTime?showId=","慈善公益第二页的");
+        vo = setIndexMenu(siteId, "捐款名人", INDEX_ARCHITECHTURE_PAY_IN_PERSON_3, "genogram/proNewsCharity/index/getDonorVoByCreateTime?showId=", "慈善公益第二页的");
         volist.add(vo);
         //财政用途支出第二页的
-        vo = setIndexMenu(siteId,"支出公开栏",INDEX_CHARITY_PAY_OUT_3,"genogram/proNewsCharity/index/getProNewsCharityOut?showId=","慈善公益第二页的");
+        vo = setIndexMenu(siteId, "支出公开栏", INDEX_CHARITY_PAY_OUT_3, "genogram/proNewsCharity/index/getProNewsCharityOut?showId=", "慈善公益第二页的");
         volist.add(vo);
 
 
@@ -120,14 +121,14 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
     public List<SysWebMenuVo> getTitlesByMenuId(int siteId, int menuId) {
         List<SysWebMenuVo> voList = new ArrayList<>();
         EntityWrapper<ProSysWebNewsShow> entityWrapper = new EntityWrapper<>();
-        entityWrapper.eq("site_id",siteId);
-        entityWrapper.eq("parent_id",menuId);
+        entityWrapper.eq("site_id", siteId);
+        entityWrapper.eq("parent_id", menuId);
         List<ProSysWebNewsShow> list = this.selectList(entityWrapper);
-        list.forEach((menu)->{
+        list.forEach((menu) -> {
             SysWebMenuVo vo = new SysWebMenuVo();
-            BeanUtils.copyProperties(menu,vo);
-            vo.setApiUrl(vo.getApiUrl()+vo.getShowId());
-            vo.setApiAdminUrl(vo.getApiAdminUrl()+vo.getShowId());
+            BeanUtils.copyProperties(menu, vo);
+            vo.setApiUrl(vo.getApiUrl() + vo.getShowId());
+            vo.setApiAdminUrl(vo.getApiAdminUrl() + vo.getShowId());
             voList.add(vo);
         });
         return voList;
@@ -140,14 +141,14 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         List<ProSysWebNewsShow> list = this.selectList(entity);
         List<ProSysWebNewsShow> showList = new ArrayList<>();
 
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             List<ProSysWebMenu> menuList = proSysWebMenuService.selectList(null);
-            menuList.forEach(menu->{
+            menuList.forEach(menu -> {
                 ProSysWebNewsShow show = new ProSysWebNewsShow();
-                BeanUtils.copyProperties(menu,show);
+                BeanUtils.copyProperties(menu, show);
                 show.setSiteId(siteId);
-                String showId = siteId+""+menu.getId();
-                show.setShowId( Integer.parseInt(showId));
+                String showId = siteId + "" + menu.getId();
+                show.setShowId(Integer.parseInt(showId));
                 show.setMenuId(menu.getId());
 
                 show.setUpdateUser(1);
@@ -158,7 +159,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
                 showList.add(show);
             });
         }
-        if(showList!=null && !showList.isEmpty()){
+        if (showList != null && !showList.isEmpty()) {
             this.insertBatch(showList);
         }
     }
@@ -175,10 +176,10 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
     @Override
     public String delTitlesById(int id) {
         ProSysWebNewsShow proSysWebNewsShows = this.selectById(id);
-        if(proSysWebNewsShows.getIstatic().equals(0)){
+        if (proSysWebNewsShows.getIstatic().equals(0)) {
             //固定的栏目不允许删除
             return "can not del the title";
-        }else{
+        } else {
             this.deleteById(id);
             return "del successful";
         }
@@ -192,16 +193,16 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         entity.orderBy("order_index", true);
         List<ProSysWebNewsShow> proSysWebNewsShowsList = this.selectList(entity);
         //得到最后一条参考记录
-        ProSysWebNewsShow lastOne = proSysWebNewsShowsList.get(proSysWebNewsShowsList.size()-1);
+        ProSysWebNewsShow lastOne = proSysWebNewsShowsList.get(proSysWebNewsShowsList.size() - 1);
         lastOne.setMenuName(menuName);
 
-        if(lastOne.getMenuId()<NUM_100){
+        if (lastOne.getMenuId() < NUM_100) {
             //第一次添加100以内的,则组成新方式
-            lastOne.setMenuId(lastOne.getTreeNum() *100);
-        }else{
-            lastOne.setMenuId(lastOne.getMenuId()+1);
+            lastOne.setMenuId(lastOne.getTreeNum() * 100);
+        } else {
+            lastOne.setMenuId(lastOne.getMenuId() + 1);
         }
-        lastOne.setOrderIndex(lastOne.getOrderIndex()+1);
+        lastOne.setOrderIndex(lastOne.getOrderIndex() + 1);
         String showId = lastOne.getSiteId() + "" + lastOne.getMenuId();
         lastOne.setShowId(Integer.parseInt(showId));
         //手动添加的节点
@@ -224,18 +225,18 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         return proSysWebNewsShow;
     }
 
-    private SysWebMenuVo setIndexMenu(String siteId, String menuName, String menuCode, String api, String comments){
+    private SysWebMenuVo setIndexMenu(String siteId, String menuName, String menuCode, String api, String comments) {
         SysWebMenuVo vo = new SysWebMenuVo();
         vo.setSiteId(Integer.parseInt(siteId));
         vo.setMenuName(menuName);
         vo.setMenuCode(menuCode);
         String apiUrl = api;
-        if(api.contains(SHOW_ID)) {
-            apiUrl = apiUrl+ getShowIdBySiteId(menuCode,siteId);
+        if (api.contains(SHOW_ID)) {
+            apiUrl = apiUrl + getShowIdBySiteId(menuCode, siteId);
         }
 
-        if(api.contains(SITE_ID)) {
-            apiUrl = apiUrl+ siteId;
+        if (api.contains(SITE_ID)) {
+            apiUrl = apiUrl + siteId;
         }
 
         vo.setApiUrl(apiUrl);
@@ -243,10 +244,10 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         return vo;
     }
 
-    private String getShowIdBySiteId(String menuCode,String siteId){
-        String showId="";
+    private String getShowIdBySiteId(String menuCode, String siteId) {
+        String showId = "";
         //慈善公益基金-个人捐款-捐款名录
-        if(INDEX_ARCHITECHTURE_PAY_IN_PERSON_1.equals(menuCode) || INDEX_ARCHITECHTURE_PAY_IN_PERSON_2.equals(menuCode) || INDEX_ARCHITECHTURE_PAY_IN_PERSON_3.equals(menuCode) || INDEX_ARCHITECHTURE_PAY_IN_PERSON_2_2.equals(menuCode)){
+        if (INDEX_ARCHITECHTURE_PAY_IN_PERSON_1.equals(menuCode) || INDEX_ARCHITECHTURE_PAY_IN_PERSON_2.equals(menuCode) || INDEX_ARCHITECHTURE_PAY_IN_PERSON_3.equals(menuCode) || INDEX_ARCHITECHTURE_PAY_IN_PERSON_2_2.equals(menuCode)) {
             Wrapper<ProSysWebNewsShow> entity = new EntityWrapper<>();
             entity.eq("site_id", siteId);
             entity.eq("menu_code", "index_architecture_pay_in_person");
@@ -254,14 +255,12 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         }
 
         //慈善公益-支出公开-
-        else if(INDEX_CHARITY_PAY_OUT.equals(menuCode) || INDEX_CHARITY_PAY_OUT_3.equals(menuCode)){
+        else if (INDEX_CHARITY_PAY_OUT.equals(menuCode) || INDEX_CHARITY_PAY_OUT_3.equals(menuCode)) {
             Wrapper<ProSysWebNewsShow> entity = new EntityWrapper<>();
             entity.eq("site_id", siteId);
             entity.eq("menu_code", "index_charity_pay_out");
             showId = getShowId(entity);
-        }
-
-        else{
+        } else {
             Wrapper<ProSysWebNewsShow> entity = new EntityWrapper<>();
             entity.eq("site_id", siteId);
             entity.eq("menu_code", menuCode);
@@ -271,10 +270,10 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         return showId;
     }
 
-    private String getShowId(Wrapper<ProSysWebNewsShow> entity){
-        String showId="";
+    private String getShowId(Wrapper<ProSysWebNewsShow> entity) {
+        String showId = "";
         ProSysWebNewsShow proSysWebNewsShows = this.selectOne(entity);
-        if(proSysWebNewsShows != null ){
+        if (proSysWebNewsShows != null) {
             showId = proSysWebNewsShows.getShowId().toString();
         }
         return showId;

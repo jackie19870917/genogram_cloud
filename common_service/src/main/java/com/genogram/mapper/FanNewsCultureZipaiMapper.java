@@ -19,6 +19,7 @@ public interface FanNewsCultureZipaiMapper extends BaseMapper<FanNewsCultureZipa
 
     /**
      * 省级查出各个地区的字派
+     *
      * @param mapPage
      * @param map
      * @return

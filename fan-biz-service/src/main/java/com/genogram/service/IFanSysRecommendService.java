@@ -22,13 +22,15 @@ public interface IFanSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 联谊会后台点击推荐
-     * @param fanSysRecommend  推荐实体类
+     *
+     * @param fanSysRecommend 推荐实体类
      * @return
      */
     Boolean addRecommend(FanSysRecommend fanSysRecommend);
 
     /**
      * 联谊会后台设置个人推荐取消展示
+     *
      * @param recommendId 推荐表主键
      * @return
      */
@@ -36,6 +38,7 @@ public interface IFanSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 县级后台设置手动推荐查询
+     *
      * @param map
      * @return
      */
@@ -43,6 +46,7 @@ public interface IFanSysRecommendService extends IService<FanSysRecommend> {
 
     /**
      * 联谊会后台点击取消
+     *
      * @param entity
      * @return
      */

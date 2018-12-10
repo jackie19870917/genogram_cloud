@@ -32,9 +32,9 @@ public interface IFanNewsCharityPayInService extends IService<FanNewsCharityPayI
      *
      * @param showId   展示位置
      * @param status   状态
-     * @param nickName   昵称
-     * @param order   排序
-     * @param label   升序,降序
+     * @param nickName 昵称
+     * @param order    排序
+     * @param label    升序,降序
      * @param pageNo   当前页
      * @param pageSize 每页记录数
      * @return

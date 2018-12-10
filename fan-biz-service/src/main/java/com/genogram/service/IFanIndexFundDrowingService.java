@@ -19,6 +19,7 @@ public interface IFanIndexFundDrowingService extends IService<FanIndexFundDrowin
 
     /**
      * 新增线上提现记录
+     *
      * @param fanIndexFundDrowing
      * @return
      */
@@ -26,10 +27,11 @@ public interface IFanIndexFundDrowingService extends IService<FanIndexFundDrowin
 
     /**
      * 线上提现记录
+     *
      * @param siteId
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<IndexFundDrowingVo> getIndexFundDrowingVoPage(Integer siteId,  Integer pageNo, Integer pageSize);
+    Page<IndexFundDrowingVo> getIndexFundDrowingVoPage(Integer siteId, Integer pageNo, Integer pageSize);
 }

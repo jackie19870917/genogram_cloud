@@ -19,22 +19,25 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
 
     /**
      * 联谊会字派查询
-     * @param entity 查询条件
-     * @param pageNo 当前页
+     *
+     * @param entity   查询条件
+     * @param pageNo   当前页
      * @param pageSize 每页显示条数
      * @return
      */
     Page<NewsCultureZipaiVo> commonality(Wrapper<FanNewsCultureZipai> entity, Integer pageNo, Integer pageSize);
 
     /**
-     *联谊会首页字派查询
+     * 联谊会首页字派查询
+     *
      * @param entity 查询条件
      * @return
      */
     StringBuffer commonalityIndex(Wrapper<FanNewsCultureZipai> entity);
 
     /**
-     *联谊会字派后台进入修改页面
+     * 联谊会字派后台进入修改页面
+     *
      * @param id
      * @return
      */
@@ -42,6 +45,7 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
 
     /**
      * 联谊会字派后台新增
+     *
      * @param fanNewsCultureZipai
      * @return
      */
@@ -54,8 +58,9 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      */
     /**
      * 联谊会家族字派后台删除
-     * @param id  主键
-     * @param status  状态(0:删除;1:已发布;2:草稿3:不显示)
+     *
+     * @param id                   主键
+     * @param status               状态(0:删除;1:已发布;2:草稿3:不显示)
      * @param userLoginInfoByToken
      * @return
      */

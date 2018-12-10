@@ -18,14 +18,16 @@ import com.genogram.entityvo.NewsDetailVo;
 public interface IProFanNewsCultureNewsService extends IService<FanNewsCultureNews> {
 
     /**
-     *联谊会家族文化详情查询
-     * @param id  文章ID
+     * 联谊会家族文化详情查询
+     *
+     * @param id 文章ID
      * @return
      */
     NewsDetailVo getFamilyCultureDetail(Integer id);
 
     /**
      * 联谊会家族文化增加查看数
+     *
      * @param id
      */
     void addVisitNum(Integer id);

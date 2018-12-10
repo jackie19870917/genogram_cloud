@@ -42,7 +42,7 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
 
         List<ProNewsCharityPayIn> proNewsCharityPayInList = proNewsCharityPayInMapper.getDonorVoPage(mapPage, map);
 
-        if (proNewsCharityPayInList.size()==0) {
+        if (proNewsCharityPayInList.size() == 0) {
             return null;
         }
 
@@ -112,7 +112,6 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
 
         return mapPage;
     }
-
 
 
     @Override

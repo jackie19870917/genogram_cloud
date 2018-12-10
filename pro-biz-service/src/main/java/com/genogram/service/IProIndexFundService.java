@@ -14,14 +14,16 @@ import com.baomidou.mybatisplus.service.IService;
 public interface IProIndexFundService extends IService<ProIndexFund> {
 
     /**
-     *                  查询基金金额
-     * @param siteId    网站ID
+     * 查询基金金额
+     *
+     * @param siteId 网站ID
      * @return
      */
     ProIndexFund getProIndexFund(Integer siteId);
 
     /**
      * 修改 基金金额
+     *
      * @param proIndexFund
      * @return
      */

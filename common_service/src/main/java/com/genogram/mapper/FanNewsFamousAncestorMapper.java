@@ -20,6 +20,7 @@ public interface FanNewsFamousAncestorMapper extends BaseMapper<FanNewsFamousAnc
 
     /**
      * 联谊会祖先后台添加模糊查询
+     *
      * @param mapPage
      * @param map
      * @return

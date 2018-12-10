@@ -1,12 +1,15 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.math.BigDecimal;
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -228,20 +231,20 @@ public class ProIndexFundDrowing extends Model<ProIndexFundDrowing> {
     @Override
     public String toString() {
         return "ProIndexFundDrowing{" +
-        ", id=" + id +
-        ", siteId=" + siteId +
-        ", drowAmount=" + drowAmount +
-        ", drowBank=" + drowBank +
-        ", drowBankSub=" + drowBankSub +
-        ", drowTime=" + drowTime +
-        ", drowInAccountName=" + drowInAccountName +
-        ", drowInAccountCard=" + drowInAccountCard +
-        ", drowComments=" + drowComments +
-        ", approveStatus=" + approveStatus +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", siteId=" + siteId +
+                ", drowAmount=" + drowAmount +
+                ", drowBank=" + drowBank +
+                ", drowBankSub=" + drowBankSub +
+                ", drowTime=" + drowTime +
+                ", drowInAccountName=" + drowInAccountName +
+                ", drowInAccountCard=" + drowInAccountCard +
+                ", drowComments=" + drowComments +
+                ", approveStatus=" + approveStatus +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -182,17 +185,17 @@ public class FanIndexMessage extends Model<FanIndexMessage> {
     @Override
     public String toString() {
         return "FanIndexMessage{" +
-        ", id=" + id +
-        ", siteId=" + siteId +
-        ", userId=" + userId +
-        ", nickname=" + nickname +
-        ", message=" + message +
-        ", sendTime=" + sendTime +
-        ", status=" + status +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", siteId=" + siteId +
+                ", userId=" + userId +
+                ", nickname=" + nickname +
+                ", message=" + message +
+                ", sendTime=" + sendTime +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

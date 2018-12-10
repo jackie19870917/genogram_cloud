@@ -4,23 +4,23 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserLogin">
-        <id column="id" property="id" />
-        <result column="user_id" property="userId" />
-        <result column="user_name" property="userName" />
-        <result column="real_name" property="realName" />
-        <result column="nick_name" property="nickName" />
-        <result column="mobile_phone" property="mobilePhone" />
-        <result column="pic_src" property="picSrc" />
-        <result column="password" property="password" />
-        <result column="status" property="status" />
-        <result column="site_id" property="siteId" />
-        <result column="role" property="role" />
-        <result column="family_code" property="familyCode" />
-        <result column="region_code" property="regionCode" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="real_name" property="realName"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="mobile_phone" property="mobilePhone"/>
+        <result column="pic_src" property="picSrc"/>
+        <result column="password" property="password"/>
+        <result column="status" property="status"/>
+        <result column="site_id" property="siteId"/>
+        <result column="role" property="role"/>
+        <result column="family_code" property="familyCode"/>
+        <result column="region_code" property="regionCode"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

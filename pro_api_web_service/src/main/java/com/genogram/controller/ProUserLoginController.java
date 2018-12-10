@@ -46,6 +46,7 @@ public class ProUserLoginController {
 
     @Autowired
     private IAllUserRegService allUserRegService;
+
     /**
      * 登陆
      * // @param allUserLogin
@@ -128,6 +129,7 @@ public class ProUserLoginController {
 
     /**
      * 修改密码
+     *
      * @param oldPassword
      * @param newPassword
      * @param token
@@ -137,7 +139,7 @@ public class ProUserLoginController {
     @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
     public Response<AllUserLogin> updatePassword(@ApiParam("旧密码") @RequestParam String oldPassword,
                                                  @ApiParam("新密码") @RequestParam String newPassword,
-                                                 @ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token) {
+                                                 @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -162,12 +164,13 @@ public class ProUserLoginController {
 
     /**
      * 个人资料查询
+     *
      * @param token
      * @return
      */
     @ApiOperation(value = "个人资料查询", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "getUserLogin", method = RequestMethod.POST)
-    public Response<AllUserLogin> getUserLogin(@ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token) {
+    public Response<AllUserLogin> getUserLogin(@ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
@@ -182,13 +185,14 @@ public class ProUserLoginController {
 
     /**
      * 修改个人资料
+     *
      * @param allUserLogin
      * @param token
      * @return
      */
     @ApiOperation(value = "个人资料修改", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "updatePerson", method = RequestMethod.POST)
-    public Response<AllUserLogin> updatePerson(AllUserLogin allUserLogin,@ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token) {
+    public Response<AllUserLogin> updatePerson(AllUserLogin allUserLogin, @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");

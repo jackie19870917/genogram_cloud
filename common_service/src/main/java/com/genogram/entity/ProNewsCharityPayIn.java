@@ -1,12 +1,15 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.math.BigDecimal;
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -240,21 +243,21 @@ public class ProNewsCharityPayIn extends Model<ProNewsCharityPayIn> {
     @Override
     public String toString() {
         return "ProNewsCharityPayIn{" +
-        ", id=" + id +
-        ", showId=" + showId +
-        ", payUsrId=" + payUsrId +
-        ", type=" + type +
-        ", orderId=" + orderId +
-        ", payAmount=" + payAmount +
-        ", payChannel=" + payChannel +
-        ", payTime=" + payTime +
-        ", agentAccount=" + agentAccount +
-        ", agentId=" + agentId +
-        ", status=" + status +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", showId=" + showId +
+                ", payUsrId=" + payUsrId +
+                ", type=" + type +
+                ", orderId=" + orderId +
+                ", payAmount=" + payAmount +
+                ", payChannel=" + payChannel +
+                ", payTime=" + payTime +
+                ", agentAccount=" + agentAccount +
+                ", agentId=" + agentId +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

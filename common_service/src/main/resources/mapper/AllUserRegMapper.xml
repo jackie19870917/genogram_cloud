@@ -4,29 +4,29 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserReg">
-        <id column="id" property="id" />
-        <result column="all_user_login_id" property="allUserLoginId" />
-        <result column="english_name" property="englishName" />
-        <result column="nation" property="nation" />
-        <result column="birthplace" property="birthplace" />
-        <result column="job" property="job" />
-        <result column="lidai" property="lidai" />
-        <result column="jinshi" property="jinshi" />
-        <result column="laopai" property="laopai" />
-        <result column="xinpai" property="xinpai" />
-        <result column="tongpai" property="tongpai" />
-        <result column="present_address" property="presentAddress" />
-        <result column="old_address" property="oldAddress" />
-        <result column="alias" property="alias" />
-        <result column="summary" property="summary" />
-        <result column="fans" property="fans" />
-        <result column="honesty" property="honesty" />
-        <result column="creator" property="creator" />
-        <result column="status" property="status" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="all_user_login_id" property="allUserLoginId"/>
+        <result column="english_name" property="englishName"/>
+        <result column="nation" property="nation"/>
+        <result column="birthplace" property="birthplace"/>
+        <result column="job" property="job"/>
+        <result column="lidai" property="lidai"/>
+        <result column="jinshi" property="jinshi"/>
+        <result column="laopai" property="laopai"/>
+        <result column="xinpai" property="xinpai"/>
+        <result column="tongpai" property="tongpai"/>
+        <result column="present_address" property="presentAddress"/>
+        <result column="old_address" property="oldAddress"/>
+        <result column="alias" property="alias"/>
+        <result column="summary" property="summary"/>
+        <result column="fans" property="fans"/>
+        <result column="honesty" property="honesty"/>
+        <result column="creator" property="creator"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

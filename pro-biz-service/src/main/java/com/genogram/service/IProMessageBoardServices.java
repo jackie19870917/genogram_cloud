@@ -10,6 +10,7 @@ import com.genogram.entity.AllMessageBoard;
 public interface IProMessageBoardServices extends IService<AllMessageBoard> {
     /**
      * 省级留言板后台新增
+     *
      * @param allMessageBoard
      * @return
      */
@@ -17,6 +18,7 @@ public interface IProMessageBoardServices extends IService<AllMessageBoard> {
 
     /**
      * 后台查询
+     *
      * @param siteId
      * @param sourceType
      * @param pageNo

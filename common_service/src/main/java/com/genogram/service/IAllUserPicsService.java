@@ -18,6 +18,7 @@ public interface IAllUserPicsService extends IService<AllUserPics> {
 
     /**
      * 根据用户查询照片
+     *
      * @param userId
      * @param list
      * @param pageNo
@@ -28,6 +29,7 @@ public interface IAllUserPicsService extends IService<AllUserPics> {
 
     /**
      * 新增/修改   照片
+     *
      * @param allUserPics
      * @return
      */
@@ -35,6 +37,7 @@ public interface IAllUserPicsService extends IService<AllUserPics> {
 
     /**
      * 删除 照片
+     *
      * @param id
      * @param userId
      * @return
@@ -43,6 +46,7 @@ public interface IAllUserPicsService extends IService<AllUserPics> {
 
     /**
      * 照片详情
+     *
      * @param id
      * @return
      */

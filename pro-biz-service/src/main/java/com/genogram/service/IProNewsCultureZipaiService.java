@@ -24,8 +24,9 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
 
     /**
      * 省级家族字派查询
-     * @param entity  查询条件
-     * @param pageNo  当前页
+     *
+     * @param entity   查询条件
+     * @param pageNo   当前页
      * @param pageSize 每页显示条数
      * @return
      */
@@ -33,14 +34,16 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
 
     /**
      * 省级家族字派模糊查询
-     * @param mapPage  分页条件
-     * @param map  查询条件
+     *
+     * @param mapPage 分页条件
+     * @param map     查询条件
      * @return
      */
     Page<ProNewsCultureZipaiVo> getZipaiVaguePage(Page mapPage, Map map);
 
     /**
      * 省级字派进入后台页面
+     *
      * @param id 主键
      * @return
      */
@@ -48,6 +51,7 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
 
     /**
      * 省级家族字派后台新增修改
+     *
      * @param proNewsCultureZipai
      * @return
      */
@@ -55,6 +59,7 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
 
     /**
      * 省级家族字派后台删除
+     *
      * @param id
      * @param status
      * @return
@@ -63,10 +68,11 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
 
     /**
      * 省级字派按地区查询
+     *
      * @param sizeId  省级网站Id
-     * @param mapPage  分页条件
-     * @param map  查询条件
+     * @param mapPage 分页条件
+     * @param map     查询条件
      * @return
      */
-    Page<FanNewsCultureZipai> getZipaiRegionPage(Integer sizeId,Page mapPage, Map map);
+    Page<FanNewsCultureZipai> getZipaiRegionPage(Integer sizeId, Page mapPage, Map map);
 }

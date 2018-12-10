@@ -18,11 +18,12 @@ public interface IFanIndexMessageService extends IService<FanIndexMessage> {
 
     /**
      * 联谊会首页聊天记录
-     * @param siteId 网站ID
-     * @param status 状态
-     * @param pageNo 当前页
+     *
+     * @param siteId   网站ID
+     * @param status   状态
+     * @param pageNo   当前页
      * @param pageSize 每页显示条数
      * @return
      */
-    Page<FanIndexMessage> getChatRecordList(Integer siteId, Integer status,Integer pageNo,Integer pageSize);
+    Page<FanIndexMessage> getChatRecordList(Integer siteId, Integer status, Integer pageNo, Integer pageSize);
 }

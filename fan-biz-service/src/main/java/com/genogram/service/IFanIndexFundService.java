@@ -31,6 +31,7 @@ public interface IFanIndexFundService extends IService<FanIndexFund> {
 
     /**
      * 修改 基金金额
+     *
      * @param fanIndexFund
      * @return
      */
@@ -38,6 +39,7 @@ public interface IFanIndexFundService extends IService<FanIndexFund> {
 
     /**
      * 新增 基金金额
+     *
      * @param fanIndexFund
      * @return
      */

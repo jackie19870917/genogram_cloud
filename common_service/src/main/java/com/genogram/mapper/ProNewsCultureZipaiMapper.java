@@ -21,8 +21,9 @@ public interface ProNewsCultureZipaiMapper extends BaseMapper<ProNewsCultureZipa
 
     /**
      * 多表模糊查询
+     *
      * @param mapPage 分页
-     * @param map 查询条件
+     * @param map     查询条件
      * @return
      */
     List<ProNewsCultureZipaiVo> selectLike(Page<ProNewsCultureZipaiVo> mapPage, Map map);

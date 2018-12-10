@@ -22,21 +22,23 @@ import org.springframework.web.bind.annotation.*;
 public class ProMessageBoardController {
     @Autowired
     private IProMessageBoardServices iProMessageBoardServices;
+
     /**
-     *省级留言板添加
-     *@Author: yuzhou
-     *@Date: 2018-11-10
-     *@Time: 12:10
-     *@Param:
-     *@return:
-     *@Description:
+     * 省级留言板添加
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-10
+     * @Time: 12:10
+     * @Param:
+     * @return:
+     * @Description:
      */
     @ApiOperation(value = "留言板添加")
     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
     public Response<AllMessageBoard> addMessage(
             AllMessageBoard allMessageBoard,
-            @RequestParam(value = "siteId")Integer siteId,
-            @ApiParam("token")@RequestParam(value = "token",defaultValue = "")String token) {
+            @RequestParam(value = "siteId") Integer siteId,
+            @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }

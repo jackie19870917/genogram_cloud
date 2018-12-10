@@ -10,14 +10,15 @@ import java.util.Date;
 import java.util.List;
 
 /**
- *产业详情
- *@Author: yuzhou
- *@Date: 2018-11-10
- *@Time: 17:51
- *@Param:
- *@return:
- *@Description:
-*/
+ * 产业详情
+ *
+ * @Author: yuzhou
+ * @Date: 2018-11-10
+ * @Time: 17:51
+ * @Param:
+ * @return:
+ * @Description:
+ */
 @Data
 public class IndustryDetailVo {
 
@@ -30,7 +31,6 @@ public class IndustryDetailVo {
      * 联谊会名称
      */
     private String sizeName;
-
 
 
     /**

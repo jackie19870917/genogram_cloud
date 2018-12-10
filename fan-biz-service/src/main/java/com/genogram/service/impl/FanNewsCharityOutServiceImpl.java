@@ -66,7 +66,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
         List<FanNewsCharityOut> fanNewsCharityOutList = fanNewsCharityOutPage.getRecords();
 
-        if (fanNewsCharityOutList.size()==0) {
+        if (fanNewsCharityOutList.size() == 0) {
             return null;
         }
 
@@ -148,7 +148,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         //返回新VO的集合赋值新对象vo
         NewsDetailVo newsDetailVo = new NewsDetailVo();
 
-        BeanUtils.copyProperties(fanNewsCharityOut,newsDetailVo);
+        BeanUtils.copyProperties(fanNewsCharityOut, newsDetailVo);
 
         //存储图片list集合
         newsDetailVo.setNewsUploadFileList(fanNewsUploadFileList);
@@ -169,14 +169,13 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
     }
 
     /**
-     *
-     * @param fanNewsCharityOut   慈善收支
+     * @param fanNewsCharityOut 慈善收支
      * @param fileName
      * @param filePath
      * @return
      */
     @Override
-    public Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut,String fileName,String filePath) {
+    public Boolean insertOrUpdateFanNewsCharityOutVo(FanNewsCharityOut fanNewsCharityOut, String fileName, String filePath) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
@@ -187,15 +186,15 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
         Boolean result = this.insertOrUpdate(fanNewsCharityOut);
 
-        if(result && StringsUtils.isNotEmpty(filePath)){
-            uploadFileService.storageFanFile(fileName,filePath,fanNewsCharityOut.getId(),fanNewsCharityOut.getShowId());
+        if (result && StringsUtils.isNotEmpty(filePath)) {
+            uploadFileService.storageFanFile(fileName, filePath, fanNewsCharityOut.getId(), fanNewsCharityOut.getShowId());
         }
         return result;
 
     }
 
     @Override
-    public Boolean deleteFanNewsCharityOut(Integer id,Integer userId) {
+    public Boolean deleteFanNewsCharityOut(Integer id, Integer userId) {
 
         FanNewsCharityOut fanNewsCharityOut = new FanNewsCharityOut();
 

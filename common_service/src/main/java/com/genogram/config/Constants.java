@@ -1,21 +1,22 @@
 package com.genogram.config;
 
 /**
- *常量定义类  final
- *@Author:
- *@Date: 2018-11-09
- *@Time: 15:55
- *@Param:
- *@return:
- *@Description:
-*/
+ * 常量定义类  final
+ *
+ * @Author:
+ * @Date: 2018-11-09
+ * @Time: 15:55
+ * @Param:
+ * @return:
+ * @Description:
+ */
 public final class Constants {
-    public static final String SUNDAY = "SUNDAY";    
-    public static final String MONDAY = "MONDAY";    
-    public static final String TUESDAY = "TUESDAY";    
-    public static final String WEDNESDAY = "WEDNESDAY";    
-    public static final String THURSDAY = "THURSDAY";    
-    public static final String FRIDAY = "FRIDAY";    
+    public static final String SUNDAY = "SUNDAY";
+    public static final String MONDAY = "MONDAY";
+    public static final String TUESDAY = "TUESDAY";
+    public static final String WEDNESDAY = "WEDNESDAY";
+    public static final String THURSDAY = "THURSDAY";
+    public static final String FRIDAY = "FRIDAY";
     public static final String SATURDAY = "SATURDAY";
     public static final String LOGIN_LOG = "login";
     public static final String OPERATION_LOG = "operation";
@@ -27,17 +28,17 @@ public final class Constants {
     /**
      * 返回状态码 成功
      */
-	public static final Integer SUCCESSFUL_CODE = 200;
+    public static final Integer SUCCESSFUL_CODE = 200;
 
     /**
      * 返回状态码 失败
      */
-	public static final Integer FAILURE_CODE = 500;
+    public static final Integer FAILURE_CODE = 500;
 
     /**
      * 返回状态码 错误 没有查到参数
      */
-	public static final Integer ERRO_CODE = 400;
+    public static final Integer ERRO_CODE = 400;
     /**
      * 返回状态码 敏感词汇
      */

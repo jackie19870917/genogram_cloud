@@ -14,12 +14,14 @@ import java.sql.Timestamp;
 
 /**
  * 联谊会留言板
+ *
  * @author Administrator
  */
 @Service
 public class AllMessageBoardServicesImpl extends ServiceImpl<AllMessageBoardMapper, AllMessageBoard> implements IFanMessageBoardService {
     /**
      * 留言板添加
+     *
      * @param allMessageBoard
      * @return
      */
@@ -37,18 +39,20 @@ public class AllMessageBoardServicesImpl extends ServiceImpl<AllMessageBoardMapp
 
         return result;
     }
+
     /**
      * 留言板查询
+     *
      * @param
      * @return
      */
     @Override
-    public Page<AllMessageBoard> getMessageBoard(Integer siteId,Integer sourceType, Integer pageNo, Integer pageSize) {
+    public Page<AllMessageBoard> getMessageBoard(Integer siteId, Integer sourceType, Integer pageNo, Integer pageSize) {
         Wrapper<AllMessageBoard> entity = new EntityWrapper<AllMessageBoard>();
-        entity.orderBy("id",false);
+        entity.orderBy("id", false);
         entity.eq("site_id", siteId);
-        entity.eq("source_type",sourceType);
-        Page<AllMessageBoard> proNewsFamilyRecord =this.selectPage(new Page<AllMessageBoard>(pageNo, pageSize), entity);
+        entity.eq("source_type", sourceType);
+        Page<AllMessageBoard> proNewsFamilyRecord = this.selectPage(new Page<AllMessageBoard>(pageNo, pageSize), entity);
         return proNewsFamilyRecord;
     }
 }

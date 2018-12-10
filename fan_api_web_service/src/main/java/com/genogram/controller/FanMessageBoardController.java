@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 /**
- *联谊会留言板
+ * 联谊会留言板
+ *
  * @author wangwei
  * @since 2018-11-23
  */
@@ -28,20 +29,22 @@ import org.springframework.stereotype.Controller;
 public class FanMessageBoardController {
     @Autowired
     private IFanMessageBoardService iFanMessageBoardService;
+
     /**
-     *联谊会留言板添加
-     *@Author: yuzhou
-     *@Date: 2018-11-10
-     *@Time: 12:10
-     *@Param:
-     *@return:
-     *@Description:
+     * 联谊会留言板添加
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-10
+     * @Time: 12:10
+     * @Param:
+     * @return:
+     * @Description:
      */
     @ApiOperation(value = "留言板添加")
     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
     public Response<AllMessageBoard> addMessage(
             AllMessageBoard allMessageBoard,
-            @RequestParam(value = "siteId")String siteId) {
+            @RequestParam(value = "siteId") String siteId) {
         int sourceType = 1;
         String createUser = null;
         String updateUser = null;

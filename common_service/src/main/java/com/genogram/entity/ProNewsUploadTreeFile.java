@@ -1,16 +1,19 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wangwei
@@ -222,20 +225,20 @@ public class ProNewsUploadTreeFile extends Model<ProNewsUploadTreeFile> {
     @Override
     public String toString() {
         return "ProNewsUploadTreeFile{" +
-        ", id=" + id +
-        ", siteId=" + siteId +
-        ", regionCode=" + regionCode +
-        ", isFrom=" + isFrom +
-        ", filePath=" + filePath +
-        ", fileName=" + fileName +
-        ", contactUser=" + contactUser +
-        ", status=" + status +
-        ", password=" + password +
-        ", preThirty=" + preThirty +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", siteId=" + siteId +
+                ", regionCode=" + regionCode +
+                ", isFrom=" + isFrom +
+                ", filePath=" + filePath +
+                ", fileName=" + fileName +
+                ", contactUser=" + contactUser +
+                ", status=" + status +
+                ", password=" + password +
+                ", preThirty=" + preThirty +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

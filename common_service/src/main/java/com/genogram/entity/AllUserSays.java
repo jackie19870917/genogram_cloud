@@ -1,9 +1,11 @@
 package com.genogram.entity;
 
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -135,14 +137,14 @@ public class AllUserSays extends Model<AllUserSays> {
     @Override
     public String toString() {
         return "AllUserSays{" +
-        ", id=" + id +
-        ", userId=" + userId +
-        ", content=" + content +
-        ", status=" + status +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", userId=" + userId +
+                ", content=" + content +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author xiaohei
@@ -30,8 +30,10 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
 
     @Autowired
     private IUploadFileService iuploadFileService;
+
     /**
      * 分页查询
+     *
      * @param showId
      * @param pageNo
      * @param pageSize
@@ -42,43 +44,45 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
         Wrapper<FanSysCharitableDeclare> entity = new EntityWrapper<FanSysCharitableDeclare>();
         entity.eq("show_id", showId);
         //分页查询文章主表
-        Page<FanSysCharitableDeclare> fanNewsFamilyRecord =this.selectPage(new Page<FanSysCharitableDeclare>(pageNo, pageSize), entity);
+        Page<FanSysCharitableDeclare> fanNewsFamilyRecord = this.selectPage(new Page<FanSysCharitableDeclare>(pageNo, pageSize), entity);
         return fanNewsFamilyRecord;
     }
 
     /**
      * 新增修改
+     *
      * @param fanSysCharitableDeclare
      * @param fileName
      * @param filePath
      * @return
      */
     @Override
-    public boolean addOrUpdateCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare,String fileName,String filePath) {
+    public boolean addOrUpdateCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare, String fileName, String filePath) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
-        if(fanSysCharitableDeclare.getId()==null){
+        if (fanSysCharitableDeclare.getId() == null) {
             //存入创建时间
             fanSysCharitableDeclare.setCreateTime(format);
             fanSysCharitableDeclare.setCreateUser(null);
             //插入修改时间
             fanSysCharitableDeclare.setUpdateTime(format);
             fanSysCharitableDeclare.setUpdateUser(null);
-        }else{
+        } else {
             //存入修改时间
             fanSysCharitableDeclare.setUpdateTime(format);
             fanSysCharitableDeclare.setUpdateUser(null);
         }
         boolean result = this.insertOrUpdate(fanSysCharitableDeclare);
         //存储图片
-        if(result && StringsUtils.isNotEmpty(filePath)){
-            iuploadFileService.storageFanFile(fileName,filePath,fanSysCharitableDeclare.getId(),fanSysCharitableDeclare.getShowId());
+        if (result && StringsUtils.isNotEmpty(filePath)) {
+            iuploadFileService.storageFanFile(fileName, filePath, fanSysCharitableDeclare.getId(), fanSysCharitableDeclare.getShowId());
         }
         return result;
     }
 
     /**
      * 删除
+     *
      * @param id
      * @param status
      * @return

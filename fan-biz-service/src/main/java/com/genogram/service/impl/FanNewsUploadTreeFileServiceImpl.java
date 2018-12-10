@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author wangwei
@@ -35,7 +35,7 @@ public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadT
         wrapper.in("status", list);
         wrapper.orderBy("update_time", false);
 
-        return this.selectPage(new Page<>(pageNo,pageSize),wrapper);
+        return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
     }
 
     @Override

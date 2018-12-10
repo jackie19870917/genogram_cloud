@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -255,23 +258,23 @@ public class ProSysWebMenu extends Model<ProSysWebMenu> {
     @Override
     public String toString() {
         return "ProSysWebMenu{" +
-        ", id=" + id +
-        ", treeNum=" + treeNum +
-        ", menuName=" + menuName +
-        ", parentId=" + parentId +
-        ", apiUrl=" + apiUrl +
-        ", apiAdminUrl=" + apiAdminUrl +
-        ", orderIndex=" + orderIndex +
-        ", menuCode=" + menuCode +
-        ", menuType=" + menuType +
-        ", isAdmin=" + isAdmin +
-        ", isWeb=" + isWeb +
-        ", istatic=" + istatic +
-        ", comments=" + comments +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", treeNum=" + treeNum +
+                ", menuName=" + menuName +
+                ", parentId=" + parentId +
+                ", apiUrl=" + apiUrl +
+                ", apiAdminUrl=" + apiAdminUrl +
+                ", orderIndex=" + orderIndex +
+                ", menuCode=" + menuCode +
+                ", menuType=" + menuType +
+                ", isAdmin=" + isAdmin +
+                ", isWeb=" + isWeb +
+                ", istatic=" + istatic +
+                ", comments=" + comments +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

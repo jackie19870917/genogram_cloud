@@ -1,16 +1,19 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wangwei
@@ -168,16 +171,16 @@ public class AllMessageBoard extends Model<AllMessageBoard> {
     @Override
     public String toString() {
         return "AllMessageBoard{" +
-        ", id=" + id +
-        ", siteId=" + siteId +
-        ", name=" + name +
-        ", phone=" + phone +
-        ", content=" + content +
-        ", sourceType=" + sourceType +
-        ", createUser=" + createUser +
-        ", updateUser=" + updateUser +
-        ", createTime=" + createTime +
-        ", updateTime=" + updateTime +
-        "}";
+                ", id=" + id +
+                ", siteId=" + siteId +
+                ", name=" + name +
+                ", phone=" + phone +
+                ", content=" + content +
+                ", sourceType=" + sourceType +
+                ", createUser=" + createUser +
+                ", updateUser=" + updateUser +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                "}";
     }
 }

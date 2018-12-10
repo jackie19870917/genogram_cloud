@@ -38,7 +38,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
     @Autowired
     private IProNewsUploadFileService iProNewsUploadFileService;
     @Autowired
-    private  UploadServiceImpl uploadService;
+    private UploadServiceImpl uploadService;
     @Autowired
     private ProNewsUploadFileMapper proNewsUploadFileMapper;
     @Autowired
@@ -46,6 +46,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
 
     /**
      * 省级家族名人分页
+     *
      * @param showId
      * @param status
      * @param pageNo
@@ -55,24 +56,24 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
     @Override
     public Page<ProFamilyPersonVo> getFamilyPersionPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
-        List<ProFamilyPersonVo> familyPersonVoList=new ArrayList<>();
+        List<ProFamilyPersonVo> familyPersonVoList = new ArrayList<>();
 
         Wrapper<ProNewsFamousPerson> entity = new EntityWrapper<ProNewsFamousPerson>();
         entity.eq("show_id", showId);
         entity.eq("status", status);
         entity.orderBy("create_time", false);
         //分页查询文章主表
-        Page<ProNewsFamousPerson> proNewsFamousPerson =this.selectPage(new Page<ProNewsFamousPerson>(pageNo, pageSize), entity);
+        Page<ProNewsFamousPerson> proNewsFamousPerson = this.selectPage(new Page<ProNewsFamousPerson>(pageNo, pageSize), entity);
 
         //得到文件当前页list集合
         List<ProNewsFamousPerson> list = proNewsFamousPerson.getRecords();
-        if(list.size()==0){
+        if (list.size() == 0) {
             return null;
         }
 
         //得到所有文章id
-        List newsids =  new ArrayList<>();
-        list.forEach(( news)->{
+        List newsids = new ArrayList<>();
+        list.forEach((news) -> {
             newsids.add(news.getId());
         });
 
@@ -80,13 +81,13 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         Wrapper<ProNewsUploadFile> uploadentity = new EntityWrapper<ProNewsUploadFile>();
         uploadentity.eq("show_id", showId);
         uploadentity.eq("status", status);
-        uploadentity.in("news_id",newsids);
+        uploadentity.in("news_id", newsids);
         //查询所有文章id下的图片附件
-        List<ProNewsUploadFile> files =  proNewsUploadFileMapper.selectList(uploadentity);
+        List<ProNewsUploadFile> files = proNewsUploadFileMapper.selectList(uploadentity);
 
         //遍历主表文章集合,赋值新对象vo
-        list.forEach(( news)->{
-            ProFamilyPersonVo proFamilyPersonVo=new ProFamilyPersonVo();
+        list.forEach((news) -> {
+            ProFamilyPersonVo proFamilyPersonVo = new ProFamilyPersonVo();
             proFamilyPersonVo.setId(news.getId());
             proFamilyPersonVo.setShowId(news.getShowId());
             proFamilyPersonVo.setPersonName(news.getPersonName());
@@ -100,10 +101,10 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
 
 
             //判断改图片文章id是否一样
-            List<ProNewsUploadFile> proNewsUploadFile=new ArrayList<>();
+            List<ProNewsUploadFile> proNewsUploadFile = new ArrayList<>();
 
-            files.forEach(( data)->{
-                if(news.getId().equals(data.getNewsId())){
+            files.forEach((data) -> {
+                if (news.getId().equals(data.getNewsId())) {
                     proNewsUploadFile.add(data);
                 }
             });
@@ -117,38 +118,40 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
 
         });
         //重新设置page对象
-        Page<ProFamilyPersonVo> mapPage = new Page<>(pageNo,pageSize);
+        Page<ProFamilyPersonVo> mapPage = new Page<>(pageNo, pageSize);
         mapPage.setRecords(familyPersonVoList);
         mapPage.setSize(proNewsFamousPerson.getSize());
         mapPage.setTotal(proNewsFamousPerson.getTotal());
         return mapPage;
     }
+
     /**
-     *省级家族文化前台增加查看数
-     *@Author: yuzhou
-     *@Date: 2018-11-12
-     *@Time: 13:49
-     *@Param:
-     *@return:
-     *@Description:
+     * 省级家族文化前台增加查看数
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-12
+     * @Time: 13:49
+     * @Param:
+     * @return:
+     * @Description:
      */
     @Override
     public void addVisitNum(Integer id) {
         //查出详情
         ProNewsFamousPerson fanNewsFamousPerson = this.selectById(id);
         //查看数加一
-        Integer visitNum = fanNewsFamousPerson.getVisitNum()+1;
+        Integer visitNum = fanNewsFamousPerson.getVisitNum() + 1;
         fanNewsFamousPerson.setVisitNum(visitNum);
         this.updateAllColumnById(fanNewsFamousPerson);
-        if(visitNum > Constants.PRO_VISIT_NUM || visitNum.equals(Constants.PRO_VISIT_NUM)){
+        if (visitNum > Constants.PRO_VISIT_NUM || visitNum.equals(Constants.PRO_VISIT_NUM)) {
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
-            int status=1;
+            int status = 1;
             //来源:(1县级,2省级)
-            int newsSource=1;
+            int newsSource = 1;
             //是否自动推荐(0:否;1:是)
-            int isAuto=1;
+            int isAuto = 1;
             //要插入的实体类
-            FanSysRecommend fanSysRecommend=new FanSysRecommend();
+            FanSysRecommend fanSysRecommend = new FanSysRecommend();
             fanSysRecommend.setStatus(status);
             fanSysRecommend.setNewsSource(newsSource);
             fanSysRecommend.setStatus(isAuto);
@@ -157,22 +160,24 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
             proSysRecommendService.addRecommend(fanSysRecommend);
         }
     }
+
     /**
-     *联谊会家族名人详情查询
-     *@Author: yuzhou
-     *@Date: 2018-11-09
-     *@Time: 16:22
-     *@Param:
-     *@return:
-     *@Description:
+     * 联谊会家族名人详情查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:22
+     * @Param:
+     * @return:
+     * @Description:
      */
     @Override
     public ProFamilyPersonVo getFamilyFamilyDetail(Integer id) {
 
         //根据Id查出文章详情
-        ProNewsFamousPerson proNewsFamousPerson=  this.selectById(id);
+        ProNewsFamousPerson proNewsFamousPerson = this.selectById(id);
 
-        if (proNewsFamousPerson==null){
+        if (proNewsFamousPerson == null) {
             return null;
         }
 
@@ -180,20 +185,20 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         Wrapper<ProNewsUploadFile> uploadentity = new EntityWrapper<ProNewsUploadFile>();
         uploadentity.eq("show_id", proNewsFamousPerson.getShowId());
         //置顶封面  是否封面(0.否;1:是封面)
-        uploadentity.eq("pic_index",1);
-        uploadentity.eq("news_id",id);
+        uploadentity.eq("pic_index", 1);
+        uploadentity.eq("news_id", id);
         //查询所有文章id下的图片附件
-        List<ProNewsUploadFile> files =  iProNewsUploadFileService.selectList(uploadentity);
+        List<ProNewsUploadFile> files = iProNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
         AllUserLogin updateUser = allUserLoginService.selectById(proNewsFamousPerson.getUpdateUser());
         AllUserLogin createUser = allUserLoginService.selectById(proNewsFamousPerson.getCreateUser());
 
         //返回新VO的集合赋值新对象vo
-        ProFamilyPersonVo proFamilyPersonVo=new ProFamilyPersonVo();
+        ProFamilyPersonVo proFamilyPersonVo = new ProFamilyPersonVo();
 
         //调用方法封装集合
-        BeanUtils.copyProperties(proNewsFamousPerson,proFamilyPersonVo);
+        BeanUtils.copyProperties(proNewsFamousPerson, proFamilyPersonVo);
         //存储图片list集合
         proFamilyPersonVo.setProNewsUploadFilesList(files);
         //存储作者名称时间
@@ -203,8 +208,10 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         proFamilyPersonVo.setCreateUserName(null);
         return proFamilyPersonVo;
     }
+
     /**
      * 后台查询
+     *
      * @param entity
      * @param pageNo
      * @param pageSize
@@ -213,21 +220,21 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
     @Override
     public Page<ProFamilyPersonVo> getFamilyPersionPages(Wrapper<ProNewsFamousPerson> entity, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
-        List<ProFamilyPersonVo> familyPersionVoList=new ArrayList<>();
+        List<ProFamilyPersonVo> familyPersionVoList = new ArrayList<>();
 
 
         //分页查询产业文章主表
-        Page<ProNewsFamousPerson> familyPersonVoPage =this.selectPage(new Page<ProNewsFamousPerson>(pageNo, pageSize),entity);
+        Page<ProNewsFamousPerson> familyPersonVoPage = this.selectPage(new Page<ProNewsFamousPerson>(pageNo, pageSize), entity);
         //得到文件当前页list集合
         List<ProNewsFamousPerson> list = familyPersonVoPage.getRecords();
         //判断改集合是否为空,如果是直接返回结果
-        if(list.size()==0){
+        if (list.size() == 0) {
             return null;
         }
 
         //得到所有产业文章id
-        List newsids =  new ArrayList<>();
-        list.forEach(( news)->{
+        List newsids = new ArrayList<>();
+        list.forEach((news) -> {
             newsids.add(news.getId());
         });
 
@@ -236,20 +243,20 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         uploadentity.eq("show_id", list.get(0).getShowId());
         //  1 表示图片为显示状态
         uploadentity.eq("status", 1);
-        uploadentity.in("news_id",newsids);
+        uploadentity.in("news_id", newsids);
         //查询所有文章id下的图片附件
-        List<ProNewsUploadFile> files =  iProNewsUploadFileService.selectList(uploadentity);
+        List<ProNewsUploadFile> files = iProNewsUploadFileService.selectList(uploadentity);
 
         //遍历主表文章集合,赋值新对象vo
-        list.forEach(( news)->{
-            ProFamilyPersonVo familyPersonVo=new ProFamilyPersonVo();
+        list.forEach((news) -> {
+            ProFamilyPersonVo familyPersonVo = new ProFamilyPersonVo();
             //调用方法封装集合
-            BeanUtils.copyProperties(news,familyPersonVo);
+            BeanUtils.copyProperties(news, familyPersonVo);
             //判断改图片文章id是否一样
-            List<ProNewsUploadFile> proNewsUploadFile=new ArrayList<>();
+            List<ProNewsUploadFile> proNewsUploadFile = new ArrayList<>();
 
-            files.forEach(( data)->{
-                if(news.getId().equals(data.getNewsId())){
+            files.forEach((data) -> {
+                if (news.getId().equals(data.getNewsId())) {
                     proNewsUploadFile.add(data);
                 }
             });
@@ -263,7 +270,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         });
 
         //重新设置page对象
-        Page<ProFamilyPersonVo> mapPage = new Page<>(pageNo,pageSize);
+        Page<ProFamilyPersonVo> mapPage = new Page<>(pageNo, pageSize);
         mapPage.setRecords(familyPersionVoList);
         mapPage.setSize(familyPersonVoPage.getSize());
         mapPage.setTotal(familyPersonVoPage.getTotal());
@@ -271,9 +278,9 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
     }
 
     /**
-     *
      * 省级记录家族详情
-     * @param id  主键
+     *
+     * @param id 主键
      * @return
      */
     @Override
@@ -281,25 +288,25 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         //根据Id查出产业详情
         ProNewsFamousPerson proNewsFamousPerson = this.selectById(id);
 
-        if(proNewsFamousPerson==null){
+        if (proNewsFamousPerson == null) {
             return null;
         }
 
         //查询图片
         Wrapper<ProNewsUploadFile> uploadentity = new EntityWrapper<ProNewsUploadFile>();
         uploadentity.eq("show_id", proNewsFamousPerson.getShowId());
-        uploadentity.eq("news_id",id);
+        uploadentity.eq("news_id", id);
         //查询所有文章id下的图片附件
-        List<ProNewsUploadFile> files =  iProNewsUploadFileService.selectList(uploadentity);
+        List<ProNewsUploadFile> files = iProNewsUploadFileService.selectList(uploadentity);
 
         //查出名称
         AllUserLogin createUser = allUserLoginService.selectById(proNewsFamousPerson.getCreateUser());
         AllUserLogin updateUser = allUserLoginService.selectById(proNewsFamousPerson.getUpdateUser());
 
         //返回新VO的集合赋值新对象vo
-        ProFamilyPersonVo familyPersonVo=new ProFamilyPersonVo();
+        ProFamilyPersonVo familyPersonVo = new ProFamilyPersonVo();
         //调用方法封装集合
-        BeanUtils.copyProperties(proNewsFamousPerson,familyPersonVo);
+        BeanUtils.copyProperties(proNewsFamousPerson, familyPersonVo);
         //存储图片list集合
         familyPersonVo.setProNewsUploadFilesList(files);
         //存储作者名称时间
@@ -309,37 +316,41 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         familyPersonVo.setCreateUserName(null);
         return familyPersonVo;
     }
+
     /**
      * 省级记录家族后台新增 修改
-     * @param proNewsFamousPerson  家族名人上传实体类
-     * @param fileName  上传的图片的字符串
+     *
+     * @param proNewsFamousPerson 家族名人上传实体类
+     * @param fileName            上传的图片的字符串
      * @return
      */
     @Override
     public boolean addOrUpdatePersion(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
-        if(proNewsFamousPerson.getId()==null){
+        if (proNewsFamousPerson.getId() == null) {
             //存入创建时间
             proNewsFamousPerson.setCreateTime(format);
             proNewsFamousPerson.setCreateUser(null);
             //插入修改时间
             proNewsFamousPerson.setUpdateTime(format);
             proNewsFamousPerson.setUpdateUser(null);
-        }else{
+        } else {
             //存入修改时间
             proNewsFamousPerson.setUpdateTime(format);
             proNewsFamousPerson.setUpdateUser(null);
         }
         boolean result = this.insertOrUpdate(proNewsFamousPerson);
         //存储图片
-        if(result && StringsUtils.isNotEmpty(filePath)){
-            uploadService.storageFanFile(fileName,filePath,proNewsFamousPerson.getId(),proNewsFamousPerson.getShowId());
+        if (result && StringsUtils.isNotEmpty(filePath)) {
+            uploadService.storageFanFile(fileName, filePath, proNewsFamousPerson.getId(), proNewsFamousPerson.getShowId());
         }
         return result;
     }
+
     /**
-     *删除
+     * 删除
+     *
      * @param id
      * @param status
      * @return

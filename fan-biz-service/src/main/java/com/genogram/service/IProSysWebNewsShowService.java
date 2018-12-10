@@ -19,13 +19,13 @@ public interface IProSysWebNewsShowService extends IService<ProSysWebNewsShow> {
 
     /**
      * 开网站初始化菜单
-     * @Author: wang,wei
+     *
+     * @param siteId
+     * @Author: wang, wei
      * @Date: 2018-11-05
      * @Time: 22:04
-     * @param siteId
      * @return:
      * @Description:
-     *
      */
     public void initWebMenu(int siteId);
 

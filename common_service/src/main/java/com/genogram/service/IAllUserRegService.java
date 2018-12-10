@@ -16,6 +16,7 @@ public interface IAllUserRegService extends IService<AllUserReg> {
 
     /**
      * 根据用户Id查询用户
+     *
      * @param userId
      * @return
      */
@@ -23,6 +24,7 @@ public interface IAllUserRegService extends IService<AllUserReg> {
 
     /**
      * 新增用户
+     *
      * @param allUserReg
      * @return
      */
@@ -30,6 +32,7 @@ public interface IAllUserRegService extends IService<AllUserReg> {
 
     /**
      * 修改 用户
+     *
      * @param personVo
      * @return
      */

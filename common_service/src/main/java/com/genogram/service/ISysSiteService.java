@@ -5,13 +5,14 @@ import com.genogram.entity.FanSysSite;
 import com.genogram.entity.ProSysSite;
 
 /**
- *@author: Toxicant
- *@date: 2018-11-23
+ * @author: Toxicant
+ * @date: 2018-11-23
  */
 public interface ISysSiteService extends IService<FanSysSite> {
 
     /**
      * 县级开通网站
+     *
      * @param fanSysSite
      * @return
      */
@@ -19,6 +20,7 @@ public interface ISysSiteService extends IService<FanSysSite> {
 
     /**
      * 省级开通网站
+     *
      * @param proSysSite
      * @return
      */
@@ -26,12 +28,14 @@ public interface ISysSiteService extends IService<FanSysSite> {
 
     /**
      * 查询
+     *
      * @return
      */
     FanSysSite getFanSysSite();
 
     /**
      * 查询
+     *
      * @return
      */
     ProSysSite getProSysSite();

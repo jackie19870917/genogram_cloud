@@ -19,8 +19,9 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
 
     /**
      * 省级家族文化查询
-     * @param entity  查询条件
-     * @param pageNo  当前页
+     *
+     * @param entity   查询条件
+     * @param pageNo   当前页
      * @param pageSize 每页显示条数
      * @return
      */
@@ -28,6 +29,7 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
 
     /**
      * 省级家族文化详情查询
+     *
      * @param id 主键
      * @return
      */
@@ -35,12 +37,14 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
 
     /**
      * 省级家族文化文章增加查看数
-     * @param id  主键
+     *
+     * @param id 主键
      */
     void addVisitNum(Integer id);
 
     /**
      * 省级家族文化新增 修改
+     *
      * @param proNewsCultureNews
      * @param fileName
      * @param filePath
@@ -50,6 +54,7 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
 
     /**
      * 省级家族文化后台删除
+     *
      * @param id
      * @param status
      * @return

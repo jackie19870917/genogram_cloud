@@ -4,20 +4,20 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.FanNewsCharityPayIn">
-        <id column="id" property="id" />
-        <result column="show_id" property="showId" />
-        <result column="pay_usr_id" property="payUsrId" />
-        <result column="type" property="type" />
-        <result column="pay_amount" property="payAmount" />
-        <result column="pay_channel" property="payChannel" />
-        <result column="pay_time" property="payTime" />
-        <result column="agent_account" property="agentAccount" />
-        <result column="agent_id" property="agentId" />
-        <result column="status" property="status" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="show_id" property="showId"/>
+        <result column="pay_usr_id" property="payUsrId"/>
+        <result column="type" property="type"/>
+        <result column="pay_amount" property="payAmount"/>
+        <result column="pay_channel" property="payChannel"/>
+        <result column="pay_time" property="payTime"/>
+        <result column="agent_account" property="agentAccount"/>
+        <result column="agent_id" property="agentId"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -27,17 +27,17 @@
 
     <select id="getDonorVoPage" parameterType="java.util.Map" resultMap="BaseResultMap">
         SELECT
-        <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         FROM fan_news_charity_pay_in
         where
-            1=1
+        1=1
         <if test="showId!=null">
             and show_id=#{showId}
         </if>
         <if test="status!=null">
             and status in
             <foreach collection="status" item="item" index="index" open="(" separator="," close=")">
-                     #{item}
+                #{item}
             </foreach>
         </if>
         group by pay_usr_id

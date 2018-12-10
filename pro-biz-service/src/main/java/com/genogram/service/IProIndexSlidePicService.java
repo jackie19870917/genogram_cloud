@@ -17,14 +17,16 @@ public interface IProIndexSlidePicService extends IService<ProIndexSlidePic> {
 
     /**
      * 轮播图查询
+     *
      * @param siteId 网站ID
-     * @param list 状态
+     * @param list   状态
      * @return
      */
     List<ProIndexSlidePic> getProIndexSlidePic(Integer siteId, List list);
 
     /**
      * 新增/修改  轮播图
+     *
      * @param proIndexSlidePic
      * @return
      */
@@ -32,9 +34,10 @@ public interface IProIndexSlidePicService extends IService<ProIndexSlidePic> {
 
     /**
      * 逻辑删除  轮播图
+     *
      * @param id
      * @param userId
      * @return
      */
-    Boolean deleteProIndexSlidePic(Integer id,Integer userId);
+    Boolean deleteProIndexSlidePic(Integer id, Integer userId);
 }

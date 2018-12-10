@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -158,16 +161,16 @@ public class ProNewsUploadVedio extends Model<ProNewsUploadVedio> {
     @Override
     public String toString() {
         return "ProNewsUploadVedio{" +
-        ", id=" + id +
-        ", newsId=" + newsId +
-        ", showId=" + showId +
-        ", fileName=" + fileName +
-        ", filePath=" + filePath +
-        ", status=" + status +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", newsId=" + newsId +
+                ", showId=" + showId +
+                ", fileName=" + fileName +
+                ", filePath=" + filePath +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

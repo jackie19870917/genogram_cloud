@@ -55,14 +55,15 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
 
 
     /**
-     *省级后台点击推荐
-     *@Author: yuzhou
-     *@Date: 2018-11-27
-     *@Time: 14:23
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级后台点击推荐
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-27
+     * @Time: 14:23
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean addRecommend(FanSysRecommend fanSysRecommend) {
         //是否全国显示(0:否;1是)
@@ -79,17 +80,18 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     }
 
     /**
-     *省级后台设置个人推荐取消展示
-     *@Author: yuzhou
-     *@Date: 2018-11-14
-     *@Time: 17:38
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级后台设置个人推荐取消展示
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-14
+     * @Time: 17:38
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status) {
-        boolean result=false;
+        boolean result = false;
         //查询文章
         List<FanSysRecommend> list = this.selectList(entity);
         for (FanSysRecommend fanSysRecommend : list) {
@@ -103,68 +105,72 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
         }
         return result;
     }
+
     /**
-     *省级首页县级推荐文章查询
-     *@Author: yuzhou
-     *@Date: 2018-11-16
-     *@Time: 15:18
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级首页县级推荐文章查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-16
+     * @Time: 15:18
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public List<IndustryDetailVo> getRecommendArticle(Map map) {
-        List<IndustryDetailVo> industryDetailVo=fanSysRecommendMapper.getIndexRecommend(map);
+        List<IndustryDetailVo> industryDetailVo = fanSysRecommendMapper.getIndexRecommend(map);
         //得到所有文章Id
-        List<Integer> ids= new ArrayList<>();
+        List<Integer> ids = new ArrayList<>();
         //得到所有showId
-        List<Integer> showIds= new ArrayList<>();
+        List<Integer> showIds = new ArrayList<>();
         for (IndustryDetailVo detailVo : industryDetailVo) {
             ids.add(detailVo.getId());
             showIds.add((detailVo.getShowId()));
         }
         //查询附件
-        Wrapper<FanNewsUploadFile> entity=new EntityWrapper();
-        entity.in("id",ids);
-        entity.in("show_id",showIds);
+        Wrapper<FanNewsUploadFile> entity = new EntityWrapper();
+        entity.in("id", ids);
+        entity.in("show_id", showIds);
         List<FanNewsUploadFile> fanNewsUploadFiles = fanNewsUploadFileService.selectList(entity);
         //封装附件
-            for (IndustryDetailVo detailVo : industryDetailVo) {
-                for (FanNewsUploadFile fanNewsUploadFile : fanNewsUploadFiles) {
-                    if(detailVo.getId().equals(fanNewsUploadFile.getNewsId()) && detailVo.getShowId().equals(fanNewsUploadFile.getShowId())){
-                        List<FanNewsUploadFile> list=new ArrayList<>();
-                        list.add(fanNewsUploadFile);
-                        detailVo.setFanNewsUploadFileList(list);
-                    }
+        for (IndustryDetailVo detailVo : industryDetailVo) {
+            for (FanNewsUploadFile fanNewsUploadFile : fanNewsUploadFiles) {
+                if (detailVo.getId().equals(fanNewsUploadFile.getNewsId()) && detailVo.getShowId().equals(fanNewsUploadFile.getShowId())) {
+                    List<FanNewsUploadFile> list = new ArrayList<>();
+                    list.add(fanNewsUploadFile);
+                    detailVo.setFanNewsUploadFileList(list);
                 }
             }
+        }
         return industryDetailVo;
     }
 
     /**
-     *省级首页县级推荐人物查询
-     *@Author: yuzhou
-     *@Date: 2018-11-16
-     *@Time: 18:18
-     *@Param: 
-     *@return:
-     *@Description:
-    */
+     * 省级首页县级推荐人物查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-16
+     * @Time: 18:18
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public List<FamilyPersonVo> getRecommendFigure(Map map) {
-        List<FamilyPersonVo> familyPersonVo=fanNewsFamousPersonMapper.getRecommendFigure(map);
+        List<FamilyPersonVo> familyPersonVo = fanNewsFamousPersonMapper.getRecommendFigure(map);
         return familyPersonVo;
     }
 
     /**
-     *省级首页文章推荐详情查询
-     *@Author: yuzhou
-     *@Date: 2018-11-16
-     *@Time: 19:10
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级首页文章推荐详情查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-16
+     * @Time: 19:10
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Object getRecommendParticulars(Integer id, Integer source) {
         //1代表家族文化 3 代表记录家族 2代表家族产业
@@ -172,57 +178,59 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
         Integer type01 = 1;
         Integer type02 = 2;
         Integer type03 = 3;
-        if(source.equals(type01)){
+        if (source.equals(type01)) {
             NewsDetailVo familyCultureDetail = fanNewsCultureNewsService.getFamilyCultureDetail(id);
-            if(familyCultureDetail!=null){
+            if (familyCultureDetail != null) {
                 fanNewsCultureNewsService.addVisitNum(id);
             }
             return familyCultureDetail;
-        }else if(source.equals(type03)){
+        } else if (source.equals(type03)) {
             NewsDetailVo familyRecord = fanNewsFamilyRecordService.getFamilyRecord(id);
-            if(familyRecord!=null){
+            if (familyRecord != null) {
                 fanNewsFamilyRecordService.addVisitNum(id);
             }
             return familyRecord;
-        }else if(source.equals(type02)){
+        } else if (source.equals(type02)) {
             IndustryDetailVo familyIndustryDetail = fanNewsIndustryService.getFamilyIndustryDetail(id);
-            if(familyIndustryDetail!=null){
+            if (familyIndustryDetail != null) {
                 fanNewsIndustryService.addVisitNum(id);
             }
             return familyIndustryDetail;
-        }else{
+        } else {
             return null;
         }
     }
 
     /**
-     *省级首页人物推荐详情查询
-     *@Author: yuzhou
-     *@Date: 2018-11-17
-     *@Time: 11:34
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级首页人物推荐详情查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-17
+     * @Time: 11:34
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public FamilyPersonVo getRecommendFigureParticulars(Integer id) {
         FamilyPersonVo familyFamilyDetail = fanNewsFamousPersonService.getFamilyFamilyDetail(id);
         //增加查看数
-        if(familyFamilyDetail!=null){
+        if (familyFamilyDetail != null) {
             fanNewsFamousPersonService.addVisitNum(id);
         }
         return familyFamilyDetail;
     }
 
     /**
-     *省级手动文章查询
-     *@Author: yuzhou
-     *@Date: 2018-11-20
-     *@Time: 15:40
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级手动文章查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-20
+     * @Time: 15:40
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public List<CommonRecommendVo> getManualRecommend(Map map) {
         List<CommonRecommendVo> manualRecommend = fanSysRecommendMapper.getManualRecommend(map);
@@ -230,17 +238,18 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     }
 
     /**
-     *省级后台设置手动推荐到全国
-     *@Author: yuzhou
-     *@Date: 2018-11-28
-     *@Time: 15:15
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级后台设置手动推荐到全国
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-28
+     * @Time: 15:15
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public List<CommonRecommendVo> getManuaRecommendNationwide(Map map) {
-        List<CommonRecommendVo> commonRecommendVo=fanSysRecommendMapper.getManuaRecommendNationwide(map);
+        List<CommonRecommendVo> commonRecommendVo = fanSysRecommendMapper.getManuaRecommendNationwide(map);
         return commonRecommendVo;
     }
 }

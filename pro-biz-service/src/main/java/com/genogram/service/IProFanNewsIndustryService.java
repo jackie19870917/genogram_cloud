@@ -19,14 +19,16 @@ public interface IProFanNewsIndustryService extends IService<FanNewsIndustry> {
 
     /**
      * 联谊会家族产业各个产业的详情
-     * @param id  主键
+     *
+     * @param id 主键
      * @return
      */
     IndustryDetailVo getFamilyIndustryDetail(Integer id);
 
     /**
      * 联谊会家族产业前台增加查看数
-     * @param id  主键
+     *
+     * @param id 主键
      */
     void addVisitNum(Integer id);
 }

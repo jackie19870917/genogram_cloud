@@ -18,6 +18,7 @@ public interface IAllUserVideosService extends IService<AllUserVideos> {
 
     /**
      * 根据用户查询视频
+     *
      * @param userId
      * @param list
      * @param pageNo
@@ -28,6 +29,7 @@ public interface IAllUserVideosService extends IService<AllUserVideos> {
 
     /**
      * 新增   视频
+     *
      * @param allUserVideos
      * @return
      */
@@ -35,6 +37,7 @@ public interface IAllUserVideosService extends IService<AllUserVideos> {
 
     /**
      * 删除视频
+     *
      * @param id
      * @param userId
      * @return
@@ -43,6 +46,7 @@ public interface IAllUserVideosService extends IService<AllUserVideos> {
 
     /**
      * 视频 详情
+     *
      * @param id
      * @return
      */
