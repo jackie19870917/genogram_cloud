@@ -3,11 +3,16 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.AllUserNewsInfo;
+import com.genogram.entity.FanSysSite;
+import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.AllUserNewsInfoMapper;
+import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.service.IAllUserNewsInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -24,6 +29,12 @@ import java.util.List;
 @Service
 public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMapper, AllUserNewsInfo> implements IAllUserNewsInfoService {
 
+    @Autowired
+    private FanSysSiteMapper fanSysSiteMapper;
+
+    @Autowired
+    private AllUserLoginMapper allUserLoginMapper;
+
     @Override
     public Page<AllUserNewsInfo> getAllUserNewsInfoPage(Integer userId, List list, Integer pageNo, Integer pageSize) {
 
@@ -37,6 +48,10 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
 
     @Override
     public AllUserNewsInfo insertOrUpdateAllUserNewsInfo(AllUserNewsInfo allUserNewsInfo) {
+
+        AllUserLogin userLogin = allUserLoginMapper.selectById(allUserNewsInfo.getUserId());
+
+        allUserNewsInfo.setRegionId(userLogin.getRegionCode());
 
         this.insertOrUpdate(allUserNewsInfo);
 
@@ -59,5 +74,18 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
     public AllUserNewsInfo getAllUserNewsInfoById(Integer id) {
 
         return this.selectById(id);
+    }
+
+    @Override
+    public Page<AllUserNewsInfo> getAllUserNewsInfoList(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
+
+        FanSysSite fanSysSite = fanSysSiteMapper.selectById(siteId);
+
+        Wrapper<AllUserNewsInfo> wrapper = new EntityWrapper<>();
+        wrapper.eq("region_id", fanSysSite.getRegionCode());
+        wrapper.eq("status", status);
+        wrapper.orderBy("update_time", false);
+
+        return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
     }
 }

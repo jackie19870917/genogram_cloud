@@ -1,7 +1,10 @@
 package com.genogram.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -14,23 +17,20 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-12-05
+ * @since 2018-12-10
  */
 @TableName("all_user_news_info")
 public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 个人id
      */
     @TableField("user_id")
     private Integer userId;
-    /**
-     * 状态（0 删除 1 正常 2 草稿）
-     */
-    private Integer status;
     /**
      * 文章标题
      */
@@ -44,6 +44,15 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
      * 文章内容
      */
     private String content;
+    /**
+     * 用户所属地区
+     */
+    @TableField("region_id")
+    private Integer regionId;
+    /**
+     * 状态（0 删除 1 正常 2 草稿）
+     */
+    private Integer status;
     /**
      * 创建时间
      */
@@ -84,15 +93,6 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
         return this;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public AllUserNewsInfo setStatus(Integer status) {
-        this.status = status;
-        return this;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -117,6 +117,24 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
 
     public AllUserNewsInfo setContent(String content) {
         this.content = content;
+        return this;
+    }
+
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public AllUserNewsInfo setRegionId(Integer regionId) {
+        this.regionId = regionId;
+        return this;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public AllUserNewsInfo setStatus(Integer status) {
+        this.status = status;
         return this;
     }
 
@@ -166,10 +184,11 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
         return "AllUserNewsInfo{" +
                 ", id=" + id +
                 ", userId=" + userId +
-                ", status=" + status +
                 ", title=" + title +
                 ", newsFaceUrl=" + newsFaceUrl +
                 ", content=" + content +
+                ", regionId=" + regionId +
+                ", status=" + status +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +
                 ", updateTime=" + updateTime +

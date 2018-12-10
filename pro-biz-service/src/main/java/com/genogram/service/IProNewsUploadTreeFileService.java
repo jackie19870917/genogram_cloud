@@ -32,13 +32,14 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
     /**
      * 查询省级电子谱
      *
+     * @param siteId
      * @param fileName
      * @param list
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<ProNewsUploadTreeFile> getProNewsUploadTreeFilePage(String fileName, List list, Integer pageNo, Integer pageSize);
+    Page<ProNewsUploadTreeFile> getProNewsUploadTreeFilePage(Integer siteId, String fileName, List list, Integer pageNo, Integer pageSize);
 
     /**
      * 新增电子谱

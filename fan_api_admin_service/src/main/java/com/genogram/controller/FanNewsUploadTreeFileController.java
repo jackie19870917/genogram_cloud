@@ -43,7 +43,8 @@ public class FanNewsUploadTreeFileController {
 
     @ApiOperation(value = "电子谱查询", notes = "id-主键,siteId-网站ID,regionCode-地区,isFrom-来源(1-省级,2-县级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "getFanNewsUploadTreeFileList", method = RequestMethod.POST)
-    public Response<FanNewsUploadTreeFile> getFanNewsUploadTreeFileList(@ApiParam("名称") @RequestParam(value = "fileName", required = false) String fileName,
+    public Response<FanNewsUploadTreeFile> getFanNewsUploadTreeFileList(@ApiParam("网站ID") @RequestParam("siteId") Integer siteId,
+                                                                        @ApiParam("名称") @RequestParam(value = "fileName", required = false) String fileName,
                                                                         @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
@@ -65,7 +66,7 @@ public class FanNewsUploadTreeFileController {
         list.add(2);
         list.add(3);
 
-        Page<FanNewsUploadTreeFile> fanNewsUploadTreeFilePage = fanNewsUploadTreeFileService.getFanNewsUploadTreeFile(fileName, list, pageNo, pageSize);
+        Page<FanNewsUploadTreeFile> fanNewsUploadTreeFilePage = fanNewsUploadTreeFileService.getFanNewsUploadTreeFile(siteId, fileName, list, pageNo, pageSize);
 
         if (StringUtils.isEmpty(fanNewsUploadTreeFilePage)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);

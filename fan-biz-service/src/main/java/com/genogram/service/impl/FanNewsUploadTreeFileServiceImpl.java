@@ -25,13 +25,14 @@ import java.util.List;
 public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadTreeFileMapper, FanNewsUploadTreeFile> implements IFanNewsUploadTreeFileService {
 
     @Override
-    public Page<FanNewsUploadTreeFile> getFanNewsUploadTreeFile(String fileName, List list, Integer pageNo, Integer pageSize) {
+    public Page<FanNewsUploadTreeFile> getFanNewsUploadTreeFile(Integer siteId, String fileName, List list, Integer pageNo, Integer pageSize) {
 
         Wrapper<FanNewsUploadTreeFile> wrapper = new EntityWrapper<>();
 
         if (fileName != null) {
             wrapper.like("file_name", fileName);
         }
+        wrapper.eq("siteId", siteId);
         wrapper.in("status", list);
         wrapper.orderBy("update_time", false);
 

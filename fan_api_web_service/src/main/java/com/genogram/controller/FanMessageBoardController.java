@@ -4,6 +4,7 @@ package com.genogram.controller;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllMessageBoard;
 import com.genogram.entity.FanNewsFamilyRecord;
+import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IFanMessageBoardService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -15,6 +16,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
+
+import java.util.Set;
 
 /**
  * 联谊会留言板
@@ -29,6 +32,9 @@ import org.springframework.stereotype.Controller;
 public class FanMessageBoardController {
     @Autowired
     private IFanMessageBoardService iFanMessageBoardService;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     /**
      * 联谊会留言板添加
@@ -52,7 +58,14 @@ public class FanMessageBoardController {
         allMessageBoard.setCreateUser(createUser);
         allMessageBoard.setSourceType(sourceType);
         try {
+
             // 插入数据
+            Set set = allCheckOutService.getSensitiveWord(allMessageBoard.getContent());
+
+            if (set.size() >= 1) {
+                return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            }
+
             boolean b = iFanMessageBoardService.addOrUpdateRecord(allMessageBoard);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {

@@ -2,6 +2,7 @@ package com.genogram.controller;
 
 import com.genogram.config.Constants;
 import com.genogram.entity.AllMessageBoard;
+import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IProMessageBoardServices;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -11,6 +12,8 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 /**
  * @author Administrator
@@ -22,6 +25,9 @@ import org.springframework.web.bind.annotation.*;
 public class ProMessageBoardController {
     @Autowired
     private IProMessageBoardServices iProMessageBoardServices;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     /**
      * 省级留言板添加
@@ -45,6 +51,13 @@ public class ProMessageBoardController {
         int sourceType = 2;
         allMessageBoard.setSourceType(sourceType);
         try {
+
+            Set set = allCheckOutService.getSensitiveWord(allMessageBoard.getContent());
+
+            if (set.size() >= 1) {
+                return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            }
+
             // 插入数据
             boolean b = iProMessageBoardServices.addOrUpdateRecord(allMessageBoard);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);

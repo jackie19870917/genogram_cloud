@@ -7,6 +7,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.ProNewsFamousPerson;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
+import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IProNewsFamilyPersionService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 家族名人
@@ -31,6 +33,9 @@ public class ProNewsFamousPersonController {
 
     @Autowired
     private IProNewsFamilyPersionService iProNewsFamilyPersionService;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     /**
      * 联谊会家族名人后台查询
@@ -146,6 +151,13 @@ public class ProNewsFamousPersonController {
     @ApiOperation("新增/修改家族名人")
     @RequestMapping(value = "/addOrUpdatePerson", method = RequestMethod.POST)
     public Response<ProNewsFamousPerson> addOrUpdateIndustry(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
+
+        Set set = allCheckOutService.getSensitiveWord(proNewsFamousPerson.getPersonSummary());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+        }
+
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsFamousPerson.setStatus(1);
         return getProNewsPersonResponse(proNewsFamousPerson, fileName, filePath);

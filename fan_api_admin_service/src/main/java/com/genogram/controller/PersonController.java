@@ -69,6 +69,10 @@ public class PersonController {
 
         AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
 
+        if (StringUtils.isEmpty(allUserLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
 
         if (!userLogin.getRole().equals(role09)) {
@@ -126,6 +130,10 @@ public class PersonController {
         }
 
         AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(allUserLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
 
@@ -302,6 +310,10 @@ public class PersonController {
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
         AllUserLogin login = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         if (!login.getRole().equals(role09)) {
@@ -334,6 +346,10 @@ public class PersonController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         Integer id = userLogin.getId();
 

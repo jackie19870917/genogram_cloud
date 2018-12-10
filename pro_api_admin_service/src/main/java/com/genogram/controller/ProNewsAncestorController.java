@@ -8,6 +8,7 @@ import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
+import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IProNewsFamousAncestorService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
@@ -19,10 +20,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 省级祖先分支
@@ -45,6 +43,9 @@ public class ProNewsAncestorController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     /**
      * 省级祖先后台查询
@@ -286,6 +287,13 @@ public class ProNewsAncestorController {
             if (StringsUtils.isNotEmpty(fanIds)) {
                 fanSplit = Arrays.asList(fanIds.split(","));
             }
+
+            Set set = allCheckOutService.getSensitiveWord(proNewsFamousAncestor.getAncestorSummary());
+
+            if (set.size() >= 1) {
+                return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            }
+
             Boolean aBoolean = proNewsFamousAncestorService.addFamousAncestor(proNewsFamousAncestor, proSplit, fanSplit);
             return null;
         } catch (Exception e) {

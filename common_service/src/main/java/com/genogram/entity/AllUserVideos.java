@@ -1,7 +1,10 @@
 package com.genogram.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -14,18 +17,24 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-12-05
+ * @since 2018-12-10
  */
 @TableName("all_user_videos")
 public class AllUserVideos extends Model<AllUserVideos> {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     @TableField("user_id")
     private Integer userId;
     private Integer status;
     private String title;
+    /**
+     * 用户所属地区
+     */
+    @TableField("region_id")
+    private Integer regionId;
     @TableField("video_pic_url")
     private String videoPicUrl;
     @TableField("video_url")
@@ -73,6 +82,15 @@ public class AllUserVideos extends Model<AllUserVideos> {
 
     public AllUserVideos setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public Integer getRegionId() {
+        return regionId;
+    }
+
+    public AllUserVideos setRegionId(Integer regionId) {
+        this.regionId = regionId;
         return this;
     }
 
@@ -142,6 +160,7 @@ public class AllUserVideos extends Model<AllUserVideos> {
                 ", userId=" + userId +
                 ", status=" + status +
                 ", title=" + title +
+                ", regionId=" + regionId +
                 ", videoPicUrl=" + videoPicUrl +
                 ", videoUrl=" + videoUrl +
                 ", createTime=" + createTime +

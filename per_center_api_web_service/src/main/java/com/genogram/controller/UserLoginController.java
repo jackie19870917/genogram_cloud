@@ -53,8 +53,9 @@ public class UserLoginController {
 
     /**
      * 登陆
-     * // @param allUserLogin
      *
+     * @param userName
+     * @param password
      * @return
      */
     @ApiOperation(value = "登陆", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")

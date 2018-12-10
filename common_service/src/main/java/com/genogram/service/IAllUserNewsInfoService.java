@@ -51,4 +51,15 @@ public interface IAllUserNewsInfoService extends IService<AllUserNewsInfo> {
      * @return
      */
     AllUserNewsInfo getAllUserNewsInfoById(Integer id);
+
+    /**
+     * 查询日志
+     *
+     * @param siteId
+     * @param status
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Page<AllUserNewsInfo> getAllUserNewsInfoList(Integer siteId, Integer status, Integer pageNo, Integer pageSize);
 }

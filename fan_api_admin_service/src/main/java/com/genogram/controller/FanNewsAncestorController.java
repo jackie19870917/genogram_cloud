@@ -7,6 +7,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
+import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IFanNewsFamousAncestorService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
@@ -16,10 +17,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 联谊会祖先分支
@@ -42,6 +40,9 @@ public class FanNewsAncestorController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     /**
      * 联谊会祖先查询
@@ -276,6 +277,14 @@ public class FanNewsAncestorController {
             if (StringsUtils.isNotEmpty(fanIds)) {
                 fanSplit = Arrays.asList(fanIds.split(","));
             }
+
+            // 插入数据
+            Set set = allCheckOutService.getSensitiveWord(fanNewsFamousAncestor.getAncestorSummary());
+
+            if (set.size() >= 1) {
+                return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            }
+
             Boolean aBoolean = fanNewsFamousAncestorService.addFamousAncestor(fanNewsFamousAncestor, proSplit, fanSplit, userLoginInfoByToken);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);

@@ -6,6 +6,7 @@ import com.genogram.entity.ProNewsFamilyRecord;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.entityvo.ProFamilyRecordVo;
+import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IProNewsFamilyRecordService;
 import com.genogram.service.IProNewsFamilyRecordVedioService;
 import com.genogram.unit.Response;
@@ -14,6 +15,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 /**
  * @author Administrator
@@ -28,6 +31,9 @@ public class ProNewsRecordController {
 
     @Autowired
     private IProNewsFamilyRecordVedioService iProNewsFamilyRecordVedioServices;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     /**
      * 省级家族动态查询
@@ -123,6 +129,13 @@ public class ProNewsRecordController {
     @ApiOperation("记录家族后台添加和修改 发表")
     @RequestMapping(value = "/addOrUpdateRecord", method = RequestMethod.POST)
     public Response<ProNewsFamilyRecord> addOrUpdateRecord(ProNewsFamilyRecord proNewsFamilyRecord, String fileName, String filePath) {
+
+        Set set = allCheckOutService.getSensitiveWord(proNewsFamilyRecord.getNewsText());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+        }
+
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsFamilyRecord.setStatus(1);
         return getProNewsRecordResponse(proNewsFamilyRecord, fileName, filePath);

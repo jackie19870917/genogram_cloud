@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 个人中心
@@ -52,6 +53,9 @@ public class UserController {
 
     @Autowired
     private IAllUserPayInService allUserPayInService;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     @ApiOperation(value = "个人资料", notes = "nickName-昵称,englishName-英文名,nation-国籍,birthplace-出生地,job-职业,lidai-历代,jinshi-近世,laopai-老派,xinpai-新派,tongpai-统派,presentAddress-现居,oldAddress-故居,alias-现居别称,summary-简介,fans-粉丝,honesty-诚信值,url-头像")
     @RequestMapping(value = "getAllUserReg", method = RequestMethod.POST)
@@ -89,6 +93,12 @@ public class UserController {
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        Set set = allCheckOutService.getSensitiveWord(personVo.getSummary());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
         personVo.setUpdateUser(userLogin.getId());
@@ -183,6 +193,12 @@ public class UserController {
         }
         allUserNewsInfo.setUpdateUser(userLogin.getId());
         allUserNewsInfo.setUpdateTime(timeStamp);
+
+        Set set = allCheckOutService.getSensitiveWord(allUserNewsInfo.getContent());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+        }
 
         AllUserNewsInfo userNewsInfo = allUserNewsInfoService.insertOrUpdateAllUserNewsInfo(allUserNewsInfo);
 
@@ -319,6 +335,12 @@ public class UserController {
 
         allUserSays.setUpdateTime(timeStamp);
         allUserSays.setUpdateUser(userLogin.getId());
+
+        Set set = allCheckOutService.getSensitiveWord(allUserSays.getContent());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+        }
 
         AllUserSays userSays = allUserSaysService.insertAllUserSays(allUserSays);
 

@@ -49,6 +49,9 @@ public class FanIndexController {
     @Autowired
     private IFanNewsFamousPersonService fanNewsFamousPersonService;
 
+    @Autowired
+    private IAllUserNewsInfoService allUserNewsInfoService;
+
     /**
      * 状态
      */
@@ -168,6 +171,21 @@ public class FanIndexController {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
+    }
+
+    @ApiOperation("最新发布")
+    @RequestMapping(value = "getAllUserNewsInfoList", method = RequestMethod.GET)
+    public Response<AllUserNewsInfo> getAllUserNewsInfoList(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
+                                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        Page<AllUserNewsInfo> userNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoList(siteId, status, pageNo, pageSize);
+
+        if (StringUtils.isEmpty(userNewsInfoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        return ResponseUtlis.success(userNewsInfoPage);
     }
 
     /**

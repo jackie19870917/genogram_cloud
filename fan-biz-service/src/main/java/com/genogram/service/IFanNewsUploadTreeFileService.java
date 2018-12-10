@@ -19,13 +19,14 @@ public interface IFanNewsUploadTreeFileService extends IService<FanNewsUploadTre
     /**
      * 查询电子谱
      *
+     * @param siteId
      * @param fileName
      * @param list
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<FanNewsUploadTreeFile> getFanNewsUploadTreeFile(String fileName, List list, Integer pageNo, Integer pageSize);
+    Page<FanNewsUploadTreeFile> getFanNewsUploadTreeFile(Integer siteId, String fileName, List list, Integer pageNo, Integer pageSize);
 
     /**
      * 新增/修改 电子谱

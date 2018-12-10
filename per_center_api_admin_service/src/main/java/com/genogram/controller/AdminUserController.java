@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 个人中心
@@ -52,6 +53,9 @@ public class AdminUserController {
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     Integer role09 = 9;
 
@@ -137,6 +141,12 @@ public class AdminUserController {
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        Set set = allCheckOutService.getSensitiveWord(personVo.getSummary());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
         personVo.setUpdateUser(userLogin.getId());

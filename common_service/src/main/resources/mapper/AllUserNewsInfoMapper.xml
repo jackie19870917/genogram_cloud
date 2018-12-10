@@ -6,10 +6,11 @@
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserNewsInfo">
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
-        <result column="status" property="status"/>
         <result column="title" property="title"/>
         <result column="news_face_url" property="newsFaceUrl"/>
         <result column="content" property="content"/>
+        <result column="region_id" property="regionId"/>
+        <result column="status" property="status"/>
         <result column="create_time" property="createTime"/>
         <result column="create_user" property="createUser"/>
         <result column="update_time" property="updateTime"/>
@@ -18,7 +19,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id AS userId, status, title, news_face_url AS newsFaceUrl, content, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, user_id AS userId, title, news_face_url AS newsFaceUrl, content, region_id AS regionId, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

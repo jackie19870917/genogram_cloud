@@ -183,12 +183,13 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
     }
 
     @Override
-    public Page<ProNewsUploadTreeFile> getProNewsUploadTreeFilePage(String fileName, List list, Integer pageNo, Integer pageSize) {
+    public Page<ProNewsUploadTreeFile> getProNewsUploadTreeFilePage(Integer siteId, String fileName, List list, Integer pageNo, Integer pageSize) {
 
         Wrapper<ProNewsUploadTreeFile> wrapper = new EntityWrapper<>();
         if (fileName != null) {
             wrapper.like("file_name", fileName);
         }
+        wrapper.eq("site_id", siteId);
 
         return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
     }

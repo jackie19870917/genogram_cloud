@@ -22,7 +22,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/fan")
-@Api(description = "省级上传")
+@Api(description = "县级上传")
 public class UploadFastDfsController {
     @Autowired
     private IUploadFastDfsService uploadFastDfsService;

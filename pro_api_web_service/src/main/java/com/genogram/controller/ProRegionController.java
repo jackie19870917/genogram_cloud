@@ -1,15 +1,11 @@
 package com.genogram.controller;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
-import com.genogram.entity.AllRegion;
 import com.genogram.entity.FanSysSite;
 import com.genogram.service.IAllRegionService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
-import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

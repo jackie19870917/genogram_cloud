@@ -41,7 +41,8 @@ public class ProNewsUploadTreeFileController {
 
     @ApiOperation(value = "电子谱查询", notes = "id-主键,regionCode-地区,filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "getProNewsUploadTreeFileList", method = RequestMethod.POST)
-    public Response<ProNewsUploadTreeFile> getProNewsUploadTreeFileList(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
+    public Response<ProNewsUploadTreeFile> getProNewsUploadTreeFileList(@ApiParam("网站ID") @RequestParam("siteId") Integer siteId,
+                                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                         @ApiParam("地区") @RequestParam(value = "filename", required = false) String filename,
                                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
@@ -63,7 +64,7 @@ public class ProNewsUploadTreeFileController {
         list.add(2);
         list.add(3);
 
-        Page<ProNewsUploadTreeFile> proNewsUploadTreeFilePage = proNewsUploadTreeFileService.getProNewsUploadTreeFilePage(filename, list, pageNo, pageSize);
+        Page<ProNewsUploadTreeFile> proNewsUploadTreeFilePage = proNewsUploadTreeFileService.getProNewsUploadTreeFilePage(siteId, filename, list, pageNo, pageSize);
 
         return ResponseUtlis.success(proNewsUploadTreeFilePage);
     }
