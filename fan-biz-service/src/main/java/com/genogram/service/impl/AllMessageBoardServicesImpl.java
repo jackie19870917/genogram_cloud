@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 
 /**
  * 联谊会留言板
+ * @author Administrator
  */
 @Service
 public class AllMessageBoardServicesImpl extends ServiceImpl<AllMessageBoardMapper, AllMessageBoard> implements IFanMessageBoardService {

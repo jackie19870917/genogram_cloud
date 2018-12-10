@@ -104,21 +104,26 @@ public class IndexFundDrowingVo {
     private Integer updateUser;
 
     /**
-     * 审核状态
+     * 审核状态 (0:取消;1:审核中;2:打款中;3:成功4:拒绝)
      */
 
     private String statusName;
 
+    Integer status01 = 1;
+    Integer status02 = 2;
+    Integer status03 = 3;
+    Integer status04 = 4;
+
     public String getStatusName() {
 
         String statusName = "";
-        if (1 == this.getApproveStatus()) {
+        if (status01.equals(this.getApproveStatus())) {
             statusName = ConstantsStatus.FAN_INDEX_FOUND_DROWING_APPROVE_STATUS_1;
-        } else if (2 == this.getApproveStatus()) {
+        } else if (status02.equals(this.getApproveStatus())) {
             statusName = ConstantsStatus.FAN_INDEX_FOUND_DROWING_APPROVE_STATUS_2;
-        } else if (3 == this.getApproveStatus()) {
+        } else if (status03.equals(this.getApproveStatus())) {
             statusName = ConstantsStatus.FAN_INDEX_FOUND_DROWING_APPROVE_STATUS_3;
-        } else if (4 == this.getApproveStatus()) {
+        } else if (status04.equals(this.getApproveStatus())) {
             statusName = ConstantsStatus.FAN_INDEX_FOUND_DROWING_APPROVE_STATUS_4;
         }
 

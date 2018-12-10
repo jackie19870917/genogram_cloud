@@ -249,10 +249,6 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         newsDetailVo.setUpdateTime(fanNewsFamilyRecord.getUpdateTime());
         newsDetailVo.setCreateTime(fanNewsFamilyRecord.getCreateTime());
         newsDetailVo.setCreateUser(null);
-//        familyRecordVo.setUpdateTimeLong(fanNewsFamilyRecord.getUpdateTime().getTime());
-//        familyRecordVo.setCreateTimeLong(fanNewsFamilyRecord.getCreateTime().getTime());
-//        familyRecordVo.setCreateUserName(null);
-//        familyRecordVo.setCreateUserName(null);
         return newsDetailVo;
     }
 

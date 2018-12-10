@@ -51,7 +51,6 @@ public class FanNewsFamilyRecordController {
         try {
             List<Integer> list =new ArrayList<>();
             list.add(1);
-            //list.add(2);
             Page<FamilyRecordVo> familyRecordVo = iFanNewsFamilyRecordService.getFamilyRecordPage(showId, list, pageNo, pageSize);
             if(familyRecordVo==null){
                 //没有取到参数,返回空参
@@ -86,7 +85,7 @@ public class FanNewsFamilyRecordController {
             if(id==null){
                 return ResponseUtlis.error(Constants.IS_EMPTY,"数据为空");
             }
-            FamilyRecordVo newsDetailVo = iFanNewsFamilyRecordService.getFamilyRecordDetail(id);
+            NewsDetailVo newsDetailVo = iFanNewsFamilyRecordService.getFamilyRecordDetail(id);
             if (newsDetailVo == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
             }

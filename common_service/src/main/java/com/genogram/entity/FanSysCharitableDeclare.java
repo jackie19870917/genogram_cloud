@@ -1,6 +1,9 @@
 package com.genogram.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
+import java.math.BigDecimal;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -11,8 +14,8 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author xiaohei
- * @since 2018-11-29
+ * @author wangwei
+ * @since 2018-12-10
  */
 @TableName("fan_sys_charitable_declare")
 public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
@@ -22,25 +25,29 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
     /**
      * 主键
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 标题
+     * 状态(0:删除;1:已发布;2:草稿3:不显示)
      */
-    private String title;
-
     private Integer status;
-
-    private String picture_address;
-
     /**
      * 显示位置id(fan_sys_web_news_show_id)
      */
     @TableField("show_id")
     private Integer showId;
     /**
+     * 标题
+     */
+    private String title;
+    /**
+     * 图片地址
+     */
+    @TableField("picture_address")
+    private String pictureAddress;
+    /**
      * 申请人姓名
      */
-
     @TableField("apply_name")
     private String applyName;
     /**
@@ -52,7 +59,7 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
      * 申请金额
      */
     @TableField("apply_money")
-    private String applyMoney;
+    private BigDecimal applyMoney;
     /**
      * 申请人身份证号码
      */
@@ -154,6 +161,7 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
     @TableField("update_time")
     private Date updateTime;
 
+
     public Integer getId() {
         return id;
     }
@@ -167,8 +175,18 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public FanSysCharitableDeclare setStatus(Integer status) {
         this.status = status;
+        return this;
+    }
+
+    public Integer getShowId() {
+        return showId;
+    }
+
+    public FanSysCharitableDeclare setShowId(Integer showId) {
+        this.showId = showId;
+        return this;
     }
 
     public String getTitle() {
@@ -180,12 +198,13 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
-    public String getPicture_address() {
-        return picture_address;
+    public String getPictureAddress() {
+        return pictureAddress;
     }
 
-    public void setPicture_address(String picture_address) {
-        this.picture_address = picture_address;
+    public FanSysCharitableDeclare setPictureAddress(String pictureAddress) {
+        this.pictureAddress = pictureAddress;
+        return this;
     }
 
     public String getApplyName() {
@@ -206,11 +225,11 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
-    public String getApplyMoney() {
+    public BigDecimal getApplyMoney() {
         return applyMoney;
     }
 
-    public FanSysCharitableDeclare setApplyMoney(String applyMoney) {
+    public FanSysCharitableDeclare setApplyMoney(BigDecimal applyMoney) {
         this.applyMoney = applyMoney;
         return this;
     }
@@ -395,15 +414,6 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
-    public Integer getShowId() {
-        return showId;
-    }
-
-    public FanSysCharitableDeclare setShowId(Integer showId) {
-        this.showId = showId;
-        return this;
-    }
-
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -413,7 +423,10 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
     public String toString() {
         return "FanSysCharitableDeclare{" +
         ", id=" + id +
+        ", status=" + status +
+        ", showId=" + showId +
         ", title=" + title +
+        ", pictureAddress=" + pictureAddress +
         ", applyName=" + applyName +
         ", applyPhone=" + applyPhone +
         ", applyMoney=" + applyMoney +
@@ -437,7 +450,6 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         ", updateUser=" + updateUser +
         ", createTime=" + createTime +
         ", updateTime=" + updateTime +
-        ", showId=" + showId +
         "}";
     }
 }

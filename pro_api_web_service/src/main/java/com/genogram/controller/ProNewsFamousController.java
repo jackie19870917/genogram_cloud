@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * @author Administrator
+ */
 @Api(description = "省级家族长老，组织架构")
 @RestController
 @CrossOrigin(origins = "*")

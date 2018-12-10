@@ -168,19 +168,23 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
     @Override
     public Object getRecommendParticulars(Integer id, Integer source) {
         //1代表家族文化 3 代表记录家族 2代表家族产业
-        if(source==1){
+
+        Integer type01 = 1;
+        Integer type02 = 2;
+        Integer type03 = 3;
+        if(source.equals(type01)){
             NewsDetailVo familyCultureDetail = fanNewsCultureNewsService.getFamilyCultureDetail(id);
             if(familyCultureDetail!=null){
                 fanNewsCultureNewsService.addVisitNum(id);
             }
             return familyCultureDetail;
-        }else if(source==3){
+        }else if(source.equals(type03)){
             NewsDetailVo familyRecord = fanNewsFamilyRecordService.getFamilyRecord(id);
             if(familyRecord!=null){
                 fanNewsFamilyRecordService.addVisitNum(id);
             }
             return familyRecord;
-        }else if(source==2){
+        }else if(source.equals(type02)){
             IndustryDetailVo familyIndustryDetail = fanNewsIndustryService.getFamilyIndustryDetail(id);
             if(familyIndustryDetail!=null){
                 fanNewsIndustryService.addVisitNum(id);

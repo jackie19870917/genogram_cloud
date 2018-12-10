@@ -176,7 +176,6 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         //存储图片list集合
         //设置封面file
         this.getPicIndex(familyRecordVedioVo,familyRecordVedioVo.getId(),familyRecordVedioVo.getShowId());
-        //familyRecordVedioVo.setFanNewsUploadFileList(files);
         familyRecordVedioVo.setFanUploadVedioList(files);
         //存储作者名称时间
         familyRecordVedioVo.setUpdateTimeLong(fanNewsFamilyRecordVedio.getUpdateTime().getTime());

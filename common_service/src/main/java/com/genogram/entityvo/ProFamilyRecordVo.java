@@ -1,15 +1,19 @@
 package com.genogram.entityvo;
 
-import com.genogram.entity.ProNewsUploadFile;
 import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Administrator
+ */
 @Data
 public class ProFamilyRecordVo {
 
-    //记录家族图片
+    /**
+     * 记录家族图片
+     */
     private List newsUploadFiles;
     /**
      * 编号

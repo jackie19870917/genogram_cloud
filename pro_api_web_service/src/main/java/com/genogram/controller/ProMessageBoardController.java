@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Administrator
+ */
 @Api(description = "省级留言板")
 @RestController
 @CrossOrigin(origins = "*")

@@ -298,7 +298,6 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         if(listCulture.size()==0){
             return null;
         }
-
         //得到所有文章id
         List newsids =  new ArrayList<>();
         listCulture.forEach(( news)->{
@@ -306,7 +305,6 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
             //去掉文章标签
             news.setNewsText(StringsUtils.removeTag(news.getNewsText()));
         });
-
         //查询图片
         Wrapper<FanNewsUploadFile> uploadentity = new EntityWrapper<FanNewsUploadFile>();
         uploadentity.in("show_id", list);
@@ -317,44 +315,33 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         uploadentity.in("news_id",newsids);
         //查询所有文章id下的图片附件
         List<FanNewsUploadFile> files =  fanNewsUploadFileService.selectList(uploadentity);
-
-
         //遍历主表文章集合,赋值新对象vo
         listCulture.forEach(( news)->{
             FamilyCultureVo familyCultureVo=new FamilyCultureVo();
-
             //存储新对象
             BeanUtils.copyProperties(news,familyCultureVo);
-
             //去除html标签
             familyCultureVo.setNewsText(StringsUtils.removeTag(familyCultureVo.getNewsText()));
-
             //判断改图片文章id是否一样
             List<FanNewsUploadFile> fanNewsUploadFile=new ArrayList<>();
-
             files.forEach(( data)->{
                 if(news.getId().equals(data.getNewsId())){
                     fanNewsUploadFile.add(data);
                 }
             });
-
             //存储图片list集合
             familyCultureVo.setNewsUploadFileList(fanNewsUploadFile);
-
             //转换时间为long
             familyCultureVo.setCreateTimeLong(news.getCreateTime().getTime());
             familyCultureVo.setUpdateTimeLong(news.getUpdateTime().getTime());
-
             //存储到新的集合中
             familyCultureVoList.add(familyCultureVo);
         });
-
         //重新设置page对象
         Page<FamilyCultureVo> mapPage = new Page<>(pageNo,pageSize);
         mapPage.setRecords(familyCultureVoList);
         mapPage.setSize(fanNewsCultureNewsPage.getSize());
         mapPage.setTotal(fanNewsCultureNewsPage.getTotal());
-
         return mapPage;
     }
 }

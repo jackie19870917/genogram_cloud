@@ -34,8 +34,9 @@ public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecor
 
     /**
      * 省级后台新增
-     * @param
-     * @param
+     * @param proNewsFamilyRecord
+     * @param fileName
+     * @param filePath
      * @return
      */
     boolean addOrUpdateRecord(ProNewsFamilyRecord proNewsFamilyRecord, String fileName, String filePath);

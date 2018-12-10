@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * 家族名人
+ * @author Administrator
  */
 @Api(description = "家族名人(后台)")
 @RestController

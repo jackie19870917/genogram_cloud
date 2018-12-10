@@ -41,8 +41,6 @@ public class TestServImpl implements TestServ {
 
     @Override
     public Page<AllFamily> queryMyItems(Page<AllFamily> mapPage, Map requestParam) {
-        //List<AllFamily> myItems = allFamilyMapper.queryMyItems(mapPage,requestParam);
-        //mapPage.setRecords(myItems);
         return null;
     }
 }

@@ -148,6 +148,7 @@ public class FanNewsFamilyRecordController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
     /**
      *联谊会记录家族后台添加和修改 发表
      *@Author: yuzhou
@@ -178,6 +179,7 @@ public class FanNewsFamilyRecordController {
         if (set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
+
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsRecord.setStatus(1);
         return getFanNewsRecordResponse(fanNewsRecord, fileName,filePath);

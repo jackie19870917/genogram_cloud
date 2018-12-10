@@ -10,6 +10,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Administrator
+ */
 @Api(description = "联谊会留言板查询")
 @RestController
 @CrossOrigin(origins = "*")

@@ -195,6 +195,13 @@ public class FanNewsCultureController {
     public Response<FanNewsCultureZipai> addOrUpdateZiPai(
             @ApiParam(value = "联谊会字派表") FanNewsCultureZipai fanNewsCultureZipai,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        Set set = allCheckOutService.getSensitiveWord(fanNewsCultureZipai.getZipaiTxt());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+        }
+
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsCultureZipai.setStatus(1);
         return getFanNewsCultureZipaiResponse(fanNewsCultureZipai, token);

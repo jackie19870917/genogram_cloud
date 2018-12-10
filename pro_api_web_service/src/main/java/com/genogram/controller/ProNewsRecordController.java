@@ -16,6 +16,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Administrator
+ */
 @Api(description = "省级家族动态")
 @RestController
 @CrossOrigin(origins = "*")

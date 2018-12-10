@@ -6,6 +6,9 @@ import com.genogram.entity.FanNewsUploadVedio;
 import lombok.Data;
 import java.util.Date;
 import java.util.List;
+/**
+ * @author Administrator
+ */
 @Data
 public class FamilyRecordVedioVo{
     //记录家族视频

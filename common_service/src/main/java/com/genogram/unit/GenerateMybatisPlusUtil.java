@@ -22,12 +22,18 @@ public class GenerateMybatisPlusUtil {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         gc.setOutputDir(DIR_PATH);
-        gc.setAuthor("wangwei");//作者
-        gc.setFileOverride(true); //是否覆盖
-        gc.setActiveRecord(true);// 不需要ActiveRecord特性的请改为false
-        gc.setEnableCache(false);// XML 二级缓存
-        gc.setBaseResultMap(true);// XML ResultMap
-        gc.setBaseColumnList(true);// XML columList
+        //作者
+        gc.setAuthor("wangwei");
+        //是否覆盖
+        gc.setFileOverride(true);
+        // 不需要ActiveRecord特性的请改为false
+        gc.setActiveRecord(true);
+        // XML 二级缓存
+        gc.setEnableCache(false);
+        // XML ResultMap
+        gc.setBaseResultMap(true);
+        // XML columList
+        gc.setBaseColumnList(true);
 
         mpg.setGlobalConfig(gc);
 
@@ -48,8 +54,10 @@ public class GenerateMybatisPlusUtil {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-        strategy.setInclude(new String[] { "fan_news_charity_out"}); // 需要生成的表
+        // 表名生成策略
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        // 需要生成的表
+        strategy.setInclude(new String[] { "fan_sys_charitable_declare"});
         //strategy.setExclude(new String[]{"all_family"}); // 排除生成的表
         strategy.setEntityBuilderModel(true);
         mpg.setStrategy(strategy);

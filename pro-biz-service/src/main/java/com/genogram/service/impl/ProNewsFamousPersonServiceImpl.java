@@ -354,20 +354,6 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         return result;
     }
 
-//    @Override
-//    public ProNewsFamousPerson getSysWebNewsShowBySiteIdAndMenuCode(int siteId, String menuCode) {
-//        return null;
-//    }
-
-//    @Override
-//    public ProNewsFamousPerson getSysWebNewsShowBySiteIdAndMenuCode(int siteId, String menuCode) {
-//        Wrapper<ProNewsFamousPerson> entity=new EntityWrapper();
-//        entity.eq("site_id",siteId);
-//        entity.eq("menu_code",menuCode);
-//        iProNewsFamilyPersionService.selectOne(entity);
-//        return null;
-//    }
-
     @Override
     public ProNewsFamousPerson getFamilyFrameList(Integer showId) {
         Wrapper<ProNewsFamousPerson> entity = new EntityWrapper<ProNewsFamousPerson>();

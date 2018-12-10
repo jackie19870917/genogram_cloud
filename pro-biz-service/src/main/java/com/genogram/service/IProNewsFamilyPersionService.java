@@ -10,6 +10,9 @@ import com.genogram.entity.ProSysWebNewsShow;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
 
+/**
+ * @author Administrator
+ */
 public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPerson> {
     /**
      * 前后台查询

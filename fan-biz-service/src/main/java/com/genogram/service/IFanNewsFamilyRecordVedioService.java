@@ -9,6 +9,7 @@ import com.genogram.entityvo.NewsDetailVo;
 
 /**
  * 记录家族视频上传-视频概要 服务类
+ * @author Administrator
  */
 public interface IFanNewsFamilyRecordVedioService extends IService<FanNewsFamilyRecordVedio> {
     /**
@@ -38,7 +39,10 @@ public interface IFanNewsFamilyRecordVedioService extends IService<FanNewsFamily
     /**
      * 联谊会记录家族后台视频新增
      * @param fanNewsFamilyRecordVedio
-     * @param
+     * @param picfileName
+     * @param picPath
+     * @param vedioFileName
+     * @param vedioPath
      * @return
      */
     boolean addOrUpdateVedioRecord(FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio, String picfileName,String picPath,String vedioFileName,String vedioPath);

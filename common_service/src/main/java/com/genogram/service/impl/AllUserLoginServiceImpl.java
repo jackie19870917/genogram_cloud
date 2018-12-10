@@ -47,7 +47,6 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
     public AllUserLogin getAllUserLogin(AllUserLogin allUserLogin) {
 
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<AllUserLogin>();
-        // wrapper.eq("user_name", allUserLogin.getUserName());
         wrapper.eq("mobile_phone", allUserLogin.getMobilePhone());
         return this.selectOne(wrapper);
     }

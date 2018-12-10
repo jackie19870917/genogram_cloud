@@ -21,6 +21,7 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
     /**
      * 前台查询
      * @param showId
+     * @param list
      * @param pageNo
      * @param pageSize
      * @return

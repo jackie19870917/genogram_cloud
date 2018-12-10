@@ -63,10 +63,14 @@ public class AdminUserController {
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(allUserLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
 
         AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
 
@@ -92,8 +96,8 @@ public class AdminUserController {
 
     @ApiOperation(value = "个人资料", notes = "nickName-昵称,englishName-英文名,nation-国籍,birthplace-出生地,job-职业,lidai-历代,jinshi-近世,laopai-老派,xinpai-新派,tongpai-统派,presentAddress-现居,oldAddress-故居,alias-现居别称,summary-简介,fans-粉丝,honesty-诚信值,url-头像")
     @RequestMapping(value = "getAllUserReg", method = RequestMethod.POST)
-    public Response<PersonVo> getAllUserReg(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                            @ApiParam("主键") @RequestParam("id") Integer id) {
+    public Response<PersonVo> getAllUserReg(@ApiParam("主键") @RequestParam("id") Integer id,
+                                            @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
@@ -103,6 +107,12 @@ public class AdminUserController {
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        if (!allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
         }
 
         PersonVo personVo = allUserRegService.getAllUserRegByUserId(id);
@@ -237,7 +247,7 @@ public class AdminUserController {
 
         List list = new ArrayList<>();
 
-        // 状态 1-发表 2-草稿 0-删除
+        // 状态 1-发表 0-删除
         list.add(1);
 
         Page<AllUserSays> userSaysPage = allUserSaysService.getAllUserSaysPage(userId, list, pageNo, pageSize);
