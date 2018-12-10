@@ -32,7 +32,7 @@ public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadT
         if (fileName != null) {
             wrapper.like("file_name", fileName);
         }
-        wrapper.eq("siteId", siteId);
+        wrapper.eq("site_id", siteId);
         wrapper.in("status", list);
         wrapper.orderBy("update_time", false);
 
