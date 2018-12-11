@@ -47,7 +47,7 @@ public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadT
 
     @Override
     public FanNewsUploadTreeFile getFanNewsUploadTreeFile(Integer id) {
-        return this.getFanNewsUploadTreeFile(id);
+        return this.selectById(id);
     }
 
     @Override

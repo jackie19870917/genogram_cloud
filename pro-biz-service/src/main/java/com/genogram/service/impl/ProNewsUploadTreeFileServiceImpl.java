@@ -209,7 +209,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
     @Override
     public ProNewsUploadTreeFile getProNewsUploadTreeFile(Integer id) {
 
-        return this.getProNewsUploadTreeFile(id);
+        return this.selectById(id);
     }
 
     @Override
