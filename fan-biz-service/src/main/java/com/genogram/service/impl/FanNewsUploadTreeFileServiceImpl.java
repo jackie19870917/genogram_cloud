@@ -56,6 +56,7 @@ public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadT
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
         FanNewsUploadTreeFile fanNewsUploadTreeFile = new FanNewsUploadTreeFile();
+        fanNewsUploadTreeFile.setId(id);
         fanNewsUploadTreeFile.setUpdateTime(timeStamp);
         fanNewsUploadTreeFile.setStatus(0);
         fanNewsUploadTreeFile.setUpdateUser(userId);
