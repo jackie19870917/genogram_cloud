@@ -196,11 +196,11 @@ public class FanNewsCharityController {
             fanNewsCharityOut.setCreateUser(userLogin.getId());
         }
 
-        Set set = allCheckOutService.getSensitiveWord(fanNewsCharityOut.getNewsText());
+        /*Set set = allCheckOutService.getSensitiveWord(fanNewsCharityOut.getNewsText());
 
         if (set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
-        }
+        }*/
 
         fanNewsCharityOut.setUpdateUser(userLogin.getId());
 

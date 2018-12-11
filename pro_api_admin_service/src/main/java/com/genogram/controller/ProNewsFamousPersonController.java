@@ -152,11 +152,11 @@ public class ProNewsFamousPersonController {
     @RequestMapping(value = "/addOrUpdatePerson", method = RequestMethod.POST)
     public Response<ProNewsFamousPerson> addOrUpdateIndustry(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
 
-        Set set = allCheckOutService.getSensitiveWord(proNewsFamousPerson.getPersonSummary());
+       /* Set set = allCheckOutService.getSensitiveWord(proNewsFamousPerson.getPersonSummary());
 
         if (set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
-        }
+        }*/
 
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsFamousPerson.setStatus(1);

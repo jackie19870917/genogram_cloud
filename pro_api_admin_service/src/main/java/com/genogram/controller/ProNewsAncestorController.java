@@ -288,11 +288,11 @@ public class ProNewsAncestorController {
                 fanSplit = Arrays.asList(fanIds.split(","));
             }
 
-            Set set = allCheckOutService.getSensitiveWord(proNewsFamousAncestor.getAncestorSummary());
+           /* Set set = allCheckOutService.getSensitiveWord(proNewsFamousAncestor.getAncestorSummary());
 
             if (set.size() >= 1) {
                 return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
-            }
+            }*/
 
             Boolean aBoolean = proNewsFamousAncestorService.addFamousAncestor(proNewsFamousAncestor, proSplit, fanSplit);
             return null;

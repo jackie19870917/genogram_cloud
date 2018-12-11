@@ -194,11 +194,11 @@ public class ProNewsCultureController {
     public Response<ProNewsCultureZipai> addOrUpdateZiPai(@ApiParam(value = "省级字派实体类") ProNewsCultureZipai proNewsCultureZipai,
                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
-        Set set = allCheckOutService.getSensitiveWord(proNewsCultureZipai.getZipaiTxt());
+       /* Set set = allCheckOutService.getSensitiveWord(proNewsCultureZipai.getZipaiTxt());
 
         if (set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
-        }
+        }*/
 
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsCultureZipai.setStatus(1);
@@ -464,11 +464,11 @@ public class ProNewsCultureController {
                                                            @ApiParam(value = "上传文件地址") @RequestParam(value = "filePath") String filePath,
                                                            @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
-        Set set = allCheckOutService.getSensitiveWord(proNewsCultureNews.getNewsText());
+        /*Set set = allCheckOutService.getSensitiveWord(proNewsCultureNews.getNewsText());
 
         if (set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
-        }
+        }*/
 
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsCultureNews.setStatus(1);
