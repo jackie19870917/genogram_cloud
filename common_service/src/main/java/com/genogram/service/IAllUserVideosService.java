@@ -5,6 +5,7 @@ import com.genogram.entity.AllUserVideos;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -51,4 +52,12 @@ public interface IAllUserVideosService extends IService<AllUserVideos> {
      * @return
      */
     AllUserVideos getAllUserVideosById(Integer id);
+
+    /**
+     * 个人视频
+     * @param mapPage
+     * @param map
+     * @return
+     */
+    Page<AllUserVideos> getAllUserVideosList(Page<AllUserVideos> mapPage, Map map);
 }

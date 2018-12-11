@@ -19,7 +19,30 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id AS userId, status, title, region_id AS regionId, video_pic_url AS videoPicUrl, video_url AS videoUrl, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, user_id AS user_id, status, title, region_id AS region_id, video_pic_url AS video_pic_url, video_url AS video_url, create_time AS create_time, create_user AS create_user, update_time AS update_time, update_user AS update_user
     </sql>
 
+    <select id="getAllUserVideos" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        (
+        select distinct
+        <include refid="Base_Column_List"/>
+        from
+        all_user_videos
+        where
+        1=1
+        <if test="region_id!=null">
+            and region_id=#{region_id}
+        </if>
+        <if test="status!=null">
+            and status=#{status}
+        </if>
+        ORDER BY update_time DESC
+        )
+        all_user_videos
+        GROUP BY
+        user_id
+    </select>
 </mapper>

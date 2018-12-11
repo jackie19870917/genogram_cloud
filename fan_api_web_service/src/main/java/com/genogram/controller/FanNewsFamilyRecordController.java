@@ -2,22 +2,30 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserVideos;
 import com.genogram.entity.FanNewsFamilyRecord;
 import com.genogram.entity.FanNewsFamilyRecordVedio;
+import com.genogram.entity.FanSysSite;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.service.IAllUserVideosService;
 import com.genogram.service.IFanNewsFamilyRecordService;
 import com.genogram.service.IFanNewsFamilyRecordVedioService;
+import com.genogram.service.IFanSysSiteService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -37,6 +45,12 @@ public class FanNewsFamilyRecordController {
 
     @Autowired
     private IFanNewsFamilyRecordVedioService iFanNewsFamilyRecordVedioService;
+
+    @Autowired
+    private IFanSysSiteService fanSysSiteService;
+
+    @Autowired
+    private IAllUserVideosService allUserVideosService;
 
     /**
      * 家族动态查询
@@ -254,6 +268,41 @@ public class FanNewsFamilyRecordController {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
+    }
+
+    @ApiOperation(value = "个人视频",notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+    @RequestMapping(value = "getAllUserVideosPage",method = RequestMethod.GET)
+    public Response<AllUserVideos> getAllUserVideosPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
+                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(siteId);
+
+        if (StringUtils.isEmpty(fanSysSite)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        Map map = new HashMap(16);
+        map.put("region_id", fanSysSite.getRegionCode());
+        map.put("status", 1);
+
+        Page page = new Page();
+        page.setCurrent(pageNo);
+        page.setSize(pageSize);
+
+        Page<AllUserVideos> mapPage = new Page<>(page.getCurrent(), page.getSize());
+
+        Page<AllUserVideos> userVideosPage = allUserVideosService.getAllUserVideosList(mapPage, map);
+
+        if (StringUtils.isEmpty(userVideosPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        return ResponseUtlis.success(userVideosPage);
     }
 }
 

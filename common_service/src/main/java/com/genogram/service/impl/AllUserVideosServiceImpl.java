@@ -8,10 +8,12 @@ import com.genogram.mapper.AllUserVideosMapper;
 import com.genogram.service.IAllUserVideosService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -23,6 +25,9 @@ import java.util.List;
  */
 @Service
 public class AllUserVideosServiceImpl extends ServiceImpl<AllUserVideosMapper, AllUserVideos> implements IAllUserVideosService {
+
+    @Autowired
+    private AllUserVideosMapper allUserVideosMapper;
 
     @Override
     public Page<AllUserVideos> getAllUserVideosPage(Integer userId, List list, Integer pageNo, Integer pageSize) {
@@ -59,5 +64,21 @@ public class AllUserVideosServiceImpl extends ServiceImpl<AllUserVideosMapper, A
     public AllUserVideos getAllUserVideosById(Integer id) {
 
         return this.selectById(id);
+    }
+
+    @Override
+    public Page<AllUserVideos> getAllUserVideosList(Page<AllUserVideos> mapPage, Map map) {
+
+        List<AllUserVideos> userVideosList = allUserVideosMapper.getAllUserVideos(mapPage, map);
+
+        if (userVideosList.size()==0) {
+            return null;
+        }
+
+        Page<AllUserVideos> page = new Page<>(mapPage.getCurrent(), mapPage.getSize());
+        page.setRecords(userVideosList);
+        page.setTotal(mapPage.getTotal());
+
+        return page;
     }
 }

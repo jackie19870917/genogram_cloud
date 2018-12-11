@@ -1,5 +1,6 @@
 package com.genogram.controller;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.config.Constants;
@@ -11,6 +12,7 @@ import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IAllUserRegService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.MessageUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +101,21 @@ public class FanUserLoginController {
         return ResponseUtlis.success(familyList);
     }
 
+    String message = null;
+
+    @ApiOperation("短信验证吗")
+    @RequestMapping(value = "sendVerificationCode", method = RequestMethod.POST)
+    public Response sendVerificationCode(@ApiParam("手机号") @RequestParam("mobilePhone") String mobilePhone) throws IOException, ClientException {
+
+        String message = MessageUtil.sendMessage(mobilePhone);
+
+        if (StringUtils.isEmpty(message)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "发送失败");
+        } else {
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        }
+    }
+
     /**
      * 注册
      *
@@ -106,7 +124,12 @@ public class FanUserLoginController {
      */
     @ApiOperation(value = "注册", notes = "userName:用户名,mobilePhone:手机号,password:密码,familyCode:姓氏,regionCode:地区")
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
-    public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin) {
+    public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin,
+                                                     @ApiParam("验证码") @RequestParam("verificationCode") String verificationCode) {
+
+        if (!verificationCode.equals(message)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
+        }
 
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
 

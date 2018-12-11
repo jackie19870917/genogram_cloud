@@ -1,7 +1,11 @@
 package com.genogram.mapper;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserVideos;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,11 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface AllUserVideosMapper extends BaseMapper<AllUserVideos> {
 
+    /**
+     * 个人视频
+     * @param mapPage
+     * @param map
+     * @return
+     */
+    List<AllUserVideos> getAllUserVideos(Page<AllUserVideos> mapPage, Map map);
 }
