@@ -1,7 +1,11 @@
 package com.genogram.mapper;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserNewsInfo;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +17,12 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface AllUserNewsInfoMapper extends BaseMapper<AllUserNewsInfo> {
 
+    /**
+     * 个人日志
+     *
+     * @param mapPage
+     * @param map
+     * @return
+     */
+    List<AllUserNewsInfo> getAllUserNewsInfo(Page<AllUserNewsInfo> mapPage, Map map);
 }

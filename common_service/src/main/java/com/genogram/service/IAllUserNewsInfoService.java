@@ -5,6 +5,7 @@ import com.genogram.entity.AllUserNewsInfo;
 import com.baomidou.mybatisplus.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -62,4 +63,13 @@ public interface IAllUserNewsInfoService extends IService<AllUserNewsInfo> {
      * @return
      */
     Page<AllUserNewsInfo> getAllUserNewsInfoList(Integer siteId, Integer status, Integer pageNo, Integer pageSize);
+
+    /**
+     * 查询日志
+     *
+     * @param mapPage
+     * @param map
+     * @return
+     */
+    Page<AllUserNewsInfo> getAllUserNewsInfoList(Page<AllUserNewsInfo> mapPage, Map map);
 }

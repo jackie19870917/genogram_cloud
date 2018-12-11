@@ -52,6 +52,9 @@ public class FanIndexController {
     @Autowired
     private IAllUserNewsInfoService allUserNewsInfoService;
 
+    @Autowired
+    private IFanSysSiteService fanSysSiteService;
+
     /**
      * 状态
      */
@@ -173,13 +176,47 @@ public class FanIndexController {
         }
     }
 
-    @ApiOperation("最新发布")
+   /* @ApiOperation("最新发布")
     @RequestMapping(value = "getAllUserNewsInfoList", method = RequestMethod.GET)
     public Response<AllUserNewsInfo> getAllUserNewsInfoList(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         Page<AllUserNewsInfo> userNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoList(siteId, status, pageNo, pageSize);
+
+        if (StringUtils.isEmpty(userNewsInfoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        return ResponseUtlis.success(userNewsInfoPage);
+    }*/
+
+    @ApiOperation(value = "最新发布", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
+    @RequestMapping(value = "getAllUserNewsInfoPage", method = RequestMethod.GET)
+    public Response<AllUserNewsInfo> getAllUserNewsInfoPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
+                                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(siteId);
+
+        if (StringUtils.isEmpty(fanSysSite)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        Map map = new HashMap(16);
+        map.put("region_id", fanSysSite.getRegionCode());
+        map.put("status", status);
+
+        Page page = new Page();
+        page.setCurrent(pageNo);
+        page.setSize(pageSize);
+        Page<AllUserNewsInfo> mapPage = new Page<>(page.getCurrent(), page.getSize());
+
+        Page<AllUserNewsInfo> userNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoList(mapPage, map);
 
         if (StringUtils.isEmpty(userNewsInfoPage)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);

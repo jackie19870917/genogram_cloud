@@ -15,8 +15,8 @@ import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -34,6 +34,9 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
 
     @Autowired
     private AllUserLoginMapper allUserLoginMapper;
+
+    @Autowired
+    private AllUserNewsInfoMapper allUserNewsInfoMapper;
 
     @Override
     public Page<AllUserNewsInfo> getAllUserNewsInfoPage(Integer userId, List list, Integer pageNo, Integer pageSize) {
@@ -87,5 +90,21 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
         wrapper.orderBy("update_time", false);
 
         return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
+    }
+
+    @Override
+    public Page<AllUserNewsInfo> getAllUserNewsInfoList(Page<AllUserNewsInfo> mapPage, Map map) {
+
+        List<AllUserNewsInfo> userNewsInfoList = allUserNewsInfoMapper.getAllUserNewsInfo(mapPage, map);
+
+        if (userNewsInfoList.size() == 0) {
+            return null;
+        }
+
+        Page<AllUserNewsInfo> page = new Page<>(mapPage.getCurrent(), mapPage.getSize());
+        page.setRecords(userNewsInfoList);
+        page.setTotal(mapPage.getTotal());
+
+        return page;
     }
 }
