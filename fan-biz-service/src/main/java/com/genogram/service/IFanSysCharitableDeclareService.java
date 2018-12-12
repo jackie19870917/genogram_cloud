@@ -50,4 +50,13 @@ public interface IFanSysCharitableDeclareService extends IService<FanSysCharitab
      * @return
      */
     FanSysCharitableDeclare getFamilyStructureDetails(Integer id);
+
+    /**
+     * 联谊会慈善帮扶申报详情帮扶反馈添加
+     * @param id 主键Id
+     * @param helpFeedback 帮助反馈
+     * @param helpFeedbackFile 上传帮助反馈的图片
+     * @return
+     */
+    Boolean addCharityAssistFeedback(Integer id, String helpFeedback, String helpFeedbackFile);
 }

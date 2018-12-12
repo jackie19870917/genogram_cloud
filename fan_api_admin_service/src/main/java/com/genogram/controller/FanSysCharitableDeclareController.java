@@ -163,14 +163,59 @@ public class FanSysCharitableDeclareController {
             }
             FanSysCharitableDeclare fanSysCharitableDeclare=fanSysCharitableDeclareService.getFamilyStructureDetails(id);
             if (fanSysCharitableDeclare==null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "删除失败");
+                return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "删除成功");
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "查询成功");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
+    /**
+     *联谊会慈善帮扶申报详情帮扶反馈添加
+     *@Author: yuzhou
+     *@Date: 2018-12-12
+     *@Time: 17:52
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "联谊会慈善帮扶申报详情帮扶反馈添加", notes = "")
+    @RequestMapping(value = "addCharityAssistFeedback", method = RequestMethod.POST)
+    public Response<FanSysCharitableDeclare> addCharityAssistFeedback(
+            @ApiParam("主键Id") @RequestParam(value = "id") Integer id,
+            @ApiParam("帮助反馈") @RequestParam(value = "helpFeedback",required = false) String helpFeedback,
+            @ApiParam("上传帮助反馈的图片") @RequestParam(value = "helpFeedbackFile",required = false) String helpFeedbackFile,
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
+    ) {
+        try {
+            //判断token是否为空
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+            }
+            //判断id是否为空
+            if (id == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
+            }
+            Boolean aBoolean =fanSysCharitableDeclareService.addCharityAssistFeedback(id,helpFeedback,helpFeedbackFile);
+            if (!aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, "新增失败");
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "新增成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+
 
 
     /**
