@@ -38,7 +38,7 @@ import java.util.Map;
  * @author xiaohei
  * @since 2018-11-29
  */
-@Api(description = "联谊会家族慈善申报")
+@Api(description = "联谊会后台家族慈善申报")
 @RestController
 @RequestMapping("/genogram/admin/fanSysCharitableDeclare")
 public class FanSysCharitableDeclareController {
