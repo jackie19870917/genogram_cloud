@@ -17,7 +17,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-12-10
+ * @since 2018-12-12
  */
 @TableName("all_user_videos")
 public class AllUserVideos extends Model<AllUserVideos> {
@@ -28,6 +28,11 @@ public class AllUserVideos extends Model<AllUserVideos> {
     private Integer id;
     @TableField("user_id")
     private Integer userId;
+    /**
+     * 系统管理员操作状态(1-展示,2-不展示)
+     */
+    @TableField("sys_status")
+    private Integer sysStatus;
     private Integer status;
     private String title;
     /**
@@ -64,6 +69,15 @@ public class AllUserVideos extends Model<AllUserVideos> {
 
     public AllUserVideos setUserId(Integer userId) {
         this.userId = userId;
+        return this;
+    }
+
+    public Integer getSysStatus() {
+        return sysStatus;
+    }
+
+    public AllUserVideos setSysStatus(Integer sysStatus) {
+        this.sysStatus = sysStatus;
         return this;
     }
 
@@ -158,6 +172,7 @@ public class AllUserVideos extends Model<AllUserVideos> {
         return "AllUserVideos{" +
                 ", id=" + id +
                 ", userId=" + userId +
+                ", sysStatus=" + sysStatus +
                 ", status=" + status +
                 ", title=" + title +
                 ", regionId=" + regionId +

@@ -25,30 +25,30 @@
         id, show_id AS show_id, pay_usr_id AS pay_usr_id, type,sum(pay_amount) AS pay_amount, pay_channel AS pay_channel, pay_time AS pay_time, agent_account AS agent_account, agent_id AS agent_id, status, create_time AS create_time, create_user AS create_user, update_time AS update_time, update_user AS update_user
     </sql>
 
-   <!-- <select id="getDonorVoPage" parameterType="java.util.Map" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM fan_news_charity_pay_in
-        where
-        1=1
-        <if test="showId!=null">
-            and show_id=#{showId}
-        </if>
-        <if test="status!=null">
-            and status in
-            <foreach collection="status" item="item" index="index" open="(" separator="," close=")">
-                #{item}
-            </foreach>
-        </if>
-        group by pay_usr_id
-        <if test="label==asc">
-            order by pay_amount
-        </if>
-        <if test="label==desc">
-            order by pay_amount desc
-        </if>
-    </select>
--->
+    <!-- <select id="getDonorVoPage" parameterType="java.util.Map" resultMap="BaseResultMap">
+         SELECT
+         <include refid="Base_Column_List"/>
+         FROM fan_news_charity_pay_in
+         where
+         1=1
+         <if test="showId!=null">
+             and show_id=#{showId}
+         </if>
+         <if test="status!=null">
+             and status in
+             <foreach collection="status" item="item" index="index" open="(" separator="," close=")">
+                 #{item}
+             </foreach>
+         </if>
+         group by pay_usr_id
+         <if test="label==asc">
+             order by pay_amount
+         </if>
+         <if test="label==desc">
+             order by pay_amount desc
+         </if>
+     </select>
+ -->
     <select id="getDonorVoPage" parameterType="java.util.Map" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

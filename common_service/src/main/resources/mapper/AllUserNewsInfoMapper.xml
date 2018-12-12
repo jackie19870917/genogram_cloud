@@ -10,6 +10,9 @@
         <result column="news_face_url" property="newsFaceUrl"/>
         <result column="content" property="content"/>
         <result column="region_id" property="regionId"/>
+        <result column="sys_status" property="sysStatus"/>
+        <result column="read_num" property="readNum"/>
+        <result column="recommend_status" property="recommendStatus"/>
         <result column="status" property="status"/>
         <result column="create_time" property="createTime"/>
         <result column="create_user" property="createUser"/>

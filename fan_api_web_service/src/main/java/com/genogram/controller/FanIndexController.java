@@ -195,7 +195,7 @@ public class FanIndexController {
     @RequestMapping(value = "getAllUserNewsInfoPage", method = RequestMethod.GET)
     public Response<AllUserNewsInfo> getAllUserNewsInfoPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                            @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+                                                            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);

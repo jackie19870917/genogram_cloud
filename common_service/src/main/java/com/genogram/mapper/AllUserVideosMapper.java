@@ -19,6 +19,7 @@ public interface AllUserVideosMapper extends BaseMapper<AllUserVideos> {
 
     /**
      * 个人视频
+     *
      * @param mapPage
      * @param map
      * @return

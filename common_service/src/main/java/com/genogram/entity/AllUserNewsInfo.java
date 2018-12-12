@@ -1,10 +1,7 @@
 package com.genogram.entity;
 
-import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
 
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -17,14 +14,13 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-12-10
+ * @since 2018-12-12
  */
 @TableName("all_user_news_info")
 public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 个人id
@@ -49,6 +45,21 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
      */
     @TableField("region_id")
     private Integer regionId;
+    /**
+     * 系统管理员操作状态(1-展示,2-不展示)
+     */
+    @TableField("sys_status")
+    private Integer sysStatus;
+    /**
+     * 阅读量
+     */
+    @TableField("read_num")
+    private Integer readNum;
+    /**
+     * 推荐审核状态（0 审核中 1 审核成功 2审核失败）
+     */
+    @TableField("recommend_status")
+    private Integer recommendStatus;
     /**
      * 状态（0 删除 1 正常 2 草稿）
      */
@@ -129,6 +140,33 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
         return this;
     }
 
+    public Integer getSysStatus() {
+        return sysStatus;
+    }
+
+    public AllUserNewsInfo setSysStatus(Integer sysStatus) {
+        this.sysStatus = sysStatus;
+        return this;
+    }
+
+    public Integer getReadNum() {
+        return readNum;
+    }
+
+    public AllUserNewsInfo setReadNum(Integer readNum) {
+        this.readNum = readNum;
+        return this;
+    }
+
+    public Integer getRecommendStatus() {
+        return recommendStatus;
+    }
+
+    public AllUserNewsInfo setRecommendStatus(Integer recommendStatus) {
+        this.recommendStatus = recommendStatus;
+        return this;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -188,6 +226,9 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
                 ", newsFaceUrl=" + newsFaceUrl +
                 ", content=" + content +
                 ", regionId=" + regionId +
+                ", sysStatus=" + sysStatus +
+                ", readNum=" + readNum +
+                ", recommendStatus=" + recommendStatus +
                 ", status=" + status +
                 ", createTime=" + createTime +
                 ", createUser=" + createUser +

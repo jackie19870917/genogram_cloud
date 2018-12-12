@@ -270,8 +270,8 @@ public class FanNewsFamilyRecordController {
         }
     }
 
-    @ApiOperation(value = "个人视频",notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
-    @RequestMapping(value = "getAllUserVideosPage",method = RequestMethod.GET)
+    @ApiOperation(value = "个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+    @RequestMapping(value = "getAllUserVideosPage", method = RequestMethod.GET)
     public Response<AllUserVideos> getAllUserVideosPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {

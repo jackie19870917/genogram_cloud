@@ -71,7 +71,7 @@ public class AllUserVideosServiceImpl extends ServiceImpl<AllUserVideosMapper, A
 
         List<AllUserVideos> userVideosList = allUserVideosMapper.getAllUserVideos(mapPage, map);
 
-        if (userVideosList.size()==0) {
+        if (userVideosList.size() == 0) {
             return null;
         }
 

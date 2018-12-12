@@ -97,7 +97,8 @@ public class FanNewsUploadTreeFileController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
 
-        if (fanNewsUploadTreeFile.getStatus() == 2) {
+        Integer status = 2;
+        if (fanNewsUploadTreeFile.getStatus().equals(status)) {
             if (!fanNewsUploadTreeFile.getPassword().equals(password)) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "密码错误");
             }
