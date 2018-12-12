@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -54,6 +51,9 @@ public class FanIndexController {
 
     @Autowired
     private IFanSysSiteService fanSysSiteService;
+
+    @Autowired
+    private IAllCheckOutService allCheckOutService;
 
     /**
      * 轮播图
@@ -213,6 +213,12 @@ public class FanIndexController {
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        Set set = allCheckOutService.getSensitiveWord(indexInfoVo.getDescription());
+
+        if (set.size() >= 1) {
+            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
         if (StringUtils.isEmpty(indexInfoVo.getId())) {
