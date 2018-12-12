@@ -75,7 +75,7 @@ public class FanNewsFamilyRecordController {
             if (familyRecordVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "null");
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.success(familyRecordVo);
         } catch (Exception e) {
@@ -322,7 +322,7 @@ public class FanNewsFamilyRecordController {
             if (familyRecordVedioVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "null");
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.success(familyRecordVedioVo);
         } catch (Exception e) {
