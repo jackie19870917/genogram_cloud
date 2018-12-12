@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -138,7 +140,11 @@ public class SensitiveWordInit {
 
         //读取文件
 
-     File file = new File("fastdfs_upload/data/data/00/01/rB_QCFwQuUWAceSdAAAKMvJSp3Q117.txt");
+       /* URL url = new URL("http://47.105.177.1:6090/00/01/rB_QCFwQuUWAceSdAAAKMvJSp3Q117.txt");
+        URLConnection urlConnection = url.openConnection();
+        urlConnection.getInputStream();
+        File file = new File(String.valueOf(urlConnection.getInputStream()));*/
+        File file = new File("/fastdfs_upload/data/data/00/01/rB_QCFwQuUWAceSdAAAKMvJSp3Q117.txt");
      //   File file = new File("/home/eric218/data/data/00/07/wKgChFwQyJWAfl0TAAAKMvJSp3Q477.txt");
         InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);
         try {
