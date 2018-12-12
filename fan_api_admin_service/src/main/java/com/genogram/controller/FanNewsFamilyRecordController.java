@@ -75,7 +75,7 @@ public class FanNewsFamilyRecordController {
             if (familyRecordVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "familyRecordVo");
+                return ResponseUtlis.error(Constants.ERRO_CODE, "null");
             }
             return ResponseUtlis.success(familyRecordVo);
         } catch (Exception e) {
@@ -243,7 +243,7 @@ public class FanNewsFamilyRecordController {
         try {
             // 插入数据
             boolean b = fanNewsFamilyRecordService.addOrUpdateRecord(fanNewsRecord, fileName, filePath);
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
             //插入图片
         } catch (Exception e) {
             e.printStackTrace();
@@ -322,7 +322,7 @@ public class FanNewsFamilyRecordController {
             if (familyRecordVedioVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "familyRecordVedioVo为空");
+                return ResponseUtlis.error(Constants.ERRO_CODE, "null");
             }
             return ResponseUtlis.success(familyRecordVedioVo);
         } catch (Exception e) {
@@ -464,7 +464,7 @@ public class FanNewsFamilyRecordController {
         try {
             // 插入数据
             boolean b = fanNewsFamilyRecordVedioService.addOrUpdateVedioRecord(fanNewsFamilyRecordVedio, picfileName, picPath, vedioFileName, vedioPath);
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
             //插入图片
         } catch (Exception e) {
             e.printStackTrace();

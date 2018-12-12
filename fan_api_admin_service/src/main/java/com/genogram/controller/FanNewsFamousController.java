@@ -172,8 +172,8 @@ public class FanNewsFamousController {
      * @Description:
      */
     @ApiOperation("家族名人后台添加和修改 草稿")
-    @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
-    public Response<FanNewsFamousPerson> addOrUpdateIndustryDrft(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
+    @RequestMapping(value = "/addOrUpdatePersonDrft", method = RequestMethod.POST)
+    public Response<FanNewsFamousPerson> addOrUpdatePersonDrft(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsFamousPerson.setStatus(2);
         return getFanNewsPersonResponse(fanNewsFamousPerson, fileName, filePath);
