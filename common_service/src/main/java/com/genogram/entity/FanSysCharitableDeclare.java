@@ -143,27 +143,27 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
     /**
      * 审查人
      */
-    private Integer examinant;
+    private String examinant;
     /**
-     * 审查人
+     * 审查人意见
      */
     @TableField("examinant_opinion")
     private String examinantOpinion;
     /**
      * 审核人
      */
-    private Integer verifier;
+    private String verifier;
     /**
-     * 审核人
+     * 审核人意见
      */
     @TableField("verifier_opinion")
     private String verifierOpinion;
     /**
      * 审批人
      */
-    private Integer approver;
+    private String approver;
     /**
-     * 审批人
+     * 审批人意见
      */
     @TableField("approver_opinion")
     private String approverOpinion;
@@ -415,11 +415,11 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
-    public Integer getExaminant() {
+    public String getExaminant() {
         return examinant;
     }
 
-    public FanSysCharitableDeclare setExaminant(Integer examinant) {
+    public FanSysCharitableDeclare setExaminant(String examinant) {
         this.examinant = examinant;
         return this;
     }
@@ -433,11 +433,11 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
-    public Integer getVerifier() {
+    public String getVerifier() {
         return verifier;
     }
 
-    public FanSysCharitableDeclare setVerifier(Integer verifier) {
+    public FanSysCharitableDeclare setVerifier(String verifier) {
         this.verifier = verifier;
         return this;
     }
@@ -451,11 +451,11 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
-    public Integer getApprover() {
+    public String getApprover() {
         return approver;
     }
 
-    public FanSysCharitableDeclare setApprover(Integer approver) {
+    public FanSysCharitableDeclare setApprover(String approver) {
         this.approver = approver;
         return this;
     }
