@@ -1,24 +1,21 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.math.BigDecimal;
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
  * <p>
- *
+ * 慈善帮扶
  * </p>
  *
  * @author wangwei
- * @since 2018-12-10
+ * @since 2018-12-12
  */
 @TableName("fan_sys_charitable_declare")
 public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
@@ -31,7 +28,7 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 状态(0:删除;1:已发布;2:草稿3:不显示)
+     * 状态(0:审核通过;1:审核中;2:草稿3:审核不通过)
      */
     private Integer status;
     /**
@@ -143,6 +140,43 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
      */
     @TableField("recommender_osition")
     private String recommenderOsition;
+    /**
+     * 审查人
+     */
+    private Integer examinant;
+    /**
+     * 审查人
+     */
+    @TableField("examinant_opinion")
+    private String examinantOpinion;
+    /**
+     * 审核人
+     */
+    private Integer verifier;
+    /**
+     * 审核人
+     */
+    @TableField("verifier_opinion")
+    private String verifierOpinion;
+    /**
+     * 审批人
+     */
+    private Integer approver;
+    /**
+     * 审批人
+     */
+    @TableField("approver_opinion")
+    private String approverOpinion;
+    /**
+     * 帮助反馈
+     */
+    @TableField("help_feedback")
+    private String helpFeedback;
+    /**
+     * 上传帮助反馈的图片
+     */
+    @TableField("help_feedback_file")
+    private String helpFeedbackFile;
     /**
      * 创建人
      */
@@ -381,6 +415,78 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
+    public Integer getExaminant() {
+        return examinant;
+    }
+
+    public FanSysCharitableDeclare setExaminant(Integer examinant) {
+        this.examinant = examinant;
+        return this;
+    }
+
+    public String getExaminantOpinion() {
+        return examinantOpinion;
+    }
+
+    public FanSysCharitableDeclare setExaminantOpinion(String examinantOpinion) {
+        this.examinantOpinion = examinantOpinion;
+        return this;
+    }
+
+    public Integer getVerifier() {
+        return verifier;
+    }
+
+    public FanSysCharitableDeclare setVerifier(Integer verifier) {
+        this.verifier = verifier;
+        return this;
+    }
+
+    public String getVerifierOpinion() {
+        return verifierOpinion;
+    }
+
+    public FanSysCharitableDeclare setVerifierOpinion(String verifierOpinion) {
+        this.verifierOpinion = verifierOpinion;
+        return this;
+    }
+
+    public Integer getApprover() {
+        return approver;
+    }
+
+    public FanSysCharitableDeclare setApprover(Integer approver) {
+        this.approver = approver;
+        return this;
+    }
+
+    public String getApproverOpinion() {
+        return approverOpinion;
+    }
+
+    public FanSysCharitableDeclare setApproverOpinion(String approverOpinion) {
+        this.approverOpinion = approverOpinion;
+        return this;
+    }
+
+    public String getHelpFeedback() {
+        return helpFeedback;
+    }
+
+    public FanSysCharitableDeclare setHelpFeedback(String helpFeedback) {
+        this.helpFeedback = helpFeedback;
+        return this;
+    }
+
+    public String getHelpFeedbackFile() {
+        return helpFeedbackFile;
+    }
+
+    public FanSysCharitableDeclare setHelpFeedbackFile(String helpFeedbackFile) {
+        this.helpFeedbackFile = helpFeedbackFile;
+        return this;
+    }
+
     public Integer getCreateUser() {
         return createUser;
     }
@@ -425,34 +531,42 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
     @Override
     public String toString() {
         return "FanSysCharitableDeclare{" +
-                ", id=" + id +
-                ", status=" + status +
-                ", showId=" + showId +
-                ", title=" + title +
-                ", pictureAddress=" + pictureAddress +
-                ", applyName=" + applyName +
-                ", applyPhone=" + applyPhone +
-                ", applyMoney=" + applyMoney +
-                ", applyNum=" + applyNum +
-                ", accountBank=" + accountBank +
-                ", accountName=" + accountName +
-                ", accountNum=" + accountNum +
-                ", applicantAdress=" + applicantAdress +
-                ", receivablesName=" + receivablesName +
-                ", receivablesPhone=" + receivablesPhone +
-                ", receivablesId=" + receivablesId +
-                ", receivablesAddress=" + receivablesAddress +
-                ", receivablesBank=" + receivablesBank +
-                ", receivablesNum=" + receivablesNum +
-                ", abstractInfo=" + abstractInfo +
-                ", recommenderName=" + recommenderName +
-                ", recommenderPhone=" + recommenderPhone +
-                ", recommenderCompany=" + recommenderCompany +
-                ", recommenderOsition=" + recommenderOsition +
-                ", createUser=" + createUser +
-                ", updateUser=" + updateUser +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                "}";
+        ", id=" + id +
+        ", status=" + status +
+        ", showId=" + showId +
+        ", title=" + title +
+        ", pictureAddress=" + pictureAddress +
+        ", applyName=" + applyName +
+        ", applyPhone=" + applyPhone +
+        ", applyMoney=" + applyMoney +
+        ", applyNum=" + applyNum +
+        ", accountBank=" + accountBank +
+        ", accountName=" + accountName +
+        ", accountNum=" + accountNum +
+        ", applicantAdress=" + applicantAdress +
+        ", receivablesName=" + receivablesName +
+        ", receivablesPhone=" + receivablesPhone +
+        ", receivablesId=" + receivablesId +
+        ", receivablesAddress=" + receivablesAddress +
+        ", receivablesBank=" + receivablesBank +
+        ", receivablesNum=" + receivablesNum +
+        ", abstractInfo=" + abstractInfo +
+        ", recommenderName=" + recommenderName +
+        ", recommenderPhone=" + recommenderPhone +
+        ", recommenderCompany=" + recommenderCompany +
+        ", recommenderOsition=" + recommenderOsition +
+        ", examinant=" + examinant +
+        ", examinantOpinion=" + examinantOpinion +
+        ", verifier=" + verifier +
+        ", verifierOpinion=" + verifierOpinion +
+        ", approver=" + approver +
+        ", approverOpinion=" + approverOpinion +
+        ", helpFeedback=" + helpFeedback +
+        ", helpFeedbackFile=" + helpFeedbackFile +
+        ", createUser=" + createUser +
+        ", updateUser=" + updateUser +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        "}";
     }
 }

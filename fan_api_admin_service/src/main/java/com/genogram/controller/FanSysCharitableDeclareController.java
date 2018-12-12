@@ -131,6 +131,47 @@ public class FanSysCharitableDeclareController {
         }
     }
 
+    /**
+     *联谊会慈善帮扶申报详情
+     *@Author: yuzhou
+     *@Date: 2018-12-12
+     *@Time: 16:13
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "联谊会慈善帮扶申报详情", notes = "")
+    @RequestMapping(value = "getFamilyStructureDetails", method = RequestMethod.GET)
+    public Response<FanSysCharitableDeclare> getFamilyStructureDetails(
+            @ApiParam("主键Id") @RequestParam(value = "id") Integer id,
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
+    ) {
+        try {
+            //判断token是否为空
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            }
+            //获取用户对象
+            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
+            //判断token是否正确
+            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+            }
+            //判断id是否为空
+            if (id == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
+            }
+            FanSysCharitableDeclare fanSysCharitableDeclare=fanSysCharitableDeclareService.getFamilyStructureDetails(id);
+            if (fanSysCharitableDeclare==null) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, "删除失败");
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
 
     /**
      *联谊会慈善帮扶申报添加或修改  申报

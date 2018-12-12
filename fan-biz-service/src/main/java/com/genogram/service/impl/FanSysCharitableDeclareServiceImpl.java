@@ -82,4 +82,19 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
         boolean result = this.insertOrUpdate(fanSysCharitableDeclare);
         return result;
     }
+
+    /**
+     *联谊会慈善帮扶申报详情
+     *@Author: yuzhou
+     *@Date: 2018-12-12
+     *@Time: 16:16
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public FanSysCharitableDeclare getFamilyStructureDetails(Integer id) {
+
+        return null;
+    }
 }

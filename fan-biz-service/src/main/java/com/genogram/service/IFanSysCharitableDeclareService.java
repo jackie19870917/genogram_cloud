@@ -43,4 +43,11 @@ public interface IFanSysCharitableDeclareService extends IService<FanSysCharitab
      * @return
      */
     Boolean addCharityAssist(FanSysCharitableDeclare fanSysCharitableDeclare);
+
+    /**
+     * 联谊会慈善帮扶申报详情
+     * @param id
+     * @return
+     */
+    FanSysCharitableDeclare getFamilyStructureDetails(Integer id);
 }
