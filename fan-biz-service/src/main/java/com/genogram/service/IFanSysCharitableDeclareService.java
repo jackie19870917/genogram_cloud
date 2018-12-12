@@ -1,6 +1,8 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsFamilyRecord;
 import com.genogram.entity.FanSysCharitableDeclare;
 import com.baomidou.mybatisplus.service.IService;
@@ -20,29 +22,25 @@ public interface IFanSysCharitableDeclareService extends IService<FanSysCharitab
     /**
      * 联谊会慈善帮扶后台分页查询
      *
-     * @param showId
+     * @param entity
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page<FanSysCharitableDeclare> getCharitableDeclarePage(Integer showId, Integer pageNo, Integer pageSize);
-
-    /**
-     * 联谊会慈善帮扶后台新增修改
-     *
-     * @param fanSysCharitableDeclare
-     * @param fileName
-     * @param filePath
-     * @return
-     */
-    boolean addOrUpdateCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare, String fileName, String filePath);
+    Page<FanSysCharitableDeclare> getCharitableDeclarePage(Wrapper<FanSysCharitableDeclare> entity, Integer pageNo, Integer pageSize);
 
     /**
      * 联谊会慈善帮扶删除
      *
      * @param id
-     * @param status
      * @return
      */
-    Boolean deleteCharitableDeclareById(Integer id, int status);
+    Boolean deleteCharitableDeclareById(Integer id);
+
+    /**
+     * 联谊会慈善帮扶申报添加
+     * @param fanSysCharitableDeclare  慈善帮扶申报表
+     * @return
+     */
+    Boolean addCharityAssist(FanSysCharitableDeclare fanSysCharitableDeclare);
 }

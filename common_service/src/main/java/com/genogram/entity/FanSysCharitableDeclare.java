@@ -147,12 +147,12 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
      * 创建人
      */
     @TableField("create_user")
-    private String createUser;
+    private Integer createUser;
     /**
      * 修改人
      */
     @TableField("update_user")
-    private String updateUser;
+    private Integer updateUser;
     /**
      * 创建时间
      */
@@ -381,20 +381,20 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
-    public String getCreateUser() {
+    public Integer getCreateUser() {
         return createUser;
     }
 
-    public FanSysCharitableDeclare setCreateUser(String createUser) {
+    public FanSysCharitableDeclare setCreateUser(Integer createUser) {
         this.createUser = createUser;
         return this;
     }
 
-    public String getUpdateUser() {
+    public Integer getUpdateUser() {
         return updateUser;
     }
 
-    public FanSysCharitableDeclare setUpdateUser(String updateUser) {
+    public FanSysCharitableDeclare setUpdateUser(Integer updateUser) {
         this.updateUser = updateUser;
         return this;
     }

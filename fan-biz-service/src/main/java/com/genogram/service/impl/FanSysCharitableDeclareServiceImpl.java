@@ -3,6 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsFamilyRecord;
 import com.genogram.entity.FanNewsFamilyRecordVedio;
 import com.genogram.entity.FanSysCharitableDeclare;
@@ -34,66 +35,51 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
     /**
      * 分页查询
      *
-     * @param showId
+     * @param entity
      * @param pageNo
      * @param pageSize
      * @return
      */
     @Override
-    public Page<FanSysCharitableDeclare> getCharitableDeclarePage(Integer showId, Integer pageNo, Integer pageSize) {
-        Wrapper<FanSysCharitableDeclare> entity = new EntityWrapper<FanSysCharitableDeclare>();
-        entity.eq("show_id", showId);
+    public Page<FanSysCharitableDeclare> getCharitableDeclarePage(Wrapper<FanSysCharitableDeclare> entity, Integer pageNo, Integer pageSize) {
         //分页查询文章主表
         Page<FanSysCharitableDeclare> fanNewsFamilyRecord = this.selectPage(new Page<FanSysCharitableDeclare>(pageNo, pageSize), entity);
         return fanNewsFamilyRecord;
     }
 
     /**
-     * 新增修改
+     * 联谊会慈善帮扶删除
      *
-     * @param fanSysCharitableDeclare
-     * @param fileName
-     * @param filePath
+     * @param id
      * @return
      */
     @Override
-    public boolean addOrUpdateCharitableDeclare(FanSysCharitableDeclare fanSysCharitableDeclare, String fileName, String filePath) {
+    public Boolean deleteCharitableDeclareById(Integer id) {
+        boolean result = this.deleteById(id);
+        return result;
+    }
+
+
+    /**
+     *联谊会慈善帮扶申报添加修改
+     *@Author: yuzhou
+     *@Date: 2018-12-12
+     *@Time: 14:00
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean addCharityAssist(FanSysCharitableDeclare fanSysCharitableDeclare) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if (fanSysCharitableDeclare.getId() == null) {
             //存入创建时间
             fanSysCharitableDeclare.setCreateTime(format);
-            fanSysCharitableDeclare.setCreateUser(null);
-            //插入修改时间
-            fanSysCharitableDeclare.setUpdateTime(format);
-            fanSysCharitableDeclare.setUpdateUser(null);
-        } else {
+        }
             //存入修改时间
             fanSysCharitableDeclare.setUpdateTime(format);
-            fanSysCharitableDeclare.setUpdateUser(null);
-        }
         boolean result = this.insertOrUpdate(fanSysCharitableDeclare);
-        //存储图片
-        if (result && StringsUtils.isNotEmpty(filePath)) {
-            iuploadFileService.storageFanFile(fileName, filePath, fanSysCharitableDeclare.getId(), fanSysCharitableDeclare.getShowId());
-        }
-        return result;
-    }
-
-    /**
-     * 删除
-     *
-     * @param id
-     * @param status
-     * @return
-     */
-    @Override
-    public Boolean deleteCharitableDeclareById(Integer id, int status) {
-        FanSysCharitableDeclare fanSysCharitableDeclare = this.selectById(id);
-        fanSysCharitableDeclare.setStatus(status);
-        fanSysCharitableDeclare.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        //修改人 待写
-        boolean result = this.updateAllColumnById(fanSysCharitableDeclare);
         return result;
     }
 }
