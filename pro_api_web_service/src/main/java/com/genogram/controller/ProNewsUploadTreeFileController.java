@@ -40,7 +40,7 @@ public class ProNewsUploadTreeFileController {
     @Autowired
     private IUserService userService;
 
-    @ApiOperation(value = "电子谱查询", notes = "id-主键,regionCode-地区,isFrom-来源(1-省级,2-县级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
+    @ApiOperation(value = "电子谱查询", notes = "id-主键,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "getProNewsUploadTreeFileList", method = RequestMethod.GET)
     public Response<ProNewsUploadTreeFile> getProNewsUploadTreeFileList(@ApiParam("网站ID") @RequestParam("siteId") Integer siteId,
                                                                         @ApiParam("地区") @RequestParam(value = "regionCode", required = false) String regionCode,

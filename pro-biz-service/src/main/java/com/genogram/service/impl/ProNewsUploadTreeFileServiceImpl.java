@@ -199,7 +199,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
-        proNewsUploadTreeFile.setIsFrom(1);
+        proNewsUploadTreeFile.setIsFrom(2);
         proNewsUploadTreeFile.setCreateTime(timeStamp);
         proNewsUploadTreeFile.setUpdateTime(timeStamp);
 
