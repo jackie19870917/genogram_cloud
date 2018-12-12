@@ -187,6 +187,7 @@ public class UserController {
 
         if (StringUtils.isEmpty(allUserNewsInfo.getId())) {
             allUserNewsInfo.setUserId(userLogin.getId());
+            allUserNewsInfo.setReadNum(0);
             allUserNewsInfo.setCreateUser(userLogin.getId());
             allUserNewsInfo.setCreateTime(timeStamp);
             allUserNewsInfo.setStatus(status);

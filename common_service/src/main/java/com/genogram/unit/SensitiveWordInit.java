@@ -137,7 +137,9 @@ public class SensitiveWordInit {
         Set<String> set = null;
 
         //读取文件
-        File file = new File("47.105.177.1:6090/00/01/rB_QCFwQuUWAceSdAAAKMvJSp3Q117.txt");
+
+     File file = new File("fastdfs_upload/data/data/00/01/rB_QCFwQuUWAceSdAAAKMvJSp3Q117.txt");
+     //   File file = new File("/home/eric218/data/data/00/07/wKgChFwQyJWAfl0TAAAKMvJSp3Q477.txt");
         InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);
         try {
             //文件流是否存在

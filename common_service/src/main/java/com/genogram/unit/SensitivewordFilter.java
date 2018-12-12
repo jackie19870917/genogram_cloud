@@ -186,7 +186,14 @@ public class SensitivewordFilter {
     public static void main(String[] args) {
         SensitivewordFilter filter = new SensitivewordFilter();
         System.out.println("敏感词的数量：" + filter.sensitiveWordMap.size());
-        String string = "海洛因ketamine冰毒";
+        String string = "狗杂种\n" +
+                "狗日的\n" +
+                "操你祖宗\n" +
+                "操你全家\n" +
+                "操你大爷\n" +
+                "妈逼\n" +
+                "你麻痹\n" +
+                "麻痹的";
         System.out.println("待检测语句字数：" + string.length());
         long beginTime = System.currentTimeMillis();
         Set<String> set = filter.getSensitiveWord(string, 1);

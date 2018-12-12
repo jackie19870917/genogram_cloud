@@ -62,11 +62,6 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
     @TableField("read_num")
     private Integer readNum;
     /**
-     * 推荐审核状态（0 审核中 1 审核成功 2审核失败）
-     */
-    @TableField("recommend_status")
-    private Integer recommendStatus;
-    /**
      * 状态（0 删除 1 正常 2 草稿）
      */
     private Integer status;
@@ -173,15 +168,6 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
         return this;
     }
 
-    public Integer getRecommendStatus() {
-        return recommendStatus;
-    }
-
-    public AllUserNewsInfo setRecommendStatus(Integer recommendStatus) {
-        this.recommendStatus = recommendStatus;
-        return this;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -244,7 +230,6 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
         ", regionId=" + regionId +
         ", sysStatus=" + sysStatus +
         ", readNum=" + readNum +
-        ", recommendStatus=" + recommendStatus +
         ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
