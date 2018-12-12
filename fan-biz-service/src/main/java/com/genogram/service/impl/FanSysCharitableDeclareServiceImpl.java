@@ -94,7 +94,28 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
     */
     @Override
     public FanSysCharitableDeclare getFamilyStructureDetails(Integer id) {
+        FanSysCharitableDeclare fanSysCharitableDeclare = this.selectById(id);
+        return fanSysCharitableDeclare;
+    }
 
-        return null;
+    /**
+     *联谊会慈善帮扶申报详情帮扶反馈添加
+     *@Author: yuzhou
+     *@Date: 2018-12-12
+     *@Time: 18:08
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean addCharityAssistFeedback(Integer id, String helpFeedback, String helpFeedbackFile) {
+        //查询数据
+        FanSysCharitableDeclare fanSysCharitableDeclare = this.selectById(id);
+        //存储
+        fanSysCharitableDeclare.setHelpFeedback(helpFeedback);
+        fanSysCharitableDeclare.setHelpFeedbackFile(helpFeedbackFile);
+        //修改数据
+        boolean result = this.updateAllColumnById(fanSysCharitableDeclare);
+        return result;
     }
 }
