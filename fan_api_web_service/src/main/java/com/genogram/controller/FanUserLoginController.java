@@ -109,7 +109,6 @@ public class FanUserLoginController {
 
         message = MessageUtil.sendMessage(mobilePhone);
 
-        System.out.println(message);
         if (StringUtils.isEmpty(message)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "发送失败");
         } else {
