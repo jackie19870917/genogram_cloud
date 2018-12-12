@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.AllUserReplyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserReply">
+        <id column="id" property="id" />
+        <result column="comment_id" property="commentId" />
+        <result column="reply_id" property="replyId" />
+        <result column="reply_type" property="replyType" />
+        <result column="content" property="content" />
+        <result column="praise_count" property="praiseCount" />
+        <result column="status" property="status" />
+        <result column="from_user_id" property="fromUserId" />
+        <result column="to_user_id" property="toUserId" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, comment_id AS commentId, reply_id AS replyId, reply_type AS replyType, content, praise_count AS praiseCount, status, from_user_id AS fromUserId, to_user_id AS toUserId, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+    </sql>
+
+</mapper>
