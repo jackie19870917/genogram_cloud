@@ -195,11 +195,11 @@ public class ProNewsCharityController {
 
         proNewsCharityOut.setUpdateUser(userLogin.getId());
 
-      /*  Set set = allCheckOutService.getSensitiveWord(proNewsCharityOut.getNewsText());
+        Set set = allCheckOutService.getSensitiveWord(proNewsCharityOut.getNewsText());
 
         if (set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
-        }*/
+        }
 
         //状态   (1:已发布;2:草稿)
         proNewsCharityOut.setStatus(1);

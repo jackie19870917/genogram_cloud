@@ -152,11 +152,11 @@ public class FanNewsFamousController {
     public Response<FanNewsFamousPerson> addOrUpdatePerson(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
 
-       /* Set set = allCheckOutService.getSensitiveWord(fanNewsFamousPerson.getPersonSummary());
+        Set set = allCheckOutService.getSensitiveWord(fanNewsFamousPerson.getPersonSummary());
 
         if (set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
-        }*/
+        }
         fanNewsFamousPerson.setStatus(1);
         return getFanNewsPersonResponse(fanNewsFamousPerson, fileName, filePath);
     }

@@ -101,14 +101,15 @@ public class FanUserLoginController {
         return ResponseUtlis.success(familyList);
     }
 
-    String message = null;
+    String message;
 
     @ApiOperation("短信验证吗")
     @RequestMapping(value = "sendVerificationCode", method = RequestMethod.POST)
     public Response sendVerificationCode(@ApiParam("手机号") @RequestParam("mobilePhone") String mobilePhone) throws IOException, ClientException {
 
-        String message = MessageUtil.sendMessage(mobilePhone);
+        message = MessageUtil.sendMessage(mobilePhone);
 
+        System.out.println(message);
         if (StringUtils.isEmpty(message)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "发送失败");
         } else {

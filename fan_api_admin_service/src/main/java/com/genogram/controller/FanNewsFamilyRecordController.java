@@ -2,24 +2,22 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
-import com.genogram.entity.FanNewsFamilyRecord;
-import com.genogram.entity.FanNewsFamilyRecordVedio;
+import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
-import com.genogram.service.IAllCheckOutService;
-import com.genogram.service.IFanNewsFamilyRecordService;
-import com.genogram.service.IFanNewsFamilyRecordVedioService;
+import com.genogram.service.*;
+import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author xiaohei
@@ -37,6 +35,15 @@ public class FanNewsFamilyRecordController {
 
     @Autowired
     private IAllCheckOutService allCheckOutService;
+
+    @Autowired
+    private IAllUserVideosService allUserVideosService;
+
+    @Autowired
+    private IFanSysSiteService fanSysSiteService;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * 后台家族动态查询
@@ -182,11 +189,11 @@ public class FanNewsFamilyRecordController {
     public Response<FanNewsFamilyRecord> addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName, String filePath) {
 
 
-       /* Set set = allCheckOutService.getSensitiveWord(fanNewsRecord.getNewsText());
+        Set set = allCheckOutService.getSensitiveWord(fanNewsRecord.getNewsText());
 
         if (set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
-        }*/
+        }
 
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsRecord.setStatus(1);
@@ -506,5 +513,83 @@ public class FanNewsFamilyRecordController {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
+    }
+
+    @ApiOperation(value = "个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL,sysStatus-系统管理员操作状态(1-展示,2-不展示)")
+    @RequestMapping(value = "getAllUserVideosPage", method = RequestMethod.GET)
+    public Response<AllUserVideos> getAllUserVideosPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
+                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(siteId);
+
+        if (StringUtils.isEmpty(fanSysSite)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        Map map = new HashMap(16);
+        map.put("region_id", fanSysSite.getRegionCode());
+        map.put("status", 1);
+        map.put("sys_status", 1);
+
+        Page page = new Page();
+        page.setCurrent(pageNo);
+        page.setSize(pageSize);
+
+        Page<AllUserVideos> mapPage = new Page<>(page.getCurrent(), page.getSize());
+
+        Page<AllUserVideos> userVideosPage = allUserVideosService.getAllUserVideosList(mapPage, map);
+
+        if (StringUtils.isEmpty(userVideosPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        return ResponseUtlis.success(userVideosPage);
+    }
+
+    @ApiOperation(value = "修改  个人视频(是否显示)", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿),sysStatus-系统管理员操作状态(1-展示,2-不展示)")
+    @RequestMapping(value = "updateAllUserVideos", method = RequestMethod.GET)
+    public Response<AllUserVideos> updateAllUserVideos(@ApiParam("主键") @RequestParam("id") Integer id,
+                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserVideos allUserVideos = new AllUserVideos();
+        allUserVideos.setId(id);
+        allUserVideos.setSysStatus(2);
+        allUserVideos.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        allUserVideos.setUpdateUser(userLogin.getId());
+
+        AllUserVideos userVideos = allUserVideosService.insertOrUpdateAllUserVideos(allUserVideos);
+
+        if (StringUtils.isEmpty(userVideos)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "修改失败");
+        } else {
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        }
+
     }
 }

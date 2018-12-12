@@ -237,11 +237,11 @@ public class FanNewsIndustryController {
             @ApiParam(value = "上传文件名称") @RequestParam(value = "fileName", required = false) String fileName,
             @ApiParam(value = "上传文件地址") @RequestParam(value = "filePath", required = false) String filePath,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
-       /* Set set = allCheckOutService.getSensitiveWord(fanNewsIndustry.getNewsText());
+        Set set = allCheckOutService.getSensitiveWord(fanNewsIndustry.getNewsText());
 
         if (set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
-        }*/
+        }
 
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsIndustry.setStatus(1);

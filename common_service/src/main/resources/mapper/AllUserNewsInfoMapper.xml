@@ -9,6 +9,7 @@
         <result column="title" property="title"/>
         <result column="news_face_url" property="newsFaceUrl"/>
         <result column="content" property="content"/>
+        <result column="pro_code" property="proCode" />
         <result column="region_id" property="regionId"/>
         <result column="sys_status" property="sysStatus"/>
         <result column="read_num" property="readNum"/>
@@ -22,7 +23,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id AS user_id, title, news_face_url AS news_face_url, content, region_id AS region_id, status, create_time AS create_time, create_user AS create_user, update_time AS update_time, update_user AS update_user
+        id, user_id AS user_id, title, news_face_url AS news_face_url, content, pro_code AS pro_code,region_id AS region_id, status,sys_status AS sys_status, create_time AS create_time, create_user AS create_user, update_time AS update_time, update_user AS update_user
     </sql>
 
     <select id="getAllUserNewsInfo" parameterType="java.util.Map" resultMap="BaseResultMap">
@@ -36,11 +37,17 @@
         all_user_news_info
         where
         1=1
+        <if test="pro_code!=null">
+            and pro_code=#{pro_code}
+        </if>
         <if test="region_id!=null">
             and region_id=#{region_id}
         </if>
         <if test="status!=null">
             and status=#{status}
+        </if>
+        <if test="sys_status!=null">
+            and sys_status=#{sys_status}
         </if>
         ORDER BY update_time DESC
         )

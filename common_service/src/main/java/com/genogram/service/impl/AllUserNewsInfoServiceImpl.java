@@ -52,10 +52,6 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
     @Override
     public AllUserNewsInfo insertOrUpdateAllUserNewsInfo(AllUserNewsInfo allUserNewsInfo) {
 
-        AllUserLogin userLogin = allUserLoginMapper.selectById(allUserNewsInfo.getUserId());
-
-        allUserNewsInfo.setRegionId(userLogin.getRegionCode());
-
         this.insertOrUpdate(allUserNewsInfo);
 
         return allUserNewsInfo;

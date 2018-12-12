@@ -1,11 +1,11 @@
 package com.genogram.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
-
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -21,6 +21,7 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
      * 个人id
@@ -41,7 +42,12 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
      */
     private String content;
     /**
-     * 用户所属地区
+     * 省级编号
+     */
+    @TableField("pro_code")
+    private Integer proCode;
+    /**
+     * 地区编号
      */
     @TableField("region_id")
     private Integer regionId;
@@ -128,6 +134,15 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
 
     public AllUserNewsInfo setContent(String content) {
         this.content = content;
+        return this;
+    }
+
+    public Integer getProCode() {
+        return proCode;
+    }
+
+    public AllUserNewsInfo setProCode(Integer proCode) {
+        this.proCode = proCode;
         return this;
     }
 
@@ -220,20 +235,21 @@ public class AllUserNewsInfo extends Model<AllUserNewsInfo> {
     @Override
     public String toString() {
         return "AllUserNewsInfo{" +
-                ", id=" + id +
-                ", userId=" + userId +
-                ", title=" + title +
-                ", newsFaceUrl=" + newsFaceUrl +
-                ", content=" + content +
-                ", regionId=" + regionId +
-                ", sysStatus=" + sysStatus +
-                ", readNum=" + readNum +
-                ", recommendStatus=" + recommendStatus +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", userId=" + userId +
+        ", title=" + title +
+        ", newsFaceUrl=" + newsFaceUrl +
+        ", content=" + content +
+        ", proCode=" + proCode +
+        ", regionId=" + regionId +
+        ", sysStatus=" + sysStatus +
+        ", readNum=" + readNum +
+        ", recommendStatus=" + recommendStatus +
+        ", status=" + status +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

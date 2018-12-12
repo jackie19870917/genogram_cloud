@@ -6,7 +6,8 @@
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserVideos">
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
-        <result column="status" property="status"/>
+        <result column="sys_status" property="sysStatus" />
+        <result column="status" property="status" />
         <result column="title" property="title"/>
         <result column="region_id" property="regionId"/>
         <result column="video_pic_url" property="videoPicUrl"/>
@@ -19,7 +20,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id AS user_id, status, title, region_id AS region_id, video_pic_url AS video_pic_url, video_url AS video_url, create_time AS create_time, create_user AS create_user, update_time AS update_time, update_user AS update_user
+        id, user_id AS user_id, sys_status AS sys_status , status, title, region_id AS region_id, video_pic_url AS video_pic_url, video_url AS video_url, create_time AS create_time, create_user AS create_user, update_time AS update_time, update_user AS update_user
     </sql>
 
     <select id="getAllUserVideos" parameterType="java.util.Map" resultMap="BaseResultMap">
@@ -38,6 +39,9 @@
         </if>
         <if test="status!=null">
             and status=#{status}
+        </if>
+        <if test="sys_status!=null">
+            and sys_status=#{sys_status}
         </if>
         ORDER BY update_time DESC
         )

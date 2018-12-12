@@ -289,6 +289,7 @@ public class FanNewsFamilyRecordController {
         Map map = new HashMap(16);
         map.put("region_id", fanSysSite.getRegionCode());
         map.put("status", 1);
+        map.put("sys_status", 1);
 
         Page page = new Page();
         page.setCurrent(pageNo);

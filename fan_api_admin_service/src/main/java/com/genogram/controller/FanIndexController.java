@@ -2,12 +2,10 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
-import com.genogram.entity.AllUserLogin;
-import com.genogram.entity.FanIndexFamilySummarys;
-import com.genogram.entity.FanIndexInfo;
-import com.genogram.entity.FanIndexSlidePic;
+import com.genogram.entity.*;
 import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.service.*;
+import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -18,7 +16,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -48,6 +48,12 @@ public class FanIndexController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IAllUserNewsInfoService allUserNewsInfoService;
+
+    @Autowired
+    private IFanSysSiteService fanSysSiteService;
 
     /**
      * 轮播图
@@ -428,4 +434,80 @@ public class FanIndexController {
         }
     }
 
+    @ApiOperation(value = "最新发布", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿),sysStatus-系统管理员操作状态(1-展示,2-不展示)")
+    @RequestMapping(value = "getAllUserNewsInfoPage", method = RequestMethod.GET)
+    public Response<AllUserNewsInfo> getAllUserNewsInfoPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
+                                                            @ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(siteId);
+
+        if (StringUtils.isEmpty(fanSysSite)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        Map map = new HashMap(16);
+        map.put("region_id", fanSysSite.getRegionCode());
+        map.put("status", 1);
+        map.put("sys_status", 1);
+
+        Page page = new Page();
+        page.setCurrent(pageNo);
+        page.setSize(pageSize);
+        Page<AllUserNewsInfo> mapPage = new Page<>(page.getCurrent(), page.getSize());
+
+        Page<AllUserNewsInfo> userNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoList(mapPage, map);
+
+        if (StringUtils.isEmpty(userNewsInfoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        return ResponseUtlis.success(userNewsInfoPage);
+    }
+
+    @ApiOperation(value = "修改  最新发布(是否显示)", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿),sysStatus-系统管理员操作状态(1-展示,2-不展示)")
+    @RequestMapping(value = "updateAllUserNewsInfo", method = RequestMethod.GET)
+    public Response<AllUserNewsInfo> updateAllUserNewsInfo(@ApiParam("主键") @RequestParam("id") Integer id,
+                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserNewsInfo allUserNewsInfo = new AllUserNewsInfo();
+        allUserNewsInfo.setId(id);
+        allUserNewsInfo.setSysStatus(2);
+        allUserNewsInfo.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        allUserNewsInfo.setUpdateUser(userLogin.getId());
+
+        AllUserNewsInfo userNewsInfo = allUserNewsInfoService.insertOrUpdateAllUserNewsInfo(allUserNewsInfo);
+
+        if (StringUtils.isEmpty(userNewsInfo)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "修改失败");
+        } else {
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        }
+
+    }
 }

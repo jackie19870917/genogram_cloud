@@ -137,7 +137,7 @@ public class SensitiveWordInit {
         Set<String> set = null;
 
         //读取文件
-        File file = new File("sql\\SensitiveWord.txt");
+        File file = new File("47.105.177.1:6090/00/01/rB_QCFwQuUWAceSdAAAKMvJSp3Q117.txt");
         InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);
         try {
             //文件流是否存在

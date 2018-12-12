@@ -86,7 +86,8 @@ public class ProNewsUploadTreeFileController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        if (isFrom == 2) {
+        Integer a = 2;
+        if (isFrom .equals(a) ) {
             ProNewsUploadTreeFile proNewsUploadTreeFile = proNewsUploadTreeFileService.getProNewsUploadTreeFile(id);
 
             Integer status = 2;
