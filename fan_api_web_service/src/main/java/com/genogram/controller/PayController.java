@@ -309,6 +309,8 @@ public class PayController {
                           @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
                           @ApiParam("回调地址") @RequestParam(value = "url") String url) {
 
+        this.baseUrl = url;
+
         Integer showId = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
 
         String payChannel = "微信支付";
