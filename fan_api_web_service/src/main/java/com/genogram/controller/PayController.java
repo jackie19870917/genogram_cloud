@@ -22,6 +22,7 @@ import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.omg.CORBA.portable.ResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -360,7 +361,14 @@ public class PayController {
         if (StringUtils.isEmpty(codeUrl)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "服务器正忙");
         } else {
-            return ResponseUtlis.success(codeUrl);
+
+            Map map = new HashMap();
+
+            map.put("code_url", codeUrl);
+            map.put("out_trade_no", payId);
+            map.put("total_fee", totalFee);
+
+            return ResponseUtlis.success(map);
         }
         /*System.out.println(codeUrl);
 
