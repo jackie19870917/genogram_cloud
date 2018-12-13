@@ -22,8 +22,10 @@ import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.omg.CORBA.portable.ResponseHandler;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +33,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.w3c.dom.Element;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -407,14 +407,14 @@ public class PayController {
         is.close();
         String requestStr = new String(xmldataByte, "UTF-8");
         System.out.println(requestStr);
-        org.dom4j.Document doc = org.dom4j.DocumentHelper
+        Document doc = DocumentHelper
                 .parseText(requestStr);
-        Element rootElt = (Element) doc.getRootElement();
+        Element rootElt = doc.getRootElement();
 
         // jdbc
 
         //更新订单状态
-        String orderno=rootElt.getAttribute("out_trade_no");
+        String orderno=rootElt.elementText("out_trade_no");
 
         System.out.println("orderno:"+orderno);
       /*  // 商户订单号
