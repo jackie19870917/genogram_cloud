@@ -61,15 +61,14 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
 
 
     /**
-     * 联谊会慈善帮扶申报添加修改
-     *
-     * @Author: yuzhou
-     * @Date: 2018-12-12
-     * @Time: 14:00
-     * @Param:
-     * @return:
-     * @Description:
-     */
+     *联谊会慈善帮扶申报添加修改
+     *@Author: yuzhou
+     *@Date: 2018-12-12
+     *@Time: 14:00
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public Boolean addCharityAssist(FanSysCharitableDeclare fanSysCharitableDeclare) {
         //生成时间
@@ -78,22 +77,21 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
             //存入创建时间
             fanSysCharitableDeclare.setCreateTime(format);
         }
-        //存入修改时间
-        fanSysCharitableDeclare.setUpdateTime(format);
+            //存入修改时间
+            fanSysCharitableDeclare.setUpdateTime(format);
         boolean result = this.insertOrUpdate(fanSysCharitableDeclare);
         return result;
     }
 
     /**
-     * 联谊会慈善帮扶申报详情
-     *
-     * @Author: yuzhou
-     * @Date: 2018-12-12
-     * @Time: 16:16
-     * @Param:
-     * @return:
-     * @Description:
-     */
+     *联谊会慈善帮扶申报详情
+     *@Author: yuzhou
+     *@Date: 2018-12-12
+     *@Time: 16:16
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public FanSysCharitableDeclare getFamilyStructureDetails(Integer id) {
         FanSysCharitableDeclare fanSysCharitableDeclare = this.selectById(id);
@@ -101,22 +99,25 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
     }
 
     /**
-     * 联谊会慈善帮扶申报详情帮扶反馈添加
-     *
-     * @Author: yuzhou
-     * @Date: 2018-12-12
-     * @Time: 18:08
-     * @Param:
-     * @return:
-     * @Description:
-     */
+     *联谊会慈善帮扶申报详情帮扶反馈添加
+     *@Author: yuzhou
+     *@Date: 2018-12-12
+     *@Time: 18:08
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
-    public Boolean addCharityAssistFeedback(Integer id, String helpFeedback, String helpFeedbackFile) {
+    public Boolean addCharityAssistFeedback(Integer id, String helpFeedback, String helpFeedbackFile,AllUserLogin userLoginInfoByToken) {
         //查询数据
         FanSysCharitableDeclare fanSysCharitableDeclare = this.selectById(id);
         //存储
         fanSysCharitableDeclare.setHelpFeedback(helpFeedback);
         fanSysCharitableDeclare.setHelpFeedbackFile(helpFeedbackFile);
+        //修改人
+        fanSysCharitableDeclare.setUpdateUser(userLoginInfoByToken.getId());
+        //修改时间
+        fanSysCharitableDeclare.setUpdateTime(DateUtil.getCurrentTimeStamp());
         //修改数据
         boolean result = this.updateAllColumnById(fanSysCharitableDeclare);
         return result;
