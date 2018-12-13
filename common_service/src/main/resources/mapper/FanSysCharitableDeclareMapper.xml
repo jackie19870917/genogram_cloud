@@ -30,12 +30,17 @@
         <result column="recommender_osition" property="recommenderOsition" />
         <result column="examinant" property="examinant" />
         <result column="examinant_opinion" property="examinantOpinion" />
+        <result column="isExaminant" property="isExaminant" />
         <result column="verifier" property="verifier" />
         <result column="verifier_opinion" property="verifierOpinion" />
+        <result column="isVerifier" property="isVerifier" />
         <result column="approver" property="approver" />
         <result column="approver_opinion" property="approverOpinion" />
+        <result column="isApprover" property="isApprover" />
         <result column="help_feedback" property="helpFeedback" />
         <result column="help_feedback_file" property="helpFeedbackFile" />
+        <result column="responsible_person" property="responsiblePerson" />
+        <result column="responsible_person_money" property="responsiblePersonMoney" />
         <result column="create_user" property="createUser" />
         <result column="update_user" property="updateUser" />
         <result column="create_time" property="createTime" />
@@ -44,7 +49,21 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, status, show_id AS showId, title, picture_address AS pictureAddress, apply_name AS applyName, apply_phone AS applyPhone, apply_money AS applyMoney, apply_num AS applyNum, account_bank AS accountBank, account_name AS accountName, account_num AS accountNum, applicant_adress AS applicantAdress, receivables_name AS receivablesName, receivables_phone AS receivablesPhone, receivables_id AS receivablesId, receivables_address AS receivablesAddress, receivables_bank AS receivablesBank, receivables_num AS receivablesNum, abstract_info AS abstractInfo, recommender_name AS recommenderName, recommender_phone AS recommenderPhone, recommender_company AS recommenderCompany, recommender_osition AS recommenderOsition, examinant, examinant_opinion AS examinantOpinion, verifier, verifier_opinion AS verifierOpinion, approver, approver_opinion AS approverOpinion, help_feedback AS helpFeedback, help_feedback_file AS helpFeedbackFile, create_user AS createUser, update_user AS updateUser, create_time AS createTime, update_time AS updateTime
-    </sql>
+            id, status, show_id AS showId, title, picture_address AS pictureAddress, apply_name AS applyName, apply_phone AS applyPhone, apply_money AS applyMoney, apply_num AS applyNum, account_bank AS accountBank, account_name AS accountName, account_num AS accountNum, applicant_adress AS applicantAdress, receivables_name AS receivablesName, receivables_phone AS receivablesPhone, receivables_id AS receivablesId, receivables_address AS receivablesAddress, receivables_bank AS receivablesBank, receivables_num AS receivablesNum, abstract_info AS abstractInfo, recommender_name AS recommenderName, recommender_phone AS recommenderPhone, recommender_company AS recommenderCompany, recommender_osition AS recommenderOsition, examinant, examinant_opinion AS examinantOpinion, isExaminant, verifier, verifier_opinion AS verifierOpinion, isVerifier, approver, approver_opinion AS approverOpinion, isApprover, help_feedback AS helpFeedback, help_feedback_file AS helpFeedbackFile, responsible_person AS responsiblePerson, responsible_person_money AS responsiblePersonMoney, create_user AS createUser, update_user AS updateUser, create_time AS createTime, update_time AS updateTime
+        </sql>
 
-</mapper>
+    <select id="familyStructureMoney" parameterType="java.util.Map" resultType="java.math.BigDecimal">
+        SELECT
+        sum(apply_money) AS applyMoney
+        FROM fan_sys_charitable_declare
+        where
+        1=1
+        <if test="showId!=null">
+            and show_id=#{showId}
+        </if>
+        and status in
+        <foreach collection="status" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+        </mapper>

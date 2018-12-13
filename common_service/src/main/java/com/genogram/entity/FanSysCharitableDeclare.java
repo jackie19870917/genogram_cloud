@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-12-12
+ * @since 2018-12-13
  */
 @TableName("fan_sys_charitable_declare")
 public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
@@ -150,6 +150,10 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
     @TableField("examinant_opinion")
     private String examinantOpinion;
     /**
+     * 审查人是否同意  1:同意 2:退回
+     */
+    private Integer isExaminant;
+    /**
      * 审核人
      */
     private String verifier;
@@ -158,6 +162,10 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
      */
     @TableField("verifier_opinion")
     private String verifierOpinion;
+    /**
+     * 审核人是否同意  1:同意 2:退回
+     */
+    private Integer isVerifier;
     /**
      * 审批人
      */
@@ -168,6 +176,10 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
     @TableField("approver_opinion")
     private String approverOpinion;
     /**
+     * 审批人是否同意  1:同意 2:退回
+     */
+    private Integer isApprover;
+    /**
      * 帮助反馈
      */
     @TableField("help_feedback")
@@ -177,6 +189,16 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
      */
     @TableField("help_feedback_file")
     private String helpFeedbackFile;
+    /**
+     * 经办人
+     */
+    @TableField("responsible_person")
+    private String responsiblePerson;
+    /**
+     * 经办人输入的金额
+     */
+    @TableField("responsible_person_money")
+    private BigDecimal responsiblePersonMoney;
     /**
      * 创建人
      */
@@ -433,6 +455,15 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
+    public Integer getIsExaminant() {
+        return isExaminant;
+    }
+
+    public FanSysCharitableDeclare setIsExaminant(Integer isExaminant) {
+        this.isExaminant = isExaminant;
+        return this;
+    }
+
     public String getVerifier() {
         return verifier;
     }
@@ -448,6 +479,15 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
 
     public FanSysCharitableDeclare setVerifierOpinion(String verifierOpinion) {
         this.verifierOpinion = verifierOpinion;
+        return this;
+    }
+
+    public Integer getIsVerifier() {
+        return isVerifier;
+    }
+
+    public FanSysCharitableDeclare setIsVerifier(Integer isVerifier) {
+        this.isVerifier = isVerifier;
         return this;
     }
 
@@ -469,6 +509,15 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
+    public Integer getIsApprover() {
+        return isApprover;
+    }
+
+    public FanSysCharitableDeclare setIsApprover(Integer isApprover) {
+        this.isApprover = isApprover;
+        return this;
+    }
+
     public String getHelpFeedback() {
         return helpFeedback;
     }
@@ -484,6 +533,24 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
 
     public FanSysCharitableDeclare setHelpFeedbackFile(String helpFeedbackFile) {
         this.helpFeedbackFile = helpFeedbackFile;
+        return this;
+    }
+
+    public String getResponsiblePerson() {
+        return responsiblePerson;
+    }
+
+    public FanSysCharitableDeclare setResponsiblePerson(String responsiblePerson) {
+        this.responsiblePerson = responsiblePerson;
+        return this;
+    }
+
+    public BigDecimal getResponsiblePersonMoney() {
+        return responsiblePersonMoney;
+    }
+
+    public FanSysCharitableDeclare setResponsiblePersonMoney(BigDecimal responsiblePersonMoney) {
+        this.responsiblePersonMoney = responsiblePersonMoney;
         return this;
     }
 
@@ -557,12 +624,17 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         ", recommenderOsition=" + recommenderOsition +
         ", examinant=" + examinant +
         ", examinantOpinion=" + examinantOpinion +
+        ", isExaminant=" + isExaminant +
         ", verifier=" + verifier +
         ", verifierOpinion=" + verifierOpinion +
+        ", isVerifier=" + isVerifier +
         ", approver=" + approver +
         ", approverOpinion=" + approverOpinion +
+        ", isApprover=" + isApprover +
         ", helpFeedback=" + helpFeedback +
         ", helpFeedbackFile=" + helpFeedbackFile +
+        ", responsiblePerson=" + responsiblePerson +
+        ", responsiblePersonMoney=" + responsiblePersonMoney +
         ", createUser=" + createUser +
         ", updateUser=" + updateUser +
         ", createTime=" + createTime +

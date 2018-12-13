@@ -3,6 +3,9 @@ package com.genogram.mapper;
 import com.genogram.entity.FanSysCharitableDeclare;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
+import java.math.BigDecimal;
+import java.util.Map;
+
 /**
  * <p>
  * Mapper 接口
@@ -13,4 +16,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface FanSysCharitableDeclareMapper extends BaseMapper<FanSysCharitableDeclare> {
 
+
+    BigDecimal familyStructureMoney(Map map);
 }
