@@ -101,6 +101,7 @@ public class UserController {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
+        personVo.setAllUserLoginId(userLogin.getId());
         personVo.setUpdateUser(userLogin.getId());
         Boolean result = allUserRegService.updateAllUserReg(personVo);
 

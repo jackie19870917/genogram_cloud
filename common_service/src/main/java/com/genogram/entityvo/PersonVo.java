@@ -28,6 +28,14 @@ public class PersonVo {
      */
     private String nickName;
     /**
+     * 用户名
+     */
+    private String userName;
+    /**
+     * 真实名
+     */
+    private String realName;
+    /**
      * 图像
      */
     private String url;
