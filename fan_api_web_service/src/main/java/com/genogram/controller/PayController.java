@@ -22,6 +22,7 @@ import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.dom4j.DocumentException;
 import org.omg.CORBA.portable.ResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.Element;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -382,9 +384,40 @@ public class PayController {
     }
 
     @RequestMapping("callBack")
-    public void callBack(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void callBack(HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
 
-        // 商户订单号
+        java.io.InputStream is = request.getInputStream();
+        // 取HTTP请求流长度
+        int size = request.getContentLength();
+        // 用于缓存每次读取的数据
+        byte[] buffer = new byte[size];
+        // 用于存放结果的数组
+        byte[] xmldataByte = new byte[size];
+        int count = 0;
+        int rbyte = 0;
+        // 循环读取
+        while (count < size) {
+            // 每次实际读取长度存于rbyte中
+            rbyte = is.read(buffer);
+            for (int i = 0; i < rbyte; i++) {
+                xmldataByte[count + i] = buffer[i];
+            }
+            count += rbyte;
+        }
+        is.close();
+        String requestStr = new String(xmldataByte, "UTF-8");
+        System.out.println(requestStr);
+        org.dom4j.Document doc = org.dom4j.DocumentHelper
+                .parseText(requestStr);
+        Element rootElt = (Element) doc.getRootElement();
+
+        // jdbc
+
+        //更新订单状态
+        String orderno=rootElt.getAttribute("out_trade_no");
+
+        System.out.println("orderno:"+orderno);
+      /*  // 商户订单号
         String outTradeNo = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8");
 
         System.out.println(outTradeNo);
@@ -410,10 +443,19 @@ public class PayController {
         fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal(totalAmount)));
         fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
 
-        fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
+        fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);*/
 
-        System.out.println("周瑜");
+        //给微信返回支付成功结果
+        String responseStr = "<xml>";
+        responseStr += "<return_code><![CDATA[SUCCESS]]></return_code>";
+        responseStr += "</xml>";
 
-        response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
+        response.getWriter().write(responseStr);
+        System.out.println("responseStr2:" + responseStr);
+
+
+        System.out.println("支付完成");
+
+       // response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
     }
 }
