@@ -7,6 +7,7 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.genogram.config.AlipayConfig;
 import com.genogram.config.Constants;
+import com.genogram.config.PayConfig;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityPayIn;
@@ -351,7 +352,7 @@ public class PayController {
 
 
         // 回调地址
-        String callback = url + "result=success&out_trade_no=" + payId + "&total_amount=" + totalFee;
+        String callback = new PayConfig().getNotifyUrl();
 
         // 生成一个code_url
         String codeUrl = PayUtils.pay(payId, userIp, totalFee, body, callback);
