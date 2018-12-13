@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -301,13 +302,34 @@ public class PayController {
 
     @ApiOperation("微信支付")
     @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
-    public void weChatPay(Model model, HttpServletRequest request, FanNewsCharityPayIn fanNewsCharityPayIn) {
+    public Response weChatPay(Model model, HttpServletRequest request,
+                          FanNewsCharityPayIn fanNewsCharityPayIn,
+                          @ApiParam("网站ID") @RequestParam Integer siteId,
+                          @ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                          @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
+                          @ApiParam("回调地址") @RequestParam(value = "url") String url) {
+
+        Integer showId = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
+
+        String payChannel = "微信支付";
+
+        AllUserLogin userLogin = new AllUserLogin();
+
+        if (1 == anonymous) {
+            userLogin.setId(1);
+        } else {
+            if (StringUtils.isEmpty(token)) {
+               // return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
+            } else {
+                userLogin = userService.getUserLoginInfoByToken(token);
+            }
+        }
 
         // 订单编号
         String payId = DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
 
         // 支付用户的id
-        String userIp = PayUtils.getRemoteAddr(null);
+        String userIp = PayUtils.getRemoteAddr(request);
 
         // 支付金额
         String totalFee = fanNewsCharityPayIn.getPayAmount() + "";
@@ -315,23 +337,68 @@ public class PayController {
         // 商品描述
         String body = "炎黄統譜网在线微信扫码支付";
 
+
+        fanNewsCharityPayIn.setOrderId(payId);
+        fanNewsCharityPayIn.setShowId(showId);
+        fanNewsCharityPayIn.setPayUsrId(userLogin.getId());
+        fanNewsCharityPayIn.setType(1);
+        fanNewsCharityPayIn.setStatus(2);
+        fanNewsCharityPayIn.setPayChannel(payChannel);
+
+        fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+
+
         // 回调地址
-        //response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
-        String callback = this.baseUrl + "result=success&out_trade_no=" + payId + "&total_amount=" + totalFee;
-        //String callback ="localhost:8080/success";
+        String callback = url + "result=success&out_trade_no=" + payId + "&total_amount=" + totalFee;
 
         // 生成一个code_url
         String codeUrl = PayUtils.pay(payId, userIp, totalFee, body, callback);
-        // String code_url = PayUtils.pay(payId, userId, total_fee, body, callback,
-        // request);
-        System.out.println(codeUrl);
+
+        if (StringUtils.isEmpty(codeUrl)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "服务器正忙");
+        } else {
+            return ResponseUtlis.success(codeUrl);
+        }
+        /*System.out.println(codeUrl);
 
         model.addAttribute("code_url", codeUrl);
         model.addAttribute("oid", payId);
-        model.addAttribute("totalPrice", totalFee);
+        model.addAttribute("totalPrice", totalFee);*/
 
         // 进入到二维码生成页面
-      //  return "saoma";
+        //  return "saoma";
 
+    }
+
+    @RequestMapping("callBack")
+    public void callBack(HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+        // 商户订单号
+        String outTradeNo = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8");
+
+        // 付款金额
+        String totalAmount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");
+
+        FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
+
+        fanNewsCharityPayIn.setOrderId(outTradeNo);
+        fanNewsCharityPayIn = fanNewsCharityPayInService.selectOne(fanNewsCharityPayIn);
+
+        fanNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
+        fanNewsCharityPayIn.setStatus(1);
+
+        fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+
+        //修改基金金额
+        Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
+
+        FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
+
+        fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal(totalAmount)));
+        fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
+
+        fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
+
+        response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
     }
 }

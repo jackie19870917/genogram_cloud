@@ -34,7 +34,7 @@ public class PayUtils extends WXPayUtil {
         data.put("device_info", "");
         // 货币类型
         data.put("fee_type", "CNY");
-        data.put("total_fee", Integer.valueOf(totalFee) * 100 + "");
+        data.put("total_fee", (int) (Double.parseDouble(totalFee) * 100) + "");
         data.put("spbill_create_ip", "127.0.0.1");
         data.put("notify_url", callback);
         // 支付方式
