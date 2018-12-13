@@ -411,18 +411,9 @@ public class PayController {
                 .parseText(requestStr);
         Element rootElt = doc.getRootElement();
 
-        // jdbc
+        String outTradeNo=rootElt.elementText("out_trade_no");
 
-        //更新订单状态
-        String orderno=rootElt.elementText("out_trade_no");
-
-        System.out.println("orderno:"+orderno);
-      /*  // 商户订单号
-        String outTradeNo = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8");
-
-        System.out.println(outTradeNo);
-        // 付款金额
-        String totalAmount = new String(request.getParameter("total_fee").getBytes("ISO-8859-1"), "UTF-8");
+        String totalAmount=rootElt.elementText("total_tee");
 
         System.out.println(totalAmount);
         FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
@@ -443,7 +434,7 @@ public class PayController {
         fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal(totalAmount)));
         fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
 
-        fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);*/
+        fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
 
         //给微信返回支付成功结果
         String responseStr = "<xml>";
@@ -456,6 +447,6 @@ public class PayController {
 
         System.out.println("支付完成");
 
-       // response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
+        response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
     }
 }
