@@ -16,4 +16,8 @@ public interface IAllUserReplyService extends IService<AllUserReply> {
 
     List<AllUserReply> getAllUserReply(Integer commentId);
 
+    Boolean insertAllUserReply(AllUserReply allUserReply);
+
+    Boolean delAllUserReply(Integer id);
+
 }

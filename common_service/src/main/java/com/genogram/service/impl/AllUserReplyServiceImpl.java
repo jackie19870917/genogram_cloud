@@ -33,4 +33,14 @@ public class AllUserReplyServiceImpl extends ServiceImpl<AllUserReplyMapper, All
         }
         return allUserReplyList;
     }
+
+    @Override
+    public Boolean insertAllUserReply(AllUserReply allUserReply) {
+        return this.insert(allUserReply);
+    }
+
+    @Override
+    public Boolean delAllUserReply(Integer id) {
+        return this.deleteById(id);
+    }
 }

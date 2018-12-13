@@ -18,4 +18,10 @@ public interface IAllUserCommentsService extends IService<AllUserComments> {
 
     List<CommentVo> getAllUserComments(Integer topicId, String serviceName);
 
+    Boolean insertAllUserComments(AllUserComments allUserComments);
+
+    Boolean delAllUserComments(Integer id);
+
+    Integer delAllUserCommentslist(List<Integer> idList);
+
 }

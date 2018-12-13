@@ -1,7 +1,10 @@
 package com.genogram.controller;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserComments;
+import com.genogram.entity.AllUserReply;
 import com.genogram.entityvo.CommentVo;
 import com.genogram.service.IAllUserCommentsService;
+import com.genogram.service.IAllUserReplyService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -21,7 +24,7 @@ import java.util.List;
  * @author wangwei
  * @since 2018-12-07
  */
-@Api(description = "获取评论")
+@Api(description = "评论-维护controller")
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("genogram/allUserComments")
@@ -29,8 +32,12 @@ public class AllUserCommentsController {
 
     @Autowired
     private IAllUserCommentsService AllUserCommentsService;
-    @ApiOperation(value = "评论列表", notes = "entityName-实体名,topicId-主题id")
-    @RequestMapping(value = "getAllUserComments", method = RequestMethod.GET)
+
+    @Autowired
+    IAllUserReplyService allUserReplyService;
+
+    @ApiOperation(value = "获取评论列表", notes = "entityName-实体名,topicId-主题id")
+    @RequestMapping(value = "getAllUserComments", method = RequestMethod.POST)
     public Response<List<CommentVo>> getAllUserComments(@ApiParam("topicId") @RequestParam(value = "topicId", required = false) Integer topicId,
                                                         @ApiParam("entityName") @RequestParam("entityName")  String entityName) {
 
@@ -43,7 +50,73 @@ public class AllUserCommentsController {
         List<CommentVo> commentVoList=AllUserCommentsService.getAllUserComments(topicId,entityName);
         return ResponseUtlis.success(commentVoList);
     }
+    @ApiOperation(value = "添加评论", notes = "allUserComments-评论实体")
+    @RequestMapping(value = "addAllUserComments", method = RequestMethod.POST)
+    public Response<Boolean> addAllUserComments(@RequestBody AllUserComments allUserComments) {
+
+        if (StringUtils.isEmpty(allUserComments)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserComments为空");
+        }
+        Boolean flag= AllUserCommentsService.insertAllUserComments(allUserComments);
+        return ResponseUtlis.success(flag);
+    }
 
 
+    @ApiOperation(value = "添加回复", notes = "AllUserReply-回复实体")
+    @RequestMapping(value = "addAllUserReply", method = RequestMethod.POST)
+    public Response<Boolean> addAllUserReply(@RequestBody AllUserReply allUserReply) {
+
+        if (StringUtils.isEmpty(allUserReply)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserReply为空");
+        }
+        Boolean flag= allUserReplyService.insertAllUserReply(allUserReply);
+        return ResponseUtlis.success(flag);
+    }
+
+    @ApiOperation(value = "删除评论", notes = "id-实体id")
+    @RequestMapping(value = "delAllUserComments", method = RequestMethod.POST)
+    public Response<Boolean> delAllUserComments(@ApiParam("id") @RequestParam(value = "id", required = false) Integer id) {
+
+        if (StringUtils.isEmpty(id)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserReply为空");
+        }
+        Boolean flag= AllUserCommentsService.delAllUserComments(id);
+        if(flag){
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        }else{
+            return ResponseUtlis.success(Constants.ERROR_LOG);
+        }
+
+    }
+
+    @ApiOperation(value = "删除回复", notes = "id-实体id")
+    @RequestMapping(value = "delAllUserReply", method = RequestMethod.POST)
+    public Response<Boolean> delAllUserReply(@ApiParam("id") @RequestParam(value = "id", required = false) Integer id) {
+
+        if (StringUtils.isEmpty(id)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserReply为空");
+        }
+        Boolean flag= allUserReplyService.delAllUserReply(id);
+        if(flag){
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        }else{
+            return ResponseUtlis.success(Constants.ERROR_LOG);
+        }
+    }
+
+    @ApiOperation(value = "删除评论列表", notes = "id-实体id")
+    @RequestMapping(value = "delAllUserCommentsList", method = RequestMethod.POST)
+    public Response<CommentVo> delAllUserCommentsList(@RequestBody List<Integer> idList) {
+
+        if (StringUtils.isEmpty(idList)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "idList为空");
+        }
+        Integer count= AllUserCommentsService.delAllUserCommentslist(idList);
+        if(count>0){
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        }else{
+            return ResponseUtlis.success(Constants.ERROR_LOG);
+        }
+    }
 }
 

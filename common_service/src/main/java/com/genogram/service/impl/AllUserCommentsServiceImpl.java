@@ -13,7 +13,6 @@ import com.genogram.service.IAllUserReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,14 +37,14 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
         List<CommentVo> commentVoList=null;
         Wrapper<AllUserComments> Wrapper=new EntityWrapper<>();
         Wrapper.eq("topic_id",topicId);
-          Wrapper.eq("entity_name",entityName);
+        Wrapper.eq("entity_name",entityName);
+        Wrapper.eq("status",1);
         //Wrapper.groupBy("create_time").
         List<AllUserComments> AllUserCommentsList=this.selectList(Wrapper);
         CommentVo commentVo;
         CommentVo commentToReplyVo;
         List<CommentVo> commentToReplyVoList=null;
         CommentVo replyToReplyVo;
-
         //构造评论结构体
         if(!StringUtils.isEmpty(AllUserCommentsList)){
 
@@ -56,7 +55,6 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                 if(null==commentVoList||commentVoList.size()==0){
                     commentVoList=new ArrayList<CommentVo>();
                 }
-
                 commentVo.setId(allUserComments.getId());
                 commentVo.setUserName(allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser()).getUserName());
                 commentVo.setContent(allUserComments.getContent());
@@ -66,8 +64,6 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                 if(!StringUtils.isEmpty(allUserReplylist)){
                     commentToReplyVoList=new ArrayList<CommentVo>();
                     for(AllUserReply allUserReply:allUserReplylist){
-
-
                         commentToReplyVo=new CommentVo();
                         commentToReplyVo.setId(allUserReply.getId());
                         commentToReplyVo.setUserName(allUserLoginService.getAllUserLoginById(allUserReply.getCreateUser()).getUserName());
@@ -80,12 +76,8 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                         }else if(allUserReply.getReplyType()==2){
                         //回复的回复
                             if(commentToReplyVoList!=null&&commentToReplyVoList.size()>0){
-
-
                             for(CommentVo parent:commentToReplyVoList){
-
                                 Integer tempId=allUserReply.getReplyId();
-
                                 if(tempId==parent.getId()){
                                     //回复的回复
                                     replyToReplyVo=new CommentVo();
@@ -198,5 +190,22 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
         }*/
         return commentVoList;
     }
+
+    @Override
+    public Boolean insertAllUserComments(AllUserComments allUserComments) {
+        return this.insert(allUserComments);
+    }
+
+    @Override
+    public Boolean delAllUserComments(Integer id) {
+        return this.deleteById(id);
+    }
+
+    @Override
+    public Integer delAllUserCommentslist(List<Integer> idList) {
+        return this.delAllUserCommentslist(idList);
+    }
+
+
 }
 
