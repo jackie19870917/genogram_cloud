@@ -372,8 +372,9 @@ public class PayController {
 
     @RequestMapping("callBack")
     public void callBack(HttpServletRequest request,HttpServletResponse response) throws IOException {
+        System.out.println("周瑜");
 
-        // 商户订单号
+       /* // 商户订单号
         String outTradeNo = new String(request.getParameter("out_trade_no").getBytes("ISO-8859-1"), "UTF-8");
 
         // 付款金额
@@ -399,6 +400,6 @@ public class PayController {
 
         fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
 
-        response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
+        response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);*/
     }
 }
