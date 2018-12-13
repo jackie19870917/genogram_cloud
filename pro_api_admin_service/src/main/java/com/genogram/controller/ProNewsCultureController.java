@@ -196,7 +196,7 @@ public class ProNewsCultureController {
 
         Set set = allCheckOutService.getSensitiveWord(proNewsCultureZipai.getZipaiTxt());
 
-        if (set.size() >= 1) {
+        if (set != null && set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
@@ -466,7 +466,7 @@ public class ProNewsCultureController {
 
         Set set = allCheckOutService.getSensitiveWord(proNewsCultureNews.getNewsText());
 
-        if (set.size() >= 1) {
+        if (set != null && set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 

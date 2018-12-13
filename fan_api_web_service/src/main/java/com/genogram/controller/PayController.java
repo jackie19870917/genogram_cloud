@@ -304,11 +304,11 @@ public class PayController {
     @ApiOperation("微信支付")
     @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
     public Response weChatPay(Model model, HttpServletRequest request,
-                          FanNewsCharityPayIn fanNewsCharityPayIn,
-                          @ApiParam("网站ID") @RequestParam Integer siteId,
-                          @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                          @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
-                          @ApiParam("回调地址") @RequestParam(value = "url") String url) {
+                              FanNewsCharityPayIn fanNewsCharityPayIn,
+                              @ApiParam("网站ID") @RequestParam Integer siteId,
+                              @ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                              @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
+                              @ApiParam("回调地址") @RequestParam(value = "url") String url) {
 
         this.baseUrl = url;
 
@@ -322,7 +322,7 @@ public class PayController {
             userLogin.setId(1);
         } else {
             if (StringUtils.isEmpty(token)) {
-               // return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
+                // return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
             } else {
                 userLogin = userService.getUserLoginInfoByToken(token);
             }
@@ -374,7 +374,7 @@ public class PayController {
     }
 
     @RequestMapping("callBack")
-    public void callBack(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public void callBack(HttpServletRequest request, HttpServletResponse response) throws IOException {
         System.out.println("周瑜");
 
        /* // 商户订单号

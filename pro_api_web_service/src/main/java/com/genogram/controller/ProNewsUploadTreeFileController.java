@@ -87,7 +87,7 @@ public class ProNewsUploadTreeFileController {
         }
 
         Integer a = 2;
-        if (isFrom .equals(a) ) {
+        if (isFrom.equals(a)) {
             ProNewsUploadTreeFile proNewsUploadTreeFile = proNewsUploadTreeFileService.getProNewsUploadTreeFile(id);
 
             Integer status = 2;

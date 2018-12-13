@@ -4,15 +4,15 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserPraise">
-        <id column="id" property="id" />
-        <result column="praise_topic_id" property="praiseTopicId" />
-        <result column="service_name" property="serviceName" />
-        <result column="from_user_id" property="fromUserId" />
-        <result column="status" property="status" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="praise_topic_id" property="praiseTopicId"/>
+        <result column="service_name" property="serviceName"/>
+        <result column="from_user_id" property="fromUserId"/>
+        <result column="status" property="status"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

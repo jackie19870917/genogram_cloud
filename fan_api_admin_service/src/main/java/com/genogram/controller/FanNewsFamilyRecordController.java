@@ -191,7 +191,7 @@ public class FanNewsFamilyRecordController {
 
         Set set = allCheckOutService.getSensitiveWord(fanNewsRecord.getNewsText());
 
-        if (set.size() >= 1) {
+        if (set != null && set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 

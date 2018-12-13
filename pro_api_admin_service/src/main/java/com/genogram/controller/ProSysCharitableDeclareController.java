@@ -46,15 +46,17 @@ public class ProSysCharitableDeclareController {
 
     @Autowired
     private IUserService userService;
+
     /**
-     *省级慈善帮扶申报详情页查询
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 15:32
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级慈善帮扶申报详情页查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 15:32
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "省级慈善帮扶申报详情页查询", notes = "show_id:网站id")
     @RequestMapping(value = "/getSysCharitableDeclare", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> getFamilyStructureList(
@@ -76,7 +78,7 @@ public class ProSysCharitableDeclareController {
                 return ResponseUtlis.error(Constants.IS_EMPTY, "请输入showId");
             }
             //状态(0:审核通过;1:审核中;2:草稿3:审核不通过)
-            List<Integer> list=new ArrayList<>();
+            List<Integer> list = new ArrayList<>();
             list.add(0);
             list.add(1);
             list.add(3);
@@ -95,13 +97,14 @@ public class ProSysCharitableDeclareController {
     }
 
     /**
-     *省级慈善帮扶申报详情
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 16:13
-     *@Param:
-     *@return:
-     *@Description:
+     * 省级慈善帮扶申报详情
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 16:13
+     * @Param:
+     * @return:
+     * @Description:
      */
     @ApiOperation(value = "省级慈善帮扶申报详情", notes = "")
     @RequestMapping(value = "/getFamilyStructureDetails", method = RequestMethod.GET)
@@ -124,8 +127,8 @@ public class ProSysCharitableDeclareController {
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
             }
-            FanSysCharitableDeclare fanSysCharitableDeclare=fanSysCharitableDeclareService.getFamilyStructureDetails(id);
-            if (fanSysCharitableDeclare==null) {
+            FanSysCharitableDeclare fanSysCharitableDeclare = fanSysCharitableDeclareService.getFamilyStructureDetails(id);
+            if (fanSysCharitableDeclare == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
             }
             return ResponseUtlis.success(fanSysCharitableDeclare);
@@ -136,14 +139,15 @@ public class ProSysCharitableDeclareController {
     }
 
     /**
-     *省级慈善帮扶申报详情 同意按钮
-     *@Author: yuzhou
-     *@Date:
-     *@Time: 10:03
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级慈善帮扶申报详情 同意按钮
+     *
+     * @Author: yuzhou
+     * @Date:
+     * @Time: 10:03
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "省级慈善帮扶申报详情 同意按钮", notes = "")
     @RequestMapping(value = "/familyStructureDetailsConsent", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> familyStructureDetailsConsent(
@@ -162,7 +166,7 @@ public class ProSysCharitableDeclareController {
             if (StringsUtils.isEmpty(userLoginInfoByToken)) {
                 return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
             }
-            Boolean aBoolean =fanSysCharitableDeclareService.familyStructureDetailsConsent(userLoginInfoByToken,fanSysCharitableDeclare,ratify);
+            Boolean aBoolean = fanSysCharitableDeclareService.familyStructureDetailsConsent(userLoginInfoByToken, fanSysCharitableDeclare, ratify);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "失败");
             }
@@ -174,13 +178,14 @@ public class ProSysCharitableDeclareController {
     }
 
     /**
-     *省级慈善帮扶申报详情 退回按钮
-     *@Author: yuzhou
-     *@Date:
-     *@Time: 10:03
-     *@Param:
-     *@return:
-     *@Description:
+     * 省级慈善帮扶申报详情 退回按钮
+     *
+     * @Author: yuzhou
+     * @Date:
+     * @Time: 10:03
+     * @Param:
+     * @return:
+     * @Description:
      */
     @ApiOperation(value = "省级慈善帮扶申报详情 退回按钮", notes = "")
     @RequestMapping(value = "/familyStructureDetailsDisagree", method = RequestMethod.GET)
@@ -200,7 +205,7 @@ public class ProSysCharitableDeclareController {
             if (StringsUtils.isEmpty(userLoginInfoByToken)) {
                 return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
             }
-            Boolean aBoolean =fanSysCharitableDeclareService.familyStructureDetailsDisagree(userLoginInfoByToken,fanSysCharitableDeclare,ratify);
+            Boolean aBoolean = fanSysCharitableDeclareService.familyStructureDetailsDisagree(userLoginInfoByToken, fanSysCharitableDeclare, ratify);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
             }
@@ -212,14 +217,15 @@ public class ProSysCharitableDeclareController {
     }
 
     /**
-     *省级慈善帮扶总金额
-     *@Author: yuzhou
-     *@Date: 2018-12-13
-     *@Time: 12:05
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级慈善帮扶总金额
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-13
+     * @Time: 12:05
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "省级慈善帮扶总金额", notes = "")
     @RequestMapping(value = "/familyStructureMoney", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> familyStructureMoney(
@@ -238,20 +244,20 @@ public class ProSysCharitableDeclareController {
                 return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
             }
             //判断showId是否为空
-            if(StringsUtils.isEmpty(showId)){
-                return ResponseUtlis.error(Constants.IS_EMPTY,"输入正确的showId");
+            if (StringsUtils.isEmpty(showId)) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, "输入正确的showId");
             }
             //状态(0:审核通过;1:审核中;2:草稿3:审核不通过)
-            List<Integer> list=new ArrayList<>();
+            List<Integer> list = new ArrayList<>();
             list.add(0);
             list.add(1);
             list.add(3);
 
             //放入查询条件
-            Map map=new HashMap(16);
-            map.put("status",list);
-            map.put("showId",showId);
-            BigDecimal money=fanSysCharitableDeclareService.familyStructureMoney(map);
+            Map map = new HashMap(16);
+            map.put("status", list);
+            map.put("showId", showId);
+            BigDecimal money = fanSysCharitableDeclareService.familyStructureMoney(map);
             return ResponseUtlis.success(money);
         } catch (Exception e) {
             e.printStackTrace();
@@ -260,14 +266,15 @@ public class ProSysCharitableDeclareController {
     }
 
     /**
-     *省级慈善帮扶经办人输入金额
-     *@Author: yuzhou
-     *@Date: 2018-12-13
-     *@Time: 16:12
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级慈善帮扶经办人输入金额
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-13
+     * @Time: 16:12
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "省级慈善帮扶经办人输入金额", notes = "")
     @RequestMapping(value = "/familyStructureResponsiblePerson", method = RequestMethod.POST)
     public Response<FanSysCharitableDeclare> familyStructureResponsiblePerson(
@@ -287,25 +294,23 @@ public class ProSysCharitableDeclareController {
                 return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
             }
             //判断id是否为空
-            if(StringsUtils.isEmpty(id)){
-                return ResponseUtlis.error(Constants.IS_EMPTY,"请输入主键Id");
+            if (StringsUtils.isEmpty(id)) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入主键Id");
             }
             //判断responsiblePersonMoney是否为空
-            if(StringsUtils.isEmpty(responsiblePersonMoney)){
-                return ResponseUtlis.error(Constants.IS_EMPTY,"请输入正确的金额");
+            if (StringsUtils.isEmpty(responsiblePersonMoney)) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入正确的金额");
             }
-            Boolean aBoolean=fanSysCharitableDeclareService.familyStructureResponsiblePerson(userLoginInfoByToken,id,responsiblePersonMoney);
-            if(!aBoolean){
-                return ResponseUtlis.error(Constants.ERRO_CODE,"存入失败");
+            Boolean aBoolean = fanSysCharitableDeclareService.familyStructureResponsiblePerson(userLoginInfoByToken, id, responsiblePersonMoney);
+            if (!aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, "存入失败");
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,"存入成功");
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "存入成功");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
-
-
 
 
 }

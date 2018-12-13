@@ -2,11 +2,12 @@ package com.genogram.service;
 
 import com.genogram.entity.AllUserReply;
 import com.baomidou.mybatisplus.service.IService;
+
 import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yizx

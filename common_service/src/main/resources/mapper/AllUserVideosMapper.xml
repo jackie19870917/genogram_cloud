@@ -6,8 +6,8 @@
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserVideos">
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
-        <result column="sys_status" property="sysStatus" />
-        <result column="status" property="status" />
+        <result column="sys_status" property="sysStatus"/>
+        <result column="status" property="status"/>
         <result column="title" property="title"/>
         <result column="region_id" property="regionId"/>
         <result column="video_pic_url" property="videoPicUrl"/>

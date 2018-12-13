@@ -9,7 +9,7 @@
         <result column="title" property="title"/>
         <result column="news_face_url" property="newsFaceUrl"/>
         <result column="content" property="content"/>
-        <result column="pro_code" property="proCode" />
+        <result column="pro_code" property="proCode"/>
         <result column="region_id" property="regionId"/>
         <result column="sys_status" property="sysStatus"/>
         <result column="read_num" property="readNum"/>

@@ -26,7 +26,7 @@ public class CommentVo {
      */
     private Date createTime;
     /**
-     *  嵌套评论或回复结构体
+     * 嵌套评论或回复结构体
      */
     private List<CommentVo> next;
 

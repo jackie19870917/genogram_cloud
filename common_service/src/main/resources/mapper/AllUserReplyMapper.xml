@@ -4,19 +4,19 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserReply">
-        <id column="id" property="id" />
-        <result column="comment_id" property="commentId" />
-        <result column="reply_id" property="replyId" />
-        <result column="reply_type" property="replyType" />
-        <result column="content" property="content" />
-        <result column="praise_count" property="praiseCount" />
-        <result column="status" property="status" />
-        <result column="from_user_id" property="fromUserId" />
-        <result column="to_user_id" property="toUserId" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="comment_id" property="commentId"/>
+        <result column="reply_id" property="replyId"/>
+        <result column="reply_type" property="replyType"/>
+        <result column="content" property="content"/>
+        <result column="praise_count" property="praiseCount"/>
+        <result column="status" property="status"/>
+        <result column="from_user_id" property="fromUserId"/>
+        <result column="to_user_id" property="toUserId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

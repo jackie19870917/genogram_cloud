@@ -139,7 +139,7 @@ public class SensitiveWordInit {
         Set<String> set = null;
 
         //读取文件
-       // File file = new File("/fastdfs_upload/data/data/00/01/rB_QCFwQuUWAceSdAAAKMvJSp3Q117.txt");
+        // File file = new File("/fastdfs_upload/data/data/00/01/rB_QCFwQuUWAceSdAAAKMvJSp3Q117.txt");
         File file = new File("sql\\api_url\\SensitiveWord.txt");
         InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);
         try {

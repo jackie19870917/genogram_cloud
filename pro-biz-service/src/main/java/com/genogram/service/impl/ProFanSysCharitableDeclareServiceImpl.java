@@ -55,14 +55,15 @@ public class ProFanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCha
     }
 
     /**
-     *联谊会慈善帮扶申报详情
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 16:16
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会慈善帮扶申报详情
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 16:16
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public FanSysCharitableDeclare getFamilyStructureDetails(Integer id) {
         FanSysCharitableDeclare fanSysCharitableDeclare = this.selectById(id);
@@ -70,28 +71,29 @@ public class ProFanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCha
     }
 
     /**
-     *省级慈善帮扶申报详情 同意按钮
-     *@Author: yuzhou
-     *@Date: 2018-12-13
-     *@Time: 10:26
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级慈善帮扶申报详情 同意按钮
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-13
+     * @Time: 10:26
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
-    public Boolean familyStructureDetailsConsent(AllUserLogin userLoginInfoByToken,FanSysCharitableDeclare fanSysCharitableDeclare,Integer ratify) {
+    public Boolean familyStructureDetailsConsent(AllUserLogin userLoginInfoByToken, FanSysCharitableDeclare fanSysCharitableDeclare, Integer ratify) {
         //获取姓名
         AllUserLogin allUserLogin = allUserLoginService.selectById(userLoginInfoByToken.getId());
         //ratify区分三级别审核 1:审查人,2:审核人,3:审批人
-        if(ratify==1){
-          fanSysCharitableDeclare.setExaminant(allUserLogin.getNickName());
-          //审查人是否同意  1:同意 2:退回
-          fanSysCharitableDeclare.setIsExaminant(1);
-        }else if(ratify==2){
-         fanSysCharitableDeclare.setVerifier(allUserLogin.getNickName());
+        if (ratify == 1) {
+            fanSysCharitableDeclare.setExaminant(allUserLogin.getNickName());
+            //审查人是否同意  1:同意 2:退回
+            fanSysCharitableDeclare.setIsExaminant(1);
+        } else if (ratify == 2) {
+            fanSysCharitableDeclare.setVerifier(allUserLogin.getNickName());
             //审核人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsVerifier(1);
-        }else if(ratify==3){
+        } else if (ratify == 3) {
             fanSysCharitableDeclare.setApprover(allUserLogin.getNickName());
             //审批人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsApprover(1);
@@ -110,28 +112,29 @@ public class ProFanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCha
     }
 
     /**
-     *省级慈善帮扶申报详情 退回按钮
-     *@Author: yuzhou
-     *@Date: 2018-12-13
-     *@Time: 11:49
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级慈善帮扶申报详情 退回按钮
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-13
+     * @Time: 11:49
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
-    public Boolean familyStructureDetailsDisagree(AllUserLogin userLoginInfoByToken, FanSysCharitableDeclare fanSysCharitableDeclare,Integer ratify) {
+    public Boolean familyStructureDetailsDisagree(AllUserLogin userLoginInfoByToken, FanSysCharitableDeclare fanSysCharitableDeclare, Integer ratify) {
         //获取姓名
         AllUserLogin allUserLogin = allUserLoginService.selectById(userLoginInfoByToken.getId());
         //ratify区分三级别审核 1:审查人,2:审核人,3:审批人
-        if(ratify==1){
+        if (ratify == 1) {
             fanSysCharitableDeclare.setExaminant(allUserLogin.getNickName());
             //审查人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsExaminant(2);
-        }else if(ratify==2){
+        } else if (ratify == 2) {
             fanSysCharitableDeclare.setVerifier(allUserLogin.getNickName());
             //审核人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsVerifier(2);
-        }else if(ratify==3){
+        } else if (ratify == 3) {
             fanSysCharitableDeclare.setApprover(allUserLogin.getNickName());
             //审批人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsApprover(2);
@@ -150,33 +153,35 @@ public class ProFanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCha
     }
 
     /**
-     *省级慈善帮扶总金额
-     *@Author: yuzhou
-     *@Date: 2018-12-13
-     *@Time: 14:06
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级慈善帮扶总金额
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-13
+     * @Time: 14:06
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public BigDecimal familyStructureMoney(Map map) {
-        BigDecimal money= fanSysCharitableDeclareMapper.familyStructureMoney(map);
-       return money;
+        BigDecimal money = fanSysCharitableDeclareMapper.familyStructureMoney(map);
+        return money;
     }
 
     /**
-     *省级慈善帮扶经办人输入金额
-     *@Author: yuzhou
-     *@Date: 2018-12-13
-     *@Time: 16:36
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级慈善帮扶经办人输入金额
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-13
+     * @Time: 16:36
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean familyStructureResponsiblePerson(AllUserLogin userLoginInfoByToken, Integer id, BigDecimal responsiblePersonMoney) {
         FanSysCharitableDeclare fanSysCharitableDeclare = this.selectById(id);
-        if(StringsUtils.isEmpty(fanSysCharitableDeclare)){
+        if (StringsUtils.isEmpty(fanSysCharitableDeclare)) {
             return null;
         }
         //获取经办人姓名

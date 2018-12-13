@@ -30,6 +30,7 @@ public interface IProFanSysCharitableDeclareService extends IService<FanSysChari
 
     /**
      * 联谊会慈善帮扶申报详情
+     *
      * @param id
      * @return
      */
@@ -37,30 +38,34 @@ public interface IProFanSysCharitableDeclareService extends IService<FanSysChari
 
     /**
      * 省级慈善帮扶申报详情 同意按钮
+     *
      * @param userLoginInfoByToken
      * @param fanSysCharitableDeclare
      * @param ratify
      * @return
      */
-    Boolean familyStructureDetailsConsent( AllUserLogin userLoginInfoByToken,FanSysCharitableDeclare fanSysCharitableDeclare,Integer ratify);
+    Boolean familyStructureDetailsConsent(AllUserLogin userLoginInfoByToken, FanSysCharitableDeclare fanSysCharitableDeclare, Integer ratify);
 
     /**
      * 省级慈善帮扶申报详情 退回按钮
+     *
      * @param userLoginInfoByToken
      * @param fanSysCharitableDeclare
      * @return
      */
-    Boolean familyStructureDetailsDisagree(AllUserLogin userLoginInfoByToken, FanSysCharitableDeclare fanSysCharitableDeclare,Integer ratify);
+    Boolean familyStructureDetailsDisagree(AllUserLogin userLoginInfoByToken, FanSysCharitableDeclare fanSysCharitableDeclare, Integer ratify);
 
 
     /**
      * 省级慈善帮扶总金额
+     *
      * @param map
      */
     BigDecimal familyStructureMoney(Map map);
 
     /**
      * 省级慈善帮扶经办人输入金额
+     *
      * @param userLoginInfoByToken
      * @param id
      * @param responsiblePersonMoney

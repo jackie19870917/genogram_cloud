@@ -1,14 +1,16 @@
 package com.genogram.entity;
 
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wangwei
@@ -193,19 +195,19 @@ public class AllUserReply extends Model<AllUserReply> {
     @Override
     public String toString() {
         return "AllUserReply{" +
-        ", id=" + id +
-        ", commentId=" + commentId +
-        ", replyId=" + replyId +
-        ", replyType=" + replyType +
-        ", content=" + content +
-        ", praiseCount=" + praiseCount +
-        ", status=" + status +
-        ", fromUserId=" + fromUserId +
-        ", toUserId=" + toUserId +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", commentId=" + commentId +
+                ", replyId=" + replyId +
+                ", replyType=" + replyType +
+                ", content=" + content +
+                ", praiseCount=" + praiseCount +
+                ", status=" + status +
+                ", fromUserId=" + fromUserId +
+                ", toUserId=" + toUserId +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

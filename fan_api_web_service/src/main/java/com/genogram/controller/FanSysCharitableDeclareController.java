@@ -44,14 +44,15 @@ public class FanSysCharitableDeclareController {
     private IUserService userService;
 
     /**
-     *联谊会慈善帮扶申报详情页查询
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 15:32
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会慈善帮扶申报详情页查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 15:32
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "联谊会慈善帮扶申报查询", notes = "show_id:网站id")
     @RequestMapping(value = "getSysCharitableDeclare", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> getFamilyStructureList(
@@ -68,7 +69,7 @@ public class FanSysCharitableDeclareController {
                 return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
             }
             //状态(0:审核通过;1:审核中;2:草稿3:审核不通过)
-            List<Integer> list=new ArrayList<>();
+            List<Integer> list = new ArrayList<>();
             list.add(0);
             list.add(1);
             list.add(3);
@@ -86,13 +87,14 @@ public class FanSysCharitableDeclareController {
     }
 
     /**
-     *联谊会慈善帮扶申报详情
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 16:13
-     *@Param:
-     *@return:
-     *@Description:
+     * 联谊会慈善帮扶申报详情
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 16:13
+     * @Param:
+     * @return:
+     * @Description:
      */
     @ApiOperation(value = "联谊会慈善帮扶申报详情", notes = "")
     @RequestMapping(value = "getFamilyStructureDetails", method = RequestMethod.GET)
@@ -115,8 +117,8 @@ public class FanSysCharitableDeclareController {
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
             }
-            FanSysCharitableDeclare fanSysCharitableDeclare=fanSysCharitableDeclareService.getFamilyStructureDetails(id);
-            if (fanSysCharitableDeclare==null) {
+            FanSysCharitableDeclare fanSysCharitableDeclare = fanSysCharitableDeclareService.getFamilyStructureDetails(id);
+            if (fanSysCharitableDeclare == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "查询成功");

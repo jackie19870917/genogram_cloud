@@ -1,4 +1,5 @@
 package com.genogram.controller;
+
 import com.genogram.config.Constants;
 import com.genogram.entity.AllUserComments;
 import com.genogram.entity.AllUserReply;
@@ -13,6 +14,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -39,7 +41,7 @@ public class AllUserCommentsController {
     @ApiOperation(value = "获取评论列表", notes = "entityName-实体名,topicId-主题id")
     @RequestMapping(value = "getAllUserComments", method = RequestMethod.POST)
     public Response<List<CommentVo>> getAllUserComments(@ApiParam("topicId") @RequestParam(value = "topicId", required = false) Integer topicId,
-                                                        @ApiParam("entityName") @RequestParam("entityName")  String entityName) {
+                                                        @ApiParam("entityName") @RequestParam("entityName") String entityName) {
 
         if (StringUtils.isEmpty(topicId)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "topicId为空");
@@ -47,9 +49,10 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(entityName)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "serviceName为空");
         }
-        List<CommentVo> commentVoList=AllUserCommentsService.getAllUserComments(topicId,entityName);
+        List<CommentVo> commentVoList = AllUserCommentsService.getAllUserComments(topicId, entityName);
         return ResponseUtlis.success(commentVoList);
     }
+
     @ApiOperation(value = "添加评论", notes = "allUserComments-评论实体")
     @RequestMapping(value = "addAllUserComments", method = RequestMethod.POST)
     public Response<Boolean> addAllUserComments(@RequestBody AllUserComments allUserComments) {
@@ -57,7 +60,7 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(allUserComments)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserComments为空");
         }
-        Boolean flag= AllUserCommentsService.insertAllUserComments(allUserComments);
+        Boolean flag = AllUserCommentsService.insertAllUserComments(allUserComments);
         return ResponseUtlis.success(flag);
     }
 
@@ -69,7 +72,7 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(allUserReply)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserReply为空");
         }
-        Boolean flag= allUserReplyService.insertAllUserReply(allUserReply);
+        Boolean flag = allUserReplyService.insertAllUserReply(allUserReply);
         return ResponseUtlis.success(flag);
     }
 
@@ -80,10 +83,10 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(id)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserReply为空");
         }
-        Boolean flag= AllUserCommentsService.delAllUserComments(id);
-        if(flag){
+        Boolean flag = AllUserCommentsService.delAllUserComments(id);
+        if (flag) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
-        }else{
+        } else {
             return ResponseUtlis.success(Constants.ERROR_LOG);
         }
 
@@ -96,10 +99,10 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(id)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserReply为空");
         }
-        Boolean flag= allUserReplyService.delAllUserReply(id);
-        if(flag){
+        Boolean flag = allUserReplyService.delAllUserReply(id);
+        if (flag) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
-        }else{
+        } else {
             return ResponseUtlis.success(Constants.ERROR_LOG);
         }
     }
@@ -111,10 +114,10 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(idList)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "idList为空");
         }
-        Integer count= AllUserCommentsService.delAllUserCommentslist(idList);
-        if(count>0){
+        Integer count = AllUserCommentsService.delAllUserCommentslist(idList);
+        if (count > 0) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
-        }else{
+        } else {
             return ResponseUtlis.success(Constants.ERROR_LOG);
         }
     }

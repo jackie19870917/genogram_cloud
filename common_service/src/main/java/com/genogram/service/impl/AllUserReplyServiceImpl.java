@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author wangwei
@@ -25,11 +25,11 @@ public class AllUserReplyServiceImpl extends ServiceImpl<AllUserReplyMapper, All
     @Override
     public List<AllUserReply> getAllUserReply(Integer commentId) {
 
-        List<AllUserReply> allUserReplyList=null;
-        Wrapper<AllUserReply> Wrapper=new EntityWrapper<>();
-        Wrapper.eq("comment_id",commentId);
-        if(!StringUtils.isEmpty(commentId)){
-            allUserReplyList=this.selectList(Wrapper);
+        List<AllUserReply> allUserReplyList = null;
+        Wrapper<AllUserReply> Wrapper = new EntityWrapper<>();
+        Wrapper.eq("comment_id", commentId);
+        if (!StringUtils.isEmpty(commentId)) {
+            allUserReplyList = this.selectList(Wrapper);
         }
         return allUserReplyList;
     }
