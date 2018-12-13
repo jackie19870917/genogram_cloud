@@ -54,6 +54,14 @@ public interface IFanSysWebNewsShowService extends IService<FanSysWebNewsShow> {
     public List<SysWebMenuVo> getTitlesByMenuId(int siteId, int menuId);
 
     /**
+     * 获取showID
+     * @param siteId
+     * @param menuId
+     * @return
+     */
+    List<SysWebMenuVo> getSysWebMenuVo(int siteId, int menuId);
+
+    /**
      * 开网站初始化菜单
      *
      * @param siteId

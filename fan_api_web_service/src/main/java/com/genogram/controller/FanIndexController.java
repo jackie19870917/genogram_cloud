@@ -5,6 +5,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.*;
 import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
+import com.genogram.entityvo.SysWebMenuVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -227,7 +228,7 @@ public class FanIndexController {
             List<FanSysWebNewsShow> list = fanSysWebNewsShowService.getMenuCodeByParentId(siteId, 7);
 
             for (FanSysWebNewsShow show : list) {
-                List listtemp = getPersonListByMenuCode(siteId, show.getMenuCode());
+                List listtemp = getPersonListByMenuCode(siteId, show.getMenuId());
                 zongmap.put(show.getMenuName(), listtemp);
             }
 
@@ -239,9 +240,9 @@ public class FanIndexController {
         }
     }
 
-    private List getPersonListByMenuCode(int siteId, String menuCode) {
-        FanSysWebNewsShow show = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, menuCode);
-        List<FanNewsFamousPerson> familyFrameList = fanNewsFamousPersonService.getFamilyFrameList(show.getShowId());
+    private List getPersonListByMenuCode(int siteId, Integer menuId) {
+        List<SysWebMenuVo> menuVoList = fanSysWebNewsShowService.getSysWebMenuVo(siteId, menuId);
+        List<FanNewsFamousPerson> familyFrameList = fanNewsFamousPersonService.getFamilyFrameList(menuVoList.get(0).getShowId());
         return familyFrameList;
     }
 }

@@ -15,6 +15,7 @@ import com.genogram.service.IFanNewsCharityPayInService;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.PayUtils;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -24,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -297,12 +299,12 @@ public class PayController {
         return "success";
     }
 
-   /* @ApiOperation("微信支付")
+    @ApiOperation("微信支付")
     @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
     public void weChatPay(Model model, HttpServletRequest request, FanNewsCharityPayIn fanNewsCharityPayIn) {
 
         // 订单编号
-        String payId = null;
+        String payId = DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
 
         // 支付用户的id
         String userIp = PayUtils.getRemoteAddr(null);
@@ -314,7 +316,9 @@ public class PayController {
         String body = "炎黄統譜网在线微信扫码支付";
 
         // 回调地址
-        String callback = "localhost:8080/success";
+        //response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
+        String callback = this.baseUrl + "result=success&out_trade_no=" + payId + "&total_amount=" + totalFee;
+        //String callback ="localhost:8080/success";
 
         // 生成一个code_url
         String codeUrl = PayUtils.pay(payId, userIp, totalFee, body, callback);
@@ -324,10 +328,10 @@ public class PayController {
 
         model.addAttribute("code_url", codeUrl);
         model.addAttribute("oid", payId);
-        model.addAttribute("totalprice", totalFee);
+        model.addAttribute("totalPrice", totalFee);
 
         // 进入到二维码生成页面
-        //return "saoma";
+      //  return "saoma";
 
-    }*/
+    }
 }

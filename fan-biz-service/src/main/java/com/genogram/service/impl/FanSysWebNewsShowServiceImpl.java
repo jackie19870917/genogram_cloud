@@ -139,6 +139,25 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
     }
 
     @Override
+    public List<SysWebMenuVo> getSysWebMenuVo(int siteId, int menuId) {
+
+        List<SysWebMenuVo> voList = new ArrayList<>();
+        EntityWrapper<FanSysWebNewsShow> entityWrapper = new EntityWrapper<>();
+        entityWrapper.eq("site_id", siteId);
+        entityWrapper.eq("menu_id", menuId);
+        List<FanSysWebNewsShow> list = this.selectList(entityWrapper);
+        list.forEach((menu) -> {
+            SysWebMenuVo vo = new SysWebMenuVo();
+            BeanUtils.copyProperties(menu, vo);
+            vo.setApiUrl(vo.getApiUrl() + vo.getShowId());
+            vo.setApiAdminUrl(vo.getApiAdminUrl() + vo.getShowId());
+            voList.add(vo);
+        });
+
+        return voList;
+    }
+
+    @Override
     public void initWebMenu(int siteId) {
         Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<>();
         entity.eq("site_id", siteId);
