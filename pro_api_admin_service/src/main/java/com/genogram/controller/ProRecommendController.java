@@ -11,6 +11,7 @@ import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.service.IUserService;
+import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import com.genogram.unit.StringsUtils;
@@ -111,6 +112,12 @@ public class ProRecommendController {
             fanSysRecommend.setStatus(status);
             fanSysRecommend.setIsAuto(isAuto);
             fanSysRecommend.setNewsSource(newsSource);
+            //插入时间
+            fanSysRecommend.setCreateTime(DateUtil.getCurrentTimeStamp());
+            fanSysRecommend.setUpdateTime(DateUtil.getCurrentTimeStamp());
+            //创建人
+            fanSysRecommend.setCreateUser(userLogin.getId());
+            fanSysRecommend.setUpdateUser(userLogin.getId());
             Boolean aBoolean = proSysRecommendService.addRecommend(fanSysRecommend);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
@@ -174,7 +181,7 @@ public class ProRecommendController {
             entity.eq("news_id", id);
             entity.eq("is_auto", isAuto);
             entity.eq("news_source", newsSource);
-            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status);
+            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status,userLogin);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -262,7 +269,7 @@ public class ProRecommendController {
             }
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("id", recommendId);
-            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status);
+            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status,userLogin);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -758,7 +765,7 @@ public class ProRecommendController {
     }
 
     /**
-     * 省级后台设置手动推荐到全国
+     * 省级后台设置手动推荐到全国查询
      *
      * @Author: yuzhou
      * @Date: 2018-11-28
@@ -767,7 +774,7 @@ public class ProRecommendController {
      * @return:
      * @Description:
      */
-    @ApiOperation(value = "省级后台设置手动推荐到全国", notes = "")
+    @ApiOperation(value = "省级后台设置手动推荐到全国查询", notes = "")
     @RequestMapping(value = "/getManuaRecommendNationwide", method = RequestMethod.GET)
     public Response<CommonRecommendVo> getManuaRecommendNationwide(
             @ApiParam(value = "网站Id") @RequestParam(value = "siteId") Integer siteId,

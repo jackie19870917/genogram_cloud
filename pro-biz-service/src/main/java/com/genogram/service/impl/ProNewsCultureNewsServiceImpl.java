@@ -166,8 +166,8 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
         //存储作者名称时间
         newsDetail.setUpdateTimeLong(proNewsCultureNews.getUpdateTime().getTime());
         newsDetail.setCreateTimeLong(proNewsCultureNews.getCreateTime().getTime());
-        newsDetail.setCreateUserName(null);
-        newsDetail.setCreateUserName(null);
+        newsDetail.setUpdateUserName(updateUser.getNickName());
+        newsDetail.setCreateUserName(createUser.getNickName());
         return newsDetail;
     }
 

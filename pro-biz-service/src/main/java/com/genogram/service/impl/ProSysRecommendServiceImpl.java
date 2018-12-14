@@ -3,6 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsUploadFile;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.CommonRecommendVo;
@@ -70,11 +71,6 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
         fanSysRecommend.setIsCountry(0);
         //是否省显示(0:否;1是)
         fanSysRecommend.setIsProvince(0);
-        //插入时间
-        fanSysRecommend.setCreateTime(DateUtil.getCurrentTimeStamp());
-        fanSysRecommend.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        fanSysRecommend.setCreateUser(null);
-        fanSysRecommend.setUpdateUser(null);
         boolean result = this.insert(fanSysRecommend);
         return result;
     }
@@ -90,7 +86,7 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      * @Description:
      */
     @Override
-    public Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status) {
+    public Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status,AllUserLogin userLogin) {
         boolean result = false;
         //查询文章
         List<FanSysRecommend> list = this.selectList(entity);
@@ -98,7 +94,7 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
             //修改状态
             fanSysRecommend.setStatus(status);
             //修改人
-            fanSysRecommend.setUpdateUser(null);
+            fanSysRecommend.setUpdateUser(userLogin.getId());
             //修改时间
             fanSysRecommend.setUpdateTime(DateUtil.getCurrentTimeStamp());
             result = this.updateAllColumnById(fanSysRecommend);

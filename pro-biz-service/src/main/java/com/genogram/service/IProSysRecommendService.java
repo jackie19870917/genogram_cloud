@@ -3,6 +3,7 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.CommonRecommendVo;
 import com.genogram.entityvo.FamilyPersonVo;
@@ -38,7 +39,7 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      * @param status
      * @return
      */
-    Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status);
+    Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status,AllUserLogin userLogin);
 
     /**
      * 省级首页县级推荐文章查询
