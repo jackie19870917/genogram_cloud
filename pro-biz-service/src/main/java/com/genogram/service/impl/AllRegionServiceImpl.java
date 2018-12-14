@@ -137,16 +137,17 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
     }*/
 
     /**
-     *省级下属地图联谊会查询
-     *@Author: yuzhou
-     *@Date: 2018-12-14
-     *@Time: 16:37
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 省级下属地图联谊会查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-14
+     * @Time: 16:37
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
-    public Page<FanSysSite> getSodalityRegion(Integer siteId, Integer pageNo, Integer pageSize,Integer code) {
+    public Page<FanSysSite> getSodalityRegion(Integer siteId, Integer pageNo, Integer pageSize, Integer code) {
         //查询姓氏
         Wrapper<ProSysSite> entity = new EntityWrapper<>();
         entity.eq("id", siteId);

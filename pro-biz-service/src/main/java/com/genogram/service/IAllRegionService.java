@@ -35,5 +35,5 @@ public interface IAllRegionService extends IService<AllRegion> {
      * @param code
      * @return
      */
-    Page<FanSysSite> getSodalityRegion(Integer siteId, Integer pageNo, Integer pageSize,Integer code);
+    Page<FanSysSite> getSodalityRegion(Integer siteId, Integer pageNo, Integer pageSize, Integer code);
 }

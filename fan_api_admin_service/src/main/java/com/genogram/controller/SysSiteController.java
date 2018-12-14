@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,6 +73,19 @@ public class SysSiteController {
     Integer role04 = 4;
     Integer role09 = 9;
 
+    private List getList() {
+
+        List list = new ArrayList();
+        /**
+         * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+         */
+        list.add(1);
+        list.add(4);
+        list.add(9);
+
+        return list;
+    }
+
     String fan = "fan";
     String pro = "pro";
 
@@ -114,7 +128,7 @@ public class SysSiteController {
         AllUserLogin UserLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -152,7 +166,7 @@ public class SysSiteController {
             }
 
             Integer regionNum = Integer.valueOf(sysSiteVo.getRegionCode());
-            regionNum= regionNum / 10000 * 10000;
+            regionNum = regionNum / 10000 * 10000;
 
             fanSysSite.setParent(regionNum);
             FanSysSite fanSysSite1 = sysSiteService.insertFanSysSite(fanSysSite);

@@ -46,12 +46,18 @@ public class FanNewsUploadTreeFileController {
     @Autowired
     private IAllUserLoginService allUserLoginService;
 
-    /**
-     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
-     */
-    Integer role01 = 1;
-    Integer role04 = 4;
-    Integer role09 = 9;
+    private List getList() {
+
+        List list = new ArrayList();
+        /**
+         * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+         */
+        list.add(1);
+        list.add(4);
+        list.add(9);
+
+        return list;
+    }
 
     @ApiOperation(value = "电子谱查询", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "getFanNewsUploadTreeFileList", method = RequestMethod.POST)
@@ -75,7 +81,7 @@ public class FanNewsUploadTreeFileController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -114,7 +120,7 @@ public class FanNewsUploadTreeFileController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -146,7 +152,7 @@ public class FanNewsUploadTreeFileController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -189,7 +195,7 @@ public class FanNewsUploadTreeFileController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 

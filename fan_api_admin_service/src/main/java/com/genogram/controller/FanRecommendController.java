@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,12 +52,18 @@ public class FanRecommendController {
     @Autowired
     private IAllUserLoginService allUserLoginService;
 
-    /**
-     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
-     */
-    Integer role01 = 1;
-    Integer role04 = 4;
-    Integer role09 = 9;
+    private List getList() {
+
+        List list = new ArrayList();
+        /**
+         * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+         */
+        list.add(1);
+        list.add(4);
+        list.add(9);
+
+        return list;
+    }
 
     /**
      * 联谊会后台点击推荐
@@ -90,7 +97,7 @@ public class FanRecommendController {
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
-            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            if (!this.getList().contains(allUserLogin.getRole())) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (showId == null || id == null) {
@@ -152,7 +159,7 @@ public class FanRecommendController {
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
-            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            if (!this.getList().contains(allUserLogin.getRole())) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (showId == null || id == null) {
@@ -212,7 +219,7 @@ public class FanRecommendController {
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
-            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            if (!this.getList().contains(allUserLogin.getRole())) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
@@ -279,7 +286,7 @@ public class FanRecommendController {
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
-            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            if (!this.getList().contains(allUserLogin.getRole())) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
@@ -358,7 +365,7 @@ public class FanRecommendController {
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
-            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            if (!this.getList().contains(allUserLogin.getRole())) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空

@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -42,12 +44,18 @@ public class ProNewsRecordController {
     @Autowired
     private IAllUserLoginService allUserLoginService;
 
-    /**
-     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
-     */
-    Integer role02 = 2;
-    Integer role05 = 5;
-    Integer role09 = 9;
+    private List getList() {
+
+        List list = new ArrayList();
+        /**
+         * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+         */
+        list.add(2);
+        list.add(5);
+        list.add(9);
+
+        return list;
+    }
 
     /**
      * 省级家族动态查询
@@ -76,7 +84,7 @@ public class ProNewsRecordController {
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
-            if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            if (!this.getList().contains(allUserLogin.getRole())) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
@@ -124,7 +132,7 @@ public class ProNewsRecordController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -161,7 +169,7 @@ public class ProNewsRecordController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -217,7 +225,7 @@ public class ProNewsRecordController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -263,7 +271,7 @@ public class ProNewsRecordController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -326,7 +334,7 @@ public class ProNewsRecordController {
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
-            if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            if (!this.getList().contains(allUserLogin.getRole())) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 

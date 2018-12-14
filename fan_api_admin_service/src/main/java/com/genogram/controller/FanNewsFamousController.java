@@ -46,12 +46,18 @@ public class FanNewsFamousController {
     @Autowired
     private IAllUserLoginService allUserLoginService;
 
-    /**
-     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
-     */
-    Integer role01 = 1;
-    Integer role04 = 4;
-    Integer role09 = 9;
+    private List getList() {
+
+        List list = new ArrayList();
+        /**
+         * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+         */
+        list.add(1);
+        list.add(4);
+        list.add(9);
+
+        return list;
+    }
 
     /**
      * 联谊会家族名人后台查询
@@ -85,7 +91,7 @@ public class FanNewsFamousController {
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
-            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            if (!this.getList().contains(allUserLogin.getRole())) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
@@ -147,7 +153,7 @@ public class FanNewsFamousController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
         return getNewsDetailVoResponse(id);
@@ -183,7 +189,7 @@ public class FanNewsFamousController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
         return getNewsDetailVoResponse(id);
@@ -239,7 +245,7 @@ public class FanNewsFamousController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
         Set set = allCheckOutService.getSensitiveWord(fanNewsFamousPerson.getPersonSummary());
@@ -281,7 +287,7 @@ public class FanNewsFamousController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+        if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -344,7 +350,7 @@ public class FanNewsFamousController {
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
-            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            if (!this.getList().contains(allUserLogin.getRole())) {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (id == null) {

@@ -45,7 +45,7 @@ public class ProRegionController {
             if (siteId == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            Page<FanSysSite> fanSysSite = allRegionService.getSodalityRegion(siteId, pageNo, pageSize,code);
+            Page<FanSysSite> fanSysSite = allRegionService.getSodalityRegion(siteId, pageNo, pageSize, code);
             if (fanSysSite == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "请开通网站");
             }
