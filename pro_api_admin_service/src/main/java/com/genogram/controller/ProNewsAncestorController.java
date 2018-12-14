@@ -348,7 +348,7 @@ public class ProNewsAncestorController {
                 return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
             }
 
-            Boolean aBoolean = proNewsFamousAncestorService.addFamousAncestor(proNewsFamousAncestor, proSplit, fanSplit);
+            Boolean aBoolean = proNewsFamousAncestorService.addFamousAncestor(proNewsFamousAncestor, proSplit, fanSplit,userLogin);
             return null;
         } catch (Exception e) {
             e.printStackTrace();

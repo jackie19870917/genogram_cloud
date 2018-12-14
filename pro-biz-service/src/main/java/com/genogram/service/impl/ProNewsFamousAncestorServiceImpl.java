@@ -3,6 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsFamousAncestor;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
@@ -112,7 +113,7 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
      * @param fanSplit
      */
     @Override
-    public Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit) {
+    public Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit, AllUserLogin userLogin) {
         //父iD第一级为0
         proNewsFamousAncestor.setParentId(0);
         if (proNewsFamousAncestor.getId() != null) {
@@ -132,11 +133,17 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
             }
             //修改时间
             proNewsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
+            //修改人
+            proNewsFamousAncestor.setUpdateUser(userLogin.getId());
         } else {
             //创建时间
             proNewsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
+            //创建人
+            proNewsFamousAncestor.setCreateUser(userLogin.getId());
             //修改时间
             proNewsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
+            //修改人
+            proNewsFamousAncestor.setUpdateUser(userLogin.getId());
         }
         //插入主数据
         boolean insert = proNewsFamousAncestorService.insertOrUpdate(proNewsFamousAncestor);
@@ -209,9 +216,14 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
                 newsFamousAncestor.setSourceClassify(2);
                 //分支ID  (fan或者pro 的主键)
                 newsFamousAncestor.setBranchId(newsFamousAncestor.getId());
-                //时间
-                newsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
+                //修改人
+                newsFamousAncestor.setUpdateUser(userLogin.getId());
+                //修改时间
                 newsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
+                //创建人
+                newsFamousAncestor.setCreateUser(userLogin.getId());
+                //创建时间
+                newsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
             }
             if (proNewsFamousAncestors.size() != 0) {
                 //批量插入
@@ -243,9 +255,14 @@ public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousA
                 newsFamousAncestor.setSourceClassify(1);
                 //分支ID  (fan或者pro 的主键)
                 newsFamousAncestor.setBranchId(newsFamousAncestor.getId());
-                //时间
+                //创建时间
                 newsFamousAncestor.setCreateTime(DateUtil.getCurrentTimeStamp());
+                //创建人
+                newsFamousAncestor.setCreateUser(userLogin.getId());
+                //修改时间
                 newsFamousAncestor.setUpdateTime(DateUtil.getCurrentTimeStamp());
+                //修改人
+                newsFamousAncestor.setUpdateUser(userLogin.getId());
             }
             if (fanNewsFamousAncestors.size() != 0) {
                 //批量插入

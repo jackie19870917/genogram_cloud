@@ -2,6 +2,7 @@ package com.genogram.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.baomidou.mybatisplus.service.IService;
@@ -55,7 +56,7 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
      * @param fanSplit
      * @return
      */
-    Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit);
+    Boolean addFamousAncestor(ProNewsFamousAncestor proNewsFamousAncestor, List<String> proSplit, List<String> fanSplit, AllUserLogin userLogin);
 
 
     /**
