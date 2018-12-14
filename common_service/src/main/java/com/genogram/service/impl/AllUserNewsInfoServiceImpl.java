@@ -12,6 +12,7 @@ import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.service.IAllUserNewsInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +47,17 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
         wrapper.in("status", list);
         wrapper.orderBy("update_time", false);
 
-        return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
+        Page<AllUserNewsInfo> allUserNewsInfoPage = this.selectPage(new Page<>(pageNo, pageSize), wrapper);
+
+        List<AllUserNewsInfo> allUserNewsInfoList = allUserNewsInfoPage.getRecords();
+
+        allUserNewsInfoList.forEach((AllUserNewsInfo allUserNewsInfo) -> {
+            allUserNewsInfo.setContent(StringsUtils.removeTag(allUserNewsInfo.getContent()));
+        });
+
+        allUserNewsInfoPage.setRecords(allUserNewsInfoList);
+
+        return allUserNewsInfoPage;
     }
 
     @Override
@@ -75,7 +86,7 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
         return this.selectById(id);
     }
 
-    @Override
+    /*@Override
     public Page<AllUserNewsInfo> getAllUserNewsInfoList(Integer siteId, Integer status, Integer pageNo, Integer pageSize) {
 
         FanSysSite fanSysSite = fanSysSiteMapper.selectById(siteId);
@@ -86,7 +97,7 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
         wrapper.orderBy("update_time", false);
 
         return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
-    }
+    }*/
 
     @Override
     public Page<AllUserNewsInfo> getAllUserNewsInfoList(Page<AllUserNewsInfo> mapPage, Map map) {
@@ -96,6 +107,10 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
         if (userNewsInfoList.size() == 0) {
             return null;
         }
+
+        userNewsInfoList.forEach((AllUserNewsInfo allUserNewsInfo) -> {
+            allUserNewsInfo.setContent(StringsUtils.removeTag(allUserNewsInfo.getContent()));
+        });
 
         Page<AllUserNewsInfo> page = new Page<>(mapPage.getCurrent(), mapPage.getSize());
         page.setRecords(userNewsInfoList);
