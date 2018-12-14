@@ -108,7 +108,7 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
         //判断地区下是否还有地区县级
         List<AllRegion> regionsAll = new ArrayList();
         for (AllRegion allRegion : allRegions) {
-            if (allRegion.getParentCode() % 10000 == 0) {
+            if (allRegion.getParentCode() % 100 == 0) {
                 Wrapper<AllRegion> allEntity2 = new EntityWrapper<>();
                 allEntity2.eq("parent_code", allRegion.getCode());
                 List<AllRegion> allRegions2 = this.selectList(allEntity2);
