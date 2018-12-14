@@ -181,7 +181,7 @@ public class ProRecommendController {
             entity.eq("news_id", id);
             entity.eq("is_auto", isAuto);
             entity.eq("news_source", newsSource);
-            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status,userLogin);
+            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status, userLogin);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -269,7 +269,7 @@ public class ProRecommendController {
             }
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("id", recommendId);
-            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status,userLogin);
+            Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status, userLogin);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }

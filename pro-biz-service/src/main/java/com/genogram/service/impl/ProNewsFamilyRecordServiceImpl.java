@@ -212,15 +212,11 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
         if (proNewsFamilyRecord.getId() == null) {
             //存入创建时间
             proNewsFamilyRecord.setCreateTime(format);
-            proNewsFamilyRecord.setCreateUser(null);
+            proNewsFamilyRecord.setCreateUser(proNewsFamilyRecord.getUpdateUser());
             //插入修改时间
-            proNewsFamilyRecord.setUpdateTime(format);
-            proNewsFamilyRecord.setUpdateUser(null);
-        } else {
+        }
             //存入修改时间
             proNewsFamilyRecord.setUpdateTime(format);
-            proNewsFamilyRecord.setUpdateUser(null);
-        }
         boolean result = this.insertOrUpdate(proNewsFamilyRecord);
         //存储图片
         if (result && StringsUtils.isNotEmpty(filePath)) {
@@ -237,11 +233,12 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
      * @return
      */
     @Override
-    public Boolean deleteProRecordById(Integer id, int status) {
+    public Boolean deleteProRecordById(Integer id, int status,Integer userId) {
         ProNewsFamilyRecord proNewsFamilyRecord = this.selectById(id);
         proNewsFamilyRecord.setStatus(status);
         proNewsFamilyRecord.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        //修改人 待写
+        //修改人
+        proNewsFamilyRecord.setUpdateUser(userId);
         boolean result = this.updateAllColumnById(proNewsFamilyRecord);
         return result;
     }

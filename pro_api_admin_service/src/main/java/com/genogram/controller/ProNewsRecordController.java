@@ -107,8 +107,27 @@ public class ProNewsRecordController {
     @ApiOperation("省级记录家族的详情")
     @RequestMapping(value = "/getProFamilyRecordDetail", method = RequestMethod.GET)
     public Response<ProFamilyRecordVo> getFamilyRecordDetail(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
         return getNewsDetailVoProResponse(id);
     }
 
@@ -125,8 +144,27 @@ public class ProNewsRecordController {
     @ApiOperation("省级记录家族进入修改")
     @RequestMapping(value = "/getProFamilyRecordAmend", method = RequestMethod.GET)
     public Response<ProFamilyRecordVo> getFamilyRecordAmend(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
         return getNewsDetailVoProResponse(id);
     }
 
@@ -162,14 +200,35 @@ public class ProNewsRecordController {
      */
     @ApiOperation("记录家族后台添加和修改 发表")
     @RequestMapping(value = "/addOrUpdateRecord", method = RequestMethod.POST)
-    public Response<ProNewsFamilyRecord> addOrUpdateRecord(ProNewsFamilyRecord proNewsFamilyRecord, String fileName, String filePath) {
+    public Response<ProNewsFamilyRecord> addOrUpdateRecord(ProNewsFamilyRecord proNewsFamilyRecord, String fileName, String filePath,
+                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
+        //校验敏感词汇
         Set set = allCheckOutService.getSensitiveWord(proNewsFamilyRecord.getNewsText());
 
         if (set != null && set.size() >= 1) {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
+        proNewsFamilyRecord.setUpdateUser(userLogin.getId());
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsFamilyRecord.setStatus(1);
         return getProNewsRecordResponse(proNewsFamilyRecord, fileName, filePath);
@@ -187,7 +246,28 @@ public class ProNewsRecordController {
      */
     @ApiOperation("省级家族产业后台添加和修改 草稿")
     @RequestMapping(value = "/addOrUpdateRecordDrft", method = RequestMethod.POST)
-    public Response<ProNewsFamilyRecord> addOrUpdateRecordDrft(ProNewsFamilyRecord proNewsFamilyRecord, String fileName, String filePath) {
+    public Response<ProNewsFamilyRecord> addOrUpdateRecordDrft(ProNewsFamilyRecord proNewsFamilyRecord, String fileName, String filePath,
+                                                               @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
+        proNewsFamilyRecord.setUpdateUser(userLogin.getId());
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsFamilyRecord.setStatus(2);
         return getProNewsRecordResponse(proNewsFamilyRecord, fileName, filePath);
@@ -228,15 +308,34 @@ public class ProNewsRecordController {
     @ApiOperation("省级记录家族后台删除")
     @RequestMapping(value = "/deleteProRecordById", method = RequestMethod.GET)
     public Response<ProNewsFamilyRecord> deleteProRecordById(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = iProNewsFamilyRecordService.deleteProRecordById(id, status);
+            Boolean aBoolean = iProNewsFamilyRecordService.deleteProRecordById(id, status, userLogin.getId());
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }

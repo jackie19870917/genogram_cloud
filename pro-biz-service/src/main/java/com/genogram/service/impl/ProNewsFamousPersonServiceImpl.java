@@ -331,15 +331,10 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         if (proNewsFamousPerson.getId() == null) {
             //存入创建时间
             proNewsFamousPerson.setCreateTime(format);
-            proNewsFamousPerson.setCreateUser(null);
-            //插入修改时间
-            proNewsFamousPerson.setUpdateTime(format);
-            proNewsFamousPerson.setUpdateUser(null);
-        } else {
+            proNewsFamousPerson.setCreateUser(proNewsFamousPerson.getUpdateUser());
+        }
             //存入修改时间
             proNewsFamousPerson.setUpdateTime(format);
-            proNewsFamousPerson.setUpdateUser(null);
-        }
         boolean result = this.insertOrUpdate(proNewsFamousPerson);
         //存储图片
         if (result && StringsUtils.isNotEmpty(filePath)) {
@@ -356,11 +351,12 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
      * @return
      */
     @Override
-    public Boolean deletePersionById(Integer id, int status) {
+    public Boolean deletePersonById(Integer id, int status,Integer userId) {
         ProNewsFamousPerson proNewsFamousPerson = this.selectById(id);
         proNewsFamousPerson.setStatus(status);
         proNewsFamousPerson.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        //修改人 待写
+        //修改人
+        proNewsFamousPerson.setUpdateUser(userId);
         boolean result = this.updateAllColumnById(proNewsFamousPerson);
         return result;
     }

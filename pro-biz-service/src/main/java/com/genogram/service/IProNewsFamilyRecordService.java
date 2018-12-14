@@ -52,7 +52,7 @@ public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecor
      * @param status
      * @return
      */
-    Boolean deleteProRecordById(Integer id, int status);
+    Boolean deleteProRecordById(Integer id, int status, Integer userId);
 
     /**
      * 增加查看数
@@ -60,5 +60,7 @@ public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecor
      * @param id
      */
     void addVisitNum(Integer id);
+
+
 
 }

@@ -55,6 +55,9 @@ public class ProNewsCultureController {
     @Autowired
     private IAllUserLoginService allUserLoginService;
 
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
     Integer role02 = 2;
     Integer role05 = 5;
     Integer role09 = 9;
@@ -218,6 +221,7 @@ public class ProNewsCultureController {
     public Response<ProNewsCultureZipai> addOrUpdateZiPai(@ApiParam(value = "省级字派实体类") ProNewsCultureZipai proNewsCultureZipai,
                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        // 校验敏感词汇
         Set set = allCheckOutService.getSensitiveWord(proNewsCultureZipai.getZipaiTxt());
 
         if (set != null && set.size() >= 1) {
@@ -290,7 +294,7 @@ public class ProNewsCultureController {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
-            boolean result = proNewsCultureZipaiService.addOrUpdateZiPai(proNewsCultureZipai,userLogin);
+            boolean result = proNewsCultureZipaiService.addOrUpdateZiPai(proNewsCultureZipai, userLogin);
             if (!result) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -341,8 +345,8 @@ public class ProNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = proNewsCultureZipaiService.deleteZipaiById(id, status,userLogin);
-            if (!aBoolean && aBoolean==null) {
+            Boolean aBoolean = proNewsCultureZipaiService.deleteZipaiById(id, status, userLogin);
+            if (!aBoolean && aBoolean == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -601,7 +605,7 @@ public class ProNewsCultureController {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             // 插入数据
-            boolean insert = proNewsCultureNewsService.addOrUpdateCulture(proNewsCultureNews, fileName, filePath,userLogin);
+            boolean insert = proNewsCultureNewsService.addOrUpdateCulture(proNewsCultureNews, fileName, filePath, userLogin);
             if (!insert) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -649,7 +653,7 @@ public class ProNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = proNewsCultureNewsService.deleteCulturById(id, status,userLogin);
+            Boolean aBoolean = proNewsCultureNewsService.deleteCulturById(id, status, userLogin);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
