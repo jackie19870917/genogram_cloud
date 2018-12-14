@@ -42,7 +42,7 @@ public class FanNewsUploadTreeFileController {
     @Autowired
     private IUserService userService;
 
-    @ApiOperation(value = "电子谱查询", notes = "id-主键,siteId-网站ID,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
+    @ApiOperation(value = "电子谱查询", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "getFanNewsUploadTreeFileList", method = RequestMethod.POST)
     public Response<NewsUploadTreeFileVo> getFanNewsUploadTreeFileList(@ApiParam("网站ID") @RequestParam("siteId") Integer siteId,
                                                                        @ApiParam("名称") @RequestParam(value = "fileName", required = false) String fileName,
@@ -76,10 +76,9 @@ public class FanNewsUploadTreeFileController {
         return ResponseUtlis.success(newsUploadTreeFileVoPage);
     }
 
-    @ApiOperation(value = "电子谱详情", notes = "id-主键,siteId-网站ID,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
+    @ApiOperation(value = "电子谱详情", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "getFanNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<FanNewsUploadTreeFile> getFanNewsUploadTreeFile(@ApiParam("主键") @RequestParam("id") Integer id,
-                                                                    @ApiParam("密码") @RequestParam(value = "password", required = false) String password,
                                                                     @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
@@ -98,17 +97,10 @@ public class FanNewsUploadTreeFileController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
 
-        Integer status = 2;
-        if (fanNewsUploadTreeFile.getStatus().equals(status)) {
-            if (!fanNewsUploadTreeFile.getPassword().equals(password)) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "密码错误");
-            }
-        }
-
         return ResponseUtlis.success(fanNewsUploadTreeFile);
     }
 
-    @ApiOperation(value = "电子谱 新增/修改", notes = "id-主键,siteId-网站ID,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
+    @ApiOperation(value = "电子谱 新增/修改", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "uploadFanNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<FanNewsUploadTreeFile> uploadFanNewsUploadTreeFile(FanNewsUploadTreeFile fanNewsUploadTreeFile,
                                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
