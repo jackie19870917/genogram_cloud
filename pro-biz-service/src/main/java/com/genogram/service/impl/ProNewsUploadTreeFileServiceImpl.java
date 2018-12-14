@@ -4,10 +4,13 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.*;
+import com.genogram.entityvo.NewsUploadTreeFileVo;
 import com.genogram.mapper.*;
+import com.genogram.service.IAllFamilyService;
 import com.genogram.service.IProNewsUploadTreeFileService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -39,6 +42,9 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
     @Autowired
     private AllRegionMapper allRegionMapper;
 
+    @Autowired
+    private IAllFamilyService allFamilyService;
+
     @Override
     public Page getProNewsUploadTreeFile(String regionCode, String fileName, List list, Integer pageNo, Integer pageSize) {
 
@@ -50,7 +56,18 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             proNewsUploadTreeFileWrapper.in("status", list);
             proNewsUploadTreeFileWrapper.orderBy("update_time", false);
 
-            return this.selectPage(new Page<>(pageNo, pageSize), proNewsUploadTreeFileWrapper);
+
+            Page<ProNewsUploadTreeFile> proNewsUploadTreeFilePage = this.selectPage(new Page<>(pageNo, pageSize), proNewsUploadTreeFileWrapper);
+
+            List<ProNewsUploadTreeFile> newsUploadTreeFileList = proNewsUploadTreeFilePage.getRecords();
+
+            List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFileVos(newsUploadTreeFileList);
+
+            Page<NewsUploadTreeFileVo> mapPage = new Page<>(pageNo, pageSize);
+            mapPage.setRecords(newsUploadTreeFileVoList);
+            mapPage.setTotal(proNewsUploadTreeFilePage.getTotal());
+
+            return mapPage;
 
             // 地区为空   名称不为空
         } else if (regionCode == null && fileName != null) {
@@ -60,19 +77,23 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             List<ProNewsUploadTreeFile> proNewsUploadTreeFileList = this.selectList(proNewsUploadTreeFileWrapper);
 
+            List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFileVos(proNewsUploadTreeFileList);
+
             fanNewsUploadTreeFileWrapper.like("file_name", fileName);
             fanNewsUploadTreeFileWrapper.in("status", list);
             fanNewsUploadTreeFileWrapper.orderBy("update_time", false);
 
             List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
 
+            List<NewsUploadTreeFileVo> newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
+
             List arrayList = new ArrayList<>();
-            arrayList.add(proNewsUploadTreeFileList);
-            arrayList.add(fanNewsUploadTreeFileList);
+            arrayList.add(newsUploadTreeFileVoList);
+            arrayList.add(newsUploadTreeFileList1);
 
             Page page = new Page(pageNo, pageSize);
             page.setRecords(arrayList);
-            page.setTotal(proNewsUploadTreeFileList.size() + fanNewsUploadTreeFileList.size());
+            page.setTotal(newsUploadTreeFileVoList.size() + newsUploadTreeFileList1.size());
 
             return page;
 
@@ -90,11 +111,15 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             if (allRegion.getParentCode() == 0) {
 
-                ProSysSite proSysSite = new ProSysSite();
-                proSysSite.setRegionCode(regionCode);
+                ProSysSite proSysSite01 = new ProSysSite();
+                proSysSite01.setRegionCode(regionCode);
 
                 //根据地区获取县级网站ID
-                proSysSite = proSysSiteMapper.selectOne(proSysSite);
+                ProSysSite proSysSite = proSysSiteMapper.selectOne(proSysSite01);
+
+                if (StringUtils.isEmpty(proSysSite)) {
+                    return null;
+                }
 
                 proNewsUploadTreeFileWrapper.eq("site_id", proSysSite.getId());
                 proNewsUploadTreeFileWrapper.in("status", list);
@@ -102,17 +127,23 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
                 List<ProNewsUploadTreeFile> proNewsUploadTreeFileList = this.selectList(proNewsUploadTreeFileWrapper);
 
+                List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFileVos(proNewsUploadTreeFileList);
+
                 Page page = new Page(pageNo, pageSize);
-                page.setRecords(proNewsUploadTreeFileList);
-                page.setTotal(proNewsUploadTreeFileList.size());
+                page.setRecords(newsUploadTreeFileVoList);
+                page.setTotal(newsUploadTreeFileVoList.size());
 
                 return page;
             } else {
 
-                FanSysSite fanSysSite = new FanSysSite();
-                fanSysSite.setRegionCode(regionCode);
+                FanSysSite fanSysSite01 = new FanSysSite();
+                fanSysSite01.setRegionCode(regionCode);
 
-                fanSysSite = fanSysSiteMapper.selectOne(fanSysSite);
+                FanSysSite fanSysSite = fanSysSiteMapper.selectOne(fanSysSite01);
+
+                if (StringUtils.isEmpty(fanSysSite)) {
+                    return null;
+                }
 
                 fanNewsUploadTreeFileWrapper.eq("site_id", fanSysSite.getId());
                 fanNewsUploadTreeFileWrapper.in("status", list);
@@ -120,14 +151,16 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
                 List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
 
+                List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
+
                 Page page = new Page(pageNo, pageSize);
-                page.setRecords(fanNewsUploadTreeFileList);
-                page.setTotal(fanNewsUploadTreeFileList.size());
+                page.setRecords(newsUploadTreeFileVoList);
+                page.setTotal(newsUploadTreeFileVoList.size());
 
                 return page;
             }
 
-            // 地区不为空   名称为空
+            // 地区不为空   名称不为空
         } else {
 
             AllRegion allRegion = new AllRegion();
@@ -140,11 +173,15 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             }
 
             if (allRegion.getParentCode() == 0) {
+                ProSysSite proSysSite01 = new ProSysSite();
+                proSysSite01.setRegionCode(regionCode);
 
-                ProSysSite proSysSite = new ProSysSite();
-                proSysSite.setRegionCode(regionCode);
+                //根据地区获取县级网站ID
+                ProSysSite proSysSite = proSysSiteMapper.selectOne(proSysSite01);
 
-                proSysSite = proSysSiteMapper.selectOne(proSysSite);
+                if (StringUtils.isEmpty(proSysSite)) {
+                    return null;
+                }
 
                 proNewsUploadTreeFileWrapper.eq("site_id", proSysSite.getId());
                 proNewsUploadTreeFileWrapper.like("file_name", fileName);
@@ -153,17 +190,23 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
                 List<ProNewsUploadTreeFile> proNewsUploadTreeFileList = this.selectList(proNewsUploadTreeFileWrapper);
 
+                List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFileVos(proNewsUploadTreeFileList);
+
                 Page page = new Page(pageNo, pageSize);
-                page.setRecords(proNewsUploadTreeFileList);
-                page.setTotal(proNewsUploadTreeFileList.size());
+                page.setRecords(newsUploadTreeFileVoList);
+                page.setTotal(newsUploadTreeFileVoList.size());
 
                 return page;
             } else {
 
-                FanSysSite fanSysSite = new FanSysSite();
-                fanSysSite.setRegionCode(regionCode);
+                FanSysSite fanSysSite01 = new FanSysSite();
+                fanSysSite01.setRegionCode(regionCode);
 
-                fanSysSite = fanSysSiteMapper.selectOne(fanSysSite);
+                FanSysSite fanSysSite = fanSysSiteMapper.selectOne(fanSysSite01);
+
+                if (StringUtils.isEmpty(fanSysSite)) {
+                    return null;
+                }
 
                 fanNewsUploadTreeFileWrapper.eq("site_id", fanSysSite.getId());
                 fanNewsUploadTreeFileWrapper.like("file_name", fileName);
@@ -172,14 +215,47 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
                 List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
 
+                List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
+
                 Page page = new Page(pageNo, pageSize);
-                page.setRecords(fanNewsUploadTreeFileList);
-                page.setTotal(fanNewsUploadTreeFileList.size());
+                page.setRecords(newsUploadTreeFileVoList);
+                page.setTotal(newsUploadTreeFileVoList.size());
 
                 return page;
             }
         }
 
+    }
+
+    private List<NewsUploadTreeFileVo> getNewsUploadTreeFile(List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList) {
+
+        List<NewsUploadTreeFileVo> newsUploadTreeFileList = new ArrayList<>();
+
+        fanNewsUploadTreeFileList.forEach((FanNewsUploadTreeFile fanNewsUploadTreeFile) -> {
+            NewsUploadTreeFileVo newsUploadTreeFileVo = new NewsUploadTreeFileVo();
+
+            BeanUtils.copyProperties(fanNewsUploadTreeFile, newsUploadTreeFileVo);
+            AllFamily AllFamily = allFamilyService.getAllFamilyById(fanNewsUploadTreeFile.getFamilyCode());
+            newsUploadTreeFileVo.setFamilyName(AllFamily.getValue());
+
+            newsUploadTreeFileList.add(newsUploadTreeFileVo);
+        });
+        return newsUploadTreeFileList;
+    }
+
+    private List<NewsUploadTreeFileVo> getNewsUploadTreeFileVos(List<ProNewsUploadTreeFile> proNewsUploadTreeFileList) {
+        List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = new ArrayList<>();
+
+        proNewsUploadTreeFileList.forEach((ProNewsUploadTreeFile proNewsUploadTreeFile) -> {
+            NewsUploadTreeFileVo newsUploadTreeFileVo = new NewsUploadTreeFileVo();
+
+            BeanUtils.copyProperties(proNewsUploadTreeFile, newsUploadTreeFileVo);
+            AllFamily AllFamily = allFamilyService.getAllFamilyById(proNewsUploadTreeFile.getFamilyCode());
+            newsUploadTreeFileVo.setFamilyName(AllFamily.getValue());
+
+            newsUploadTreeFileVoList.add(newsUploadTreeFileVo);
+        });
+        return newsUploadTreeFileVoList;
     }
 
     @Override

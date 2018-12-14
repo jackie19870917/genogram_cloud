@@ -35,4 +35,10 @@ public class AllFamilyServiceImpl extends ServiceImpl<AllFamilyMapper, AllFamily
 
         return this.selectById(allFamily.getId());
     }
+
+    @Override
+    public AllFamily getAllFamilyById(Integer id) {
+
+        return this.selectById(id);
+    }
 }

@@ -3,14 +3,20 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllFamily;
 import com.genogram.entity.FanNewsUploadTreeFile;
+import com.genogram.entityvo.NewsUploadTreeFileVo;
 import com.genogram.mapper.FanNewsUploadTreeFileMapper;
+import com.genogram.service.IAllFamilyService;
 import com.genogram.service.IFanNewsUploadTreeFileService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +30,11 @@ import java.util.List;
 @Service
 public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadTreeFileMapper, FanNewsUploadTreeFile> implements IFanNewsUploadTreeFileService {
 
+    @Autowired
+    private IAllFamilyService allFamilyService;
+
     @Override
-    public Page<FanNewsUploadTreeFile> getFanNewsUploadTreeFile(Integer siteId, String fileName, List list, Integer pageNo, Integer pageSize) {
+    public Page<NewsUploadTreeFileVo> getFanNewsUploadTreeFile(Integer siteId, String fileName, List list, Integer pageNo, Integer pageSize) {
 
         Wrapper<FanNewsUploadTreeFile> wrapper = new EntityWrapper<>();
 
@@ -36,7 +45,26 @@ public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadT
         wrapper.in("status", list);
         wrapper.orderBy("update_time", false);
 
-        return this.selectPage(new Page<>(pageNo, pageSize), wrapper);
+        Page<FanNewsUploadTreeFile> newsUploadTreeFilePage = this.selectPage(new Page<>(pageNo, pageSize), wrapper);
+
+        List<FanNewsUploadTreeFile> newsUploadTreeFileList = newsUploadTreeFilePage.getRecords();
+
+        List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = new ArrayList<>();
+        newsUploadTreeFileList.forEach((FanNewsUploadTreeFile fanNewsUploadTreeFile) -> {
+            NewsUploadTreeFileVo newsUploadTreeFileVo = new NewsUploadTreeFileVo();
+
+            BeanUtils.copyProperties(fanNewsUploadTreeFile, newsUploadTreeFileVo);
+            AllFamily AllFamily = allFamilyService.getAllFamilyById(fanNewsUploadTreeFile.getFamilyCode());
+            newsUploadTreeFileVo.setFamilyName(AllFamily.getValue());
+
+            newsUploadTreeFileVoList.add(newsUploadTreeFileVo);
+        });
+
+        Page<NewsUploadTreeFileVo> mapPage = new Page<>(pageNo, pageSize);
+        mapPage.setRecords(newsUploadTreeFileVoList);
+        mapPage.setTotal(newsUploadTreeFilePage.getTotal());
+
+        return mapPage;
     }
 
     @Override

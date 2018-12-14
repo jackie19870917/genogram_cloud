@@ -28,4 +28,11 @@ public interface IAllFamilyService extends IService<AllFamily> {
      * @return
      */
     AllFamily updateAllFamily(AllFamily allFamily);
+
+    /**
+     * 根据主键查询
+     * @param id
+     * @return
+     */
+    AllFamily getAllFamilyById(Integer id);
 }

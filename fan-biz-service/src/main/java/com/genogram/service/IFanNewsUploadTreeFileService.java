@@ -3,6 +3,7 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.FanNewsUploadTreeFile;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.NewsUploadTreeFileVo;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface IFanNewsUploadTreeFileService extends IService<FanNewsUploadTre
      * @param pageSize
      * @return
      */
-    Page<FanNewsUploadTreeFile> getFanNewsUploadTreeFile(Integer siteId, String fileName, List list, Integer pageNo, Integer pageSize);
+    Page<NewsUploadTreeFileVo> getFanNewsUploadTreeFile(Integer siteId, String fileName, List list, Integer pageNo, Integer pageSize);
 
     /**
      * 新增/修改 电子谱

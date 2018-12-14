@@ -305,7 +305,7 @@ public class PayController {
     }
 
     @ApiOperation("微信支付")
-    @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
+    @RequestMapping(value = "weChatPay", method = RequestMethod.GET)
     public Response weChatPay(Model model, HttpServletRequest request,
                               FanNewsCharityPayIn fanNewsCharityPayIn,
                               @ApiParam("网站ID") @RequestParam Integer siteId,
@@ -372,15 +372,6 @@ public class PayController {
 
             return ResponseUtlis.success(map);
         }
-        /*System.out.println(codeUrl);
-
-        model.addAttribute("code_url", codeUrl);
-        model.addAttribute("oid", payId);
-        model.addAttribute("totalPrice", totalFee);*/
-
-        // 进入到二维码生成页面
-        //  return "saoma";
-
     }
 
     @RequestMapping("callBack")
@@ -411,11 +402,10 @@ public class PayController {
                 .parseText(requestStr);
         Element rootElt = doc.getRootElement();
 
-        String outTradeNo=rootElt.elementText("out_trade_no");
+        String outTradeNo = rootElt.elementText("out_trade_no");
 
-        String totalAmount=rootElt.elementText("total_tee");
+        String totalAmount = rootElt.elementText("total_tee");
 
-        System.out.println(totalAmount);
         FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
 
         fanNewsCharityPayIn.setOrderId(outTradeNo);
