@@ -56,8 +56,8 @@ public class AllUserPayInServiceImpl extends ServiceImpl<FanNewsCharityPayInMapp
         List<ProNewsCharityPayIn> proNewsCharityPayInList = this.getProNewsCharityPayInListByUserId(userId);
 
         List list = new ArrayList();
-        list.add(fanNewsCharityPayInList);
-        list.add(proNewsCharityPayInList);
+        list.addAll(fanNewsCharityPayInList);
+        list.addAll(proNewsCharityPayInList);
 
         Page page = new Page(pageNo, pageSize);
         page.setRecords(list);
