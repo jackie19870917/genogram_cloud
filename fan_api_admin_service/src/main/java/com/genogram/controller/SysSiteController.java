@@ -151,6 +151,10 @@ public class SysSiteController {
                 fanSysSite.setName(name);
             }
 
+            Integer regionNum = Integer.valueOf(sysSiteVo.getRegionCode());
+            regionNum= regionNum / 10000 * 10000;
+
+            fanSysSite.setParent(regionNum);
             FanSysSite fanSysSite1 = sysSiteService.insertFanSysSite(fanSysSite);
 
             //新增的网站ID
