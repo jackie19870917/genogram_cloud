@@ -344,11 +344,12 @@ public class PersonController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
-        if (StringUtils.isEmpty(allUserLogin)) {
+        AllUserLogin login = allUserLoginService.getAllUserLoginById(id);
+        if (StringUtils.isEmpty(login)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(allUserLogin);
+        return ResponseUtlis.success(login);
     }
 
     /**
