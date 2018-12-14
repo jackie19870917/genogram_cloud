@@ -290,7 +290,7 @@ public class ProNewsCultureController {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
-            boolean result = proNewsCultureZipaiService.addOrUpdateZiPai(proNewsCultureZipai);
+            boolean result = proNewsCultureZipaiService.addOrUpdateZiPai(proNewsCultureZipai,userLogin);
             if (!result) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -341,8 +341,8 @@ public class ProNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = proNewsCultureZipaiService.deleteZipaiById(id, status);
-            if (!aBoolean) {
+            Boolean aBoolean = proNewsCultureZipaiService.deleteZipaiById(id, status,userLogin);
+            if (!aBoolean && aBoolean==null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -601,7 +601,7 @@ public class ProNewsCultureController {
                 return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             // 插入数据
-            boolean insert = proNewsCultureNewsService.addOrUpdateCulture(proNewsCultureNews, fileName, filePath);
+            boolean insert = proNewsCultureNewsService.addOrUpdateCulture(proNewsCultureNews, fileName, filePath,userLogin);
             if (!insert) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -649,7 +649,7 @@ public class ProNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = proNewsCultureNewsService.deleteCulturById(id, status);
+            Boolean aBoolean = proNewsCultureNewsService.deleteCulturById(id, status,userLogin);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }

@@ -2,6 +2,7 @@ package com.genogram.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entity.ProNewsCultureNews;
 import com.genogram.entity.ProNewsCultureZipai;
@@ -55,7 +56,7 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      * @param proNewsCultureZipai
      * @return
      */
-    boolean addOrUpdateZiPai(ProNewsCultureZipai proNewsCultureZipai);
+    boolean addOrUpdateZiPai(ProNewsCultureZipai proNewsCultureZipai, AllUserLogin userLogin);
 
     /**
      * 省级家族字派后台删除
@@ -64,7 +65,7 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      * @param status
      * @return
      */
-    Boolean deleteZipaiById(Integer id, int status);
+    Boolean deleteZipaiById(Integer id, int status,AllUserLogin userLogin);
 
     /**
      * 省级字派按地区查询

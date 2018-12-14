@@ -215,7 +215,7 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
      * @Description:
      */
     @Override
-    public boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath) {
+    public boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath,AllUserLogin userLogin) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if (proNewsCultureNews.getId() == null) {
@@ -223,14 +223,14 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
             proNewsCultureNews.setVisitNum(0);
             //存入创建时间
             proNewsCultureNews.setCreateTime(format);
-            proNewsCultureNews.setCreateUser(null);
+            proNewsCultureNews.setCreateUser(userLogin.getId());
             //存入修改时间
             proNewsCultureNews.setUpdateTime(format);
-            proNewsCultureNews.setUpdateUser(null);
+            proNewsCultureNews.setUpdateUser(userLogin.getId());
         } else {
             //存入修改时间
             proNewsCultureNews.setUpdateTime(format);
-            proNewsCultureNews.setUpdateUser(null);
+            proNewsCultureNews.setUpdateUser(userLogin.getId());
         }
         //插入数据
         boolean result = this.insertOrUpdate(proNewsCultureNews);
@@ -252,11 +252,13 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
      * @Description:
      */
     @Override
-    public Boolean deleteCulturById(Integer id, int status) {
+    public Boolean deleteCulturById(Integer id, int status,AllUserLogin userLogin) {
         ProNewsCultureNews proNewsCultureNews = this.selectById(id);
         proNewsCultureNews.setStatus(status);
+        //修改时间
         proNewsCultureNews.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        //修改人待写
+        //修改人
+        proNewsCultureNews.setUpdateUser(userLogin.getId());
         boolean result = this.updateAllColumnById(proNewsCultureNews);
         return result;
     }

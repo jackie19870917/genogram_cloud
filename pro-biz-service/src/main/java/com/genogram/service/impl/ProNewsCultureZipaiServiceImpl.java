@@ -2,6 +2,7 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entity.ProNewsCultureZipai;
 import com.genogram.entity.ProSysSite;
@@ -14,6 +15,7 @@ import com.genogram.service.IProSysSiteService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -101,22 +103,22 @@ public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZi
      * @Description:
      */
     @Override
-    public boolean addOrUpdateZiPai(ProNewsCultureZipai proNewsCultureZipai) {
+    public boolean addOrUpdateZiPai(ProNewsCultureZipai proNewsCultureZipai, AllUserLogin userLogin) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if (proNewsCultureZipai.getId() == null) {
             //存入创建时间
-            proNewsCultureZipai.setCreateUser(null);
+            proNewsCultureZipai.setCreateUser(userLogin.getId());
             proNewsCultureZipai.setCreateTime(format);
             //存入修改时间
             proNewsCultureZipai.setUpdateTime(format);
-            proNewsCultureZipai.setUpdateUser(null);
+            proNewsCultureZipai.setUpdateUser(userLogin.getId());
             //初始化查看数为0
             proNewsCultureZipai.setVisitNum(0);
         } else {
             //存入修改时间
             proNewsCultureZipai.setUpdateTime(format);
-            proNewsCultureZipai.setUpdateUser(null);
+            proNewsCultureZipai.setUpdateUser(userLogin.getId());
         }
         return this.insertOrUpdate(proNewsCultureZipai);
     }
@@ -132,11 +134,16 @@ public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZi
      * @Description:
      */
     @Override
-    public Boolean deleteZipaiById(Integer id, int status) {
+    public Boolean deleteZipaiById(Integer id, int status,AllUserLogin userLogin) {
         ProNewsCultureZipai proNewsCultureZipai = this.selectById(id);
+        if(StringUtils.isEmpty(proNewsCultureZipai)){
+            return null;
+        }
         proNewsCultureZipai.setStatus(status);
+        //修改时间
         proNewsCultureZipai.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        //修改人  待写
+        //修改人
+        proNewsCultureZipai.setUpdateUser(userLogin.getId());
         return this.updateAllColumnById(proNewsCultureZipai);
     }
 

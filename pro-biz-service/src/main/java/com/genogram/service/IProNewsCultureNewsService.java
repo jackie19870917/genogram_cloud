@@ -2,6 +2,7 @@ package com.genogram.service;
 
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProNewsCultureNews;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.FamilyCultureVo;
@@ -50,7 +51,7 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
      * @param filePath
      * @return
      */
-    boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath);
+    boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath, AllUserLogin userLogin);
 
     /**
      * 省级家族文化后台删除
@@ -59,5 +60,5 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
      * @param status
      * @return
      */
-    Boolean deleteCulturById(Integer id, int status);
+    Boolean deleteCulturById(Integer id, int status,AllUserLogin userLogin);
 }
