@@ -188,15 +188,11 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
         if (fanNewsRecord.getId() == null) {
             //存入创建时间
             fanNewsRecord.setCreateTime(format);
-            fanNewsRecord.setCreateUser(null);
-            //插入修改时间
-            fanNewsRecord.setUpdateTime(format);
-            fanNewsRecord.setUpdateUser(null);
-        } else {
-            //存入修改时间
-            fanNewsRecord.setUpdateTime(format);
-            fanNewsRecord.setUpdateUser(null);
+            fanNewsRecord.setCreateUser(fanNewsRecord.getUpdateUser());
+
         }
+        //存入修改时间
+        fanNewsRecord.setUpdateTime(format);
         boolean result = this.insertOrUpdate(fanNewsRecord);
         //存储图片
         if (result && StringsUtils.isNotEmpty(filePath)) {
@@ -213,11 +209,12 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
      * @return
      */
     @Override
-    public Boolean deleteRecordById(Integer id, int status) {
+    public Boolean deleteRecordById(Integer id, int status, Integer userId) {
         FanNewsFamilyRecord fanNewsFamilyRecord = this.selectById(id);
         fanNewsFamilyRecord.setStatus(status);
         fanNewsFamilyRecord.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        //修改人 待写
+        //修改人
+        fanNewsFamilyRecord.setUpdateUser(userId);
         boolean result = this.updateAllColumnById(fanNewsFamilyRecord);
         return result;
     }

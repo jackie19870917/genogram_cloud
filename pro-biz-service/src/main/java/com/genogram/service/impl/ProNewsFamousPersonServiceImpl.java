@@ -333,8 +333,8 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
             proNewsFamousPerson.setCreateTime(format);
             proNewsFamousPerson.setCreateUser(proNewsFamousPerson.getUpdateUser());
         }
-            //存入修改时间
-            proNewsFamousPerson.setUpdateTime(format);
+        //存入修改时间
+        proNewsFamousPerson.setUpdateTime(format);
         boolean result = this.insertOrUpdate(proNewsFamousPerson);
         //存储图片
         if (result && StringsUtils.isNotEmpty(filePath)) {
@@ -351,7 +351,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
      * @return
      */
     @Override
-    public Boolean deletePersonById(Integer id, int status,Integer userId) {
+    public Boolean deletePersonById(Integer id, int status, Integer userId) {
         ProNewsFamousPerson proNewsFamousPerson = this.selectById(id);
         proNewsFamousPerson.setStatus(status);
         proNewsFamousPerson.setUpdateTime(DateUtil.getCurrentTimeStamp());

@@ -65,6 +65,13 @@ public class SysSiteController {
     @Autowired
     private IFanProIndexSlidePicService fanProIndexSlidePicService;
 
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role01 = 1;
+    Integer role04 = 4;
+    Integer role09 = 9;
+
     String fan = "fan";
     String pro = "pro";
 
@@ -93,14 +100,22 @@ public class SysSiteController {
                                               @ApiParam("网站级别(fan-县级,pro-省级)") @RequestParam("siteType") String siteType,
                                               SysSiteVo sysSiteVo) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(allUserLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin UserLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Integer id = allUserLogin.getId();

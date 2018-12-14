@@ -1,13 +1,19 @@
 package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.config.Constants;
 import com.genogram.entity.AllMessageBoard;
+import com.genogram.entity.AllUserLogin;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanMessageBoardService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -21,14 +27,46 @@ public class FanMessageBoardController {
     @Autowired
     private IFanMessageBoardService iFanMessageBoardService;
 
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role01 = 1;
+    Integer role04 = 4;
+    Integer role09 = 9;
+
     @ApiOperation(value = "留言板查询")
     @RequestMapping(value = "/selectMessage", method = RequestMethod.GET)
     public Response<AllMessageBoard> getMessageBoardDetail(
             @RequestParam(value = "site_id") Integer siteId,
-            @RequestParam(value = "source_type") Integer sourceType,
+            @RequestParam(value = "source_type") Integer sourceType, @ApiParam("token") @RequestParam(value = "token", required = false) String token,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
+
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
         Page<AllMessageBoard> allMessageBoardPage = iFanMessageBoardService.getMessageBoard(siteId, sourceType, pageNo, pageSize);
         return ResponseUtlis.success(allMessageBoardPage);
     }

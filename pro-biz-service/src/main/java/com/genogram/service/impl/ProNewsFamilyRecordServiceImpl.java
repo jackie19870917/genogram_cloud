@@ -215,8 +215,8 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
             proNewsFamilyRecord.setCreateUser(proNewsFamilyRecord.getUpdateUser());
             //插入修改时间
         }
-            //存入修改时间
-            proNewsFamilyRecord.setUpdateTime(format);
+        //存入修改时间
+        proNewsFamilyRecord.setUpdateTime(format);
         boolean result = this.insertOrUpdate(proNewsFamilyRecord);
         //存储图片
         if (result && StringsUtils.isNotEmpty(filePath)) {
@@ -233,7 +233,7 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
      * @return
      */
     @Override
-    public Boolean deleteProRecordById(Integer id, int status,Integer userId) {
+    public Boolean deleteProRecordById(Integer id, int status, Integer userId) {
         ProNewsFamilyRecord proNewsFamilyRecord = this.selectById(id);
         proNewsFamilyRecord.setStatus(status);
         proNewsFamilyRecord.setUpdateTime(DateUtil.getCurrentTimeStamp());

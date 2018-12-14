@@ -60,5 +60,5 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
      * @param status
      * @return
      */
-    Boolean deleteCulturById(Integer id, int status,AllUserLogin userLogin);
+    Boolean deleteCulturById(Integer id, int status, AllUserLogin userLogin);
 }

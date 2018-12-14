@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanSysRecommend;
 import com.genogram.entityvo.CommonRecommendVo;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanSysRecommendService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
@@ -15,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -45,6 +48,16 @@ public class FanRecommendController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role01 = 1;
+    Integer role04 = 4;
+    Integer role09 = 9;
+
     /**
      * 联谊会后台点击推荐
      *
@@ -63,13 +76,22 @@ public class FanRecommendController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
-            if (StringsUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (showId == null || id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -116,13 +138,22 @@ public class FanRecommendController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
-            if (StringsUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (showId == null || id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -167,17 +198,22 @@ public class FanRecommendController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
-            if (StringsUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
             }
-            //判断recommendId是否为空
-            if (recommendId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 3;
@@ -229,13 +265,22 @@ public class FanRecommendController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
-            if (StringsUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
@@ -299,13 +344,22 @@ public class FanRecommendController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
-            if (StringsUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {

@@ -53,7 +53,12 @@ public class PersonController {
 
     String fan = "fan";
     String pro = "pro";
+
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
     Integer role01 = 1;
+    Integer role04 = 4;
     Integer role09 = 9;
 
     @ApiOperation(value = "查询用户", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
@@ -63,20 +68,22 @@ public class PersonController {
                                                    @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                    @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
-        AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
-        if (StringUtils.isEmpty(allUserLogin)) {
+        if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        if (!userLogin.getRole().equals(role09)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
@@ -125,20 +132,22 @@ public class PersonController {
                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不正确");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
-        AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
-        if (StringUtils.isEmpty(allUserLogin)) {
+        if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        if (userLogin.getRole() != 0) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         List list = new ArrayList();
@@ -304,8 +313,9 @@ public class PersonController {
     public Response<AllUserLogin> getUserLogin(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                @ApiParam("主键") @RequestParam("id") Integer id) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -314,13 +324,12 @@ public class PersonController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        AllUserLogin login = allUserLoginService.getAllUserLoginById(userLogin.getId());
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        if (!login.getRole().equals(role09)) {
-            return ResponseUtlis.error(204, "您没有权限");
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
-
-        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(id);
 
         if (StringUtils.isEmpty(allUserLogin)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);
@@ -341,8 +350,9 @@ public class PersonController {
     public Response<AllUserLogin> updatePerson(AllUserLogin allUserLogin,
                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -351,12 +361,11 @@ public class PersonController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        Integer id = userLogin.getId();
+        AllUserLogin login = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        AllUserLogin login = allUserLoginService.getAllUserLoginById(id);
-
-        if (!login.getRole().equals(role09)) {
-            return ResponseUtlis.error(204, "您没有权限");
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         allUserLogin.setUpdateUser(login.getId());
@@ -387,14 +396,22 @@ public class PersonController {
     @RequestMapping(value = "updateAllFamily", method = RequestMethod.POST)
     public Response<AllFamily> updateAllFamily(@ApiParam("token") @RequestParam(value = "token", required = false) String token, AllFamily allFamily) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token错误");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         AllFamily family = allFamilyService.updateAllFamily(allFamily);

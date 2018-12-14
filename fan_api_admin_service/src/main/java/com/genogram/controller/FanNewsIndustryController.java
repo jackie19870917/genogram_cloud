@@ -9,6 +9,7 @@ import com.genogram.entity.FanNewsIndustry;
 import com.genogram.entityvo.FamilyIndustryVo;
 import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.service.IAllCheckOutService;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
@@ -51,6 +52,15 @@ public class FanNewsIndustryController {
     @Autowired
     private IAllCheckOutService allCheckOutService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role01 = 1;
+    Integer role04 = 4;
+    Integer role09 = 9;
+
     /**
      * 联谊会家族产业后台查询
      *
@@ -81,14 +91,24 @@ public class FanNewsIndustryController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
             }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+
             //判断showId是否有值
             if (showId == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -189,13 +209,22 @@ public class FanNewsIndustryController {
      */
     private Response<IndustryDetailVo> getNewsDetailVoResponse(@RequestParam("id") Integer id, String token) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -237,6 +266,8 @@ public class FanNewsIndustryController {
             @ApiParam(value = "上传文件名称") @RequestParam(value = "fileName", required = false) String fileName,
             @ApiParam(value = "上传文件地址") @RequestParam(value = "filePath", required = false) String filePath,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        //  校验敏感词汇
         Set set = allCheckOutService.getSensitiveWord(fanNewsIndustry.getNewsText());
 
         if (set != null && set.size() >= 1) {
@@ -294,22 +325,29 @@ public class FanNewsIndustryController {
                                                                  String fileName, String filePath,
                                                                  @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
         try {
-            //判断token不能为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (fanNewsIndustry.getId() == null) {
                 //创建人
-                fanNewsIndustry.setCreateUser(userLoginInfoByToken.getId());
+                fanNewsIndustry.setCreateUser(userLogin.getId());
             }
             //修改人
-            fanNewsIndustry.setUpdateUser(userLoginInfoByToken.getId());
+            fanNewsIndustry.setUpdateUser(userLogin.getId());
             // 插入数据
             fanNewsIndustryService.addOrUpdateIndustry(fanNewsIndustry, fileName, filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -336,14 +374,22 @@ public class FanNewsIndustryController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (id == null) {
@@ -351,7 +397,7 @@ public class FanNewsIndustryController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean isDel = fanNewsIndustryService.deleteIndustryById(id, status, userLoginInfoByToken);
+            Boolean isDel = fanNewsIndustryService.deleteIndustryById(id, status, userLogin);
             if (!isDel) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }

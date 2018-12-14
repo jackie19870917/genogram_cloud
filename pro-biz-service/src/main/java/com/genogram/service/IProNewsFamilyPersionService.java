@@ -76,7 +76,7 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
      * @param userId
      * @return
      */
-    Boolean deletePersonById(Integer id, int status,Integer userId);
+    Boolean deletePersonById(Integer id, int status, Integer userId);
 
     /**
      * 通过siteId menuCode 找到菜单对象

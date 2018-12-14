@@ -52,10 +52,11 @@ public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecor
      * 记录家族删除
      *
      * @param id
+     * @param userId
      * @param status
      * @return
      */
-    Boolean deleteRecordById(Integer id, int status);
+    Boolean deleteRecordById(Integer id, int status, Integer userId);
 
     /**
      * 联谊会记录家族详情查询

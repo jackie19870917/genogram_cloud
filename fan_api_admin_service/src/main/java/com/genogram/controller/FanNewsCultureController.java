@@ -10,10 +10,7 @@ import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.entityvo.NewsDetailVo;
-import com.genogram.service.IAllCheckOutService;
-import com.genogram.service.IFanNewsCultureNewsService;
-import com.genogram.service.IFanNewsCultureZipaiService;
-import com.genogram.service.IUserService;
+import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import com.genogram.unit.StringsUtils;
@@ -56,6 +53,15 @@ public class FanNewsCultureController {
     @Autowired
     private IAllCheckOutService allCheckOutService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role01 = 1;
+    Integer role04 = 4;
+    Integer role09 = 9;
+
     /**
      * 联谊会家族字派后台查询
      *
@@ -87,13 +93,22 @@ public class FanNewsCultureController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断showId是否有值
             if (showId == null) {
@@ -150,13 +165,22 @@ public class FanNewsCultureController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否有值
             if (id == null) {
@@ -197,6 +221,7 @@ public class FanNewsCultureController {
             @ApiParam(value = "联谊会字派表") FanNewsCultureZipai fanNewsCultureZipai,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        // 校验敏感词汇
         Set set = allCheckOutService.getSensitiveWord(fanNewsCultureZipai.getZipaiTxt());
 
         if (set != null && set.size() >= 1) {
@@ -251,23 +276,30 @@ public class FanNewsCultureController {
      */
     private Response<FanNewsCultureZipai> getFanNewsCultureZipaiResponse(FanNewsCultureZipai fanNewsCultureZipai, @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断是否有主键 有修改 否新增
             if (fanNewsCultureZipai.getId() == null) {
                 //创建人
-                fanNewsCultureZipai.setCreateUser(userLoginInfoByToken.getId());
+                fanNewsCultureZipai.setCreateUser(userLogin.getId());
             }
             //修改人
-            fanNewsCultureZipai.setUpdateUser(userLoginInfoByToken.getId());
+            fanNewsCultureZipai.setUpdateUser(userLogin.getId());
 
             boolean result = fanNewsCultureZipaiService.addOrUpdateZiPai(fanNewsCultureZipai);
             if (!result) {
@@ -297,15 +329,22 @@ public class FanNewsCultureController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (id == null) {
@@ -313,7 +352,7 @@ public class FanNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = fanNewsCultureZipaiService.deleteZipaiById(id, status, userLoginInfoByToken);
+            Boolean aBoolean = fanNewsCultureZipaiService.deleteZipaiById(id, status, userLogin);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -353,13 +392,22 @@ public class FanNewsCultureController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断showId是否有值
             if (showId == null) {
@@ -473,12 +521,22 @@ public class FanNewsCultureController {
      */
     private Response<NewsDetailVo> getNewsDetailVoResponse(@RequestParam("id") Integer id, String token) {
         try {
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (id == null) {
@@ -520,6 +578,7 @@ public class FanNewsCultureController {
             @ApiParam(value = "上传文件地址") @RequestParam(value = "filePath", required = false) String filePath,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        // 校验敏感词汇
         Set set = allCheckOutService.getSensitiveWord(fanNewsCultureNews.getNewsText());
 
         if (set != null && set.size() >= 1) {
@@ -576,22 +635,29 @@ public class FanNewsCultureController {
                                                                        String fileName, String filePath,
                                                                        String token) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (fanNewsCultureNews.getId() == null) {
                 //创建人
-                fanNewsCultureNews.setCreateUser(userLoginInfoByToken.getId());
+                fanNewsCultureNews.setCreateUser(userLogin.getId());
             }
             //修改人
-            fanNewsCultureNews.setUpdateUser(userLoginInfoByToken.getId());
+            fanNewsCultureNews.setUpdateUser(userLogin.getId());
             // 插入数据
             boolean insert = fanNewsCultureNewsService.addOrUpdateCulture(fanNewsCultureNews, fileName, filePath);
             if (!insert) {
@@ -623,15 +689,22 @@ public class FanNewsCultureController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
-            if (StringsUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断主键是否为空
             if (id == null) {
@@ -639,7 +712,7 @@ public class FanNewsCultureController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = fanNewsCultureNewsService.deleteCulturById(id, status, userLoginInfoByToken);
+            Boolean aBoolean = fanNewsCultureNewsService.deleteCulturById(id, status, userLogin);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }

@@ -94,7 +94,7 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
 
         //判断是否有省级网站
         if (StringUtils.isEmpty(proSysSite)) {
-        return null;
+            return null;
         }
 
         //根据省级的地区Id查询出所有开通的县级的ID
@@ -106,9 +106,9 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
         List<Integer> list = new ArrayList();
 
         //判断地区下是否还有地区县级
-        List<AllRegion> regionsAll =new ArrayList();
+        List<AllRegion> regionsAll = new ArrayList();
         for (AllRegion allRegion : allRegions) {
-            if(allRegion.getParentCode()%10000==0){
+            if (allRegion.getParentCode() % 10000 == 0) {
                 Wrapper<AllRegion> allEntity2 = new EntityWrapper<>();
                 allEntity2.eq("parent_code", allRegion.getCode());
                 List<AllRegion> allRegions2 = this.selectList(allEntity2);
@@ -119,7 +119,7 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
             list.add(allRegion.getParentCode());
         }
 
-        if(regionsAll!=null && regionsAll.size()!=0){
+        if (regionsAll != null && regionsAll.size() != 0) {
             for (AllRegion allRegion : regionsAll) {
                 list.add(allRegion.getParentCode());
             }

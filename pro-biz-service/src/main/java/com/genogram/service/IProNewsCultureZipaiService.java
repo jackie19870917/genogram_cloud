@@ -65,7 +65,7 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      * @param status
      * @return
      */
-    Boolean deleteZipaiById(Integer id, int status,AllUserLogin userLogin);
+    Boolean deleteZipaiById(Integer id, int status, AllUserLogin userLogin);
 
     /**
      * 省级字派按地区查询

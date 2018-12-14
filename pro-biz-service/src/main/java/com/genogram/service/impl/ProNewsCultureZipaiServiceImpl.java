@@ -134,9 +134,9 @@ public class ProNewsCultureZipaiServiceImpl extends ServiceImpl<ProNewsCultureZi
      * @Description:
      */
     @Override
-    public Boolean deleteZipaiById(Integer id, int status,AllUserLogin userLogin) {
+    public Boolean deleteZipaiById(Integer id, int status, AllUserLogin userLogin) {
         ProNewsCultureZipai proNewsCultureZipai = this.selectById(id);
-        if(StringUtils.isEmpty(proNewsCultureZipai)){
+        if (StringUtils.isEmpty(proNewsCultureZipai)) {
             return null;
         }
         proNewsCultureZipai.setStatus(status);

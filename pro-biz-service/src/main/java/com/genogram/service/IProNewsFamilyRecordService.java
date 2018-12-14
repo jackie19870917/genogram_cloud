@@ -62,5 +62,4 @@ public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecor
     void addVisitNum(Integer id);
 
 
-
 }

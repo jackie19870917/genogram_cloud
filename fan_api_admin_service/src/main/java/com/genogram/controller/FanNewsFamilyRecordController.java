@@ -45,6 +45,16 @@ public class FanNewsFamilyRecordController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role01 = 1;
+    Integer role04 = 4;
+    Integer role09 = 9;
+
     /**
      * 后台家族动态查询
      */
@@ -64,10 +74,30 @@ public class FanNewsFamilyRecordController {
     @RequestMapping(value = "selectRecortPage", method = RequestMethod.GET)
     public Response<FanNewsFamilyRecord> selectRecortPage(
             @RequestParam(value = "showId") Integer showId, // 显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try {
+
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+
             List<Integer> list = new ArrayList<>();
             list.add(1);
             list.add(2);
@@ -108,8 +138,27 @@ public class FanNewsFamilyRecordController {
     )
     @RequestMapping(value = "/getFamilyRecord", method = RequestMethod.GET)
     public Response<FamilyRecordVo> getFamilyRecordDetail(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
         return getNewsDetailVoResponse(id);
     }
 
@@ -137,8 +186,27 @@ public class FanNewsFamilyRecordController {
     )
     @RequestMapping(value = "/getFamilyRecordAmend", method = RequestMethod.GET)
     public Response<FamilyRecordVo> getFamilyRecordAmend(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
         return getNewsDetailVoResponse(id);
     }
 
@@ -186,8 +254,26 @@ public class FanNewsFamilyRecordController {
             "update_user  修改人"
     )
     @RequestMapping(value = "/addOrUpdateRecord", method = RequestMethod.POST)
-    public Response<FanNewsFamilyRecord> addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName, String filePath) {
+    public Response<FanNewsFamilyRecord> addOrUpdateRecord(FanNewsFamilyRecord fanNewsRecord, String fileName, String filePath,
+                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
 
         Set set = allCheckOutService.getSensitiveWord(fanNewsRecord.getNewsText());
 
@@ -195,6 +281,7 @@ public class FanNewsFamilyRecordController {
             return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
+        fanNewsRecord.setUpdateUser(userLogin.getId());
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsRecord.setStatus(1);
         return getFanNewsRecordResponse(fanNewsRecord, fileName, filePath);
@@ -223,7 +310,28 @@ public class FanNewsFamilyRecordController {
             "update_user  修改人"
     )
     @RequestMapping(value = "/addOrUpdateRecordDrft", method = RequestMethod.POST)
-    public Response<FanNewsFamilyRecord> addOrUpdateRecordDrft(FanNewsFamilyRecord fanNewsRecord, String fileName, String filePath) {
+    public Response<FanNewsFamilyRecord> addOrUpdateRecordDrft(FanNewsFamilyRecord fanNewsRecord, String fileName, String filePath,
+                                                               @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
+        fanNewsRecord.setUpdateUser(userLogin.getId());
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsRecord.setStatus(2);
         return getFanNewsRecordResponse(fanNewsRecord, fileName, filePath);
@@ -275,15 +383,34 @@ public class FanNewsFamilyRecordController {
     )
     @RequestMapping(value = "/deleteRecordById", method = RequestMethod.GET)
     public Response<FanNewsFamilyRecord> deleteRecordById(
-            @RequestParam(value = "id") Integer id // 详情显示位置
+            @RequestParam(value = "id") Integer id, // 详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = fanNewsFamilyRecordService.deleteRecordById(id, status);
+            Boolean aBoolean = fanNewsFamilyRecordService.deleteRecordById(id, status, userLogin.getId());
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -313,10 +440,29 @@ public class FanNewsFamilyRecordController {
     @RequestMapping(value = "selectRecortVedioPage", method = RequestMethod.GET)
     public Response<FanNewsFamilyRecordVedio> selectRecortVedioPage(
             @RequestParam(value = "showId") Integer showId, // 产业显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try {
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+
             int status = 1;
             Page<FamilyRecordVedioVo> familyRecordVedioVo = fanNewsFamilyRecordVedioService.getFamilyRecordVedioPage(showId, status, pageNo, pageSize);
             if (familyRecordVedioVo == null) {
@@ -355,8 +501,27 @@ public class FanNewsFamilyRecordController {
     )
     @RequestMapping(value = "/getFamilyRecordVedioDetail", method = RequestMethod.GET)
     public Response<FamilyRecordVedioVo> getFamilyRecordVedioDetail(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
         return getNewsDetailVedioVoDetailResponse(id);
     }
 
@@ -384,8 +549,27 @@ public class FanNewsFamilyRecordController {
     )
     @RequestMapping(value = "/getFamilyRecordVedioAmend", method = RequestMethod.GET)
     public Response<FamilyRecordVedioVo> getFamilyRecordVedioAmend(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
         return getNewsDetailVedioVoResponse(id);
     }
 
@@ -444,7 +628,28 @@ public class FanNewsFamilyRecordController {
             "update_user  修改人"
     )
     @RequestMapping(value = "/addOrUpdateVedioRecord", method = RequestMethod.POST)
-    public Response<FanNewsFamilyRecordVedio> addOrUpdateVedioRecord(FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio, String picfileName, String picPath, String vedioFileName, String vedioPath) {
+    public Response<FanNewsFamilyRecordVedio> addOrUpdateVedioRecord(FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio,
+                                                                     String picfileName, String picPath, String vedioFileName, String vedioPath,
+                                                                     @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
+        fanNewsFamilyRecordVedio.setUpdateUser(userLogin.getId());
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         fanNewsFamilyRecordVedio.setStatus(1);
         return getFanNewsVedioRecordResponse(fanNewsFamilyRecordVedio, picfileName, picPath, vedioFileName, vedioPath);
@@ -496,15 +701,34 @@ public class FanNewsFamilyRecordController {
     )
     @RequestMapping(value = "/deleteRecordVedioById", method = RequestMethod.GET)
     public Response<FanNewsFamilyRecordVedio> deleteRecordVedioById(
-            @RequestParam(value = "id") Integer id // 家族文化详情显示位置
+            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = fanNewsFamilyRecordVedioService.deleteVedioRecordById(id, status);
+            Boolean aBoolean = fanNewsFamilyRecordVedioService.deleteVedioRecordById(id, status, userLogin.getId());
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
@@ -522,14 +746,22 @@ public class FanNewsFamilyRecordController {
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
@@ -567,14 +799,22 @@ public class FanNewsFamilyRecordController {
     public Response<AllUserVideos> updateAllUserVideos(@ApiParam("主键") @RequestParam("id") Integer id,
                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         AllUserVideos allUserVideos = new AllUserVideos();

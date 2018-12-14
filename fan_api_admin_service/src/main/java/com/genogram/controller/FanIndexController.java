@@ -55,6 +55,16 @@ public class FanIndexController {
     @Autowired
     private IAllCheckOutService allCheckOutService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role01 = 1;
+    Integer role04 = 4;
+    Integer role09 = 9;
+
     /**
      * 轮播图
      *
@@ -66,14 +76,22 @@ public class FanIndexController {
     public Response<FanIndexSlidePic> getFanIndexSlidePicList(@ApiParam("网站Id") @RequestParam Integer siteId,
                                                               @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
@@ -105,14 +123,22 @@ public class FanIndexController {
     public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic,
                                                                      @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (StringUtils.isEmpty(fanIndexSlidePic.getId())) {
@@ -141,14 +167,22 @@ public class FanIndexController {
     public Response<FanIndexSlidePic> deleteFanIndexSlidePic(@ApiParam("主键") @RequestParam Integer id,
                                                              @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Boolean result = fanIndexSlidePicService.deleteFanIndexSlidePic(id, userLogin.getId());
@@ -171,14 +205,22 @@ public class FanIndexController {
     public Response<IndexInfoVo> getFanIndexInfo(@ApiParam("网站Id") @RequestParam Integer siteId,
                                                  @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
@@ -205,8 +247,9 @@ public class FanIndexController {
     public Response<FanIndexInfo> insertOrUpdateFanIndexInfo(IndexInfoVo indexInfoVo,
                                                              @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -215,6 +258,14 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
+        // 校验敏感词汇
         Set set = allCheckOutService.getSensitiveWord(indexInfoVo.getDescription());
 
         if (set != null && set.size() >= 1) {
@@ -246,14 +297,22 @@ public class FanIndexController {
     public Response<FanIndexInfo> deleteFanIndexInfo(FanIndexInfo fanIndexInfo,
                                                      @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         fanIndexInfo.setUpdateUser(userLogin.getId());
@@ -281,15 +340,22 @@ public class FanIndexController {
                                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                           @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                           @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
-
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
@@ -321,14 +387,22 @@ public class FanIndexController {
     public Response<FanIndexFamilySummarys> getFanIndexFamilySummarys(@ApiParam("主键") @RequestParam Integer id,
                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         FanIndexFamilySummarys fanIndexFamilySummarys = fanIndexFamilySummarysService.getFanIndexFamilySummarys(id);
@@ -347,18 +421,26 @@ public class FanIndexController {
     public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarys(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                                  FanIndexFamilySummarys fanIndexFamilySummarys) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
-
-        //状态   1-正常  2-草稿
-        fanIndexFamilySummarys.setStatus(1);
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
+        //状态   1-正常  2-草稿
+        fanIndexFamilySummarys.setStatus(1);
 
         if (StringUtils.isEmpty(fanIndexFamilySummarys.getId())) {
             fanIndexFamilySummarys.setCreateUser(userLogin.getId());
@@ -386,14 +468,22 @@ public class FanIndexController {
     public Response<FanIndexFamilySummarys> insertOrUpdateFanIndexFamilySummarysDrft(FanIndexFamilySummarys fanIndexFamilySummarys,
                                                                                      @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         //状态   1-正常  2-草稿
@@ -418,14 +508,22 @@ public class FanIndexController {
     public Response<FanIndexFamilySummarys> deleteFanIndexFamilySummarys(@ApiParam("主键") @RequestParam Integer id,
                                                                          @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         //用户Id
@@ -447,14 +545,22 @@ public class FanIndexController {
                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
@@ -491,14 +597,22 @@ public class FanIndexController {
     public Response<AllUserNewsInfo> updateAllUserNewsInfo(@ApiParam("主键") @RequestParam("id") Integer id,
                                                            @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         AllUserNewsInfo allUserNewsInfo = new AllUserNewsInfo();

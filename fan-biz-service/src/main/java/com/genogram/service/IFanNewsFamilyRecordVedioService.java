@@ -56,8 +56,9 @@ public interface IFanNewsFamilyRecordVedioService extends IService<FanNewsFamily
      * 记录家族视屏删除
      *
      * @param id
+     * @param userId
      * @param status
      * @return
      */
-    Boolean deleteVedioRecordById(Integer id, int status);
+    Boolean deleteVedioRecordById(Integer id, int status, Integer userId);
 }

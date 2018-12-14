@@ -192,15 +192,10 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
         if (fanNewsFamilyRecordVedio.getId() == null) {
             //存入创建时间
             fanNewsFamilyRecordVedio.setCreateTime(format);
-            fanNewsFamilyRecordVedio.setCreateUser(null);
-            //插入修改时间
-            fanNewsFamilyRecordVedio.setUpdateTime(format);
-            fanNewsFamilyRecordVedio.setUpdateUser(null);
-        } else {
-            //存入修改时间
-            fanNewsFamilyRecordVedio.setUpdateTime(format);
-            fanNewsFamilyRecordVedio.setUpdateUser(null);
+            fanNewsFamilyRecordVedio.setCreateUser(fanNewsFamilyRecordVedio.getUpdateUser());
         }
+        //存入修改时间
+        fanNewsFamilyRecordVedio.setUpdateTime(format);
         boolean result = this.insertOrUpdate(fanNewsFamilyRecordVedio);
         //存储图片
         if (result) {
@@ -211,11 +206,12 @@ public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFami
     }
 
     @Override
-    public Boolean deleteVedioRecordById(Integer id, int status) {
+    public Boolean deleteVedioRecordById(Integer id, int status, Integer userId) {
         FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio = this.selectById(id);
         fanNewsFamilyRecordVedio.setStatus(status);
         fanNewsFamilyRecordVedio.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        //修改人 待写
+        //修改人
+        fanNewsFamilyRecordVedio.setUpdateUser(userId);
         boolean result = this.updateAllColumnById(fanNewsFamilyRecordVedio);
         return result;
     }

@@ -215,7 +215,7 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
      * @Description:
      */
     @Override
-    public boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath,AllUserLogin userLogin) {
+    public boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath, AllUserLogin userLogin) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if (proNewsCultureNews.getId() == null) {
@@ -252,7 +252,7 @@ public class ProNewsCultureNewsServiceImpl extends ServiceImpl<ProNewsCultureNew
      * @Description:
      */
     @Override
-    public Boolean deleteCulturById(Integer id, int status,AllUserLogin userLogin) {
+    public Boolean deleteCulturById(Integer id, int status, AllUserLogin userLogin) {
         ProNewsCultureNews proNewsCultureNews = this.selectById(id);
         proNewsCultureNews.setStatus(status);
         //修改时间

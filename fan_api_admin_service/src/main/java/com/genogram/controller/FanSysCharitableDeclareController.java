@@ -8,6 +8,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanSysCharitableDeclareService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
@@ -48,15 +49,26 @@ public class FanSysCharitableDeclareController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
     /**
-     *联谊会慈善帮扶申报查询
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 15:32
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role01 = 1;
+    Integer role04 = 4;
+    Integer role09 = 9;
+
+    /**
+     * 联谊会慈善帮扶申报查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 15:32
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "联谊会慈善帮扶申报查询", notes = "show_id:网站id")
     @RequestMapping(value = "getSysCharitableDeclare", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> getFamilyStructureList(
@@ -65,13 +77,22 @@ public class FanSysCharitableDeclareController {
             @ApiParam("每页信息条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (showId == null) {
@@ -91,14 +112,15 @@ public class FanSysCharitableDeclareController {
     }
 
     /**
-     *联谊会慈善帮扶申报删除
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 15:32
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会慈善帮扶申报删除
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 15:32
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "联谊会慈善帮扶申报删除", notes = "")
     @RequestMapping(value = "deleteSysCharitableDeclare", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> deleteRecordById(
@@ -106,15 +128,22 @@ public class FanSysCharitableDeclareController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (id == null) {
@@ -132,14 +161,15 @@ public class FanSysCharitableDeclareController {
     }
 
     /**
-     *联谊会慈善帮扶申报详情
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 16:13
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会慈善帮扶申报详情
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 16:13
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "联谊会慈善帮扶申报详情", notes = "")
     @RequestMapping(value = "getFamilyStructureDetails", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> getFamilyStructureDetails(
@@ -147,22 +177,29 @@ public class FanSysCharitableDeclareController {
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
             }
-            FanSysCharitableDeclare fanSysCharitableDeclare=fanSysCharitableDeclareService.getFamilyStructureDetails(id);
-            if (fanSysCharitableDeclare==null) {
+            FanSysCharitableDeclare fanSysCharitableDeclare = fanSysCharitableDeclareService.getFamilyStructureDetails(id);
+            if (fanSysCharitableDeclare == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "查询成功");
@@ -173,38 +210,46 @@ public class FanSysCharitableDeclareController {
     }
 
     /**
-     *联谊会慈善帮扶申报详情帮扶反馈添加
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 17:52
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会慈善帮扶申报详情帮扶反馈添加
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 17:52
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "联谊会慈善帮扶申报详情帮扶反馈添加", notes = "")
     @RequestMapping(value = "addCharityAssistFeedback", method = RequestMethod.POST)
     public Response<FanSysCharitableDeclare> addCharityAssistFeedback(
             @ApiParam("主键Id") @RequestParam(value = "id") Integer id,
-            @ApiParam("帮助反馈") @RequestParam(value = "helpFeedback",required = false) String helpFeedback,
-            @ApiParam("上传帮助反馈的图片") @RequestParam(value = "helpFeedbackFile",required = false) String helpFeedbackFile,
+            @ApiParam("帮助反馈") @RequestParam(value = "helpFeedback", required = false) String helpFeedback,
+            @ApiParam("上传帮助反馈的图片") @RequestParam(value = "helpFeedbackFile", required = false) String helpFeedbackFile,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
             }
-            Boolean aBoolean =fanSysCharitableDeclareService.addCharityAssistFeedback(id,helpFeedback,helpFeedbackFile,userLoginInfoByToken);
+            Boolean aBoolean = fanSysCharitableDeclareService.addCharityAssistFeedback(id, helpFeedback, helpFeedbackFile, userLogin);
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "新增失败");
             }
@@ -216,46 +261,52 @@ public class FanSysCharitableDeclareController {
     }
 
 
-
-
     /**
-     *联谊会慈善帮扶申报添加或修改  申报
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 13:37
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会慈善帮扶申报添加或修改  申报
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 13:37
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "联谊会慈善帮扶申报添加或修改 申报", notes = "")
     @RequestMapping(value = "addCharityAssist", method = RequestMethod.POST)
     public Response<FanSysCharitableDeclare> addCharityAssist(
-            @ApiParam(value = "慈善帮扶申报表")FanSysCharitableDeclare fanSysCharitableDeclare,
+            @ApiParam(value = "慈善帮扶申报表") FanSysCharitableDeclare fanSysCharitableDeclare,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //添加创建人或者修改人Id
             if (fanSysCharitableDeclare.getId() == null) {
                 //创建人
-                fanSysCharitableDeclare.setCreateUser(userLoginInfoByToken.getId());
+                fanSysCharitableDeclare.setCreateUser(userLogin.getId());
             }
             //修改人
-            fanSysCharitableDeclare.setUpdateUser(userLoginInfoByToken.getId());
+            fanSysCharitableDeclare.setUpdateUser(userLogin.getId());
             //状态(0:审核通过;1:审核中;2:草稿3:审核不通过)
             fanSysCharitableDeclare.setStatus(1);
-            Boolean aBoolean =fanSysCharitableDeclareService.addCharityAssist(fanSysCharitableDeclare);
-            if(!aBoolean){
-                return ResponseUtlis.error(Constants.ERRO_CODE,"新增失败");
+            Boolean aBoolean = fanSysCharitableDeclareService.addCharityAssist(fanSysCharitableDeclare);
+            if (!aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, "新增失败");
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "新增成功");
         } catch (Exception e) {
@@ -265,43 +316,51 @@ public class FanSysCharitableDeclareController {
     }
 
     /**
-     *联谊会慈善帮扶申报添加或修改  草稿
-     *@Author: yuzhou
-     *@Date: 2018-12-12
-     *@Time: 13:37
-     *@Param:
-     *@return:
-     *@Description:
+     * 联谊会慈善帮扶申报添加或修改  草稿
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-12
+     * @Time: 13:37
+     * @Param:
+     * @return:
+     * @Description:
      */
     @ApiOperation(value = "联谊会慈善帮扶申报添加或修改 草稿", notes = "")
     @RequestMapping(value = "draftCharityAssist", method = RequestMethod.POST)
     public Response<FanSysCharitableDeclare> draftCharityAssist(
-            @ApiParam(value = "慈善帮扶申报表")FanSysCharitableDeclare fanSysCharitableDeclare,
+            @ApiParam(value = "慈善帮扶申报表") FanSysCharitableDeclare fanSysCharitableDeclare,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
-            //判断token是否为空
+            //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //添加创建人或者修改人Id
             if (fanSysCharitableDeclare.getId() == null) {
                 //创建人
-                fanSysCharitableDeclare.setCreateUser(userLoginInfoByToken.getId());
+                fanSysCharitableDeclare.setCreateUser(userLogin.getId());
             }
             //修改人
-            fanSysCharitableDeclare.setUpdateUser(userLoginInfoByToken.getId());
+            fanSysCharitableDeclare.setUpdateUser(userLogin.getId());
             //状态(0:审核通过;1:审核中;2:草稿3:审核不通过)
             fanSysCharitableDeclare.setStatus(2);
-            Boolean aBoolean =fanSysCharitableDeclareService.addCharityAssist(fanSysCharitableDeclare);
-            if(!aBoolean){
-                return ResponseUtlis.error(Constants.ERRO_CODE,"修改失败");
+            Boolean aBoolean = fanSysCharitableDeclareService.addCharityAssist(fanSysCharitableDeclare);
+            if (!aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, "修改失败");
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "修改成功");
         } catch (Exception e) {
@@ -309,7 +368,6 @@ public class FanSysCharitableDeclareController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
-
 
 
 }

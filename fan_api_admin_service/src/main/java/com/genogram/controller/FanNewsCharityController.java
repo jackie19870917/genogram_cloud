@@ -54,9 +54,16 @@ public class FanNewsCharityController {
     @Autowired
     private IAllCheckOutService allCheckOutService;
 
-    String role01 = "1";
 
-    String role04 = "4";
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role01 = 1;
+    Integer role04 = 4;
+    Integer role09 = 9;
 
     /**
      * 慈善基金
@@ -69,14 +76,22 @@ public class FanNewsCharityController {
     public Response<FanIndexFund> getFanIndexFund(@ApiParam("网站id") @RequestParam Integer siteId,
                                                   @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
@@ -108,14 +123,22 @@ public class FanNewsCharityController {
                                                              @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (showId == null) {
@@ -152,14 +175,22 @@ public class FanNewsCharityController {
     public Response<NewsDetailVo> getFanNewsCharityDetail(@ApiParam("主键") @RequestParam Integer id,
                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         NewsDetailVo newsCharityOutDetail = fanNewsCharityOutService.getNewsCharityOutDetail(id);
@@ -182,14 +213,22 @@ public class FanNewsCharityController {
                                                                       @ApiParam("图片url") @RequestParam(value = "filePath", required = false) String filePath,
                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (fanNewsCharityOut.getId() == null) {
@@ -230,14 +269,22 @@ public class FanNewsCharityController {
                                                                           @ApiParam("图片url") @RequestParam(value = "filePath", required = false) String filePath,
                                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (fanNewsCharityOut.getId() == null) {
@@ -268,14 +315,22 @@ public class FanNewsCharityController {
     public Response<FanNewsCharityOut> deleteFanNewsCharityOut(@ApiParam("主键") @RequestParam Integer id,
                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Boolean result = fanNewsCharityOutService.deleteFanNewsCharityOut(id, userLogin.getId());
@@ -298,8 +353,9 @@ public class FanNewsCharityController {
     public Response<FanIndexFundDrowing> insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing,
                                                                    @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -308,6 +364,9 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
         if (!role01.equals(userLogin.getRole())) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "您没有权限");
         }
@@ -348,8 +407,9 @@ public class FanNewsCharityController {
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -358,8 +418,11 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        if (userLogin.getId() == 0) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您没有权限");
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
@@ -386,8 +449,9 @@ public class FanNewsCharityController {
     public Response<FanNewsCharityPayIn> insertFanNewsCharityPayIn(FanNewsCharityPayIn fanNewsCharityPayIn,
                                                                    @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不存在");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -396,8 +460,11 @@ public class FanNewsCharityController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        if (!role01.equals(userLogin.getRole()) || !role04.equals(userLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限");
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role01) || !allUserLogin.getRole().equals(role04) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         fanNewsCharityPayIn.setType(2);

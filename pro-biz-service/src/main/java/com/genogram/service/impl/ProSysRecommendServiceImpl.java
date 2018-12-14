@@ -86,7 +86,7 @@ public class ProSysRecommendServiceImpl extends ServiceImpl<FanSysRecommendMappe
      * @Description:
      */
     @Override
-    public Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status,AllUserLogin userLogin) {
+    public Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status, AllUserLogin userLogin) {
         boolean result = false;
         //查询文章
         List<FanSysRecommend> list = this.selectList(entity);

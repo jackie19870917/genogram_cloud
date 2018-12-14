@@ -184,21 +184,17 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
      * @return
      */
     @Override
-    public boolean addOrUpdatePersion(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
+    public boolean addOrUpdatePerson(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if (fanNewsFamousPerson.getId() == null) {
             //存入创建时间
             fanNewsFamousPerson.setCreateTime(format);
-            fanNewsFamousPerson.setCreateUser(null);
-            //插入修改时间
-            fanNewsFamousPerson.setUpdateTime(format);
-            fanNewsFamousPerson.setUpdateUser(null);
-        } else {
-            //存入修改时间
-            fanNewsFamousPerson.setUpdateTime(format);
-            fanNewsFamousPerson.setUpdateUser(null);
+            fanNewsFamousPerson.setCreateUser(fanNewsFamousPerson.getUpdateUser());
         }
+        //存入修改时间
+        fanNewsFamousPerson.setUpdateTime(format);
+        fanNewsFamousPerson.setUpdateUser(null);
         boolean result = this.insertOrUpdate(fanNewsFamousPerson);
         //存储图片
         if (result && StringsUtils.isNotEmpty(filePath)) {
@@ -215,11 +211,12 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
      * @return
      */
     @Override
-    public Boolean deletePersionById(Integer id, int status) {
+    public Boolean deletePersonById(Integer id, int status, Integer userId) {
         FanNewsFamousPerson fanNewsFamousPerson = this.selectById(id);
         fanNewsFamousPerson.setStatus(status);
         fanNewsFamousPerson.setUpdateTime(DateUtil.getCurrentTimeStamp());
-        //修改人 待写
+        //修改人
+        fanNewsFamousPerson.setUpdateUser(userId);
         boolean result = this.updateAllColumnById(fanNewsFamousPerson);
         return result;
     }

@@ -55,16 +55,17 @@ public interface IFanNewsFamousPersonService extends IService<FanNewsFamousPerso
      * @param filePath            文件路径
      * @return
      */
-    boolean addOrUpdatePersion(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath);
+    boolean addOrUpdatePerson(FanNewsFamousPerson fanNewsFamousPerson, String fileName, String filePath);
 
     /**
      * 删除
      *
      * @param id
      * @param status
+     * @param userId
      * @return
      */
-    Boolean deletePersionById(Integer id, int status);
+    Boolean deletePersonById(Integer id, int status, Integer userId);
 
     /**
      * 联谊会家族名人增加查看数
