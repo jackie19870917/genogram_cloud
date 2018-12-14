@@ -2,18 +2,19 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProNewsFamilyRecord;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.entityvo.ProFamilyRecordVo;
-import com.genogram.service.IAllCheckOutService;
-import com.genogram.service.IProNewsFamilyRecordService;
-import com.genogram.service.IProNewsFamilyRecordVedioService;
+import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -35,6 +36,19 @@ public class ProNewsRecordController {
     @Autowired
     private IAllCheckOutService allCheckOutService;
 
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
+    Integer role02 = 2;
+    Integer role05 = 5;
+    Integer role09 = 9;
+
     /**
      * 省级家族动态查询
      */
@@ -42,10 +56,30 @@ public class ProNewsRecordController {
     @RequestMapping(value = "proSelectRecortPage", method = RequestMethod.GET)
     public Response<ProNewsFamilyRecord> selectRecortPage(
             @RequestParam(value = "showId") Integer showId, // 显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize
     ) {
         try {
+
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+
             int status = 1;
             Page<ProFamilyRecordVo> proFamilyRecordPage = iProNewsFamilyRecordService.getProFamilyRecordPage(showId, status, pageNo, pageSize);
             if (proFamilyRecordPage == null) {

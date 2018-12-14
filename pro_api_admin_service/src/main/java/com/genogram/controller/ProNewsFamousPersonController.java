@@ -8,7 +8,9 @@ import com.genogram.entity.ProNewsFamousPerson;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
 import com.genogram.service.IAllCheckOutService;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IProNewsFamilyPersionService;
+import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -36,6 +38,16 @@ public class ProNewsFamousPersonController {
 
     @Autowired
     private IAllCheckOutService allCheckOutService;
+
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    Integer role02 = 2;
+    Integer role05 = 5;
+    Integer role09 = 9;
 
     /**
      * 联谊会家族名人后台查询

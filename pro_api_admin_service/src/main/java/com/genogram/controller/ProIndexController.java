@@ -52,6 +52,9 @@ public class ProIndexController {
     @Autowired
     private IAllUserLoginService allUserLoginService;
 
+    /**
+     * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+     */
     Integer role02 = 2;
     Integer role05 = 5;
     Integer role09 = 9;
