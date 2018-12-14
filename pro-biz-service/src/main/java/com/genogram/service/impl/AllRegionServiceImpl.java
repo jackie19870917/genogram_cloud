@@ -85,7 +85,7 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
      * @return:
      * @Description:
      */
-    @Override
+    /*@Override
     public Page<FanSysSite> getSodalityRegion(Integer siteId, Integer pageNo, Integer pageSize) {
         //查询姓氏 和省级地区ID
         Wrapper<ProSysSite> entity = new EntityWrapper<>();
@@ -108,7 +108,7 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
         //判断地区下是否还有地区县级
         List<AllRegion> regionsAll = new ArrayList();
         for (AllRegion allRegion : allRegions) {
-            if (allRegion.getParentCode() % 100 == 0) {
+            if (allRegion.getParentCode() % 100== 0) {
                 Wrapper<AllRegion> allEntity2 = new EntityWrapper<>();
                 allEntity2.eq("parent_code", allRegion.getCode());
                 List<AllRegion> allRegions2 = this.selectList(allEntity2);
@@ -133,6 +133,47 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
         entitySite.eq("family_code", proSysSite.getFamilyCode());
         entitySite.in("region_code", list);
         Page<FanSysSite> fanSysSitePage = fanSysSiteService.selectPage(new Page<FanSysSite>(pageNo, pageSize), entitySite);
+        return fanSysSitePage;
+    }*/
+
+    /**
+     *省级下属地图联谊会查询
+     *@Author: yuzhou
+     *@Date: 2018-12-14
+     *@Time: 16:37
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Page<FanSysSite> getSodalityRegion(Integer siteId, Integer pageNo, Integer pageSize,Integer code) {
+        //查询姓氏
+        Wrapper<ProSysSite> entity = new EntityWrapper<>();
+        entity.eq("id", siteId);
+        ProSysSite proSysSite = proSysSiteService.selectOne(entity);
+
+        //判断是否有省级网站
+        if (StringUtils.isEmpty(proSysSite)) {
+            return null;
+        }
+
+        //根据省级的地区Id查询出所有开通的县级的ID
+        Wrapper<AllRegion> allEntity = new EntityWrapper<>();
+        allEntity.eq("parent_code", code);
+        List<AllRegion> allRegions = this.selectList(allEntity);
+
+        //省级下某个市级县的地区Id
+        List<Integer> list = new ArrayList();
+        for (AllRegion allRegion : allRegions) {
+            list.add(allRegion.getCode());
+        }
+
+        //查询出开通县级的id
+        Wrapper<FanSysSite> entitySite = new EntityWrapper<>();
+        entitySite.eq("family_code", proSysSite.getFamilyCode());
+        entitySite.in("region_code", list);
+        Page<FanSysSite> fanSysSitePage = fanSysSiteService.selectPage(new Page<FanSysSite>(pageNo, pageSize), entitySite);
+
         return fanSysSitePage;
     }
 }

@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/genogram/proPublic")
+@RequestMapping("/genogram/admin/proPublic")
 @Api(description = "公共方法")
 public class CommonController {
 

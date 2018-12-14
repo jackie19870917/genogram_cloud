@@ -37,6 +37,7 @@ public class ProRegionController {
     @RequestMapping(value = "/index/getSodalityRegion", method = RequestMethod.GET)
     public Response<FanSysSite> getSodalityRegion(
             @ApiParam(value = "网站Id") @RequestParam(value = "siteId") Integer siteId,
+            @ApiParam(value = "省级的市级地区id") @RequestParam(value = "code") Integer code,
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
     ) {
@@ -44,7 +45,7 @@ public class ProRegionController {
             if (siteId == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            Page<FanSysSite> fanSysSite = allRegionService.getSodalityRegion(siteId, pageNo, pageSize);
+            Page<FanSysSite> fanSysSite = allRegionService.getSodalityRegion(siteId, pageNo, pageSize,code);
             if (fanSysSite == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "请开通网站");
             }
