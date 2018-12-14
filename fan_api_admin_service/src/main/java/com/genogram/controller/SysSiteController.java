@@ -128,7 +128,7 @@ public class SysSiteController {
         AllUserLogin UserLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
 
         //  判断是否有权限访问
-        if (!this.getList().contains(allUserLogin.getRole())) {
+        if (!this.getList().contains(UserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
@@ -166,7 +166,7 @@ public class SysSiteController {
             }
 
             Integer regionNum = Integer.valueOf(sysSiteVo.getRegionCode());
-            regionNum = regionNum / 10000 * 10000;
+            regionNum= regionNum / 10000 * 10000;
 
             fanSysSite.setParent(regionNum);
             FanSysSite fanSysSite1 = sysSiteService.insertFanSysSite(fanSysSite);
