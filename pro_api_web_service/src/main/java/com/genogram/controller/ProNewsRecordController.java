@@ -195,7 +195,7 @@ public class ProNewsRecordController {
      * @return:
      * @Description:
      */
-    @ApiOperation("省级记录家族后台删除")
+ /*   @ApiOperation("省级记录家族后台删除")
     @RequestMapping(value = "/deleteProRecordById", method = RequestMethod.GET)
     public Response<ProNewsFamilyRecord> deleteProRecordById(
             @RequestParam(value = "id") Integer id // 家族文化详情显示位置
@@ -215,7 +215,7 @@ public class ProNewsRecordController {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
-    }
+    }*/
 
     /**
      * 官方视频
