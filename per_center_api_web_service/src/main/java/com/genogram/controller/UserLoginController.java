@@ -108,7 +108,7 @@ public class UserLoginController {
     @RequestMapping(value = "sendVerificationCode", method = RequestMethod.POST)
     public Response sendVerificationCode(@ApiParam("手机号") @RequestParam("mobilePhone") String mobilePhone) throws IOException, ClientException {
 
-        String message = MessageUtil.sendMessage(mobilePhone);
+         message = MessageUtil.sendMessage(mobilePhone);
 
         if (StringUtils.isEmpty(message)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "发送失败");
