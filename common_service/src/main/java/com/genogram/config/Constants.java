@@ -49,6 +49,11 @@ public final class Constants {
     public static final Integer IS_EMPTY = 204;
 
     /**
+     * 返回状态码 没有登陆
+     */
+    public static final Integer NOTLOGIN = 400;
+
+    /**
      * 返回状态码 未被授权
      */
     public static final Integer UNAUTHORIZED = 401;

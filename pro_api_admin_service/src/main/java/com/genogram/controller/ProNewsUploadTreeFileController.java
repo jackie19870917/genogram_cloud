@@ -5,6 +5,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsUploadTreeFile;
 import com.genogram.entity.ProNewsUploadTreeFile;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IProNewsUploadTreeFileService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
@@ -39,6 +40,13 @@ public class ProNewsUploadTreeFileController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    Integer role02 = 2;
+    Integer role05 = 5;
+    Integer role09 = 9;
+
     @ApiOperation(value = "电子谱查询", notes = "id-主键,familyCode-姓氏,regionCode-地区,filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "getProNewsUploadTreeFileList", method = RequestMethod.POST)
     public Response<ProNewsUploadTreeFile> getProNewsUploadTreeFileList(@ApiParam("网站ID") @RequestParam("siteId") Integer siteId,
@@ -47,14 +55,22 @@ public class ProNewsUploadTreeFileController {
                                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "token错误");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         List list = new ArrayList<>();
@@ -74,14 +90,22 @@ public class ProNewsUploadTreeFileController {
     public Response<ProNewsUploadTreeFile> uploadProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
                                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "token错误");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         proNewsUploadTreeFile.setCreateUser(userLogin.getId());
@@ -99,18 +123,26 @@ public class ProNewsUploadTreeFileController {
     @ApiOperation(value = "电子谱详情", notes = "id-主键,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "getProNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<ProNewsUploadTreeFile> getProNewsUploadTreeFile(@ApiParam("主键") @RequestParam("id") Integer id,
-                                                                   // @ApiParam("密码") @RequestParam(value = "password", required = false) String password,
+                                                                    // @ApiParam("密码") @RequestParam(value = "password", required = false) String password,
                                                                     @ApiParam("来源") @RequestParam("isFrom") Integer isFrom,
                                                                     @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "亲,您还没有登陆哟!");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Integer a = 2;
@@ -140,14 +172,22 @@ public class ProNewsUploadTreeFileController {
     public Response<ProNewsUploadTreeFile> updateProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
                                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "token错误");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
@@ -166,14 +206,22 @@ public class ProNewsUploadTreeFileController {
     public Response<ProNewsUploadTreeFile> deleteProNewsUploadTreeFile(Integer id,
                                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
+        //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "token错误");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!allUserLogin.getRole().equals(role02) || !allUserLogin.getRole().equals(role05) || !allUserLogin.getRole().equals(role09)) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Boolean result = proNewsUploadTreeFileService.deleteProNewsUploadTreeFile(id, userLogin.getId());
