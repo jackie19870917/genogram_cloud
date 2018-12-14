@@ -13,8 +13,10 @@ import com.genogram.service.IProFanSysSiteService;
 import com.genogram.service.IProSysSiteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -90,15 +92,41 @@ public class AllRegionServiceImpl extends ServiceImpl<AllRegionMapper, AllRegion
         entity.eq("id", siteId);
         ProSysSite proSysSite = proSysSiteService.selectOne(entity);
 
+        //判断是否有省级网站
+        if (StringUtils.isEmpty(proSysSite)) {
+        return null;
+        }
+
         //根据省级的地区Id查询出所有开通的县级的ID
         Wrapper<AllRegion> allEntity = new EntityWrapper<>();
         allEntity.eq("parent_code", proSysSite.getRegionCode());
         List<AllRegion> allRegions = this.selectList(allEntity);
+
+        //省级下县级的地区Id
         List<Integer> list = new ArrayList();
-        //获取县级
+
+        //判断地区下是否还有地区县级
+        List<AllRegion> regionsAll =new ArrayList();
         for (AllRegion allRegion : allRegions) {
+            if(allRegion.getParentCode()%10000==0){
+                Wrapper<AllRegion> allEntity2 = new EntityWrapper<>();
+                allEntity2.eq("parent_code", allRegion.getCode());
+                List<AllRegion> allRegions2 = this.selectList(allEntity2);
+                //合并list
+                regionsAll.addAll(allRegions2);
+            }
+            //存储地区Id
             list.add(allRegion.getParentCode());
         }
+
+        if(regionsAll!=null && regionsAll.size()!=0){
+            for (AllRegion allRegion : regionsAll) {
+                list.add(allRegion.getParentCode());
+            }
+        }
+
+        //去重  list集合
+        list = new ArrayList<Integer>(new LinkedHashSet<>(list));
 
         //查询出开通县级的id
         Wrapper<FanSysSite> entitySite = new EntityWrapper<>();

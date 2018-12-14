@@ -57,7 +57,8 @@ public class FanNewsFamousAncestorServiceImpl extends ServiceImpl<FanNewsFamousA
         //查询showId 显示位置Id
         Wrapper<FanSysWebNewsShow> entity = new EntityWrapper<>();
         entity.eq("site_Id", siteId);
-        entity.eq("menu_type", "ancestors");
+        //fan_sys_web_news_show 表 menu_id  8表示祖先分支
+        entity.eq("menu_id", 8);
         FanSysWebNewsShow fanSysWebNewsShow = fanSysWebNewsShowService.selectOne(entity);
         //parent_id 为0代表主数据
         Integer parentId = 0;
