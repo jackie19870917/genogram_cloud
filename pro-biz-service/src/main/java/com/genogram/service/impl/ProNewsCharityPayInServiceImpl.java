@@ -125,6 +125,22 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
         return this.insert(proNewsCharityPayIn);
     }
 
+    @Override
+    public ProNewsCharityPayIn selectOne(ProNewsCharityPayIn proNewsCharityPayIn) {
+
+
+        Wrapper wrapper = new EntityWrapper();
+        wrapper.eq("order_id", proNewsCharityPayIn.getOrderId());
+
+        ProNewsCharityPayIn proNewsCharityPayIn1 = this.selectOne(wrapper);
+
+        if (StringUtils.isEmpty(proNewsCharityPayIn1)) {
+            return null;
+        }
+
+        return proNewsCharityPayIn1;
+    }
+
     private List getList(List<ProNewsCharityPayIn> proNewsCharityPayInList, List<AllUserLogin> allUserLoginList) {
         List list = new ArrayList();
         for (ProNewsCharityPayIn proNewsCharityPayIn : proNewsCharityPayInList) {

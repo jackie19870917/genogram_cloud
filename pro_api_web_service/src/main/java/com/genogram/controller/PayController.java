@@ -8,12 +8,10 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.genogram.config.AlipayConfig;
 import com.genogram.config.Constants;
 import com.genogram.config.PayConfig;
-import com.genogram.entity.AllUserLogin;
-import com.genogram.entity.FanIndexFund;
-import com.genogram.entity.FanNewsCharityPayIn;
-import com.genogram.service.IFanIndexFundService;
-import com.genogram.service.IFanNewsCharityPayInService;
-import com.genogram.service.IFanSysWebNewsShowService;
+import com.genogram.entity.*;
+import com.genogram.service.IProIndexFundService;
+import com.genogram.service.IProNewsCharityPayInService;
+import com.genogram.service.IProSysWebNewsShowService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.PayUtils;
@@ -38,7 +36,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * 支付
@@ -55,13 +56,13 @@ public class PayController {
     Logger log = LoggerFactory.getLogger(PayController.class);
 
     @Autowired
-    private IFanNewsCharityPayInService fanNewsCharityPayInService;
+    private IProNewsCharityPayInService proNewsCharityPayInService;
 
     @Autowired
-    private IFanSysWebNewsShowService fanSysWebNewsShowService;
+    private IProSysWebNewsShowService proSysWebNewsShowService;
 
     @Autowired
-    private IFanIndexFundService fanIndexFundService;
+    private IProIndexFundService proIndexFundService;
 
     @Autowired
     private IUserService userService;
@@ -80,7 +81,7 @@ public class PayController {
 
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
-    public Response<FanNewsCharityPayIn> aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
+    public Response<FanNewsCharityPayIn> aLiPay(ProNewsCharityPayIn proNewsCharityPayIn,
                                                 @ApiParam("网站ID") @RequestParam Integer siteId,
                                                 @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                 @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
@@ -102,7 +103,7 @@ public class PayController {
         String outTradeNo = DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
 
         // 付款金额，必填
-        String totalAmount = fanNewsCharityPayIn.getPayAmount().toString();
+        String totalAmount = proNewsCharityPayIn.getPayAmount().toString();
 
         // 订单名称，必填
         String subject = "炎黄网在线支付宝支付";
@@ -111,7 +112,7 @@ public class PayController {
         // 该参数数值不接受小数点， 如 1.5h，可转换为 90m。
         String timeoutExpress = "2h";
 
-        Integer showId = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
+        Integer showId = proSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
 
         String payChannel = "支付宝支付";
 
@@ -127,14 +128,14 @@ public class PayController {
             }
         }
 
-        fanNewsCharityPayIn.setOrderId(outTradeNo);
-        fanNewsCharityPayIn.setShowId(showId);
-        fanNewsCharityPayIn.setPayUsrId(userLogin.getId());
-        fanNewsCharityPayIn.setType(1);
-        fanNewsCharityPayIn.setStatus(2);
-        fanNewsCharityPayIn.setPayChannel(payChannel);
+        proNewsCharityPayIn.setOrderId(outTradeNo);
+        proNewsCharityPayIn.setShowId(showId);
+        proNewsCharityPayIn.setPayUsrId(userLogin.getId());
+        proNewsCharityPayIn.setType(1);
+        proNewsCharityPayIn.setStatus(2);
+        proNewsCharityPayIn.setPayChannel(payChannel);
 
-        fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+        proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
 
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + outTradeNo + "\"," + "\"total_amount\":\"" + totalAmount
                 + "\"," + "\"subject\":\"" + subject + "\"," + "\"timeout_express\":\"" + timeoutExpress + "\","
@@ -187,25 +188,25 @@ public class PayController {
             // 付款金额
             String totalAmount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");
 
-            FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
+            ProNewsCharityPayIn proNewsCharityPayIn = new ProNewsCharityPayIn();
 
-            fanNewsCharityPayIn.setOrderId(outTradeNo);
-            fanNewsCharityPayIn = fanNewsCharityPayInService.selectOne(fanNewsCharityPayIn);
+            proNewsCharityPayIn.setOrderId(outTradeNo);
+            proNewsCharityPayIn = proNewsCharityPayInService.selectOne(proNewsCharityPayIn);
 
-            fanNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
-            fanNewsCharityPayIn.setStatus(1);
+            proNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
+            proNewsCharityPayIn.setStatus(1);
 
-            fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+            proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
 
             //修改基金金额
-            Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
+            Integer siteId = proSysWebNewsShowService.getSiteIdByShowId(proNewsCharityPayIn.getShowId()).getSiteId();
 
-            FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
+            ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(siteId);
 
-            fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal(totalAmount)));
-            fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
+            proIndexFund.setRemain(proIndexFund.getRemain().add(new BigDecimal(totalAmount)));
+            proIndexFund.setPayOnline(proIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
 
-            fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
+            proIndexFundService.updateProIndexFund(proIndexFund);
 
             log.info("********************** 支付成功(支付宝同步通知) **********************");
             log.info("* 订单号: {}", outTradeNo);
@@ -307,7 +308,7 @@ public class PayController {
     @ApiOperation("微信支付")
     @RequestMapping(value = "weChatPay", method = RequestMethod.GET)
     public Response weChatPay(Model model, HttpServletRequest request,
-                              FanNewsCharityPayIn fanNewsCharityPayIn,
+                              ProNewsCharityPayIn proNewsCharityPayIn,
                               @ApiParam("网站ID") @RequestParam Integer siteId,
                               @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                               @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
@@ -315,7 +316,7 @@ public class PayController {
 
         this.baseUrl = url;
 
-        Integer showId = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
+        Integer showId = proSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
 
         String payChannel = "微信支付";
 
@@ -338,20 +339,20 @@ public class PayController {
         String userIp = PayUtils.getRemoteAddr(request);
 
         // 支付金额
-        String totalFee = fanNewsCharityPayIn.getPayAmount() + "";
+        String totalFee = proNewsCharityPayIn.getPayAmount() + "";
 
         // 商品描述
         String body = "炎黄統譜网在线微信扫码支付";
 
 
-        fanNewsCharityPayIn.setOrderId(payId);
-        fanNewsCharityPayIn.setShowId(showId);
-        fanNewsCharityPayIn.setPayUsrId(userLogin.getId());
-        fanNewsCharityPayIn.setType(1);
-        fanNewsCharityPayIn.setStatus(2);
-        fanNewsCharityPayIn.setPayChannel(payChannel);
+        proNewsCharityPayIn.setOrderId(payId);
+        proNewsCharityPayIn.setShowId(showId);
+        proNewsCharityPayIn.setPayUsrId(userLogin.getId());
+        proNewsCharityPayIn.setType(1);
+        proNewsCharityPayIn.setStatus(2);
+        proNewsCharityPayIn.setPayChannel(payChannel);
 
-        fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+        proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
 
 
         // 回调地址
@@ -406,25 +407,25 @@ public class PayController {
 
         String totalAmount = rootElt.elementText("total_tee");
 
-        FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
+        ProNewsCharityPayIn proNewsCharityPayIn = new ProNewsCharityPayIn();
 
-        fanNewsCharityPayIn.setOrderId(outTradeNo);
-        fanNewsCharityPayIn = fanNewsCharityPayInService.selectOne(fanNewsCharityPayIn);
+        proNewsCharityPayIn.setOrderId(outTradeNo);
+        proNewsCharityPayIn = proNewsCharityPayInService.selectOne(proNewsCharityPayIn);
 
-        fanNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
-        fanNewsCharityPayIn.setStatus(1);
+        proNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
+        proNewsCharityPayIn.setStatus(1);
 
-        fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+        proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
 
         //修改基金金额
-        Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
+        Integer siteId = proSysWebNewsShowService.getSiteIdByShowId(proNewsCharityPayIn.getShowId()).getSiteId();
 
-        FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
+        ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(siteId);
 
-        fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal(totalAmount)));
-        fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
+        proIndexFund.setRemain(proIndexFund.getRemain().add(new BigDecimal(totalAmount)));
+        proIndexFund.setPayOnline(proIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
 
-        fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
+        proIndexFundService.updateProIndexFund(proIndexFund);
 
         //给微信返回支付成功结果
         String responseStr = "<xml>";

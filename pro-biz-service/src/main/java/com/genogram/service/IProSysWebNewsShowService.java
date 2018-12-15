@@ -42,6 +42,17 @@ public interface IProSysWebNewsShowService extends IService<ProSysWebNewsShow> {
     public List<SysWebMenuVo> getTitlesByMenuId(int siteId, int menuId);
 
     /**
+     * 获取网站ID
+     *
+     * @param showId
+     * @Author: wang, wei
+     * @Date: 2018-11-05
+     * @Time: 22:04
+     * @return:
+     * @Description:
+     */
+    public SysWebMenuVo getSiteIdByShowId(Integer showId);
+    /**
      * 开网站初始化菜单
      *
      * @param siteId

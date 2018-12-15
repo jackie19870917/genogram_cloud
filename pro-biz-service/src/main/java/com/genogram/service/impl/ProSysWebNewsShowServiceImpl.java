@@ -135,6 +135,19 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
     }
 
     @Override
+    public SysWebMenuVo getSiteIdByShowId(Integer showId) {
+        Wrapper<ProSysWebNewsShow> wrapper = new EntityWrapper<>();
+        wrapper.eq("show_id", showId);
+
+        ProSysWebNewsShow proSysWebNewsShow = this.selectOne(wrapper);
+
+        SysWebMenuVo sysWebMenuVo = new SysWebMenuVo();
+        BeanUtils.copyProperties(proSysWebNewsShow, sysWebMenuVo);
+
+        return sysWebMenuVo;
+    }
+
+    @Override
     public void initWebMenu(int siteId) {
         Wrapper<ProSysWebNewsShow> entity = new EntityWrapper<>();
         entity.eq("site_id", siteId);

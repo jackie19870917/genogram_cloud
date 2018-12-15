@@ -26,6 +26,13 @@
 
     <dependencies>
 
+        <!--common_payment 依赖-->
+        <dependency>
+            <groupId>com.genogram</groupId>
+            <artifactId>common_payment</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!--com.genogram 依赖-->
         <dependency>
             <groupId>com.genogram</groupId>
@@ -68,6 +75,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>20040902.021138</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

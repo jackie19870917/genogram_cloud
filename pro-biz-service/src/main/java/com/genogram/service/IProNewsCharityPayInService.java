@@ -48,4 +48,12 @@ public interface IProNewsCharityPayInService extends IService<ProNewsCharityPayI
      * @return
      */
     Boolean insertProNewsCharityPayIn(ProNewsCharityPayIn proNewsCharityPayIn);
+
+    /**
+     * 单一查询
+     *
+     * @param proNewsCharityPayIn
+     * @return
+     */
+    ProNewsCharityPayIn selectOne(ProNewsCharityPayIn proNewsCharityPayIn);
 }
