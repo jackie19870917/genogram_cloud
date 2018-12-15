@@ -305,7 +305,7 @@ public class PayController {
     }
 
     @ApiOperation("微信支付")
-    @RequestMapping(value = "weChatPay", method = RequestMethod.GET)
+    @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
     public Response weChatPay(Model model, HttpServletRequest request,
                               FanNewsCharityPayIn fanNewsCharityPayIn,
                               @ApiParam("网站ID") @RequestParam Integer siteId,
@@ -325,7 +325,7 @@ public class PayController {
             userLogin.setId(1);
         } else {
             if (StringUtils.isEmpty(token)) {
-                 return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
             } else {
                 userLogin = userService.getUserLoginInfoByToken(token);
             }
@@ -371,6 +371,28 @@ public class PayController {
             map.put("total_fee", totalFee);
 
             return ResponseUtlis.success(map);
+        }
+    }
+
+    @ApiOperation("查询订单请求")
+    @RequestMapping(value = "getFanNewsCharityPayIn", method = RequestMethod.POST)
+    public Response<FanNewsCharityPayIn> getFanNewsCharityPayIn(@ApiParam("订单号") @RequestParam("outTradeNo") String outTradeNo) {
+
+
+        FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
+
+        fanNewsCharityPayIn.setOrderId(outTradeNo);
+
+        fanNewsCharityPayIn = fanNewsCharityPayInService.selectOne(fanNewsCharityPayIn);
+
+        if (StringUtils.isEmpty(fanNewsCharityPayIn)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "订单号不存在");
+        } else {
+            if (fanNewsCharityPayIn.getStatus() == 1) {
+                return ResponseUtlis.success(fanNewsCharityPayIn);
+            } else {
+                return ResponseUtlis.error(201, null);
+            }
         }
     }
 
