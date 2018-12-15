@@ -66,7 +66,9 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
         String userId = "user" + DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
         allUserLogin.setUserId(userId);
         allUserLogin.setStatus(1);
-        allUserLogin.setUserName(allUserLogin.getMobilePhone());
+        String num = allUserLogin.getMobilePhone();
+        num = num.replace(num.substring(3, 7), "xxxx");
+        allUserLogin.setUserName(num);
         allUserLogin.setNickName(allUserLogin.getMobilePhone());
         allUserLogin.setPicSrc("00/05/default_person.jpg");
         allUserLogin.setRole(0);
