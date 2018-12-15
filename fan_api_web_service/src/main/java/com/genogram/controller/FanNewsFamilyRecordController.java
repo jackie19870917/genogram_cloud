@@ -271,6 +271,14 @@ public class FanNewsFamilyRecordController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }*/
+
+    /**
+     * 个人视频
+     * @param siteId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     @ApiOperation(value = "个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
     @RequestMapping(value = "getAllUserVideosPage", method = RequestMethod.GET)
     public Response<AllUserVideos> getAllUserVideosPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,

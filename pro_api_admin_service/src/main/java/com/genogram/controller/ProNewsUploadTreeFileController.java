@@ -164,13 +164,6 @@ public class ProNewsUploadTreeFileController {
 
             FanNewsUploadTreeFile fanNewsUploadTreeFile = proNewsUploadTreeFileService.getFanNewsUploadTreeFile(id);
 
-            /*Integer status = 2;
-            if (fanNewsUploadTreeFile.getStatus().equals(status)) {
-                if (!fanNewsUploadTreeFile.getPassword().equals(password)) {
-                    return ResponseUtlis.error(Constants.ERRO_CODE, "密码错误");
-                }
-            }*/
-
             return ResponseUtlis.success(fanNewsUploadTreeFile);
         }
 

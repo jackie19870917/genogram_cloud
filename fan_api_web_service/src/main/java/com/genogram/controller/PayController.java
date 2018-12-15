@@ -364,7 +364,7 @@ public class PayController {
             return ResponseUtlis.error(Constants.ERRO_CODE, "服务器正忙");
         } else {
 
-            Map map = new HashMap();
+            Map map = new HashMap(16);
 
             map.put("code_url", codeUrl);
             map.put("out_trade_no", payId);

@@ -54,8 +54,8 @@ public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadT
             NewsUploadTreeFileVo newsUploadTreeFileVo = new NewsUploadTreeFileVo();
 
             BeanUtils.copyProperties(fanNewsUploadTreeFile, newsUploadTreeFileVo);
-            AllFamily AllFamily = allFamilyService.getAllFamilyById(fanNewsUploadTreeFile.getFamilyCode());
-            newsUploadTreeFileVo.setFamilyName(AllFamily.getValue());
+            AllFamily allFamily = allFamilyService.getAllFamilyById(fanNewsUploadTreeFile.getFamilyCode());
+            newsUploadTreeFileVo.setFamilyName(allFamily.getValue());
 
             newsUploadTreeFileVoList.add(newsUploadTreeFileVo);
         });

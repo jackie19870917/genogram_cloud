@@ -235,8 +235,8 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             NewsUploadTreeFileVo newsUploadTreeFileVo = new NewsUploadTreeFileVo();
 
             BeanUtils.copyProperties(fanNewsUploadTreeFile, newsUploadTreeFileVo);
-            AllFamily AllFamily = allFamilyService.getAllFamilyById(fanNewsUploadTreeFile.getFamilyCode());
-            newsUploadTreeFileVo.setFamilyName(AllFamily.getValue());
+            AllFamily allFamily = allFamilyService.getAllFamilyById(fanNewsUploadTreeFile.getFamilyCode());
+            newsUploadTreeFileVo.setFamilyName(allFamily.getValue());
 
             newsUploadTreeFileList.add(newsUploadTreeFileVo);
         });
@@ -250,8 +250,8 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             NewsUploadTreeFileVo newsUploadTreeFileVo = new NewsUploadTreeFileVo();
 
             BeanUtils.copyProperties(proNewsUploadTreeFile, newsUploadTreeFileVo);
-            AllFamily AllFamily = allFamilyService.getAllFamilyById(proNewsUploadTreeFile.getFamilyCode());
-            newsUploadTreeFileVo.setFamilyName(AllFamily.getValue());
+            AllFamily allFamily = allFamilyService.getAllFamilyById(proNewsUploadTreeFile.getFamilyCode());
+            newsUploadTreeFileVo.setFamilyName(allFamily.getValue());
 
             newsUploadTreeFileVoList.add(newsUploadTreeFileVo);
         });

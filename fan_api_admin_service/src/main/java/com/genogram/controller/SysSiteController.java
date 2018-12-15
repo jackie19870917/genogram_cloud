@@ -125,10 +125,10 @@ public class SysSiteController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        AllUserLogin UserLogin = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
+        AllUserLogin userLogin01 = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
 
         //  判断是否有权限访问
-        if (!this.getList().contains(UserLogin.getRole())) {
+        if (!this.getList().contains(userLogin01.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
