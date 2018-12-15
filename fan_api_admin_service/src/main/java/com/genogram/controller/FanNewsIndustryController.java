@@ -375,9 +375,10 @@ public class FanNewsIndustryController {
      * @return:
      * @Description:
      */
+    @ApiOperation(value = "联谊会家族产业后台删除", notes ="")
     @RequestMapping(value = "/deleteIndustryById", method = RequestMethod.GET)
     public Response<FanNewsIndustry> deleteIndustryById(
-            @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("主键ID") @RequestParam(value = "id") Integer id,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
         try {
@@ -405,7 +406,55 @@ public class FanNewsIndustryController {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
             Boolean isDel = fanNewsIndustryService.deleteIndustryById(id, status, userLogin);
-            if (!isDel) {
+            if ( isDel==null ||!isDel) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    /**
+     *联谊会家族产业后台置顶
+     *@Author: yuzhou
+     *@Date: 2018-12-15
+     *@Time: 10:00
+     *@Param:
+     *@return:
+     *@Description:i
+    */
+    @ApiOperation(value = "联谊会家族产业后台置顶", notes ="")
+    @RequestMapping(value = "/industryStick", method = RequestMethod.GET)
+    public Response<FanNewsIndustry> industryStick(
+            @ApiParam("主键ID") @RequestParam(value = "id") Integer id,
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
+    ) {
+        try {
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!this.getList().contains(allUserLogin.getRole())) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+            //判断id是否为空
+            if (id == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            }
+            Boolean isDel = fanNewsIndustryService.industryStick(id,userLogin);
+            if ( isDel==null ||!isDel) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);

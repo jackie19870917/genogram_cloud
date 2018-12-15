@@ -55,10 +55,10 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
      *
      * @param id
      * @param status
-     * @param userLoginInfoByToken
+     * @param userLogin
      * @return
      */
-    Boolean deleteIndustryById(Integer id, int status, AllUserLogin userLoginInfoByToken);
+    Boolean deleteIndustryById(Integer id, int status, AllUserLogin userLogin);
 
     /**
      * 联谊会家族产业前台增加查看数
@@ -66,4 +66,12 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
      * @param id 主键
      */
     void addVisitNum(Integer id);
+
+    /**
+     * 联谊会家族产业后台置顶
+     * @param id
+     * @param userLogin
+     * @return
+     */
+    Boolean industryStick(Integer id, AllUserLogin userLogin);
 }

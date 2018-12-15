@@ -130,7 +130,7 @@ public class FanNewsCultureController {
             if (statusList.size() != 0) {
                 entity.in("status", statusList);
             }
-            entity.orderBy("create_time", false);
+            entity.orderBy("update_time", false);
             Page<NewsCultureZipaiVo> fanNewsCultureZipai = fanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if (fanNewsCultureZipai == null) {
                 //没有取到参数,返回空参
@@ -360,7 +360,7 @@ public class FanNewsCultureController {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
             Boolean aBoolean = fanNewsCultureZipaiService.deleteZipaiById(id, status, userLogin);
-            if (!aBoolean) {
+            if (aBoolean==null || !aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -369,6 +369,56 @@ public class FanNewsCultureController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
+    /**
+     *联谊会家族字派后台置顶
+     *@Author: yuzhou
+     *@Date: 2018-12-15
+     *@Time: 9:29
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "联谊会家族字派后台置顶", notes = "")
+    @RequestMapping(value = "/zipaiStick", method = RequestMethod.GET)
+    public Response<FanNewsCultureZipai> ZipaiStick(
+            @ApiParam("主键Id") @RequestParam(value = "id") Integer id,
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
+    ) {
+        try {
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!this.getList().contains(allUserLogin.getRole())) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+            //判断id是否为空
+            if (id == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            }
+            Boolean aBoolean = fanNewsCultureZipaiService.ZipaiStick(id,userLogin);
+            if (aBoolean==null || !aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+
 
     /**
      * 联谊会家族文化后台查询
@@ -720,7 +770,55 @@ public class FanNewsCultureController {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
             Boolean aBoolean = fanNewsCultureNewsService.deleteCulturById(id, status, userLogin);
-            if (!aBoolean) {
+            if (aBoolean==null || !aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    /**
+     *联谊会家族文化后台置顶
+     *@Author: yuzhou
+     *@Date: 2018-12-15
+     *@Time: 9:40
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "联谊会家族文化后台置顶", notes = "")
+    @RequestMapping(value = "/culturStick", method = RequestMethod.GET)
+    public Response<FanNewsCultureNews> culturStick(
+            @ApiParam(value = "主键ID") @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
+    ) {
+        try {
+            //  判断是否登陆
+            if (StringUtils.isEmpty(token)) {
+                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringUtils.isEmpty(userLogin)) {
+                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!this.getList().contains(allUserLogin.getRole())) {
+                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+            //判断主键是否为空
+            if (id == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            }
+            Boolean aBoolean = fanNewsCultureNewsService.culturStick(id,userLogin);
+            if (aBoolean==null || !aBoolean ) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);

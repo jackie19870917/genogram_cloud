@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -148,12 +149,37 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
      * @Description:
      */
     @Override
-    public Boolean deleteZipaiById(Integer id, int status, AllUserLogin userLoginInfoByToken) {
+    public Boolean deleteZipaiById(Integer id, int status, AllUserLogin userLogin) {
         FanNewsCultureZipai fanNewsCultureZipai = this.selectById(id);
+        if(StringUtils.isEmpty(fanNewsCultureZipai)){
+            return null;
+        }
         //修改状态
         fanNewsCultureZipai.setStatus(status);
         //修改人
-        fanNewsCultureZipai.setUpdateUser(userLoginInfoByToken.getId());
+        fanNewsCultureZipai.setUpdateUser(userLogin.getId());
+        //修改时间
+        fanNewsCultureZipai.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        return this.updateAllColumnById(fanNewsCultureZipai);
+    }
+
+    /**
+     *联谊会家族字派后台置顶
+     *@Author: yuzhou
+     *@Date: 2018-12-15
+     *@Time: 9:33
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean ZipaiStick(Integer id, AllUserLogin userLogin) {
+        FanNewsCultureZipai fanNewsCultureZipai = this.selectById(id);
+        if(StringUtils.isEmpty(fanNewsCultureZipai)){
+            return null;
+        }
+        //修改人
+        fanNewsCultureZipai.setUpdateUser(userLogin.getId());
         //修改时间
         fanNewsCultureZipai.setUpdateTime(DateUtil.getCurrentTimeStamp());
         return this.updateAllColumnById(fanNewsCultureZipai);
