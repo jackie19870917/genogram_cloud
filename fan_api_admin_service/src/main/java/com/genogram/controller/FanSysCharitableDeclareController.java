@@ -19,12 +19,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -41,6 +38,7 @@ import java.util.Map;
  */
 @Api(description = "联谊会后台家族慈善申报")
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/genogram/admin/fanSysCharitableDeclare")
 public class FanSysCharitableDeclareController {
     @Autowired
