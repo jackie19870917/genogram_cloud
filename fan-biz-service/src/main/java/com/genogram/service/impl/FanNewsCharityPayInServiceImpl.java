@@ -162,10 +162,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     @Override
     public FanNewsCharityPayIn selectOne(FanNewsCharityPayIn fanNewsCharityPayIn) {
 
-        Wrapper wrapper = new EntityWrapper();
-        wrapper.eq("order_id", fanNewsCharityPayIn.getOrderId());
-
-        FanNewsCharityPayIn fanNewsCharityPayIn1 = this.selectOne(wrapper);
+        FanNewsCharityPayIn fanNewsCharityPayIn1 =  fanNewsCharityPayInMapper.selectOne(fanNewsCharityPayIn);
 
         if (StringUtils.isEmpty(fanNewsCharityPayIn1)) {
             return null;
