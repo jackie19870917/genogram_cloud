@@ -157,6 +157,9 @@ public class FanSysCharitableDeclareController {
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "删除失败");
             }
+            if(aBoolean==null){
+                return ResponseUtlis.error(Constants.ERRO_CODE,"您好,数据不能删除");
+            }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "删除成功");
         } catch (Exception e) {
             e.printStackTrace();

@@ -55,6 +55,15 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
      */
     @Override
     public Boolean deleteCharitableDeclareById(Integer id) {
+        //查询是否有这条数据
+        FanSysCharitableDeclare fanSysCharitableDeclare = this.selectById(id);
+        if(StringsUtils.isEmpty(fanSysCharitableDeclare)){
+            return null;
+        }
+        //状态(0:审核通过;1:审核中;2:草稿3:审核不通过)
+        if(fanSysCharitableDeclare.getStatus()!=2){
+            return null;
+        }
         boolean result = this.deleteById(id);
         return result;
     }
