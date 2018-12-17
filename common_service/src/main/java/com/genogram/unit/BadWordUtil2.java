@@ -203,7 +203,7 @@ public class BadWordUtil2 {
                 if (wordMap != null) {        //如果存在该key，直接赋值
                     nowMap = (Map) wordMap;
                 } else {     //不存在则，则构建一个map，同时将isEnd设置为0，因为他不是最后一个
-                    newWorMap = new HashMap<String, String>();
+                    newWorMap = new HashMap<String, String>(16);
                     newWorMap.put("isEnd", "0");     //不是最后一个
                     nowMap.put(keyChar, newWorMap);
                     nowMap = newWorMap;

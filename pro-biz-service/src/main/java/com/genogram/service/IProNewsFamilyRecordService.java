@@ -49,6 +49,7 @@ public interface IProNewsFamilyRecordService extends IService<ProNewsFamilyRecor
      * 记录家族删除
      *
      * @param id
+     * @param userId
      * @param status
      * @return
      */

@@ -13,17 +13,21 @@ public class SysSiteVo {
 
     private Integer id;
     /**
-     * sys_family:id
+     * 姓氏编号
      */
     private Integer familyCode;
     /**
-     * sys_family:id
+     * 姓氏
      */
     private String familyName;
     /**
-     * sys_region:code
+     * 地区编号
      */
     private String regionCode;
+    /**
+     * 地区名称
+     */
+    private String regionName;
     /**
      * 图腾
      */

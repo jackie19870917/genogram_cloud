@@ -56,6 +56,9 @@ public class FanIndexController {
     @Autowired
     private IFanSysSiteService fanSysSiteService;
 
+    @Autowired
+    private ISysSiteService sysSiteService;
+
     /**
      * 状态
      */
@@ -244,5 +247,38 @@ public class FanIndexController {
         List<SysWebMenuVo> menuVoList = fanSysWebNewsShowService.getSysWebMenuVo(siteId, menuId);
         List<FanNewsFamousPerson> familyFrameList = fanNewsFamousPersonService.getFamilyFrameList(menuVoList.get(0).getShowId());
         return familyFrameList;
+    }
+
+    @ApiOperation(value = "最铁盟友 (省级)", notes = "id-主键,familyCode-姓氏编号,regionCode-地区编号,name-网站名称,parent-父网站对面的地区的编号")
+    @RequestMapping(value = "getProSysSiteList", method = RequestMethod.GET)
+    public Response<ProSysSite> getProSysSiteList() {
+
+        List<ProSysSite> proSysSiteList = sysSiteService.getProSysSite();
+
+        if (proSysSiteList.size() == 0) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        } else {
+            return ResponseUtlis.success(proSysSiteList);
+        }
+    }
+
+    @ApiOperation(value = "最铁盟友 (县级)", notes = "id-主键,familyCode-姓氏编号,regionCode-地区编号,name-网站名称,parent-父网站对面的地区的编号")
+    @RequestMapping(value = "getFanSysSiteList", method = RequestMethod.GET)
+    public Response<FanSysSite> getFanSysSiteList(@ApiParam("姓氏") @RequestParam Integer familyCode,
+                                                  @ApiParam("省级地区编号") @RequestParam String parent,
+                                                  @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                  @RequestParam(value = "pageSize", defaultValue = "9") Integer pageSize) {
+
+        List<FanSysSite> fanSysSiteList = sysSiteService.getFanSysSite(familyCode, parent);
+
+        Page<FanSysSite> page = new Page<>(pageNo, pageSize);
+        page.setRecords(fanSysSiteList);
+        page.setTotal(fanSysSiteList.size());
+
+        if (StringUtils.isEmpty(page)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        } else {
+            return ResponseUtlis.success(page);
+        }
     }
 }

@@ -2,11 +2,9 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
-import com.baomidou.mybatisplus.service.IService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entity.ProSysSite;
-import com.genogram.entityvo.SysSiteVo;
 import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.mapper.ProSysSiteMapper;
 import com.genogram.service.ISysSiteService;
@@ -65,20 +63,18 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
     }
 
     @Override
-    public FanSysSite getFanSysSite() {
-        Wrapper<FanSysSite> fanSysSiteWrapper = new EntityWrapper<>();
-        fanSysSiteWrapper.orderBy("create_time", false);
+    public List<FanSysSite> getFanSysSite(Integer familyCode,String parent) {
 
-        List<FanSysSite> fanSysSiteList = fanSysSiteMapper.selectList(fanSysSiteWrapper);
-        return fanSysSiteList.get(0);
+        Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
+        wrapper.eq("family_code", familyCode);
+        wrapper.eq("parent", parent);
+
+        return  fanSysSiteMapper.selectList(wrapper);
     }
 
     @Override
-    public ProSysSite getProSysSite() {
-        Wrapper<ProSysSite> proSysSiteWrapper = new EntityWrapper<>();
-        proSysSiteWrapper.orderBy("create_time", false);
+    public List<ProSysSite> getProSysSite() {
 
-        List<ProSysSite> proSysSiteList = proSysSiteMapper.selectList(proSysSiteWrapper);
-        return proSysSiteList.get(0);
+        return proSysSiteMapper.selectList(null);
     }
 }

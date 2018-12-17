@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entity.ProSysSite;
 
+import java.util.List;
+
 /**
  * @author: Toxicant
  * @date: 2018-11-23
@@ -27,16 +29,17 @@ public interface ISysSiteService extends IService<FanSysSite> {
     ProSysSite insertProSysSite(ProSysSite proSysSite);
 
     /**
-     * 查询
-     *
+     * 根据姓氏和父编号   查询
+     * @param familyCode
+     * @param parent
      * @return
      */
-    FanSysSite getFanSysSite();
+    List<FanSysSite> getFanSysSite(Integer familyCode,String parent);
 
     /**
      * 查询
      *
      * @return
      */
-    ProSysSite getProSysSite();
+    List<ProSysSite> getProSysSite();
 }
