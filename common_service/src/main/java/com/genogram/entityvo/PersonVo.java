@@ -38,7 +38,7 @@ public class PersonVo {
     /**
      * 图像
      */
-    private String url;
+    private String picUrl;
     /**
      * 外文名
      */
