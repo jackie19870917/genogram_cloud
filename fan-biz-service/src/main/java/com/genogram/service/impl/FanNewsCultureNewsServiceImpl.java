@@ -214,6 +214,9 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     @Override
     public Boolean deleteCulturById(Integer id, int status, AllUserLogin userLoginInfoByToken) {
         FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
+        if(StringsUtils.isEmpty(fanNewsCultureNews)){
+            return null;
+        }
         //修改状态
         fanNewsCultureNews.setStatus(status);
         //修改人
@@ -348,5 +351,29 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         mapPage.setSize(fanNewsCultureNewsPage.getSize());
         mapPage.setTotal(fanNewsCultureNewsPage.getTotal());
         return mapPage;
+    }
+
+    /**
+     *联谊会家族文化后台置顶
+     *@Author: yuzhou
+     *@Date: 2018-12-15
+     *@Time: 9:42
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean culturStick(Integer id, AllUserLogin userLogin) {
+        FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
+        if(StringsUtils.isEmpty(fanNewsCultureNews)){
+            return null;
+        }
+        //修改人
+        fanNewsCultureNews.setUpdateUser(userLogin.getId());
+        //修改时间
+        fanNewsCultureNews.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        //修改人待写
+        boolean result = this.updateAllColumnById(fanNewsCultureNews);
+        return result;
     }
 }

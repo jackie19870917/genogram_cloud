@@ -82,7 +82,7 @@ public class FanNewsCultureController {
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
             entity.eq("show_id", showId);
             entity.in("status", statusList);
-            entity.orderBy("create_time", false);
+            entity.orderBy("update_time", false);
             Page<NewsCultureZipaiVo> fanNewsCultureZipai = fanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if (fanNewsCultureZipai == null) {
                 //没有取到参数,返回空参
@@ -133,7 +133,7 @@ public class FanNewsCultureController {
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
             entity.eq("show_id", showId);
             entity.in("status", statusList);
-            entity.orderBy("create_time", false);
+            entity.orderBy("update_time", false);
             StringBuffer stringBuffer = fanNewsCultureZipaiService.commonalityIndex(entity);
             //判断该stringBuffer是否返回为null
             if (stringBuffer == null) {

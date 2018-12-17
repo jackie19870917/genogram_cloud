@@ -213,12 +213,15 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
      * @Description:
      */
     @Override
-    public Boolean deleteIndustryById(Integer id, int status, AllUserLogin userLoginInfoByToken) {
+    public Boolean deleteIndustryById(Integer id, int status, AllUserLogin userLogin) {
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
+        if(StringsUtils.isEmpty(fanNewsIndustry)){
+            return null;
+        }
         //修改状态
         fanNewsIndustry.setStatus(status);
         //修改人Id
-        fanNewsIndustry.setUpdateUser(userLoginInfoByToken.getId());
+        fanNewsIndustry.setUpdateUser(userLogin.getId());
         //修改时间
         fanNewsIndustry.setUpdateTime(DateUtil.getCurrentTimeStamp());
         //修改人 待写
@@ -260,5 +263,29 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
             fanSysRecommend.setNewsId(fanNewsIndustry.getId());
             fanSysRecommendService.addRecommend(fanSysRecommend);
         }
+    }
+
+    /**
+     *联谊会家族产业后台置顶
+     *@Author: yuzhou
+     *@Date: 2018-12-15
+     *@Time: 10:02
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean industryStick(Integer id, AllUserLogin userLogin) {
+        FanNewsIndustry fanNewsIndustry = this.selectById(id);
+        if(StringsUtils.isEmpty(fanNewsIndustry)){
+            return null;
+        }
+        //修改人Id
+        fanNewsIndustry.setUpdateUser(userLogin.getId());
+        //修改时间
+        fanNewsIndustry.setUpdateTime(DateUtil.getCurrentTimeStamp());
+        //修改人 待写
+        boolean result = this.updateAllColumnById(fanNewsIndustry);
+        return result;
     }
 }

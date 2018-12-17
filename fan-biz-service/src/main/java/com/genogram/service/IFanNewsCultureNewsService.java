@@ -55,10 +55,10 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      *
      * @param id                   主键
      * @param status               状态(0:删除;1:已发布;2:草稿3:不显示)
-     * @param userLoginInfoByToken
+     * @param userLogin
      * @return
      */
-    Boolean deleteCulturById(Integer id, int status, AllUserLogin userLoginInfoByToken);
+    Boolean deleteCulturById(Integer id, int status, AllUserLogin userLogin);
 
     /**
      * 联谊会家族文化增加查看数
@@ -76,4 +76,12 @@ public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews>
      * @return
      */
     Page<FamilyCultureVo> getFamilyIndexCulturePage(Integer siteId, Integer pageNo, Integer pageSize);
+
+    /**
+     * 联谊会家族文化后台置顶
+     * @param id
+     * @param userLogin
+     * @return
+     */
+    Boolean culturStick(Integer id, AllUserLogin userLogin);
 }
