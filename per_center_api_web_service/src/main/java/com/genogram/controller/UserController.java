@@ -61,7 +61,7 @@ public class UserController {
     @Autowired
     private IAllCheckOutService allCheckOutService;
 
-    @ApiOperation(value = "个人资料", notes = "nickName-昵称,englishName-英文名,nation-国籍,birthplace-出生地,job-职业,lidai-历代,jinshi-近世,laopai-老派,xinpai-新派,tongpai-统派,presentAddress-现居,oldAddress-故居,alias-现居别称,summary-简介,fans-粉丝,honesty-诚信值,url-头像")
+    @ApiOperation(value = "个人资料", notes = "nickName-昵称,englishName-英文名,nation-国籍,birthplace-出生地,job-职业,lidai-历代,jinshi-近世,laopai-老派,xinpai-新派,tongpai-统派,presentAddress-现居,oldAddress-故居,alias-现居别称,summary-简介,fans-粉丝,honesty-诚信值,picSrc-头像")
     @RequestMapping(value = "getAllUserReg", method = RequestMethod.POST)
     public Response<PersonVo> getAllUserReg(@ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
@@ -123,7 +123,7 @@ public class UserController {
         byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
         String str = new String(bytes);
 
-        PersonVo personVo1 = new PersonVo();
+        PersonVo personVo1 = allUserRegService.getAllUserRegByUserId(allUserLogin.getId());
         BeanUtils.copyProperties(allUserLogin, personVo1);
 
         personVo1.setToken(str);
