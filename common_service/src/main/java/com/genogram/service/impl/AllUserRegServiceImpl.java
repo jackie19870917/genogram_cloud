@@ -47,7 +47,7 @@ public class AllUserRegServiceImpl extends ServiceImpl<AllUserRegMapper, AllUser
         personVo.setNickName(allUserLogin.getNickName());
         personVo.setUserName(allUserLogin.getUserName());
         personVo.setRealName(allUserLogin.getRealName());
-        personVo.setUrl(allUserLogin.getPicSrc());
+        personVo.setPicUrl(allUserLogin.getPicSrc());
 
         return personVo;
     }
