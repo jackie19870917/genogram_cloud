@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -378,6 +379,10 @@ public class FanNewsCharityController {
         }
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(fanIndexFundDrowing.getSiteId());
+
+        if (fanIndexFundDrowing.getDrowAmount().compareTo(new BigDecimal(0)) != -1) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "金额不能小于0");
+        }
 
         if (fanIndexFund.getRemain().subtract(fanIndexFund.getUnuseAmount()).compareTo(fanIndexFundDrowing.getDrowAmount()) == -1) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "金额不足");

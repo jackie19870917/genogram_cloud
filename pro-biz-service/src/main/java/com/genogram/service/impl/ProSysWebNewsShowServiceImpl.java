@@ -63,7 +63,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         vo = setIndexMenu(siteId, "公益基金", "index_fund_1", "genogram/proNewsCharity/index/getProIndexFund?siteId=", "");
         volist.add(vo);
         //捐款名人(共享code 特殊处理)
-        vo = setIndexMenu(siteId, "捐款名人", INDEX_ARCHITECHTURE_PAY_IN_PERSON_1, "genogram/proNewsCharity/index/getDonorVoByCreateTime?showId=", "");
+        vo = setIndexMenu(siteId, "捐款名人", INDEX_ARCHITECHTURE_PAY_IN_PERSON_1, "genogram/proNewsCharity/index/getPayUser?showId=", "");
         //家族头条
         vo = setIndexMenu(siteId, "家族头条", "index_family_record1", "genogram/proNewsFamilyRecord/proSelectRecortPage?showId=", "");
         volist.add(vo);
@@ -74,11 +74,14 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         //资讯-联谊会发布-家族文化除去字派,记录家族除去视频
         vo = setIndexMenu(siteId, "联谊会发布", "index_fan_news_recommend", "genogram/admin/proRecommend/index/getRecommendArticle?siteId=", "");
         volist.add(vo);
+        //个人发布
+        vo = setIndexMenu(siteId, "个人发布", "index_fan_news_recommend", "genogram/proIndex/getAllUserNewsInfoPage?siteId=", "");
+        volist.add(vo);
         //人物 - 家族长老 - 联谊会
-        vo = setIndexMenu(siteId, "家族长老", "index_fan_person_recommend_1", "/genogram/admin/proRecommend/index/getRecommendFigureRooftree?siteId=", "");
+        vo = setIndexMenu(siteId, "家族长老", "index_fan_person_recommend_1", "genogram/admin/proRecommend/index/getRecommendFigureElder?siteId=", "");
         volist.add(vo);
         //人物 - 家族栋梁 - 联谊会
-        vo = setIndexMenu(siteId, "家族栋梁", "index_fan_person_recommend_2", "/genogram/admin/proRecommend/index/getRecommendFigureElder?siteId=", "");
+        vo = setIndexMenu(siteId, "家族栋梁", "index_fan_person_recommend_2", "genogram/admin/proRecommend/index/getRecommendFigureRooftree?siteId=", "");
         volist.add(vo);
 
         //文化 - 字派 - 省级
@@ -101,11 +104,14 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         vo = setIndexMenu(siteId, "精英", "index_family_person_3", "genogram/proNewsFamous/selectPersonPage?showId=", "");
         volist.add(vo);
 
+        //下级县级网站
+        vo = setIndexMenu(siteId, "下级县级网站", "", "genogram/proPublic/provincialSubordinate?siteId=", "");
+        volist.add(vo);
 
         //慈善公益第二页的
         vo = setIndexMenu(siteId, "公益总金额", "index_fund_3", "genogram/proNewsCharity/index/getProIndexFund?siteId=", "慈善公益第二页的");
         volist.add(vo);
-        vo = setIndexMenu(siteId, "捐款名人", INDEX_ARCHITECHTURE_PAY_IN_PERSON_3, "genogram/proNewsCharity/index/getDonorVoByCreateTime?showId=", "慈善公益第二页的");
+        vo = setIndexMenu(siteId, "捐款名人", INDEX_ARCHITECHTURE_PAY_IN_PERSON_3, "genogram/proNewsCharity/index/getPayUser?showId=", "慈善公益第二页的");
         volist.add(vo);
         //财政用途支出第二页的
         vo = setIndexMenu(siteId, "支出公开栏", INDEX_CHARITY_PAY_OUT_3, "genogram/proNewsCharity/index/getProNewsCharityOut?showId=", "慈善公益第二页的");

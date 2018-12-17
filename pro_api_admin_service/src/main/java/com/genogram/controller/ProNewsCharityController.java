@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -373,11 +374,15 @@ public class ProNewsCharityController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!this.getList().contains(allUserLogin.getRole())) {
+        if (allUserLogin.getRole() != 2) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(proIndexFundDrowing.getSiteId());
+
+        if (proIndexFundDrowing.getDrowAmount().compareTo(new BigDecimal(0)) != -1) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "金额不能小于0");
+        }
 
         if (proIndexFund.getRemain().subtract(proIndexFund.getUnuseAmount()).compareTo(proIndexFundDrowing.getDrowAmount()) == -1) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "金额不足");
