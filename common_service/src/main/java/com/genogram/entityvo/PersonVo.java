@@ -100,6 +100,14 @@ public class PersonVo {
      */
     private Integer honesty;
     /**
+     * 网站id(省或者县的网站id)
+     */
+    private Integer siteId;
+    /**
+     * 角色1.(县级管理员,省级管理员)
+     */
+    private Integer role;
+    /**
      * 创建人
      */
     private String creator;
