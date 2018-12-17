@@ -7,6 +7,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.AllFamily;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.AllUserReg;
+import com.genogram.entityvo.PersonVo;
 import com.genogram.entityvo.UserVo;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IAllUserRegService;
@@ -77,9 +78,9 @@ public class UserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                UserVo userVo = getUserVo(userLogin);
+                PersonVo personVo = getPersonVo(userLogin);
 
-                return ResponseUtlis.success(userVo);
+                return ResponseUtlis.success(personVo);
             } else {
                 return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名或密码错误");
             }
@@ -136,7 +137,7 @@ public class UserLoginController {
 
         if (!StringUtils.isEmpty(userLogin)) {
 
-            UserVo userVo = getUserVo(userLogin);
+            PersonVo personVo = getPersonVo(userLogin);
 
             AllUserReg allUserReg = new AllUserReg();
             allUserReg.setAllUserLoginId(userLogin.getId());
@@ -144,14 +145,14 @@ public class UserLoginController {
 
             allUserRegService.insertAllUserReg(allUserReg);
 
-            return ResponseUtlis.success(userVo);
+            return ResponseUtlis.success(personVo);
 
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名已注册");
         }
     }
 
-    private UserVo getUserVo(AllUserLogin allUserLogin) {
+    private PersonVo getPersonVo(AllUserLogin allUserLogin) {
         Map<String, Object> map = new HashMap(16);
 
         String time = DateUtil.getAllTime();
@@ -164,10 +165,11 @@ public class UserLoginController {
         byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
         String str = new String(bytes);
 
-        UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(allUserLogin, userVo);
-        userVo.setToken(str);
-        return userVo;
+        PersonVo personVo = allUserRegService.getAllUserRegByUserId(allUserLogin.getId());
+
+        BeanUtils.copyProperties(allUserLogin, personVo);
+        personVo.setToken(str);
+        return personVo;
     }
 
     @ApiOperation("修改密码")
@@ -255,13 +257,13 @@ public class UserLoginController {
         byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
         String str = new String(bytes);
 
-        UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(allUserLogin, userVo);
+        PersonVo personVo = allUserRegService.getAllUserRegByUserId(allUserLogin.getId());
 
-        userVo.setToken(str);
+        BeanUtils.copyProperties(allUserLogin, personVo);
+        personVo.setToken(str);
 
         if (result) {
-            return ResponseUtlis.success(userVo);
+            return ResponseUtlis.success(personVo);
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }

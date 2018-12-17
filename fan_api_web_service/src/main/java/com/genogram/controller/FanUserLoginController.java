@@ -76,7 +76,7 @@ public class FanUserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                UserVo userVo = getUserVo(userLogin);
+                UserVo userVo = getPersonVo(userLogin);
 
                 return ResponseUtlis.success(userVo);
             } else {
@@ -135,7 +135,7 @@ public class FanUserLoginController {
 
         if (!StringUtils.isEmpty(userLogin)) {
 
-            UserVo userVo = getUserVo(userLogin);
+            UserVo userVo = getPersonVo(userLogin);
 
             AllUserReg allUserReg = new AllUserReg();
             allUserReg.setAllUserLoginId(userLogin.getId());
@@ -150,7 +150,7 @@ public class FanUserLoginController {
         }
     }
 
-    private UserVo getUserVo(AllUserLogin allUserLogin) {
+    private UserVo getPersonVo(AllUserLogin allUserLogin) {
         Map<String, Object> map = new HashMap(16);
 
         String time = DateUtil.getAllTime();

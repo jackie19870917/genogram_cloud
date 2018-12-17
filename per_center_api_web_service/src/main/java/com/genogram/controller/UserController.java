@@ -123,13 +123,13 @@ public class UserController {
         byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
         String str = new String(bytes);
 
-        UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(allUserLogin, userVo);
+        PersonVo personVo1 = new PersonVo();
+        BeanUtils.copyProperties(allUserLogin, personVo1);
 
-        userVo.setToken(str);
+        personVo1.setToken(str);
 
         if (result) {
-            return ResponseUtlis.success(userVo);
+            return ResponseUtlis.success(personVo1);
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }

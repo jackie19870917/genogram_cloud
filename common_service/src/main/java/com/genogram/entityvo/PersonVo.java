@@ -123,5 +123,8 @@ public class PersonVo {
      * 修改人
      */
     private Integer updateUser;
-
+    /**
+     * token
+     */
+    private String token;
 }
