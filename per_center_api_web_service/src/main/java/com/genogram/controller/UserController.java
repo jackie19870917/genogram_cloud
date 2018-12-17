@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
 import com.genogram.entityvo.PersonVo;
+import com.genogram.entityvo.UserVo;
 import com.genogram.service.*;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
@@ -12,14 +13,14 @@ import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 个人中心
@@ -38,6 +39,9 @@ public class UserController {
 
     @Autowired
     private IAllUserRegService allUserRegService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
 
     @Autowired
     private IAllUserNewsInfoService allUserNewsInfoService;
@@ -105,8 +109,27 @@ public class UserController {
         personVo.setUpdateUser(userLogin.getId());
         Boolean result = allUserRegService.updateAllUserReg(personVo);
 
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        Map<String, Object> map = new HashMap(16);
+
+        String time = DateUtil.getAllTime();
+
+        String user = userLogin.getMobilePhone() + "=" + userLogin.getPassword() + "=" + time;
+        String value = allUserLogin.getId() + "=" + allUserLogin.getUserName();
+        map.put(user, value);
+
+        //Base64加密
+        byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
+        String str = new String(bytes);
+
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(allUserLogin, userVo);
+
+        userVo.setToken(str);
+
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtlis.success(userVo);
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
