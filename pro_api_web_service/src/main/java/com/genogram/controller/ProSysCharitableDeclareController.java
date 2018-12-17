@@ -56,17 +56,8 @@ public class ProSysCharitableDeclareController {
     public Response<FanSysCharitableDeclare> getFamilyStructureList(
             @ApiParam("显示位置Id") @RequestParam(value = "showId") Integer showId,
             @ApiParam("当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @ApiParam("每页信息条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
-            @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+            @ApiParam("每页信息条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize){
         try {
-            //判断token是否为空
-            if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-            }
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userService.getUserLoginInfoByToken(token))) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
-            }
             //判断id是否为空
             if (showId == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, "请输入showId");
@@ -103,20 +94,9 @@ public class ProSysCharitableDeclareController {
     @ApiOperation(value = "联谊会慈善帮扶申报详情", notes = "")
     @RequestMapping(value = "getFamilyStructureDetails", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> getFamilyStructureDetails(
-            @ApiParam("主键Id") @RequestParam(value = "id") Integer id,
-            @ApiParam("token") @RequestParam(value = "token", required = false) String token
+            @ApiParam("主键Id") @RequestParam(value = "id") Integer id
     ) {
         try {
-            //判断token是否为空
-            if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
-            }
-            //获取用户对象
-            AllUserLogin userLoginInfoByToken = userService.getUserLoginInfoByToken(token);
-            //判断token是否正确
-            if (StringsUtils.isEmpty(userLoginInfoByToken)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "请输入正确的token");
-            }
             //判断id是否为空
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
@@ -125,7 +105,7 @@ public class ProSysCharitableDeclareController {
             if (fanSysCharitableDeclare == null) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "查询成功");
+            return ResponseUtlis.success(fanSysCharitableDeclare);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
