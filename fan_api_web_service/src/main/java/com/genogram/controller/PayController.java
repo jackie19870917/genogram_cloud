@@ -426,7 +426,7 @@ public class PayController {
 
         String outTradeNo = rootElt.elementText("out_trade_no");
 
-        String totalAmount = rootElt.elementText("total_tee");
+        String totalAmount = rootElt.elementText("total_fee");
 
         FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
 
@@ -443,6 +443,7 @@ public class PayController {
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
 
+        System.out.println(fanIndexFund.getRemain());
         fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal(totalAmount)));
         fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
 
