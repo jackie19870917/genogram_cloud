@@ -420,7 +420,12 @@ public class PayController {
                 fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);*/
             }
         }
-        return ResponseUtlis.success(flag);
+        if (flag.equals(true)) {
+            return ResponseUtlis.success(200);
+        } else {
+            return ResponseUtlis.error(201, null);
+        }
+        //return ResponseUtlis.success(flag);
 
 
         /*FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
