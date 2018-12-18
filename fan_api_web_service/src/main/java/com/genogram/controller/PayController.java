@@ -306,14 +306,11 @@ public class PayController {
 
     @ApiOperation("微信支付")
     @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
-    public Response weChatPay(Model model, HttpServletRequest request,
+    public Response weChatPay(HttpServletRequest request,
                               FanNewsCharityPayIn fanNewsCharityPayIn,
                               @ApiParam("网站ID") @RequestParam Integer siteId,
                               @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                              @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
-                              @ApiParam("回调地址") @RequestParam(value = "url") String url) {
-
-        this.baseUrl = url;
+                              @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous) {
 
         Integer showId = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
 
@@ -437,8 +434,6 @@ public class PayController {
 
         String outTradeNo = rootElt.elementText("out_trade_no");
 
-        String totalAmount = rootElt.elementText("total_fee");
-
         FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
 
         fanNewsCharityPayIn.setOrderId(outTradeNo);
@@ -457,9 +452,5 @@ public class PayController {
         response.getWriter().write(responseStr);
         System.out.println("responseStr2:" + responseStr);
 
-
-        System.out.println("支付完成");
-
-        response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
     }
 }
