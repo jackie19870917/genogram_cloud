@@ -312,7 +312,7 @@ public class PayController {
                               @ApiParam("网站ID") @RequestParam Integer siteId,
                               @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                               @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
-                              @ApiParam("回调地址") @RequestParam(value = "url") String url) throws IOException, DocumentException {
+                              @ApiParam("回调地址") @RequestParam(value = "url") String url) {
 
         this.baseUrl = url;
 
@@ -332,33 +332,6 @@ public class PayController {
             }
         }
 
-        java.io.InputStream is = request.getInputStream();
-        // 取HTTP请求流长度
-        int size = request.getContentLength();
-        // 用于缓存每次读取的数据
-        byte[] buffer = new byte[size];
-        // 用于存放结果的数组
-        byte[] xmldataByte = new byte[size];
-        int count = 0;
-        int rbyte = 0;
-        // 循环读取
-        while (count < size) {
-            // 每次实际读取长度存于rbyte中
-            rbyte = is.read(buffer);
-            for (int i = 0; i < rbyte; i++) {
-                xmldataByte[count + i] = buffer[i];
-            }
-            count += rbyte;
-        }
-        is.close();
-        String requestStr = new String(xmldataByte, "UTF-8");
-        System.out.println(requestStr);
-        Document doc = DocumentHelper
-                .parseText(requestStr);
-        Element rootElt = doc.getRootElement();
-
-        String outTradeNo = rootElt.elementText("out_trade_no");
-
         // 订单编号
         String payId = DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
 
@@ -372,7 +345,7 @@ public class PayController {
         String body = "炎黄統譜网在线微信扫码支付";
 
 
-        fanNewsCharityPayIn.setOrderId(outTradeNo);
+        fanNewsCharityPayIn.setOrderId(payId);
         fanNewsCharityPayIn.setShowId(showId);
         fanNewsCharityPayIn.setPayUsrId(userLogin.getId());
         fanNewsCharityPayIn.setType(1);
@@ -386,7 +359,7 @@ public class PayController {
         String callback = new PayConfig().getNotifyUrl();
 
         // 生成一个code_url
-        String codeUrl = PayUtils.pay(outTradeNo, userIp, totalFee, body, callback);
+        String codeUrl = PayUtils.pay(payId, userIp, totalFee, body, callback);
 
         if (StringUtils.isEmpty(codeUrl)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "服务器正忙");
@@ -395,7 +368,7 @@ public class PayController {
             Map map = new HashMap(16);
 
             map.put("code_url", codeUrl);
-            map.put("out_trade_no", outTradeNo);
+            map.put("out_trade_no", payId);
             map.put("total_fee", totalFee);
 
             return ResponseUtlis.success(map);
