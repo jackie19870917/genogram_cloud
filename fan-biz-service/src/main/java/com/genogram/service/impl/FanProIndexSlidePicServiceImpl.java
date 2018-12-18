@@ -26,7 +26,7 @@ public class FanProIndexSlidePicServiceImpl extends ServiceImpl<ProIndexSlidePic
 
         proIndexSlidePic.setSort(1);
         proIndexSlidePic.setStatus(1);
-        proIndexSlidePic.setPicUrl("00/05/default_lunbo_1.jpg");
+        proIndexSlidePic.setPicUrl("00/03/rB_QCFwYmhmAe5sjAAFJkW4fa_g851.jpg");
 
 
         this.insert(proIndexSlidePic);

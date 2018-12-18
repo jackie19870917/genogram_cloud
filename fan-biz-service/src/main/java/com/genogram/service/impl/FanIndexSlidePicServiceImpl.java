@@ -98,7 +98,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
 
         fanIndexSlidePic.setSort(1);
         fanIndexSlidePic.setStatus(1);
-        fanIndexSlidePic.setPicUrl("00/05/default_lunbo_1.jpg");
+        fanIndexSlidePic.setPicUrl("00/03/rB_QCFwYmhmAe5sjAAFJkW4fa_g851.jpg\n");
 
 
         this.insert(fanIndexSlidePic);
