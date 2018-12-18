@@ -13,7 +13,7 @@ public class SysSiteVo {
 
     private Integer id;
     /**
-     * 编号
+     * 访问编号
      */
     private String fanUrlCode;
     /**
