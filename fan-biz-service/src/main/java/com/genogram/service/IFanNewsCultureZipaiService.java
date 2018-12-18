@@ -72,5 +72,5 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
      * @param userLogin
      * @return
      */
-    Boolean ZipaiStick(Integer id, AllUserLogin userLogin);
+    Boolean zipaiStick(Integer id, AllUserLogin userLogin);
 }

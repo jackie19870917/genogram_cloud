@@ -4,25 +4,26 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.FanSysSite">
-        <id column="id" property="id"/>
-        <result column="family_code" property="familyCode"/>
-        <result column="region_code" property="regionCode"/>
-        <result column="name" property="name"/>
-        <result column="admin" property="admin"/>
-        <result column="tel" property="tel"/>
-        <result column="status" property="status"/>
-        <result column="pic" property="pic"/>
-        <result column="parent" property="parent"/>
-        <result column="admin_enable" property="adminEnable"/>
-        <result column="create_time" property="createTime"/>
-        <result column="create_user" property="createUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="update_user" property="updateUser"/>
+        <id column="id" property="id" />
+        <result column="fan_url_code" property="fanUrlCode" />
+        <result column="family_code" property="familyCode" />
+        <result column="region_code" property="regionCode" />
+        <result column="name" property="name" />
+        <result column="admin" property="admin" />
+        <result column="status" property="status" />
+        <result column="parent" property="parent" />
+        <result column="one_url" property="oneUrl" />
+        <result column="two_url" property="twoUrl" />
+        <result column="admin_enable" property="adminEnable" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, family_code AS familyCode, region_code AS regionCode, name, admin, tel, status, pic, parent, admin_enable AS adminEnable, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, fan_url_code AS fanUrlCode, family_code AS familyCode, region_code AS regionCode, name, admin, status, parent, one_url AS oneUrl, two_url AS twoUrl, admin_enable AS adminEnable, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

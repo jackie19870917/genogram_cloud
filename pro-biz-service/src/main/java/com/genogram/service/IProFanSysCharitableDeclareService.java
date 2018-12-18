@@ -51,15 +51,15 @@ public interface IProFanSysCharitableDeclareService extends IService<FanSysChari
      *
      * @param userLoginInfoByToken
      * @param fanSysCharitableDeclare
+     * @param ratify
      * @return
      */
     Boolean familyStructureDetailsDisagree(AllUserLogin userLoginInfoByToken, FanSysCharitableDeclare fanSysCharitableDeclare, Integer ratify);
 
-
     /**
      * 省级慈善帮扶总金额
-     *
      * @param map
+     * @return
      */
     BigDecimal familyStructureMoney(Map map);
 

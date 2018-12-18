@@ -37,20 +37,20 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
     @Override
     public List<CommentVo> getAllUserComments(Integer topicId, String entityName) {
         List<CommentVo> commentVoList = null;
-        Wrapper<AllUserComments> Wrapper = new EntityWrapper<>();
-        Wrapper.eq("topic_id", topicId);
-        Wrapper.eq("entity_name", entityName);
-        Wrapper.eq("status", 1);
+        Wrapper<AllUserComments> wrapper = new EntityWrapper<>();
+        wrapper.eq("topic_id", topicId);
+        wrapper.eq("entity_name", entityName);
+        wrapper.eq("status", 1);
         //Wrapper.groupBy("create_time").
-        List<AllUserComments> AllUserCommentsList = this.selectList(Wrapper);
+        List<AllUserComments> allUserCommentsList = this.selectList(wrapper);
         CommentVo commentVo;
         CommentVo commentToReplyVo;
         List<CommentVo> commentToReplyVoList = null;
         CommentVo replyToReplyVo;
         //构造评论结构体
-        if (!StringUtils.isEmpty(AllUserCommentsList)) {
+        if (!StringUtils.isEmpty(allUserCommentsList)) {
 
-            for (AllUserComments allUserComments : AllUserCommentsList) {
+            for (AllUserComments allUserComments : allUserCommentsList) {
                 //创建一条评论实体
                 commentVo = new CommentVo();
 
@@ -80,7 +80,7 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                             if (commentToReplyVoList != null && commentToReplyVoList.size() > 0) {
                                 for (CommentVo parent : commentToReplyVoList) {
                                     Integer tempId = allUserReply.getReplyId();
-                                    if (tempId == parent.getId()) {
+                                    if (tempId.equals(parent.getId())) {
                                         //回复的回复
                                         replyToReplyVo = new CommentVo();
                                         replyToReplyVo.setId(allUserReply.getId());
@@ -100,7 +100,7 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                                             List<CommentVo> commentVoListParent = parent.getNext();
                                             if (null != commentVoListParent) {
                                                 for (CommentVo cv : commentVoListParent) {
-                                                    if (tempId == cv.getId()) {
+                                                    if (tempId.equals(cv.getId())) {
                                                         //回复的回复
                                                         replyToReplyVo = new CommentVo();
                                                         replyToReplyVo.setId(allUserReply.getId());

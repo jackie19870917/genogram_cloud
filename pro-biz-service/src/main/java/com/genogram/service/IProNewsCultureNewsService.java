@@ -49,6 +49,7 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
      * @param proNewsCultureNews
      * @param fileName
      * @param filePath
+     * @param userLogin
      * @return
      */
     boolean addOrUpdateCulture(ProNewsCultureNews proNewsCultureNews, String fileName, String filePath, AllUserLogin userLogin);
@@ -58,6 +59,7 @@ public interface IProNewsCultureNewsService extends IService<ProNewsCultureNews>
      *
      * @param id
      * @param status
+     * @param userLogin
      * @return
      */
     Boolean deleteCulturById(Integer id, int status, AllUserLogin userLogin);

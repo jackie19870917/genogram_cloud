@@ -340,7 +340,6 @@ public class PayController {
         // 商品描述
         String body = "炎黄統譜网在线微信扫码支付";
 
-
         fanNewsCharityPayIn.setOrderId(payId);
         fanNewsCharityPayIn.setShowId(showId);
         fanNewsCharityPayIn.setPayUsrId(userLogin.getId());

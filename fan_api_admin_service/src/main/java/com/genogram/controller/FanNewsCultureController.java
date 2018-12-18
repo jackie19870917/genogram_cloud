@@ -381,7 +381,7 @@ public class FanNewsCultureController {
     */
     @ApiOperation(value = "联谊会家族字派后台置顶", notes = "")
     @RequestMapping(value = "/zipaiStick", method = RequestMethod.GET)
-    public Response<FanNewsCultureZipai> ZipaiStick(
+    public Response<FanNewsCultureZipai> zipaiStick(
             @ApiParam("主键Id") @RequestParam(value = "id") Integer id,
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
@@ -407,7 +407,7 @@ public class FanNewsCultureController {
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            Boolean aBoolean = fanNewsCultureZipaiService.ZipaiStick(id,userLogin);
+            Boolean aBoolean = fanNewsCultureZipaiService.zipaiStick(id,userLogin);
             if (aBoolean==null || !aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }

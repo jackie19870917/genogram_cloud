@@ -374,7 +374,9 @@ public class ProNewsCharityController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (allUserLogin.getRole() != 2) {
+        //  2-省级管理员
+        Integer role02 = 2;
+        if (!allUserLogin.getRole().equals(role02)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 

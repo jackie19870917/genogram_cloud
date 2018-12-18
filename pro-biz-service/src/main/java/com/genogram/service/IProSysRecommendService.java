@@ -37,6 +37,7 @@ public interface IProSysRecommendService extends IService<FanSysRecommend> {
      *
      * @param entity
      * @param status
+     * @param userLogin
      * @return
      */
     Boolean deleteRecommend(Wrapper<FanSysRecommend> entity, int status, AllUserLogin userLogin);

@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-27
+ * @since 2018-12-18
  */
 @TableName("fan_sys_site")
 public class FanSysSite extends Model<FanSysSite> {
@@ -29,6 +26,11 @@ public class FanSysSite extends Model<FanSysSite> {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+    /**
+     * 时间戳
+     */
+    @TableField("fan_url_code")
+    private String fanUrlCode;
     /**
      * sys_family:id
      */
@@ -98,6 +100,15 @@ public class FanSysSite extends Model<FanSysSite> {
 
     public FanSysSite setId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    public String getFanUrlCode() {
+        return fanUrlCode;
+    }
+
+    public FanSysSite setFanUrlCode(String fanUrlCode) {
+        this.fanUrlCode = fanUrlCode;
         return this;
     }
 
@@ -226,20 +237,21 @@ public class FanSysSite extends Model<FanSysSite> {
     @Override
     public String toString() {
         return "FanSysSite{" +
-                ", id=" + id +
-                ", familyCode=" + familyCode +
-                ", regionCode=" + regionCode +
-                ", name=" + name +
-                ", admin=" + admin +
-                ", status=" + status +
-                ", parent=" + parent +
-                ", oneUrl=" + oneUrl +
-                ", twoUrl=" + twoUrl +
-                ", adminEnable=" + adminEnable +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", fanUrlCode=" + fanUrlCode +
+        ", familyCode=" + familyCode +
+        ", regionCode=" + regionCode +
+        ", name=" + name +
+        ", admin=" + admin +
+        ", status=" + status +
+        ", parent=" + parent +
+        ", oneUrl=" + oneUrl +
+        ", twoUrl=" + twoUrl +
+        ", adminEnable=" + adminEnable +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

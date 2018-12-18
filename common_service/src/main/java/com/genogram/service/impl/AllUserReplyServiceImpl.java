@@ -26,10 +26,10 @@ public class AllUserReplyServiceImpl extends ServiceImpl<AllUserReplyMapper, All
     public List<AllUserReply> getAllUserReply(Integer commentId) {
 
         List<AllUserReply> allUserReplyList = null;
-        Wrapper<AllUserReply> Wrapper = new EntityWrapper<>();
-        Wrapper.eq("comment_id", commentId);
+        Wrapper<AllUserReply> wrapper = new EntityWrapper<>();
+        wrapper.eq("comment_id", commentId);
         if (!StringUtils.isEmpty(commentId)) {
-            allUserReplyList = this.selectList(Wrapper);
+            allUserReplyList = this.selectList(wrapper);
         }
         return allUserReplyList;
     }

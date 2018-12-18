@@ -16,6 +16,10 @@ import java.util.Map;
  */
 public interface FanSysCharitableDeclareMapper extends BaseMapper<FanSysCharitableDeclare> {
 
-
+    /**
+     * 慈善帮扶总金额
+     * @param map
+     * @return
+     */
     BigDecimal familyStructureMoney(Map map);
 }

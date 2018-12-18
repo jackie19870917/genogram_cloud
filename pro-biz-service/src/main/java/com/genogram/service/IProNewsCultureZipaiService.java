@@ -54,6 +54,7 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      * 省级家族字派后台新增修改
      *
      * @param proNewsCultureZipai
+     * @param userLogin
      * @return
      */
     boolean addOrUpdateZiPai(ProNewsCultureZipai proNewsCultureZipai, AllUserLogin userLogin);
@@ -63,6 +64,7 @@ public interface IProNewsCultureZipaiService extends IService<ProNewsCultureZipa
      *
      * @param id
      * @param status
+     * @param userLogin
      * @return
      */
     Boolean deleteZipaiById(Integer id, int status, AllUserLogin userLogin);

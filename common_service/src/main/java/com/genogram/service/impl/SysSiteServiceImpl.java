@@ -32,6 +32,12 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
     public FanSysSite insertFanSysSite(FanSysSite fanSysSite) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+        String time = DateUtil.getAllTime();
+        Long time01 = System.currentTimeMillis();
+
+        System.out.println(time);
+        System.out.println(time01);
+        fanSysSite.setFanUrlCode(time);
         fanSysSite.setCreateTime(timeStamp);
         fanSysSite.setUpdateTime(timeStamp);
         fanSysSite.setStatus(1);

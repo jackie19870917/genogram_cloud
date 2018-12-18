@@ -173,7 +173,7 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
      *@Description:
     */
     @Override
-    public Boolean ZipaiStick(Integer id, AllUserLogin userLogin) {
+    public Boolean zipaiStick(Integer id, AllUserLogin userLogin) {
         FanNewsCultureZipai fanNewsCultureZipai = this.selectById(id);
         if(StringUtils.isEmpty(fanNewsCultureZipai)){
             return null;

@@ -33,7 +33,7 @@ import java.util.List;
 public class AllUserCommentsController {
 
     @Autowired
-    private IAllUserCommentsService AllUserCommentsService;
+    private IAllUserCommentsService allUserCommentsService;
 
     @Autowired
     IAllUserReplyService allUserReplyService;
@@ -49,7 +49,7 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(entityName)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "serviceName为空");
         }
-        List<CommentVo> commentVoList = AllUserCommentsService.getAllUserComments(topicId, entityName);
+        List<CommentVo> commentVoList = allUserCommentsService.getAllUserComments(topicId, entityName);
         return ResponseUtlis.success(commentVoList);
     }
 
@@ -60,7 +60,7 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(allUserComments)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserComments为空");
         }
-        Boolean flag = AllUserCommentsService.insertAllUserComments(allUserComments);
+        Boolean flag = allUserCommentsService.insertAllUserComments(allUserComments);
         return ResponseUtlis.success(flag);
     }
 
@@ -83,7 +83,7 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(id)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserReply为空");
         }
-        Boolean flag = AllUserCommentsService.delAllUserComments(id);
+        Boolean flag = allUserCommentsService.delAllUserComments(id);
         if (flag) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {
@@ -114,7 +114,7 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(idList)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "idList为空");
         }
-        Integer count = AllUserCommentsService.delAllUserCommentslist(idList);
+        Integer count = allUserCommentsService.delAllUserCommentslist(idList);
         if (count > 0) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } else {

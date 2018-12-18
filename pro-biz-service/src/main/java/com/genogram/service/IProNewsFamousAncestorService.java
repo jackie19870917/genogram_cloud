@@ -53,6 +53,7 @@ public interface IProNewsFamousAncestorService extends IService<ProNewsFamousAnc
      *
      * @param proNewsFamousAncestor
      * @param proSplit
+     * @param userLogin
      * @param fanSplit
      * @return
      */
