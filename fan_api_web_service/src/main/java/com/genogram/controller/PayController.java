@@ -444,8 +444,8 @@ public class PayController {
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
 
         System.out.println(fanIndexFund.getRemain());
-        fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal((int) (Double.parseDouble(totalAmount) * 0.01) + "")));
-        fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal((int) (Double.parseDouble(totalAmount) * 0.01) + "")));
+        fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal( (Double.parseDouble(totalAmount) * 0.01) + "")));
+        fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal( (Double.parseDouble(totalAmount) * 0.01) + "")));
 
         fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
 
