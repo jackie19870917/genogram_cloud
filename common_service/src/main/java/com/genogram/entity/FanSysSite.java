@@ -30,7 +30,7 @@ public class FanSysSite extends Model<FanSysSite> {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 时间戳
+     * 访问编号
      */
     @TableField("fan_url_code")
     private String fanUrlCode;
