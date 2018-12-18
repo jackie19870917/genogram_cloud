@@ -13,6 +13,10 @@ public class SysSiteVo {
 
     private Integer id;
     /**
+     * 编号
+     */
+    private String fanUrlCode;
+    /**
      * 姓氏编号
      */
     private Integer familyCode;
