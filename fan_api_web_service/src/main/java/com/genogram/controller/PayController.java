@@ -420,7 +420,7 @@ public class PayController {
                 fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);*/
             }
         }
-        if (flag.equals(false)) {
+        if (flag.equals("false")) {
             return ResponseUtlis.error(201, null);
         } else {
             return ResponseUtlis.success(200);
