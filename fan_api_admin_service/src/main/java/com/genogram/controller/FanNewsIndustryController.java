@@ -375,7 +375,7 @@ public class FanNewsIndustryController {
      * @return:
      * @Description:
      */
-    @ApiOperation(value = "联谊会家族产业后台删除", notes ="")
+    @ApiOperation(value = "联谊会家族产业后台删除", notes = "")
     @RequestMapping(value = "/deleteIndustryById", method = RequestMethod.GET)
     public Response<FanNewsIndustry> deleteIndustryById(
             @ApiParam("主键ID") @RequestParam(value = "id") Integer id,
@@ -406,7 +406,7 @@ public class FanNewsIndustryController {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
             Boolean isDel = fanNewsIndustryService.deleteIndustryById(id, status, userLogin);
-            if ( isDel==null ||!isDel) {
+            if (isDel == null || !isDel) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -417,15 +417,16 @@ public class FanNewsIndustryController {
     }
 
     /**
-     *联谊会家族产业后台置顶
-     *@Author: yuzhou
-     *@Date: 2018-12-15
-     *@Time: 10:00
-     *@Param:
-     *@return:
-     *@Description:i
-    */
-    @ApiOperation(value = "联谊会家族产业后台置顶", notes ="")
+     * 联谊会家族产业后台置顶
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-15
+     * @Time: 10:00
+     * @Param:
+     * @return:
+     * @Description:i
+     */
+    @ApiOperation(value = "联谊会家族产业后台置顶", notes = "")
     @RequestMapping(value = "/industryStick", method = RequestMethod.GET)
     public Response<FanNewsIndustry> industryStick(
             @ApiParam("主键ID") @RequestParam(value = "id") Integer id,
@@ -453,8 +454,8 @@ public class FanNewsIndustryController {
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            Boolean isDel = fanNewsIndustryService.industryStick(id,userLogin);
-            if ( isDel==null ||!isDel) {
+            Boolean isDel = fanNewsIndustryService.industryStick(id, userLogin);
+            if (isDel == null || !isDel) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);

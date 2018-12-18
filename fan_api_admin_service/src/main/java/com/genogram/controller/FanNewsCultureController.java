@@ -360,7 +360,7 @@ public class FanNewsCultureController {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
             Boolean aBoolean = fanNewsCultureZipaiService.deleteZipaiById(id, status, userLogin);
-            if (aBoolean==null || !aBoolean) {
+            if (aBoolean == null || !aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -371,14 +371,15 @@ public class FanNewsCultureController {
     }
 
     /**
-     *联谊会家族字派后台置顶
-     *@Author: yuzhou
-     *@Date: 2018-12-15
-     *@Time: 9:29
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会家族字派后台置顶
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-15
+     * @Time: 9:29
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "联谊会家族字派后台置顶", notes = "")
     @RequestMapping(value = "/zipaiStick", method = RequestMethod.GET)
     public Response<FanNewsCultureZipai> zipaiStick(
@@ -407,8 +408,8 @@ public class FanNewsCultureController {
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            Boolean aBoolean = fanNewsCultureZipaiService.zipaiStick(id,userLogin);
-            if (aBoolean==null || !aBoolean) {
+            Boolean aBoolean = fanNewsCultureZipaiService.zipaiStick(id, userLogin);
+            if (aBoolean == null || !aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -417,7 +418,6 @@ public class FanNewsCultureController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
-
 
 
     /**
@@ -770,7 +770,7 @@ public class FanNewsCultureController {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
             Boolean aBoolean = fanNewsCultureNewsService.deleteCulturById(id, status, userLogin);
-            if (aBoolean==null || !aBoolean) {
+            if (aBoolean == null || !aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
@@ -781,14 +781,15 @@ public class FanNewsCultureController {
     }
 
     /**
-     *联谊会家族文化后台置顶
-     *@Author: yuzhou
-     *@Date: 2018-12-15
-     *@Time: 9:40
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会家族文化后台置顶
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-15
+     * @Time: 9:40
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "联谊会家族文化后台置顶", notes = "")
     @RequestMapping(value = "/culturStick", method = RequestMethod.GET)
     public Response<FanNewsCultureNews> culturStick(
@@ -817,8 +818,8 @@ public class FanNewsCultureController {
             if (id == null) {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
-            Boolean aBoolean = fanNewsCultureNewsService.culturStick(id,userLogin);
-            if (aBoolean==null || !aBoolean ) {
+            Boolean aBoolean = fanNewsCultureNewsService.culturStick(id, userLogin);
+            if (aBoolean == null || !aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);

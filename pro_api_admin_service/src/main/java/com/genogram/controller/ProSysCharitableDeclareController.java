@@ -73,46 +73,46 @@ public class ProSysCharitableDeclareController {
      */
     @ApiOperation(value = "省级慈善帮扶申报详情页查询", notes =
             "abstractInfo 帮扶对象情况简介-- " +
-            "accountBank 申请人开户行-- " +
-            "accountName 申请人开户名-- " +
-            "accountNum 申请人开户行卡号-- " +
-            "applicantAdress 申请人地址-- " +
-            "applyMoney 申请金额-- " +
-            "applyName 申请人姓名-- " +
-            "applyNum 申请人身份证号码-- " +
-            "applyPhone 申请人电话-- " +
-            "approver 审批人-- " +
-            "approverOpinion 审批人意见-- " +
-            "createTime 创建时间-- " +
-            "createUser 创建人Id-- " +
-            "examinant 审查人-- " +
-            "examinantOpinion 审查人意见-- " +
-            "helpFeedback 帮助反馈-- " +
-            "helpFeedbackFile 上传帮助反馈的图片-- " +
-            "id 主键Id" +
-            "isApprover 审批人是否同意  1:同意 2:退回-- " +
-            "isExaminant 审查人是否同意  1:同意 2:退回-- " +
-            "isVerifier 审核人是否同意  1:同意 2:退回-- " +
-            "pictureAddress 联谊会添加的图片地址-- " +
-            "receivablesAddress 收款人地址-- " +
-            "receivablesBank 收款人开户行-- " +
-            "receivablesId 收款人身份证-- " +
-            "receivablesName 收款人姓名-- " +
-            "receivablesNum 收款人卡号-- " +
-            "receivablesPhone 收款人电话-- " +
-            "recommenderCompany 推荐人公司-- " +
-            "recommenderName 推荐人姓名-- " +
-            "recommenderOsition 推荐人职位-- " +
-            "recommenderPhone 推荐人电话-- " +
-            "responsiblePerson 经办人-- " +
-            "responsiblePersonMoney 经办人输入的金额-- " +
-            "showId 显示位置Id-- " +
-            "status 状态(0:审核通过;1:审核中;2:草稿3:审核不通过)-- " +
-            "title 标题-- " +
-            "updateTime 修改时间-- " +
-            "updateUser 修改人id-- " +
-            "verifier 审核人-- " +
-            "verifierOpinion 审核人意见-- ")
+                    "accountBank 申请人开户行-- " +
+                    "accountName 申请人开户名-- " +
+                    "accountNum 申请人开户行卡号-- " +
+                    "applicantAdress 申请人地址-- " +
+                    "applyMoney 申请金额-- " +
+                    "applyName 申请人姓名-- " +
+                    "applyNum 申请人身份证号码-- " +
+                    "applyPhone 申请人电话-- " +
+                    "approver 审批人-- " +
+                    "approverOpinion 审批人意见-- " +
+                    "createTime 创建时间-- " +
+                    "createUser 创建人Id-- " +
+                    "examinant 审查人-- " +
+                    "examinantOpinion 审查人意见-- " +
+                    "helpFeedback 帮助反馈-- " +
+                    "helpFeedbackFile 上传帮助反馈的图片-- " +
+                    "id 主键Id" +
+                    "isApprover 审批人是否同意  1:同意 2:退回-- " +
+                    "isExaminant 审查人是否同意  1:同意 2:退回-- " +
+                    "isVerifier 审核人是否同意  1:同意 2:退回-- " +
+                    "pictureAddress 联谊会添加的图片地址-- " +
+                    "receivablesAddress 收款人地址-- " +
+                    "receivablesBank 收款人开户行-- " +
+                    "receivablesId 收款人身份证-- " +
+                    "receivablesName 收款人姓名-- " +
+                    "receivablesNum 收款人卡号-- " +
+                    "receivablesPhone 收款人电话-- " +
+                    "recommenderCompany 推荐人公司-- " +
+                    "recommenderName 推荐人姓名-- " +
+                    "recommenderOsition 推荐人职位-- " +
+                    "recommenderPhone 推荐人电话-- " +
+                    "responsiblePerson 经办人-- " +
+                    "responsiblePersonMoney 经办人输入的金额-- " +
+                    "showId 显示位置Id-- " +
+                    "status 状态(0:审核通过;1:审核中;2:草稿3:审核不通过)-- " +
+                    "title 标题-- " +
+                    "updateTime 修改时间-- " +
+                    "updateUser 修改人id-- " +
+                    "verifier 审核人-- " +
+                    "verifierOpinion 审核人意见-- ")
     @RequestMapping(value = "/getSysCharitableDeclare", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> getFamilyStructureList(
             @ApiParam("显示位置Id") @RequestParam(value = "showId") Integer showId,
@@ -172,46 +172,46 @@ public class ProSysCharitableDeclareController {
      */
     @ApiOperation(value = "省级慈善帮扶申报详情", notes =
             "abstractInfo 帮扶对象情况简介-- " +
-            "accountBank 申请人开户行-- " +
-            "accountName 申请人开户名-- " +
-            "accountNum 申请人开户行卡号-- " +
-            "applicantAdress 申请人地址-- " +
-            "applyMoney 申请金额-- " +
-            "applyName 申请人姓名-- " +
-            "applyNum 申请人身份证号码-- " +
-            "applyPhone 申请人电话-- " +
-            "approver 审批人-- " +
-            "approverOpinion 审批人意见-- " +
-            "createTime 创建时间-- " +
-            "createUser 创建人Id-- " +
-            "examinant 审查人-- " +
-            "examinantOpinion 审查人意见-- " +
-            "helpFeedback 帮助反馈-- " +
-            "helpFeedbackFile 上传帮助反馈的图片-- " +
-            "id 主键Id" +
-            "isApprover 审批人是否同意  1:同意 2:退回-- " +
-            "isExaminant 审查人是否同意  1:同意 2:退回-- " +
-            "isVerifier 审核人是否同意  1:同意 2:退回-- " +
-            "pictureAddress 联谊会添加的图片地址-- " +
-            "receivablesAddress 收款人地址-- " +
-            "receivablesBank 收款人开户行-- " +
-            "receivablesId 收款人身份证-- " +
-            "receivablesName 收款人姓名-- " +
-            "receivablesNum 收款人卡号-- " +
-            "receivablesPhone 收款人电话-- " +
-            "recommenderCompany 推荐人公司-- " +
-            "recommenderName 推荐人姓名-- " +
-            "recommenderOsition 推荐人职位-- " +
-            "recommenderPhone 推荐人电话-- " +
-            "responsiblePerson 经办人-- " +
-            "responsiblePersonMoney 经办人输入的金额-- " +
-            "showId 显示位置Id-- " +
-            "status 状态(0:审核通过;1:审核中;2:草稿3:审核不通过)-- " +
-            "title 标题-- " +
-            "updateTime 修改时间-- " +
-            "updateUser 修改人id-- " +
-            "verifier 审核人-- " +
-            "verifierOpinion 审核人意见-- ")
+                    "accountBank 申请人开户行-- " +
+                    "accountName 申请人开户名-- " +
+                    "accountNum 申请人开户行卡号-- " +
+                    "applicantAdress 申请人地址-- " +
+                    "applyMoney 申请金额-- " +
+                    "applyName 申请人姓名-- " +
+                    "applyNum 申请人身份证号码-- " +
+                    "applyPhone 申请人电话-- " +
+                    "approver 审批人-- " +
+                    "approverOpinion 审批人意见-- " +
+                    "createTime 创建时间-- " +
+                    "createUser 创建人Id-- " +
+                    "examinant 审查人-- " +
+                    "examinantOpinion 审查人意见-- " +
+                    "helpFeedback 帮助反馈-- " +
+                    "helpFeedbackFile 上传帮助反馈的图片-- " +
+                    "id 主键Id" +
+                    "isApprover 审批人是否同意  1:同意 2:退回-- " +
+                    "isExaminant 审查人是否同意  1:同意 2:退回-- " +
+                    "isVerifier 审核人是否同意  1:同意 2:退回-- " +
+                    "pictureAddress 联谊会添加的图片地址-- " +
+                    "receivablesAddress 收款人地址-- " +
+                    "receivablesBank 收款人开户行-- " +
+                    "receivablesId 收款人身份证-- " +
+                    "receivablesName 收款人姓名-- " +
+                    "receivablesNum 收款人卡号-- " +
+                    "receivablesPhone 收款人电话-- " +
+                    "recommenderCompany 推荐人公司-- " +
+                    "recommenderName 推荐人姓名-- " +
+                    "recommenderOsition 推荐人职位-- " +
+                    "recommenderPhone 推荐人电话-- " +
+                    "responsiblePerson 经办人-- " +
+                    "responsiblePersonMoney 经办人输入的金额-- " +
+                    "showId 显示位置Id-- " +
+                    "status 状态(0:审核通过;1:审核中;2:草稿3:审核不通过)-- " +
+                    "title 标题-- " +
+                    "updateTime 修改时间-- " +
+                    "updateUser 修改人id-- " +
+                    "verifier 审核人-- " +
+                    "verifierOpinion 审核人意见-- ")
     @RequestMapping(value = "/getFamilyStructureDetails", method = RequestMethod.GET)
     public Response<FanSysCharitableDeclare> getFamilyStructureDetails(
             @ApiParam("主键Id") @RequestParam(value = "id") Integer id,

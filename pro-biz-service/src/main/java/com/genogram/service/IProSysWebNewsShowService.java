@@ -52,6 +52,7 @@ public interface IProSysWebNewsShowService extends IService<ProSysWebNewsShow> {
      * @Description:
      */
     public SysWebMenuVo getSiteIdByShowId(Integer showId);
+
     /**
      * 开网站初始化菜单
      *

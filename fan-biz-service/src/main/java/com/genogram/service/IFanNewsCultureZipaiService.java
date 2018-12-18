@@ -59,15 +59,16 @@ public interface IFanNewsCultureZipaiService extends IService<FanNewsCultureZipa
     /**
      * 联谊会家族字派后台删除
      *
-     * @param id                   主键
-     * @param status               状态(0:删除;1:已发布;2:草稿3:不显示)
+     * @param id        主键
+     * @param status    状态(0:删除;1:已发布;2:草稿3:不显示)
      * @param userLogin
      * @return
      */
     Boolean deleteZipaiById(Integer id, int status, AllUserLogin userLogin);
 
     /**
-     *联谊会家族字派后台置顶
+     * 联谊会家族字派后台置顶
+     *
      * @param id
      * @param userLogin
      * @return

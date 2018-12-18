@@ -69,6 +69,7 @@ public interface IFanNewsIndustryService extends IService<FanNewsIndustry> {
 
     /**
      * 联谊会家族产业后台置顶
+     *
      * @param id
      * @param userLogin
      * @return

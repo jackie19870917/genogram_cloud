@@ -162,7 +162,7 @@ public class FanNewsCharityPayInServiceImpl extends ServiceImpl<FanNewsCharityPa
     @Override
     public FanNewsCharityPayIn selectOne(FanNewsCharityPayIn fanNewsCharityPayIn) {
 
-        FanNewsCharityPayIn fanNewsCharityPayIn1 =  fanNewsCharityPayInMapper.selectOne(fanNewsCharityPayIn);
+        FanNewsCharityPayIn fanNewsCharityPayIn1 = fanNewsCharityPayInMapper.selectOne(fanNewsCharityPayIn);
 
         if (StringUtils.isEmpty(fanNewsCharityPayIn1)) {
             return null;

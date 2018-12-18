@@ -53,7 +53,7 @@ public interface IAllUserNewsInfoService extends IService<AllUserNewsInfo> {
      */
     AllUserNewsInfo getAllUserNewsInfoById(Integer id);
 
-  /*  *//**
+    /*  *//**
      * 查询日志
      *
      * @param siteId

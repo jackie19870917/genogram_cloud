@@ -166,7 +166,7 @@ public class SysSiteController {
             }
 
             Integer regionNum = Integer.valueOf(sysSiteVo.getRegionCode());
-            regionNum= regionNum / 10000 * 10000;
+            regionNum = regionNum / 10000 * 10000;
 
             fanSysSite.setParent(regionNum);
             FanSysSite fanSysSite1 = sysSiteService.insertFanSysSite(fanSysSite);

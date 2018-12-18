@@ -151,7 +151,7 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
     @Override
     public Boolean deleteZipaiById(Integer id, int status, AllUserLogin userLogin) {
         FanNewsCultureZipai fanNewsCultureZipai = this.selectById(id);
-        if(StringUtils.isEmpty(fanNewsCultureZipai)){
+        if (StringUtils.isEmpty(fanNewsCultureZipai)) {
             return null;
         }
         //修改状态
@@ -164,18 +164,19 @@ public class FanNewsCultureZipaiServiceImpl extends ServiceImpl<FanNewsCultureZi
     }
 
     /**
-     *联谊会家族字派后台置顶
-     *@Author: yuzhou
-     *@Date: 2018-12-15
-     *@Time: 9:33
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会家族字派后台置顶
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-15
+     * @Time: 9:33
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean zipaiStick(Integer id, AllUserLogin userLogin) {
         FanNewsCultureZipai fanNewsCultureZipai = this.selectById(id);
-        if(StringUtils.isEmpty(fanNewsCultureZipai)){
+        if (StringUtils.isEmpty(fanNewsCultureZipai)) {
             return null;
         }
         //修改人

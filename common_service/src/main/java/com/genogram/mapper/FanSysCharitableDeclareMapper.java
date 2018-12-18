@@ -18,6 +18,7 @@ public interface FanSysCharitableDeclareMapper extends BaseMapper<FanSysCharitab
 
     /**
      * 慈善帮扶总金额
+     *
      * @param map
      * @return
      */

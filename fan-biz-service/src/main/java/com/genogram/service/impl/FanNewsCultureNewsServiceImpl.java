@@ -214,7 +214,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     @Override
     public Boolean deleteCulturById(Integer id, int status, AllUserLogin userLoginInfoByToken) {
         FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
-        if(StringsUtils.isEmpty(fanNewsCultureNews)){
+        if (StringsUtils.isEmpty(fanNewsCultureNews)) {
             return null;
         }
         //修改状态
@@ -354,18 +354,19 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
     }
 
     /**
-     *联谊会家族文化后台置顶
-     *@Author: yuzhou
-     *@Date: 2018-12-15
-     *@Time: 9:42
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会家族文化后台置顶
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-15
+     * @Time: 9:42
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean culturStick(Integer id, AllUserLogin userLogin) {
         FanNewsCultureNews fanNewsCultureNews = this.selectById(id);
-        if(StringsUtils.isEmpty(fanNewsCultureNews)){
+        if (StringsUtils.isEmpty(fanNewsCultureNews)) {
             return null;
         }
         //修改人

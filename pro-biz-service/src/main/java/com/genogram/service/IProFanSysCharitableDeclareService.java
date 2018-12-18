@@ -58,6 +58,7 @@ public interface IProFanSysCharitableDeclareService extends IService<FanSysChari
 
     /**
      * 省级慈善帮扶总金额
+     *
      * @param map
      * @return
      */

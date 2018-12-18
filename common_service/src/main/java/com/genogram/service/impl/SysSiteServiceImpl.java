@@ -32,11 +32,9 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
     public FanSysSite insertFanSysSite(FanSysSite fanSysSite) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-        String time = DateUtil.getAllTime();
-        Long time01 = System.currentTimeMillis();
 
-        System.out.println(time);
-        System.out.println(time01);
+        String time = System.currentTimeMillis() + "";
+
         fanSysSite.setFanUrlCode(time);
         fanSysSite.setCreateTime(timeStamp);
         fanSysSite.setUpdateTime(timeStamp);
@@ -69,13 +67,13 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
     }
 
     @Override
-    public List<FanSysSite> getFanSysSite(Integer familyCode,String parent) {
+    public List<FanSysSite> getFanSysSite(Integer familyCode, String parent) {
 
         Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
         wrapper.eq("family_code", familyCode);
         wrapper.eq("parent", parent);
 
-        return  fanSysSiteMapper.selectList(wrapper);
+        return fanSysSiteMapper.selectList(wrapper);
     }
 
     @Override

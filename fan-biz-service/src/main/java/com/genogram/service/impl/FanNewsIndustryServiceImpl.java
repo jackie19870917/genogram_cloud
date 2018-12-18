@@ -215,7 +215,7 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
     @Override
     public Boolean deleteIndustryById(Integer id, int status, AllUserLogin userLogin) {
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
-        if(StringsUtils.isEmpty(fanNewsIndustry)){
+        if (StringsUtils.isEmpty(fanNewsIndustry)) {
             return null;
         }
         //修改状态
@@ -266,18 +266,19 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
     }
 
     /**
-     *联谊会家族产业后台置顶
-     *@Author: yuzhou
-     *@Date: 2018-12-15
-     *@Time: 10:02
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 联谊会家族产业后台置顶
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-15
+     * @Time: 10:02
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean industryStick(Integer id, AllUserLogin userLogin) {
         FanNewsIndustry fanNewsIndustry = this.selectById(id);
-        if(StringsUtils.isEmpty(fanNewsIndustry)){
+        if (StringsUtils.isEmpty(fanNewsIndustry)) {
             return null;
         }
         //修改人Id

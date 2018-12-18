@@ -30,11 +30,12 @@ public interface ISysSiteService extends IService<FanSysSite> {
 
     /**
      * 根据姓氏和父编号   查询
+     *
      * @param familyCode
      * @param parent
      * @return
      */
-    List<FanSysSite> getFanSysSite(Integer familyCode,String parent);
+    List<FanSysSite> getFanSysSite(Integer familyCode, String parent);
 
     /**
      * 查询
