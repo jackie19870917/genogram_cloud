@@ -8,6 +8,7 @@ import com.genogram.entityvo.SysSiteVo;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanIndexInfoService;
 import com.genogram.service.IFanProIndexInfoService;
+import com.genogram.service.IFanSysSiteService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -39,8 +40,24 @@ public class PersonController {
     @Autowired
     private IFanProIndexInfoService proIndexInfoService;
 
+    @Autowired
+    private IFanSysSiteService fanSysSiteService;
+
     String fan = "fan";
     String pro = "pro";
+
+    @ApiOperation(value = "根据编号查询",notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,fanUrlCode-编号")
+    @RequestMapping(value = "getSysSiteByCode",method = RequestMethod.POST)
+    public Response<FanSysSite> getSysSiteByCode(@ApiParam("编号") @RequestParam("fanUrlCode") String fanUrlCode) {
+
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSiteByCode(fanUrlCode);
+
+        if (StringUtils.isEmpty(fanSysSite)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        } else {
+            return ResponseUtlis.success(fanSysSite);
+        }
+    }
 
     @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
     @RequestMapping(value = "getSysSite", method = RequestMethod.POST)

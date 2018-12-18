@@ -1,5 +1,7 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.entity.FanSysSite;
 import com.genogram.mapper.FanSysSiteMapper;
 import com.genogram.service.IFanSysSiteService;
@@ -31,6 +33,15 @@ public class FanSysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysS
         } else {
             return fanSysSite;
         }
+    }
+
+    @Override
+    public FanSysSite getFanSysSiteByCode(String code) {
+
+        Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
+        wrapper.eq("fan_url_code", code);
+
+        return this.selectOne(wrapper);
     }
 
 }

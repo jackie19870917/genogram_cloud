@@ -21,4 +21,10 @@ public interface IFanSysSiteService extends IService<FanSysSite> {
      */
     FanSysSite getFanSysSite(Integer siteId);
 
+    /**
+     * 查询网站
+     * @param code
+     * @return
+     */
+    FanSysSite getFanSysSiteByCode(String code);
 }
