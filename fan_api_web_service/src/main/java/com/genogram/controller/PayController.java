@@ -389,6 +389,17 @@ public class PayController {
             return ResponseUtlis.error(Constants.ERRO_CODE, "订单号不存在");
         } else {
             if (fanNewsCharityPayIn.getStatus() == 1) {
+
+                //修改基金金额
+                Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
+
+                FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
+
+                System.out.println(fanIndexFund.getRemain());
+                fanIndexFund.setRemain(fanIndexFund.getRemain().add(fanNewsCharityPayIn.getPayAmount()));
+                fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(fanNewsCharityPayIn.getPayAmount()));
+
+                fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
                 return ResponseUtlis.success(fanNewsCharityPayIn);
             } else {
                 return ResponseUtlis.error(201, null);
@@ -437,17 +448,6 @@ public class PayController {
         fanNewsCharityPayIn.setStatus(1);
 
         fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
-
-        //修改基金金额
-        Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
-
-        FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
-
-        System.out.println(fanIndexFund.getRemain());
-        fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal((double) (Double.parseDouble(totalAmount) * 0.01) + "")));
-        fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal((double) (Double.parseDouble(totalAmount) * 0.01) + "")));
-
-        fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
 
         //给微信返回支付成功结果
         String responseStr = "<xml>";
