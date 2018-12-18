@@ -19,6 +19,7 @@ import com.genogram.unit.DateUtil;
 import com.genogram.unit.PayUtils;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
+import com.github.wxpay.sdk.WXPay;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -376,10 +377,53 @@ public class PayController {
 
     @ApiOperation("查询订单请求")
     @RequestMapping(value = "getFanNewsCharityPayIn", method = RequestMethod.POST)
-    public Response<FanNewsCharityPayIn> getFanNewsCharityPayIn(@ApiParam("订单号") @RequestParam("outTradeNo") String outTradeNo) {
+    public Response<FanNewsCharityPayIn> getFanNewsCharityPayIn(@ApiParam("订单号") @RequestParam("outTradeNo") String outTradeNo) throws Exception {
+
+        String flag = "false";
+
+        // 如果支付成功那么返回true，否则返回false
+        // 添加订单号
+        Map<String, String> data = new HashMap<>();
+        data.put("out_trade_no", outTradeNo);
+
+        // 商户基本信息配置
+        PayConfig payConfig = new PayConfig();
+        WXPay wxPay = new WXPay(payConfig);
+
+        // 查询订单
+        Map<String, String> orderQuery = wxPay.orderQuery(data);
+
+        // 遍历查询结果
+        Set<String> keySet = orderQuery.keySet();
+        for (String key : keySet) {
+            if ("trade_state_desc".equals(key) && "支付成功".equals(orderQuery.get(key))) {
+                flag = "true";// 表示支付成功
+
+                FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
+
+                fanNewsCharityPayIn.setOrderId(outTradeNo);
+                fanNewsCharityPayIn = fanNewsCharityPayInService.selectOne(fanNewsCharityPayIn);
+
+                fanNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
+                fanNewsCharityPayIn.setStatus(1);
+
+                fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+
+             /*   //修改基金金额
+                Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
+
+                FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
+
+                fanIndexFund.setRemain(fanIndexFund.getRemain().add(new BigDecimal(totalAmount)));
+                fanIndexFund.setPayOnline(fanIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
+
+                fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);*/
+            }
+        }
+        return ResponseUtlis.success(flag);
 
 
-        FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
+        /*FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
 
         fanNewsCharityPayIn.setOrderId(outTradeNo);
 
@@ -393,7 +437,7 @@ public class PayController {
             } else {
                 return ResponseUtlis.error(201, null);
             }
-        }
+        }*/
     }
 
     @RequestMapping("callBack")
