@@ -569,6 +569,7 @@ public class PayController {
         }*/
     }
 
+    @RequestMapping("contactWeChat")
     public void contactWeChat(HttpServletRequest request,
                               HttpServletResponse response) {
         String method = request.getMethod();

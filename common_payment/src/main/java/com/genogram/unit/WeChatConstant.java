@@ -4,7 +4,7 @@ public class WeChatConstant {
     /**Token*/
     public static final String TOKEN = "zhangzhiang201812196666";
     /**EncodingAESKey*/
-    public static final String AES_KEY = "";
+    public static final String AES_KEY = "H0di0eifNhd1uCFVpCm9as15qPmHGC1F23CQhCvvoWY";
     /**消息类型:文本消息*/
     public static final String MESSAGE_TYPE_TEXT = "text";
     /**消息类型:音乐*/
