@@ -545,6 +545,17 @@ public class PayController {
         //String state = states[0];//state
 
         System.out.println("****************code:" + code);
+
+        PayConfig payConfig = new PayConfig();
+        //页面获取openId接口
+        String getopenid_url = "https://api.weixin.qq.com/sns/oauth2/access_token";
+        String param =
+                "appid=" + payConfig.getAppID() + "&secret=" + payConfig.getKey() + "&code=" + code + "&grant_type=authorization_code";
+        //向微信服务器发送get请求获取openIdStr
+        String openIdStr = HttpRequest.sendGet(getopenid_url, param);
+        JSONObject json = JSONObject.parseObject(openIdStr);//转成Json格式
+        String openId = json.getString("openid");//获取openId
+        System.out.println(openId);
         // 用户同意授权
         /*if (!"authdeny".equals(code)) {
             // 获取网页授权access_token
