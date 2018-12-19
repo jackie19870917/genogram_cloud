@@ -94,7 +94,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
             NewsCharityOutVo newsCharityOutVo = new NewsCharityOutVo();
 
-            fanNewsCharityOuts.setNewsText(fanNewsCharityOuts.getNewsTitle().replaceAll("&nbsp;", ""));
+            fanNewsCharityOuts.setNewsText(fanNewsCharityOuts.getNewsText().replaceAll("&nbsp;", ""));
             BeanUtils.copyProperties(fanNewsCharityOuts, newsCharityOutVo);
 
             List<FanNewsUploadFile> fanNewsUploadFile = new ArrayList<>();

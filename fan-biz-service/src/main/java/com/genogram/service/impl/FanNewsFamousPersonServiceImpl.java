@@ -57,6 +57,8 @@ public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPer
             return null;
         }
         for (FanNewsFamousPerson record : records) {
+
+            record.setPersonSummary(record.getPersonSummary().replaceAll("&nbsp;", ""));
             //去除html标签
             record.setPersonSummary(StringsUtils.removeTag(record.getPersonSummary()));
         }
