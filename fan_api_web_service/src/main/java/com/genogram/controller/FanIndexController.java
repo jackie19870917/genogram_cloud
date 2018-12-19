@@ -231,8 +231,13 @@ public class FanIndexController {
             List<FanSysWebNewsShow> list = fanSysWebNewsShowService.getMenuCodeByParentId(siteId, 7);
 
             for (FanSysWebNewsShow show : list) {
-                List listtemp = getPersonListByMenuCode(siteId, show.getMenuId());
-                zongmap.put(show.getMenuName(), listtemp);
+                List<FanNewsFamousPerson> listtemp = getPersonListByMenuCode(siteId, show.getMenuId());
+                List list1 = new ArrayList();
+                listtemp.forEach((FanNewsFamousPerson fanNewsFamousPerson) -> {
+                    fanNewsFamousPerson.setPersonSummary(fanNewsFamousPerson.getPersonSummary().replaceAll("&nbsp;", ""));
+                    list1.add(fanNewsFamousPerson);
+                });
+                zongmap.put(show.getMenuName(), list1);
             }
 
             return ResponseUtlis.success(zongmap);
@@ -243,7 +248,7 @@ public class FanIndexController {
         }
     }
 
-    private List getPersonListByMenuCode(int siteId, Integer menuId) {
+    private List<FanNewsFamousPerson> getPersonListByMenuCode(int siteId, Integer menuId) {
         List<SysWebMenuVo> menuVoList = fanSysWebNewsShowService.getSysWebMenuVo(siteId, menuId);
         List<FanNewsFamousPerson> familyFrameList = fanNewsFamousPersonService.getFamilyFrameList(menuVoList.get(0).getShowId());
         return familyFrameList;

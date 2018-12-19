@@ -93,7 +93,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
             familyRecordVo.setId(news.getId());
             familyRecordVo.setShowId(news.getShowId());
             familyRecordVo.setNewsTitle(news.getNewsTitle());
-            familyRecordVo.setNewsText(news.getNewsText());
+            familyRecordVo.setNewsText(news.getNewsText().replaceAll("&nbsp;", ""));
             familyRecordVo.setVisitNum(news.getVisitNum());
             familyRecordVo.setStatus(news.getStatus());
             familyRecordVo.setCreateTime(news.getCreateTime());
@@ -108,6 +108,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
             files.forEach((data) -> {
                 if (news.getId().equals(data.getNewsId())) {
                     fanNewsUploadFile.add(data);
+
                     //去除html标签
                     news.setNewsText(StringsUtils.removeTag(news.getNewsText()));
                 }

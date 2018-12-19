@@ -75,6 +75,8 @@ public class FanNewsIndustryServiceImpl extends ServiceImpl<FanNewsIndustryMappe
         list.forEach((news) -> {
             //获取主键
             newsids.add(news.getId());
+            //去掉空格
+            news.setNewsText(news.getNewsText().replaceAll("&nbsp;",""));
             //去掉文章标签
             news.setNewsText(StringsUtils.removeTag(news.getNewsText()));
         });
