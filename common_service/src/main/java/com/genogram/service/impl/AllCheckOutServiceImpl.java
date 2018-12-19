@@ -2,6 +2,7 @@ package com.genogram.service.impl;
 
 import com.genogram.service.IAllCheckOutService;
 import com.genogram.unit.SensitivewordFilter;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -16,6 +17,8 @@ public class AllCheckOutServiceImpl implements IAllCheckOutService {
 
     @Override
     public Set getSensitiveWord(String string) {
+
+        string=StringsUtils.removeTag(string);
 
         if (StringUtils.isEmpty(string)) {
             return null;

@@ -94,6 +94,7 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
 
             NewsCharityOutVo newsCharityOutVo = new NewsCharityOutVo();
 
+            fanNewsCharityOuts.setNewsText(fanNewsCharityOuts.getNewsTitle().replaceAll("&nbsp;", ""));
             BeanUtils.copyProperties(fanNewsCharityOuts, newsCharityOutVo);
 
             List<FanNewsUploadFile> fanNewsUploadFile = new ArrayList<>();
@@ -154,13 +155,13 @@ public class FanNewsCharityOutServiceImpl extends ServiceImpl<FanNewsCharityOutM
         newsDetailVo.setNewsUploadFileList(fanNewsUploadFileList);
 
         //存储创建人名称
-        newsDetailVo.setCreateUserName(allUserLoginCreateUser.getUserName());
+        newsDetailVo.setCreateUserName(allUserLoginCreateUser.getNickName());
 
         //存储创建时间
         newsDetailVo.setCreateTimeLong(fanNewsCharityOut.getCreateTime().getTime());
 
         //存储修改人名称
-        newsDetailVo.setUpdateUserName(allUserLoginUpdateUser.getUserName());
+        newsDetailVo.setUpdateUserName(allUserLoginUpdateUser.getNickName());
 
         //存储修改时间
         newsDetailVo.setUpdateTimeLong(fanNewsCharityOut.getUpdateTime().getTime());
