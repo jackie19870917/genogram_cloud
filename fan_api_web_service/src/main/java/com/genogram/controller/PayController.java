@@ -533,7 +533,7 @@ public class PayController {
     }
 
 
-
+    @ApiOperation("回调")
     @RequestMapping("/oauth2WeChat")
     public void oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 用户同意授权后，能获取到code
@@ -569,6 +569,7 @@ public class PayController {
         }*/
     }
 
+    @ApiOperation("微信验证")
     @RequestMapping("contactWeChat")
     public void contactWeChat(HttpServletRequest request,
                               HttpServletResponse response) {
