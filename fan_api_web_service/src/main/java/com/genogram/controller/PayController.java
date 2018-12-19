@@ -537,9 +537,10 @@ public class PayController {
     @RequestMapping("/oauth2WeChat")
     public void oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 用户同意授权后，能获取到code
-        Map<String, String[]> params = request.getParameterMap();//针对get获取get参数
+        /*Map<String, String[]> params = request.getParameterMap();//针对get获取get参数
         String[] codes = params.get("code");//拿到code的值
-        String code = codes[0];//code
+        String code = codes[0];//code*/
+        String code = request.getParameter("code");
         //String[] states = params.get("state");
         //String state = states[0];//state
 
