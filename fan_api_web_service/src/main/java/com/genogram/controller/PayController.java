@@ -1,5 +1,6 @@
 package com.genogram.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
@@ -15,10 +16,8 @@ import com.genogram.service.IFanIndexFundService;
 import com.genogram.service.IFanNewsCharityPayInService;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.service.IUserService;
-import com.genogram.unit.DateUtil;
-import com.genogram.unit.PayUtils;
-import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.*;
+import com.github.wxpay.sdk.WXPayUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +37,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
+
+import static com.genogram.unit.WeChatConstant.TOKEN;
 
 /**
  * 支付
@@ -451,5 +451,170 @@ public class PayController {
         response.getWriter().write(responseStr);
         System.out.println("responseStr2:" + responseStr);
 
+    }
+
+    /**
+     * @param request
+     * @param code
+     * @return Map
+     * @Description 微信浏览器内微信支付/公众号支付(JSAPI)
+     */
+    @ApiOperation("微信公众号支付")
+    @RequestMapping(value = "orders", method = RequestMethod.GET)
+    public Map orders(HttpServletRequest request, String code) {
+
+        PayConfig payConfig = new PayConfig();
+        try {
+            //页面获取openId接口
+            String getopenid_url = "https://api.weixin.qq.com/sns/oauth2/access_token";
+            String param =
+                    "appid=" + payConfig.getAppID() + "&secret=" + payConfig.getKey() + "&code=" + code + "&grant_type=authorization_code";
+            //向微信服务器发送get请求获取openIdStr
+            String openIdStr = HttpRequest.sendGet(getopenid_url, param);
+            JSONObject json = JSONObject.parseObject(openIdStr);//转成Json格式
+            String openId = json.getString("openid");//获取openId
+
+            //拼接统一下单地址参数
+            Map<String, String> paraMap = new HashMap<String, String>();
+            //获取请求ip地址
+            String ip = request.getHeader("x-forwarded-for");
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getHeader("Proxy-Client-IP");
+            }
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getHeader("WL-Proxy-Client-IP");
+            }
+            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                ip = request.getRemoteAddr();
+            }
+            if (ip.indexOf(",") != -1) {
+                String[] ips = ip.split(",");
+                ip = ips[0].trim();
+            }
+
+            paraMap.put("appid", payConfig.getAppID());
+            paraMap.put("body", "炎黄统谱网在线微信支付");
+            paraMap.put("mch_id", payConfig.getMchID());
+            paraMap.put("nonce_str", WXPayUtil.generateNonceStr());
+            paraMap.put("openid", openId);
+            paraMap.put("out_trade_no", DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100)));//订单号
+            paraMap.put("spbill_create_ip", ip);
+            paraMap.put("total_fee", "1");
+            paraMap.put("trade_type", "JSAPI");
+            paraMap.put("notify_url", payConfig.getNotifyUrl());// 此路径是微信服务器调用支付结果通知路径随意写
+            String sign = WXPayUtil.generateSignature(paraMap, payConfig.getKey());
+            paraMap.put("sign", sign);
+            String xml = WXPayUtil.mapToXml(paraMap);//将所有参数(map)转xml格式
+
+            // 统一下单 https://api.mch.weixin.qq.com/pay/unifiedorder
+            String unifiedorder_url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+
+            String xmlStr = HttpRequest.sendPost(unifiedorder_url, xml);//发送post请求"统一下单接口"返回预支付id:prepay_id
+
+            //以下内容是返回前端页面的json数据
+            String prepay_id = "";//预支付id
+            if (xmlStr.indexOf("SUCCESS") != -1) {
+                Map<String, String> map = WXPayUtil.xmlToMap(xmlStr);
+                prepay_id = (String) map.get("prepay_id");
+            }
+            Map<String, String> payMap = new HashMap<String, String>();
+            payMap.put("appId", payConfig.getAppID());
+            payMap.put("timeStamp", System.currentTimeMillis() + "");
+            payMap.put("nonceStr", WXPayUtil.generateNonceStr());
+            payMap.put("signType", "MD5");
+            payMap.put("package", "prepay_id=" + prepay_id);
+            String paySign = WXPayUtil.generateSignature(payMap, payConfig.getKey());
+            payMap.put("paySign", paySign);
+            return payMap;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+    @RequestMapping("/oauth2WeChat")
+    public void oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 用户同意授权后，能获取到code
+        Map<String, String[]> params = request.getParameterMap();//针对get获取get参数
+        String[] codes = params.get("code");//拿到code的值
+        String code = codes[0];//code
+        //String[] states = params.get("state");
+        //String state = states[0];//state
+
+        System.out.println("****************code:" + code);
+        // 用户同意授权
+        /*if (!"authdeny".equals(code)) {
+            // 获取网页授权access_token
+            Oauth2Token oauth2Token = getOauth2AccessToken("wxb0000000000e", "4c22222233333335555a9", code);
+            System.out.println("***********************************oauth2Token信息：" + oauth2Token.toString());
+            // 网页授权接口访问凭证
+            String accessToken = oauth2Token.getAccessToken();
+            // 用户标识
+            String openId = oauth2Token.getOpenId();
+            // 获取用户信息
+            SNSUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
+            System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
+            // 设置要传递的参数
+
+            //具体业务start
+
+            //具体业务end
+
+            String url = "http://wftest.zzff.net/#/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
+
+            response.sendRedirect(url);
+            return;
+        }*/
+    }
+
+    public void contactWeChat(HttpServletRequest request,
+                              HttpServletResponse response) {
+        String method = request.getMethod();
+        String remoteHost = request.getRemoteHost();
+        String remoteAddr = request.getRemoteAddr();
+        System.out.println("method :" + method);
+        System.out.println("remoteHost :" + remoteHost + " remoteAddr :"
+                + remoteAddr);
+        try {
+            if ("GET".equals(method)) {
+                // 微信加密签名
+                String signature = request.getParameter("signature"); // ceb87cf6583bdd37bc49fb7b10fc42f4c3ae4bf2
+                System.out.println("微信加密签名" + signature);
+                // 随机字符串
+                String echostr = request.getParameter("echostr");
+                System.out.println("随机字符串" + echostr);
+                // 时间戳
+                String timestamp = request.getParameter("timestamp");
+                System.out.println("时间戳" + timestamp);
+                // 随机数
+                String nonce = request.getParameter("nonce");
+                System.out.println("随机数" + nonce);
+
+                if (null != signature) {
+                    String[] str = {TOKEN, timestamp, nonce};
+                    Arrays.sort(str); // 字典序排序
+                    String bigStr = str[0] + str[1] + str[2];
+                    // SHA1加密
+                    String digest = new SHA1()
+                            .getDigestOfString(bigStr.getBytes()).toLowerCase();
+                    System.out.println("digest " + digest);
+                    // 确认请求来至微信
+                    if (digest.equals(signature)) {
+                        response.getWriter().print(echostr);
+                        System.out.println("echostr: " + echostr);
+
+                    } else {
+                        System.out.println("echostr: err");
+                        response.getWriter().write("It 's not Wxpt!");
+                    }
+                }
+            } else {
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
