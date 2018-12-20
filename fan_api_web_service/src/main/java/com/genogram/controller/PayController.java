@@ -464,7 +464,7 @@ public class PayController {
      */
     @ApiOperation("微信公众号支付")
     @RequestMapping(value = "orders", method = RequestMethod.GET)
-    public Map orders(HttpServletRequest request, String code) {
+    public Response orders(HttpServletRequest request, String code) {
 
         try {
             //页面获取openId接口
@@ -509,41 +509,6 @@ public class PayController {
 
             System.out.println(xmlStr);
 
-            InputStream is = request.getInputStream();
-            // 取HTTP请求流长度
-            int size = request.getContentLength();
-            // 用于缓存每次读取的数据
-            byte[] buffer = new byte[size];
-            // 用于存放结果的数组
-            byte[] xmldataByte = new byte[size];
-            int count = 0;
-            int rbyte = 0;
-            // 循环读取
-            while (count < size) {
-                // 每次实际读取长度存于rbyte中
-                rbyte = is.read(buffer);
-                for (int i = 0; i < rbyte; i++) {
-                    xmldataByte[count + i] = buffer[i];
-                }
-                count += rbyte;
-            }
-            is.close();
-            String requestStr = new String(xmldataByte, "UTF-8");
-            System.out.println(requestStr);
-            Document doc = DocumentHelper
-                    .parseText(requestStr);
-            Element rootElt = doc.getRootElement();
-
-            String outTradeNo = rootElt.elementText("out_trade_no");
-
-            System.out.println(outTradeNo);
-
-            //给微信返回支付成功结果
-            String responseStr = "<xml>";
-            responseStr += "<return_code><![CDATA[SUCCESS]]></return_code>";
-            responseStr += "</xml>";
-
-            System.out.println("responseStr2:" + responseStr);
             //以下内容是返回前端页面的json数据
             //预支付id
             String prepayId = "";
@@ -559,7 +524,8 @@ public class PayController {
             payMap.put("package", "prepay_id=" + prepayId);
             String paySign = WXPayUtil.generateSignature(payMap, WeChatConfig.KEY);
             payMap.put("paySign", paySign);
-            return payMap;
+
+            return ResponseUtlis.success(paraMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
