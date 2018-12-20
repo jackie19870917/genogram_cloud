@@ -66,7 +66,7 @@ public class FanNewsCultureNewsServiceImpl extends ServiceImpl<FanNewsCultureNew
         list.forEach((news) -> {
             newsids.add(news.getId());
             //去掉空格
-            news.setNewsText(news.getNewsText().replaceAll("&nbsp;",""));
+            news.setNewsText(news.getNewsText().replaceAll("&nbsp;", ""));
             //去掉文章标签
             news.setNewsText(StringsUtils.removeTag(news.getNewsText()));
         });

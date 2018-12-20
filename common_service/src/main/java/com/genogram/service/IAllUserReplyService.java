@@ -17,6 +17,7 @@ public interface IAllUserReplyService extends IService<AllUserReply> {
 
     /**
      * 获取回复
+     *
      * @param commentId
      * @return
      */
@@ -24,6 +25,7 @@ public interface IAllUserReplyService extends IService<AllUserReply> {
 
     /**
      * 新增回复
+     *
      * @param allUserReply
      * @return
      */
@@ -31,6 +33,7 @@ public interface IAllUserReplyService extends IService<AllUserReply> {
 
     /**
      * 删除回复
+     *
      * @param id
      * @return
      */

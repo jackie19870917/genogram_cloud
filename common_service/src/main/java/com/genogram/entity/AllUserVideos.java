@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -181,19 +184,19 @@ public class AllUserVideos extends Model<AllUserVideos> {
     @Override
     public String toString() {
         return "AllUserVideos{" +
-        ", id=" + id +
-        ", userId=" + userId +
-        ", sysStatus=" + sysStatus +
-        ", status=" + status +
-        ", title=" + title +
-        ", regionId=" + regionId +
-        ", videoPicUrl=" + videoPicUrl +
-        ", videoUrl=" + videoUrl +
-        ", commentCount=" + commentCount +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", userId=" + userId +
+                ", sysStatus=" + sysStatus +
+                ", status=" + status +
+                ", title=" + title +
+                ", regionId=" + regionId +
+                ", videoPicUrl=" + videoPicUrl +
+                ", videoUrl=" + videoUrl +
+                ", commentCount=" + commentCount +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

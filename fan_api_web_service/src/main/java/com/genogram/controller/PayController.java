@@ -555,9 +555,10 @@ public class PayController {
             // 网页授权接口访问凭证
             String accessToken = oauth2Token.getAccessToken();
             // 用户标识
-            // String openId = oauth2Token.getOpenId();
+
+            String openId1 = oauth2Token.getOpenId();
             // 获取用户信息
-            SNSUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
+            SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId1);
             System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
             // 设置要传递的参数
 
@@ -614,8 +615,8 @@ public class PayController {
      * @param openId      用户标识
      * @return SNSUserInfo
      */
-    public SNSUserInfo getSNSUserInfo(String accessToken, String openId) {
-        SNSUserInfo snsUserInfo = null;
+    public SnsUserInfo getSNSUserInfo(String accessToken, String openId) {
+        SnsUserInfo snsUserInfo = null;
         // 拼接请求地址
         String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
         requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
@@ -624,7 +625,7 @@ public class PayController {
 
         if (null != jsonObject) {
             try {
-                snsUserInfo = new SNSUserInfo();
+                snsUserInfo = new SnsUserInfo();
                 // 用户的标识
                 snsUserInfo.setOpenId(jsonObject.getString("openid"));
                 // 昵称

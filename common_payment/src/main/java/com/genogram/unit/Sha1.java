@@ -4,16 +4,16 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
- 
+
 /**
  * @author Administrator
  */
 public class Sha1 {
-    private final int[] abcde = { 0x67452301, 0xefcdab89, 0x98badcfe,
-            0x10325476, 0xc3d2e1f0 };
+    private final int[] abcde = {0x67452301, 0xefcdab89, 0x98badcfe,
+            0x10325476, 0xc3d2e1f0};
 
     /**
-     *  摘要数据存储数组
+     * 摘要数据存储数组
      */
     private int[] digestInt = new int[5];
 
@@ -21,10 +21,10 @@ public class Sha1 {
      * 计算过程中的临时数据存储数组
      */
     private int[] tmpData = new int[80];
- 
+
     /**
      * 计算sha-1摘要
-     * 
+     *
      * @param bytedata
      * @return
      */
@@ -46,10 +46,10 @@ public class Sha1 {
         }
         return 20;
     }
- 
+
     /**
      * 格式化输入字节数组格式
-     * 
+     *
      * @param bytedata
      * @return
      */
@@ -105,23 +105,23 @@ public class Sha1 {
         newbyte[l++] = h8;
         return newbyte;
     }
- 
+
     private int f1(int x, int y, int z) {
         return (x & y) | (~x & z);
     }
- 
+
     private int f2(int x, int y, int z) {
         return x ^ y ^ z;
     }
- 
+
     private int f3(int x, int y, int z) {
         return (x & y) | (x & z) | (y & z);
     }
- 
+
     private int f4(int x, int y) {
         return (x << y) | x >>> (32 - y);
     }
- 
+
     /**
      * 单元摘要计算函数
      */
@@ -181,10 +181,10 @@ public class Sha1 {
             tmpData[n] = 0;
         }
     }
- 
+
     /**
      * 4字节数组转换为整数
-     * 
+     *
      * @param bytedata
      * @param i
      * @return
@@ -193,11 +193,12 @@ public class Sha1 {
         return ((bytedata[i] & 0xff) << 24) | ((bytedata[i + 1] & 0xff) << 16)
                 | ((bytedata[i + 2] & 0xff) << 8) | (bytedata[i + 3] & 0xff);
     }
- 
+
     // 
+
     /**
      * 整数转换为4字节数组
-     * 
+     *
      * @param intValue
      * @param byteData
      * @param i
@@ -208,26 +209,26 @@ public class Sha1 {
         byteData[i + 2] = (byte) (intValue >>> 8);
         byteData[i + 3] = (byte) intValue;
     }
- 
+
     /**
      * 将字节转换为十六进制字符串
-     * 
+     *
      * @param ib
      * @return
      */
     private static String byteToHexString(byte ib) {
-        char[] digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A',
-                'B', 'C', 'D', 'E', 'F' };
+        char[] digit = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A',
+                'B', 'C', 'D', 'E', 'F'};
         char[] ob = new char[2];
         ob[0] = digit[(ib >>> 4) & 0X0F];
         ob[1] = digit[ib & 0X0F];
         String s = new String(ob);
         return s;
     }
- 
+
     /**
      * 将字节数组转换为十六进制字符串
-     * 
+     *
      * @param bytearray
      * @return
      */
@@ -238,10 +239,10 @@ public class Sha1 {
         }
         return strDigest;
     }
- 
+
     /**
      * 计算sha-1摘要，返回相应的字节数组
-     * 
+     *
      * @param byteData
      * @return
      */
@@ -253,37 +254,37 @@ public class Sha1 {
         }
         return digest;
     }
- 
+
     /**
-     * 计算sha-1摘要，返回相应的十六进制字符串 
-     * 
+     * 计算sha-1摘要，返回相应的十六进制字符串
+     *
      * @param byteData
      * @return
      */
-    public String getDigestOfString(byte[] byteData) { 
-        return byteArrayToHexString(getDigestOfBytes(byteData)); 
-    } 
-     
+    public String getDigestOfString(byte[] byteData) {
+        return byteArrayToHexString(getDigestOfBytes(byteData));
+    }
+
     /**
      * @param data
      * @return
      */
-    public String digest(String data){
+    public String digest(String data) {
         return this.getDigestOfString(data.getBytes());
     }
- 
+
     /**
      * @param data
      * @return
      */
-    public String digest(String data, String encode){
+    public String digest(String data, String encode) {
         try {
             return this.getDigestOfString(data.getBytes(encode));
         } catch (UnsupportedEncodingException e) {
             return this.digest(data);
         }
     }
-     
+
     /**
      * @param text
      * @return
@@ -293,23 +294,23 @@ public class Sha1 {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA1");
             md.update(text.getBytes());
-            pwd = new BigInteger(1, md.digest()).toString(16); 
+            pwd = new BigInteger(1, md.digest()).toString(16);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return pwd;
     }
-     
+
     /**
      * @param args
      */
     public static void main(String[] args) {
         Sha1 sha1 = new Sha1();
         // 0805949359741CE14FE90402B25E2E023F449748
-        System.out.println(sha1.digest("我们","UTF-8"));
+        System.out.println(sha1.digest("我们", "UTF-8"));
         // 24E384109C1FE06E363DB1FF6C8F8DDBF18C45EA
         System.out.println(sha1.digest("我们"));
-         
+
         // 24e384109c1fe06e363db1ff6c8f8ddbf18c45ea
         System.out.println(Sha1.sha1digest("我们"));
     }

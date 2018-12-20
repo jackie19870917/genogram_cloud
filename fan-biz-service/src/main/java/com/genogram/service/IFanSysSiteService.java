@@ -23,6 +23,7 @@ public interface IFanSysSiteService extends IService<FanSysSite> {
 
     /**
      * 查询网站
+     *
      * @param code
      * @return
      */

@@ -4,21 +4,21 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserNewsInfo">
-        <id column="id" property="id" />
-        <result column="user_id" property="userId" />
-        <result column="title" property="title" />
-        <result column="news_face_url" property="newsFaceUrl" />
-        <result column="content" property="content" />
-        <result column="pro_code" property="proCode" />
-        <result column="region_id" property="regionId" />
-        <result column="sys_status" property="sysStatus" />
-        <result column="read_num" property="readNum" />
-        <result column="status" property="status" />
-        <result column="comment_count" property="commentCount" />
-        <result column="create_time" property="createTime" />
-        <result column="create_user" property="createUser" />
-        <result column="update_time" property="updateTime" />
-        <result column="update_user" property="updateUser" />
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="title" property="title"/>
+        <result column="news_face_url" property="newsFaceUrl"/>
+        <result column="content" property="content"/>
+        <result column="pro_code" property="proCode"/>
+        <result column="region_id" property="regionId"/>
+        <result column="sys_status" property="sysStatus"/>
+        <result column="read_num" property="readNum"/>
+        <result column="status" property="status"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="create_time" property="createTime"/>
+        <result column="create_user" property="createUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_user" property="updateUser"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

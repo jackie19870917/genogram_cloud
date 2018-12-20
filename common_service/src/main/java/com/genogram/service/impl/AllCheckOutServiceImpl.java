@@ -18,7 +18,7 @@ public class AllCheckOutServiceImpl implements IAllCheckOutService {
     @Override
     public Set getSensitiveWord(String string) {
 
-        string=StringsUtils.removeTag(string);
+        string = StringsUtils.removeTag(string);
 
         if (StringUtils.isEmpty(string)) {
             return null;
