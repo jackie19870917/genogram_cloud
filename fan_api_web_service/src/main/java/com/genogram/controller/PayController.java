@@ -559,15 +559,16 @@ public class PayController {
             String openId = oauth2Token.getOpenId();
             System.out.println(openId);
             // 获取用户信息
-            SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
-            System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
+            //SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
+           // System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
             // 设置要传递的参数
 
             //具体业务start
 
             //具体业务end
 
-            String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
+           // String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
+            String url = "http://www.yhtpw.com";
 
             response.sendRedirect(url);
         }
