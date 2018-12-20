@@ -1,6 +1,9 @@
 package com.genogram.unit;
 
-public class SHA1 {
+/**
+ * @author Administrator
+ */
+public class Sha1 {
 	private final int[] abcde = { 0x67452301, 0xefcdab89, 0x98badcfe,
 	0x10325476, 0xc3d2e1f0 };
 	// ժҪ��ݴ洢����
@@ -10,15 +13,15 @@ public class SHA1 {
 
 
 	// ����sha-1ժҪ
-	private int process_input_bytes(byte[] bytedata) {
+	private int processInputBytes(byte[] bytedata) {
 	// ���Ի�����
 	System.arraycopy(abcde, 0, digestInt, 0, abcde.length);
 	// ��ʽ�������ֽ����飬��10���������
 	byte[] newbyte = byteArrayFormatData(bytedata);
 	// ��ȡ���ժҪ�������ݵ�Ԫ����
-	int MCount = newbyte.length / 64;
+	int mCount = newbyte.length / 64;
 	// ѭ����ÿ����ݵ�Ԫ����ժҪ����
-	for (int pos = 0; pos < MCount; pos++) {
+	for (int pos = 0; pos < mCount; pos++) {
 	// ��ÿ����Ԫ�����ת����16��������ݣ������浽tmpData��ǰ16������Ԫ����
 	for (int j = 0; j < 16; j++) {
 	tmpData[j] = byteArrayToInt(newbyte, (pos * 64) + (j * 4));
@@ -64,15 +67,15 @@ public class SHA1 {
 	newbyte[l++] = (byte) 0x00;
 	}
 	// ������ݳ��ȣ�����ݳ���λ��8�ֽڣ�������
-	long N = (long) n * 8;
-	byte h8 = (byte) (N & 0xFF);
-	byte h7 = (byte) ((N >> 8) & 0xFF);
-	byte h6 = (byte) ((N >> 16) & 0xFF);
-	byte h5 = (byte) ((N >> 24) & 0xFF);
-	byte h4 = (byte) ((N >> 32) & 0xFF);
-	byte h3 = (byte) ((N >> 40) & 0xFF);
-	byte h2 = (byte) ((N >> 48) & 0xFF);
-	byte h1 = (byte) (N >> 56);
+	long o = (long) n * 8;
+	byte h8 = (byte) (o & 0xFF);
+	byte h7 = (byte) ((o >> 8) & 0xFF);
+	byte h6 = (byte) ((o >> 16) & 0xFF);
+	byte h5 = (byte) ((o >> 24) & 0xFF);
+	byte h4 = (byte) ((o >> 32) & 0xFF);
+	byte h3 = (byte) ((o >> 40) & 0xFF);
+	byte h2 = (byte) ((o >> 48) & 0xFF);
+	byte h1 = (byte) (o >> 56);
 	newbyte[l++] = h1;
 	newbyte[l++] = h2;
 	newbyte[l++] = h3;
@@ -182,11 +185,11 @@ public class SHA1 {
 
 	// ���ֽ�ת��Ϊʮ������ַ�
 	private static String byteToHexString(byte ib) {
-	char[] Digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A',
+	char[] digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A',
 	'B', 'C', 'D', 'E', 'F' };
 	char[] ob = new char[2];
-	ob[0] = Digit[(ib >>> 4) & 0X0F];
-	ob[1] = Digit[ib & 0X0F];
+	ob[0] = digit[(ib >>> 4) & 0X0F];
+	ob[1] = digit[ib & 0X0F];
 	String s = new String(ob);
 	return s;
 	}
@@ -204,7 +207,7 @@ public class SHA1 {
 
 	// ����sha-1ժҪ��������Ӧ���ֽ�����
 	public byte[] getDigestOfBytes(byte[] byteData) {
-	process_input_bytes(byteData);
+		processInputBytes(byteData);
 	byte[] digest = new byte[20];
 	for (int i = 0; i < digestInt.length; i++) {
 	intToByteArray(digestInt[i], digest, i * 4);
@@ -222,7 +225,7 @@ public class SHA1 {
 	public static void main(String[] args) {
 	String data = "123456";
 	System.out.println(data);
-	String digest = new SHA1().getDigestOfString(data.getBytes());
+	String digest = new Sha1().getDigestOfString(data.getBytes());
 	System.out.println(digest);
 
 

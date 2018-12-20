@@ -1,5 +1,8 @@
 package com.genogram.unit;
 
+/**
+ * @author Administrator
+ */
 public class WeChatConstant {
     /**Token*/
     public static final String TOKEN = "zhangzhiang201812196666";

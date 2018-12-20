@@ -9,6 +9,9 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Administrator
+ */
 public class HttpRequest {
     /**
      * 向指定URL发送GET方法的请求

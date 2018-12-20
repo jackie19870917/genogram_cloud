@@ -9,7 +9,7 @@ public class WeChatConfig {
     public static final String APP_ID = "wxb192063260e82181";
  
     /**公众号AppSecret*/
-    public static final String APP_SECRET = "";
+    public static final String APP_SECRET = "b4c1d0d15c5545e4ff26caed1b1551af";
  
     /**微信支付商户号*/
     public static final String MCH_ID = "1516336491";

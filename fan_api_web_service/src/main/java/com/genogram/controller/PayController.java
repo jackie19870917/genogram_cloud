@@ -9,6 +9,7 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.genogram.config.AlipayConfig;
 import com.genogram.config.Constants;
 import com.genogram.config.PayConfig;
+import com.genogram.config.WeChatConfig;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityPayIn;
@@ -466,16 +467,16 @@ public class PayController {
         PayConfig payConfig = new PayConfig();
         try {
             //页面获取openId接口
-            String getopenid_url = "https://api.weixin.qq.com/sns/oauth2/access_token";
+            String getOpenIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token";
             String param =
                     "appid=" + payConfig.getAppID() + "&secret=" + payConfig.getKey() + "&code=" + code + "&grant_type=authorization_code";
             //向微信服务器发送get请求获取openIdStr
-            String openIdStr = HttpRequest.sendGet(getopenid_url, param);
+            String openIdStr = HttpRequest.sendGet(getOpenIdUrl, param);
             JSONObject json = JSONObject.parseObject(openIdStr);//转成Json格式
             String openId = json.getString("openid");//获取openId
 
             //拼接统一下单地址参数
-            Map<String, String> paraMap = new HashMap<String, String>();
+            Map<String, String> paraMap = new HashMap<String, String>(16);
             //获取请求ip地址
             String ip = request.getHeader("x-forwarded-for");
             if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
@@ -507,22 +508,22 @@ public class PayController {
             String xml = WXPayUtil.mapToXml(paraMap);//将所有参数(map)转xml格式
 
             // 统一下单 https://api.mch.weixin.qq.com/pay/unifiedorder
-            String unifiedorder_url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+            String unifiedorderUrl = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
-            String xmlStr = HttpRequest.sendPost(unifiedorder_url, xml);//发送post请求"统一下单接口"返回预支付id:prepay_id
+            String xmlStr = HttpRequest.sendPost(unifiedorderUrl, xml);//发送post请求"统一下单接口"返回预支付id:prepay_id
 
             //以下内容是返回前端页面的json数据
-            String prepay_id = "";//预支付id
+            String prepayId = "";//预支付id
             if (xmlStr.indexOf("SUCCESS") != -1) {
                 Map<String, String> map = WXPayUtil.xmlToMap(xmlStr);
-                prepay_id = (String) map.get("prepay_id");
+                prepayId = (String) map.get("prepay_id");
             }
-            Map<String, String> payMap = new HashMap<String, String>();
+            Map<String, String> payMap = new HashMap<String, String>(16);
             payMap.put("appId", payConfig.getAppID());
             payMap.put("timeStamp", System.currentTimeMillis() + "");
             payMap.put("nonceStr", WXPayUtil.generateNonceStr());
             payMap.put("signType", "MD5");
-            payMap.put("package", "prepay_id=" + prepay_id);
+            payMap.put("package", "prepay_id=" + prepayId);
             String paySign = WXPayUtil.generateSignature(payMap, payConfig.getKey());
             payMap.put("paySign", paySign);
             return payMap;
@@ -546,13 +547,12 @@ public class PayController {
 
         System.out.println("****************code:" + code);
 
-        PayConfig payConfig = new PayConfig();
         //页面获取openId接口
-        String getopenid_url = "https://api.weixin.qq.com/sns/oauth2/access_token";
+        String getOpenIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token";
         String param =
-                "appid=" + payConfig.getAppID() + "&secret=" + payConfig.getKey() + "&code=" + code + "&grant_type=authorization_code";
+                "appid=" + WeChatConfig.APP_ID + "&secret=" + WeChatConfig.APP_SECRET + "&code=" + code + "&grant_type=authorization_code";
         //向微信服务器发送get请求获取openIdStr
-        String openIdStr = HttpRequest.sendGet(getopenid_url, param);
+        String openIdStr = HttpRequest.sendGet(getOpenIdUrl, param);
         JSONObject json = JSONObject.parseObject(openIdStr);//转成Json格式
         String openId = json.getString("openid");//获取openId
         System.out.println(openId);
@@ -611,7 +611,7 @@ public class PayController {
                     Arrays.sort(str); // 字典序排序
                     String bigStr = str[0] + str[1] + str[2];
                     // SHA1加密
-                    String digest = new SHA1()
+                    String digest = new Sha1()
                             .getDigestOfString(bigStr.getBytes()).toLowerCase();
                     System.out.println("digest " + digest);
                     // 确认请求来至微信
