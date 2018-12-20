@@ -61,8 +61,10 @@ public class AllUserCommentsController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "allUserComments为空");
         }
         Boolean flag = allUserCommentsService.insertAllUserComments(allUserComments);
-
-        //up
+        //判断是否添加成功 各个表添加评论数
+        if(flag){
+            allUserCommentsService.addCommon(allUserComments);
+        }
         return ResponseUtlis.success(flag);
     }
 

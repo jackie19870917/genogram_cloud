@@ -1,6 +1,7 @@
 package com.genogram.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.genogram.entity.AllUserComments;
 import com.genogram.entity.AllUserNewsInfo;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -72,4 +73,5 @@ public interface IAllUserNewsInfoService extends IService<AllUserNewsInfo> {
      * @return
      */
     Page<AllUserNewsInfo> getAllUserNewsInfoList(Page<AllUserNewsInfo> mapPage, Map map);
+
 }
