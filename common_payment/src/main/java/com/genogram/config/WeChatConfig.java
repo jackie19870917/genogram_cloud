@@ -27,7 +27,7 @@ public class WeChatConfig {
     public static final String REFUND_URL = "https://api.mch.weixin.qq.com/secapi/pay/refund";
  
     /**微信支付通知url*/
-    public static final String NOTIFY_URL = "http://www.yhtpw.com:8090/genogram/pay/callBack";
+    public static final String NOTIFY_URL = "http://www.yhtpw.com/fanApiWebService/genogram/pay/callBack";
  
     /**微信交易类型:公众号支付*/
     public static final String TRADE_TYPE_JSAPI = "JSAPI";

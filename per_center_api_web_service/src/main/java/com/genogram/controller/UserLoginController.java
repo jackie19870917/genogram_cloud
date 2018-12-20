@@ -172,6 +172,29 @@ public class UserLoginController {
         return personVo;
     }
 
+    @ApiOperation("忘了密码")
+    @RequestMapping(value = "forgetPassword", method = RequestMethod.POST)
+    public Response<AllUserLogin> rebuiltPassword(@ApiParam("验证码") @RequestParam("verificationCode") String verificationCode,
+                                                  @ApiParam("手机号") @RequestParam("mobilePhone") String mobilePhone,
+                                                  @ApiParam("新密码") @RequestParam("password") String password) {
+
+        if (!verificationCode.equals(message)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
+        }
+
+        AllUserLogin allUserLogin = new AllUserLogin();
+        allUserLogin.setMobilePhone(mobilePhone);
+
+        AllUserLogin userLogin = allUserLoginService.getAllUserLogin(allUserLogin);
+
+        allUserLogin.setId(userLogin.getId());
+        allUserLogin.setPassword(password);
+
+        allUserLoginService.updateAllUserLogin(allUserLogin);
+
+        return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+    }
+
     @ApiOperation("修改密码")
     @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
     public Response<AllUserLogin> updatePassword(@ApiParam("旧密码") @RequestParam String oldPassword,

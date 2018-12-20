@@ -16,12 +16,33 @@ import java.util.List;
  */
 public interface IAllUserCommentsService extends IService<AllUserComments> {
 
+    /**
+     *  获取评论
+     * @param topicId
+     * @param serviceName
+     * @return
+     */
     List<CommentVo> getAllUserComments(Integer topicId, String serviceName);
 
+    /**
+     * 新增评论
+     * @param allUserComments
+     * @return
+     */
     Boolean insertAllUserComments(AllUserComments allUserComments);
 
+    /**
+     * 删除评论
+     * @param id
+     * @return
+     */
     Boolean delAllUserComments(Integer id);
 
+    /**
+     * 删除评论列表
+     * @param idList
+     * @return
+     */
     Integer delAllUserCommentslist(List<Integer> idList);
 
 }

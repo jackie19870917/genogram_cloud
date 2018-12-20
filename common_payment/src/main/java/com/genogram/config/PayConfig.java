@@ -68,7 +68,7 @@ public class PayConfig implements WXPayConfig {
      * @return
      */
     public String getNotifyUrl() {
-        return "http://www.yhtpw.com:8090/genogram/pay/callBack";
+        return "http://www.yhtpw.com/fanApiWebService/genogram/pay/callBack";
     }
 
     @Override
