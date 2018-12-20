@@ -62,4 +62,9 @@ public class FamilyRecordVedioVo {
      * 修改时间LONG
      */
     private Long createTimeLong;
+
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
 }

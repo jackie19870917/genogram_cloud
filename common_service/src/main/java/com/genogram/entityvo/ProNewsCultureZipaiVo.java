@@ -47,6 +47,10 @@ public class ProNewsCultureZipaiVo {
      */
     private Integer status;
     /**
+     * 评论数
+     */
+    private Integer commentCount;
+    /**
      * 创建时间
      */
     private Date createTime;

@@ -50,6 +50,12 @@ public class ProFamilyRecordVedioVo extends FamilyRecordVedioVo {
      * 状态(0:删除;1:显示;2:不显示)
      */
     private Integer status;
+
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
+
     private Date createTime;
     private Integer createUserName;
     private Date updateTime;

@@ -93,6 +93,11 @@ public class AncestorsBranchVo {
     private String tanghao;
 
     /**
+     * 评论数
+     */
+    private Integer commentCount;
+
+    /**
      * 省级祖先分支
      */
     private List<ProNewsFamousAncestor> proNewsFamousAncestorList;

@@ -57,4 +57,8 @@ public class FamilyRecordVo {
      */
     private Integer updateUser;
 
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
 }

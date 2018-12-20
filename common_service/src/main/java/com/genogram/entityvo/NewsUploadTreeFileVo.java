@@ -59,6 +59,12 @@ public class NewsUploadTreeFileVo {
      * 状态(1-公开,2-密码访问,3-私密,0-删除)
      */
     private Integer status;
+
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
+
     /**
      * 访问密码(公开状态,密码为null)
      */

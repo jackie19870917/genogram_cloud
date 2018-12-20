@@ -115,6 +115,12 @@ public class PersonVo {
      * 状态(0:删除;1:正常,2:非正常)
      */
     private Integer status;
+
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
+
     /**
      * 创建时间
      */

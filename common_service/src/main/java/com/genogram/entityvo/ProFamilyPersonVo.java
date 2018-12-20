@@ -55,6 +55,12 @@ public class ProFamilyPersonVo {
      * 状态(0:删除;1:发布;3:不显示)
      */
     private Integer status;
+
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
+
     /**
      * 创建时间
      */

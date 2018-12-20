@@ -18,6 +18,11 @@ import lombok.Data;
 @Data
 public class DonorVo {
 
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
+
     private FanNewsCharityPayIn fanNewsCharityPayIn;
     private AllUserLogin allUserLogin;
     private ProNewsCharityPayIn proNewsCharityPayIn;
