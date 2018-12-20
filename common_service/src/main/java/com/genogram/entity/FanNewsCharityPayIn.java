@@ -1,15 +1,12 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.math.BigDecimal;
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -18,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-20
+ * @since 2018-12-20
  */
 @TableName("fan_news_charity_pay_in")
 public class FanNewsCharityPayIn extends Model<FanNewsCharityPayIn> {
@@ -78,6 +75,11 @@ public class FanNewsCharityPayIn extends Model<FanNewsCharityPayIn> {
      * 状态(0:删除;1:成功;2:支付中)
      */
     private Integer status;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     /**
      * 创建时间
      */
@@ -199,6 +201,15 @@ public class FanNewsCharityPayIn extends Model<FanNewsCharityPayIn> {
         return this;
     }
 
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public FanNewsCharityPayIn setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -243,21 +254,22 @@ public class FanNewsCharityPayIn extends Model<FanNewsCharityPayIn> {
     @Override
     public String toString() {
         return "FanNewsCharityPayIn{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", payUsrId=" + payUsrId +
-                ", type=" + type +
-                ", orderId=" + orderId +
-                ", payAmount=" + payAmount +
-                ", payChannel=" + payChannel +
-                ", payTime=" + payTime +
-                ", agentAccount=" + agentAccount +
-                ", agentId=" + agentId +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", payUsrId=" + payUsrId +
+        ", type=" + type +
+        ", orderId=" + orderId +
+        ", payAmount=" + payAmount +
+        ", payChannel=" + payChannel +
+        ", payTime=" + payTime +
+        ", agentAccount=" + agentAccount +
+        ", agentId=" + agentId +
+        ", status=" + status +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

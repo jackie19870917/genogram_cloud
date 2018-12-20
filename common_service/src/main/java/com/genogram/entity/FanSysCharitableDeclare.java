@@ -1,15 +1,12 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.math.BigDecimal;
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -18,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-12-13
+ * @since 2018-12-20
  */
 @TableName("fan_sys_charitable_declare")
 public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
@@ -202,6 +199,11 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
      */
     @TableField("responsible_person_money")
     private BigDecimal responsiblePersonMoney;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     /**
      * 创建人
      */
@@ -557,6 +559,15 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
         return this;
     }
 
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public FanSysCharitableDeclare setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
+
     public Integer getCreateUser() {
         return createUser;
     }
@@ -601,47 +612,48 @@ public class FanSysCharitableDeclare extends Model<FanSysCharitableDeclare> {
     @Override
     public String toString() {
         return "FanSysCharitableDeclare{" +
-                ", id=" + id +
-                ", status=" + status +
-                ", showId=" + showId +
-                ", title=" + title +
-                ", pictureAddress=" + pictureAddress +
-                ", applyName=" + applyName +
-                ", applyPhone=" + applyPhone +
-                ", applyMoney=" + applyMoney +
-                ", applyNum=" + applyNum +
-                ", accountBank=" + accountBank +
-                ", accountName=" + accountName +
-                ", accountNum=" + accountNum +
-                ", applicantAdress=" + applicantAdress +
-                ", receivablesName=" + receivablesName +
-                ", receivablesPhone=" + receivablesPhone +
-                ", receivablesId=" + receivablesId +
-                ", receivablesAddress=" + receivablesAddress +
-                ", receivablesBank=" + receivablesBank +
-                ", receivablesNum=" + receivablesNum +
-                ", abstractInfo=" + abstractInfo +
-                ", recommenderName=" + recommenderName +
-                ", recommenderPhone=" + recommenderPhone +
-                ", recommenderCompany=" + recommenderCompany +
-                ", recommenderOsition=" + recommenderOsition +
-                ", examinant=" + examinant +
-                ", examinantOpinion=" + examinantOpinion +
-                ", isExaminant=" + isExaminant +
-                ", verifier=" + verifier +
-                ", verifierOpinion=" + verifierOpinion +
-                ", isVerifier=" + isVerifier +
-                ", approver=" + approver +
-                ", approverOpinion=" + approverOpinion +
-                ", isApprover=" + isApprover +
-                ", helpFeedback=" + helpFeedback +
-                ", helpFeedbackFile=" + helpFeedbackFile +
-                ", responsiblePerson=" + responsiblePerson +
-                ", responsiblePersonMoney=" + responsiblePersonMoney +
-                ", createUser=" + createUser +
-                ", updateUser=" + updateUser +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                "}";
+        ", id=" + id +
+        ", status=" + status +
+        ", showId=" + showId +
+        ", title=" + title +
+        ", pictureAddress=" + pictureAddress +
+        ", applyName=" + applyName +
+        ", applyPhone=" + applyPhone +
+        ", applyMoney=" + applyMoney +
+        ", applyNum=" + applyNum +
+        ", accountBank=" + accountBank +
+        ", accountName=" + accountName +
+        ", accountNum=" + accountNum +
+        ", applicantAdress=" + applicantAdress +
+        ", receivablesName=" + receivablesName +
+        ", receivablesPhone=" + receivablesPhone +
+        ", receivablesId=" + receivablesId +
+        ", receivablesAddress=" + receivablesAddress +
+        ", receivablesBank=" + receivablesBank +
+        ", receivablesNum=" + receivablesNum +
+        ", abstractInfo=" + abstractInfo +
+        ", recommenderName=" + recommenderName +
+        ", recommenderPhone=" + recommenderPhone +
+        ", recommenderCompany=" + recommenderCompany +
+        ", recommenderOsition=" + recommenderOsition +
+        ", examinant=" + examinant +
+        ", examinantOpinion=" + examinantOpinion +
+        ", isExaminant=" + isExaminant +
+        ", verifier=" + verifier +
+        ", verifierOpinion=" + verifierOpinion +
+        ", isVerifier=" + isVerifier +
+        ", approver=" + approver +
+        ", approverOpinion=" + approverOpinion +
+        ", isApprover=" + isApprover +
+        ", helpFeedback=" + helpFeedback +
+        ", helpFeedbackFile=" + helpFeedbackFile +
+        ", responsiblePerson=" + responsiblePerson +
+        ", responsiblePersonMoney=" + responsiblePersonMoney +
+        ", commentCount=" + commentCount +
+        ", createUser=" + createUser +
+        ", updateUser=" + updateUser +
+        ", createTime=" + createTime +
+        ", updateTime=" + updateTime +
+        "}";
     }
 }

@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-12-12
+ * @since 2018-12-20
  */
 @TableName("all_user_videos")
 public class AllUserVideos extends Model<AllUserVideos> {
@@ -44,6 +41,11 @@ public class AllUserVideos extends Model<AllUserVideos> {
     private String videoPicUrl;
     @TableField("video_url")
     private String videoUrl;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     @TableField("create_time")
     private Date createTime;
     @TableField("create_user")
@@ -126,6 +128,15 @@ public class AllUserVideos extends Model<AllUserVideos> {
         return this;
     }
 
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public AllUserVideos setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -170,18 +181,19 @@ public class AllUserVideos extends Model<AllUserVideos> {
     @Override
     public String toString() {
         return "AllUserVideos{" +
-                ", id=" + id +
-                ", userId=" + userId +
-                ", sysStatus=" + sysStatus +
-                ", status=" + status +
-                ", title=" + title +
-                ", regionId=" + regionId +
-                ", videoPicUrl=" + videoPicUrl +
-                ", videoUrl=" + videoUrl +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", userId=" + userId +
+        ", sysStatus=" + sysStatus +
+        ", status=" + status +
+        ", title=" + title +
+        ", regionId=" + regionId +
+        ", videoPicUrl=" + videoPicUrl +
+        ", videoUrl=" + videoUrl +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

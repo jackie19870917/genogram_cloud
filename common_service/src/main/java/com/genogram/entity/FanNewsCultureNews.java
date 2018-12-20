@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-12-20
  */
 @TableName("fan_news_culture_news")
 public class FanNewsCultureNews extends Model<FanNewsCultureNews> {
@@ -50,9 +47,19 @@ public class FanNewsCultureNews extends Model<FanNewsCultureNews> {
     @TableField("visit_num")
     private Integer visitNum;
     /**
+     * 点赞数
+     */
+    @TableField("praise_num")
+    private Integer praiseNum;
+    /**
      * 状态(0:删除;1:已发布;2:草稿3:不显示)
      */
     private Integer status;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     /**
      * 创建时间
      */
@@ -120,12 +127,30 @@ public class FanNewsCultureNews extends Model<FanNewsCultureNews> {
         return this;
     }
 
+    public Integer getPraiseNum() {
+        return praiseNum;
+    }
+
+    public FanNewsCultureNews setPraiseNum(Integer praiseNum) {
+        this.praiseNum = praiseNum;
+        return this;
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public FanNewsCultureNews setStatus(Integer status) {
         this.status = status;
+        return this;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public FanNewsCultureNews setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
         return this;
     }
 
@@ -173,16 +198,18 @@ public class FanNewsCultureNews extends Model<FanNewsCultureNews> {
     @Override
     public String toString() {
         return "FanNewsCultureNews{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", newsTitle=" + newsTitle +
-                ", newsText=" + newsText +
-                ", visitNum=" + visitNum +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", newsTitle=" + newsTitle +
+        ", newsText=" + newsText +
+        ", visitNum=" + visitNum +
+        ", praiseNum=" + praiseNum +
+        ", status=" + status +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

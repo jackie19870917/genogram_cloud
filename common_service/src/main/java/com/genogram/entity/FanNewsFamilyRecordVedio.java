@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-12-20
  */
 @TableName("fan_news_family_record_vedio")
 public class FanNewsFamilyRecordVedio extends Model<FanNewsFamilyRecordVedio> {
@@ -48,9 +45,19 @@ public class FanNewsFamilyRecordVedio extends Model<FanNewsFamilyRecordVedio> {
      */
     private String auth;
     /**
+     * 点赞数
+     */
+    @TableField("praise_num")
+    private Integer praiseNum;
+    /**
      * 状态(0:删除;1:显示;2:不显示)
      */
     private Integer status;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     @TableField("create_time")
     private Date createTime;
     @TableField("create_user")
@@ -106,12 +113,30 @@ public class FanNewsFamilyRecordVedio extends Model<FanNewsFamilyRecordVedio> {
         return this;
     }
 
+    public Integer getPraiseNum() {
+        return praiseNum;
+    }
+
+    public FanNewsFamilyRecordVedio setPraiseNum(Integer praiseNum) {
+        this.praiseNum = praiseNum;
+        return this;
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public FanNewsFamilyRecordVedio setStatus(Integer status) {
         this.status = status;
+        return this;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public FanNewsFamilyRecordVedio setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
         return this;
     }
 
@@ -159,16 +184,18 @@ public class FanNewsFamilyRecordVedio extends Model<FanNewsFamilyRecordVedio> {
     @Override
     public String toString() {
         return "FanNewsFamilyRecordVedio{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", vedioType=" + vedioType +
-                ", title=" + title +
-                ", auth=" + auth +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", vedioType=" + vedioType +
+        ", title=" + title +
+        ", auth=" + auth +
+        ", praiseNum=" + praiseNum +
+        ", status=" + status +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

@@ -27,6 +27,7 @@ public class GenerateMybatisPlusUtil {
         gc.setAuthor("wangwei");
         //是否覆盖
         gc.setFileOverride(true);
+        //gc.setFileOverride(false);
         // 不需要ActiveRecord特性的请改为false
         gc.setActiveRecord(true);
         // XML 二级缓存
@@ -58,7 +59,7 @@ public class GenerateMybatisPlusUtil {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude(new String[]{"fan_sys_site"});
+        strategy.setInclude(new String[]{"all_user_news_info"});
         //strategy.setExclude(new String[]{"all_family"}); // 排除生成的表
         strategy.setEntityBuilderModel(true);
         mpg.setStrategy(strategy);

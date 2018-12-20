@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-26
+ * @since 2018-12-20
  */
 @TableName("fan_news_family_record")
 public class FanNewsFamilyRecord extends Model<FanNewsFamilyRecord> {
@@ -50,6 +47,11 @@ public class FanNewsFamilyRecord extends Model<FanNewsFamilyRecord> {
     @TableField("visit_num")
     private Integer visitNum;
     /**
+     * 点赞数
+     */
+    @TableField("praise_num")
+    private Integer praiseNum;
+    /**
      * 状态(0:删除;1:已发布;2:草稿3:不显示)
      */
     private Integer status;
@@ -58,6 +60,11 @@ public class FanNewsFamilyRecord extends Model<FanNewsFamilyRecord> {
      */
     @TableField("is_top")
     private Integer isTop;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     /**
      * 创建时间
      */
@@ -125,6 +132,15 @@ public class FanNewsFamilyRecord extends Model<FanNewsFamilyRecord> {
         return this;
     }
 
+    public Integer getPraiseNum() {
+        return praiseNum;
+    }
+
+    public FanNewsFamilyRecord setPraiseNum(Integer praiseNum) {
+        this.praiseNum = praiseNum;
+        return this;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -140,6 +156,15 @@ public class FanNewsFamilyRecord extends Model<FanNewsFamilyRecord> {
 
     public FanNewsFamilyRecord setIsTop(Integer isTop) {
         this.isTop = isTop;
+        return this;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public FanNewsFamilyRecord setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
         return this;
     }
 
@@ -187,17 +212,19 @@ public class FanNewsFamilyRecord extends Model<FanNewsFamilyRecord> {
     @Override
     public String toString() {
         return "FanNewsFamilyRecord{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", newsTitle=" + newsTitle +
-                ", newsText=" + newsText +
-                ", visitNum=" + visitNum +
-                ", status=" + status +
-                ", isTop=" + isTop +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", newsTitle=" + newsTitle +
+        ", newsText=" + newsText +
+        ", visitNum=" + visitNum +
+        ", praiseNum=" + praiseNum +
+        ", status=" + status +
+        ", isTop=" + isTop +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

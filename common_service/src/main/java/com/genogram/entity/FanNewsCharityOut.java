@@ -1,15 +1,12 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.math.BigDecimal;
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -18,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-12-07
+ * @since 2018-12-20
  */
 @TableName("fan_news_charity_out")
 public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
@@ -73,6 +70,11 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
      * 状态(0:删除;1:已发布;2:草稿3:不显示)
      */
     private Integer status;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     /**
      * 创建时间
      */
@@ -185,6 +187,15 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
         return this;
     }
 
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public FanNewsCharityOut setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -229,20 +240,21 @@ public class FanNewsCharityOut extends Model<FanNewsCharityOut> {
     @Override
     public String toString() {
         return "FanNewsCharityOut{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", amount=" + amount +
-                ", useFor=" + useFor +
-                ", newsTitle=" + newsTitle +
-                ", newsText=" + newsText +
-                ", newsType=" + newsType +
-                ", visitNum=" + visitNum +
-                ", praiseNum=" + praiseNum +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", amount=" + amount +
+        ", useFor=" + useFor +
+        ", newsTitle=" + newsTitle +
+        ", newsText=" + newsText +
+        ", newsType=" + newsType +
+        ", visitNum=" + visitNum +
+        ", praiseNum=" + praiseNum +
+        ", status=" + status +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }
