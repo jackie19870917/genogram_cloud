@@ -501,7 +501,7 @@ public class PayController {
             String xml = WXPayUtil.mapToXml(paraMap);
 
             // 统一下单 https://api.mch.weixin.qq.com/pay/unifiedorder
-            String unifiedorderUrl = WeChatConfig.NOTIFY_URL;
+            String unifiedorderUrl = WeChatConfig.UNIFIED_ORDER_URL;
 
             //发送post请求"统一下单接口"返回预支付id:prepay_id
             String xmlStr = HttpRequest.sendPost(unifiedorderUrl, xml);
