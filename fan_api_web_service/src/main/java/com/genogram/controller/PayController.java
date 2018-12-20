@@ -536,7 +536,7 @@ public class PayController {
 
         System.out.println("****************code:" + code);
 
-        //页面获取openId接口
+       /* //页面获取openId接口
         String getOpenIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token";
         String param =
                 "appid=" + WeChatConfig.APP_ID + "&secret=" + WeChatConfig.APP_SECRET + "&code=" + code + "&grant_type=authorization_code";
@@ -546,7 +546,7 @@ public class PayController {
         JSONObject json = JSONObject.parseObject(openIdStr);
         //获取openId
         String openId = json.getString("openid");
-        System.out.println(openId);
+        System.out.println(openId);*/
         // 用户同意授权
         if (!"authdeny".equals(code)) {
             // 获取网页授权access_token
@@ -556,9 +556,10 @@ public class PayController {
             String accessToken = oauth2Token.getAccessToken();
             // 用户标识
 
-            String openId1 = oauth2Token.getOpenId();
+            String openId = oauth2Token.getOpenId();
+            System.out.println(openId);
             // 获取用户信息
-            SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId1);
+            SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
             System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
             // 设置要传递的参数
 

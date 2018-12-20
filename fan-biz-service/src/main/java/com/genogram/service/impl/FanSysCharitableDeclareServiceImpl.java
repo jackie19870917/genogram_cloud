@@ -61,7 +61,8 @@ public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharit
             return null;
         }
         //状态(0:审核通过;1:审核中;2:草稿3:审核不通过)
-        if (fanSysCharitableDeclare.getStatus() != 2) {
+        Integer status = 2;
+        if (!fanSysCharitableDeclare.getStatus().equals(status)) {
             return null;
         }
         boolean result = this.deleteById(id);

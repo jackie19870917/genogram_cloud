@@ -38,7 +38,8 @@ public class Sha1 {
         // 循环对每个数据单元进行摘要计算
         for (int pos = 0; pos < mcount; pos++) {
             // 将每个单元的数据转换成16个整型数据，并保存到tmpData的前16个数组元素中
-            for (int j = 0; j < 16; j++) {
+            Integer length16 = 16;
+            for (int j = 0; j < length16; j++) {
                 tmpData[j] = byteArrayToInt(newbyte, (pos * 64) + (j * 4));
             }
             // 摘要计算函数
@@ -63,10 +64,11 @@ public class Sha1 {
         // 模64后的剩余位数
         int m = n % 64;
         // 计算添加0的个数以及添加10后的总长度
-        if (m < 56) {
+        Integer length56 = 56;
+        if (m < length56) {
             zeros = 55 - m;
             size = n - m + 64;
-        } else if (m == 56) {
+        } else if (m == length56) {
             zeros = 63;
             size = n + 8 + 64;
         } else {
@@ -126,7 +128,9 @@ public class Sha1 {
      * 单元摘要计算函数
      */
     private void encrypt() {
-        for (int i = 16; i <= 79; i++) {
+        Integer length16 = 16;
+        Integer length79 = 79;
+        for (int i = length16; i <= length79; i++) {
             tmpData[i] = f4(tmpData[i - 3] ^ tmpData[i - 8] ^ tmpData[i - 14]
                     ^ tmpData[i - 16], 1);
         }
@@ -134,7 +138,8 @@ public class Sha1 {
         for (int i1 = 0; i1 < tmpabcde.length; i1++) {
             tmpabcde[i1] = digestInt[i1];
         }
-        for (int j = 0; j <= 19; j++) {
+        Integer length19 = 79;
+        for (int j = 0; j <= length19; j++) {
             int tmp = f4(tmpabcde[0], 5)
                     + f1(tmpabcde[1], tmpabcde[2], tmpabcde[3]) + tmpabcde[4]
                     + tmpData[j] + 0x5a827999;
@@ -144,7 +149,9 @@ public class Sha1 {
             tmpabcde[1] = tmpabcde[0];
             tmpabcde[0] = tmp;
         }
-        for (int k = 20; k <= 39; k++) {
+        Integer length20 = 20;
+        Integer length39 = 39;
+        for (int k = length20; k <= length39; k++) {
             int tmp = f4(tmpabcde[0], 5)
                     + f2(tmpabcde[1], tmpabcde[2], tmpabcde[3]) + tmpabcde[4]
                     + tmpData[k] + 0x6ed9eba1;
