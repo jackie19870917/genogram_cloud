@@ -31,11 +31,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -458,27 +460,17 @@ public class PayController {
 
     /**
      * @param request
-     * @param code
      * @return Map
      * @Description 微信浏览器内微信支付/公众号支付(JSAPI)
      */
     @ApiOperation("微信公众号支付")
     @RequestMapping(value = "orders", method = RequestMethod.GET)
-    public Response orders(HttpServletRequest request, String code) {
+    public Response orders(HttpServletRequest request) {
 
         try {
-            //页面获取openId接口
-            String getOpenIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token";
-            String param =
-                    "appid=" + WeChatConfig.APP_ID + "&secret=" + WeChatConfig.APP_SECRET + "&code=" + code + "&grant_type=authorization_code";
-            //向微信服务器发送get请求获取openIdStr
-            String openIdStr = HttpRequest.sendGet(getOpenIdUrl, param);
-            //转成Json格式
-            JSONObject json = JSONObject.parseObject(openIdStr);
-            //获取openId
-            String openId = json.getString("openid");
+            HttpSession session = request.getSession();
 
-            openId = "oK3sduNPZT0BuBdG9mSy5KQOlNm4";
+            String openId = (String)session.getAttribute("openId");
             //拼接统一下单地址参数
             Map<String, String> paraMap = new HashMap<String, String>(16);
             //获取请求ip地址
@@ -561,6 +553,10 @@ public class PayController {
             // 用户标识
 
             String openId = oauth2Token.getOpenId();
+
+            HttpSession session=request.getSession();
+            session.setAttribute("accessToken", accessToken);
+            session.setAttribute("openId", openId);
             System.out.println(openId);
             // 获取用户信息
             //SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
