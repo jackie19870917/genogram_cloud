@@ -525,7 +525,7 @@ public class PayController {
             String paySign = WXPayUtil.generateSignature(payMap, WeChatConfig.KEY);
             payMap.put("paySign", paySign);
 
-            return ResponseUtlis.success(paraMap);
+            return ResponseUtlis.success(payMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
