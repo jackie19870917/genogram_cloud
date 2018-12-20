@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -408,7 +409,7 @@ public class PayController {
     @RequestMapping("callBack")
     public void callBack(HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
 
-        java.io.InputStream is = request.getInputStream();
+        InputStream is = request.getInputStream();
         // 取HTTP请求流长度
         int size = request.getContentLength();
         // 用于缓存每次读取的数据
@@ -506,6 +507,43 @@ public class PayController {
             //发送post请求"统一下单接口"返回预支付id:prepay_id
             String xmlStr = HttpRequest.sendPost(unifiedorderUrl, xml);
 
+            System.out.println(xmlStr);
+
+            InputStream is = request.getInputStream();
+            // 取HTTP请求流长度
+            int size = request.getContentLength();
+            // 用于缓存每次读取的数据
+            byte[] buffer = new byte[size];
+            // 用于存放结果的数组
+            byte[] xmldataByte = new byte[size];
+            int count = 0;
+            int rbyte = 0;
+            // 循环读取
+            while (count < size) {
+                // 每次实际读取长度存于rbyte中
+                rbyte = is.read(buffer);
+                for (int i = 0; i < rbyte; i++) {
+                    xmldataByte[count + i] = buffer[i];
+                }
+                count += rbyte;
+            }
+            is.close();
+            String requestStr = new String(xmldataByte, "UTF-8");
+            System.out.println(requestStr);
+            Document doc = DocumentHelper
+                    .parseText(requestStr);
+            Element rootElt = doc.getRootElement();
+
+            String outTradeNo = rootElt.elementText("out_trade_no");
+
+            System.out.println(outTradeNo);
+
+            //给微信返回支付成功结果
+            String responseStr = "<xml>";
+            responseStr += "<return_code><![CDATA[SUCCESS]]></return_code>";
+            responseStr += "</xml>";
+
+            System.out.println("responseStr2:" + responseStr);
             //以下内容是返回前端页面的json数据
             //预支付id
             String prepayId = "";
