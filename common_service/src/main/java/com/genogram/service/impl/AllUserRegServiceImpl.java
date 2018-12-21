@@ -13,6 +13,7 @@ import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 
@@ -37,6 +38,10 @@ public class AllUserRegServiceImpl extends ServiceImpl<AllUserRegMapper, AllUser
         wrapper.eq("all_user_login_id", userId);
 
         AllUserReg allUserReg = this.selectOne(wrapper);
+
+        if (StringUtils.isEmpty(allUserReg)) {
+            return null;
+        }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userId);
 
