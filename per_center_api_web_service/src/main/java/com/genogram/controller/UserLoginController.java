@@ -167,8 +167,13 @@ public class UserLoginController {
 
         PersonVo personVo = allUserRegService.getAllUserRegByUserId(allUserLogin.getId());
 
+        if (StringUtils.isEmpty(personVo)) {
+            return null;
+        }
+
         BeanUtils.copyProperties(allUserLogin, personVo);
         personVo.setToken(str);
+
         return personVo;
     }
 
