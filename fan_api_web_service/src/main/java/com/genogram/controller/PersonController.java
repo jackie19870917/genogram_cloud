@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Api(description = "网站管理")
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("genogram/sysSite/person")
 public class PersonController {
 

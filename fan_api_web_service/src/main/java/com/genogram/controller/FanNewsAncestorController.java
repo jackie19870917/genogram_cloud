@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @Api(description = "联谊会前台祖先分支")
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/genogram/proNewsAncestor")
 public class FanNewsAncestorController {
 

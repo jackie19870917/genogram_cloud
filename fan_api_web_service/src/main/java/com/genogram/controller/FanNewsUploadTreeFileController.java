@@ -31,7 +31,7 @@ import java.util.List;
  */
 @Api(description = "电子谱(前台)")
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/genogram/fanNewsUploadTreeFile")
 public class FanNewsUploadTreeFileController {
 

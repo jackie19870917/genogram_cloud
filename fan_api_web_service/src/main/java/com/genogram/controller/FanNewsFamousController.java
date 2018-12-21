@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Api(description = "联谊会家族名人")
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/genogram/fanNewsFamous")
 public class FanNewsFamousController {
     @Autowired
