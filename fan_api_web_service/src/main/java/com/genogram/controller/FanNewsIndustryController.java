@@ -121,7 +121,7 @@ public class FanNewsIndustryController {
      * @return:
      * @Description:
      */
-    private Response<FamilyIndustryVo> getFamilyIndustryVoResponse(Integer showId, Integer pageNo, Integer pageSize) {
+    public Response<FamilyIndustryVo> getFamilyIndustryVoResponse(Integer showId, Integer pageNo, Integer pageSize) {
         try {
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
