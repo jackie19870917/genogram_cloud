@@ -99,10 +99,13 @@ public class UserController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        Set set = allCheckOutService.getSensitiveWord(personVo.getSummary());
+        if (!StringUtils.isEmpty(personVo.getSummary())) {
 
-        if (set != null && set.size() >= 1) {
-            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            Set set = allCheckOutService.getSensitiveWord(personVo.getSummary());
+
+            if (set != null && set.size() >= 1) {
+                return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            }
         }
 
         personVo.setAllUserLoginId(userLogin.getId());
