@@ -431,12 +431,7 @@ public class PayController {
         fanNewsCharityPayIn.setOrderId(outTradeNo);
         fanNewsCharityPayIn = fanNewsCharityPayInService.selectOne(fanNewsCharityPayIn);
 
-        fanNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
-        fanNewsCharityPayIn.setStatus(1);
-
-        fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
-
-        if (fanNewsCharityPayIn.getStatus() == 1) {
+        if (fanNewsCharityPayIn.getStatus() == 2) {
 
             //修改基金金额
             Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
@@ -449,6 +444,13 @@ public class PayController {
 
             fanIndexFundService.insertOrUpdateFanIndexFund(fanIndexFund);
         }
+
+        fanNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
+        fanNewsCharityPayIn.setStatus(1);
+
+        fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+
+
         //给微信返回支付成功结果
         String responseStr = "<xml>";
         responseStr += "<return_code><![CDATA[SUCCESS]]></return_code>";
