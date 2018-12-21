@@ -1,15 +1,13 @@
 package com.genogram.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
-import com.genogram.entity.FanNewsFamilyRecord;
-import com.genogram.entity.FanNewsFamilyRecordVedio;
 import com.genogram.entity.FanSysCharitableDeclare;
 import com.genogram.mapper.FanSysCharitableDeclareMapper;
-import com.genogram.service.IFanSysCharitableDeclareService;
+import com.genogram.service.CommonIFanSysCharitableDeclareService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IFanSysCharitableDeclareService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.StringsUtils;

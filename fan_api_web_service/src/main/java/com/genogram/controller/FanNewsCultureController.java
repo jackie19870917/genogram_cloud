@@ -9,6 +9,8 @@ import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.entityvo.NewsDetailVo;
+import com.genogram.service.CommonIFanNewsCultureNewsService;
+import com.genogram.service.CommonIFanNewsCultureZipaiService;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;

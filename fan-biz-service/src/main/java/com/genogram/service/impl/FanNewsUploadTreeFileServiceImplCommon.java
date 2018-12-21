@@ -8,8 +8,9 @@ import com.genogram.entity.FanNewsUploadTreeFile;
 import com.genogram.entityvo.NewsUploadTreeFileVo;
 import com.genogram.mapper.FanNewsUploadTreeFileMapper;
 import com.genogram.service.IAllFamilyService;
-import com.genogram.service.IFanNewsUploadTreeFileService;
+import com.genogram.service.CommonIFanNewsUploadTreeFileService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IFanNewsUploadTreeFileService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ import java.util.List;
  * @since 2018-12-04
  */
 @Service
-public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadTreeFileMapper, FanNewsUploadTreeFile> implements IFanNewsUploadTreeFileService {
+public class FanNewsUploadTreeFileServiceImplCommon extends ServiceImpl<FanNewsUploadTreeFileMapper, FanNewsUploadTreeFile> implements IFanNewsUploadTreeFileService {
 
     @Autowired
     private IAllFamilyService allFamilyService;

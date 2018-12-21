@@ -2,7 +2,7 @@ package com.genogram.service.impl;
 
 import com.genogram.entity.FanNewsFamousPerson;
 import com.genogram.mapper.FanNewsFamousPersonMapper;
-import com.genogram.service.IFanNewsFamousPersonService;
+import com.genogram.service.CommonIFanNewsFamousPersonService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-12-20
  */
 @Service
-public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements IFanNewsFamousPersonService {
+public class CommonFanNewsFamousPersonServiceImplCommon extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements CommonIFanNewsFamousPersonService {
 
 }

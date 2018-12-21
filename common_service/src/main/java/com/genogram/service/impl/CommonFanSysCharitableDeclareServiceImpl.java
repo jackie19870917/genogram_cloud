@@ -2,7 +2,7 @@ package com.genogram.service.impl;
 
 import com.genogram.entity.FanSysCharitableDeclare;
 import com.genogram.mapper.FanSysCharitableDeclareMapper;
-import com.genogram.service.IFanSysCharitableDeclareService;
+import com.genogram.service.CommonIFanSysCharitableDeclareService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-12-20
  */
 @Service
-public class FanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharitableDeclareMapper, FanSysCharitableDeclare> implements IFanSysCharitableDeclareService {
+public class CommonFanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCharitableDeclareMapper, FanSysCharitableDeclare> implements CommonIFanSysCharitableDeclareService {
 
 }

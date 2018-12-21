@@ -44,35 +44,35 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
     private IAllUserVideosService allUserVideosService;
 
     @Autowired
-    private IFanNewsCharityOutService fanNewsCharityOutService;
+    private CommonIFanNewsCharityOutService fanNewsCharityOutService;
 
     @Autowired
-    private IFanNewsCharityPayInService fanNewsCharityPayInService;
+    private CommonIFanNewsCharityPayInService fanNewsCharityPayInService;
 
     @Autowired
-    private IFanNewsCultureNewsService fanNewsCultureNewsService;
+    private CommonIFanNewsCultureNewsService fanNewsCultureNewsService;
 
     @Autowired
-    private IFanNewsCultureZipaiService fanNewsCultureZipaiService;
+    private CommonIFanNewsCultureZipaiService fanNewsCultureZipaiService;
     @Autowired
-    private IFanNewsFamilyRecordService fanNewsFamilyRecordService;
+    private CommonIFanNewsFamilyRecordService fanNewsFamilyRecordService;
     @Autowired
-    private IFanNewsFamilyRecordVedioService fanNewsFamilyRecordVedioService;
+    private CommonIFanNewsFamilyRecordVedioService fanNewsFamilyRecordVedioService;
 
     @Autowired
-    private IFanNewsFamousAncestorService fanNewsFamousAncestorService;
+    private CommonIFanNewsFamousAncestorService fanNewsFamousAncestorService;
 
     @Autowired
-    private IFanNewsFamousPersonService fanNewsFamousPersonService;
+    private CommonIFanNewsFamousPersonService fanNewsFamousPersonService;
 
     @Autowired
-    private IFanNewsIndustryService fanNewsIndustryService;
+    private CommonIFanNewsIndustryService fanNewsIndustryService;
 
     @Autowired
-    private IFanNewsUploadTreeFileService fanNewsUploadTreeFileService;
+    private CommonIFanNewsUploadTreeFileService fanNewsUploadTreeFileService;
 
     @Autowired
-    private IFanSysCharitableDeclareService fanSysCharitableDeclareService;
+    private CommonIFanSysCharitableDeclareService fanSysCharitableDeclareService;
 
 
     @Override

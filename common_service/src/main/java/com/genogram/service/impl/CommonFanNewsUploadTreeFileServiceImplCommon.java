@@ -2,7 +2,7 @@ package com.genogram.service.impl;
 
 import com.genogram.entity.FanNewsUploadTreeFile;
 import com.genogram.mapper.FanNewsUploadTreeFileMapper;
-import com.genogram.service.IFanNewsUploadTreeFileService;
+import com.genogram.service.CommonIFanNewsUploadTreeFileService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-12-20
  */
 @Service
-public class FanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadTreeFileMapper, FanNewsUploadTreeFile> implements IFanNewsUploadTreeFileService {
+public class CommonFanNewsUploadTreeFileServiceImplCommon extends ServiceImpl<FanNewsUploadTreeFileMapper, FanNewsUploadTreeFile> implements CommonIFanNewsUploadTreeFileService {
 
 }

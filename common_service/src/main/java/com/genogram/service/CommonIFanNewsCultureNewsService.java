@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author wangwei
  * @since 2018-12-20
  */
-public interface IFanNewsCultureNewsService extends IService<FanNewsCultureNews> {
+public interface CommonIFanNewsCultureNewsService extends IService<FanNewsCultureNews> {
 
 }

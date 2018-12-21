@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author wangwei
  * @since 2018-12-20
  */
-public interface IFanNewsFamilyRecordService extends IService<FanNewsFamilyRecord> {
+public interface CommonIFanNewsFamilyRecordService extends IService<FanNewsFamilyRecord> {
 
 }

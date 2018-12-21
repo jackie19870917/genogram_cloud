@@ -3,8 +3,8 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsFamousPerson;
-import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entityvo.FamilyPersonVo;
+import com.genogram.service.CommonIFanNewsFamousPersonService;
 import com.genogram.service.IFanNewsFamousPersonService;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.Response;
@@ -13,9 +13,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * <p>

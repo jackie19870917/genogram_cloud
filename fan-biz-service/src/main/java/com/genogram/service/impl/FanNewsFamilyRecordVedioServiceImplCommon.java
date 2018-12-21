@@ -7,7 +7,6 @@ import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.mapper.FanNewsFamilyRecordVedioMapper;
-import com.genogram.mapper.FanNewsUploadVedioMapper;
 import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
@@ -26,7 +25,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @Service
-public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFamilyRecordVedioMapper, FanNewsFamilyRecordVedio> implements IFanNewsFamilyRecordVedioService {
+public class FanNewsFamilyRecordVedioServiceImplCommon extends ServiceImpl<FanNewsFamilyRecordVedioMapper, FanNewsFamilyRecordVedio> implements IFanNewsFamilyRecordVedioService {
     @Autowired
     private IFanNewsUploadVedioService fanNewsUploadVedioService;
 
