@@ -1,10 +1,8 @@
 package com.genogram.controller;
 
 
-import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsCharityOut;
-import com.genogram.entityvo.IndexFundDrowingVo;
-import com.genogram.entityvo.SysWebMenuVo;
+import com.genogram.service.CommonIProNewsCharityOutService;
 import com.genogram.service.IProNewsCharityOutService;
 import com.genogram.service.IProSysWebNewsShowService;
 import com.genogram.unit.Response;
@@ -12,11 +10,8 @@ import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * <p>

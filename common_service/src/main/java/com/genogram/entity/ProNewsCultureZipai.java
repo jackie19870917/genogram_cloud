@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-12-21
  */
 @TableName("pro_news_culture_zipai")
 public class ProNewsCultureZipai extends Model<ProNewsCultureZipai> {
@@ -58,6 +55,11 @@ public class ProNewsCultureZipai extends Model<ProNewsCultureZipai> {
      * 状态(0:删除;1:已发布;2:草稿3:不显示)
      */
     private Integer status;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     /**
      * 创建时间
      */
@@ -143,6 +145,15 @@ public class ProNewsCultureZipai extends Model<ProNewsCultureZipai> {
         return this;
     }
 
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public ProNewsCultureZipai setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -187,17 +198,18 @@ public class ProNewsCultureZipai extends Model<ProNewsCultureZipai> {
     @Override
     public String toString() {
         return "ProNewsCultureZipai{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", ziapiLocation=" + ziapiLocation +
-                ", ancestorsName=" + ancestorsName +
-                ", zipaiTxt=" + zipaiTxt +
-                ", visitNum=" + visitNum +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", ziapiLocation=" + ziapiLocation +
+        ", ancestorsName=" + ancestorsName +
+        ", zipaiTxt=" + zipaiTxt +
+        ", visitNum=" + visitNum +
+        ", status=" + status +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

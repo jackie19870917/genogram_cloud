@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
+import com.genogram.service.CommonIProNewsFamousAncestorService;
 import com.genogram.service.IProNewsFamousAncestorService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;

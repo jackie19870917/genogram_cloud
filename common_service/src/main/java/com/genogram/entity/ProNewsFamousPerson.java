@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-17
+ * @since 2018-12-21
  */
 @TableName("pro_news_famous_person")
 public class ProNewsFamousPerson extends Model<ProNewsFamousPerson> {
@@ -63,6 +60,11 @@ public class ProNewsFamousPerson extends Model<ProNewsFamousPerson> {
      * 状态(0:删除;1:发布;3:不显示)
      */
     private Integer status;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     /**
      * 创建时间
      */
@@ -157,6 +159,15 @@ public class ProNewsFamousPerson extends Model<ProNewsFamousPerson> {
         return this;
     }
 
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public ProNewsFamousPerson setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -201,18 +212,19 @@ public class ProNewsFamousPerson extends Model<ProNewsFamousPerson> {
     @Override
     public String toString() {
         return "ProNewsFamousPerson{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", personName=" + personName +
-                ", personSummary=" + personSummary +
-                ", picFileSrc=" + picFileSrc +
-                ", picFileName=" + picFileName +
-                ", visitNum=" + visitNum +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", personName=" + personName +
+        ", personSummary=" + personSummary +
+        ", picFileSrc=" + picFileSrc +
+        ", picFileName=" + picFileName +
+        ", visitNum=" + visitNum +
+        ", status=" + status +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

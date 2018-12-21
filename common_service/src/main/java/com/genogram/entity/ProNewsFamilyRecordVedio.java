@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-17
+ * @since 2018-12-21
  */
 @TableName("pro_news_family_record_vedio")
 public class ProNewsFamilyRecordVedio extends Model<ProNewsFamilyRecordVedio> {
@@ -51,6 +48,11 @@ public class ProNewsFamilyRecordVedio extends Model<ProNewsFamilyRecordVedio> {
      * 状态(0:删除;1:显示;2:不显示)
      */
     private Integer status;
+    /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
     @TableField("create_time")
     private Date createTime;
     @TableField("create_user")
@@ -115,6 +117,15 @@ public class ProNewsFamilyRecordVedio extends Model<ProNewsFamilyRecordVedio> {
         return this;
     }
 
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public ProNewsFamilyRecordVedio setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -159,16 +170,17 @@ public class ProNewsFamilyRecordVedio extends Model<ProNewsFamilyRecordVedio> {
     @Override
     public String toString() {
         return "ProNewsFamilyRecordVedio{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", vedioType=" + vedioType +
-                ", title=" + title +
-                ", auth=" + auth +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", vedioType=" + vedioType +
+        ", title=" + title +
+        ", auth=" + auth +
+        ", status=" + status +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }

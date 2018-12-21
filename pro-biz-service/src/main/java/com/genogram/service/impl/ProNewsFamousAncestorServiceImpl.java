@@ -9,8 +9,9 @@ import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.mapper.ProNewsFamousAncestorMapper;
 import com.genogram.service.IProFanNewsFamousAncestorService;
-import com.genogram.service.IProNewsFamousAncestorService;
+import com.genogram.service.CommonIProNewsFamousAncestorService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.service.IProNewsFamousAncestorService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ import java.util.Map;
 public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousAncestorMapper, ProNewsFamousAncestor> implements IProNewsFamousAncestorService {
 
     @Autowired
-    private IProNewsFamousAncestorService proNewsFamousAncestorService;
+    private CommonIProNewsFamousAncestorService proNewsFamousAncestorService;
 
     @Autowired
     private ProNewsFamousAncestorMapper proNewsFamousAncestorMapper;

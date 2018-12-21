@@ -4,21 +4,22 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.ProNewsCultureNews">
-        <id column="id" property="id"/>
-        <result column="show_id" property="showId"/>
-        <result column="news_title" property="newsTitle"/>
-        <result column="news_text" property="newsText"/>
-        <result column="visit_num" property="visitNum"/>
-        <result column="status" property="status"/>
-        <result column="create_time" property="createTime"/>
-        <result column="create_user" property="createUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="update_user" property="updateUser"/>
+        <id column="id" property="id" />
+        <result column="show_id" property="showId" />
+        <result column="news_title" property="newsTitle" />
+        <result column="news_text" property="newsText" />
+        <result column="visit_num" property="visitNum" />
+        <result column="status" property="status" />
+        <result column="comment_count" property="commentCount" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, show_id AS showId, news_title AS newsTitle, news_text AS newsText, visit_num AS visitNum, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, show_id AS showId, news_title AS newsTitle, news_text AS newsText, visit_num AS visitNum, status, comment_count AS commentCount, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>
