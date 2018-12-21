@@ -51,6 +51,10 @@ public class FanSysWebNewsShowServiceImpl extends ServiceImpl<FanSysWebNewsShowM
         //简介
         vo = setIndexMenu(siteId, "简介", "index_summary", "/genogram/fanIndex/index/getFanIndexInfo?siteId=", "");
         volist.add(vo);
+
+        //最新发布
+        vo = setIndexMenu(siteId, "最新发布", "", "/genogram/fanIndex/getAllUserNewsInfoPage?siteId=", "");
+        volist.add(vo);
         //公益基金(共享code 特殊处理)
         vo = setIndexMenu(siteId, "公益基金", "index_fund_1", "/genogram/fanNewsCharity/index/getFanIndexFund?siteId=", "");
         volist.add(vo);
