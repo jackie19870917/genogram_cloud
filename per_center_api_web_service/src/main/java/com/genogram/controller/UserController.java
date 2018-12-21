@@ -86,9 +86,9 @@ public class UserController {
 
     @ApiOperation(value = "修改   个人资料", notes = "nickName-昵称,englishName-英文名,nation-国籍,birthplace-出生地,job-职业,lidai-历代,jinshi-近世,laopai-老派,xinpai-新派,tongpai-统派,presentAddress-现居,oldAddress-故居,alias-现居别称,summary-简介,fans-粉丝,honesty-诚信值,url-头像")
     @RequestMapping(value = "updatePersonVo", method = RequestMethod.POST)
-    public Response<PersonVo> updatePersonVo(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                             PersonVo personVo) {
+    public Response<PersonVo> updatePersonVo(PersonVo personVo) {
 
+        String token = personVo.getToken();
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
