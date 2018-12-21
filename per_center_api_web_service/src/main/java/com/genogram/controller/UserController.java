@@ -210,16 +210,19 @@ public class UserController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
         if (StringUtils.isEmpty(allUserNewsInfo.getId())) {
             allUserNewsInfo.setUserId(userLogin.getId());
             allUserNewsInfo.setReadNum(0);
-            allUserNewsInfo.setCreateUser(userLogin.getId());
+            allUserNewsInfo.setCreateUser(allUserLogin.getId());
             allUserNewsInfo.setCreateTime(timeStamp);
+            allUserNewsInfo.setRegionId(allUserLogin.getRegionCode());
             allUserNewsInfo.setStatus(status);
         }
-        allUserNewsInfo.setUpdateUser(userLogin.getId());
+        allUserNewsInfo.setUpdateUser(allUserLogin.getId());
         allUserNewsInfo.setUpdateTime(timeStamp);
 
         Set set = allCheckOutService.getSensitiveWord(allUserNewsInfo.getContent());
@@ -585,12 +588,15 @@ public class UserController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
         if (StringUtils.isEmpty(allUserVideos.getId())) {
             allUserVideos.setUserId(userLogin.getId());
             allUserVideos.setCreateUser(userLogin.getId());
             allUserVideos.setCreateTime(timeStamp);
+            allUserVideos.setRegionId(allUserLogin.getRegionCode());
             allUserVideos.setStatus(1);
         }
         allUserVideos.setUpdateTime(timeStamp);
