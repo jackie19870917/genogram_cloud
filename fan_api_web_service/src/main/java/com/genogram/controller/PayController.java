@@ -14,10 +14,7 @@ import com.genogram.config.WeChatConfig;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexFund;
 import com.genogram.entity.FanNewsCharityPayIn;
-import com.genogram.service.IFanIndexFundService;
-import com.genogram.service.IFanNewsCharityPayInService;
-import com.genogram.service.IFanSysWebNewsShowService;
-import com.genogram.service.IUserService;
+import com.genogram.service.*;
 import com.genogram.unit.*;
 import com.github.wxpay.sdk.WXPayUtil;
 import io.swagger.annotations.Api;
@@ -70,6 +67,9 @@ public class PayController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
 
     private String baseUrl;
 
@@ -465,27 +465,67 @@ public class PayController {
      */
     @ApiOperation("微信公众号支付")
     @RequestMapping(value = "orders", method = RequestMethod.GET)
-    public Response orders(HttpServletRequest request) {
+    public Response orders(HttpServletRequest request,
+                           FanNewsCharityPayIn fanNewsCharityPayIn,
+                           @ApiParam("网站ID") @RequestParam Integer siteId,
+                           @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous) {
 
         try {
+
+            Integer showId = fanSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
+
+            String payChannel = "微信公众号支付";
+            fanNewsCharityPayIn.getPayAmount().multiply(new BigDecimal(100));
+            String totalFee = (int) Double.parseDouble(fanNewsCharityPayIn.getPayAmount().multiply(new BigDecimal(100)) + "") + "";
+
+            // 订单编号
+            String payId = DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
+
             HttpSession session = request.getSession();
 
+            //获取openId
             String openId = (String) session.getAttribute("openId");
+
+            //用户Id
+            Integer userId;
+            if (1 == anonymous) {
+                userId = 1;
+            } else {
+                AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginByOpenId(openId);
+                if (StringUtils.isEmpty(allUserLogin)) {
+                    return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                } else {
+                    userId = allUserLogin.getId();
+                }
+            }
+
+            // 商品描述
+            String body = "炎黄統譜网在线微信扫码支付";
+
+            fanNewsCharityPayIn.setOrderId(payId);
+            fanNewsCharityPayIn.setShowId(showId);
+            fanNewsCharityPayIn.setPayUsrId(userId);
+            fanNewsCharityPayIn.setType(1);
+            fanNewsCharityPayIn.setStatus(2);
+            fanNewsCharityPayIn.setPayChannel(payChannel);
+
+            fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
+
             //拼接统一下单地址参数
             Map<String, String> paraMap = new HashMap<String, String>(16);
             //获取请求ip地址
             String ip = PayUtils.getRemoteAddr(request);
 
             paraMap.put("appid", WeChatConfig.APP_ID);
-            paraMap.put("body", "炎黄统谱网在线微信支付");
+            paraMap.put("body", body);
             paraMap.put("mch_id", WeChatConfig.MCH_ID);
             paraMap.put("nonce_str", WXPayUtil.generateNonceStr());
             paraMap.put("openid", openId);
             //订单号
-            paraMap.put("out_trade_no", DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100)));
+            paraMap.put("out_trade_no", payId);
             paraMap.put("spbill_create_ip", ip);
-            paraMap.put("total_fee", "1");
-            paraMap.put("trade_type", "JSAPI");
+            paraMap.put("total_fee", totalFee);
+            paraMap.put("trade_type", WeChatConfig.TRADE_TYPE_JSAPI);
             // 此路径是微信服务器调用支付结果通知路径随意写
             paraMap.put("notify_url", WeChatConfig.NOTIFY_URL);
             String sign = WXPayUtil.generateSignature(paraMap, WeChatConfig.KEY);

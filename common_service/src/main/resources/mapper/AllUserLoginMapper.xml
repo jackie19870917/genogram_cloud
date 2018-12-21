@@ -4,28 +4,29 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllUserLogin">
-        <id column="id" property="id"/>
-        <result column="user_id" property="userId"/>
-        <result column="user_name" property="userName"/>
-        <result column="real_name" property="realName"/>
-        <result column="nick_name" property="nickName"/>
-        <result column="mobile_phone" property="mobilePhone"/>
-        <result column="pic_src" property="picSrc"/>
-        <result column="password" property="password"/>
-        <result column="status" property="status"/>
-        <result column="site_id" property="siteId"/>
-        <result column="role" property="role"/>
-        <result column="family_code" property="familyCode"/>
-        <result column="region_code" property="regionCode"/>
-        <result column="create_time" property="createTime"/>
-        <result column="create_user" property="createUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="update_user" property="updateUser"/>
+        <id column="id" property="id" />
+        <result column="openId" property="openId" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="real_name" property="realName" />
+        <result column="nick_name" property="nickName" />
+        <result column="mobile_phone" property="mobilePhone" />
+        <result column="pic_src" property="picSrc" />
+        <result column="password" property="password" />
+        <result column="status" property="status" />
+        <result column="site_id" property="siteId" />
+        <result column="role" property="role" />
+        <result column="family_code" property="familyCode" />
+        <result column="region_code" property="regionCode" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id AS userId, user_name AS userName, real_name AS realName, nick_name AS nickName, mobile_phone AS mobilePhone, pic_src AS picSrc, password, status, site_id AS siteId, role, family_code AS familyCode, region_code AS regionCode, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, openId, user_id AS userId, user_name AS userName, real_name AS realName, nick_name AS nickName, mobile_phone AS mobilePhone, pic_src AS picSrc, password, status, site_id AS siteId, role, family_code AS familyCode, region_code AS regionCode, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

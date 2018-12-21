@@ -156,4 +156,13 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
         }
     }
 
+    @Override
+    public AllUserLogin getAllUserLoginByOpenId(String openId) {
+
+        Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
+        wrapper.eq("openId", openId);
+
+        return this.selectOne(wrapper);
+    }
+
 }

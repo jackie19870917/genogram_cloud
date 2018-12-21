@@ -114,4 +114,10 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
      */
     List<ProSysSite> getProSysSitePage(Wrapper<ProSysSite> wrapper, Integer pageNo, Integer pageSize);
 
+    /**
+     * 根据openId查询用户
+     * @param openId
+     * @return
+     */
+    AllUserLogin getAllUserLoginByOpenId(String openId);
 }

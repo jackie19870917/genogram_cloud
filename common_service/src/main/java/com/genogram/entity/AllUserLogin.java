@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-27
+ * @since 2018-12-21
  */
 @TableName("all_user_login")
 public class AllUserLogin extends Model<AllUserLogin> {
@@ -26,6 +23,10 @@ public class AllUserLogin extends Model<AllUserLogin> {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+    /**
+     * openId(微信公众号)
+     */
+    private String openId;
     /**
      * 用户主键，user开头，日期年月日小时分秒+随机数组成
      */
@@ -108,6 +109,15 @@ public class AllUserLogin extends Model<AllUserLogin> {
 
     public AllUserLogin setId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public AllUserLogin setOpenId(String openId) {
+        this.openId = openId;
         return this;
     }
 
@@ -263,23 +273,24 @@ public class AllUserLogin extends Model<AllUserLogin> {
     @Override
     public String toString() {
         return "AllUserLogin{" +
-                ", id=" + id +
-                ", userId=" + userId +
-                ", userName=" + userName +
-                ", realName=" + realName +
-                ", nickName=" + nickName +
-                ", mobilePhone=" + mobilePhone +
-                ", picSrc=" + picSrc +
-                ", password=" + password +
-                ", status=" + status +
-                ", siteId=" + siteId +
-                ", role=" + role +
-                ", familyCode=" + familyCode +
-                ", regionCode=" + regionCode +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", openId=" + openId +
+        ", userId=" + userId +
+        ", userName=" + userName +
+        ", realName=" + realName +
+        ", nickName=" + nickName +
+        ", mobilePhone=" + mobilePhone +
+        ", picSrc=" + picSrc +
+        ", password=" + password +
+        ", status=" + status +
+        ", siteId=" + siteId +
+        ", role=" + role +
+        ", familyCode=" + familyCode +
+        ", regionCode=" + regionCode +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }
