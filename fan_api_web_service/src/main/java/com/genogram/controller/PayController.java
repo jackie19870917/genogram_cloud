@@ -464,7 +464,7 @@ public class PayController {
      * @Description 微信浏览器内微信支付/公众号支付(JSAPI)
      */
     @ApiOperation("微信公众号支付")
-    @RequestMapping(value = "orders", method = RequestMethod.GET)
+    @RequestMapping(value = "orders", method = RequestMethod.POST)
     public Response orders(HttpServletRequest request,
                            FanNewsCharityPayIn fanNewsCharityPayIn,
                            @ApiParam("网站ID") @RequestParam Integer siteId,
