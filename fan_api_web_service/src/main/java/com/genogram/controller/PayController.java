@@ -495,6 +495,7 @@ public class PayController {
                 userId = 1;
             } else {
                 AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginByOpenId(openId);
+                System.out.println("orders() openId:"+openId);
                 if (StringUtils.isEmpty(allUserLogin)) {
                     return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
                 } else {

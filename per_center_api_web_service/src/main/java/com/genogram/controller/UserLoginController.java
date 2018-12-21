@@ -137,6 +137,7 @@ public class UserLoginController {
 
         HttpSession session = request.getSession();
         String openId = (String)session.getAttribute("openId");
+        System.out.println("insertAllUserLogin openId:"+openId);
         allUserLogin.setOpenId(openId);
 
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
