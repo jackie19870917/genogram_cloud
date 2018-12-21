@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @Service
-public class FanNewsFamilyRecordVedioServiceImplCommon extends ServiceImpl<FanNewsFamilyRecordVedioMapper, FanNewsFamilyRecordVedio> implements IFanNewsFamilyRecordVedioService {
+public class FanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFamilyRecordVedioMapper, FanNewsFamilyRecordVedio> implements IFanNewsFamilyRecordVedioService {
     @Autowired
     private IFanNewsUploadVedioService fanNewsUploadVedioService;
 

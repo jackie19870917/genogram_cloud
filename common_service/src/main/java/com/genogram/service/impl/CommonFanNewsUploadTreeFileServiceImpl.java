@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-12-20
  */
 @Service
-public class CommonFanNewsUploadTreeFileServiceImplCommon extends ServiceImpl<FanNewsUploadTreeFileMapper, FanNewsUploadTreeFile> implements CommonIFanNewsUploadTreeFileService {
+public class CommonFanNewsUploadTreeFileServiceImpl extends ServiceImpl<FanNewsUploadTreeFileMapper, FanNewsUploadTreeFile> implements CommonIFanNewsUploadTreeFileService {
 
 }

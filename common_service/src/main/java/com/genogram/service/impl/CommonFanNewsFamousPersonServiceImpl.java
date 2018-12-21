@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-12-20
  */
 @Service
-public class CommonFanNewsFamousPersonServiceImplCommon extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements CommonIFanNewsFamousPersonService {
+public class CommonFanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements CommonIFanNewsFamousPersonService {
 
 }

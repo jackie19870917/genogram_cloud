@@ -29,7 +29,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @Service
-public class FanNewsFamousPersonServiceImplCommon extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements IFanNewsFamousPersonService {
+public class FanNewsFamousPersonServiceImpl extends ServiceImpl<FanNewsFamousPersonMapper, FanNewsFamousPerson> implements IFanNewsFamousPersonService {
     @Autowired
     private FanNewsUploadFileMapper fanNewsUploadFileMapper;
     @Autowired
