@@ -219,6 +219,7 @@ public class UserController {
             allUserNewsInfo.setReadNum(0);
             allUserNewsInfo.setCreateUser(allUserLogin.getId());
             allUserNewsInfo.setCreateTime(timeStamp);
+            allUserNewsInfo.setProCode(allUserLogin.getRegionCode() / 10000 * 10000);
             allUserNewsInfo.setRegionId(allUserLogin.getRegionCode());
             allUserNewsInfo.setStatus(status);
         }
