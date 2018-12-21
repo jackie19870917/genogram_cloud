@@ -42,7 +42,8 @@ public final class NetUtil {
             HttpEntity entity = response.getEntity();
             InputStreamReader reader = new InputStreamReader(entity.getContent(), "utf-8");
             char[] charbufer;
-            while (0 < reader.read(charbufer = new char[10])) {
+            Integer length10 = 10;
+            while (0 < reader.read(charbufer = new char[length10])) {
                 sb.append(charbufer);
             }
         } catch (IOException e) {//1
@@ -76,7 +77,8 @@ public final class NetUtil {
             HttpEntity httpEntity = response.getEntity();
             BufferedInputStream bis = new BufferedInputStream(httpEntity.getContent());
             byte[] buffer;
-            while (0 < bis.read(buffer = new byte[128])) {
+            Integer length128 = 128;
+            while (0 < bis.read(buffer = new byte[length128])) {
                 sb.append(new String(buffer, "utf-8"));
             }
         } catch (UnsupportedEncodingException e) {//数据格式有误

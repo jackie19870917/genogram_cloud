@@ -51,6 +51,7 @@ public interface IAllUserCommentsService extends IService<AllUserComments> {
 
     /**
      * 各个表添加评论数
+     *
      * @param allUserComments
      */
     void addCommon(AllUserComments allUserComments);

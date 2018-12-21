@@ -161,7 +161,9 @@ public class Sha1 {
             tmpabcde[1] = tmpabcde[0];
             tmpabcde[0] = tmp;
         }
-        for (int l = 40; l <= 59; l++) {
+        Integer length40 = 40;
+        Integer length59 = 59;
+        for (int l = length40; l <= length59; l++) {
             int tmp = f4(tmpabcde[0], 5)
                     + f3(tmpabcde[1], tmpabcde[2], tmpabcde[3]) + tmpabcde[4]
                     + tmpData[l] + 0x8f1bbcdc;
@@ -171,7 +173,8 @@ public class Sha1 {
             tmpabcde[1] = tmpabcde[0];
             tmpabcde[0] = tmp;
         }
-        for (int m = 60; m <= 79; m++) {
+        Integer length60 = 60;
+        for (int m = length60; m <= length79; m++) {
             int tmp = f4(tmpabcde[0], 5)
                     + f2(tmpabcde[1], tmpabcde[2], tmpabcde[3]) + tmpabcde[4]
                     + tmpData[m] + 0xca62c1d6;

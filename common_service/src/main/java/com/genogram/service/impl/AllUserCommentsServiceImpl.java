@@ -247,91 +247,92 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
     }
 
     /**
-     *各个表添加评论数
-     *@Author: yuzhou
-     *@Date: 2018-12-20
-     *@Time: 18:05
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 各个表添加评论数
+     *
+     * @Author: yuzhou
+     * @Date: 2018-12-20
+     * @Time: 18:05
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public void addCommon(AllUserComments allUserComments) {
         //判断
-        if(allUserComments.getEntityName().equals("AllUserNewsInfo")){
+        if ("AllUserNewsInfo".equals(allUserComments.getEntityName())) {
             //个人日志
             AllUserNewsInfo allUserNewsInfo = allUserNewsInfoService.selectById(allUserComments.getTopicId());
-         allUserNewsInfo.setCommentCount(allUserNewsInfo.getCommentCount()+1);
-         allUserNewsInfoService.updateAllColumnById(allUserNewsInfo);
-        }else if(allUserComments.getEntityName().equals("AllUserPics")){
+            allUserNewsInfo.setCommentCount(allUserNewsInfo.getCommentCount() + 1);
+            allUserNewsInfoService.updateAllColumnById(allUserNewsInfo);
+        } else if ("AllUserPics".equals(allUserComments.getEntityName())) {
             //个人视频
             AllUserPics allUserPics = allUserPicsService.selectById(allUserComments.getTopicId());
-            allUserPics.setCommentCount(allUserPics.getCommentCount()+1);
+            allUserPics.setCommentCount(allUserPics.getCommentCount() + 1);
             allUserPicsService.updateAllColumnById(allUserPics);
-        }else if(allUserComments.getEntityName().equals("AllUserSays")){
+        } else if ("AllUserSays".equals(allUserComments.getEntityName())) {
             //个人说说
             AllUserSays allUserSays = allUserSaysService.selectById(allUserComments.getTopicId());
-            allUserSays.setCommentCount(allUserSays.getCommentCount()+1);
+            allUserSays.setCommentCount(allUserSays.getCommentCount() + 1);
             allUserSaysService.updateAllColumnById(allUserSays);
-        }else if(allUserComments.getEntityName().equals("AllUserVideos")){
+        } else if ("AllUserVideos".equals(allUserComments.getEntityName())) {
             //个人视频
             AllUserVideos allUserVideos = allUserVideosService.selectById(allUserComments.getTopicId());
-            allUserVideos.setCommentCount(allUserVideos.getCommentCount()+1);
+            allUserVideos.setCommentCount(allUserVideos.getCommentCount() + 1);
             allUserVideosService.updateAllColumnById(allUserVideos);
-        }else if(allUserComments.getEntityName().equals("FanNewsCharityOut")){
+        } else if ("FanNewsCharityOut".equals(allUserComments.getEntityName())) {
             //家族慈善财务收支
             FanNewsCharityOut fanNewsCharityOut = fanNewsCharityOutService.selectById(allUserComments.getTopicId());
-            fanNewsCharityOut.setCommentCount(fanNewsCharityOut.getCommentCount()+1);
+            fanNewsCharityOut.setCommentCount(fanNewsCharityOut.getCommentCount() + 1);
             fanNewsCharityOutService.updateAllColumnById(fanNewsCharityOut);
-        }else if(allUserComments.getEntityName().equals("FanNewsCharityPayIn")){
+        } else if ("FanNewsCharityPayIn".equals(allUserComments.getEntityName())) {
             //慈善公益捐款人
             FanNewsCharityPayIn fanNewsCharityPayIn = fanNewsCharityPayInService.selectById(allUserComments.getTopicId());
-            fanNewsCharityPayIn.setCommentCount(fanNewsCharityPayIn.getCommentCount()+1);
+            fanNewsCharityPayIn.setCommentCount(fanNewsCharityPayIn.getCommentCount() + 1);
             fanNewsCharityPayInService.updateAllColumnById(fanNewsCharityPayIn);
-        }else if(allUserComments.getEntityName().equals("FanNewsCultureNews")){
+        } else if ("FanNewsCultureNews".equals(allUserComments.getEntityName())) {
             //家族文化
             FanNewsCultureNews fanNewsCultureNews = fanNewsCultureNewsService.selectById(allUserComments.getTopicId());
-            fanNewsCultureNews.setCommentCount(fanNewsCultureNews.getCommentCount()+1);
+            fanNewsCultureNews.setCommentCount(fanNewsCultureNews.getCommentCount() + 1);
             fanNewsCultureNewsService.updateAllColumnById(fanNewsCultureNews);
-        }else if(allUserComments.getEntityName().equals("FanNewsCultureZipai")){
+        } else if ("FanNewsCultureZipai".equals(allUserComments.getEntityName())) {
             //家族字派
             FanNewsCultureZipai fanNewsCultureZipai = fanNewsCultureZipaiService.selectById(allUserComments.getTopicId());
-            fanNewsCultureZipai.setCommentCount(fanNewsCultureZipai.getCommentCount()+1);
+            fanNewsCultureZipai.setCommentCount(fanNewsCultureZipai.getCommentCount() + 1);
             fanNewsCultureZipaiService.updateAllColumnById(fanNewsCultureZipai);
-        }else if(allUserComments.getEntityName().equals("FanNewsFamilyRecord")){
+        } else if ("FanNewsFamilyRecord".equals(allUserComments.getEntityName())) {
             //记录家族文章
             FanNewsFamilyRecord fanNewsFamilyRecord = fanNewsFamilyRecordService.selectById(allUserComments.getTopicId());
-            fanNewsFamilyRecord.setCommentCount(fanNewsFamilyRecord.getCommentCount()+1);
+            fanNewsFamilyRecord.setCommentCount(fanNewsFamilyRecord.getCommentCount() + 1);
             fanNewsFamilyRecordService.updateAllColumnById(fanNewsFamilyRecord);
-        }else if(allUserComments.getEntityName().equals("FanNewsFamilyRecordVedio")){
+        } else if ("FanNewsFamilyRecordVedio".equals(allUserComments.getEntityName())) {
             //记录家族视频
             FanNewsFamilyRecordVedio fanNewsFamilyRecordVedio = fanNewsFamilyRecordVedioService.selectById(allUserComments.getTopicId());
-            fanNewsFamilyRecordVedio.setCommentCount(fanNewsFamilyRecordVedio.getCommentCount()+1);
+            fanNewsFamilyRecordVedio.setCommentCount(fanNewsFamilyRecordVedio.getCommentCount() + 1);
             fanNewsFamilyRecordVedioService.updateAllColumnById(fanNewsFamilyRecordVedio);
-        }else if(allUserComments.getEntityName().equals("FanNewsFamousAncestor")){
+        } else if ("FanNewsFamousAncestor".equals(allUserComments.getEntityName())) {
             //祖先分支
             FanNewsFamousAncestor fanNewsFamousAncestor = fanNewsFamousAncestorService.selectById(allUserComments.getTopicId());
-            fanNewsFamousAncestor.setCommentCount(fanNewsFamousAncestor.getCommentCount()+1);
+            fanNewsFamousAncestor.setCommentCount(fanNewsFamousAncestor.getCommentCount() + 1);
             fanNewsFamousAncestorService.updateAllColumnById(fanNewsFamousAncestor);
-        }else if(allUserComments.getEntityName().equals("FanNewsFamousPerson")){
+        } else if ("FanNewsFamousPerson".equals(allUserComments.getEntityName())) {
             //家族名人
             FanNewsFamousPerson fanNewsFamousPerson = fanNewsFamousPersonService.selectById(allUserComments.getTopicId());
-            fanNewsFamousPerson.setCommentCount(fanNewsFamousPerson.getCommentCount()+1);
+            fanNewsFamousPerson.setCommentCount(fanNewsFamousPerson.getCommentCount() + 1);
             fanNewsFamousPersonService.updateAllColumnById(fanNewsFamousPerson);
-        }else if(allUserComments.getEntityName().equals("FanNewsIndustry")){
+        } else if ("FanNewsIndustry".equals(allUserComments.getEntityName())) {
             //家族产业
             FanNewsIndustry fanNewsIndustry = fanNewsIndustryService.selectById(allUserComments.getTopicId());
-            fanNewsIndustry.setCommentCount(fanNewsIndustry.getCommentCount()+1);
+            fanNewsIndustry.setCommentCount(fanNewsIndustry.getCommentCount() + 1);
             fanNewsIndustryService.updateAllColumnById(fanNewsIndustry);
-        }else if(allUserComments.getEntityName().equals("FanNewsUploadTreeFile")){
+        } else if ("FanNewsUploadTreeFile".equals(allUserComments.getEntityName())) {
             //电子家谱
             FanNewsUploadTreeFile fanNewsUploadTreeFile = fanNewsUploadTreeFileService.selectById(allUserComments.getTopicId());
-            fanNewsUploadTreeFile.setCommentCount(fanNewsUploadTreeFile.getCommentCount()+1);
+            fanNewsUploadTreeFile.setCommentCount(fanNewsUploadTreeFile.getCommentCount() + 1);
             fanNewsUploadTreeFileService.updateAllColumnById(fanNewsUploadTreeFile);
-        }else if(allUserComments.getEntityName().equals("FanSysCharitableDeclare")){
+        } else if ("FanSysCharitableDeclare".equals(allUserComments.getEntityName())) {
             //慈善帮扶
             FanSysCharitableDeclare fanSysCharitableDeclare = fanSysCharitableDeclareService.selectById(allUserComments.getTopicId());
-            fanSysCharitableDeclare.setCommentCount(fanSysCharitableDeclare.getCommentCount()+1);
+            fanSysCharitableDeclare.setCommentCount(fanSysCharitableDeclare.getCommentCount() + 1);
             fanSysCharitableDeclareService.updateAllColumnById(fanSysCharitableDeclare);
         }
     }

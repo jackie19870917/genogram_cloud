@@ -470,7 +470,7 @@ public class PayController {
         try {
             HttpSession session = request.getSession();
 
-            String openId = (String)session.getAttribute("openId");
+            String openId = (String) session.getAttribute("openId");
             //拼接统一下单地址参数
             Map<String, String> paraMap = new HashMap<String, String>(16);
             //获取请求ip地址
@@ -554,20 +554,20 @@ public class PayController {
 
             String openId = oauth2Token.getOpenId();
 
-            HttpSession session=request.getSession();
+            HttpSession session = request.getSession();
             session.setAttribute("accessToken", accessToken);
             session.setAttribute("openId", openId);
             System.out.println(openId);
             // 获取用户信息
             //SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
-           // System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
+            // System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
             // 设置要传递的参数
 
             //具体业务start
 
             //具体业务end
 
-           // String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
+            // String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
             String url = "http://yhtpw.com/mobile/";
 
             response.sendRedirect(url);

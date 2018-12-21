@@ -62,7 +62,7 @@ public class AllUserCommentsController {
         }
         Boolean flag = allUserCommentsService.insertAllUserComments(allUserComments);
         //判断是否添加成功 各个表添加评论数
-        if(flag){
+        if (flag) {
             allUserCommentsService.addCommon(allUserComments);
         }
         return ResponseUtlis.success(flag);
