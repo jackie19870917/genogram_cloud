@@ -137,13 +137,13 @@ public class UserLoginController {
 
         if (!StringUtils.isEmpty(userLogin)) {
 
-            PersonVo personVo = getPersonVo(userLogin);
-
             AllUserReg allUserReg = new AllUserReg();
             allUserReg.setAllUserLoginId(userLogin.getId());
             allUserReg.setCreateUser(userLogin.getId());
 
             allUserRegService.insertAllUserReg(allUserReg);
+
+            PersonVo personVo = getPersonVo(userLogin);
 
             return ResponseUtlis.success(personVo);
 
@@ -166,10 +166,6 @@ public class UserLoginController {
         String str = new String(bytes);
 
         PersonVo personVo = allUserRegService.getAllUserRegByUserId(allUserLogin.getId());
-
-        if (StringUtils.isEmpty(personVo)) {
-            return null;
-        }
 
         BeanUtils.copyProperties(allUserLogin, personVo);
         personVo.setToken(str);

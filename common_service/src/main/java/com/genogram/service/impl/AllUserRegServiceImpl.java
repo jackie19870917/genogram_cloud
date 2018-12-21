@@ -39,10 +39,6 @@ public class AllUserRegServiceImpl extends ServiceImpl<AllUserRegMapper, AllUser
 
         AllUserReg allUserReg = this.selectOne(wrapper);
 
-        if (StringUtils.isEmpty(allUserReg)) {
-            return null;
-        }
-
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userId);
 
         PersonVo personVo = new PersonVo();
