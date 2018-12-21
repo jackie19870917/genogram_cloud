@@ -33,7 +33,7 @@ import java.util.Map;
  * @since 2018-11-05
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @Api(description = "家族动态")
 @RequestMapping("/genogram/fanNewsFamilyRecord")
 public class FanNewsFamilyRecordController {

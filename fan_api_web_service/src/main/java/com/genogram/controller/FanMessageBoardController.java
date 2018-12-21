@@ -27,7 +27,7 @@ import java.util.Set;
  */
 @Api(description = "联谊会留言板")
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/genogram/allMessageBoard")
 public class FanMessageBoardController {
     @Autowired

@@ -41,7 +41,7 @@ import java.util.Map;
  */
 @Api(description = "登录注册")
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("genogram/userLogin")
 public class FanUserLoginController {
 

@@ -30,7 +30,7 @@ import java.util.List;
  */
 @Api(description = "联谊会前台家族慈善申报")
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "*")
 @RequestMapping("/genogram/fanSysCharitableDeclare")
 public class FanSysCharitableDeclareController {
     @Autowired
