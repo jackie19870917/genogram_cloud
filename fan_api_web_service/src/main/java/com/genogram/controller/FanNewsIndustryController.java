@@ -30,7 +30,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping("/genogram/fanNewsIndustry")
 @Api(description = "联谊会家族产业前台增删改查")
 public class FanNewsIndustryController {

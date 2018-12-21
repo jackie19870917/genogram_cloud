@@ -37,7 +37,7 @@ import java.util.Map;
  */
 @Api(description = "慈善公益菜单(前台)")
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping("/genogram/fanNewsCharity")
 public class FanNewsCharityController {
 

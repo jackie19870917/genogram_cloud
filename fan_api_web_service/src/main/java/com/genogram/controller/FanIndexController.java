@@ -28,7 +28,7 @@ import java.util.*;
  */
 @Api(description = "联谊会首页(前台)")
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping("/genogram/fanIndex")
 public class FanIndexController {
 

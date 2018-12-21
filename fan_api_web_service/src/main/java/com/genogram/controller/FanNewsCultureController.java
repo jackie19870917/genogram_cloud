@@ -32,7 +32,7 @@ import java.util.List;
  * @since 2018-11-05
  */
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping("/genogram/fanNewsCulture")
 @Api(description = "联谊会家族文化前台增删改查")
 public class FanNewsCultureController {

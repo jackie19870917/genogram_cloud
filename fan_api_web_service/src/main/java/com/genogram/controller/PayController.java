@@ -50,7 +50,7 @@ import static com.genogram.unit.WeChatConstant.TOKEN;
  */
 @Api(description = "支付")
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping("/genogram/pay")
 public class PayController {
 

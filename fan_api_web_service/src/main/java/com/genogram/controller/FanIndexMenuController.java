@@ -26,7 +26,7 @@ import java.util.Map;
 @Api(description = "联谊会菜单接口(前台)")
 @RestController
 @RequestMapping("/genogram/fanMenu")
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class FanIndexMenuController {
     @Autowired
     private IFanSysWebNewsShowService fanSysWebNewsShowService;

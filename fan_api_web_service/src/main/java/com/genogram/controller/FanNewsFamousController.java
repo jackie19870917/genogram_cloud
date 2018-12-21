@@ -27,7 +27,7 @@ import java.util.Map;
  */
 @RestController
 @Api(description = "联谊会家族名人")
-@CrossOrigin(origins = "*")
+@CrossOrigin
 @RequestMapping("/genogram/fanNewsFamous")
 public class FanNewsFamousController {
     @Autowired
