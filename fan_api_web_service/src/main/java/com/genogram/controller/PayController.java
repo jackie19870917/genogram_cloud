@@ -500,7 +500,7 @@ public class PayController {
                 userLogin.setId(1);
             } else {
 
-                if (token.split("").equals("undefined")) {
+                if (token.equals("undefined")) {
                     token = "";
                 }
 
