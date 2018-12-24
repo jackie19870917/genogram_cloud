@@ -499,11 +499,11 @@ public class PayController {
             if (1 == anonymous) {
                 userLogin.setId(1);
             } else {
-                if (!StringUtils.isEmpty(token)) {
-                    userLogin = userService.getUserLoginInfoByToken(token);
-                    System.out.println("炎黄統譜网");
-                } else {
+                if (StringUtils.isEmpty(token) || token.split("").equals("undefined")) {
                     return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                } else {
+                    userLogin = userService.getUserLoginInfoByToken(token);
+
 
                     /*userLogin.setOpenId(openId);
                     allUserLoginService.updateUserLogin(userLogin);*/
@@ -599,7 +599,7 @@ public class PayController {
             String openId = oauth2Token.getOpenId();
 
             HttpSession session = request.getSession();
-           // session.invalidate();
+            // session.invalidate();
             session.setAttribute("accessToken", accessToken);
             session.setAttribute("openId", openId);
             System.out.println(openId);
