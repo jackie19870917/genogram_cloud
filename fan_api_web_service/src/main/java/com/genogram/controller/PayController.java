@@ -474,7 +474,7 @@ public class PayController {
     public Response orders(HttpServletRequest request,
                            FanNewsCharityPayIn fanNewsCharityPayIn,
                            @ApiParam("网站ID") @RequestParam Integer siteId,
-                           @ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                           @ApiParam("token") @RequestParam(value = "token", required = false, defaultValue = "") String token,
                            @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous) {
 
         try {
@@ -499,7 +499,8 @@ public class PayController {
             if (1 == anonymous) {
                 userLogin.setId(1);
             } else {
-                if (StringUtils.isEmpty(token) || token.split("").equals("undefined")) {
+                System.out.println(token);
+                if (StringUtils.isEmpty(token)) {
                     return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
                 } else {
                     userLogin = userService.getUserLoginInfoByToken(token);
