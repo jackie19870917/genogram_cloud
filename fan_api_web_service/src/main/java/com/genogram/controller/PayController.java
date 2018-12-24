@@ -616,7 +616,8 @@ public class PayController {
             openId = new String(bytes);
 
             // String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
-            String url = "http://yhtpw.com/mobile?openId=" + openId;
+            //String url = "http://yhtpw.com/mobile?openId=" + openId;
+            String url = "http://yhtpw.com/mobile";
 
             response.sendRedirect(url);
         }
