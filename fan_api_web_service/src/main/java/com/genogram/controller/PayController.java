@@ -610,9 +610,9 @@ public class PayController {
             //具体业务end
 
             // String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
-         /*   String url = "http://yhtpw.com/mobile/";
+            String url = "http://yhtpw.com/mobile/";
 
-            response.sendRedirect(url);*/
+            response.sendRedirect(url);
         }
     }
 
