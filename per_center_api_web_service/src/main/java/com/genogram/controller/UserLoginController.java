@@ -83,7 +83,7 @@ public class UserLoginController {
                 openId = new String(Base64.decodeBase64(openId));
                 userLogin.setOpenId(openId);
 
-                AllUserLogin login = allUserLoginService.insertAllUserLogin(userLogin);
+                allUserLoginService.insertAllUserLogin(userLogin);
 
                 PersonVo personVo = getPersonVo(userLogin);
 
