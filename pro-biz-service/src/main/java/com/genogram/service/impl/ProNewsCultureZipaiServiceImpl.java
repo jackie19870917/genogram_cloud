@@ -9,7 +9,6 @@ import com.genogram.entity.ProSysSite;
 import com.genogram.entityvo.ProNewsCultureZipaiVo;
 import com.genogram.mapper.FanNewsCultureZipaiMapper;
 import com.genogram.mapper.ProNewsCultureZipaiMapper;
-import com.genogram.service.CommonIProNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.genogram.service.IProSysSiteService;

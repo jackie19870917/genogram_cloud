@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author wangwei
  * @since 2018-12-20
  */
-public interface CommonIFanNewsCharityPayInService extends IService<FanNewsCharityPayIn> {
+public interface CommonFanNewsCharityPayInService extends IService<FanNewsCharityPayIn> {
 
 }

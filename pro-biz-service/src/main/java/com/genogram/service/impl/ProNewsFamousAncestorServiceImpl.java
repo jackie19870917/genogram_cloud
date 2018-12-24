@@ -9,7 +9,7 @@ import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.mapper.ProNewsFamousAncestorMapper;
 import com.genogram.service.IProFanNewsFamousAncestorService;
-import com.genogram.service.CommonIProNewsFamousAncestorService;
+import com.genogram.service.CommonProNewsFamousAncestorService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IProNewsFamousAncestorService;
 import com.genogram.unit.DateUtil;
@@ -33,7 +33,7 @@ import java.util.Map;
 public class ProNewsFamousAncestorServiceImpl extends ServiceImpl<ProNewsFamousAncestorMapper, ProNewsFamousAncestor> implements IProNewsFamousAncestorService {
 
     @Autowired
-    private CommonIProNewsFamousAncestorService proNewsFamousAncestorService;
+    private CommonProNewsFamousAncestorService proNewsFamousAncestorService;
 
     @Autowired
     private ProNewsFamousAncestorMapper proNewsFamousAncestorMapper;

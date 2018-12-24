@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author wangwei
  * @since 2018-12-20
  */
-public interface CommonIFanSysCharitableDeclareService extends IService<FanSysCharitableDeclare> {
+public interface CommonFanSysCharitableDeclareService extends IService<FanSysCharitableDeclare> {
 
 }

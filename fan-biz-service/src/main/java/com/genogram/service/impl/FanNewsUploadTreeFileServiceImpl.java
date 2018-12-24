@@ -8,7 +8,6 @@ import com.genogram.entity.FanNewsUploadTreeFile;
 import com.genogram.entityvo.NewsUploadTreeFileVo;
 import com.genogram.mapper.FanNewsUploadTreeFileMapper;
 import com.genogram.service.IAllFamilyService;
-import com.genogram.service.CommonIFanNewsUploadTreeFileService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsUploadTreeFileService;
 import com.genogram.unit.DateUtil;

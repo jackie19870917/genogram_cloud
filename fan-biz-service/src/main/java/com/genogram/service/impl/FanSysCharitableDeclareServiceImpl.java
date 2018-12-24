@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanSysCharitableDeclare;
 import com.genogram.mapper.FanSysCharitableDeclareMapper;
-import com.genogram.service.CommonIFanSysCharitableDeclareService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanSysCharitableDeclareService;
 import com.genogram.service.IUploadFileService;

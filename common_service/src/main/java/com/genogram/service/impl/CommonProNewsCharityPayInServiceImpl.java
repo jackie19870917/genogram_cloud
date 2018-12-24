@@ -2,7 +2,7 @@ package com.genogram.service.impl;
 
 import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.mapper.ProNewsCharityPayInMapper;
-import com.genogram.service.CommonIProNewsCharityPayInService;
+import com.genogram.service.CommonProNewsCharityPayInService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-12-21
  */
 @Service
-public class CommonProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPayInMapper, ProNewsCharityPayIn> implements CommonIProNewsCharityPayInService {
+public class CommonProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPayInMapper, ProNewsCharityPayIn> implements CommonProNewsCharityPayInService {
 
 }

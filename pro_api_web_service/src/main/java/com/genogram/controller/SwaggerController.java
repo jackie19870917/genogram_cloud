@@ -2,7 +2,6 @@ package com.genogram.controller;
 
 
 import com.genogram.entity.FanNewsCharityOut;
-import com.genogram.service.CommonIProNewsCharityOutService;
 import com.genogram.service.IProNewsCharityOutService;
 import com.genogram.service.IProSysWebNewsShowService;
 import com.genogram.unit.Response;

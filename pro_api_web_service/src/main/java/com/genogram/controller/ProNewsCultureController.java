@@ -11,8 +11,6 @@ import com.genogram.entity.ProNewsCultureZipai;
 import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.entityvo.ProNewsCultureZipaiVo;
-import com.genogram.service.CommonIProNewsCultureNewsService;
-import com.genogram.service.CommonIProNewsCultureZipaiService;
 import com.genogram.service.IProNewsCultureNewsService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.genogram.unit.Response;

@@ -6,7 +6,6 @@ import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsCultureZipai;
 import com.genogram.entityvo.NewsCultureZipaiVo;
 import com.genogram.mapper.FanNewsCultureZipaiMapper;
-import com.genogram.service.CommonIFanNewsCultureZipaiService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.DateUtil;

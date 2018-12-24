@@ -85,15 +85,18 @@ public class ProFanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCha
         //获取姓名
         AllUserLogin allUserLogin = allUserLoginService.selectById(userLoginInfoByToken.getId());
         //ratify区分三级别审核 1:审查人,2:审核人,3:审批人
+        Integer status02 = 2;
+        Integer status03 = 3;
         if (ratify == 1) {
             fanSysCharitableDeclare.setExaminant(allUserLogin.getNickName());
             //审查人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsExaminant(1);
-        } else if (ratify == 2) {
+
+        } else if (ratify.equals(status02)) {
             fanSysCharitableDeclare.setVerifier(allUserLogin.getNickName());
             //审核人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsVerifier(1);
-        } else if (ratify == 3) {
+        } else if (ratify.equals(status03)) {
             fanSysCharitableDeclare.setApprover(allUserLogin.getNickName());
             //审批人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsApprover(1);
@@ -125,16 +128,18 @@ public class ProFanSysCharitableDeclareServiceImpl extends ServiceImpl<FanSysCha
     public Boolean familyStructureDetailsDisagree(AllUserLogin userLoginInfoByToken, FanSysCharitableDeclare fanSysCharitableDeclare, Integer ratify) {
         //获取姓名
         AllUserLogin allUserLogin = allUserLoginService.selectById(userLoginInfoByToken.getId());
+        Integer status02 = 2;
+        Integer status03 = 3;
         //ratify区分三级别审核 1:审查人,2:审核人,3:审批人
         if (ratify == 1) {
             fanSysCharitableDeclare.setExaminant(allUserLogin.getNickName());
             //审查人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsExaminant(2);
-        } else if (ratify == 2) {
+        } else if (ratify.equals(status02)) {
             fanSysCharitableDeclare.setVerifier(allUserLogin.getNickName());
             //审核人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsVerifier(2);
-        } else if (ratify == 3) {
+        } else if (ratify.equals(status03)) {
             fanSysCharitableDeclare.setApprover(allUserLogin.getNickName());
             //审批人是否同意  1:同意 2:退回
             fanSysCharitableDeclare.setIsApprover(2);

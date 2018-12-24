@@ -9,7 +9,6 @@ import com.genogram.entity.FanSysWebNewsShow;
 import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.mapper.FanNewsFamousAncestorMapper;
-import com.genogram.service.CommonIFanNewsFamousAncestorService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsFamousAncestorService;
 import com.genogram.service.IFanSysWebNewsShowService;

@@ -2,7 +2,7 @@ package com.genogram.service.impl;
 
 import com.genogram.entity.ProNewsFamilyRecord;
 import com.genogram.mapper.ProNewsFamilyRecordMapper;
-import com.genogram.service.CommonIProNewsFamilyRecordService;
+import com.genogram.service.CommonProNewsFamilyRecordService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-12-21
  */
 @Service
-public class CommonProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRecordMapper, ProNewsFamilyRecord> implements CommonIProNewsFamilyRecordService {
+public class CommonProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRecordMapper, ProNewsFamilyRecord> implements CommonProNewsFamilyRecordService {
 
 }

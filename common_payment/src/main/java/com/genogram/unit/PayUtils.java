@@ -83,7 +83,8 @@ public class PayUtils extends WXPayUtil {
         String unknown = "unknown";
         if (ip != null && ip.length() != 0 && !unknown.equalsIgnoreCase(ip)) {
             // 多次反向代理后会有多个ip值，第一个ip才是真实ip
-            if (ip.indexOf(",") != -1) {
+            String str = ",";
+            if (ip.indexOf(str) != -1) {
                 ip = ip.split(",")[0];
             }
         }
@@ -105,7 +106,9 @@ public class PayUtils extends WXPayUtil {
         if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
-        if ("127.0.0.1".equals(ip) || "0:0:0:0:0:0:0:1".equals(ip)) {
+        String string = "127.0.0.1";
+        String str = "0:0:0:0:0:0:0:1";
+        if (string.equals(ip) || str.equals(ip)) {
             // 根据网卡获取本机配置的IP地址
             InetAddress inetAddress = null;
             try {

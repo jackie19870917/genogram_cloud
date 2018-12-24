@@ -9,7 +9,6 @@ import com.genogram.entity.ProNewsUploadVedio;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.ProFamilyRecordVedioVo;
 import com.genogram.mapper.ProNewsFamilyRecordVedioMapper;
-import com.genogram.service.CommonIProNewsFamilyRecordVedioService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IProNewsFamilyRecordVedioService;
 import com.genogram.service.IProNewsUploadFileService;

@@ -7,7 +7,6 @@ import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanNewsUploadTreeFile;
 import com.genogram.entityvo.NewsUploadTreeFileVo;
 import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.CommonIFanNewsUploadTreeFileService;
 import com.genogram.service.IFanNewsUploadTreeFileService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;

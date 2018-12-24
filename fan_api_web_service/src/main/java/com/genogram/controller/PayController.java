@@ -431,7 +431,9 @@ public class PayController {
         fanNewsCharityPayIn.setOrderId(outTradeNo);
         fanNewsCharityPayIn = fanNewsCharityPayInService.selectOne(fanNewsCharityPayIn);
 
-        if (fanNewsCharityPayIn.getStatus() == 2) {
+
+        Integer status = 2;
+        if (fanNewsCharityPayIn.getStatus().equals(status)) {
 
             //修改基金金额
             Integer siteId = fanSysWebNewsShowService.getSiteIdByShowId(fanNewsCharityPayIn.getShowId()).getSiteId();
@@ -471,6 +473,7 @@ public class PayController {
     public Response orders(HttpServletRequest request,
                            FanNewsCharityPayIn fanNewsCharityPayIn,
                            @ApiParam("网站ID") @RequestParam Integer siteId,
+                           @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                            @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous) {
 
         try {
@@ -490,16 +493,18 @@ public class PayController {
             String openId = (String) session.getAttribute("openId");
 
             //用户Id
-            Integer userId;
+            AllUserLogin userLogin = new AllUserLogin();
+
             if (1 == anonymous) {
-                userId = 1;
+                userLogin.setId(1);
             } else {
-                AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginByOpenId(openId);
-                System.out.println("orders() openId:" + openId);
-                if (StringUtils.isEmpty(allUserLogin)) {
+                if (StringUtils.isEmpty(token)) {
                     return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
                 } else {
-                    userId = allUserLogin.getId();
+                    userLogin = userService.getUserLoginInfoByToken(token);
+
+                    userLogin.setOpenId(openId);
+                    allUserLoginService.updateUserLogin(userLogin);
                 }
             }
 
@@ -508,7 +513,7 @@ public class PayController {
 
             fanNewsCharityPayIn.setOrderId(payId);
             fanNewsCharityPayIn.setShowId(showId);
-            fanNewsCharityPayIn.setPayUsrId(userId);
+            fanNewsCharityPayIn.setPayUsrId(userLogin.getId());
             fanNewsCharityPayIn.setType(1);
             fanNewsCharityPayIn.setStatus(2);
             fanNewsCharityPayIn.setPayChannel(payChannel);
@@ -548,7 +553,8 @@ public class PayController {
             //以下内容是返回前端页面的json数据
             //预支付id
             String prepayId = "";
-            if (xmlStr.indexOf("SUCCESS") != -1) {
+            String success = "SUCCESS";
+            if (xmlStr.indexOf(success) != -1) {
                 Map<String, String> map = WXPayUtil.xmlToMap(xmlStr);
                 prepayId = (String) map.get("prepay_id");
             }
@@ -576,19 +582,11 @@ public class PayController {
 
         System.out.println("****************code:" + code);
 
-       /* //页面获取openId接口
-        String getOpenIdUrl = "https://api.weixin.qq.com/sns/oauth2/access_token";
-        String param =
-                "appid=" + WeChatConfig.APP_ID + "&secret=" + WeChatConfig.APP_SECRET + "&code=" + code + "&grant_type=authorization_code";
-        //向微信服务器发送get请求获取openIdStr
-        String openIdStr = HttpRequest.sendGet(getOpenIdUrl, param);
-        //转成Json格式
-        JSONObject json = JSONObject.parseObject(openIdStr);
-        //获取openId
-        String openId = json.getString("openid");
-        System.out.println(openId);*/
-        // 用户同意授权
-        if (!"authdeny".equals(code)) {
+        /**
+         *  用户同意授权
+         */
+        String authdney = "authdeny";
+        if (!authdney.equals(code)) {
             // 获取网页授权access_token
             Oauth2Token oauth2Token = getOauth2AccessToken(WeChatConfig.APP_ID, WeChatConfig.APP_SECRET, code);
             System.out.println("***********************************oauth2Token信息：" + oauth2Token.toString());
@@ -712,7 +710,8 @@ public class PayController {
         System.out.println("remoteHost :" + remoteHost + " remoteAddr :"
                 + remoteAddr);
         try {
-            if ("GET".equals(method)) {
+            String get = "GET";
+            if (get.equals(method)) {
                 // 微信加密签名
                 // ceb87cf6583bdd37bc49fb7b10fc42f4c3ae4bf2
                 String signature = request.getParameter("signature");

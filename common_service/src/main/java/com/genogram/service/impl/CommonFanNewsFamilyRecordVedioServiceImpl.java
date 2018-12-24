@@ -2,7 +2,7 @@ package com.genogram.service.impl;
 
 import com.genogram.entity.FanNewsFamilyRecordVedio;
 import com.genogram.mapper.FanNewsFamilyRecordVedioMapper;
-import com.genogram.service.CommonIFanNewsFamilyRecordVedioService;
+import com.genogram.service.CommonFanNewsFamilyRecordVedioService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2018-12-20
  */
 @Service
-public class CommonFanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFamilyRecordVedioMapper, FanNewsFamilyRecordVedio> implements CommonIFanNewsFamilyRecordVedioService {
+public class CommonFanNewsFamilyRecordVedioServiceImpl extends ServiceImpl<FanNewsFamilyRecordVedioMapper, FanNewsFamilyRecordVedio> implements CommonFanNewsFamilyRecordVedioService {
 
 }

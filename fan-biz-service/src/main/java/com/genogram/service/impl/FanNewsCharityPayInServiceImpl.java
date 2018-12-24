@@ -8,7 +8,6 @@ import com.genogram.entity.FanNewsCharityPayIn;
 import com.genogram.entityvo.DonorVo;
 import com.genogram.mapper.FanNewsCharityPayInMapper;
 import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.CommonIFanNewsCharityPayInService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanNewsCharityPayInService;
 import com.genogram.service.IFanSysWebNewsShowService;

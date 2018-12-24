@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.FanNewsFamousPerson;
 import com.genogram.entityvo.FamilyPersonVo;
-import com.genogram.service.CommonIFanNewsFamousPersonService;
 import com.genogram.service.IFanNewsFamousPersonService;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.Response;

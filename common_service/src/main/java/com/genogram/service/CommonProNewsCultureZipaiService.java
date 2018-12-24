@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @author wangwei
  * @since 2018-12-21
  */
-public interface CommonIProNewsCultureZipaiService extends IService<ProNewsCultureZipai> {
+public interface CommonProNewsCultureZipaiService extends IService<ProNewsCultureZipai> {
 
 }
