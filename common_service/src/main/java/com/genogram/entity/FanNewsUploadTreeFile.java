@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-12-20
+ * @since 2018-12-21
  */
 @TableName("fan_news_upload_tree_file")
 public class FanNewsUploadTreeFile extends Model<FanNewsUploadTreeFile> {
@@ -79,6 +76,11 @@ public class FanNewsUploadTreeFile extends Model<FanNewsUploadTreeFile> {
      */
     @TableField("comment_count")
     private Integer commentCount;
+    /**
+     * 电子谱文件预览地址
+     */
+    @TableField("tree_preview_path")
+    private String treePreviewPath;
     /**
      * 创建时间
      */
@@ -209,6 +211,15 @@ public class FanNewsUploadTreeFile extends Model<FanNewsUploadTreeFile> {
         return this;
     }
 
+    public String getTreePreviewPath() {
+        return treePreviewPath;
+    }
+
+    public FanNewsUploadTreeFile setTreePreviewPath(String treePreviewPath) {
+        this.treePreviewPath = treePreviewPath;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -253,22 +264,23 @@ public class FanNewsUploadTreeFile extends Model<FanNewsUploadTreeFile> {
     @Override
     public String toString() {
         return "FanNewsUploadTreeFile{" +
-                ", id=" + id +
-                ", siteId=" + siteId +
-                ", regionCode=" + regionCode +
-                ", isFrom=" + isFrom +
-                ", familyCode=" + familyCode +
-                ", filePath=" + filePath +
-                ", fileName=" + fileName +
-                ", contactUser=" + contactUser +
-                ", status=" + status +
-                ", password=" + password +
-                ", preThirty=" + preThirty +
-                ", commentCount=" + commentCount +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", siteId=" + siteId +
+        ", regionCode=" + regionCode +
+        ", isFrom=" + isFrom +
+        ", familyCode=" + familyCode +
+        ", filePath=" + filePath +
+        ", fileName=" + fileName +
+        ", contactUser=" + contactUser +
+        ", status=" + status +
+        ", password=" + password +
+        ", preThirty=" + preThirty +
+        ", commentCount=" + commentCount +
+        ", treePreviewPath=" + treePreviewPath +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }
