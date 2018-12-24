@@ -19,13 +19,13 @@ import com.github.wxpay.sdk.WXPayUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.codec.binary.Base64;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -500,7 +500,8 @@ public class PayController {
                 userLogin.setId(1);
             } else {
 
-                if (token.equals("undefined")) {
+                String undefined = "undefined";
+                if (token.equals(undefined)) {
                     token = "";
                 }
 
@@ -586,7 +587,7 @@ public class PayController {
     public void oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 用户同意授权后，能获取到code
         String code = request.getParameter("code");
-
+        String codeNo = (String) request.getAttribute("codeNo");
         System.out.println("****************code:" + code);
 
         /**
@@ -604,7 +605,6 @@ public class PayController {
             String openId = oauth2Token.getOpenId();
 
             HttpSession session = request.getSession();
-            // session.invalidate();
             session.setAttribute("accessToken", accessToken);
             session.setAttribute("openId", openId);
             System.out.println(openId);
@@ -621,8 +621,8 @@ public class PayController {
             openId = new String(bytes);
 
             // String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
-            //String url = "http://yhtpw.com/mobile?openId=" + openId;
-            String url = "http://yhtpw.com/mobile";
+            String url = "http://yhtpw.com/mobile?openId=" + openId + "&code=" + codeNo;
+            //String url = "http://yhtpw.com/mobile";
 
             response.sendRedirect(url);
         }

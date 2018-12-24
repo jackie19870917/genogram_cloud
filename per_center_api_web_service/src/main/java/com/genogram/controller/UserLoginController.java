@@ -26,7 +26,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -67,7 +66,8 @@ public class UserLoginController {
     @ApiOperation(value = "登陆", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Response<UserVo> getAllUserLogin(@ApiParam("用户名") @RequestParam String userName,
-                                            @ApiParam("密码") @RequestParam String password) {
+                                            @ApiParam("密码") @RequestParam String password,
+                                            @ApiParam("openId") @RequestParam(value = "openId", required = false) String openId) {
 
         AllUserLogin allUserLogin = new AllUserLogin();
         allUserLogin.setMobilePhone(userName);
@@ -79,6 +79,11 @@ public class UserLoginController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不存在");
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
+
+                openId = new String(Base64.decodeBase64(openId));
+                userLogin.setOpenId(openId);
+
+                AllUserLogin login = allUserLoginService.insertAllUserLogin(userLogin);
 
                 PersonVo personVo = getPersonVo(userLogin);
 
@@ -129,7 +134,8 @@ public class UserLoginController {
     @ApiOperation(value = "注册", notes = "userName:用户名,mobilePhone:手机号,password:密码,familyCode:姓氏,regionCode:地区")
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
     public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin, HttpServletRequest request,
-                                                     @ApiParam("验证码") @RequestParam("verificationCode") String verificationCode) {
+                                                     @ApiParam("验证码") @RequestParam("verificationCode") String verificationCode,
+                                                     @ApiParam("openId") @RequestParam(value = "openId", required = false) String openId) {
 
         if (!verificationCode.equals(message)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
@@ -140,6 +146,8 @@ public class UserLoginController {
         System.out.println("openId:" + openId);
         allUserLogin.setOpenId(openId);*/
 
+        openId = new String(Base64.decodeBase64(openId));
+        allUserLogin.setOpenId(openId);
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
 
         if (!StringUtils.isEmpty(userLogin)) {
