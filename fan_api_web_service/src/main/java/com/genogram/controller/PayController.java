@@ -623,7 +623,7 @@ public class PayController {
             // String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
             String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo + "&openId=" + openId;
             //String url = "http://yhtpw.com/mobile";
-
+            log.info(url);
             response.sendRedirect(url);
         }
     }
