@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -584,13 +585,14 @@ public class PayController {
 
     @ApiOperation("入口")
     @RequestMapping(value = "go", method = RequestMethod.GET)
-    public void go(@ApiParam("访问编号") @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void go(@ApiParam("访问编号") @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
         log.info("code:  "+code);
         session.setAttribute("codeNo", code);
 
-        response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+        request.getRequestDispatcher("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect").forward(request,response);
+       // response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
     }
 
     @ApiOperation("回调")
