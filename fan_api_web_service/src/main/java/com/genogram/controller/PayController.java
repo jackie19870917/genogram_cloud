@@ -599,7 +599,7 @@ public class PayController {
             String openId = oauth2Token.getOpenId();
 
             HttpSession session = request.getSession();
-            session.invalidate();
+           // session.invalidate();
             session.setAttribute("accessToken", accessToken);
             session.setAttribute("openId", openId);
             System.out.println(openId);
