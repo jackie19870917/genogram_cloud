@@ -51,7 +51,7 @@ public final class Constants {
     /**
      * 返回状态码 没有登陆
      */
-    public static final Integer NOTLOGIN = 400;
+    public static final Integer NOTLOGIN = 201;
 
     /**
      * 返回状态码 未被授权
