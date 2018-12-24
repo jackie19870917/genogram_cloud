@@ -170,7 +170,7 @@ public class FanNewsUploadTreeFileController {
 
         //存储电子谱预览地址
         //http://192.168.2.122:8083/fileConventer?filePath=http://47.105.17 7.1:6090/00/01/rB_QCFwXNg-AdtcNAABhJxiBuv8808.doc
-        fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP+fanNewsUploadTreeFile.getFilePath());
+        fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + fanNewsUploadTreeFile.getFilePath());
 
         Boolean result = fanNewsUploadTreeFileService.insertOrUpdateFanNewsUploadTreeFile(fanNewsUploadTreeFile);
 

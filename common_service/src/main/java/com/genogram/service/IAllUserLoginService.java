@@ -116,6 +116,7 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
 
     /**
      * 根据openId查询用户
+     *
      * @param openId
      * @return
      */

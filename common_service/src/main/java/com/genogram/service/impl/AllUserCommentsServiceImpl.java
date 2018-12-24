@@ -357,45 +357,45 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
             FanSysCharitableDeclare fanSysCharitableDeclare = fanSysCharitableDeclareService.selectById(allUserComments.getTopicId());
             fanSysCharitableDeclare.setCommentCount(fanSysCharitableDeclare.getCommentCount() + 1);
             fanSysCharitableDeclareService.updateAllColumnById(fanSysCharitableDeclare);
-        }else if ("ProNewsCharityOut".equals(allUserComments.getEntityName())) {
+        } else if ("ProNewsCharityOut".equals(allUserComments.getEntityName())) {
             //省级家族慈善财务收支
             ProNewsCharityOut proNewsCharityOut = proNewsCharityOutService.selectById(allUserComments.getTopicId());
-            proNewsCharityOut.setCommentCount(proNewsCharityOut.getCommentCount()+1);
+            proNewsCharityOut.setCommentCount(proNewsCharityOut.getCommentCount() + 1);
             proNewsCharityOutService.updateAllColumnById(proNewsCharityOut);
-        }else if ("ProNewsCharityPayIn".equals(allUserComments.getEntityName())) {
+        } else if ("ProNewsCharityPayIn".equals(allUserComments.getEntityName())) {
             //省级慈善公益捐款人
             ProNewsCharityPayIn proNewsCharityPayIn = proNewsCharityPayInService.selectById(allUserComments.getTopicId());
-            proNewsCharityPayIn.setCommentCount(proNewsCharityPayIn.getCommentCount()+1);
+            proNewsCharityPayIn.setCommentCount(proNewsCharityPayIn.getCommentCount() + 1);
             proNewsCharityPayInService.updateAllColumnById(proNewsCharityPayIn);
-        }else if ("ProNewsCultureNews".equals(allUserComments.getEntityName())) {
+        } else if ("ProNewsCultureNews".equals(allUserComments.getEntityName())) {
             //省级家族文化
             ProNewsCultureNews proNewsCultureNews = proNewsCultureNewsService.selectById(allUserComments.getTopicId());
-            proNewsCultureNews.setCommentCount(proNewsCultureNews.getCommentCount()+1);
+            proNewsCultureNews.setCommentCount(proNewsCultureNews.getCommentCount() + 1);
             proNewsCultureNewsService.updateAllColumnById(proNewsCultureNews);
-        }else if ("ProNewsCultureZipai".equals(allUserComments.getEntityName())) {
+        } else if ("ProNewsCultureZipai".equals(allUserComments.getEntityName())) {
             //省级家族文化字派
             ProNewsCultureZipai proNewsCultureZipai = proNewsCultureZipaiService.selectById(allUserComments.getTopicId());
-            proNewsCultureZipai.setCommentCount(proNewsCultureZipai.getCommentCount()+1);
+            proNewsCultureZipai.setCommentCount(proNewsCultureZipai.getCommentCount() + 1);
             proNewsCultureZipaiService.updateAllColumnById(proNewsCultureZipai);
-        }else if ("ProNewsFamilyRecord".equals(allUserComments.getEntityName())) {
+        } else if ("ProNewsFamilyRecord".equals(allUserComments.getEntityName())) {
             //省级记录家族_文章
             ProNewsFamilyRecord proNewsFamilyRecord = proNewsFamilyRecordService.selectById(allUserComments.getTopicId());
-            proNewsFamilyRecord.setCommentCount(proNewsFamilyRecord.getCommentCount()+1);
+            proNewsFamilyRecord.setCommentCount(proNewsFamilyRecord.getCommentCount() + 1);
             proNewsFamilyRecordService.updateAllColumnById(proNewsFamilyRecord);
-        }else if ("ProNewsFamilyRecordVedio".equals(allUserComments.getEntityName())) {
+        } else if ("ProNewsFamilyRecordVedio".equals(allUserComments.getEntityName())) {
             //省级记录家族_视频
             ProNewsFamilyRecordVedio proNewsFamilyRecordVedio = proNewsFamilyRecordVedioService.selectById(allUserComments.getTopicId());
-            proNewsFamilyRecordVedio.setCommentCount(proNewsFamilyRecordVedio.getCommentCount()+1);
+            proNewsFamilyRecordVedio.setCommentCount(proNewsFamilyRecordVedio.getCommentCount() + 1);
             proNewsFamilyRecordVedioService.updateAllColumnById(proNewsFamilyRecordVedio);
-        }else if ("ProNewsFamousAncestor".equals(allUserComments.getEntityName())) {
+        } else if ("ProNewsFamousAncestor".equals(allUserComments.getEntityName())) {
             //省级祖先分支
             ProNewsFamousAncestor proNewsFamousAncestor = proNewsFamousAncestorService.selectById(allUserComments.getTopicId());
-            proNewsFamousAncestor.setCommentCount(proNewsFamousAncestor.getCommentCount()+1);
+            proNewsFamousAncestor.setCommentCount(proNewsFamousAncestor.getCommentCount() + 1);
             proNewsFamousAncestorService.updateAllColumnById(proNewsFamousAncestor);
-        }else if ("ProNewsFamousPerson".equals(allUserComments.getEntityName())) {
+        } else if ("ProNewsFamousPerson".equals(allUserComments.getEntityName())) {
             //省级家族名人
             ProNewsFamousPerson proNewsFamousPerson = proNewsFamousPersonService.selectById(allUserComments.getTopicId());
-            proNewsFamousPerson.setCommentCount(proNewsFamousPerson.getCommentCount()+1);
+            proNewsFamousPerson.setCommentCount(proNewsFamousPerson.getCommentCount() + 1);
             proNewsFamousPersonService.updateAllColumnById(proNewsFamousPerson);
         }
 
