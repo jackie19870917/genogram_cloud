@@ -25,6 +25,7 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -498,13 +499,14 @@ public class PayController {
             if (1 == anonymous) {
                 userLogin.setId(1);
             } else {
-                if (StringUtils.isEmpty(token)) {
-                    return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
-                } else {
+                if (!StringUtils.isEmpty(token)) {
                     userLogin = userService.getUserLoginInfoByToken(token);
+                    System.out.println("炎黄統譜网");
+                } else {
+                    return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
 
-                    userLogin.setOpenId(openId);
-                    allUserLoginService.updateUserLogin(userLogin);
+                    /*userLogin.setOpenId(openId);
+                    allUserLoginService.updateUserLogin(userLogin);*/
                 }
             }
 
@@ -597,6 +599,7 @@ public class PayController {
             String openId = oauth2Token.getOpenId();
 
             HttpSession session = request.getSession();
+            session.invalidate();
             session.setAttribute("accessToken", accessToken);
             session.setAttribute("openId", openId);
             System.out.println(openId);
@@ -609,8 +612,11 @@ public class PayController {
 
             //具体业务end
 
+            byte[] bytes = Base64.encodeBase64(openId.getBytes(), true);
+            openId = new String(bytes);
+
             // String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
-            String url = "http://yhtpw.com/mobile/";
+            String url = "http://yhtpw.com/mobile?openId=" + openId;
 
             response.sendRedirect(url);
         }
