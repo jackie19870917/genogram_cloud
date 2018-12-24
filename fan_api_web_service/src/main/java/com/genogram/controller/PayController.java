@@ -582,10 +582,12 @@ public class PayController {
         return null;
     }
 
+    @ApiOperation("入口")
     @RequestMapping(value = "go", method = RequestMethod.GET)
     public void go(@ApiParam("访问编号") @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         HttpSession session = request.getSession();
+        log.info("code:  "+code);
         session.setAttribute("codeNo", code);
 
         response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
@@ -597,6 +599,7 @@ public class PayController {
         // 用户同意授权后，能获取到code
         String code = request.getParameter("code");
         String codeNo = (String) request.getSession().getAttribute("codeNo");
+        log.info("codeNo:  "+codeNo);
         System.out.println("****************code:" + code);
 
         /**
