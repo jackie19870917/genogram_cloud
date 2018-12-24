@@ -499,7 +499,11 @@ public class PayController {
             if (1 == anonymous) {
                 userLogin.setId(1);
             } else {
-                System.out.println(token);
+
+                if (token.split("").equals("undefined")) {
+                    token = "";
+                }
+
                 if (StringUtils.isEmpty(token)) {
                     return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
                 } else {
