@@ -48,9 +48,9 @@ public class PersonController {
 
     @ApiOperation(value = "根据编号查询", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,fanUrlCode-访问编号")
     @RequestMapping(value = "getSysSiteByCode", method = RequestMethod.POST)
-    public Response<FanSysSite> getSysSiteByCode(@ApiParam("访问编号") @RequestParam("code") String code) {
+    public Response<FanSysSite> getSysSiteByCode(@ApiParam("访问编号") @RequestParam("fanUrlCode") String fanUrlCode) {
 
-        FanSysSite fanSysSite = fanSysSiteService.getFanSysSiteByCode(code);
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSiteByCode(fanUrlCode);
 
         if (StringUtils.isEmpty(fanSysSite)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);
