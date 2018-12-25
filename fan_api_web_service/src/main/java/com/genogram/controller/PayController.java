@@ -500,9 +500,10 @@ public class PayController {
             AllUserLogin userLogin = new AllUserLogin();
 
             if (1 == anonymous) {
+                log.info("anonymousNo1="+anonymous);
                 userLogin.setId(1);
             } else {
-
+                log.info("anonymousNo2="+anonymous);
                 String undefined = "undefined";
                 if (token.equals(undefined)) {
                     token = "";
@@ -646,6 +647,8 @@ public class PayController {
             // 具体业务start
 
             // 具体业务end
+
+
 
             // String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo01 + "&openId=" + openId;
             //String url = "http://yhtpw.com/mobile";
