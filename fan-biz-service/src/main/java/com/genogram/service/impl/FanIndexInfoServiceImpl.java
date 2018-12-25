@@ -2,10 +2,12 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.genogram.entity.AllFamily;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.mapper.FanIndexInfoMapper;
+import com.genogram.service.IAllFamilyService;
 import com.genogram.service.IFanIndexInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanSysSiteService;
@@ -31,6 +33,9 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     @Autowired
     private IFanSysSiteService fanSysSiteService;
 
+    @Autowired
+    private IAllFamilyService allFamilyService;
+
     @Override
     public FanIndexInfo getFanIndexInfo(Integer siteId) {
 
@@ -49,6 +54,8 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         BeanUtils.copyProperties(fanIndexInfo, indexInfoVo);
         indexInfoVo.setSiteName(fanSysSite.getName());
         indexInfoVo.setRegionCode(fanSysSite.getRegionCode());
+        AllFamily family = allFamilyService.getAllFamilyById(fanSysSite.getFamilyCode());
+        indexInfoVo.setFamilyName(family.getValue());
 
         return indexInfoVo;
     }

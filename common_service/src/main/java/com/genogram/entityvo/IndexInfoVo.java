@@ -55,6 +55,10 @@ public class IndexInfoVo {
      */
     private String siteName;
     /**
+     * 姓氏
+     */
+    private String familyName;
+    /**
      * 地区编号
      */
     private String regionCode;
