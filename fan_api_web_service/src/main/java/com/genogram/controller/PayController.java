@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,7 +50,7 @@ import static com.genogram.unit.WeChatConstant.TOKEN;
  * @date 2016/10/31
  */
 @Api(description = "支付")
-@Controller
+@RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/pay")
 public class PayController {
@@ -87,7 +86,6 @@ public class PayController {
 
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
-    @ResponseBody
     public Response<FanNewsCharityPayIn> aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
                                                 @ApiParam("网站ID") @RequestParam Integer siteId,
                                                 @ApiParam("token") @RequestParam(value = "token", required = false) String token,
@@ -161,7 +159,6 @@ public class PayController {
     }
 
     @RequestMapping(value = "/return_url")
-    @ResponseBody
     public void aLiPayReturnNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         log.info("支付成功, 进入同步通知接口...");
@@ -233,7 +230,6 @@ public class PayController {
     }
 
     @RequestMapping("/notify_url")
-    @ResponseBody
     public String aLiPayNotifyNotice(HttpServletRequest request) throws Exception {
 
         log.info("支付成功, 进入异步通知接口...");
@@ -316,7 +312,6 @@ public class PayController {
     }
 
     @ApiOperation("微信支付")
-    @ResponseBody
     @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
     public Response weChatPay(HttpServletRequest request,
                               FanNewsCharityPayIn fanNewsCharityPayIn,
@@ -382,7 +377,6 @@ public class PayController {
     }
 
     @ApiOperation("查询订单请求")
-    @ResponseBody
     @RequestMapping(value = "getFanNewsCharityPayIn", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> getFanNewsCharityPayIn(@ApiParam("订单号") @RequestParam("outTradeNo") String outTradeNo) {
 
@@ -406,7 +400,6 @@ public class PayController {
 
     @ApiOperation("微信支付完成后的回调")
     @RequestMapping("callBack")
-    @ResponseBody
     public void callBack(HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
 
         InputStream is = request.getInputStream();
@@ -480,7 +473,6 @@ public class PayController {
      * @return
      */
     @ApiOperation("微信公众号支付")
-    @ResponseBody
     @RequestMapping(value = "orders", method = RequestMethod.POST)
     public Response orders(HttpServletRequest request,
                            FanNewsCharityPayIn fanNewsCharityPayIn,
@@ -592,51 +584,37 @@ public class PayController {
 
     @ApiOperation("入口")
     @RequestMapping(value = "go", method = RequestMethod.GET)
-    public String go(@ApiParam("访问编号") @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void go(@ApiParam("访问编号") @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         Cookie cookie = new Cookie("codeNo", code);
 
-        cookie.setMaxAge(60 * 60);   //存活期为一个月 30*24*60*60
+        cookie.setMaxAge(60*60);   //存活期为一个月 30*24*60*60
+        cookie.setPath("/");
         response.addCookie(cookie);
-        System.out.println(cookie);
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie01 : cookies) {
-            if (cookie01.getName().equals("codeNo")) {
-                String s = cookie.getValue();
-                log.info("s1=" + s);
-                System.out.println(s);
-            }
-        }
-/*
+
         HttpSession session = request.getSession();
         log.info("code:  " + code);
         session.setAttribute("codeNo", code);
-        request.setAttribute("codeNo", code);*/
-        return "Hello";
-        //  request.getRequestDispatcher("/hello.html").forward(request, response);
+        request.setAttribute("codeNo", code);
+        // request.getRequestDispatcher("https://www.baidu.com").forward(request, response);
         // request.getRequestDispatcher("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect").forward(request, response);
-        //response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+        response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+    }
+
+    @ApiOperation("默认请求")
+    @RequestMapping(value = "GO", method = RequestMethod.GET)
+    public Response Go()  {
+
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+        return ResponseUtlis.success(url);
     }
 
     @ApiOperation("回调")
-    @ResponseBody
     @RequestMapping("oauth2WeChat")
-    public void oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public Response oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 用户同意授权后，能获取到code
         String code = request.getParameter("code");
-     /*   String codeNo01 = (String) request.getAttribute("codeNo");
-        String codeNo = (String) request.getSession().getAttribute("codeNo");
-        log.info("codeNo:  " + codeNo);
-        System.out.println("code:" + code);*/
 
-        String s = null;
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("codeNo")) {
-                s = cookie.getValue();
-                log.info("s2=" + s);
-            }
-        }
         /**
          *  用户同意授权
          */
@@ -669,10 +647,13 @@ public class PayController {
             byte[] bytes = Base64.encodeBase64(openId.getBytes(), true);
             openId = new String(bytes);
 
-            String url = "http://yhtpw.com/mobile/#/base?code=" + s + "&openId=" + openId;
+            // String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo01 + "&openId=" + openId;
             //String url = "http://yhtpw.com/mobile";
-            log.info(url);
-            response.sendRedirect(url);
+            //log.info(url);
+            // response.sendRedirect(url);
+            return ResponseUtlis.success(openId);
+        } else {
+            return null;
         }
     }
 
@@ -760,7 +741,6 @@ public class PayController {
     }
 
     @ApiOperation("微信验证")
-    @ResponseBody
     @RequestMapping("contactWeChat")
     public void contactWeChat(HttpServletRequest request,
                               HttpServletResponse response) {
