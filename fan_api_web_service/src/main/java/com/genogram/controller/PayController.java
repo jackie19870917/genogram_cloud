@@ -591,6 +591,13 @@ public class PayController {
         cookie.setMaxAge(60 * 60);   //存活期为一个月 30*24*60*60
         response.addCookie(cookie);
         System.out.println(cookie);
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie01 : cookies) {
+            if (cookie01.getName().equals("codeNo")) {
+               String s = cookie.getValue();
+                log.info("s="+s);
+            }
+        }
 /*
         HttpSession session = request.getSession();
         log.info("code:  " + code);
