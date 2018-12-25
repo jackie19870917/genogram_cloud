@@ -141,11 +141,6 @@ public class UserLoginController {
             return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
         }
 
-       /* HttpSession session = request.getSession();
-        String openId = (String) session.getAttribute("openId");
-        System.out.println("openId:" + openId);
-        allUserLogin.setOpenId(openId);*/
-
         openId = new String(Base64.decodeBase64(openId));
         allUserLogin.setOpenId(openId);
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);

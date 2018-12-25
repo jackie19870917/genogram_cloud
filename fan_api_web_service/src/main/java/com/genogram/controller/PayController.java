@@ -254,9 +254,10 @@ public class PayController {
         // ——请在这里编写您的程序（以下代码仅作参考）——
 
         /*
-         * 实际验证过程建议商户务必添加以下校验： 1、需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
-         * 2、判断total_amount是否确实为该订单的实际金额（即商户订单创建时的金额）， 3、校验通知中的seller_id（或者seller_email)
-         * 是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）
+         * 实际验证过程建议商户务必添加以下校验：
+         * 1、需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
+         * 2、判断total_amount是否确实为该订单的实际金额（即商户订单创建时的金额），
+         * 3、校验通知中的seller_id（或者seller_email)是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）
          * 4、验证app_id是否为该商户本身。
          */
         // 验证成功
@@ -354,7 +355,6 @@ public class PayController {
 
         fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
 
-
         // 回调地址
         String callback = new PayConfig().getNotifyUrl();
 
@@ -379,7 +379,6 @@ public class PayController {
     @RequestMapping(value = "getFanNewsCharityPayIn", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> getFanNewsCharityPayIn(@ApiParam("订单号") @RequestParam("outTradeNo") String outTradeNo) {
 
-
         FanNewsCharityPayIn fanNewsCharityPayIn = new FanNewsCharityPayIn();
 
         fanNewsCharityPayIn.setOrderId(outTradeNo);
@@ -398,6 +397,7 @@ public class PayController {
         }
     }
 
+    @ApiOperation("微信支付完成后的回调")
     @RequestMapping("callBack")
     public void callBack(HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
 
@@ -433,7 +433,6 @@ public class PayController {
         fanNewsCharityPayIn.setOrderId(outTradeNo);
         fanNewsCharityPayIn = fanNewsCharityPayInService.selectOne(fanNewsCharityPayIn);
 
-
         Integer status = 2;
         if (fanNewsCharityPayIn.getStatus().equals(status)) {
 
@@ -454,7 +453,6 @@ public class PayController {
 
         fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
 
-
         //给微信返回支付成功结果
         String responseStr = "<xml>";
         responseStr += "<return_code><![CDATA[SUCCESS]]></return_code>";
@@ -462,13 +460,16 @@ public class PayController {
 
         response.getWriter().write(responseStr);
         System.out.println("responseStr2:" + responseStr);
-
     }
 
-    /**
+    /***
+     * 微信浏览器内微信支付/公众号支付(JSAPI)
      * @param request
-     * @return Map
-     * @Description 微信浏览器内微信支付/公众号支付(JSAPI)
+     * @param fanNewsCharityPayIn
+     * @param siteId
+     * @param token
+     * @param anonymous
+     * @return
      */
     @ApiOperation("微信公众号支付")
     @RequestMapping(value = "orders", method = RequestMethod.POST)
@@ -600,40 +601,41 @@ public class PayController {
         String codeNo01 = (String) request.getAttribute("codeNo");
         String codeNo = (String) request.getSession().getAttribute("codeNo");
         log.info("codeNo:  " + codeNo);
-        System.out.println("****************code:" + code);
+        System.out.println("code:" + code);
 
         /**
          *  用户同意授权
          */
-        String authdney = "authdeny";
-        if (!authdney.equals(code)) {
+        String authdeny = "authdeny";
+        if (!authdeny.equals(code)) {
             // 获取网页授权access_token
             Oauth2Token oauth2Token = getOauth2AccessToken(WeChatConfig.APP_ID, WeChatConfig.APP_SECRET, code);
-            System.out.println("***********************************oauth2Token信息：" + oauth2Token.toString());
+            System.out.println("oauth2Token信息：" + oauth2Token.toString());
+
             // 网页授权接口访问凭证
             String accessToken = oauth2Token.getAccessToken();
-            // 用户标识
 
+            // 用户标识
             String openId = oauth2Token.getOpenId();
 
             HttpSession session = request.getSession();
             session.setAttribute("accessToken", accessToken);
             session.setAttribute("openId", openId);
+
             System.out.println(openId);
             // 获取用户信息
             //SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
             // System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
             // 设置要传递的参数
 
-            //具体业务start
+            // 具体业务start
 
-            //具体业务end
+            // 具体业务end
 
             byte[] bytes = Base64.encodeBase64(openId.getBytes(), true);
             openId = new String(bytes);
 
-            // String url = "http://www.yhtpw.com/biddd?from=login&tokenId=" + snsUserInfo.getUnionid();
-            String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo + "&openId=" + openId;
+            String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo01 + "&openId=" + openId;
             //String url = "http://yhtpw.com/mobile";
             log.info(url);
             response.sendRedirect(url);
