@@ -502,6 +502,12 @@ public class PayController {
             if (1 == anonymous) {
                 userLogin.setId(1);
             } else {
+
+                String undefined = "undefined";
+                if (token.equals(undefined)) {
+                    token = "";
+                }
+
                 if (StringUtils.isEmpty(token)) {
                     return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
                 } else {
