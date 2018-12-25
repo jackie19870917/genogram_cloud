@@ -588,7 +588,7 @@ public class PayController {
 
         Cookie cookie = new Cookie("codeNo", code);
 
-        cookie.setMaxAge(60*60);   //存活期为一个月 30*24*60*60
+        cookie.setMaxAge(60 * 60);   //存活期为一个月 30*24*60*60
         cookie.setPath("/");
         response.addCookie(cookie);
 
@@ -603,7 +603,7 @@ public class PayController {
 
     @ApiOperation("默认请求")
     @RequestMapping(value = "GO", method = RequestMethod.GET)
-    public Response Go()  {
+    public Response Go() {
 
         String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
         return ResponseUtlis.success(url);
@@ -630,6 +630,9 @@ public class PayController {
             // 用户标识
             String openId = oauth2Token.getOpenId();
 
+            byte[] bytes = Base64.encodeBase64(openId.getBytes(), true);
+            openId = new String(bytes);
+
             HttpSession session = request.getSession();
             session.setAttribute("accessToken", accessToken);
             session.setAttribute("openId", openId);
@@ -644,14 +647,11 @@ public class PayController {
 
             // 具体业务end
 
-            byte[] bytes = Base64.encodeBase64(openId.getBytes(), true);
-            openId = new String(bytes);
-
             // String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo01 + "&openId=" + openId;
             //String url = "http://yhtpw.com/mobile";
             //log.info(url);
             // response.sendRedirect(url);
-           // return ResponseUtlis.success(openId);
+            // return ResponseUtlis.success(openId);
         }
     }
 

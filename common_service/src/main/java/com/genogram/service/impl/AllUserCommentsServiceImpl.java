@@ -121,7 +121,7 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                 if (null == commentVoList || commentVoList.size() == 0) {
                     commentVoList = new ArrayList<CommentVo>();
                 }
-                AllUserLogin UserLogin=allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
+                AllUserLogin UserLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
                 commentVo.setId(allUserComments.getId());
                 commentVo.setUserName(UserLogin.getUserName());
                 commentVo.setNickName(UserLogin.getNickName());
@@ -133,7 +133,7 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                 if (!StringUtils.isEmpty(allUserReplylist)) {
                     commentToReplyVoList = new ArrayList<CommentVo>();
                     for (AllUserReply allUserReply : allUserReplylist) {
-                        UserLogin=allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
+                        UserLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
                         commentToReplyVo = new CommentVo();
                         commentToReplyVo.setId(allUserReply.getId());
                         commentToReplyVo.setUserName(UserLogin.getUserName());
@@ -152,7 +152,7 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                                     Integer tempId = allUserReply.getReplyId();
                                     if (tempId.equals(parent.getId())) {
                                         //回复的回复
-                                        UserLogin=allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
+                                        UserLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
                                         replyToReplyVo = new CommentVo();
                                         replyToReplyVo.setId(allUserReply.getId());
                                         replyToReplyVo.setUserName(UserLogin.getUserName());
@@ -175,7 +175,7 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                                                 for (CommentVo cv : commentVoListParent) {
                                                     if (tempId.equals(cv.getId())) {
                                                         //回复的回复
-                                                        UserLogin=allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
+                                                        UserLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
                                                         replyToReplyVo = new CommentVo();
                                                         replyToReplyVo.setId(allUserReply.getId());
                                                         replyToReplyVo.setUserName(UserLogin.getUserName());

@@ -50,9 +50,9 @@ public class AllUserCommentsController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "serviceName为空");
         }
         List<CommentVo> commentVoList = allUserCommentsService.getAllUserComments(topicId, entityName);
-        if(StringUtils.isEmpty(commentVoList)){
+        if (StringUtils.isEmpty(commentVoList)) {
             return ResponseUtlis.error(Constants.IS_EMPTY, "评论为空");
-        }else{
+        } else {
             return ResponseUtlis.success(commentVoList);
         }
 

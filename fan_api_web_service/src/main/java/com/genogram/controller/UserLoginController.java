@@ -7,6 +7,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.AllFamily;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.AllUserReg;
+import com.genogram.entityvo.PersonVo;
 import com.genogram.entityvo.UserVo;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IAllUserRegService;
@@ -18,12 +19,13 @@ import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +45,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("genogram/userLogin")
-public class FanUserLoginController {
+public class UserLoginController {
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
@@ -56,14 +58,16 @@ public class FanUserLoginController {
 
     /**
      * 登陆
-     * // @param allUserLogin
      *
+     * @param userName
+     * @param password
      * @return
      */
     @ApiOperation(value = "登陆", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Response<UserVo> getAllUserLogin(@ApiParam("用户名") @RequestParam String userName,
-                                            @ApiParam("密码") @RequestParam String password) {
+                                            @ApiParam("密码") @RequestParam String password,
+                                            HttpServletRequest request) {
 
         AllUserLogin allUserLogin = new AllUserLogin();
         allUserLogin.setMobilePhone(userName);
@@ -76,9 +80,15 @@ public class FanUserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                UserVo userVo = getPersonVo(userLogin);
+                String opedId = (String) request.getSession().getAttribute("opedId");
+                opedId = new String(Base64.decodeBase64(opedId));
+                userLogin.setOpenId(opedId);
 
-                return ResponseUtlis.success(userVo);
+                allUserLoginService.insertAllUserLogin(userLogin);
+
+                PersonVo personVo = getPersonVo(userLogin);
+
+                return ResponseUtlis.success(personVo);
             } else {
                 return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名或密码错误");
             }
@@ -101,9 +111,9 @@ public class FanUserLoginController {
         return ResponseUtlis.success(familyList);
     }
 
-    String message;
+    String message = null;
 
-    @ApiOperation("短信验证吗")
+    @ApiOperation("短信验证码")
     @RequestMapping(value = "sendVerificationCode", method = RequestMethod.POST)
     public Response sendVerificationCode(@ApiParam("手机号") @RequestParam("mobilePhone") String mobilePhone) throws IOException, ClientException {
 
@@ -124,18 +134,19 @@ public class FanUserLoginController {
      */
     @ApiOperation(value = "注册", notes = "userName:用户名,mobilePhone:手机号,password:密码,familyCode:姓氏,regionCode:地区")
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
-    public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin,
+    public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin, HttpServletRequest request,
                                                      @ApiParam("验证码") @RequestParam("verificationCode") String verificationCode) {
 
         if (!verificationCode.equals(message)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
         }
 
+        String opedId = (String) request.getSession().getAttribute("opedId");
+        opedId = new String(Base64.decodeBase64(opedId));
+        allUserLogin.setOpenId(opedId);
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
 
         if (!StringUtils.isEmpty(userLogin)) {
-
-            UserVo userVo = getPersonVo(userLogin);
 
             AllUserReg allUserReg = new AllUserReg();
             allUserReg.setAllUserLoginId(userLogin.getId());
@@ -143,14 +154,16 @@ public class FanUserLoginController {
 
             allUserRegService.insertAllUserReg(allUserReg);
 
-            return ResponseUtlis.success(userVo);
+            PersonVo personVo = getPersonVo(userLogin);
+
+            return ResponseUtlis.success(personVo);
 
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名已注册");
         }
     }
 
-    private UserVo getPersonVo(AllUserLogin allUserLogin) {
+    private PersonVo getPersonVo(AllUserLogin allUserLogin) {
         Map<String, Object> map = new HashMap(16);
 
         String time = DateUtil.getAllTime();
@@ -163,10 +176,35 @@ public class FanUserLoginController {
         byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
         String str = new String(bytes);
 
-        UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(allUserLogin, userVo);
-        userVo.setToken(str);
-        return userVo;
+        PersonVo personVo = allUserRegService.getAllUserRegByUserId(allUserLogin.getId());
+
+        BeanUtils.copyProperties(allUserLogin, personVo);
+        personVo.setToken(str);
+
+        return personVo;
+    }
+
+    @ApiOperation("忘了密码")
+    @RequestMapping(value = "forgetPassword", method = RequestMethod.POST)
+    public Response<AllUserLogin> rebuiltPassword(@ApiParam("验证码") @RequestParam("verificationCode") String verificationCode,
+                                                  @ApiParam("手机号") @RequestParam("mobilePhone") String mobilePhone,
+                                                  @ApiParam("新密码") @RequestParam("password") String password) {
+
+        if (!verificationCode.equals(message)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
+        }
+
+        AllUserLogin allUserLogin = new AllUserLogin();
+        allUserLogin.setMobilePhone(mobilePhone);
+
+        AllUserLogin userLogin = allUserLoginService.getAllUserLogin(allUserLogin);
+
+        allUserLogin.setId(userLogin.getId());
+        allUserLogin.setPassword(password);
+
+        allUserLoginService.updateAllUserLogin(allUserLogin);
+
+        return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
     }
 
     @ApiOperation("修改密码")
@@ -254,13 +292,13 @@ public class FanUserLoginController {
         byte[] bytes = Base64.encodeBase64(map.toString().getBytes(), true);
         String str = new String(bytes);
 
-        UserVo userVo = new UserVo();
-        BeanUtils.copyProperties(allUserLogin, userVo);
+        PersonVo personVo = allUserRegService.getAllUserRegByUserId(allUserLogin.getId());
 
-        userVo.setToken(str);
+        BeanUtils.copyProperties(allUserLogin, personVo);
+        personVo.setToken(str);
 
         if (result) {
-            return ResponseUtlis.success(userVo);
+            return ResponseUtlis.success(personVo);
         } else {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
