@@ -591,11 +591,11 @@ public class PayController {
         cookie.setMaxAge(60 * 60);   //存活期为一个月 30*24*60*60
         response.addCookie(cookie);
         System.out.println(cookie);
-
+/*
         HttpSession session = request.getSession();
         log.info("code:  " + code);
         session.setAttribute("codeNo", code);
-        request.setAttribute("codeNo", code);
+        request.setAttribute("codeNo", code);*/
         // request.getRequestDispatcher("https://www.baidu.com").forward(request, response);
         // request.getRequestDispatcher("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect").forward(request, response);
         response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
@@ -606,10 +606,10 @@ public class PayController {
     public void oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 用户同意授权后，能获取到code
         String code = request.getParameter("code");
-        String codeNo01 = (String) request.getAttribute("codeNo");
+     /*   String codeNo01 = (String) request.getAttribute("codeNo");
         String codeNo = (String) request.getSession().getAttribute("codeNo");
         log.info("codeNo:  " + codeNo);
-        System.out.println("code:" + code);
+        System.out.println("code:" + code);*/
 
         String s = null;
         Cookie[] cookies = request.getCookies();
