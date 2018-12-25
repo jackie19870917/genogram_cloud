@@ -50,7 +50,12 @@ public class AllUserCommentsController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "serviceName为空");
         }
         List<CommentVo> commentVoList = allUserCommentsService.getAllUserComments(topicId, entityName);
-        return ResponseUtlis.success(commentVoList);
+        if(StringUtils.isEmpty(commentVoList)){
+            return ResponseUtlis.error(Constants.IS_EMPTY, "评论为空");
+        }else{
+            return ResponseUtlis.success(commentVoList);
+        }
+
     }
 
     @ApiOperation(value = "添加评论", notes = "allUserComments-评论实体")
