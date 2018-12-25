@@ -511,9 +511,6 @@ public class PayController {
                 } else {
                     userLogin = userService.getUserLoginInfoByToken(token);
 
-
-                    /*userLogin.setOpenId(openId);
-                    allUserLoginService.updateUserLogin(userLogin);*/
                 }
             }
 
@@ -588,11 +585,11 @@ public class PayController {
     public void go(@ApiParam("访问编号") @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HttpSession session = request.getSession();
-        log.info("code:  "+code);
+        log.info("code:  " + code);
         session.setAttribute("codeNo", code);
-
-        request.getRequestDispatcher("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect").forward(request,response);
-       // response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+        request.setAttribute("codeNo", code);
+        request.getRequestDispatcher("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect").forward(request, response);
+        // response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
     }
 
     @ApiOperation("回调")
@@ -600,8 +597,9 @@ public class PayController {
     public void oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 用户同意授权后，能获取到code
         String code = request.getParameter("code");
+        String codeNo01 = (String) request.getAttribute("codeNo");
         String codeNo = (String) request.getSession().getAttribute("codeNo");
-        log.info("codeNo:  "+codeNo);
+        log.info("codeNo:  " + codeNo);
         System.out.println("****************code:" + code);
 
         /**
