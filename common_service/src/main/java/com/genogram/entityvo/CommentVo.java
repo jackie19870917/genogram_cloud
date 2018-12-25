@@ -20,6 +20,10 @@ public class CommentVo {
      * 用户名
      */
     private String userName;
+
+    private String nickName;
+
+    private String picSrc;
     /**
      * 评论内容
      */
