@@ -32,6 +32,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -585,12 +586,19 @@ public class PayController {
     @RequestMapping(value = "go", method = RequestMethod.GET)
     public void go(@ApiParam("访问编号") @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        Cookie cookie = new Cookie("codeNo", code);
+
+        cookie.setMaxAge(60 * 60);   //存活期为一个月 30*24*60*60
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
         HttpSession session = request.getSession();
         log.info("code:  " + code);
         session.setAttribute("codeNo", code);
         request.setAttribute("codeNo", code);
-        request.getRequestDispatcher("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect").forward(request, response);
-        // response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
+        // request.getRequestDispatcher("https://www.baidu.com").forward(request, response);
+        // request.getRequestDispatcher("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect").forward(request, response);
+        response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
     }
 
     @ApiOperation("回调")
@@ -603,6 +611,13 @@ public class PayController {
         log.info("codeNo:  " + codeNo);
         System.out.println("code:" + code);
 
+        String s = null;
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("codeNo")) {
+                s = cookie.getValue();
+            }
+        }
         /**
          *  用户同意授权
          */
@@ -635,7 +650,7 @@ public class PayController {
             byte[] bytes = Base64.encodeBase64(openId.getBytes(), true);
             openId = new String(bytes);
 
-            String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo01 + "&openId=" + openId;
+            String url = "http://yhtpw.com/mobile/#/base?code=" + s + "&openId=" + openId;
             //String url = "http://yhtpw.com/mobile";
             log.info(url);
             response.sendRedirect(url);
