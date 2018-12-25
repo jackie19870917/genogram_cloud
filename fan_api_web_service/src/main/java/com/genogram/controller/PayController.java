@@ -616,6 +616,7 @@ public class PayController {
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("codeNo")) {
                 s = cookie.getValue();
+                log.info("s="+s);
             }
         }
         /**
