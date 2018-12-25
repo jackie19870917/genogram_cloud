@@ -603,7 +603,7 @@ public class PayController {
         for (Cookie cookie01 : cookies) {
             if (cookie01.getName().equals("codeNo")) {
                 String s = cookie.getValue();
-                log.info("s=" + s);
+                log.info("s1=" + s);
                 System.out.println(s);
             }
         }
@@ -612,7 +612,7 @@ public class PayController {
         log.info("code:  " + code);
         session.setAttribute("codeNo", code);
         request.setAttribute("codeNo", code);*/
-        return "hello";
+        return "Hello";
         //  request.getRequestDispatcher("/hello.html").forward(request, response);
         // request.getRequestDispatcher("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect").forward(request, response);
         //response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
@@ -634,7 +634,7 @@ public class PayController {
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("codeNo")) {
                 s = cookie.getValue();
-                log.info("s=" + s);
+                log.info("s2=" + s);
             }
         }
         /**
