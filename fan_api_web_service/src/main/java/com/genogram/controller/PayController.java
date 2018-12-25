@@ -611,7 +611,7 @@ public class PayController {
 
     @ApiOperation("回调")
     @RequestMapping("oauth2WeChat")
-    public Response oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 用户同意授权后，能获取到code
         String code = request.getParameter("code");
 
@@ -651,9 +651,7 @@ public class PayController {
             //String url = "http://yhtpw.com/mobile";
             //log.info(url);
             // response.sendRedirect(url);
-            return ResponseUtlis.success(openId);
-        } else {
-            return null;
+           // return ResponseUtlis.success(openId);
         }
     }
 
