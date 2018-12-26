@@ -75,11 +75,11 @@ public final class Constants {
     /**
      * 电子谱预览地址
      */
-    //http://192.168.2.122:8083/fileConventer?filePath=http://47.105.177.1:6090/00/01/rB_QCFwXNg-AdtcNAABhJxiBuv8808.doc
+    //http://192.168.2.122:8000/fileConventer?filePath=http://47.105.177.1:6090/00/01/rB_QCFwXNg-AdtcNAABhJxiBuv8808.doc
     /**
      * 本地电子谱预览地址
      */
-    public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP = "http://192.168.2.122:8083/fileConventer?filePath=http://192.168.2.179:6090/";
+    public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP = "http://192.168.2.179:8000/fileConventer?filePath=http://192.168.2.179:6090/";
     //阿里云 47.105.177.1:6090/
-    //public static final String a="http://47.105.177.1:8083/fileConventer?filePath=http://192.168.2.179:6090/";
+    //public static final String a="http://47.105.177.1:8000/fileConventer?filePath=http://192.168.2.179:6090/";
 }
