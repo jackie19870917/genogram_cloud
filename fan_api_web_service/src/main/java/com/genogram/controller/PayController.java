@@ -160,8 +160,7 @@ public class PayController {
         }
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/return_url")
+    @RequestMapping("return_url")
     public void aLiPayReturnNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         log.info("支付成功, 进入同步通知接口...");
@@ -232,7 +231,6 @@ public class PayController {
 
     }
 
-    @ResponseBody
     @RequestMapping("/notify_url")
     public String aLiPayNotifyNotice(HttpServletRequest request) throws Exception {
 

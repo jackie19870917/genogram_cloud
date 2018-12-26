@@ -80,6 +80,7 @@ public class FanIndexController {
     @ApiOperation(value = "轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "getFanIndexSlidePicList", method = RequestMethod.POST)
     public Response<FanIndexSlidePic> getFanIndexSlidePicList(@ApiParam("网站Id") @RequestParam Integer siteId,
+                                                              @ApiParam("属性属性(1-pc端,2-移动端)") @RequestParam(value = "classes",defaultValue = "1") Integer classes,
                                                               @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
@@ -109,7 +110,7 @@ public class FanIndexController {
         list.add(1);
         list.add(2);
 
-        List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
+        List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId,classes, list);
 
         if (StringUtils.isEmpty(fanIndexSlidePicList)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);
@@ -127,6 +128,7 @@ public class FanIndexController {
     @ApiOperation(value = "新增/修改 轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片,sort:排序")
     @RequestMapping(value = "insertOrUpdateFanIndexSlidePic", method = RequestMethod.POST)
     public Response<FanIndexSlidePic> insertOrUpdateFanIndexSlidePic(FanIndexSlidePic fanIndexSlidePic,
+                                                                     @ApiParam("属性属性(1-pc端,2-移动端)") @RequestParam(value = "classes",defaultValue = "1") Integer classes,
                                                                      @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
@@ -545,7 +547,7 @@ public class FanIndexController {
     }
 
     @ApiOperation(value = "最新发布", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿),sysStatus-系统管理员操作状态(1-展示,2-不展示)")
-    @RequestMapping(value = "getAllUserNewsInfoPage", method = RequestMethod.GET)
+    @RequestMapping(value = "getAllUserNewsInfoPage", method = RequestMethod.POST)
     public Response<AllUserNewsInfo> getAllUserNewsInfoPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
                                                             @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
