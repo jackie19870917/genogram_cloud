@@ -197,13 +197,13 @@ public class FanIndexController {
         FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(siteId);
 
         if (StringUtils.isEmpty(fanSysSite)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
 
         List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(fanSysSite.getFamilyCode());
 
         if (loginList.size() == 0) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
 
         Map map = new HashMap(16);
@@ -220,7 +220,7 @@ public class FanIndexController {
         Page<AllUserNewsInfo> userNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoList(mapPage, map);
 
         if (StringUtils.isEmpty(userNewsInfoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
 
         return ResponseUtlis.success(userNewsInfoPage);

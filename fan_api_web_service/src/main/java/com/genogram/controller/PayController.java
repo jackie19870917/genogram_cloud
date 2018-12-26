@@ -161,7 +161,7 @@ public class PayController {
     }
 
     @RequestMapping("return_url")
-    public void aLiPayReturnNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String aLiPayReturnNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         log.info("支付成功, 进入同步通知接口...");
 
@@ -222,11 +222,12 @@ public class PayController {
             log.info("* 购买产品: {}", "炎黄统谱网在线支付宝扫码支付");
             log.info("***************************************************************");
 
-            response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
-
+          //  response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
+            return "redirect:/"+this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount;
         } else {
             log.info("支付, 验签失败...");
-            response.sendRedirect(this.baseUrl + "result=error");
+           // response.sendRedirect(this.baseUrl + "result=error");
+            return "redirect:/" + this.baseUrl + "result=error";
         }
 
     }
