@@ -504,15 +504,18 @@ public class PayController {
             //获取openId
             String openId = (String) session.getAttribute("openId");
 
+            if (StringUtils.isEmpty(openId)) {
+                return ResponseUtlis.error(Constants.NOSUPPORT, "您还没有授权");
+            }
+
             //  openId = new String(Base64.decodeBase64(openId));
             //用户Id
             AllUserLogin userLogin = new AllUserLogin();
 
             if (1 == anonymous) {
-                log.info("anonymousNo1=" + anonymous);
                 userLogin.setId(1);
             } else {
-                log.info("anonymousNo2=" + anonymous);
+
                 String undefined = "undefined";
                 if (token.equals(undefined)) {
                     token = "";
