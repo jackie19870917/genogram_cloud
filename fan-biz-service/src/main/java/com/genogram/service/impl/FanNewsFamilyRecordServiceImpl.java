@@ -96,6 +96,7 @@ public class FanNewsFamilyRecordServiceImpl extends ServiceImpl<FanNewsFamilyRec
             familyRecordVo.setNewsText(news.getNewsText().replaceAll("&nbsp;", ""));
             familyRecordVo.setVisitNum(news.getVisitNum());
             familyRecordVo.setStatus(news.getStatus());
+            familyRecordVo.setCommentCount(news.getCommentCount());
             familyRecordVo.setCreateTime(news.getCreateTime());
             familyRecordVo.setCreateUser(news.getCreateUser());
             familyRecordVo.setUpdateTime(news.getUpdateTime());
