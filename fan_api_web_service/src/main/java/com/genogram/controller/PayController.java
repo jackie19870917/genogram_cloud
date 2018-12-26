@@ -508,8 +508,6 @@ public class PayController {
                 return ResponseUtlis.error(Constants.NOSUPPORT, "您还没有授权");
             }
 
-            //  openId = new String(Base64.decodeBase64(openId));
-            //用户Id
             AllUserLogin userLogin = new AllUserLogin();
 
             if (1 == anonymous) {
@@ -624,9 +622,6 @@ public class PayController {
 
             // 用户标识
             String openId = oauth2Token.getOpenId();
-
-           /* byte[] bytes = Base64.encodeBase64(openId.getBytes(), true);
-            openId = new String(bytes);*/
 
             HttpSession session = request.getSession();
             session.setAttribute("accessToken", accessToken);

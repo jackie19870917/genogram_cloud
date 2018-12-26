@@ -21,6 +21,8 @@ public interface IAllUserCommentsService extends IService<AllUserComments> {
      *
      * @param topicId
      * @param serviceName
+     * @param pageNo
+     * @param pageSize
      * @return
      */
     List<CommentVo> getAllUserComments(Integer topicId, String serviceName,Integer pageNo,Integer pageSize);
