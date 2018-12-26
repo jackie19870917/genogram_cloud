@@ -67,7 +67,7 @@ public class UserLoginController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Response<UserVo> getAllUserLogin(@ApiParam("用户名") @RequestParam String userName,
                                             @ApiParam("密码") @RequestParam String password,
-                                            @ApiParam("微信授权(1-需要,0-不需要)")@RequestParam Integer isWX,
+                                            @ApiParam("微信授权(1-需要,0-不需要)")@RequestParam(defaultValue = "0") Integer isWX,
                                             HttpServletRequest request) {
 
         AllUserLogin allUserLogin = new AllUserLogin();
@@ -144,7 +144,7 @@ public class UserLoginController {
     @ApiOperation(value = "注册", notes = "userName:用户名,mobilePhone:手机号,password:密码,familyCode:姓氏,regionCode:地区")
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
     public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin, HttpServletRequest request,
-                                                     @ApiParam("微信授权(1-需要,0-不需要)")@RequestParam Integer isWX,
+                                                     @ApiParam("微信授权(1-需要,0-不需要)")@RequestParam(defaultValue = "0") Integer isWX,
                                                      @ApiParam("验证码") @RequestParam("verificationCode") String verificationCode) {
 
         if (!verificationCode.equals(message)) {
