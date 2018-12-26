@@ -165,4 +165,13 @@ public class AllUserLoginServiceImpl extends ServiceImpl<AllUserLoginMapper, All
         return this.selectOne(wrapper);
     }
 
+    @Override
+    public List<AllUserLogin> getAllUserLoginByFamilyCode(Integer familyCode) {
+
+        Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
+        wrapper.eq("family_code", familyCode);
+
+        return this.selectList(wrapper);
+    }
+
 }

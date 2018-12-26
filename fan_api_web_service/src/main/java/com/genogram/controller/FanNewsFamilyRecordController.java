@@ -2,10 +2,7 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
-import com.genogram.entity.AllUserVideos;
-import com.genogram.entity.FanNewsFamilyRecord;
-import com.genogram.entity.FanNewsFamilyRecordVedio;
-import com.genogram.entity.FanSysSite;
+import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -48,6 +45,9 @@ public class FanNewsFamilyRecordController {
 
     @Autowired
     private IAllUserVideosService allUserVideosService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
 
     /**
      * 家族动态查询
@@ -293,7 +293,14 @@ public class FanNewsFamilyRecordController {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);
         }
 
+        List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(fanSysSite.getFamilyCode());
+
+        if (loginList.size() == 0) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         Map map = new HashMap(16);
+        map.put("user_id", loginList);
         map.put("region_id", fanSysSite.getRegionCode());
         map.put("status", 1);
         map.put("sys_status", 1);

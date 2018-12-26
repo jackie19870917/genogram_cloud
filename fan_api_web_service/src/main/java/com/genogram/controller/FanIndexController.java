@@ -59,6 +59,9 @@ public class FanIndexController {
     @Autowired
     private ISysSiteService sysSiteService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
     /**
      * 状态
      */
@@ -196,7 +199,14 @@ public class FanIndexController {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);
         }
 
+        List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(fanSysSite.getFamilyCode());
+
+        if (loginList.size() == 0) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
         Map map = new HashMap(16);
+        map.put("user_id", loginList);
         map.put("region_id", fanSysSite.getRegionCode());
         map.put("status", status);
         map.put("sys_status", status);

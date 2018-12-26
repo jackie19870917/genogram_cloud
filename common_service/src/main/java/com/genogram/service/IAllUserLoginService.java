@@ -121,4 +121,12 @@ public interface IAllUserLoginService extends IService<AllUserLogin> {
      * @return
      */
     AllUserLogin getAllUserLoginByOpenId(String openId);
+
+    /**
+     * 根据姓氏查询用户
+     *
+     * @param familyCode
+     * @return
+     */
+    List<AllUserLogin> getAllUserLoginByFamilyCode(Integer familyCode);
 }

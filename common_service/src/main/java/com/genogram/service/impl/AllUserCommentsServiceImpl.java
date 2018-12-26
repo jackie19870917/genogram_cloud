@@ -121,11 +121,11 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                 if (null == commentVoList || commentVoList.size() == 0) {
                     commentVoList = new ArrayList<CommentVo>();
                 }
-                AllUserLogin UserLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
+                AllUserLogin userLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
                 commentVo.setId(allUserComments.getId());
-                commentVo.setUserName(UserLogin.getUserName());
-                commentVo.setNickName(UserLogin.getNickName());
-                commentVo.setPicSrc(UserLogin.getPicSrc());
+                commentVo.setUserName(userLogin.getUserName());
+                commentVo.setNickName(userLogin.getNickName());
+                commentVo.setPicSrc(userLogin.getPicSrc());
                 commentVo.setContent(allUserComments.getContent());
                 commentVo.setCreateTime(allUserComments.getCreateTime());
                 List<AllUserReply> allUserReplylist = allUserReplyService.getAllUserReply(allUserComments.getId());
@@ -133,12 +133,12 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                 if (!StringUtils.isEmpty(allUserReplylist)) {
                     commentToReplyVoList = new ArrayList<CommentVo>();
                     for (AllUserReply allUserReply : allUserReplylist) {
-                        UserLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
+                        userLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
                         commentToReplyVo = new CommentVo();
                         commentToReplyVo.setId(allUserReply.getId());
-                        commentToReplyVo.setUserName(UserLogin.getUserName());
-                        commentToReplyVo.setNickName(UserLogin.getNickName());
-                        commentToReplyVo.setPicSrc(UserLogin.getPicSrc());
+                        commentToReplyVo.setUserName(userLogin.getUserName());
+                        commentToReplyVo.setNickName(userLogin.getNickName());
+                        commentToReplyVo.setPicSrc(userLogin.getPicSrc());
                         commentToReplyVo.setContent(allUserReply.getContent());
                         commentToReplyVo.setCreateTime(allUserReply.getCreateTime());
 
@@ -152,12 +152,12 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                                     Integer tempId = allUserReply.getReplyId();
                                     if (tempId.equals(parent.getId())) {
                                         //回复的回复
-                                        UserLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
+                                        userLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
                                         replyToReplyVo = new CommentVo();
                                         replyToReplyVo.setId(allUserReply.getId());
-                                        replyToReplyVo.setUserName(UserLogin.getUserName());
-                                        replyToReplyVo.setNickName(UserLogin.getNickName());
-                                        replyToReplyVo.setPicSrc(UserLogin.getPicSrc());
+                                        replyToReplyVo.setUserName(userLogin.getUserName());
+                                        replyToReplyVo.setNickName(userLogin.getNickName());
+                                        replyToReplyVo.setPicSrc(userLogin.getPicSrc());
                                         replyToReplyVo.setContent(allUserReply.getContent());
                                         replyToReplyVo.setCreateTime(allUserReply.getCreateTime());
                                         if (null == parent.getNext() || parent.getNext().size() == 0) {
@@ -175,12 +175,12 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
                                                 for (CommentVo cv : commentVoListParent) {
                                                     if (tempId.equals(cv.getId())) {
                                                         //回复的回复
-                                                        UserLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
+                                                        userLogin = allUserLoginService.getAllUserLoginById(allUserComments.getCreateUser());
                                                         replyToReplyVo = new CommentVo();
                                                         replyToReplyVo.setId(allUserReply.getId());
-                                                        replyToReplyVo.setUserName(UserLogin.getUserName());
-                                                        replyToReplyVo.setNickName(UserLogin.getNickName());
-                                                        replyToReplyVo.setPicSrc(UserLogin.getPicSrc());
+                                                        replyToReplyVo.setUserName(userLogin.getUserName());
+                                                        replyToReplyVo.setNickName(userLogin.getNickName());
+                                                        replyToReplyVo.setPicSrc(userLogin.getPicSrc());
                                                         replyToReplyVo.setContent(allUserReply.getContent());
                                                         replyToReplyVo.setCreateTime(allUserReply.getCreateTime());
                                                         if (null == parent.getNext() || parent.getNext().size() == 0) {

@@ -35,6 +35,12 @@
         all_user_videos
         where
         1=1
+        <if test="loginList!=null">
+            and user_id in
+            <foreach collection="loginList" item="item" index="index" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
         <if test="region_id!=null">
             and region_id=#{region_id}
         </if>

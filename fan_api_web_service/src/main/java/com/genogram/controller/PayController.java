@@ -496,14 +496,15 @@ public class PayController {
             //获取openId
             String openId = (String) session.getAttribute("openId");
 
+            openId = new String(Base64.decodeBase64(openId));
             //用户Id
             AllUserLogin userLogin = new AllUserLogin();
 
             if (1 == anonymous) {
-                log.info("anonymousNo1="+anonymous);
+                log.info("anonymousNo1=" + anonymous);
                 userLogin.setId(1);
             } else {
-                log.info("anonymousNo2="+anonymous);
+                log.info("anonymousNo2=" + anonymous);
                 String undefined = "undefined";
                 if (token.equals(undefined)) {
                     token = "";
@@ -583,28 +584,9 @@ public class PayController {
         return null;
     }
 
-    @ApiOperation("入口")
-    @RequestMapping(value = "go", method = RequestMethod.GET)
-    public void go(@ApiParam("访问编号") @RequestParam("code") String code, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-        Cookie cookie = new Cookie("codeNo", code);
-
-        cookie.setMaxAge(60 * 60);   //存活期为一个月 30*24*60*60
-        cookie.setPath("/");
-        response.addCookie(cookie);
-
-        HttpSession session = request.getSession();
-        log.info("code:  " + code);
-        session.setAttribute("codeNo", code);
-        request.setAttribute("codeNo", code);
-        // request.getRequestDispatcher("https://www.baidu.com").forward(request, response);
-        // request.getRequestDispatcher("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect").forward(request, response);
-        response.sendRedirect("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
-    }
-
     @ApiOperation("默认请求")
     @RequestMapping(value = "GO", method = RequestMethod.GET)
-    public Response Go() {
+    public Response go() {
 
         String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/pay/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
         return ResponseUtlis.success(url);
@@ -647,7 +629,6 @@ public class PayController {
             // 具体业务start
 
             // 具体业务end
-
 
 
             // String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo01 + "&openId=" + openId;
