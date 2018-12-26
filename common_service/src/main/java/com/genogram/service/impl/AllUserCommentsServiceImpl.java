@@ -100,23 +100,23 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
     private CommonProNewsFamousPersonService proNewsFamousPersonService;
 
     @Override
-    public List<CommentVo> getAllUserComments(Integer topicId, String entityName,Integer pageNo,Integer pageSize) {
+    public List<CommentVo> getAllUserComments(Integer topicId, String entityName, Integer pageNo, Integer pageSize) {
         List<CommentVo> commentVoList = null;
         Wrapper<AllUserComments> wrapper = new EntityWrapper<>();
         wrapper.eq("topic_id", topicId);
         wrapper.eq("entity_name", entityName);
         wrapper.eq("status", 1);
-        wrapper.orderBy("create_time",false);
+        wrapper.orderBy("create_time", false);
         //Wrapper.groupBy("create_time").
 
-       Page<AllUserComments>  allUserCommentsList=this.selectPage(new Page<AllUserComments>(pageNo, pageSize),wrapper);
-       // List<AllUserComments> allUserCommentsList =
+        Page<AllUserComments> allUserCommentsList = this.selectPage(new Page<AllUserComments>(pageNo, pageSize), wrapper);
+        // List<AllUserComments> allUserCommentsList =
         CommentVo commentVo;
         CommentVo commentToReplyVo;
         List<CommentVo> commentToReplyVoList = null;
         CommentVo replyToReplyVo;
         //构造评论结构体
-        if ((!StringUtils.isEmpty(allUserCommentsList))&&(!StringUtils.isEmpty(allUserCommentsList.getRecords()))) {
+        if ((!StringUtils.isEmpty(allUserCommentsList)) && (!StringUtils.isEmpty(allUserCommentsList.getRecords()))) {
 
             for (AllUserComments allUserComments : allUserCommentsList.getRecords()) {
                 //创建一条评论实体

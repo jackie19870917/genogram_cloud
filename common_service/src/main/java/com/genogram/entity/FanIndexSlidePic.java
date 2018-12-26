@@ -17,7 +17,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2018-11-13
+ * @since 2018-12-26
  */
 @TableName("fan_index_slide_pic")
 public class FanIndexSlidePic extends Model<FanIndexSlidePic> {
@@ -39,6 +39,10 @@ public class FanIndexSlidePic extends Model<FanIndexSlidePic> {
      */
     @TableField("pic_url")
     private String picUrl;
+    /**
+     * 属性(1-pc端,2-移动端)
+     */
+    private Integer classes;
     /**
      * 排序
      */
@@ -93,6 +97,15 @@ public class FanIndexSlidePic extends Model<FanIndexSlidePic> {
 
     public FanIndexSlidePic setPicUrl(String picUrl) {
         this.picUrl = picUrl;
+        return this;
+    }
+
+    public Integer getClasses() {
+        return classes;
+    }
+
+    public FanIndexSlidePic setClasses(Integer classes) {
+        this.classes = classes;
         return this;
     }
 
@@ -161,6 +174,7 @@ public class FanIndexSlidePic extends Model<FanIndexSlidePic> {
                 ", id=" + id +
                 ", siteId=" + siteId +
                 ", picUrl=" + picUrl +
+                ", classes=" + classes +
                 ", sort=" + sort +
                 ", status=" + status +
                 ", createTime=" + createTime +

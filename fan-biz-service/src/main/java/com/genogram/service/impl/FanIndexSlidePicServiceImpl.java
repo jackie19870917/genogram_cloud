@@ -26,10 +26,11 @@ import java.util.List;
 public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMapper, FanIndexSlidePic> implements IFanIndexSlidePicService {
 
     @Override
-    public List<FanIndexSlidePic> getFanIndexSlidePicListBySiteId(Integer siteId, List status) {
+    public List<FanIndexSlidePic> getFanIndexSlidePicListBySiteId(Integer siteId, Integer classes, List status) {
 
         Wrapper<FanIndexSlidePic> wrapper = new EntityWrapper<FanIndexSlidePic>();
         wrapper.eq("site_id", siteId);
+        wrapper.eq("classes", classes);
         wrapper.in("status", status);
 
         return this.selectList(wrapper);
@@ -47,7 +48,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
             list.add(1);
             list.add(2);
 
-            List<FanIndexSlidePic> fanIndexSlidePicList = this.getFanIndexSlidePicListBySiteId(fanIndexSlidePic.getSiteId(), list);
+            List<FanIndexSlidePic> fanIndexSlidePicList = this.getFanIndexSlidePicListBySiteId(fanIndexSlidePic.getSiteId(), fanIndexSlidePic.getClasses(), list);
 
             fanIndexSlidePic.setSort(fanIndexSlidePicList.size() + 1);
             fanIndexSlidePic.setStatus(1);
@@ -69,7 +70,7 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
         list.add(1);
         list.add(2);
 
-        List<FanIndexSlidePic> fanIndexSlidePicList = this.getFanIndexSlidePicListBySiteId(indexSlidePic.getSiteId(), list);
+        List<FanIndexSlidePic> fanIndexSlidePicList = this.getFanIndexSlidePicListBySiteId(indexSlidePic.getSiteId(), indexSlidePic.getClasses(), list);
 
         for (FanIndexSlidePic slidePic : fanIndexSlidePicList) {
             if (indexSlidePic.getSort() < slidePic.getSort()) {

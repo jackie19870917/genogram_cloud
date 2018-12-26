@@ -7,6 +7,7 @@
         <id column="id" property="id"/>
         <result column="site_id" property="siteId"/>
         <result column="pic_url" property="picUrl"/>
+        <result column="classes" property="classes"/>
         <result column="sort" property="sort"/>
         <result column="status" property="status"/>
         <result column="create_time" property="createTime"/>
@@ -17,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, site_id AS siteId, pic_url AS picUrl, sort, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, site_id AS siteId, pic_url AS picUrl, classes, sort, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

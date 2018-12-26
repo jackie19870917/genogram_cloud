@@ -75,7 +75,8 @@ public class FanIndexController {
      */
     @ApiOperation(value = "轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "index/getFanIndexSlidePicList", method = RequestMethod.GET)
-    public Response<FanIndexSlidePic> getFanIndexSlidePicList(@ApiParam("网站ID") @RequestParam Integer siteId) {
+    public Response<FanIndexSlidePic> getFanIndexSlidePicList(@ApiParam("网站ID") @RequestParam Integer siteId,
+                                                              @ApiParam("属性属性(1-pc端,2-移动端)") @RequestParam(value = "classes",defaultValue = "1") Integer classes) {
 
         if (siteId == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
@@ -84,7 +85,7 @@ public class FanIndexController {
         List list = new ArrayList();
         list.add(status);
 
-        List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, list);
+        List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, classes, list);
 
         if (StringUtils.isEmpty(fanIndexSlidePicList)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);

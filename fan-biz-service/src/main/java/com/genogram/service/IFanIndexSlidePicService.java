@@ -18,11 +18,12 @@ public interface IFanIndexSlidePicService extends IService<FanIndexSlidePic> {
     /**
      * 轮播图查询
      *
-     * @param siteId 网站ID
-     * @param status 状态
+     * @param siteId  网站ID
+     * @param classes
+     * @param status  状态
      * @return
      */
-    List<FanIndexSlidePic> getFanIndexSlidePicListBySiteId(Integer siteId, List status);
+    List<FanIndexSlidePic> getFanIndexSlidePicListBySiteId(Integer siteId, Integer classes, List status);
 
     /**
      * 新增/修改  轮播图
