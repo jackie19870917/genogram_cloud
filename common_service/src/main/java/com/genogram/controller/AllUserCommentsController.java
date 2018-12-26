@@ -1,5 +1,6 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllUserComments;
 import com.genogram.entity.AllUserReply;
@@ -40,7 +41,7 @@ public class AllUserCommentsController {
 
     @ApiOperation(value = "获取评论列表", notes = "entityName-实体名,topicId-主题id,pageNo-页数,pageSize-每页显示条数")
     @RequestMapping(value = "getAllUserComments", method = RequestMethod.POST)
-    public Response<List<CommentVo>> getAllUserComments(@ApiParam("topicId") @RequestParam(value = "topicId", required = false) Integer topicId,
+    public Response< Page<CommentVo>> getAllUserComments(@ApiParam("topicId") @RequestParam(value = "topicId", required = false) Integer topicId,
                                                         @ApiParam("entityName") @RequestParam("entityName") String entityName, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                         @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
 
@@ -50,7 +51,7 @@ public class AllUserCommentsController {
         if (StringUtils.isEmpty(entityName)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "serviceName为空");
         }
-        List<CommentVo> commentVoList = allUserCommentsService.getAllUserComments(topicId, entityName, pageNo, pageSize);
+        Page<CommentVo> commentVoList = allUserCommentsService.getAllUserComments(topicId, entityName, pageNo, pageSize);
         if (StringUtils.isEmpty(commentVoList)) {
             return ResponseUtlis.error(Constants.IS_EMPTY, "评论为空");
         } else {

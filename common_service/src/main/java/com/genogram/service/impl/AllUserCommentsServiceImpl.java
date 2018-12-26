@@ -100,7 +100,7 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
     private CommonProNewsFamousPersonService proNewsFamousPersonService;
 
     @Override
-    public List<CommentVo> getAllUserComments(Integer topicId, String entityName, Integer pageNo, Integer pageSize) {
+    public  Page<CommentVo> getAllUserComments(Integer topicId, String entityName, Integer pageNo, Integer pageSize) {
         List<CommentVo> commentVoList = null;
         Wrapper<AllUserComments> wrapper = new EntityWrapper<>();
         wrapper.eq("topic_id", topicId);
@@ -267,7 +267,12 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
             }
             return replyDTOList;
         }*/
-        return commentVoList;
+
+        Page<CommentVo> allUserCommentsListReSult=new Page<CommentVo>();
+        allUserCommentsListReSult.setRecords(commentVoList);
+
+
+        return allUserCommentsListReSult;
     }
 
     @Override
