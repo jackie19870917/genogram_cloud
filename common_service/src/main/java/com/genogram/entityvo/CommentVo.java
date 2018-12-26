@@ -29,6 +29,10 @@ public class CommentVo {
      */
     private String content;
     /**
+     * 评论数
+     */
+    private Integer commentCount;
+    /**
      * 评论时间
      */
     private Date createTime;
