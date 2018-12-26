@@ -496,7 +496,7 @@ public class PayController {
             //获取openId
             String openId = (String) session.getAttribute("openId");
 
-          //  openId = new String(Base64.decodeBase64(openId));
+            //  openId = new String(Base64.decodeBase64(openId));
             //用户Id
             AllUserLogin userLogin = new AllUserLogin();
 
@@ -620,6 +620,7 @@ public class PayController {
             session.setAttribute("accessToken", accessToken);
             session.setAttribute("openId", openId);
 
+            log.info("首次的openId=" + openId);
             System.out.println(openId);
             // 获取用户信息
             //SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
