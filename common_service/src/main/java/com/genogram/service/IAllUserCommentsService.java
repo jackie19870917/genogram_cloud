@@ -23,7 +23,7 @@ public interface IAllUserCommentsService extends IService<AllUserComments> {
      * @param serviceName
      * @return
      */
-    List<CommentVo> getAllUserComments(Integer topicId, String serviceName);
+    List<CommentVo> getAllUserComments(Integer topicId, String serviceName,Integer pageNo,Integer pageSize);
 
     /**
      * 新增评论

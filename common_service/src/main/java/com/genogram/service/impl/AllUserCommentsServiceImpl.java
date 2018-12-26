@@ -2,6 +2,7 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.*;
 import com.genogram.entityvo.CommentVo;
 import com.genogram.mapper.AllUserCommentsMapper;
@@ -99,22 +100,25 @@ public class AllUserCommentsServiceImpl extends ServiceImpl<AllUserCommentsMappe
     private CommonProNewsFamousPersonService proNewsFamousPersonService;
 
     @Override
-    public List<CommentVo> getAllUserComments(Integer topicId, String entityName) {
+    public List<CommentVo> getAllUserComments(Integer topicId, String entityName,Integer pageNo,Integer pageSize) {
         List<CommentVo> commentVoList = null;
         Wrapper<AllUserComments> wrapper = new EntityWrapper<>();
         wrapper.eq("topic_id", topicId);
         wrapper.eq("entity_name", entityName);
         wrapper.eq("status", 1);
+        wrapper.orderBy("create_time",false);
         //Wrapper.groupBy("create_time").
-        List<AllUserComments> allUserCommentsList = this.selectList(wrapper);
+
+       Page<AllUserComments>  allUserCommentsList=this.selectPage(new Page<AllUserComments>(pageNo, pageSize),wrapper);
+       // List<AllUserComments> allUserCommentsList =
         CommentVo commentVo;
         CommentVo commentToReplyVo;
         List<CommentVo> commentToReplyVoList = null;
         CommentVo replyToReplyVo;
         //构造评论结构体
-        if (!StringUtils.isEmpty(allUserCommentsList)) {
+        if ((!StringUtils.isEmpty(allUserCommentsList))&&(!StringUtils.isEmpty(allUserCommentsList.getRecords()))) {
 
-            for (AllUserComments allUserComments : allUserCommentsList) {
+            for (AllUserComments allUserComments : allUserCommentsList.getRecords()) {
                 //创建一条评论实体
                 commentVo = new CommentVo();
 
