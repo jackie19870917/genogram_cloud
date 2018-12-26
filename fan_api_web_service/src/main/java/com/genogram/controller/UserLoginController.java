@@ -67,6 +67,7 @@ public class UserLoginController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Response<UserVo> getAllUserLogin(@ApiParam("用户名") @RequestParam String userName,
                                             @ApiParam("密码") @RequestParam String password,
+                                            @ApiParam("微信授权(1-需要,0-不需要)")@RequestParam Integer isWX,
                                             HttpServletRequest request) {
 
         AllUserLogin allUserLogin = new AllUserLogin();
@@ -80,14 +81,17 @@ public class UserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                String opedId = (String) request.getSession().getAttribute("opedId");
+                if (isWX == 1) {
 
-                if (StringUtils.isEmpty(opedId)) {
-                    return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+                    String opedId = (String) request.getSession().getAttribute("opedId");
+
+                    if (StringUtils.isEmpty(opedId)) {
+                        return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+                    }
+
+                    opedId = new String(Base64.decodeBase64(opedId));
+                    userLogin.setOpenId(opedId);
                 }
-
-                opedId = new String(Base64.decodeBase64(opedId));
-                userLogin.setOpenId(opedId);
 
                 allUserLoginService.insertAllUserLogin(userLogin);
 
@@ -140,20 +144,25 @@ public class UserLoginController {
     @ApiOperation(value = "注册", notes = "userName:用户名,mobilePhone:手机号,password:密码,familyCode:姓氏,regionCode:地区")
     @RequestMapping(value = "signIn", method = RequestMethod.POST)
     public Response<AllUserLogin> insertAllUserLogin(AllUserLogin allUserLogin, HttpServletRequest request,
+                                                     @ApiParam("微信授权(1-需要,0-不需要)")@RequestParam Integer isWX,
                                                      @ApiParam("验证码") @RequestParam("verificationCode") String verificationCode) {
 
         if (!verificationCode.equals(message)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
         }
 
-        String opedId = (String) request.getSession().getAttribute("opedId");
+        if (isWX == 1) {
 
-        if (StringUtils.isEmpty(opedId)) {
-            return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+            String opedId = (String) request.getSession().getAttribute("opedId");
+
+            if (StringUtils.isEmpty(opedId)) {
+                return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+            }
+
+            opedId = new String(Base64.decodeBase64(opedId));
+            allUserLogin.setOpenId(opedId);
+
         }
-
-        opedId = new String(Base64.decodeBase64(opedId));
-        allUserLogin.setOpenId(opedId);
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
 
         if (!StringUtils.isEmpty(userLogin)) {
