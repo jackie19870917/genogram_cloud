@@ -59,6 +59,10 @@ public final class Constants {
     public static final Integer UNAUTHORIZED = 401;
 
     /**
+     * 返回状态码 微信未被授权
+     */
+    public static final Integer NOSUPPORT = 302;
+    /**
      * visitNum  省级查看数超过400推荐
      */
     public static final Integer PRO_VISIT_NUM = 400;

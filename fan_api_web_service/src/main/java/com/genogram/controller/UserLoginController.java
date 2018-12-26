@@ -81,6 +81,11 @@ public class UserLoginController {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
                 String opedId = (String) request.getSession().getAttribute("opedId");
+
+                if (StringUtils.isEmpty(opedId)) {
+                    return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+                }
+
                 opedId = new String(Base64.decodeBase64(opedId));
                 userLogin.setOpenId(opedId);
 
@@ -142,6 +147,11 @@ public class UserLoginController {
         }
 
         String opedId = (String) request.getSession().getAttribute("opedId");
+
+        if (StringUtils.isEmpty(opedId)) {
+            return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+        }
+
         opedId = new String(Base64.decodeBase64(opedId));
         allUserLogin.setOpenId(opedId);
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
