@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,7 +51,7 @@ import static com.genogram.unit.WeChatConstant.TOKEN;
  * @date 2016/10/31
  */
 @Api(description = "支付")
-@RestController
+@Controller
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/pay")
 public class PayController {
@@ -84,6 +85,7 @@ public class PayController {
     @Value("${pay_return_url}")
     public String returnUrl;
 
+    @ResponseBody
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> aLiPay(FanNewsCharityPayIn fanNewsCharityPayIn,
@@ -158,6 +160,7 @@ public class PayController {
         }
     }
 
+    @ResponseBody
     @RequestMapping(value = "/return_url")
     public void aLiPayReturnNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -229,6 +232,7 @@ public class PayController {
 
     }
 
+    @ResponseBody
     @RequestMapping("/notify_url")
     public String aLiPayNotifyNotice(HttpServletRequest request) throws Exception {
 
@@ -311,6 +315,7 @@ public class PayController {
         return "success";
     }
 
+    @ResponseBody
     @ApiOperation("微信支付")
     @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
     public Response weChatPay(HttpServletRequest request,
@@ -376,6 +381,7 @@ public class PayController {
         }
     }
 
+    @ResponseBody
     @ApiOperation("查询订单请求")
     @RequestMapping(value = "getFanNewsCharityPayIn", method = RequestMethod.POST)
     public Response<FanNewsCharityPayIn> getFanNewsCharityPayIn(@ApiParam("订单号") @RequestParam("outTradeNo") String outTradeNo) {
@@ -398,6 +404,7 @@ public class PayController {
         }
     }
 
+    @ResponseBody
     @ApiOperation("微信支付完成后的回调")
     @RequestMapping("callBack")
     public void callBack(HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
@@ -472,6 +479,7 @@ public class PayController {
      * @param anonymous
      * @return
      */
+    @ResponseBody
     @ApiOperation("微信公众号支付")
     @RequestMapping(value = "orders", method = RequestMethod.POST)
     public Response orders(HttpServletRequest request,
@@ -585,6 +593,7 @@ public class PayController {
     }
 
     @ApiOperation("默认请求")
+    @ResponseBody
     @RequestMapping(value = "GO", method = RequestMethod.GET)
     public Response go() {
 
@@ -594,7 +603,7 @@ public class PayController {
 
     @ApiOperation("回调")
     @RequestMapping("oauth2WeChat")
-    public void oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 用户同意授权后，能获取到code
         String code = request.getParameter("code");
 
@@ -631,12 +640,14 @@ public class PayController {
 
             // 具体业务end
 
-
+            return "index";
             // String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo01 + "&openId=" + openId;
             //String url = "http://yhtpw.com/mobile";
             //log.info(url);
             // response.sendRedirect(url);
             // return ResponseUtlis.success(openId);
+        } else {
+            return null;
         }
     }
 
@@ -723,6 +734,7 @@ public class PayController {
         return snsUserInfo;
     }
 
+    @ResponseBody
     @ApiOperation("微信验证")
     @RequestMapping("contactWeChat")
     public void contactWeChat(HttpServletRequest request,
