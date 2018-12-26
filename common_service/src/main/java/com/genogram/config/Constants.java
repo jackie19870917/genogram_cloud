@@ -61,7 +61,7 @@ public final class Constants {
     /**
      * 返回状态码 微信未被授权
      */
-    public static final Integer NOSUPPORT = 302;
+    public static final Integer NOSUPPORT = 99;
     /**
      * visitNum  省级查看数超过400推荐
      */
