@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserComments;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entityvo.CommentVo;
@@ -25,7 +26,7 @@ public interface IAllUserCommentsService extends IService<AllUserComments> {
      * @param pageSize
      * @return
      */
-    List<CommentVo> getAllUserComments(Integer topicId, String serviceName, Integer pageNo, Integer pageSize);
+    Page<CommentVo> getAllUserComments(Integer topicId, String serviceName, Integer pageNo, Integer pageSize);
 
     /**
      * 新增评论
