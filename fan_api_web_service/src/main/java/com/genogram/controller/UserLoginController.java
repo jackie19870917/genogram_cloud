@@ -89,7 +89,7 @@ public class UserLoginController {
                         return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
                     }
 
-                    opedId = new String(Base64.decodeBase64(opedId));
+                   // opedId = new String(Base64.decodeBase64(opedId));
                     userLogin.setOpenId(opedId);
                 }
 
@@ -159,7 +159,7 @@ public class UserLoginController {
                 return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
             }
 
-            opedId = new String(Base64.decodeBase64(opedId));
+           // opedId = new String(Base64.decodeBase64(opedId));
             allUserLogin.setOpenId(opedId);
 
         }

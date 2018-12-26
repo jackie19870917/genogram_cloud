@@ -496,7 +496,7 @@ public class PayController {
             //获取openId
             String openId = (String) session.getAttribute("openId");
 
-            openId = new String(Base64.decodeBase64(openId));
+          //  openId = new String(Base64.decodeBase64(openId));
             //用户Id
             AllUserLogin userLogin = new AllUserLogin();
 
@@ -613,8 +613,8 @@ public class PayController {
             // 用户标识
             String openId = oauth2Token.getOpenId();
 
-            byte[] bytes = Base64.encodeBase64(openId.getBytes(), true);
-            openId = new String(bytes);
+           /* byte[] bytes = Base64.encodeBase64(openId.getBytes(), true);
+            openId = new String(bytes);*/
 
             HttpSession session = request.getSession();
             session.setAttribute("accessToken", accessToken);
