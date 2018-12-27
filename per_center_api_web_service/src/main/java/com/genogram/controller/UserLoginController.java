@@ -67,6 +67,7 @@ public class UserLoginController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public Response<UserVo> getAllUserLogin(@ApiParam("用户名") @RequestParam String userName,
                                             @ApiParam("密码") @RequestParam String password,
+                                            HttpServletRequest request,
                                             @ApiParam("openId") @RequestParam(value = "openId", required = false) String openId) {
 
         AllUserLogin allUserLogin = new AllUserLogin();
@@ -80,8 +81,16 @@ public class UserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                openId = new String(Base64.decodeBase64(openId));
-                userLogin.setOpenId(openId);
+                if (StringUtils.isEmpty(openId)) {
+
+                    String opedId = (String) request.getSession().getAttribute("opedId");
+
+                    if (StringUtils.isEmpty(opedId)) {
+                        return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+                    }
+
+                    userLogin.setOpenId(opedId);
+                }
 
                 allUserLoginService.insertAllUserLogin(userLogin);
 
@@ -141,8 +150,17 @@ public class UserLoginController {
             return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
         }
 
-        openId = new String(Base64.decodeBase64(openId));
-        allUserLogin.setOpenId(openId);
+        if (StringUtils.isEmpty(openId)) {
+
+            String opedId = (String) request.getSession().getAttribute("opedId");
+
+            if (StringUtils.isEmpty(opedId)) {
+                return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+            }
+
+            allUserLogin.setOpenId(opedId);
+        }
+
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
 
         if (!StringUtils.isEmpty(userLogin)) {
