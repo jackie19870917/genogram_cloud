@@ -90,4 +90,9 @@ public class NewsUploadTreeFileVo {
      */
     private Integer updateUser;
 
+    /**
+     * 电子谱文件预览地址
+     */
+    private String treePreviewPath;
+
 }
