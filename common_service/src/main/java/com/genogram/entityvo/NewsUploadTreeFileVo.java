@@ -93,6 +93,6 @@ public class NewsUploadTreeFileVo {
     /**
      * 电子谱文件预览地址
      */
-    private String treePreviewPath;
+    private String url;
 
 }
