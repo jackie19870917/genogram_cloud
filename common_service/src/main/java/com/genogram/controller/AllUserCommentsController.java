@@ -52,7 +52,7 @@ public class AllUserCommentsController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "serviceName为空");
         }
         Page<CommentVo> commentVoList = allUserCommentsService.getAllUserComments(topicId, entityName, pageNo, pageSize);
-        if (StringUtils.isEmpty(commentVoList)) {
+        if (StringUtils.isEmpty(commentVoList) || StringUtils.isEmpty(commentVoList.getRecords())) {
             return ResponseUtlis.error(Constants.IS_EMPTY, "评论为空");
         } else {
             return ResponseUtlis.success(commentVoList);
