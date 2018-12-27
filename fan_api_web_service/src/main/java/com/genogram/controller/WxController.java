@@ -26,9 +26,9 @@ import javax.servlet.http.HttpSession;
 @Controller
 @CrossOrigin(origins = "*")
 @RequestMapping("/genogram/wx")
-public class WXController {
+public class WxController {
 
-    Logger log = LoggerFactory.getLogger(WXController.class);
+    Logger log = LoggerFactory.getLogger(WxController.class);
 
 
     @ApiOperation("回调")
@@ -64,7 +64,6 @@ public class WXController {
 
             // 具体业务start
 
-            // 具体业务end
 
             return "index";
         } else {

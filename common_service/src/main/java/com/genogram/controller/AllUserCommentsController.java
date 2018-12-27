@@ -41,7 +41,7 @@ public class AllUserCommentsController {
 
     @ApiOperation(value = "获取评论列表", notes = "entityName-实体名,topicId-主题id,pageNo-页数,pageSize-每页显示条数")
     @RequestMapping(value = "getAllUserComments", method = RequestMethod.POST)
-    public Response< Page<CommentVo>> getAllUserComments(@ApiParam("topicId") @RequestParam(value = "topicId", required = false) Integer topicId,
+    public Response<Page<CommentVo>> getAllUserComments(@ApiParam("topicId") @RequestParam(value = "topicId", required = false) Integer topicId,
                                                         @ApiParam("entityName") @RequestParam("entityName") String entityName, @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                         @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
 

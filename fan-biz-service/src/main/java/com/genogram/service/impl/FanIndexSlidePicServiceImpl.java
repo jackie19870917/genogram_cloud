@@ -119,25 +119,24 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
         this.insert(fanIndexSlidePic);
 
 
-
         fanIndexSlidePic.setSort(1);
         fanIndexSlidePic.setStatus(1);
         fanIndexSlidePic.setClasses(2);
-        fanIndexSlidePic.setPicUrl("00/03/rB_QCFwYmhmAe5sjAAFJkW4fa_g851.jpg");
+        fanIndexSlidePic.setPicUrl("00/05/rB_QCFwkdqaAUo6FAABc314yQzg320.jpg");
 
         this.insert(fanIndexSlidePic);
 
         fanIndexSlidePic.setSort(2);
         fanIndexSlidePic.setStatus(1);
         fanIndexSlidePic.setClasses(2);
-        fanIndexSlidePic.setPicUrl("00/05/default_lunbo_2.png");
+        fanIndexSlidePic.setPicUrl("00/05/rB_QCFwkdsWAW7aoAABwZzAiPCs768.jpg");
 
         this.insert(fanIndexSlidePic);
 
         fanIndexSlidePic.setSort(3);
         fanIndexSlidePic.setStatus(1);
         fanIndexSlidePic.setClasses(2);
-        fanIndexSlidePic.setPicUrl("00/05/default_lunbo_3.png");
+        fanIndexSlidePic.setPicUrl("00/05/rB_QCFwkd3uAAWxzAACOn3wsyqc620.jpg");
 
         this.insert(fanIndexSlidePic);
 
