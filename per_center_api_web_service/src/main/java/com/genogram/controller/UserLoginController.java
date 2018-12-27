@@ -81,7 +81,7 @@ public class UserLoginController {
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
-                if (StringUtils.isEmpty(openId)) {
+                if (!StringUtils.isEmpty(openId)) {
 
                     String opedId = (String) request.getSession().getAttribute("opedId");
 
@@ -150,14 +150,9 @@ public class UserLoginController {
             return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
         }
 
-        if (StringUtils.isEmpty(openId)) {
+        if (!StringUtils.isEmpty(openId)) {
 
             String opedId = (String) request.getSession().getAttribute("opedId");
-
-            if (StringUtils.isEmpty(opedId)) {
-                return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
-            }
-
             allUserLogin.setOpenId(opedId);
         }
 
