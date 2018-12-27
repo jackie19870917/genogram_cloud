@@ -99,19 +99,44 @@ public class FanIndexSlidePicServiceImpl extends ServiceImpl<FanIndexSlidePicMap
 
         fanIndexSlidePic.setSort(1);
         fanIndexSlidePic.setStatus(1);
-        fanIndexSlidePic.setPicUrl("00/03/rB_QCFwYmhmAe5sjAAFJkW4fa_g851.jpg\n");
-
+        fanIndexSlidePic.setClasses(1);
+        fanIndexSlidePic.setPicUrl("00/03/rB_QCFwYmhmAe5sjAAFJkW4fa_g851.jpg");
 
         this.insert(fanIndexSlidePic);
 
         fanIndexSlidePic.setSort(2);
         fanIndexSlidePic.setStatus(1);
+        fanIndexSlidePic.setClasses(1);
         fanIndexSlidePic.setPicUrl("00/05/default_lunbo_2.png");
 
         this.insert(fanIndexSlidePic);
 
         fanIndexSlidePic.setSort(3);
         fanIndexSlidePic.setStatus(1);
+        fanIndexSlidePic.setClasses(1);
+        fanIndexSlidePic.setPicUrl("00/05/default_lunbo_3.png");
+
+        this.insert(fanIndexSlidePic);
+
+
+
+        fanIndexSlidePic.setSort(1);
+        fanIndexSlidePic.setStatus(1);
+        fanIndexSlidePic.setClasses(2);
+        fanIndexSlidePic.setPicUrl("00/03/rB_QCFwYmhmAe5sjAAFJkW4fa_g851.jpg");
+
+        this.insert(fanIndexSlidePic);
+
+        fanIndexSlidePic.setSort(2);
+        fanIndexSlidePic.setStatus(1);
+        fanIndexSlidePic.setClasses(2);
+        fanIndexSlidePic.setPicUrl("00/05/default_lunbo_2.png");
+
+        this.insert(fanIndexSlidePic);
+
+        fanIndexSlidePic.setSort(3);
+        fanIndexSlidePic.setStatus(1);
+        fanIndexSlidePic.setClasses(2);
         fanIndexSlidePic.setPicUrl("00/05/default_lunbo_3.png");
 
         this.insert(fanIndexSlidePic);

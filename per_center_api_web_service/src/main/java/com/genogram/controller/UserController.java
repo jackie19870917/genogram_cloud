@@ -243,10 +243,9 @@ public class UserController {
 
     @ApiOperation(value = "个人日志详情", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "getAllUserNewsInfo", method = RequestMethod.POST)
-    public Response<AllUserNewsInfo> getAllUserNewsInfo(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                                        @ApiParam("主键") @RequestParam("id") Integer id) {
+    public Response<AllUserNewsInfo> getAllUserNewsInfo(@ApiParam("主键") @RequestParam("id") Integer id) {
 
-        if (StringUtils.isEmpty(token)) {
+       /* if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
@@ -254,7 +253,7 @@ public class UserController {
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
-        }
+        }*/
 
         AllUserNewsInfo allUserNewsInfo = allUserNewsInfoService.getAllUserNewsInfoById(id);
 
@@ -552,10 +551,9 @@ public class UserController {
 
     @ApiOperation(value = "个人视频详情", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
     @RequestMapping(value = "getAllUserVideos", method = RequestMethod.POST)
-    public Response<AllUserVideos> getAllUserVideos(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                                    @ApiParam("主键") @RequestParam("id") Integer id) {
+    public Response<AllUserVideos> getAllUserVideos(@ApiParam("主键") @RequestParam("id") Integer id) {
 
-        if (StringUtils.isEmpty(token)) {
+       /* if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
@@ -563,7 +561,7 @@ public class UserController {
 
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
-        }
+        }*/
 
         AllUserVideos allUserVideos = allUserVideosService.getAllUserVideosById(id);
 
