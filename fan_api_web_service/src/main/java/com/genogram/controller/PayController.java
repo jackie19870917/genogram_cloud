@@ -620,18 +620,8 @@ public class PayController {
             // 获取用户信息
             //SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
             // System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
-            // 设置要传递的参数
-
-            // 具体业务start
-
-            // 具体业务end
 
             return "index";
-            // String url = "http://yhtpw.com/mobile/#/base?code=" + codeNo01 + "&openId=" + openId;
-            //String url = "http://yhtpw.com/mobile";
-            //log.info(url);
-            // response.sendRedirect(url);
-            // return ResponseUtlis.success(openId);
         } else {
             return null;
         }
