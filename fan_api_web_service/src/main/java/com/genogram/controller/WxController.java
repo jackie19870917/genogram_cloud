@@ -59,11 +59,6 @@ public class WxController {
             System.out.println("首次的openId=" + openId);
             // 获取用户信息
             //SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
-            // System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
-            // 设置要传递的参数
-
-            // 具体业务start
-
 
             return "index";
         } else {

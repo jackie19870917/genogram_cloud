@@ -50,9 +50,14 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         FanIndexInfo fanIndexInfo = this.getFanIndexInfo(siteId);
         FanSysSite fanSysSite = fanSysSiteService.selectById(siteId);
 
+        if (StringUtils.isEmpty(fanSysSite)) {
+            return null;
+        }
+
         IndexInfoVo indexInfoVo = new IndexInfoVo();
         BeanUtils.copyProperties(fanIndexInfo, indexInfoVo);
         indexInfoVo.setSiteName(fanSysSite.getName());
+        indexInfoVo.setFamilyCode(fanSysSite.getFamilyCode());
         indexInfoVo.setRegionCode(fanSysSite.getRegionCode());
         AllFamily family = allFamilyService.getAllFamilyById(fanSysSite.getFamilyCode());
         indexInfoVo.setFamilyName(family.getValue());
