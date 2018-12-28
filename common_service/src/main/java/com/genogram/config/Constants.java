@@ -81,5 +81,5 @@ public final class Constants {
      */
     //public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP = "http://192.168.2.179:8000/fileConventer?filePath=http://192.168.2.179:6090/";
     //阿里云 47.105.177.1:6090/
-    public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP="http://www.yhtpw.com:8000/fileConventer?filePath=http://47.105.177.1:6090/";
+    public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP = "http://www.yhtpw.com:8000/fileConventer?filePath=http://47.105.177.1:6090/";
 }

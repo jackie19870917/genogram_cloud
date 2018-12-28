@@ -207,7 +207,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
@@ -354,7 +354,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "token错误");
         }
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
@@ -472,7 +472,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "token错误");
         }
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
@@ -584,7 +584,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
