@@ -207,7 +207,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "token错误");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
@@ -276,7 +276,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
         Boolean result = allUserNewsInfoService.deleteAllUserNewsInfo(id, userLogin.getId());
@@ -354,7 +354,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "token错误");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
@@ -394,7 +394,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
         Boolean result = allUserSaysService.deleteAllUserSays(id, userLogin.getId());
@@ -472,7 +472,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "token错误");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
@@ -507,7 +507,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
         Boolean result = allUserPicsService.deleteAllUserPics(id, userLogin.getId());
@@ -584,7 +584,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "token错误");
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
@@ -622,7 +622,7 @@ public class UserController {
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
         Boolean result = allUserVideosService.deleteAllUserVideos(id, userLogin.getId());
