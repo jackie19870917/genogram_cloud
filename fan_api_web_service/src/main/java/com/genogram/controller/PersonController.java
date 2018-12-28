@@ -73,7 +73,7 @@ public class PersonController {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
 
-            if (StringUtils.isEmpty(sysSiteVo.getFamilyCode())) {
+            if (sysSiteVo.getFamilyCode() != null) {
                 wrapper.eq("family_code", sysSiteVo.getFamilyCode());
             }
             wrapper.eq("status", 1);
@@ -132,7 +132,7 @@ public class PersonController {
         } else if (pro.equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
 
-            if (StringUtils.isEmpty(sysSiteVo.getFamilyCode())) {
+            if (sysSiteVo.getFamilyCode() != null) {
                 wrapper.eq("family_code", sysSiteVo.getFamilyCode());
             }
             wrapper.eq("status", 1);
