@@ -72,6 +72,7 @@ public class PersonController {
         if (fan.equals(siteType)) {
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
+            wrapper.eq("family_code", sysSiteVo.getFamilyCode());
             wrapper.eq("status", 1);
             List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
 
@@ -127,6 +128,7 @@ public class PersonController {
 
         } else if (pro.equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
+            wrapper.eq("family_code", sysSiteVo.getFamilyCode());
             wrapper.eq("status", 1);
             List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
 
