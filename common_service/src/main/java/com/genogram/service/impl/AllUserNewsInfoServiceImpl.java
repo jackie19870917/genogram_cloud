@@ -3,10 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.genogram.entity.AllUserComments;
-import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.AllUserNewsInfo;
-import com.genogram.entity.FanSysSite;
 import com.genogram.mapper.AllUserLoginMapper;
 import com.genogram.mapper.AllUserNewsInfoMapper;
 import com.genogram.mapper.FanSysSiteMapper;
@@ -118,6 +115,12 @@ public class AllUserNewsInfoServiceImpl extends ServiceImpl<AllUserNewsInfoMappe
         page.setTotal(mapPage.getTotal());
 
         return page;
+    }
+
+    @Override
+    public Page<AllUserNewsInfo> getAllUserNewsInfoList(Page<AllUserNewsInfo> page, Wrapper<AllUserNewsInfo> wrapper) {
+
+        return this.selectPage(page, wrapper);
     }
 
 }
