@@ -4,6 +4,7 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
+import com.genogram.entityvo.NewsInfoVo;
 import com.genogram.entityvo.PersonVo;
 import com.genogram.service.*;
 import com.genogram.unit.DateUtil;
@@ -242,15 +243,21 @@ public class UserController {
 
     @ApiOperation(value = "个人日志详情", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "getAllUserNewsInfo", method = RequestMethod.POST)
-    public Response<AllUserNewsInfo> getAllUserNewsInfo(@ApiParam("主键") @RequestParam("id") Integer id) {
+    public Response<NewsInfoVo> getAllUserNewsInfo(@ApiParam("主键") @RequestParam("id") Integer id) {
 
         AllUserNewsInfo allUserNewsInfo = allUserNewsInfoService.getAllUserNewsInfoById(id);
 
-        if (StringUtils.isEmpty(allUserNewsInfo)) {
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(allUserNewsInfo.getUserId());
+
+        NewsInfoVo newsInfoVo = new NewsInfoVo();
+        BeanUtils.copyProperties(allUserNewsInfo, newsInfoVo);
+        newsInfoVo.setNickName(allUserLogin.getNickName());
+
+        if (StringUtils.isEmpty(newsInfoVo)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(allUserNewsInfo);
+        return ResponseUtlis.success(newsInfoVo);
     }
 
     @ApiOperation("删除日志")
