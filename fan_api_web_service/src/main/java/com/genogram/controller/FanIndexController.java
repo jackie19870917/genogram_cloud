@@ -186,6 +186,14 @@ public class FanIndexController {
         }
     }
 
+    /**
+     * 最新发布(根据用户去重)
+     *
+     * @param siteId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
     /*@ApiOperation(value = "最新发布", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "getAllUserNewsInfoPage", method = RequestMethod.GET)
     public Response<AllUserNewsInfo> getAllUserNewsInfoPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
@@ -227,7 +235,6 @@ public class FanIndexController {
 
         return ResponseUtlis.success(userNewsInfoPage);
     }*/
-
     @ApiOperation(value = "最新发布", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "getAllUserNewsInfoPage", method = RequestMethod.GET)
     public Response<AllUserNewsInfo> getAllUserNewsInfoPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,

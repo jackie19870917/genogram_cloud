@@ -81,4 +81,10 @@ public class AllUserVideosServiceImpl extends ServiceImpl<AllUserVideosMapper, A
 
         return page;
     }
+
+    @Override
+    public Page<AllUserVideos> getAllUserVideosList(Page<AllUserVideos> page, Wrapper<AllUserVideos> wrapper) {
+
+        return this.selectPage(page, wrapper);
+    }
 }

@@ -1,5 +1,7 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
@@ -270,14 +272,14 @@ public class FanNewsFamilyRecordController {
     }*/
 
     /**
-     * 个人视频
+     * 个人视频(根据用户去重)
      *
      * @param siteId
      * @param pageNo
      * @param pageSize
      * @return
      */
-    @ApiOperation(value = "个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+   /* @ApiOperation(value = "个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
     @RequestMapping(value = "getAllUserVideosPage", method = RequestMethod.GET)
     public Response<AllUserVideos> getAllUserVideosPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -318,6 +320,50 @@ public class FanNewsFamilyRecordController {
         }
 
         return ResponseUtlis.success(userVideosPage);
+    }*/
+    @ApiOperation(value = "个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+    @RequestMapping(value = "getAllUserVideosPage", method = RequestMethod.GET)
+    public Response<AllUserVideos> getAllUserVideosPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
+                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(siteId);
+
+        if (StringUtils.isEmpty(fanSysSite)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(fanSysSite.getFamilyCode());
+
+        if (loginList.size() == 0) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        List list = new ArrayList();
+        loginList.forEach((AllUserLogin allUserLogin) -> {
+            list.add(allUserLogin.getId());
+        });
+
+        Wrapper<AllUserVideos> wrapper = new EntityWrapper<>();
+
+        wrapper.in("user_id", list);
+        wrapper.eq("region_id", fanSysSite.getRegionCode());
+        wrapper.eq("status", 1);
+        wrapper.orderBy("create_time", false);
+
+        Page<AllUserVideos> page = new Page<>(pageNo, pageSize);
+
+        Page<AllUserVideos> allUserVideosPage = allUserVideosService.getAllUserVideosList(page, wrapper);
+
+        if (StringUtils.isEmpty(allUserVideosPage)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+
+        return ResponseUtlis.success(allUserVideosPage);
     }
 }
 

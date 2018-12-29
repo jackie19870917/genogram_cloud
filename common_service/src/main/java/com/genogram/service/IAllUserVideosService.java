@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserVideos;
 import com.baomidou.mybatisplus.service.IService;
@@ -61,4 +62,13 @@ public interface IAllUserVideosService extends IService<AllUserVideos> {
      * @return
      */
     Page<AllUserVideos> getAllUserVideosList(Page<AllUserVideos> mapPage, Map map);
+
+    /**
+     * 个人视频
+     *
+     * @param page
+     * @param wrapper
+     * @return
+     */
+    Page<AllUserVideos> getAllUserVideosList(Page<AllUserVideos> page, Wrapper<AllUserVideos> wrapper);
 }
