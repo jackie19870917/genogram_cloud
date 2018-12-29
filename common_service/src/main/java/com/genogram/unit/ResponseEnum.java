@@ -1,7 +1,6 @@
 package com.genogram.unit;
 
 /**
- * @param null
  * @Author: wang, wei
  * @Date: 2018-11-05
  * @Time: 22:23

@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -211,6 +213,5 @@ public class FanNewsUploadTreeFileController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
-
 }
 
