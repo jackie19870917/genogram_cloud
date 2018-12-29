@@ -43,10 +43,10 @@
             </foreach>
         </if>
         group by pay_usr_id
-        <if test="label==asc">
+        <if test="label==1">
             order by pay_amount
         </if>
-        <if test="label==desc">
+        <if test="label==2">
             order by pay_amount desc
         </if>
     </select>

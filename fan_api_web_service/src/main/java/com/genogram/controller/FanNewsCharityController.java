@@ -114,7 +114,14 @@ public class FanNewsCharityController {
                 map.put("nick_name", nickName);
             }
 
-            map.put("label", label);
+            Integer la;
+            String asc = "asc";
+            if (label.equals(asc)) {
+                la = 1;
+            } else {
+                la = 2;
+            }
+            map.put("label", la);
 
             Page page = new Page();
             page.setCurrent(pageNo);
