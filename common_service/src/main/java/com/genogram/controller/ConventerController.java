@@ -5,8 +5,6 @@ import com.genogram.service.DownloadNetFileService;
 import com.genogram.service.FileConventerService;
 import com.genogram.service.FileService;
 import com.genogram.unit.FileUtil;
-import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.jsoup.Jsoup;
