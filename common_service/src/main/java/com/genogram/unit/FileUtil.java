@@ -39,7 +39,7 @@ public class FileUtil {
      * @return
      */
     public static String getFileHashCode(String filePath) {
-        String hashCode = SHAUtil.SHAHashCode(filePath);
+        String hashCode = SHAUtil.shaHashCode(filePath);
         return hashCode;
     }
 
