@@ -229,7 +229,6 @@ public class ConventerController {
         String path = "/file_view_temp/Xshell/1";
 
         String string = path.substring(0, path.lastIndexOf("/"));
-        System.out.println(string);
         //删除文件
         delAllFile(path);
         delAllFile(string);
