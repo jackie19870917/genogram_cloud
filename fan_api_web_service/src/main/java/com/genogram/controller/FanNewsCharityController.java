@@ -186,10 +186,10 @@ public class FanNewsCharityController {
     @RequestMapping(value = "getFanNewsCharityDetail", method = RequestMethod.GET)
     public Response<NewsDetailVo> getFanNewsCharityDetail(@ApiParam(value = "主键") @RequestParam Integer id) {
 
-        NewsDetailVo newsCharityOutDetail = fanNewsCharityOutService.getNewsCharityOutDetail(id);
+        NewsDetailVo newsDetailVo = fanNewsCharityOutService.getNewsCharityOutDetail(id);
         fanNewsCharityOutService.insertVisitNum(id);
 
-        return ResponseUtlis.success(newsCharityOutDetail);
+        return ResponseUtlis.success(newsDetailVo);
     }
 
 }
