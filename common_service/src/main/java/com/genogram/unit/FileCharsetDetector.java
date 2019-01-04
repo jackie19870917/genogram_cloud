@@ -13,8 +13,7 @@ public class FileCharsetDetector {
     /**
      * 传入一个文件(File)对象，检查文件编码
      *
-     * @param file
-     *            File对象实例
+     * @param file File对象实例
      * @return 文件编码，若无，则返回null
      * @throws FileNotFoundException
      * @throws IOException
@@ -113,7 +112,7 @@ public class FileCharsetDetector {
     }
 
     /**
-     * @Description: 文件字符编码观察者,但判断出字符编码时候调用
+     * @Description: 文件字符编码观察者, 但判断出字符编码时候调用
      */
     public static class Observer implements nsICharsetDetectionObserver {
 

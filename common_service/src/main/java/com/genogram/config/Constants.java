@@ -85,7 +85,7 @@ public final class Constants {
      * /阿里云 47.105.177.1:6090/
      * http://www.yhtpw.com:8000/fileConventer?filePath=http://47.105.177.1:6090/
      */
-    public static final String  ALIYUN_IP= "http://47.105.177.1:6090/";
+    public static final String ALIYUN_IP = "http://47.105.177.1:6090/";
 
     /**
      * 阿里云电子谱查看
@@ -94,5 +94,5 @@ public final class Constants {
     /**
      * 本地电子谱查看
      */
-    public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP="http://192.168.2.122:8080/family/preview?familyPreview=";
+    public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP = "http://192.168.2.122:8080/family/preview?familyPreview=";
 }

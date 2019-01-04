@@ -23,7 +23,8 @@ public class ImageFileConventer {
      * 图片类型文件不转换,只更换存储目录 存储目录为 root/resource目录 + meta文件 + 源文件
      * resource目录存放转换后的文件，此处依然为源文件
      * meta文件存放文件基本信息
-     *  @param fileModel
+     *
+     * @param fileModel
      */
     public void conventer(FileModel fileModel) {
         // 创建hash目录

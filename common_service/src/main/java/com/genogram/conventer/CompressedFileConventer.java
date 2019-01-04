@@ -38,7 +38,7 @@ public class CompressedFileConventer {
                     // 解压文件并获取文件列表
                     fileTree = ZipUtil.unCompress(filePath, resourceDirPath);
                     fileTree = fileTree.replace(root, "");
-                }catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 fileModel.setFileTree(fileTree);

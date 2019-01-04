@@ -15,10 +15,11 @@ public class SHAUtil {
 
     /**
      * 获取文件hash值
+     *
      * @param fileName
      * @return string
      */
-    public static String SHAHashCode(String fileName) {
+    public static String shaHashCode(String fileName) {
         BufferedInputStream bis = null;
         try {
 
@@ -39,10 +40,10 @@ public class SHAUtil {
             return null;
         } finally {
             try {
-                if( bis != null) {
+                if (bis != null) {
                     bis.close();
                 }
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -50,6 +51,7 @@ public class SHAUtil {
 
     /**
      * 将byte转为16进制
+     *
      * @param bytes
      * @return
      */
@@ -58,7 +60,7 @@ public class SHAUtil {
         String temp = null;
         for (int i = 0; i < bytes.length; i++) {
             temp = Integer.toHexString(bytes[i] & 0xFF);
-            if (temp.length() == 1){
+            if (temp.length() == 1) {
                 // 1得到一位的进行补0操作
                 stringBuffer.append("0");
             }
@@ -70,7 +72,7 @@ public class SHAUtil {
     public static void main(String[] args) {
 
         //此处测试的是我本机文件的hashcode值
-        String hashCode = SHAHashCode("D:\\shiyong.zip");
+        String hashCode = shaHashCode("D:\\shiyong.zip");
 
         System.out.println("文件hashcode值：" + hashCode);
 

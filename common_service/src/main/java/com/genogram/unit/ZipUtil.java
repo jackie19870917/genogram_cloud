@@ -70,22 +70,22 @@ public class ZipUtil {
     }
 
     public static List<String> unTar(File tarFile, String destDir) throws Exception {
-        if(StringUtils.isBlank(destDir)) {
+        if (StringUtils.isBlank(destDir)) {
             destDir = tarFile.getParent();
         }
         destDir = destDir.endsWith(File.separator) ? destDir : destDir + File.separator;
         return unTar(new FileInputStream(tarFile), destDir);
     }
 
-    public static List<String> unTarBZip2(File tarFile,String destDir) throws Exception{
-        if(StringUtils.isBlank(destDir)) {
+    public static List<String> unTarBZip2(File tarFile, String destDir) throws Exception {
+        if (StringUtils.isBlank(destDir)) {
             destDir = tarFile.getParent();
         }
         destDir = destDir.endsWith(File.separator) ? destDir : destDir + File.separator;
         return unTar(new BZip2CompressorInputStream(new FileInputStream(tarFile)), destDir);
     }
 
-    public static List<String> unTarBZip2(String file,String destDir) throws Exception{
+    public static List<String> unTarBZip2(String file, String destDir) throws Exception {
         File tarFile = new File(file);
         return unTarBZip2(tarFile, destDir);
     }
@@ -96,7 +96,7 @@ public class ZipUtil {
     }
 
     public static List<String> unBZip2(File srcFile, String destDir) throws IOException {
-        if(StringUtils.isBlank(destDir)) {
+        if (StringUtils.isBlank(destDir)) {
             destDir = srcFile.getParent();
         }
         destDir = destDir.endsWith(File.separator) ? destDir : destDir + File.separator;
@@ -122,7 +122,7 @@ public class ZipUtil {
     }
 
     public static List<String> unGZ(File srcFile, String destDir) throws IOException {
-        if(StringUtils.isBlank(destDir)) {
+        if (StringUtils.isBlank(destDir)) {
             destDir = srcFile.getParent();
         }
         destDir = destDir.endsWith(File.separator) ? destDir : destDir + File.separator;
@@ -142,35 +142,36 @@ public class ZipUtil {
         return fileNames;
     }
 
-    public static List<String> unTarGZ(File tarFile,String destDir) throws Exception{
-        if(StringUtils.isBlank(destDir)) {
+    public static List<String> unTarGZ(File tarFile, String destDir) throws Exception {
+        if (StringUtils.isBlank(destDir)) {
             destDir = tarFile.getParent();
         }
         destDir = destDir.endsWith(File.separator) ? destDir : destDir + File.separator;
         return unTar(new GzipCompressorInputStream(new FileInputStream(tarFile)), destDir);
     }
 
-    public static List<String> unTarGZ(String file,String destDir) throws Exception{
+    public static List<String> unTarGZ(String file, String destDir) throws Exception {
         File tarFile = new File(file);
         return unTarGZ(tarFile, destDir);
     }
 
-    public static void createDirectory(String outputDir,String subDir){
+    public static void createDirectory(String outputDir, String subDir) {
         File file = new File(outputDir);
         // 子目录不为空
-        if(!(subDir == null || subDir.trim().equals(""))){
+        if (!(subDir == null || subDir.trim().equals(""))) {
             file = new File(outputDir + File.separator + subDir);
         }
-        if(!file.exists()){
+        if (!file.exists()) {
             file.mkdirs();
         }
     }
 
     /**
      * 如果指定目录不存在,可以自动创建,不合法的路径将导致异常被抛出
+     *
      * @param zipFile 指定的ZIP压缩文件
-     * @param dest 解压目录
-     * @return  解压后文件链表
+     * @param dest    解压目录
+     * @return 解压后文件链表
      * @throws ZipException 压缩文件有损坏或者解压缩失败抛出
      */
     public static List<String> unZip(String zipFile, String dest) {
@@ -192,11 +193,11 @@ public class ZipUtil {
             List<String> extractedFileList = new ArrayList<>();
             for (net.lingala.zip4j.model.FileHeader fileHeader : headerList) {
                 if (!fileHeader.isDirectory()) {
-                    extractedFileList.add( fileHeader.getFileName());
+                    extractedFileList.add(fileHeader.getFileName());
                 }
             }
             return extractedFileList;
-        }catch (ZipException e) {
+        } catch (ZipException e) {
             e.printStackTrace();
         }
         return null;
@@ -204,6 +205,7 @@ public class ZipUtil {
 
     /**
      * 解压Rar压缩文件
+     *
      * @param rarfile
      * @param destDir
      * @return
@@ -226,7 +228,7 @@ public class ZipUtil {
                 FileHeader fh = a.nextFileHeader();
                 while (fh != null) {
                     // 防止文件名中文乱码问题的处理
-                    String fileName = fh.getFileNameW().isEmpty()?fh.getFileNameString():fh.getFileNameW();
+                    String fileName = fh.getFileNameW().isEmpty() ? fh.getFileNameString() : fh.getFileNameW();
                     fileNames.add(fileName);
                     // 文件夹
                     if (fh.isDirectory()) {
@@ -263,7 +265,7 @@ public class ZipUtil {
     /**
      * 通过递归得到某一路径下所有的目录及其文件
      */
-    public static List<FileNode> getFiles(String filePath){
+    public static List<FileNode> getFiles(String filePath) {
         File root = new File(filePath);
         File[] files = root.listFiles();
         String originName = "";
@@ -271,11 +273,11 @@ public class ZipUtil {
         String fullPath = "";
 
         List<FileNode> fileNodes = new ArrayList<>();
-        for(File file:files){
+        for (File file : files) {
 
             List<FileNode> childList = new ArrayList<>();
 
-            if(file.isDirectory()){
+            if (file.isDirectory()) {
                 isDirectory = true;
                 originName = file.getName();
                 fullPath = file.getAbsolutePath();
@@ -296,7 +298,7 @@ public class ZipUtil {
     /**
      * 文件节点(区分文件上下级)
      */
-    public static class FileNode{
+    public static class FileNode {
 
         private String originName;
         private boolean directory;
@@ -356,31 +358,30 @@ public class ZipUtil {
     }
 
 
-
-    public static String  unCompress(String compressFile, String destDir) throws Exception {
-        String upperName= compressFile.toUpperCase();
+    public static String unCompress(String compressFile, String destDir) throws Exception {
+        String upperName = compressFile.toUpperCase();
         String ret = null;
-        if(upperName.endsWith(".ZIP") || upperName.endsWith(".JAR") || upperName.endsWith(".GZIP")) {
-             unZip(compressFile, destDir);
-        } else if(upperName.endsWith(".TAR")) {
+        if (upperName.endsWith(".ZIP") || upperName.endsWith(".JAR") || upperName.endsWith(".GZIP")) {
+            unZip(compressFile, destDir);
+        } else if (upperName.endsWith(".TAR")) {
             unTar(compressFile, destDir);
-        } else if(upperName.endsWith(".TAR.BZ2")) {
-             unTarBZip2(compressFile, destDir);
+        } else if (upperName.endsWith(".TAR.BZ2")) {
+            unTarBZip2(compressFile, destDir);
 
-        } else if(upperName.endsWith(".BZ2")) {
-             unBZip2(compressFile, destDir);
+        } else if (upperName.endsWith(".BZ2")) {
+            unBZip2(compressFile, destDir);
 
-        } else if(upperName.endsWith(".TAR.GZ")) {
-             unTarGZ(compressFile, destDir);
+        } else if (upperName.endsWith(".TAR.GZ")) {
+            unTarGZ(compressFile, destDir);
 
-        } else if(upperName.endsWith(".GZ")) {
-             unGZ(compressFile, destDir);
+        } else if (upperName.endsWith(".GZ")) {
+            unGZ(compressFile, destDir);
 
-        } else if(upperName.endsWith(".RAR")) {
-             unRarFile(compressFile, destDir);
+        } else if (upperName.endsWith(".RAR")) {
+            unRarFile(compressFile, destDir);
         }
         List list = getFiles(destDir);
-        for(int i = 0; i< list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             ret = list.get(i).toString();
         }
         return ret;

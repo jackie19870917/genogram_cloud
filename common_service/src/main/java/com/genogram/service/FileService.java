@@ -16,8 +16,8 @@ public interface FileService {
     FileModel findFileModelByHashCode(String hashCode);
 
     /**
-     * @Description: 查询所有key
      * @return List<String>
+     * @Description: 查询所有key
      */
     List<String> findAllKeys();
 

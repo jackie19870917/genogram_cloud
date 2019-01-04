@@ -9,6 +9,7 @@ import com.genogram.entity.FileModel;
 public interface FileConventerService {
     /**
      * 文件转换并存储
+     *
      * @param fileModel
      */
     void conventer(FileModel fileModel);

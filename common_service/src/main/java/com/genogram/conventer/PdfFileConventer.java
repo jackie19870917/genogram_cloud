@@ -20,9 +20,10 @@ public class PdfFileConventer {
      * pdf文件转换后格式不变，改变存储目录为 hash码目录/resource目录 + 源文件 + meta文件
      * meta文件存储文件基本信息
      * resource目录存放转换之后的文件，此处依然为源文件
+     *
      * @param fileModel
      */
-    public  void conventer(FileModel fileModel) {
+    public void conventer(FileModel fileModel) {
         // 创建hash目录
         String hashDirPath = root + File.separator + fileModel.getPathId();
         File hashDir = FileUtil.createDir(hashDirPath);
