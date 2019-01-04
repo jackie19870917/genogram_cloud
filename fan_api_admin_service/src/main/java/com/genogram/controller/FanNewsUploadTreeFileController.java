@@ -16,9 +16,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Timestamp;
@@ -47,6 +49,9 @@ public class FanNewsUploadTreeFileController {
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
+
+    @Autowired
+    private ConventerController conventerController;
 
     private List getList() {
 
@@ -138,7 +143,8 @@ public class FanNewsUploadTreeFileController {
     @ApiOperation(value = "电子谱 新增/修改", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "uploadFanNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<FanNewsUploadTreeFile> uploadFanNewsUploadTreeFile(FanNewsUploadTreeFile fanNewsUploadTreeFile,
-                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                                                                       HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
@@ -171,8 +177,11 @@ public class FanNewsUploadTreeFileController {
 
         //存储电子谱预览地址
         //http://192.168.2.122:8083/fileConventer?filePath=http://47.105.17 7.1:6090/00/01/rB_QCFwXNg-AdtcNAABhJxiBuv8808.doc
-        fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + fanNewsUploadTreeFile.getFilePath());
-
+        //fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + fanNewsUploadTreeFile.getFilePath());
+        String filePath = Constants.ALIYUN_IP + fanNewsUploadTreeFile.getFilePath();
+        //电子谱文件名称
+        String treePreviewPath = conventerController.fileConventer(filePath, model, request, response);
+        fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath);
         Boolean result = fanNewsUploadTreeFileService.insertOrUpdateFanNewsUploadTreeFile(fanNewsUploadTreeFile);
 
         if (result) {
