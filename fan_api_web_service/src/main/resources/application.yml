@@ -3,39 +3,3 @@ server:
 spring:
   profiles:
     active: dev
-
-#操作先关文件存放的根目录,此目录在初始化时候 里面的内容会被删除
-tmp:
-  #本地
-  #root: C:/tmp/conventer
-  #rootTemp: C:/temp
-  #阿里云
-  root: /file_view_temp/tmp/conventer
-  rootTemp: /file_view_temp/temp
-soffice:
-  #openoffice 安装位置
-  #本地
-  home: C:/Program Files (x86)/OpenOffice 4
-  #home: C:\Users\Administrator\Documents\Tencent Files\554221180\FileRecv\OpenOffice 4\OpenOffice 4
-  #阿里云
-  #home: /opt/openoffice4
-  #openoffice 链接端口
-  port: 8100
-  #预览纯文本txt需要转码,window下为GBK,linux下为UTF-8
-  defaultCharset: UTF-8
-
-#文本类型文件后缀
-text:
-  type: txt|sql|java|js|html|xml|html|css
-#图片类型
-img:
-  type: jpeg|jpg|png|bmp
-#Office文件类型
-office:
-  type: doc|docx|xlsx|xls|ppt|pptx
-#压缩文件类型
-compress:
-  type: zip|rar|jar|gzip
-#pdf文件
-pdf:
-  type: pdf
