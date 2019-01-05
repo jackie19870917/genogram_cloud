@@ -230,7 +230,7 @@ public class ConventerController {
 
         String string = path.substring(0, path.lastIndexOf("/"));
         //删除文件
-        delAllFile(path);
+        /*delAllFile(path);
         delAllFile(string);
 
         File htmlsDir = new File(path);
@@ -240,7 +240,7 @@ public class ConventerController {
         File htmlDir = new File(path + "/");
         if (!htmlDir.exists()) {
             htmlDir.mkdirs();
-        }
+        }*/
         try {
             //遍历处理pdf附件
             randStr = System.currentTimeMillis();
