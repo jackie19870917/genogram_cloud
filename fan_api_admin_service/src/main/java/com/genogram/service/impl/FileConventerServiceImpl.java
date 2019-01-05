@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by chicheng on 2017/12/28.
@@ -59,25 +60,24 @@ public class FileConventerServiceImpl implements FileConventerService {
         try {
             String subfix = FileUtil.getFileSufix(fileModel.getOriginalFile());
 
-            logger.info("subfix:>>>"+subfix);
-            System.out.println(subfix);
-            if(this.pdfType.contains(subfix.toLowerCase())) {
+            if (this.pdfType.contains(subfix.toLowerCase())) {
                 this.pdfFileConventer.conventer(fileModel);
-            }else if(this.textType.contains(subfix.toLowerCase())) {
+            } else if (this.textType.contains(subfix.toLowerCase())) {
                 this.textFileConventer.conventer(fileModel);
-            }else if(this.imgType.contains(subfix.toLowerCase())) {
-                this.imageFileConventer.conventer(fileModel);
-            }else if(this.compressType.contains(subfix.toLowerCase())) {
+            } else if (this.imgType.contains(subfix.toLowerCase())) {
+                //this.imageFileConventer.conventer(fileModel);
+                this.officeFileConventer.conventerToPdf(fileModel);
+            } else if (this.compressType.contains(subfix.toLowerCase())) {
                 this.compressedFileConventer.conventer(fileModel);
-            }else if(this.officeType.contains(subfix.toLowerCase())) {
-                if("xlsx".equals(subfix.toLowerCase()) || "xls".equals(subfix.toLowerCase())
+            } else if (this.officeType.contains(subfix.toLowerCase())) {
+                /*if("xlsx".equals(subfix.toLowerCase()) || "xls".equals(subfix.toLowerCase())
                         || "pptx".equals(subfix.toLowerCase()) || "ppt".equals(subfix.toLowerCase())) {
                     this.officeFileConventer.conventerToHtml(fileModel);
-                }else {
-                    this.officeFileConventer.conventerToPdf(fileModel);
-                }
+                }else {*/
+                this.officeFileConventer.conventerToPdf(fileModel);
             }
-        }catch (Exception e) {
+            // }
+        } catch (Exception e) {
             e.printStackTrace();
             logger.error("不支持该类型文件的转换");
             throw new RuntimeException(e);
