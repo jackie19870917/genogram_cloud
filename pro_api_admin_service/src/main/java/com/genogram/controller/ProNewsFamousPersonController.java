@@ -13,7 +13,6 @@ import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IProNewsFamilyPersionService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

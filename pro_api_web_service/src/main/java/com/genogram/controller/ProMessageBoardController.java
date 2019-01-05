@@ -5,7 +5,6 @@ import com.genogram.entity.AllMessageBoard;
 import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IProMessageBoardServices;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

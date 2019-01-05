@@ -3,19 +3,13 @@ package com.genogram.controller;
 
 import com.genogram.config.Constants;
 import com.genogram.entity.AllMessageBoard;
-import com.genogram.entity.FanNewsFamilyRecord;
 import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IFanMessageBoardService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.stereotype.Controller;
 
 import java.util.Set;
 
