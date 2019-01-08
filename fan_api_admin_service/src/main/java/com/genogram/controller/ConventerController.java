@@ -283,8 +283,7 @@ public class ConventerController {
 
             for (int i = 0; i < size; i++) {
                 //image = new PDFRenderer(document).renderImageWithDPI(i,130,ImageType.RGB);
-                //image = reader.renderImage(i, 1.5f);
-                image = reader.renderImage(i, 2.5f);
+                image = reader.renderImage(i, 1.5f);
                 //生成图片,保存位置
                 out = new FileOutputStream(path + "/" + randStr + "/image" + "_" + i + ".jpg");
                 ImageIO.write(image, "jpg", out); //使用png的清晰度
