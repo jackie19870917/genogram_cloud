@@ -90,7 +90,7 @@ public class OfficeFileConventer {
         String hashDirPath = root + File.separator + fileModel.getPathId();
         File hashDir = FileUtil.createDir(hashDirPath);
         if (hashDir.exists() && hashDir.isDirectory()) {
-            // 复制源文件到hash目录
+            // 复制源文件到hash目录0
             String filePath = fileModel.getTempDir() + File.separator + fileModel.getOriginalFile();
             FileUtil.copyFile(filePath, hashDirPath);
             // 计算文件大小

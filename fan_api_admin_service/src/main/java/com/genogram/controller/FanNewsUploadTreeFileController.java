@@ -175,11 +175,13 @@ public class FanNewsUploadTreeFileController {
         fanNewsUploadTreeFile.setUpdateUser(userLogin.getId());
         fanNewsUploadTreeFile.setUpdateTime(timeStamp);
 
+        if(fanNewsUploadTreeFile.getId()==null){
+            //文件上传就转换成jpg图片
+            String[] split = fanNewsUploadTreeFile.getFilePath().split("@");
+            fanNewsUploadTreeFile.setFilePath(split[0]);
+            fanNewsUploadTreeFile.setTreePreviewPath(split[1]);
+        }
 
-        //文件上传就转换成jpg图片
-        String[] split = fanNewsUploadTreeFile.getFilePath().split("@");
-        fanNewsUploadTreeFile.setFilePath(split[0]);
-        fanNewsUploadTreeFile.setTreePreviewPath(split[1]);
 
         //存储电子谱预览地址
         //http://192.168.2.122:8083/fileConventer?filePath=http://47.105.17 7.1:6090/00/01/rB_QCFwXNg-AdtcNAABhJxiBuv8808.doc

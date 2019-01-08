@@ -273,7 +273,6 @@ public class ConventerController {
             document = PDDocument.load(pdfFile, (String) null);
             size = document.getNumberOfPages();
             Long start = System.currentTimeMillis(), end = null;
-            System.out.println("===>pdf : " + pdfFile.getName() + " , size : " + size);
             PDFRenderer reader = new PDFRenderer(document);
             File file = new File(path + "/" + randStr);
             //如果文件夹不存在
@@ -284,11 +283,11 @@ public class ConventerController {
 
             for (int i = 0; i < size; i++) {
                 //image = new PDFRenderer(document).renderImageWithDPI(i,130,ImageType.RGB);
-                image = reader.renderImage(i, 1.5f);
+                //image = reader.renderImage(i, 1.5f);
+                image = reader.renderImage(i, 2.5f);
                 //生成图片,保存位置
                 out = new FileOutputStream(path + "/" + randStr + "/image" + "_" + i + ".jpg");
-                ImageIO.write(image, "png", out); //使用png的清晰度
-                //ImageIO.write(image, "bmp", out); //使用bmp的清晰度
+                ImageIO.write(image, "jpg", out); //使用png的清晰度
                 //将图片路径追加到网页文件里
                 //buffer.append("<img src=\"" + path +"/"+ "image" + "_" + i + ".jpg\"/>\r\n");
                 buffer.append("<img src=/jpgImg/" + randStr + "/image_" + i + ".jpg>\r\n");
@@ -382,6 +381,8 @@ public class ConventerController {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter printWriter = response.getWriter();
         printWriter.println(doc.outerHtml());
+        input.close();
+        doc.clone();
     }
 
 }
