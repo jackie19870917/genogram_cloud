@@ -26,6 +26,14 @@ public interface IFanIndexFundDrowingService extends IService<FanIndexFundDrowin
     Boolean insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing);
 
     /**
+     * 修改线上提现状态
+     *
+     * @param fanIndexFundDrowing
+     * @return
+     */
+    Boolean updateFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing);
+
+    /**
      * 线上提现记录
      *
      * @param siteId

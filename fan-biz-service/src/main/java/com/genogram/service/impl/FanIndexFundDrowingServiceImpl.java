@@ -41,6 +41,15 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
     }
 
     @Override
+    public Boolean updateFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing) {
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+        fanIndexFundDrowing.setUpdateTime(timeStamp);
+
+        return this.updateById(fanIndexFundDrowing);
+    }
+
+    @Override
     public Page<IndexFundDrowingVo> getIndexFundDrowingVoPage(Integer siteId, Integer pageNo, Integer pageSize) {
 
         Wrapper<FanIndexFundDrowing> wrapper = new EntityWrapper<FanIndexFundDrowing>();

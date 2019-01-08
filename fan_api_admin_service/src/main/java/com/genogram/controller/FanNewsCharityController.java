@@ -404,6 +404,50 @@ public class FanNewsCharityController {
     }
 
     /**
+     * 修改提现状态
+     *
+     * @param fanIndexFundDrowing
+     * @return
+     */
+    @ApiOperation(value = "修改提现状态", notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
+    @RequestMapping(value = "updateFanIndexFundDrowing", method = RequestMethod.POST)
+    public Response<FanIndexFundDrowing> updateFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing,
+                                                                   @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (allUserLogin.getRole() != 9) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "您没有权限");
+        }
+
+        FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(fanIndexFundDrowing.getSiteId());
+
+        fanIndexFundDrowing.setUpdateUser(userLogin.getId());
+
+        Boolean result = fanIndexFundDrowingService.updateFanIndexFundDrowing(fanIndexFundDrowing);
+
+        fanIndexFund.setUpdateUser(userLogin.getId());
+        fanIndexFundService.updateIndexFund(fanIndexFund);
+        if (result) {
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        } else {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    /**
      * 线上提现记录
      *
      * @param siteId
