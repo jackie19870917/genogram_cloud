@@ -175,13 +175,19 @@ public class FanNewsUploadTreeFileController {
         fanNewsUploadTreeFile.setUpdateUser(userLogin.getId());
         fanNewsUploadTreeFile.setUpdateTime(timeStamp);
 
+
+        //文件上传就转换成jpg图片
+        String[] split = fanNewsUploadTreeFile.getFilePath().split("@");
+        fanNewsUploadTreeFile.setFilePath(split[0]);
+        fanNewsUploadTreeFile.setTreePreviewPath(split[1]);
+
         //存储电子谱预览地址
         //http://192.168.2.122:8083/fileConventer?filePath=http://47.105.17 7.1:6090/00/01/rB_QCFwXNg-AdtcNAABhJxiBuv8808.doc
         //fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + fanNewsUploadTreeFile.getFilePath());
-        String filePath = Constants.ALIYUN_IP + fanNewsUploadTreeFile.getFilePath();
+        /*String filePath = Constants.ALIYUN_IP + fanNewsUploadTreeFile.getFilePath();
         //电子谱文件名称
         String treePreviewPath = conventerController.fileConventer(filePath, model, request, response);
-        fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath);
+        fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath);*/
         Boolean result = fanNewsUploadTreeFileService.insertOrUpdateFanNewsUploadTreeFile(fanNewsUploadTreeFile);
 
         if (result) {
