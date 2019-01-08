@@ -380,7 +380,7 @@ public class FanNewsCharityController {
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(fanIndexFundDrowing.getSiteId());
 
-        if (fanIndexFundDrowing.getDrowAmount().compareTo(new BigDecimal(0)) != -1) {
+        if (fanIndexFundDrowing.getDrowAmount().compareTo(new BigDecimal(0)) == -1) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "金额不能小于0");
         }
 
