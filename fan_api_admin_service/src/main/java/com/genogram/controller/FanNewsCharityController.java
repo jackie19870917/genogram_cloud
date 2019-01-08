@@ -374,7 +374,7 @@ public class FanNewsCharityController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (userLogin.getRole() != 1) {
+        if (allUserLogin.getRole() != 1) {
             return ResponseUtlis.error(Constants.ERRO_CODE, "您没有权限");
         }
 
