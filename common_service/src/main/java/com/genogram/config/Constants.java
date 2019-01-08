@@ -90,9 +90,9 @@ public final class Constants {
     /**
      * 阿里云电子谱查看
      */
-    public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP="http://www.yhtpw.com:8050/family/preview?familyPreview=";
+    public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP="http://www.yhtpw.com:8090/family/preview?familyPreview=";
     /**
      * 本地电子谱查看
      */
-    //public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP = "http://192.168.2.122:8050/family/preview?familyPreview=";
+    //public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP = "http://192.168.2.122:8090/family/preview?familyPreview=";
 }
