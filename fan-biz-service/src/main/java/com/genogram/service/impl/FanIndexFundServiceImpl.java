@@ -74,7 +74,7 @@ public class FanIndexFundServiceImpl extends ServiceImpl<FanIndexFundMapper, Fan
         fanIndexFund.setPayUnderline(fanIndexFund1.getPayUnderline().subtract(fanIndexFund.getPayUnderline()));
         fanIndexFund.setUpdateTime(DateUtil.getCurrentTimeStamp());
 
-        return this.updateFanIndexFund(fanIndexFund);
+        return this.updateById(fanIndexFund);
     }
 
     @Override
