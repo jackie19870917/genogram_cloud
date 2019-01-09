@@ -380,8 +380,8 @@ public class ConventerController {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter printWriter = response.getWriter();
         printWriter.println(doc.outerHtml());
+        printWriter.close();
         input.close();
-        doc.clone();
     }
 
 }

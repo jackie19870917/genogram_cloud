@@ -144,7 +144,7 @@ public class OfficeFileConventer {
         // 设置转换端口，默认为8100
         configuration.setPortNumbers(port);
         // 设置任务执行超时为5分钟
-        configuration.setTaskExecutionTimeout(1000 * 60 * 5L);
+        configuration.setTaskExecutionTimeout(1000 * 60 * 10L);
         // 设置任务队列超时为24小时
         configuration.setTaskQueueTimeout(1000 * 60 * 60 * 24L);
 
