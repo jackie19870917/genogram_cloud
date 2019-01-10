@@ -357,7 +357,7 @@ public class ConventerController {
      * @return:
      * @Description:
      */
-    /*@RequestMapping("/family/preview")
+    @RequestMapping("/family/preview")
     public void familyPreview(String familyPreview, HttpServletResponse response) throws IOException {
         //File file = new File("E:/Xshell/1"+familyPreview+".html");
         File file = new File("/file_view_temp/Xshell/1" + familyPreview + ".html");
@@ -384,7 +384,7 @@ public class ConventerController {
         buffer=null;
         printWriter.close();
         input.close();
-    }*/
+    }
 
 }
 
