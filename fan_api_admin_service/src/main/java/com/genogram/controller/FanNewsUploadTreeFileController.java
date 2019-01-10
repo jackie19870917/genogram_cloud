@@ -175,7 +175,7 @@ public class FanNewsUploadTreeFileController {
         fanNewsUploadTreeFile.setUpdateUser(userLogin.getId());
         fanNewsUploadTreeFile.setUpdateTime(timeStamp);
 
-        if(fanNewsUploadTreeFile.getId()==null){
+        if (fanNewsUploadTreeFile.getId() == null) {
             //文件上传就转换成jpg图片
             String[] split = fanNewsUploadTreeFile.getFilePath().split("@");
             fanNewsUploadTreeFile.setFilePath(split[0]);

@@ -17,7 +17,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/pptImg/**").addResourceLocations("file:" + rootPath +"/");
+        registry.addResourceHandler("/pptImg/**").addResourceLocations("file:" + rootPath + "/");
         //registry.addResourceHandler("/jpgImg/**").addResourceLocations("file:E:/Xshell/1/");
         registry.addResourceHandler("/jpgImg/**").addResourceLocations("file:/file_view_temp/Xshell/1/");
         super.addResourceHandlers(registry);

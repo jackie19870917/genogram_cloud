@@ -14,24 +14,24 @@
 <script type="text/javascript" src="js/MPreviewPPT.js"></script>
 
 <script>
-var imgPaths = "${imgPaths!}";
-var data = [];
-if(imgPaths) {
-    var str = "/pptImg/";
-    var imgPathList = imgPaths.split(",");
-    for(var i=0; i<imgPathList.length;i++) {
-        if(imgPathList[i] && imgPathList[i] != "") {
-        data.push(str + imgPathList[i]);
+    var imgPaths = "${imgPaths!}";
+    var data = [];
+    if (imgPaths) {
+        var str = "/pptImg/";
+        var imgPathList = imgPaths.split(",");
+        for (var i = 0; i < imgPathList.length; i++) {
+            if (imgPathList[i] && imgPathList[i] != "") {
+                data.push(str + imgPathList[i]);
+            }
         }
     }
-}
 
-$('#ppt').MPreviewPPT({
-    data: data,
-    loadSize: 5,
-    scrollFix: 5,
-    minScrollHeight: 20
-});
+    $('#ppt').MPreviewPPT({
+        data: data,
+        loadSize: 5,
+        scrollFix: 5,
+        minScrollHeight: 20
+    });
 
 </script>
 
