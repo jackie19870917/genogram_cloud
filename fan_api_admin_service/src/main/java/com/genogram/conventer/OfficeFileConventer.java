@@ -99,6 +99,8 @@ public class OfficeFileConventer {
             // 创建resource目录，存放源文件
             String resourceDirPath = hashDirPath + File.separator + "resource";
             File resourceDir = FileUtil.createDir(resourceDirPath);
+            //开启openoffice服务
+            //init();
             if (resourceDir.exists() && resourceDir.isDirectory()) {
                 // 进行文件转换
                 String fileName = FileUtil
@@ -119,6 +121,8 @@ public class OfficeFileConventer {
                 // 设置content-type
                 fileModel.setOriginalMIMEType("application/pdf");
             }
+            //关闭openoffice服务
+            //destroy();
             // 创建meta文件，存放文件基本信息
             String metaPath = hashDirPath + File.separator + "meta";
             File metaFile = FileUtil.createFile(metaPath);
