@@ -32,7 +32,7 @@ public class FanMessageBoardController {
     private IAllCheckOutService allCheckOutService;
 
     /**
-     * 联谊会留言板添加
+     * 联谊会寻根留言添加
      *
      * @Author: yuzhou
      * @Date: 2018-11-10
