@@ -55,9 +55,8 @@ public class UploadFastDfsController {
     @RequestMapping(value = "/uploadFastdfs", method = RequestMethod.POST)
     public Response<Map> uploadFastdfs(MultipartFile file, @RequestParam(value = "isGenealogy", defaultValue = "0") Integer isGenealogy,
                                        HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
-        try {
             Map<String, Object> stringObjectMap = uploadFastDfsService.uploadFastDfs(file);
-            if (isGenealogy != null) {
+            if (isGenealogy != 0) {
                 Object file_path = stringObjectMap.get("file_path");
                 //文件所在地址
                 String filePath = Constants.ALIYUN_IP + file_path;
@@ -67,8 +66,5 @@ public class UploadFastDfsController {
                 stringObjectMap.put("file_path", file_path);
             }
             return ResponseUtlis.success(stringObjectMap);
-        }catch (Exception e){
-            return ResponseUtlis.error(Constants.FAILURE_CODE,"上传失败");
-        }
     }
 }
