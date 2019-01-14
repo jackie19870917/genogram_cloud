@@ -72,6 +72,15 @@ public class ProNewsUploadTreeFile extends Model<ProNewsUploadTreeFile> {
     @TableField("pre_thirty")
     private Integer preThirty;
     /**
+     * 评论数
+     */
+    @TableField("comment_count")
+    private Integer commentCount;
+    /**
+     * 手动排序
+     */
+    private Integer order;
+    /**
      * 创建时间
      */
     @TableField("create_time")
@@ -91,6 +100,11 @@ public class ProNewsUploadTreeFile extends Model<ProNewsUploadTreeFile> {
      */
     @TableField("update_user")
     private Integer updateUser;
+    /**
+     * 电子谱文件预览地址
+     */
+    @TableField("tree_preview_path")
+    private String treePreviewPath;
 
 
     public Integer getId() {
@@ -192,6 +206,24 @@ public class ProNewsUploadTreeFile extends Model<ProNewsUploadTreeFile> {
         return this;
     }
 
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public ProNewsUploadTreeFile setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
+
+    public Integer getOrder() {
+        return order;
+    }
+
+    public ProNewsUploadTreeFile setOrder(Integer order) {
+        this.order = order;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -228,6 +260,15 @@ public class ProNewsUploadTreeFile extends Model<ProNewsUploadTreeFile> {
         return this;
     }
 
+    public String getTreePreviewPath() {
+        return treePreviewPath;
+    }
+
+    public ProNewsUploadTreeFile setTreePreviewPath(String treePreviewPath) {
+        this.treePreviewPath = treePreviewPath;
+        return this;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -247,10 +288,13 @@ public class ProNewsUploadTreeFile extends Model<ProNewsUploadTreeFile> {
         ", status=" + status +
         ", password=" + password +
         ", preThirty=" + preThirty +
+        ", commentCount=" + commentCount +
+        ", order=" + order +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +
         ", updateUser=" + updateUser +
+        ", treePreviewPath=" + treePreviewPath +
         "}";
     }
 }

@@ -15,15 +15,18 @@
         <result column="status" property="status" />
         <result column="password" property="password" />
         <result column="pre_thirty" property="preThirty" />
+        <result column="comment_count" property="commentCount" />
+        <result column="order" property="order" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
         <result column="update_time" property="updateTime" />
         <result column="update_user" property="updateUser" />
+        <result column="tree_preview_path" property="treePreviewPath" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, site_id AS siteId, region_code AS regionCode, is_from AS isFrom, family_code AS familyCode, file_path AS filePath, file_name AS fileName, contact_user AS contactUser, status, password, pre_thirty AS preThirty, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, site_id AS siteId, region_code AS regionCode, is_from AS isFrom, family_code AS familyCode, file_path AS filePath, file_name AS fileName, contact_user AS contactUser, status, password, pre_thirty AS preThirty, comment_count AS commentCount, order, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser, tree_preview_path AS treePreviewPath
     </sql>
 
 </mapper>
