@@ -33,9 +33,10 @@ public interface IFanSysSiteService extends IService<FanSysSite> {
 
     /**
      * 查询网站
+     *
      * @param familyCode
      * @param regionCode
      * @return
      */
-    FanSysSite getFanSysSite(Integer familyCode,String regionCode);
+    FanSysSite getFanSysSite(Integer familyCode, String regionCode);
 }

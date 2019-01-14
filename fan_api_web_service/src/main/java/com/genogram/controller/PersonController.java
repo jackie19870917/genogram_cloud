@@ -183,8 +183,18 @@ public class PersonController {
 
     }
 
-    @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
-    public Response<FanSysSite> getFanSysSite() {
-        return null;
+    @ApiOperation(value = "查询网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
+    @RequestMapping(value = "getFanSysSiteByRegionCode", method = RequestMethod.POST)
+    public Response<FanSysSite> getFanSysSiteByRegionCode(@ApiParam("姓氏") @RequestParam("familyCode") Integer familyCode,
+                                                          @ApiParam("地区") @RequestParam("regionCode") String regionCode) {
+
+        FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(familyCode, regionCode);
+
+        if (StringUtils.isEmpty(fanSysSite)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "数据为空");
+        } else {
+            return ResponseUtlis.success(fanSysSite);
+        }
+
     }
 }
