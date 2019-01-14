@@ -305,7 +305,7 @@ public class ConventerController {
             fos = new FileOutputStream(path + randStr + ".html");
             System.out.println(path + randStr + ".html");
             fos.write(buffer.toString().getBytes());
-            buffer=null;
+            buffer = null;
             fos.flush();
             fos.close();
 
@@ -381,7 +381,7 @@ public class ConventerController {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter printWriter = response.getWriter();
         printWriter.println(doc.outerHtml());
-        buffer=null;
+        buffer = null;
         printWriter.close();
         input.close();
     }

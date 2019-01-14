@@ -18,6 +18,7 @@ public class FanApiWebServiceApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(FanApiWebServiceApplication.class, args);
     }
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(FanApiWebServiceApplication.class);
