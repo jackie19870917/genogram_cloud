@@ -2,12 +2,15 @@ package com.genogram.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllFamily;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexInfo;
 import com.genogram.entity.FanSysSite;
 import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.mapper.FanIndexInfoMapper;
 import com.genogram.service.IAllFamilyService;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanIndexInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IFanSysSiteService;
@@ -36,6 +39,9 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
     @Autowired
     private IAllFamilyService allFamilyService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
     @Override
     public FanIndexInfo getFanIndexInfo(Integer siteId) {
 
@@ -61,6 +67,14 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         indexInfoVo.setRegionCode(fanSysSite.getRegionCode());
         AllFamily family = allFamilyService.getAllFamilyById(fanSysSite.getFamilyCode());
         indexInfoVo.setFamilyName(family.getValue());
+
+        Wrapper<AllUserLogin> wrapper = new EntityWrapper<>();
+        wrapper.eq("region_code", fanSysSite.getRegionCode());
+        wrapper.eq("family_code", fanSysSite.getFamilyCode());
+
+        Page<AllUserLogin> allUserLoginPage = allUserLoginService.getAllUserLoginPage(wrapper, 1, 10);
+
+        indexInfoVo.setUserNum(allUserLoginPage.getTotal());
 
         return indexInfoVo;
     }

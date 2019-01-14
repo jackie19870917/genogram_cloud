@@ -23,6 +23,10 @@ public class IndexInfoVo {
      */
     private Integer siteId;
     /**
+     * 网站用户
+     */
+    private Long userNum;
+    /**
      * 图腾图片地址
      */
     private String totemPicSrc;
