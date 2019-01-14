@@ -11,7 +11,7 @@ import java.io.UnsupportedEncodingException;
 public class Sign {
 
     public static Map<String, String> sign(String jsapi_ticket, String url) {
-        Map<String, String> ret = new HashMap<String, String>();
+        Map<String, String> ret = new HashMap<String, String>(16);
         String nonce_str = create_nonce_str();
         String timestamp = create_timestamp();
         String string1;

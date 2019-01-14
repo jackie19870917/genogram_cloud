@@ -183,4 +183,8 @@ public class PersonController {
 
     }
 
+    @ApiOperation(value = "网站", notes = "id-主键,familyCode-姓氏,regionCode-地区,name-网站名,pic-图腾")
+    public Response<FanSysSite> getFanSysSite() {
+        return null;
+    }
 }

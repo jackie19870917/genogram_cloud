@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * <p>
@@ -40,6 +41,16 @@ public class FanSysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysS
 
         Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
         wrapper.eq("fan_url_code", code);
+
+        return this.selectOne(wrapper);
+    }
+
+    @Override
+    public FanSysSite getFanSysSite(Integer familyCode, String regionCode) {
+
+        Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
+        wrapper.eq("family_code", familyCode);
+        wrapper.eq("region_code", regionCode);
 
         return this.selectOne(wrapper);
     }
