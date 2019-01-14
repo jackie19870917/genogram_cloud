@@ -143,8 +143,7 @@ public class FanNewsUploadTreeFileController {
     @ApiOperation(value = "电子谱 新增/修改", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "uploadFanNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<FanNewsUploadTreeFile> uploadFanNewsUploadTreeFile(FanNewsUploadTreeFile fanNewsUploadTreeFile,
-                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                                                                       HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
+                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token){
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
@@ -230,5 +229,6 @@ public class FanNewsUploadTreeFileController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
     }
+
 }
 

@@ -74,6 +74,10 @@ public class NewsUploadTreeFileVo {
      */
     private Integer preThirty;
     /**
+     * 手动排序
+     */
+    private Integer order;
+    /**
      * 创建时间
      */
     private Date createTime;
