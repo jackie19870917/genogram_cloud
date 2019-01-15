@@ -42,4 +42,13 @@ public interface IFanIndexFundDrowingService extends IService<FanIndexFundDrowin
      * @return
      */
     Page<IndexFundDrowingVo> getIndexFundDrowingVoPage(Integer siteId, Integer pageNo, Integer pageSize);
+
+    /**
+     * 线上提现记录
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Page<IndexFundDrowingVo> getIndexFundDrowingVoPage( Integer pageNo, Integer pageSize);
 }

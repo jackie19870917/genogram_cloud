@@ -76,4 +76,27 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
         return mapPage;
     }
 
+    @Override
+    public Page<IndexFundDrowingVo> getIndexFundDrowingVoPage(Integer pageNo, Integer pageSize) {
+
+        Page<FanIndexFundDrowing> fanIndexFundDrowingPage = this.selectPage(new Page<>(pageNo, pageSize));
+
+        List<FanIndexFundDrowing> fanIndexFundDrowingList = fanIndexFundDrowingPage.getRecords();
+
+        List list = new ArrayList();
+        for (FanIndexFundDrowing fanIndexFundDrowing : fanIndexFundDrowingList) {
+            IndexFundDrowingVo indexFundDrowingVo = new IndexFundDrowingVo();
+
+            BeanUtils.copyProperties(fanIndexFundDrowing, indexFundDrowingVo);
+
+            list.add(indexFundDrowingVo);
+        }
+
+        Page<IndexFundDrowingVo> mapPage = new Page<>(pageNo, pageSize);
+        mapPage.setRecords(list);
+        mapPage.setTotal(fanIndexFundDrowingPage.getTotal());
+
+        return mapPage;
+    }
+
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
+import com.genogram.entityvo.IndexFundDrowingVo;
 import com.genogram.entityvo.SysSiteVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
@@ -50,6 +51,9 @@ public class PersonController {
 
     @Autowired
     private IAllFamilyService allFamilyService;
+
+    @Autowired
+    private IFanIndexFundDrowingService fanIndexFundDrowingService;
 
     String fan = "fan";
     String pro = "pro";
@@ -431,5 +435,45 @@ public class PersonController {
         AllFamily family = allFamilyService.updateAllFamily(allFamily);
 
         return ResponseUtlis.success(family);
+    }
+
+    /**
+     * 线上提现记录
+     *
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @ApiOperation(value = "线上提现记录", notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
+    @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.POST)
+    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam("token") @RequestParam(value = "token", required = false) String token,
+                                                               @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
+        Page<IndexFundDrowingVo> indexFundDrowingVoPage = fanIndexFundDrowingService.getIndexFundDrowingVoPage( pageNo, pageSize);
+
+        if (StringUtils.isEmpty(indexFundDrowingVoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        return ResponseUtlis.success(indexFundDrowingVoPage);
     }
 }
