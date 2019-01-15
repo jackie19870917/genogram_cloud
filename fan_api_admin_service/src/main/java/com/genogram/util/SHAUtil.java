@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.security.MessageDigest;
 
 /**
- * Created by chicheng on 2017/12/27.
+ * @author chicheng
+ * @date 2017/12/27
  * SHA-256计算文件的hash值
  */
 public class SHAUtil {

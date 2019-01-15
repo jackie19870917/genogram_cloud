@@ -9,7 +9,8 @@ import java.nio.charset.Charset;
 
 
 /**
- * Created by chicheng on 2017/12/27.
+ * @author chicheng
+ * @date 2017/12/27
  * 文件基本信息
  */
 public class FileUtil {
@@ -26,7 +27,7 @@ public class FileUtil {
         return fileName;
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         String filePath = "E:\\JJS_IM_DEV-updater-1.0.2.zip";
         int splitIndex = filePath.lastIndexOf(".");
         System.out.println(filePath.substring(0, splitIndex));

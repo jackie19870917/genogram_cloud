@@ -7,7 +7,8 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * Created by chicheng on 2017/12/27.
+ * @author chicheng
+ * @date 2017/12/27
  */
 public interface FileDao {
     /**
@@ -34,25 +35,34 @@ public interface FileDao {
     void saveFile(InputStream in, FileModel fileModel);
 
     /**
+     * 删除缓存map中的数据, 并非真正的删除文件
+     *
      * @param pathId
-     * @return FileModel
-     * @Description: 删除缓存map中的数据, 并非真正的删除文件
+     * @return
      */
     FileModel removeFromMap(String pathId);
 
     /**
+     * 回滚remove
+     *
      * @param fileModel
-     * @return int
-     * @Description: 回滚remove
+     * @return
      */
     int rollbackFromMap(FileModel fileModel);
 
     /**
+     * 删除该filemodel所有先关数据
+     *
      * @param fileModel
-     * @return int
-     * @Description: 删除该filemodel所有先关数据
+     * @return
      */
     int delete(FileModel fileModel);
 
+    /**
+     * 集合
+     *
+     * @param rootPath
+     * @return
+     */
     List<String> getImageFilesOfPPT(String rootPath);
 }

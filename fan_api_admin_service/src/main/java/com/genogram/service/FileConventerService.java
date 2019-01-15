@@ -3,7 +3,8 @@ package com.genogram.service;
 import com.genogram.model.FileModel;
 
 /**
- * Created by chicheng on 2017/12/28.
+ * @author chicheng
+ * @date 2017/12/28
  */
 public interface FileConventerService {
     /**

@@ -42,10 +42,14 @@ public class WeiXinController {
         // 将wx的信息到给页面
         Map<String, Object> map = new HashMap<String, Object>(16);
         String sgture = WXUnitl.getSignature(wx.getTicket(), wx.getNoncestr(), wx.getTimestamp(), strUrl);
-        map.put("sgture", sgture.trim());//签名
-        map.put("timestamp", wx.getTimestamp().trim());//时间戳
-        map.put("noncestr", wx.getNoncestr().trim());//随即串
-        map.put("appid", WeChatConfig.APP_ID);//appID
+        //签名
+        map.put("sgture", sgture.trim());
+        //时间戳
+        map.put("timestamp", wx.getTimestamp().trim());
+        //随即串
+        map.put("noncestr", wx.getNoncestr().trim());
+        //appID
+        map.put("appid", WeChatConfig.APP_ID);
         return map;
     }
 
@@ -57,7 +61,12 @@ public class WeiXinController {
         return result;
     }
 
-    //获取ticket
+    /**
+     * 获取ticket
+     *
+     * @param request
+     * @return
+     */
     private JSONObject getJsApiTicket(HttpServletRequest request) {
         String apiTicketUrl = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi";
         String requestUrl = apiTicketUrl.replace("ACCESS_TOKEN", (String) request.getSession().getAttribute("accessToken"));
@@ -66,7 +75,13 @@ public class WeiXinController {
         return result;
     }
 
-    //生成微信权限验证的参数
+    /**
+     * 生成微信权限验证的参数
+     *
+     * @param jsApiTicket
+     * @param url
+     * @return
+     */
     public Map<String, String> makeWXTicket(String jsApiTicket, String url) {
         Map<String, String> ret = new HashMap<String, String>(16);
         String nonceStr = createNonceStr();
@@ -106,7 +121,12 @@ public class WeiXinController {
         return ret;
     }
 
-    //字节数组转换为十六进制字符串
+    /**
+     * 字节数组转换为十六进制字符串
+     *
+     * @param hash
+     * @return
+     */
     private static String byteToHex(final byte[] hash) {
         Formatter formatter = new Formatter();
         for (byte b : hash) {
@@ -117,12 +137,20 @@ public class WeiXinController {
         return result;
     }
 
-    //生成随机字符串
+    /**
+     * 生成随机字符串
+     *
+     * @return
+     */
     private static String createNonceStr() {
         return UUID.randomUUID().toString();
     }
 
-    //生成时间戳
+    /**
+     * 生成时间戳
+     *
+     * @return
+     */
     private static String createTimestamp() {
         return Long.toString(System.currentTimeMillis() / 1000);
     }

@@ -28,7 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by chicheng on 2017/12/28.
+ * @author chicheng
+ * @date 2017/12/28
  */
 @Controller
 @CrossOrigin(origins = "*")
@@ -71,8 +72,6 @@ public class ConventerController {
      * @return String
      * @throws UnsupportedEncodingException
      */
-    //@RequestMapping("/fileConventer")
-    //@ResponseBody
     public String fileConventer(String filePath, Model model,
                                 HttpServletRequest request, HttpServletResponse response)
             throws IOException {
@@ -286,7 +285,8 @@ public class ConventerController {
                 image = reader.renderImage(i, 1.5f);
                 //生成图片,保存位置
                 out = new FileOutputStream(path + "/" + randStr + "/image" + "_" + i + ".jpg");
-                ImageIO.write(image, "jpg", out); //使用png的清晰度
+                //使用png的清晰度
+                ImageIO.write(image, "jpg", out);
                 //将图片路径追加到网页文件里
                 //buffer.append("<img src=\"" + path +"/"+ "image" + "_" + i + ".jpg\"/>\r\n");
                 buffer.append("<img src=/jpgImg/" + randStr + "/image_" + i + ".jpg>\r\n");
@@ -317,7 +317,13 @@ public class ConventerController {
     }
 
     //删除指定文件夹下所有文件
-    //param path 文件夹完整绝对路径
+
+    /**
+     * param path 文件夹完整绝对路径
+     *
+     * @param path
+     * @return
+     */
     public boolean delAllFile(String path) {
         boolean flag = false;
         File file = new File(path);
@@ -339,7 +345,8 @@ public class ConventerController {
                 temp.delete();
             }
             if (temp.isDirectory()) {
-                delAllFile(path + "/" + tempList[i]);//先删除文件夹里面的文件
+                //先删除文件夹里面的文件
+                delAllFile(path + "/" + tempList[i]);
                 //delFolder(path + "/" + tempList[i]);//再删除空文件夹
                 flag = true;
             }

@@ -1,5 +1,8 @@
 package com.genogram.unit;
 
+/**
+ * @author Toxicant
+ */
 public class WinXinEntity {
     private String access_token;
     private String ticket;

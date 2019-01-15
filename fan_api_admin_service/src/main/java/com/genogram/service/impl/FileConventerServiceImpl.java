@@ -12,7 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by chicheng on 2017/12/28.
+ * @author chicheng
+ * @date 2017/12/28
  */
 @Component
 public class FileConventerServiceImpl implements FileConventerService {

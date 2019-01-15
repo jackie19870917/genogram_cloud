@@ -20,7 +20,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by chicheng on 2017/12/27.
+ * @author chicheng
+ * @date 2017/12/27
  */
 @Component
 public class FileDaoImpl implements FileDao {

@@ -8,6 +8,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * @author Toxicant
+ */
 public class Sign {
 
     public static Map<String, String> sign(String jsapi_ticket, String url) {
@@ -40,7 +43,12 @@ public class Sign {
         return ret;
     }
 
-    // 生成签名
+    /**
+     * 生成签名
+     *
+     * @param hash
+     * @return
+     */
     private static String byteToHex(final byte[] hash) {
         Formatter formatter = new Formatter();
         for (byte b : hash) {
@@ -51,12 +59,20 @@ public class Sign {
         return result;
     }
 
-    // 生成nonce_str
+    /**
+     * 生成nonce_str
+     *
+     * @return
+     */
     private static String create_nonce_str() {
         return UUID.randomUUID().toString();
     }
 
-    // 生成timestamp
+    /**
+     * 生成timestamp
+     *
+     * @return
+     */
     private static String create_timestamp() {
         return Long.toString(System.currentTimeMillis() / 1000);
     }

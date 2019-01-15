@@ -40,17 +40,13 @@ public class UploadFastDfsController {
      * 文件上传
      *
      * @param file
-     * @Author: wang, wei
-     * @Date: 2018-11-11
-     * @Time: 13:30
-     * @return:
-     * @Description:
+     * @param isGenealogy
+     * @param response
+     * @param request
+     * @param model
+     * @return
+     * @throws IOException
      */
-    /*@ApiOperation(value = "上传文件", notes = "返回文件src")
-    @RequestMapping(value = "/uploadFastdfs", method = RequestMethod.POST)
-    public Response<Map> uploadFastdfs(MultipartFile file) {
-        return ResponseUtlis.success(uploadFastDfsService.uploadFastDfs(file));
-    }*/
     @ApiOperation(value = "上传文件", notes = "返回文件src")
     @RequestMapping(value = "/uploadFastdfs", method = RequestMethod.POST)
     public Response<Map> uploadFastdfs(MultipartFile file, @RequestParam(value = "isGenealogy", defaultValue = "0") Integer isGenealogy,

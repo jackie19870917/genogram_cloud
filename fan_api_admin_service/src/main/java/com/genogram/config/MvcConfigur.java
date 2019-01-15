@@ -12,7 +12,8 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 import java.io.IOException;
 
 /**
- * Created by chicheng on 2018/1/2.
+ * @author chicheng
+ * @date 2018/1/2
  */
 @Configuration
 public class MvcConfigur extends WebMvcConfigurerAdapter {

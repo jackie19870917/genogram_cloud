@@ -158,6 +158,10 @@ public class UserLoginController {
 
         AllUserLogin userLogin = allUserLoginService.insertAllUserLogin(allUserLogin);
 
+        if (StringUtils.isEmpty(allUserLogin.getFamilyCode())) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "姓氏不能为空");
+        }
+
         if (!StringUtils.isEmpty(userLogin)) {
 
             AllUserReg allUserReg = new AllUserReg();

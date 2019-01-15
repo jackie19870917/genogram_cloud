@@ -12,6 +12,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * @author Toxicant
+ */
 @Component
 public class DownloadNetFileServiceImpl implements DownloadNetFileService {
 

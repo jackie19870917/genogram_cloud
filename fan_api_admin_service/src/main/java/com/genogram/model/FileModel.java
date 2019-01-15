@@ -3,7 +3,8 @@ package com.genogram.model;
 import java.io.Serializable;
 
 /**
- * Created by chicheng on 2017/12/27.
+ * @author chicheng
+ * @date 2017/12/27
  */
 public class FileModel implements Serializable {
 

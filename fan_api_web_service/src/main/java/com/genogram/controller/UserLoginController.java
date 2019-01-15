@@ -150,6 +150,10 @@ public class UserLoginController {
             return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
         }
 
+        if (StringUtils.isEmpty(allUserLogin.getFamilyCode())) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "姓氏不能为空");
+        }
+
         if (isWX == 1) {
 
             String opedId = (String) request.getSession().getAttribute("opedId");

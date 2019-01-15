@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * @author Toxicant
+ */
 @Component
 public class ClearFileTimer {
 

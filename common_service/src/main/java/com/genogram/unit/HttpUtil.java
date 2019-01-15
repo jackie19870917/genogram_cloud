@@ -12,11 +12,19 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
+/**
+ * @author Toxicant
+ */
 public class HttpUtil {
 
     public static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
-    //get请求
+    /**
+     * get请求
+     *
+     * @param requestUrl
+     * @return
+     */
     public static com.alibaba.fastjson.JSONObject doGet(String requestUrl) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;

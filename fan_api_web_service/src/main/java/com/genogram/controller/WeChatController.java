@@ -17,31 +17,47 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * @author Toxicant
+ */
 @RestController
 public class WeChatController {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    //获取相关的参数,在application.properties文件中
+    /**
+     * 获取相关的参数,在application.properties文件中
+     */
     private String appId = WeChatConfig.APP_ID;
     private String appSecret = WeChatConfig.APP_SECRET;
 
     private String accessTokenUrl;
     private String apiTicketUrl;
 
-    //微信参数
+    /**
+     * 微信参数
+     */
     private String accessToken;
     private String jsApiTicket;
 
-    //获取参数的时刻
+    /**
+     * 获取参数的时刻
+     */
     private Long getTiketTime = 0L;
     private Long getTokenTime = 0L;
 
-    //参数的有效时间,单位是秒(s)
+    /**
+     * 参数的有效时间,单位是秒(s)
+     */
     private Long tokenExpireTime = 0L;
     private Long ticketExpireTime = 0L;
 
-    //获取微信参数
+    /**
+     * 获取微信参数
+     *
+     * @param url
+     * @return
+     */
     @RequestMapping("/wechatParam")
     public Map<String, String> getWechatParam(String url) {
         //当前时间
@@ -67,7 +83,9 @@ public class WeChatController {
 
         }
 
-        //判断jsApiTicket是否已经存在或者是否过期
+        /**
+         * 判断jsApiTicket是否已经存在或者是否过期
+         */
         if (StringUtils.isBlank(jsApiTicket) || (now - getTiketTime > ticketExpireTime * 1000)) {
             JSONObject ticketInfo = getJsApiTicket();
             if (ticketInfo != null) {
@@ -84,12 +102,18 @@ public class WeChatController {
             }
         }
 
-        //生成微信权限验证的参数
+        /**
+         * 生成微信权限验证的参数
+         */
         Map<String, String> wechatParam = makeWXTicket(jsApiTicket, url);
         return wechatParam;
     }
 
-    //获取accessToken
+    /**
+     * 获取accessToken
+     *
+     * @return
+     */
     private JSONObject getAccessToken() {
         String accessTokenUrl = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
         String requestUrl = accessTokenUrl.replace("APPID", appId).replace("APPSECRET", appSecret);
@@ -98,7 +122,11 @@ public class WeChatController {
         return result;
     }
 
-    //获取ticket
+    /**
+     * 获取ticket
+     *
+     * @return
+     */
     private JSONObject getJsApiTicket() {
         //String apiTicketUrl = https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi
         String requestUrl = apiTicketUrl.replace("ACCESS_TOKEN", accessToken);
@@ -107,7 +135,13 @@ public class WeChatController {
         return result;
     }
 
-    //生成微信权限验证的参数
+    /**
+     * 生成微信权限验证的参数
+     *
+     * @param jsApiTicket
+     * @param url
+     * @return
+     */
     public Map<String, String> makeWXTicket(String jsApiTicket, String url) {
         Map<String, String> ret = new HashMap<String, String>(16);
         String nonceStr = createNonceStr();
@@ -115,7 +149,9 @@ public class WeChatController {
         String string1;
         String signature = "";
 
-        //注意这里参数名必须全部小写，且必须有序
+        /**
+         * 注意这里参数名必须全部小写，且必须有序
+         */
         string1 = "jsapi_ticket=" + jsApiTicket +
                 "&noncestr=" + nonceStr +
                 "&timestamp=" + timestamp +
@@ -147,7 +183,12 @@ public class WeChatController {
         return ret;
     }
 
-    //字节数组转换为十六进制字符串
+    /**
+     * 字节数组转换为十六进制字符串
+     *
+     * @param hash
+     * @return
+     */
     private static String byteToHex(final byte[] hash) {
         Formatter formatter = new Formatter();
         for (byte b : hash) {
@@ -158,12 +199,20 @@ public class WeChatController {
         return result;
     }
 
-    //生成随机字符串
+    /**
+     * 生成随机字符串
+     *
+     * @return
+     */
     private static String createNonceStr() {
         return UUID.randomUUID().toString();
     }
 
-    //生成时间戳
+    /**
+     * 生成时间戳
+     *
+     * @return
+     */
     private static String createTimestamp() {
         return Long.toString(System.currentTimeMillis() / 1000);
     }

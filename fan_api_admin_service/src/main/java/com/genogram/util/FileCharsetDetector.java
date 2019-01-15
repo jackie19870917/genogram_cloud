@@ -6,7 +6,8 @@ import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
 import java.io.*;
 
 /**
- * Created by chicheng on 2017/12/28.
+ * @author chicheng
+ * @date 2017/12/28
  */
 public class FileCharsetDetector {
 
