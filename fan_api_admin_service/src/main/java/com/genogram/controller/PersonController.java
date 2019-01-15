@@ -464,7 +464,7 @@ public class PersonController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
-        if (!this.getList().contains(allUserLogin.getRole())) {
+        if (!role09.equals(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
