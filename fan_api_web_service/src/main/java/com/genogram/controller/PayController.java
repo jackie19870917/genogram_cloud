@@ -586,7 +586,7 @@ public class PayController {
     @RequestMapping(value = "GO", method = RequestMethod.GET)
     public Response go() {
 
-        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/wx/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/wx/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
         return ResponseUtlis.success(url);
     }
 
