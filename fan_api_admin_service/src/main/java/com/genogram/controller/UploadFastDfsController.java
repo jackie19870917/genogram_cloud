@@ -49,10 +49,10 @@ public class UploadFastDfsController {
      */
     @ApiOperation(value = "上传文件", notes = "返回文件src")
     @RequestMapping(value = "/uploadFastdfs", method = RequestMethod.POST)
-    public Response<Map> uploadFastdfs(MultipartFile file, @RequestParam(value = "isGenealogy", defaultValue = "0") Integer isGenealogy,
+    public Response<Map> uploadFastdfs(MultipartFile file, @RequestParam(value = "isGenealogy", defaultValue = "100") Integer isGenealogy,
                                        HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
         Map<String, Object> stringObjectMap = uploadFastDfsService.uploadFastDfs(file);
-        if (isGenealogy != 0) {
+        if (isGenealogy != 100) {
             Object file_path = stringObjectMap.get("file_path");
             //文件所在地址
             String filePath = Constants.ALIYUN_IP + file_path;
