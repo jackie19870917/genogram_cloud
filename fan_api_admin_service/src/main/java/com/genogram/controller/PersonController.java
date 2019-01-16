@@ -468,7 +468,7 @@ public class PersonController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
-        Page<IndexFundDrowingVo> indexFundDrowingVoPage = fanIndexFundDrowingService.getIndexFundDrowingVoPage( pageNo, pageSize);
+        Page<IndexFundDrowingVo> indexFundDrowingVoPage = fanIndexFundDrowingService.getIndexFundDrowingVoPage(pageNo, pageSize);
 
         if (StringUtils.isEmpty(indexFundDrowingVoPage)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);

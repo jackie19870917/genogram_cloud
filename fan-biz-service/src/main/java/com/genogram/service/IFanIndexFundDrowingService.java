@@ -50,5 +50,5 @@ public interface IFanIndexFundDrowingService extends IService<FanIndexFundDrowin
      * @param pageSize
      * @return
      */
-    Page<IndexFundDrowingVo> getIndexFundDrowingVoPage( Integer pageNo, Integer pageSize);
+    Page<IndexFundDrowingVo> getIndexFundDrowingVoPage(Integer pageNo, Integer pageSize);
 }

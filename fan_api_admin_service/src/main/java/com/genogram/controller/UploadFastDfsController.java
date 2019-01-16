@@ -57,12 +57,12 @@ public class UploadFastDfsController {
     public Response<Map> uploadFastdfs(MultipartFile file, @RequestParam(value = "isGenealogy", defaultValue = "100") Integer isGenealogy,
                                        HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
         Map<String, Object> stringObjectMap = uploadFastDfsService.uploadFastDfs(file);
-        log.info("isGenealogy==  "+isGenealogy);
+        log.info("isGenealogy==  " + isGenealogy);
         //if (isGenealogy != 100) {
         String file_path = (String) stringObjectMap.get("file_path");
         String[] split = file_path.split("\\.");
-        int suffixIndex = split.length -1;
-        log.info("split[suffixIndex]==  "+split[suffixIndex]);
+        int suffixIndex = split.length - 1;
+        log.info("split[suffixIndex]==  " + split[suffixIndex]);
         if (split[suffixIndex].equals("doc") || split[suffixIndex].equals("docx") || split[suffixIndex].equals("pdf")) {
             //文件所在地址
             String filePath = Constants.ALIYUN_IP + file_path;
