@@ -7,6 +7,8 @@ import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,9 @@ import java.util.Map;
 @RequestMapping("/fan")
 @Api(description = "县级上传")
 public class UploadFastDfsController {
+
+    Logger log = LoggerFactory.getLogger(UploadFastDfsController.class);
+
     @Autowired
     private IUploadFastDfsService uploadFastDfsService;
     @Autowired
@@ -52,6 +57,7 @@ public class UploadFastDfsController {
     public Response<Map> uploadFastdfs(MultipartFile file, @RequestParam(value = "isGenealogy", defaultValue = "100") Integer isGenealogy,
                                        HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
         Map<String, Object> stringObjectMap = uploadFastDfsService.uploadFastDfs(file);
+        log.info("isGenealogy==  "+isGenealogy);
         if (isGenealogy != 100) {
             Object file_path = stringObjectMap.get("file_path");
             //文件所在地址
