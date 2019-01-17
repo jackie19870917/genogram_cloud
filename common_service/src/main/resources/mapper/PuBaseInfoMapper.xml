@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.PuBaseInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.PuBaseInfo">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="sur_name" property="surName" />
+        <result column="region" property="region" />
+        <result column="deatail_adr" property="deatailAdr" />
+        <result column="is_from" property="isFrom" />
+        <result column="describe" property="describe" />
+        <result column="face_url" property="faceUrl" />
+        <result column="status" property="status" />
+        <result column="content_id" property="contentId" />
+        <result column="pep_id" property="pepId" />
+        <result column="file_url" property="fileUrl" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, sur_name AS surName, region, deatail_adr AS deatailAdr, is_from AS isFrom, describe, face_url AS faceUrl, status, content_id AS contentId, pep_id AS pepId, file_url AS fileUrl, create_user AS createUser, create_time AS createTime, update_user AS updateUser, update_time AS updateTime
+    </sql>
+
+</mapper>
