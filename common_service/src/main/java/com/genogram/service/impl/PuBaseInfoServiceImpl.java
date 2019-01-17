@@ -1,8 +1,8 @@
 package com.genogram.service.impl;
 
 import com.genogram.entity.PuBaseInfo;
-import com.genogram.mapper.AllUserPicsMapper;
 import com.genogram.mapper.PuBaseInfoMapper;
+import com.genogram.service.IPuBaseInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2019-01-16
  */
 @Service
-public class PuBaseInfoServiceImpl extends ServiceImpl<PuBaseInfoMapper, PuBaseInfo> implements AllUserPicsMapper.IPuBaseInfoService {
+public class PuBaseInfoServiceImpl extends ServiceImpl<PuBaseInfoMapper, PuBaseInfo> implements IPuBaseInfoService {
 
 }
