@@ -21,6 +21,7 @@
         <module>pro_api_web_service</module>
         <module>per_center_api_admin_service</module>
         <module>per_center_api_web_service</module>
+        <module>pu_pro</module>
     </modules>
 
     <build>
