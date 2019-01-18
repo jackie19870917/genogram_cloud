@@ -54,11 +54,11 @@ public class UploadFastDfsController {
      */
     @ApiOperation(value = "上传文件", notes = "返回文件src")
     @RequestMapping(value = "/uploadFastdfs", method = RequestMethod.POST)
-    public Response<Map> uploadFastdfs(MultipartFile file, @RequestParam(value = "isGenealogy", defaultValue = "100") Integer isGenealogy,
+    public Response<Map> uploadFastdfs(MultipartFile file, @RequestParam(value = "isGenealogy", defaultValue = "0") Integer isGenealogy,
                                        HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
         Map<String, Object> stringObjectMap = uploadFastDfsService.uploadFastDfs(file);
         log.info("isGenealogy==  " + isGenealogy);
-        //if (isGenealogy != 100) {
+        /*//if (isGenealogy != 100) {
         String file_path = (String) stringObjectMap.get("file_path");
         String[] split = file_path.split("\\.");
         int suffixIndex = split.length - 1;
@@ -72,5 +72,16 @@ public class UploadFastDfsController {
             stringObjectMap.put("file_path", file_path);
         }
         return ResponseUtlis.success(stringObjectMap);
+    }*/
+        if (isGenealogy != 100) {
+        Object file_path = stringObjectMap.get("file_path");
+        //文件所在地址
+        String filePath = Constants.ALIYUN_IP + file_path;
+        //电子谱文件名称
+        String treePreviewPath = conventerController.fileConventer(filePath, model, request, response);
+        file_path = file_path + "@" + Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath;
+        stringObjectMap.put("file_path", file_path);
     }
+        return ResponseUtlis.success(stringObjectMap);
+}
 }
