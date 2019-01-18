@@ -1,6 +1,9 @@
 package com.genogram.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.PuBaseInfo;
@@ -54,6 +57,46 @@ public class PuBaseInfoController {
         list.add(9);
 
         return list;
+    }
+
+    @ApiOperation(value = "查询谱基本信息", notes = "")
+    @RequestMapping(value = "getPuBaseInfoPage", method = RequestMethod.POST)
+    public Response<Boolean> addPuBaseInfo(@ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
+                                           @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                           @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,@ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        List statusList = new ArrayList();
+        statusList.add(1);
+        statusList.add(2);
+        //查询条件
+        Wrapper<PuBaseInfo> entity = new EntityWrapper<PuBaseInfo>();
+        entity.eq("show_id", showId);
+        if (statusList.size() != 0) {
+            entity.in("status", statusList);
+        }
+        entity.orderBy("update_time", false);
+        Page<PuBaseInfo> puBaseInfo = puBaseInfoService.getPuBaseInfoPage(entity, pageNo, pageSize);
+        if(StringUtils.isEmpty(puBaseInfo)){
+            return ResponseUtlis.error(Constants.ERRO_CODE,"没有数据");
+        }
+        return ResponseUtlis.success( puBaseInfo);
     }
 
     @ApiOperation(value = "创建谱基本信息", notes = "puBaseInfo-谱实体")

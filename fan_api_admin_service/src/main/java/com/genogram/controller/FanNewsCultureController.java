@@ -91,7 +91,6 @@ public class FanNewsCultureController {
                     "ziapiLocation 字派具体地域 --" +
                     "zipaiTxt 字派数组:数字和字的组合")
     @RequestMapping(value = "/getCommonalityPage", method = RequestMethod.GET)
-
     public Response<FanNewsCultureZipai> getCommonalityPage(
             @ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -125,7 +124,7 @@ public class FanNewsCultureController {
             statusList.add(1);
             //查询条件
             Wrapper<FanNewsCultureZipai> entity = new EntityWrapper<FanNewsCultureZipai>();
-            entity.eq("show_id", Integer.valueOf(showId));
+            entity.eq("show_id", showId);
             if (statusList.size() != 0) {
                 entity.in("status", statusList);
             }

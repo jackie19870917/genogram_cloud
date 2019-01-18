@@ -1,5 +1,7 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.PuBaseInfo;
 import com.genogram.mapper.PuBaseInfoMapper;
@@ -25,6 +27,33 @@ public class PuBaseInfoServiceImpl extends ServiceImpl<PuBaseInfoMapper, PuBaseI
     @Autowired
     IPuBaseInfoService puBaseInfoService;
 
+    /**
+     *查询谱基本信息
+     *@Author: yuzhou
+     *@Date: 2019-01-18
+     *@Time: 9:57
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Page<PuBaseInfo> getPuBaseInfoPage(Wrapper<PuBaseInfo> entity, Integer pageNo, Integer pageSize) {
+        Page<PuBaseInfo> puBaseInfoPage = this.selectPage(new Page<>(pageNo, pageSize), entity);
+        if(StringsUtils.isEmpty(puBaseInfoPage)){
+            return null;
+        }
+        return puBaseInfoPage;
+    }
+
+    /**
+     *删除谱书
+     *@Author: yuzhou
+     *@Date: 2019-01-18
+     *@Time: 9:57
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @Override
     public Boolean deletePuBaseInfoById(Integer id, int status, AllUserLogin userLogin) {
         PuBaseInfo puBaseInfo = this.selectById(id);
