@@ -4,13 +4,16 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.ConstantsStatus;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.FanIndexFundDrowing;
 import com.genogram.entityvo.IndexFundDrowingVo;
 import com.genogram.mapper.FanIndexFundDrowingMapper;
+import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanIndexFundDrowingService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -27,6 +30,9 @@ import java.util.List;
  */
 @Service
 public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrowingMapper, FanIndexFundDrowing> implements IFanIndexFundDrowingService {
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
 
     @Override
     public Boolean insertFanIndexFundDrowing(FanIndexFundDrowing fanIndexFundDrowing) {
@@ -65,6 +71,10 @@ public class FanIndexFundDrowingServiceImpl extends ServiceImpl<FanIndexFundDrow
             IndexFundDrowingVo indexFundDrowingVo = new IndexFundDrowingVo();
 
             BeanUtils.copyProperties(fanIndexFundDrowing, indexFundDrowingVo);
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(fanIndexFundDrowing.getCreateUser());
+
+            indexFundDrowingVo.setCreateName(allUserLogin.getNickName());
 
             list.add(indexFundDrowingVo);
         }

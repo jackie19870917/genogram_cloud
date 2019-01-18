@@ -91,6 +91,12 @@ public class IndexFundDrowingVo {
     @Setter
     private Integer createUser;
     /**
+     * 创建人姓名
+     */
+    @Getter
+    @Setter
+    private String createName;
+    /**
      * 修改时间
      */
     @Getter
