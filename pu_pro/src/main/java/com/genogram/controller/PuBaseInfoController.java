@@ -78,12 +78,6 @@ public class PuBaseInfoController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
-
-        //  判断是否有权限访问
-        if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
-        }
         //状态(0:删除;1:已完成;2:完善中3:不显示)
         List statusList = new ArrayList();
         statusList.add(1);
@@ -95,7 +89,7 @@ public class PuBaseInfoController {
         return ResponseUtlis.success( puBaseInfo);
     }
 
-    @ApiOperation(value = "创建谱基本信息", notes = "puBaseInfo-谱实体")
+    @ApiOperation(value = "创建谱基本信息 修改", notes = "puBaseInfo-谱实体")
     @RequestMapping(value = "addPuBaseInfo", method = RequestMethod.POST)
     public Response<Boolean> addPuBaseInfo(@RequestBody PuBaseInfo puBaseInfo,
                                            @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
@@ -109,33 +103,17 @@ public class PuBaseInfoController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
-
-        //  判断是否有权限访问
-        if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
-        }
         if (StringUtils.isEmpty(puBaseInfo)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "puBaseInfo为空");
         }
         //状态(0:删除;1:已完成;2:完善中3:不显示)
         int status = 2;
         puBaseInfo.setStatus(status);
-        //生成时间
-        Timestamp format = DateUtil.getCurrentTimeStamp();
-        if (puBaseInfo.getId() == null) {
-            //存入创建时间
-            puBaseInfo.setCreateTime(format);
-            puBaseInfo.setCreateUser(userLogin.getId());
-            //存入修改时间
-            puBaseInfo.setUpdateTime(format);
-            puBaseInfo.setUpdateUser(userLogin.getId());
-        } else {
-            //存入修改时间
-            puBaseInfo.setUpdateTime(format);
-            puBaseInfo.setUpdateUser(userLogin.getId());
+        Boolean aBoolean =puBaseInfoService.addPuBaseInfo(puBaseInfo,userLogin);
+        if(!aBoolean){
+            return ResponseUtlis.error(Constants.FAILURE_CODE,"失败");
         }
-        return ResponseUtlis.success(puBaseInfoService.insertOrUpdate(puBaseInfo));
+        return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,"成功");
     }
 
 
@@ -154,12 +132,6 @@ public class PuBaseInfoController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
-
-        //  判断是否有权限访问
-        if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
-        }
         //判断主键是否为空
         if (id == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);

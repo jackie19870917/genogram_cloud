@@ -13,6 +13,7 @@ import com.genogram.unit.StringsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,5 +81,33 @@ public class PuBaseInfoServiceImpl extends ServiceImpl<PuBaseInfoMapper, PuBaseI
         //修改人待写
         boolean result = this.updateAllColumnById(puBaseInfo);
         return result;
+    }
+
+    /**
+     *创建谱基本信息 修改
+     *@Author: yuzhou
+     *@Date: 2019-01-18
+     *@Time: 17:32
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean addPuBaseInfo(PuBaseInfo puBaseInfo,AllUserLogin userLogin) {
+        //生成时间
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+        if (puBaseInfo.getId() == null) {
+            //存入创建时间
+            puBaseInfo.setCreateTime(format);
+            puBaseInfo.setCreateUser(userLogin.getId());
+            //存入修改时间
+            puBaseInfo.setUpdateTime(format);
+            puBaseInfo.setUpdateUser(userLogin.getId());
+        } else {
+            //存入修改时间
+            puBaseInfo.setUpdateTime(format);
+            puBaseInfo.setUpdateUser(userLogin.getId());
+        }
+        return this.insertOrUpdate(puBaseInfo);
     }
 }

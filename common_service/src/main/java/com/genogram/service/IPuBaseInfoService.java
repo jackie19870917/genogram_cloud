@@ -38,5 +38,14 @@ public interface IPuBaseInfoService extends IService<PuBaseInfo> {
      */
     Boolean deletePuBaseInfoById(Integer id, int status, AllUserLogin userLogin);
 
-    
+    /**
+     *创建谱基本信息 修改
+     *@Author: yuzhou
+     *@Date: 2019-01-18
+     *@Time: 17:33
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    Boolean addPuBaseInfo(PuBaseInfo puBaseInfo,AllUserLogin userLogin);
 }
