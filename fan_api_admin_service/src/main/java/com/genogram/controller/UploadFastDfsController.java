@@ -73,7 +73,7 @@ public class UploadFastDfsController {
         }
         return ResponseUtlis.success(stringObjectMap);
     }*/
-        if (isGenealogy != 100) {
+        if (isGenealogy != 0) {
         Object file_path = stringObjectMap.get("file_path");
         //文件所在地址
         String filePath = Constants.ALIYUN_IP + file_path;
