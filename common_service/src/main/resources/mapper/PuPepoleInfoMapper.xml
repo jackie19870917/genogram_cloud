@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.PuPepoleInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.PuPepoleInfo">
+        <id column="id" property="id" />
+        <result column="generate_num" property="generateNum" />
+        <result column="surname" property="surname" />
+        <result column="name" property="name" />
+        <result column="gender" property="gender" />
+        <result column="father_id" property="fatherId" />
+        <result column="mother_id" property="motherId" />
+        <result column="brothers_id" property="brothersId" />
+        <result column="sisters_id" property="sistersId" />
+        <result column="birth_date" property="birthDate" />
+        <result column="is_live" property="isLive" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, generate_num AS generateNum, surname, name, gender, father_id AS fatherId, mother_id AS motherId, brothers_id AS brothersId, sisters_id AS sistersId, birth_date AS birthDate, is_live AS isLive, create_user AS createUser, create_time AS createTime, update_user AS updateUser, update_time AS updateTime
+    </sql>
+
+</mapper>
