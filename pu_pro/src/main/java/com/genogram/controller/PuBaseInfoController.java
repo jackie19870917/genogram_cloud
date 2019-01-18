@@ -10,6 +10,7 @@ import com.genogram.entity.PuBaseInfo;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IPuBaseInfoService;
 import com.genogram.service.IUserService;
+import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -19,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,9 +64,9 @@ public class PuBaseInfoController {
 
     @ApiOperation(value = "查询谱基本信息", notes = "")
     @RequestMapping(value = "getPuBaseInfoPage", method = RequestMethod.POST)
-    public Response<Boolean> addPuBaseInfo(@ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId, // 家族文化显示位置
-                                           @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                           @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,@ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+    public Response<Boolean> addPuBaseInfo(@ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                           @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
@@ -81,13 +84,13 @@ public class PuBaseInfoController {
         if (!this.getList().contains(allUserLogin.getRole())) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
-        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        //状态(0:删除;1:已完成;2:完善中3:不显示)
         List statusList = new ArrayList();
         statusList.add(1);
         statusList.add(2);
         //查询条件
         Wrapper<PuBaseInfo> entity = new EntityWrapper<PuBaseInfo>();
-        entity.eq("show_id", showId);
+        entity.eq("create_user", userLogin.getId());
         if (statusList.size() != 0) {
             entity.in("status", statusList);
         }
@@ -109,7 +112,6 @@ public class PuBaseInfoController {
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
-
         if (StringUtils.isEmpty(userLogin)) {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
@@ -123,9 +125,23 @@ public class PuBaseInfoController {
         if (StringUtils.isEmpty(puBaseInfo)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "puBaseInfo为空");
         }
-        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        //状态(0:删除;1:已完成;2:完善中3:不显示)
         int status = 1;
         puBaseInfo.setStatus(status);
+        //生成时间
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+        if (puBaseInfo.getId() == null) {
+            //存入创建时间
+            puBaseInfo.setCreateTime(format);
+            puBaseInfo.setCreateUser(userLogin.getId());
+            //存入修改时间
+            puBaseInfo.setUpdateTime(format);
+            puBaseInfo.setUpdateUser(userLogin.getId());
+        } else {
+            //存入修改时间
+            puBaseInfo.setUpdateTime(format);
+            puBaseInfo.setUpdateUser(userLogin.getId());
+        }
         return ResponseUtlis.success(puBaseInfoService.insertOrUpdate(puBaseInfo));
     }
 
@@ -155,7 +171,7 @@ public class PuBaseInfoController {
         if (id == null) {
             return ResponseUtlis.error(Constants.IS_EMPTY, null);
         }
-        //状态(0:删除;1:已发布;2:草稿3:不显示)
+        //状态(0:删除;1:已完成;2:完善中3:不显示)
         int status = 0;
         Boolean aBoolean = puBaseInfoService.deletePuBaseInfoById(id, status, userLogin);
         if (aBoolean == null || !aBoolean) {
