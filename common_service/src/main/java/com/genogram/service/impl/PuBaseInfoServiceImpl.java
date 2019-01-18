@@ -1,5 +1,6 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
@@ -11,6 +12,9 @@ import com.genogram.unit.DateUtil;
 import com.genogram.unit.StringsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -37,7 +41,14 @@ public class PuBaseInfoServiceImpl extends ServiceImpl<PuBaseInfoMapper, PuBaseI
      *@Description:
     */
     @Override
-    public Page<PuBaseInfo> getPuBaseInfoPage(Wrapper<PuBaseInfo> entity, Integer pageNo, Integer pageSize) {
+    public Page<PuBaseInfo> getPuBaseInfoPage(List statusList, Integer pageNo, Integer pageSize,AllUserLogin userLogin) {
+        //查询条件
+        Wrapper<PuBaseInfo> entity = new EntityWrapper<PuBaseInfo>();
+        entity.eq("create_user", userLogin.getId());
+        if (statusList.size() != 0) {
+            entity.in("status", statusList);
+        }
+        entity.orderBy("update_time", false);
         Page<PuBaseInfo> puBaseInfoPage = this.selectPage(new Page<>(pageNo, pageSize), entity);
         if(StringsUtils.isEmpty(puBaseInfoPage)){
             return null;
