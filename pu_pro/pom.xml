@@ -27,12 +27,12 @@
     </properties>
 
     <dependencies>
-    <!--common_service 依赖-->
-    <dependency>
-        <groupId>com.genogram</groupId>
-        <artifactId>common_service</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </dependency>
+        <!--common_service 依赖-->
+        <dependency>
+            <groupId>com.genogram</groupId>
+            <artifactId>common_service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!--common_file_upload_service 依赖-->
         <dependency>
             <groupId>com.genogram</groupId>

@@ -17,7 +17,7 @@ public interface AllUserPicsMapper extends BaseMapper<AllUserPics> {
 
     /**
      * <p>
-     *  服务类
+     * 服务类
      * </p>
      *
      * @author yizx

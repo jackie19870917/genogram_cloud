@@ -1,16 +1,19 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author yizx
@@ -233,22 +236,22 @@ public class PuBaseInfo extends Model<PuBaseInfo> {
     @Override
     public String toString() {
         return "PuBaseInfo{" +
-        ", id=" + id +
-        ", name=" + name +
-        ", surName=" + surName +
-        ", region=" + region +
-        ", deatailAdr=" + deatailAdr +
-        ", isFrom=" + isFrom +
-        ", describe=" + describe +
-        ", faceUrl=" + faceUrl +
-        ", status=" + status +
-        ", contentId=" + contentId +
-        ", pepId=" + pepId +
-        ", fileUrl=" + fileUrl +
-        ", createUser=" + createUser +
-        ", createTime=" + createTime +
-        ", updateUser=" + updateUser +
-        ", updateTime=" + updateTime +
-        "}";
+                ", id=" + id +
+                ", name=" + name +
+                ", surName=" + surName +
+                ", region=" + region +
+                ", deatailAdr=" + deatailAdr +
+                ", isFrom=" + isFrom +
+                ", describe=" + describe +
+                ", faceUrl=" + faceUrl +
+                ", status=" + status +
+                ", contentId=" + contentId +
+                ", pepId=" + pepId +
+                ", fileUrl=" + fileUrl +
+                ", createUser=" + createUser +
+                ", createTime=" + createTime +
+                ", updateUser=" + updateUser +
+                ", updateTime=" + updateTime +
+                "}";
     }
 }

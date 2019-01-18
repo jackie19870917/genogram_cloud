@@ -21,7 +21,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author yizx
@@ -56,7 +56,6 @@ public class PuBaseInfoController {
         return list;
     }
 
-
     @ApiOperation(value = "创建谱基本信息", notes = "puBaseInfo-谱实体")
     @RequestMapping(value = "addPuBaseInfo", method = RequestMethod.POST)
     public Response<Boolean> addPuBaseInfo(@RequestBody PuBaseInfo puBaseInfo,
@@ -84,7 +83,7 @@ public class PuBaseInfoController {
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         int status = 1;
         puBaseInfo.setStatus(status);
-        return ResponseUtlis.success( puBaseInfoService.insertOrUpdate(puBaseInfo));
+        return ResponseUtlis.success(puBaseInfoService.insertOrUpdate(puBaseInfo));
     }
 
 
@@ -115,7 +114,7 @@ public class PuBaseInfoController {
         }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         int status = 0;
-        Boolean aBoolean = puBaseInfoService.deletePuBaseInfoById(id, status,userLogin);
+        Boolean aBoolean = puBaseInfoService.deletePuBaseInfoById(id, status, userLogin);
         if (aBoolean == null || !aBoolean) {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);
         }

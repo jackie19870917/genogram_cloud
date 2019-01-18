@@ -66,9 +66,6 @@ public class PayController {
     @Autowired
     private IUserService userService;
 
-    @Autowired
-    private IAllUserLoginService allUserLoginService;
-
     private String baseUrl;
 
     @Value("${pay_notify_url}")
