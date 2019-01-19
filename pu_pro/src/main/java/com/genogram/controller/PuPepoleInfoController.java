@@ -40,9 +40,10 @@ public class PuPepoleInfoController {
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
-    @ApiOperation(value = "添加人物信息", notes = "puBaseInfo-谱实体")
+    @ApiOperation(value = "添加人物信息 修改", notes = "puBaseInfo-谱实体")
     @RequestMapping(value = "addPuPepoleInfo", method = RequestMethod.POST)
     public Response<Boolean> addPuPepoleInfo(@RequestBody PuPepoleInfo puPepoleInfo,
+                                           @ApiParam("基础表ID") @RequestParam(value = "id", required = false) Integer id,
                                            @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
@@ -55,15 +56,21 @@ public class PuPepoleInfoController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
         }
 
-       // AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
-
-
         if (StringUtils.isEmpty(puPepoleInfo)) {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "puPepoleInfo为空");
         }
-
-
-        return ResponseUtlis.success(puPepoleInfoService.insertOrUpdate(puPepoleInfo));
+        //判断id是否为空
+        if (id == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+        //状态(0:删除;1:显示;)
+        int isLive = 1;
+        puPepoleInfo.setIsLive(isLive);
+        Boolean aBoolean =puPepoleInfoService.addPuPepoleInfo(puPepoleInfo,userLogin,id);
+        if(!aBoolean){
+            return ResponseUtlis.error(Constants.FAILURE_CODE,"失败");
+        }
+        return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,"成功");
     }
 
 }
