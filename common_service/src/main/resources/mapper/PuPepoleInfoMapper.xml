@@ -8,12 +8,29 @@
         <result column="generate_num" property="generateNum" />
         <result column="surname" property="surname" />
         <result column="name" property="name" />
+        <result column="is_alive" property="isAlive" />
         <result column="gender" property="gender" />
+        <result column="zipai" property="zipai" />
         <result column="father_id" property="fatherId" />
         <result column="mother_id" property="motherId" />
-        <result column="brothers_id" property="brothersId" />
-        <result column="sisters_id" property="sistersId" />
+        <result column="brothers_sisters_id" property="brothersSistersId" />
+        <result column="daughter_id" property="daughterId" />
+        <result column="son_id" property="sonId" />
+        <result column="spouse_id" property="spouseId" />
+        <result column="self_details" property="selfDetails" />
+        <result column="spouse_details" property="spouseDetails" />
+        <result column="else_name" property="elseName" />
+        <result column="hao" property="hao" />
+        <result column="posthumous_title" property="posthumousTitle" />
+        <result column="hui" property="hui" />
+        <result column="linenum_describe" property="linenumDescribe" />
+        <result column="position_title" property="positionTitle" />
         <result column="birth_date" property="birthDate" />
+        <result column="away_date" property="awayDate" />
+        <result column="orientation" property="orientation" />
+        <result column="obiit_" property="obiit" />
+        <result column="ancient_site" property="ancientSite" />
+        <result column="endnote" property="endnote" />
         <result column="is_live" property="isLive" />
         <result column="create_user" property="createUser" />
         <result column="create_time" property="createTime" />
@@ -23,7 +40,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, generate_num AS generateNum, surname, name, gender, father_id AS fatherId, mother_id AS motherId, brothers_id AS brothersId, sisters_id AS sistersId, birth_date AS birthDate, is_live AS isLive, create_user AS createUser, create_time AS createTime, update_user AS updateUser, update_time AS updateTime
+        id, generate_num AS generateNum, surname, name, is_alive AS isAlive, gender, zipai, father_id AS fatherId, mother_id AS motherId, brothers_sisters_id AS brothersSistersId, daughter_id AS daughterId, son_id AS sonId, spouse_id AS spouseId, self_details AS selfDetails, spouse_details AS spouseDetails, else_name AS elseName, hao, posthumous_title AS posthumousTitle, hui, linenum_describe AS linenumDescribe, position_title AS positionTitle, birth_date AS birthDate, away_date AS awayDate, orientation, obiit_ AS obiit, ancient_site AS ancientSite, endnote, is_live AS isLive, create_user AS createUser, create_time AS createTime, update_user AS updateUser, update_time AS updateTime
     </sql>
 
 </mapper>
