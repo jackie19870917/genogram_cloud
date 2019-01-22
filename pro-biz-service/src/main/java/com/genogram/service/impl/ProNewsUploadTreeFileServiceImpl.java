@@ -98,7 +98,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             return page;
 
             // 地区不为空   名称为空
-        } else if (regionCode != null && fileName == null) {
+        } else if (regionCode != null && regionCode !="" && fileName == null) {
 
             AllRegion allRegion = new AllRegion();
             allRegion.setCode(Integer.valueOf(regionCode));
@@ -252,6 +252,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             BeanUtils.copyProperties(proNewsUploadTreeFile, newsUploadTreeFileVo);
             AllFamily allFamily = allFamilyService.getAllFamilyById(proNewsUploadTreeFile.getFamilyCode());
             newsUploadTreeFileVo.setFamilyName(allFamily.getValue());
+            newsUploadTreeFileVo.setUrl(proNewsUploadTreeFile.getTreePreviewPath());
 
             newsUploadTreeFileVoList.add(newsUploadTreeFileVo);
         });
