@@ -36,6 +36,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
     private final static String INDEX_ARCHITECHTURE_PAY_IN_PERSON_2_2 = "index_architecture_pay_in_person_2_2";
     private final static String INDEX_CHARITY_PAY_OUT = "index_charity_pay_out";
     private final static String INDEX_CHARITY_PAY_OUT_3 = "index_charity_pay_out_3";
+    private final static String INDEX_SUBORDINATE = "index_subordinate";
     private final static int NUM_100 = 100;
 
     @Autowired
@@ -105,7 +106,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         volist.add(vo);
 
         //下级县级网站
-        vo = setIndexMenu(siteId, "下级县级网站", "", "genogram/proPublic/provincialSubordinate?siteId=", "");
+        vo = setIndexMenu(siteId, "下级县级网站", INDEX_SUBORDINATE, "genogram/proPublic/provincialSubordinate?siteId=", "");
         volist.add(vo);
 
         //慈善公益第二页的
@@ -116,7 +117,6 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         //财政用途支出第二页的
         vo = setIndexMenu(siteId, "支出公开栏", INDEX_CHARITY_PAY_OUT_3, "genogram/proNewsCharity/index/getProNewsCharityOut?showId=", "慈善公益第二页的");
         volist.add(vo);
-
 
         return volist;
 
