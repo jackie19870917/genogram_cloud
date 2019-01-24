@@ -73,10 +73,10 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         volist.add(vo);
 
         //资讯-联谊会发布-家族文化除去字派,记录家族除去视频
-        vo = setIndexMenu(siteId, "联谊会发布", "index_fan_news_recommend", "genogram/admin/proRecommend/index/getRecommendArticle?siteId=", "");
+        vo = setIndexMenu(siteId, "联谊会发布", "index_fan_news_sodality_recommend", "genogram/admin/proRecommend/index/getRecommendArticle?siteId=", "");
         volist.add(vo);
         //个人发布
-        vo = setIndexMenu(siteId, "个人发布", "index_fan_news_recommend", "genogram/proIndex/getAllUserNewsInfoPage?siteId=", "");
+        vo = setIndexMenu(siteId, "个人发布", "index_fan_news_person_recommend", "genogram/proIndex/getAllUserNewsInfoPage?siteId=", "");
         volist.add(vo);
         //人物 - 家族长老 - 联谊会
         vo = setIndexMenu(siteId, "家族长老", "index_fan_person_recommend_1", "genogram/admin/proRecommend/index/getRecommendFigureElder?siteId=", "");
@@ -104,7 +104,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         //人物 - 精英 - 省级
         vo = setIndexMenu(siteId, "精英", "index_family_person_3", "genogram/proNewsFamous/selectPersonPage?showId=", "");
         volist.add(vo);
-
+        
         //下级县级网站
         vo = setIndexMenu(siteId, "下级县级网站", INDEX_SUBORDINATE, "genogram/proPublic/provincialSubordinate?siteId=", "");
         volist.add(vo);
