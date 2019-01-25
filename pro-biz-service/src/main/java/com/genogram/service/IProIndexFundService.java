@@ -28,4 +28,11 @@ public interface IProIndexFundService extends IService<ProIndexFund> {
      * @return
      */
     Boolean updateProIndexFund(ProIndexFund proIndexFund);
+
+    /**
+     * 新增 基金金额
+     * @param proIndexFund
+     * @return
+     */
+    Boolean insertOrUpdateFanIndexFund(ProIndexFund proIndexFund);
 }

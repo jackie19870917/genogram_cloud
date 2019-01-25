@@ -1,5 +1,6 @@
 package com.genogram.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
@@ -8,12 +9,14 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.genogram.config.AlipayConfig;
 import com.genogram.config.Constants;
 import com.genogram.config.PayConfig;
-import com.genogram.entity.*;
+import com.genogram.config.WeChatConfig;
+import com.genogram.entity.AllUserLogin;
+import com.genogram.entity.FanNewsCharityPayIn;
+import com.genogram.entity.ProIndexFund;
+import com.genogram.entity.ProNewsCharityPayIn;
 import com.genogram.service.*;
-import com.genogram.unit.DateUtil;
-import com.genogram.unit.PayUtils;
-import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.*;
+import com.github.wxpay.sdk.WXPayUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -25,18 +28,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+
+import static com.genogram.unit.WeChatConstant.TOKEN;
 
 /**
  * 支付
@@ -78,7 +81,7 @@ public class PayController {
 
     @ApiOperation(value = "支付宝支付", notes = "id:主键,showId:显示位置,payUsrId:捐款人,payAmount:捐款金额")
     @RequestMapping(value = "aLiPay", method = RequestMethod.POST)
-    public Response<FanNewsCharityPayIn> aLiPay(ProNewsCharityPayIn proNewsCharityPayIn,
+    public Response<ProNewsCharityPayIn> aLiPay(ProNewsCharityPayIn proNewsCharityPayIn,
                                                 @ApiParam("网站ID") @RequestParam Integer siteId,
                                                 @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                 @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
@@ -150,7 +153,7 @@ public class PayController {
         }
     }
 
-    @RequestMapping(value = "/return_url")
+    @RequestMapping("return_url")
     public void aLiPayReturnNotice(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
         log.info("支付成功, 进入同步通知接口...");
@@ -203,7 +206,7 @@ public class PayController {
             proIndexFund.setRemain(proIndexFund.getRemain().add(new BigDecimal(totalAmount)));
             proIndexFund.setPayOnline(proIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
 
-            proIndexFundService.updateProIndexFund(proIndexFund);
+            proIndexFundService.insertOrUpdateFanIndexFund(proIndexFund);
 
             log.info("********************** 支付成功(支付宝同步通知) **********************");
             log.info("* 订单号: {}", outTradeNo);
@@ -213,7 +216,6 @@ public class PayController {
             log.info("***************************************************************");
 
             response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
-
         } else {
             log.info("支付, 验签失败...");
             response.sendRedirect(this.baseUrl + "result=error");
@@ -247,9 +249,10 @@ public class PayController {
         // ——请在这里编写您的程序（以下代码仅作参考）——
 
         /*
-         * 实际验证过程建议商户务必添加以下校验： 1、需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
-         * 2、判断total_amount是否确实为该订单的实际金额（即商户订单创建时的金额）， 3、校验通知中的seller_id（或者seller_email)
-         * 是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）
+         * 实际验证过程建议商户务必添加以下校验：
+         * 1、需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
+         * 2、判断total_amount是否确实为该订单的实际金额（即商户订单创建时的金额），
+         * 3、校验通知中的seller_id（或者seller_email)是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email）
          * 4、验证app_id是否为该商户本身。
          */
         // 验证成功
@@ -303,15 +306,12 @@ public class PayController {
     }
 
     @ApiOperation("微信支付")
-    @RequestMapping(value = "weChatPay", method = RequestMethod.GET)
-    public Response weChatPay(Model model, HttpServletRequest request,
+    @RequestMapping(value = "weChatPay", method = RequestMethod.POST)
+    public Response weChatPay(HttpServletRequest request,
                               ProNewsCharityPayIn proNewsCharityPayIn,
                               @ApiParam("网站ID") @RequestParam Integer siteId,
                               @ApiParam("token") @RequestParam(value = "token", required = false) String token,
-                              @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous,
-                              @ApiParam("回调地址") @RequestParam(value = "url") String url) {
-
-        this.baseUrl = url;
+                              @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous) {
 
         Integer showId = proSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
 
@@ -341,7 +341,6 @@ public class PayController {
         // 商品描述
         String body = "炎黄統譜网在线微信扫码支付";
 
-
         proNewsCharityPayIn.setOrderId(payId);
         proNewsCharityPayIn.setShowId(showId);
         proNewsCharityPayIn.setPayUsrId(userLogin.getId());
@@ -350,7 +349,6 @@ public class PayController {
         proNewsCharityPayIn.setPayChannel(payChannel);
 
         proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
-
 
         // 回调地址
         String callback = new PayConfig().getNotifyUrl();
@@ -372,10 +370,33 @@ public class PayController {
         }
     }
 
+    @ApiOperation("查询订单请求")
+    @RequestMapping(value = "getFanNewsCharityPayIn", method = RequestMethod.POST)
+    public Response<FanNewsCharityPayIn> getFanNewsCharityPayIn(@ApiParam("订单号") @RequestParam("outTradeNo") String outTradeNo) {
+
+        ProNewsCharityPayIn proNewsCharityPayIn = new ProNewsCharityPayIn();
+
+        proNewsCharityPayIn.setOrderId(outTradeNo);
+
+        proNewsCharityPayIn = proNewsCharityPayInService.selectOne(proNewsCharityPayIn);
+
+        if (StringUtils.isEmpty(proNewsCharityPayIn)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "订单号不存在");
+        } else {
+            if (proNewsCharityPayIn.getStatus() == 1) {
+
+                return ResponseUtlis.success(proNewsCharityPayIn);
+            } else {
+                return ResponseUtlis.error(201, null);
+            }
+        }
+    }
+
+    @ApiOperation("微信支付完成后的回调")
     @RequestMapping("callBack")
     public void callBack(HttpServletRequest request, HttpServletResponse response) throws IOException, DocumentException {
 
-        java.io.InputStream is = request.getInputStream();
+        InputStream is = request.getInputStream();
         // 取HTTP请求流长度
         int size = request.getContentLength();
         // 用于缓存每次读取的数据
@@ -402,27 +423,30 @@ public class PayController {
 
         String outTradeNo = rootElt.elementText("out_trade_no");
 
-        String totalAmount = rootElt.elementText("total_tee");
-
         ProNewsCharityPayIn proNewsCharityPayIn = new ProNewsCharityPayIn();
 
         proNewsCharityPayIn.setOrderId(outTradeNo);
         proNewsCharityPayIn = proNewsCharityPayInService.selectOne(proNewsCharityPayIn);
 
+        Integer status = 2;
+        if (proNewsCharityPayIn.getStatus().equals(status)) {
+
+            //修改基金金额
+            Integer siteId = proSysWebNewsShowService.getSiteIdByShowId(proNewsCharityPayIn.getShowId()).getSiteId();
+
+            ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(siteId);
+
+            System.out.println(proIndexFund.getRemain());
+            proIndexFund.setRemain(proIndexFund.getRemain().add(proNewsCharityPayIn.getPayAmount()));
+            proIndexFund.setPayOnline(proIndexFund.getPayOnline().add(proNewsCharityPayIn.getPayAmount()));
+
+            proIndexFundService.insertOrUpdateFanIndexFund(proIndexFund);
+        }
+
         proNewsCharityPayIn.setPayTime(DateUtil.getCurrentTimeStamp());
         proNewsCharityPayIn.setStatus(1);
 
         proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
-
-        //修改基金金额
-        Integer siteId = proSysWebNewsShowService.getSiteIdByShowId(proNewsCharityPayIn.getShowId()).getSiteId();
-
-        ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(siteId);
-
-        proIndexFund.setRemain(proIndexFund.getRemain().add(new BigDecimal(totalAmount)));
-        proIndexFund.setPayOnline(proIndexFund.getPayOnline().add(new BigDecimal(totalAmount)));
-
-        proIndexFundService.updateProIndexFund(proIndexFund);
 
         //给微信返回支付成功结果
         String responseStr = "<xml>";
@@ -431,10 +455,310 @@ public class PayController {
 
         response.getWriter().write(responseStr);
         System.out.println("responseStr2:" + responseStr);
+    }
 
+    /***
+     * 微信浏览器内微信支付/公众号支付(JSAPI)
+     * @param request
+     * @param proNewsCharityPayIn
+     * @param siteId
+     * @param token
+     * @param anonymous
+     * @return
+     */
 
-        System.out.println("支付完成");
+    @ApiOperation("微信公众号支付")
+    @RequestMapping(value = "orders", method = RequestMethod.POST)
+    public Response orders(HttpServletRequest request,
+                           ProNewsCharityPayIn proNewsCharityPayIn,
+                           @ApiParam("网站ID") @RequestParam Integer siteId,
+                           @ApiParam("token") @RequestParam(value = "token", required = false, defaultValue = "") String token,
+                           @ApiParam("是否匿名(1-匿名,0-不匿名)") @RequestParam("anonymous") Integer anonymous) {
 
-        response.sendRedirect(this.baseUrl + "result=success&out_trade_no=" + outTradeNo + "&total_amount=" + totalAmount);
+        try {
+
+            Integer showId = proSysWebNewsShowService.getSysWebNewsShowBySiteIdAndMenuCode(siteId, "index_architecture_pay_in_person").getShowId();
+
+            String payChannel = "微信公众号支付";
+            proNewsCharityPayIn.getPayAmount().multiply(new BigDecimal(100));
+            String totalFee = (int) Double.parseDouble(proNewsCharityPayIn.getPayAmount().multiply(new BigDecimal(100)) + "") + "";
+
+            // 订单编号
+            String payId = DateUtil.getAllTime() + String.format("%02d", new Random().nextInt(100));
+
+            HttpSession session = request.getSession();
+
+            //获取openId
+            String openId = (String) session.getAttribute("openId");
+
+            if (StringUtils.isEmpty(openId)) {
+                return ResponseUtlis.error(Constants.NOSUPPORT, "您还没有授权");
+            }
+
+            AllUserLogin userLogin = new AllUserLogin();
+
+            if (1 == anonymous) {
+                userLogin.setId(1);
+            } else {
+
+                String undefined = "undefined";
+                if (token.equals(undefined)) {
+                    token = "";
+                }
+
+                if (StringUtils.isEmpty(token)) {
+                    return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                } else {
+                    userLogin = userService.getUserLoginInfoByToken(token);
+
+                }
+            }
+
+            // 商品描述
+            String body = "炎黄統譜网在线微信扫码支付";
+
+            proNewsCharityPayIn.setOrderId(payId);
+            proNewsCharityPayIn.setShowId(showId);
+            proNewsCharityPayIn.setPayUsrId(userLogin.getId());
+            proNewsCharityPayIn.setType(1);
+            proNewsCharityPayIn.setStatus(2);
+            proNewsCharityPayIn.setPayChannel(payChannel);
+
+            proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
+
+            //拼接统一下单地址参数
+            Map<String, String> paraMap = new HashMap<String, String>(16);
+            //获取请求ip地址
+            String ip = PayUtils.getRemoteAddr(request);
+
+            paraMap.put("appid", WeChatConfig.APP_ID);
+            paraMap.put("body", body);
+            paraMap.put("mch_id", WeChatConfig.MCH_ID);
+            paraMap.put("nonce_str", WXPayUtil.generateNonceStr());
+            paraMap.put("openid", openId);
+            //订单号
+            paraMap.put("out_trade_no", payId);
+            paraMap.put("spbill_create_ip", ip);
+            paraMap.put("total_fee", totalFee);
+            paraMap.put("trade_type", WeChatConfig.TRADE_TYPE_JSAPI);
+            // 此路径是微信服务器调用支付结果通知路径随意写
+            paraMap.put("notify_url", WeChatConfig.NOTIFY_URL);
+            String sign = WXPayUtil.generateSignature(paraMap, WeChatConfig.KEY);
+            paraMap.put("sign", sign);
+            //将所有参数(map)转xml格式
+            String xml = WXPayUtil.mapToXml(paraMap);
+
+            // 统一下单 https://api.mch.weixin.qq.com/pay/unifiedorder
+            String unifiedorderUrl = WeChatConfig.UNIFIED_ORDER_URL;
+
+            //发送post请求"统一下单接口"返回预支付id:prepay_id
+            String xmlStr = HttpRequest.sendPost(unifiedorderUrl, xml);
+
+            System.out.println(xmlStr);
+
+            //以下内容是返回前端页面的json数据
+            //预支付id
+            String prepayId = "";
+            String success = "SUCCESS";
+            if (xmlStr.indexOf(success) != -1) {
+                Map<String, String> map = WXPayUtil.xmlToMap(xmlStr);
+                prepayId = (String) map.get("prepay_id");
+            }
+            Map<String, String> payMap = new HashMap<String, String>(16);
+            payMap.put("appId", WeChatConfig.APP_ID);
+            payMap.put("timeStamp", System.currentTimeMillis() + "");
+            payMap.put("nonceStr", WXPayUtil.generateNonceStr());
+            payMap.put("signType", "MD5");
+            payMap.put("package", "prepay_id=" + prepayId);
+            String paySign = WXPayUtil.generateSignature(payMap, WeChatConfig.KEY);
+            payMap.put("paySign", paySign);
+
+            return ResponseUtlis.success(payMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @ApiOperation("默认请求")
+    @RequestMapping(value = "GO", method = RequestMethod.GET)
+    public Response go() {
+
+        String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/wx/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+        return ResponseUtlis.success(url);
+    }
+
+    @ApiOperation("回调")
+    @RequestMapping("oauth2WeChat")
+    public String oauth2WeChat(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 用户同意授权后，能获取到code
+        String code = request.getParameter("code");
+
+        /**
+         *  用户同意授权
+         */
+        String authdeny = "authdeny";
+        if (!authdeny.equals(code)) {
+            // 获取网页授权access_token
+            Oauth2Token oauth2Token = getOauth2AccessToken(WeChatConfig.APP_ID, WeChatConfig.APP_SECRET, code);
+            System.out.println("oauth2Token信息：" + oauth2Token.toString());
+
+            // 网页授权接口访问凭证
+            String accessToken = oauth2Token.getAccessToken();
+
+            // 用户标识
+            String openId = oauth2Token.getOpenId();
+
+            HttpSession session = request.getSession();
+            session.setAttribute("accessToken", accessToken);
+            session.setAttribute("openId", openId);
+
+            log.info("首次的openId=" + openId);
+            System.out.println("首次的openId=" + openId);
+            // 获取用户信息
+            //SnsUserInfo snsUserInfo = getSNSUserInfo(accessToken, openId);
+            // System.out.println("***********************************用户信息unionId：" + snsUserInfo.getUnionid() + "***:" + snsUserInfo.getNickname());
+
+            return "index";
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * 获取网页授权凭证
+     *
+     * @param appId     公众账号的唯一标识
+     * @param appSecret 公众账号的密钥
+     * @param code
+     * @return WeixinAouth2Token
+     */
+    public Oauth2Token getOauth2AccessToken(String appId, String appSecret, String code) {
+        Oauth2Token wat = null;
+        // 拼接请求地址
+        String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+        requestUrl = requestUrl.replace("APPID", appId);
+        requestUrl = requestUrl.replace("SECRET", appSecret);
+        requestUrl = requestUrl.replace("CODE", code);
+        // 获取网页授权凭证
+        com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(NetUtil.get(requestUrl));
+        if (null != jsonObject) {
+            try {
+                wat = new Oauth2Token();
+                wat.setAccessToken(jsonObject.getString("access_token"));
+                wat.setExpiresIn(jsonObject.getInteger("expires_in"));
+                wat.setRefreshToken(jsonObject.getString("refresh_token"));
+                wat.setOpenId(jsonObject.getString("openid"));
+                wat.setScope(jsonObject.getString("scope"));
+            } catch (Exception e) {
+                wat = null;
+                int errorCode = jsonObject.getInteger("errcode");
+                String errorMsg = jsonObject.getString("errmsg");
+
+                log.error("获取网页授权凭证失败 errcode:{} errmsg:{}", errorCode, errorMsg);
+            }
+        }
+        return wat;
+    }
+
+    /**
+     * 通过网页授权获取用户信息
+     *
+     * @param accessToken 网页授权接口调用凭证
+     * @param openId      用户标识
+     * @return SNSUserInfo
+     */
+    public SnsUserInfo getSNSUserInfo(String accessToken, String openId) {
+        SnsUserInfo snsUserInfo = null;
+        // 拼接请求地址
+        String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+        requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
+        // 通过网页授权获取用户信息
+        com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(NetUtil.get(requestUrl));
+
+        if (null != jsonObject) {
+            try {
+                snsUserInfo = new SnsUserInfo();
+                // 用户的标识
+                snsUserInfo.setOpenId(jsonObject.getString("openid"));
+                // 昵称
+                snsUserInfo.setNickname(jsonObject.getString("nickname"));
+                // 性别（1是男性，2是女性，0是未知）
+                snsUserInfo.setSex(jsonObject.getInteger("sex"));
+                // 用户所在国家
+                snsUserInfo.setCountry(jsonObject.getString("country"));
+                // 用户所在省份
+                snsUserInfo.setProvince(jsonObject.getString("province"));
+                // 用户所在城市
+                snsUserInfo.setCity(jsonObject.getString("city"));
+                // 用户头像
+                snsUserInfo.setHeadImgUrl(jsonObject.getString("headimgurl"));
+                // 用户特权信息
+                List<String> list = JSON.parseArray(jsonObject.getString("privilege"), String.class);
+                snsUserInfo.setPrivilegeList(list);
+                //与开放平台共用的唯一标识，只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
+                snsUserInfo.setUnionid(jsonObject.getString("unionid"));
+            } catch (Exception e) {
+                snsUserInfo = null;
+                int errorCode = jsonObject.getInteger("errcode");
+                String errorMsg = jsonObject.getString("errmsg");
+                log.error("获取用户信息失败 errcode:{} errmsg:{}", errorCode, errorMsg);
+            }
+        }
+        return snsUserInfo;
+    }
+
+    @ApiOperation("微信验证")
+    @RequestMapping("contactWeChat")
+    public void contactWeChat(HttpServletRequest request,
+                              HttpServletResponse response) {
+        String method = request.getMethod();
+        String remoteHost = request.getRemoteHost();
+        String remoteAddr = request.getRemoteAddr();
+        System.out.println("method :" + method);
+        System.out.println("remoteHost :" + remoteHost + " remoteAddr :"
+                + remoteAddr);
+        try {
+            String get = "GET";
+            if (get.equals(method)) {
+                // 微信加密签名
+                // ceb87cf6583bdd37bc49fb7b10fc42f4c3ae4bf2
+                String signature = request.getParameter("signature");
+                System.out.println("微信加密签名" + signature);
+                // 随机字符串
+                String echostr = request.getParameter("echostr");
+                System.out.println("随机字符串" + echostr);
+                // 时间戳
+                String timestamp = request.getParameter("timestamp");
+                System.out.println("时间戳" + timestamp);
+                // 随机数
+                String nonce = request.getParameter("nonce");
+                System.out.println("随机数" + nonce);
+
+                if (null != signature) {
+                    String[] str = {TOKEN, timestamp, nonce};
+                    // 字典序排序
+                    Arrays.sort(str);
+                    String bigStr = str[0] + str[1] + str[2];
+                    // SHA1加密
+                    String digest = new Sha1()
+                            .getDigestOfString(bigStr.getBytes()).toLowerCase();
+                    System.out.println("digest " + digest);
+                    // 确认请求来至微信
+                    if (digest.equals(signature)) {
+                        response.getWriter().print(echostr);
+                        System.out.println("echostr: " + echostr);
+
+                    } else {
+                        System.out.println("echostr: err");
+                        response.getWriter().write("It 's not Wxpt!");
+                    }
+                }
+            } else {
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

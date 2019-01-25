@@ -10,6 +10,9 @@ import com.genogram.unit.DateUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 /**
  * <p>
  * 省级-首页-基金-前台后台 服务实现类
@@ -49,4 +52,30 @@ public class ProIndexFundServiceImpl extends ServiceImpl<ProIndexFundMapper, Pro
 
         return this.updateProIndexFund(proIndexFund);
     }
+
+    @Override
+    public Boolean insertOrUpdateFanIndexFund(ProIndexFund proIndexFund) {
+
+        ProIndexFund ProIndexFund1 = this.getProIndexFund(proIndexFund.getSiteId());
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
+        if (StringUtils.isEmpty(ProIndexFund1)) {
+
+            proIndexFund.setCreateTime(timeStamp);
+            proIndexFund.setCreateUser(1);
+            proIndexFund.setRemain(new BigDecimal("0"));
+            proIndexFund.setUnuseAmount(new BigDecimal("0"));
+            proIndexFund.setPayOnline(new BigDecimal("0"));
+            proIndexFund.setPayUnderline(new BigDecimal("0"));
+            proIndexFund.setPayGenogram(new BigDecimal("0"));
+
+        }
+
+        proIndexFund.setUpdateTime(timeStamp);
+        proIndexFund.setUpdateUser(1);
+
+        return this.insertOrUpdate(proIndexFund);
+    }
+
 }

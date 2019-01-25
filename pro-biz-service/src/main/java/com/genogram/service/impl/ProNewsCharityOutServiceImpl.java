@@ -170,11 +170,11 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
     public Boolean insertOrUpdateProNewsCharityOutVo(ProNewsCharityOut proNewsCharityOut, String fileName, String filePath) {
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-        proNewsCharityOut.setVisitNum(0);
 
         proNewsCharityOut.setUpdateTime(timeStamp);
         if (proNewsCharityOut.getId() == null) {
             proNewsCharityOut.setCreateTime(timeStamp);
+            proNewsCharityOut.setVisitNum(0);
         }
 
         Boolean result = this.insertOrUpdate(proNewsCharityOut);
