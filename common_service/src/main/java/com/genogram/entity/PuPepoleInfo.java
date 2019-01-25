@@ -1,14 +1,16 @@
 package com.genogram.entity;
 
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author wangwei
@@ -453,38 +455,38 @@ public class PuPepoleInfo extends Model<PuPepoleInfo> {
     @Override
     public String toString() {
         return "PuPepoleInfo{" +
-        ", id=" + id +
-        ", generateNum=" + generateNum +
-        ", surname=" + surname +
-        ", name=" + name +
-        ", isAlive=" + isAlive +
-        ", gender=" + gender +
-        ", zipai=" + zipai +
-        ", fatherId=" + fatherId +
-        ", motherId=" + motherId +
-        ", brothersSistersId=" + brothersSistersId +
-        ", daughterId=" + daughterId +
-        ", sonId=" + sonId +
-        ", spouseId=" + spouseId +
-        ", selfDetails=" + selfDetails +
-        ", spouseDetails=" + spouseDetails +
-        ", elseName=" + elseName +
-        ", hao=" + hao +
-        ", posthumousTitle=" + posthumousTitle +
-        ", hui=" + hui +
-        ", linenumDescribe=" + linenumDescribe +
-        ", positionTitle=" + positionTitle +
-        ", birthDate=" + birthDate +
-        ", awayDate=" + awayDate +
-        ", orientation=" + orientation +
-        ", obiit=" + obiit +
-        ", ancientSite=" + ancientSite +
-        ", endnote=" + endnote +
-        ", isLive=" + isLive +
-        ", createUser=" + createUser +
-        ", createTime=" + createTime +
-        ", updateUser=" + updateUser +
-        ", updateTime=" + updateTime +
-        "}";
+                ", id=" + id +
+                ", generateNum=" + generateNum +
+                ", surname=" + surname +
+                ", name=" + name +
+                ", isAlive=" + isAlive +
+                ", gender=" + gender +
+                ", zipai=" + zipai +
+                ", fatherId=" + fatherId +
+                ", motherId=" + motherId +
+                ", brothersSistersId=" + brothersSistersId +
+                ", daughterId=" + daughterId +
+                ", sonId=" + sonId +
+                ", spouseId=" + spouseId +
+                ", selfDetails=" + selfDetails +
+                ", spouseDetails=" + spouseDetails +
+                ", elseName=" + elseName +
+                ", hao=" + hao +
+                ", posthumousTitle=" + posthumousTitle +
+                ", hui=" + hui +
+                ", linenumDescribe=" + linenumDescribe +
+                ", positionTitle=" + positionTitle +
+                ", birthDate=" + birthDate +
+                ", awayDate=" + awayDate +
+                ", orientation=" + orientation +
+                ", obiit=" + obiit +
+                ", ancientSite=" + ancientSite +
+                ", endnote=" + endnote +
+                ", isLive=" + isLive +
+                ", createUser=" + createUser +
+                ", createTime=" + createTime +
+                ", updateUser=" + updateUser +
+                ", updateTime=" + updateTime +
+                "}";
     }
 }

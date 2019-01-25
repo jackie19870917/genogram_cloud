@@ -65,8 +65,8 @@ public class PuBaseInfoController {
     @ApiOperation(value = "查询谱基本信息", notes = "")
     @RequestMapping(value = "getPuBaseInfoPage", method = RequestMethod.POST)
     public Response<Boolean> getPuBaseInfoPage(@ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                           @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
-                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+                                               @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+                                               @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
@@ -82,11 +82,11 @@ public class PuBaseInfoController {
         List statusList = new ArrayList();
         statusList.add(1);
         statusList.add(2);
-        Page<PuBaseInfo> puBaseInfo = puBaseInfoService.getPuBaseInfoPage(statusList, pageNo, pageSize,userLogin);
-        if(StringUtils.isEmpty(puBaseInfo)){
-            return ResponseUtlis.error(Constants.ERRO_CODE,"没有数据");
+        Page<PuBaseInfo> puBaseInfo = puBaseInfoService.getPuBaseInfoPage(statusList, pageNo, pageSize, userLogin);
+        if (StringUtils.isEmpty(puBaseInfo)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, "没有数据");
         }
-        return ResponseUtlis.success( puBaseInfo);
+        return ResponseUtlis.success(puBaseInfo);
     }
 
     @ApiOperation(value = "创建谱基本信息 修改", notes = "puBaseInfo-谱实体")
@@ -109,11 +109,11 @@ public class PuBaseInfoController {
         //状态(0:删除;1:已完成;2:完善中3:不显示)
         int status = 2;
         puBaseInfo.setStatus(status);
-        Boolean aBoolean =puBaseInfoService.addPuBaseInfo(puBaseInfo,userLogin);
-        if(!aBoolean){
-            return ResponseUtlis.error(Constants.FAILURE_CODE,"失败");
+        Boolean aBoolean = puBaseInfoService.addPuBaseInfo(puBaseInfo, userLogin);
+        if (!aBoolean) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "失败");
         }
-        return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,"成功");
+        return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "成功");
     }
 
 

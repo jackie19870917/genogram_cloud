@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yizx
@@ -29,16 +29,17 @@ public class PuPepoleInfoServiceImpl extends ServiceImpl<PuPepoleInfoMapper, PuP
     public IPuBaseInfoService puBaseInfoService;
 
     /**
-     *添加人物信息 修改
-     *@Author: yuzhou
-     *@Date: 2019-01-18
-     *@Time: 18:18
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 添加人物信息 修改
+     *
+     * @Author: yuzhou
+     * @Date: 2019-01-18
+     * @Time: 18:18
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
-    public Boolean addPuPepoleInfo(PuPepoleInfo puPepoleInfo, AllUserLogin userLogin,Integer id) {
+    public Boolean addPuPepoleInfo(PuPepoleInfo puPepoleInfo, AllUserLogin userLogin, Integer id) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if (puPepoleInfo.getId() == null) {
@@ -50,17 +51,17 @@ public class PuPepoleInfoServiceImpl extends ServiceImpl<PuPepoleInfoMapper, PuP
             puPepoleInfo.setUpdateUser(userLogin.getId());
 
             //在基础表上添加根人物Id
-            if(puPepoleInfo.getGenerateNum()==1){
+            if (puPepoleInfo.getGenerateNum() == 1) {
                 PuBaseInfo puBaseInfo = puBaseInfoService.selectById(id);
-                if(puBaseInfo!=null){
-                 puBaseInfo.setPepId(puPepoleInfo.getId());
-                 puBaseInfoService.updateAllColumnById(puBaseInfo);
+                if (puBaseInfo != null) {
+                    puBaseInfo.setPepId(puPepoleInfo.getId());
+                    puBaseInfoService.updateAllColumnById(puBaseInfo);
                 }
             }
         }
-            //存入修改时间
-            puPepoleInfo.setUpdateTime(format);
-            puPepoleInfo.setUpdateUser(userLogin.getId());
+        //存入修改时间
+        puPepoleInfo.setUpdateTime(format);
+        puPepoleInfo.setUpdateUser(userLogin.getId());
         return this.insertOrUpdate(puPepoleInfo);
     }
 }

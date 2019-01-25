@@ -98,7 +98,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             return page;
 
             // 地区不为空   名称为空
-        } else if (regionCode != null && regionCode !="" && fileName == null) {
+        } else if (regionCode != null && regionCode != "" && fileName == null) {
 
             AllRegion allRegion = new AllRegion();
             allRegion.setCode(Integer.valueOf(regionCode));

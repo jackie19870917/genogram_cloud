@@ -33,16 +33,17 @@ public class PuBaseInfoServiceImpl extends ServiceImpl<PuBaseInfoMapper, PuBaseI
     IPuBaseInfoService puBaseInfoService;
 
     /**
-     *查询谱基本信息
-     *@Author: yuzhou
-     *@Date: 2019-01-18
-     *@Time: 9:57
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 查询谱基本信息
+     *
+     * @Author: yuzhou
+     * @Date: 2019-01-18
+     * @Time: 9:57
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
-    public Page<PuBaseInfo> getPuBaseInfoPage(List statusList, Integer pageNo, Integer pageSize,AllUserLogin userLogin) {
+    public Page<PuBaseInfo> getPuBaseInfoPage(List statusList, Integer pageNo, Integer pageSize, AllUserLogin userLogin) {
         //查询条件
         Wrapper<PuBaseInfo> entity = new EntityWrapper<PuBaseInfo>();
         entity.eq("create_user", userLogin.getId());
@@ -51,21 +52,22 @@ public class PuBaseInfoServiceImpl extends ServiceImpl<PuBaseInfoMapper, PuBaseI
         }
         entity.orderBy("update_time", false);
         Page<PuBaseInfo> puBaseInfoPage = this.selectPage(new Page<>(pageNo, pageSize), entity);
-        if(StringsUtils.isEmpty(puBaseInfoPage)){
+        if (StringsUtils.isEmpty(puBaseInfoPage)) {
             return null;
         }
         return puBaseInfoPage;
     }
 
     /**
-     *删除谱书
-     *@Author: yuzhou
-     *@Date: 2019-01-18
-     *@Time: 9:57
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 删除谱书
+     *
+     * @Author: yuzhou
+     * @Date: 2019-01-18
+     * @Time: 9:57
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean deletePuBaseInfoById(Integer id, int status, AllUserLogin userLogin) {
         PuBaseInfo puBaseInfo = this.selectById(id);
@@ -84,16 +86,17 @@ public class PuBaseInfoServiceImpl extends ServiceImpl<PuBaseInfoMapper, PuBaseI
     }
 
     /**
-     *创建谱基本信息 修改
-     *@Author: yuzhou
-     *@Date: 2019-01-18
-     *@Time: 17:32
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 创建谱基本信息 修改
+     *
+     * @Author: yuzhou
+     * @Date: 2019-01-18
+     * @Time: 17:32
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
-    public Boolean addPuBaseInfo(PuBaseInfo puBaseInfo,AllUserLogin userLogin) {
+    public Boolean addPuBaseInfo(PuBaseInfo puBaseInfo, AllUserLogin userLogin) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if (puBaseInfo.getId() == null) {

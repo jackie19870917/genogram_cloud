@@ -104,7 +104,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         //人物 - 精英 - 省级
         vo = setIndexMenu(siteId, "精英", "index_family_person_3", "genogram/proNewsFamous/selectPersonPage?showId=", "");
         volist.add(vo);
-        
+
         //下级县级网站
         vo = setIndexMenu(siteId, "下级县级网站", INDEX_SUBORDINATE, "genogram/proPublic/provincialSubordinate?siteId=", "");
         volist.add(vo);

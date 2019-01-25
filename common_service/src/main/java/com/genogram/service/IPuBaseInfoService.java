@@ -19,33 +19,32 @@ import java.util.List;
 public interface IPuBaseInfoService extends IService<PuBaseInfo> {
 
     /**
-     *查询谱基本信息
-     *@Author: yuzhou
-     *@Date: 2019-01-18
-     *@Time: 16:53
-     *@Param: 
-     *@return:
-     *@Description:
-    */
-    Page<PuBaseInfo> getPuBaseInfoPage(List statusList, Integer pageNo, Integer pageSize,AllUserLogin userLogin);
+     * 查询谱基本信息
+     *
+     * @param statusList
+     * @param pageNo
+     * @param pageSize
+     * @param userLogin
+     * @return
+     */
+    Page<PuBaseInfo> getPuBaseInfoPage(List statusList, Integer pageNo, Integer pageSize, AllUserLogin userLogin);
 
     /**
      * 删除谱书
      *
      * @param id
      * @param status
+     * @param userLogin
      * @return
      */
     Boolean deletePuBaseInfoById(Integer id, int status, AllUserLogin userLogin);
 
     /**
-     *创建谱基本信息 修改
-     *@Author: yuzhou
-     *@Date: 2019-01-18
-     *@Time: 17:33
-     *@Param:
-     *@return:
-     *@Description:
-    */
-    Boolean addPuBaseInfo(PuBaseInfo puBaseInfo,AllUserLogin userLogin);
+     * 创建谱基本信息 修改
+     *
+     * @param puBaseInfo
+     * @param userLogin
+     * @return
+     */
+    Boolean addPuBaseInfo(PuBaseInfo puBaseInfo, AllUserLogin userLogin);
 }

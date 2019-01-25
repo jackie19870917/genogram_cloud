@@ -4,38 +4,38 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.PuPepoleInfo">
-        <id column="id" property="id" />
-        <result column="generate_num" property="generateNum" />
-        <result column="surname" property="surname" />
-        <result column="name" property="name" />
-        <result column="is_alive" property="isAlive" />
-        <result column="gender" property="gender" />
-        <result column="zipai" property="zipai" />
-        <result column="father_id" property="fatherId" />
-        <result column="mother_id" property="motherId" />
-        <result column="brothers_sisters_id" property="brothersSistersId" />
-        <result column="daughter_id" property="daughterId" />
-        <result column="son_id" property="sonId" />
-        <result column="spouse_id" property="spouseId" />
-        <result column="self_details" property="selfDetails" />
-        <result column="spouse_details" property="spouseDetails" />
-        <result column="else_name" property="elseName" />
-        <result column="hao" property="hao" />
-        <result column="posthumous_title" property="posthumousTitle" />
-        <result column="hui" property="hui" />
-        <result column="linenum_describe" property="linenumDescribe" />
-        <result column="position_title" property="positionTitle" />
-        <result column="birth_date" property="birthDate" />
-        <result column="away_date" property="awayDate" />
-        <result column="orientation" property="orientation" />
-        <result column="obiit_" property="obiit" />
-        <result column="ancient_site" property="ancientSite" />
-        <result column="endnote" property="endnote" />
-        <result column="is_live" property="isLive" />
-        <result column="create_user" property="createUser" />
-        <result column="create_time" property="createTime" />
-        <result column="update_user" property="updateUser" />
-        <result column="update_time" property="updateTime" />
+        <id column="id" property="id"/>
+        <result column="generate_num" property="generateNum"/>
+        <result column="surname" property="surname"/>
+        <result column="name" property="name"/>
+        <result column="is_alive" property="isAlive"/>
+        <result column="gender" property="gender"/>
+        <result column="zipai" property="zipai"/>
+        <result column="father_id" property="fatherId"/>
+        <result column="mother_id" property="motherId"/>
+        <result column="brothers_sisters_id" property="brothersSistersId"/>
+        <result column="daughter_id" property="daughterId"/>
+        <result column="son_id" property="sonId"/>
+        <result column="spouse_id" property="spouseId"/>
+        <result column="self_details" property="selfDetails"/>
+        <result column="spouse_details" property="spouseDetails"/>
+        <result column="else_name" property="elseName"/>
+        <result column="hao" property="hao"/>
+        <result column="posthumous_title" property="posthumousTitle"/>
+        <result column="hui" property="hui"/>
+        <result column="linenum_describe" property="linenumDescribe"/>
+        <result column="position_title" property="positionTitle"/>
+        <result column="birth_date" property="birthDate"/>
+        <result column="away_date" property="awayDate"/>
+        <result column="orientation" property="orientation"/>
+        <result column="obiit_" property="obiit"/>
+        <result column="ancient_site" property="ancientSite"/>
+        <result column="endnote" property="endnote"/>
+        <result column="is_live" property="isLive"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
