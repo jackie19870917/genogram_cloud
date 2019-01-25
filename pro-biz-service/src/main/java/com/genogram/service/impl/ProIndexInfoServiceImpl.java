@@ -57,42 +57,28 @@ public class ProIndexInfoServiceImpl extends ServiceImpl<ProIndexInfoMapper, Pro
     @Override
     public Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo) {
 
-        Wrapper<ProIndexInfo> wrapper = new EntityWrapper<>();
-        wrapper.eq("site_id", indexInfoVo.getSiteId());
-
         ProIndexInfo proIndexInfo = this.selectById(indexInfoVo.getId());
 
         Timestamp format = DateUtil.getCurrentTimeStamp();
 
         if (StringUtils.isEmpty(proIndexInfo)) {
 
-            proIndexInfo = new ProIndexInfo();
             proIndexInfo.setCreateTime(format);
             indexInfoVo.setCreateTime(format);
-
         }
 
-        proIndexInfo.setUpdateTime(format);
-        indexInfoVo.setUpdateTime(format);
+        ProIndexInfo indexInfo = new ProIndexInfo();
+        BeanUtils.copyProperties(indexInfoVo, indexInfo);
+        indexInfo.setUpdateTime(format);
 
-        ProSysSite proSysSite = proSysSiteService.getProSysSite(proIndexInfo.getId());
+        ProSysSite proSysSite = proSysSiteService.getProSysSite(proIndexInfo.getSiteId());
 
-        if (StringUtils.isEmpty(proSysSite)) {
-            proSysSite = new ProSysSite();
-            proSysSite.setCreateTime(DateUtil.format(format));
-        }
+
         proSysSite.setUpdateTime(DateUtil.format(format));
-
-        BeanUtils.copyProperties(indexInfoVo, proIndexInfo);
-
         proSysSite.setName(indexInfoVo.getSiteName());
-        BeanUtils.copyProperties(indexInfoVo, proSysSite);
+        proSysSite.setUpdateUser(indexInfoVo.getUpdateUser());
 
-        this.insertOrUpdate(proIndexInfo);
-
-        proSysSiteService.insertOrUpdate(proSysSite);
-
-        return true;
+        return this.insertOrUpdate(indexInfo) & proSysSiteService.updateById(proSysSite);
     }
 
     @Override
