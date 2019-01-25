@@ -291,7 +291,7 @@ public class ProNewsUploadTreeFileController {
 
         if (proNewsUploadTreeFile.getId() == null) {
             proNewsUploadTreeFile.setCreateUser(userLogin.getId());
-            proNewsUploadTreeFile.setIsFrom(1);
+            proNewsUploadTreeFile.setIsFrom(2);
             proNewsUploadTreeFile.setCreateTime(timeStamp);
         }
 
