@@ -162,7 +162,7 @@ public class ProNewsUploadTreeFileController {
     @RequestMapping(value = "getProNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<ProNewsUploadTreeFile> getProNewsUploadTreeFile(@ApiParam("主键") @RequestParam("id") Integer id,
                                                                     // @ApiParam("密码") @RequestParam(value = "password", required = false) String password,
-                                                                    @ApiParam("来源") @RequestParam("isFrom") Integer isFrom,
+                                                                    @ApiParam("来源") @RequestParam(value = "isFrom",defaultValue = "2") Integer isFrom,
                                                                     @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
