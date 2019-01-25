@@ -1,23 +1,20 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
- * @author yizx
- * @since 2019-01-16
+ * @author wangwei
+ * @since 2019-01-22
  */
 @TableName("pu_base_info")
 public class PuBaseInfo extends Model<PuBaseInfo> {
@@ -59,7 +56,7 @@ public class PuBaseInfo extends Model<PuBaseInfo> {
     @TableField("face_url")
     private String faceUrl;
     /**
-     * 状态
+     * 状态(0:删除;1:已完成;2:完善中3:不显示)
      */
     private Integer status;
     /**
@@ -67,8 +64,11 @@ public class PuBaseInfo extends Model<PuBaseInfo> {
      */
     @TableField("content_id")
     private Integer contentId;
+    /**
+     * 根人物Id
+     */
     @TableField("pep_id")
-    private Integer pepId;
+    private String pepId;
     /**
      * 谱文路径
      */
@@ -174,11 +174,11 @@ public class PuBaseInfo extends Model<PuBaseInfo> {
         return this;
     }
 
-    public Integer getPepId() {
+    public String getPepId() {
         return pepId;
     }
 
-    public PuBaseInfo setPepId(Integer pepId) {
+    public PuBaseInfo setPepId(String pepId) {
         this.pepId = pepId;
         return this;
     }
@@ -236,22 +236,22 @@ public class PuBaseInfo extends Model<PuBaseInfo> {
     @Override
     public String toString() {
         return "PuBaseInfo{" +
-                ", id=" + id +
-                ", name=" + name +
-                ", surName=" + surName +
-                ", region=" + region +
-                ", deatailAdr=" + deatailAdr +
-                ", isFrom=" + isFrom +
-                ", describe=" + describe +
-                ", faceUrl=" + faceUrl +
-                ", status=" + status +
-                ", contentId=" + contentId +
-                ", pepId=" + pepId +
-                ", fileUrl=" + fileUrl +
-                ", createUser=" + createUser +
-                ", createTime=" + createTime +
-                ", updateUser=" + updateUser +
-                ", updateTime=" + updateTime +
-                "}";
+        ", id=" + id +
+        ", name=" + name +
+        ", surName=" + surName +
+        ", region=" + region +
+        ", deatailAdr=" + deatailAdr +
+        ", isFrom=" + isFrom +
+        ", describe=" + describe +
+        ", faceUrl=" + faceUrl +
+        ", status=" + status +
+        ", contentId=" + contentId +
+        ", pepId=" + pepId +
+        ", fileUrl=" + fileUrl +
+        ", createUser=" + createUser +
+        ", createTime=" + createTime +
+        ", updateUser=" + updateUser +
+        ", updateTime=" + updateTime +
+        "}";
     }
 }

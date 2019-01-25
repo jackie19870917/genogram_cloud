@@ -120,6 +120,14 @@ public class ProNewsUploadTreeFileController {
         proNewsUploadTreeFile.setCreateUser(userLogin.getId());
         proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
 
+        if (proNewsUploadTreeFile.getId() == null) {
+            //文件上传就转换成jpg图片
+            String[] split = proNewsUploadTreeFile.getFilePath().split("@");
+            proNewsUploadTreeFile.setFilePath(split[0]);
+            proNewsUploadTreeFile.setTreePreviewPath(split[1]);
+        }
+
+
         Boolean result = proNewsUploadTreeFileService.insertProNewsUploadTreeFile(proNewsUploadTreeFile);
 
         if (result) {
