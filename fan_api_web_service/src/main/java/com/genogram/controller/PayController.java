@@ -1,6 +1,7 @@
 package com.genogram.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
@@ -640,7 +641,7 @@ public class PayController {
         requestUrl = requestUrl.replace("SECRET", appSecret);
         requestUrl = requestUrl.replace("CODE", code);
         // 获取网页授权凭证
-        com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(NetUtil.get(requestUrl));
+        JSONObject jsonObject = JSON.parseObject(NetUtil.get(requestUrl));
         if (null != jsonObject) {
             try {
                 wat = new Oauth2Token();
@@ -673,7 +674,7 @@ public class PayController {
         String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
         requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
         // 通过网页授权获取用户信息
-        com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(NetUtil.get(requestUrl));
+        JSONObject jsonObject = JSON.parseObject(NetUtil.get(requestUrl));
 
         if (null != jsonObject) {
             try {
