@@ -154,6 +154,7 @@ public class FanIndexController {
         }
 
         fanIndexSlidePic.setUpdateUser(userLogin.getId());
+        fanIndexSlidePic.setClasses(classes);
 
         Boolean result = fanIndexSlidePicService.insertOrUpdateFanIndexSlidePic(fanIndexSlidePic);
 
