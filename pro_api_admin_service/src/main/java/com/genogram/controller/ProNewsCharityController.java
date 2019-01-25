@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
+import com.genogram.entityvo.DonorVo;
 import com.genogram.entityvo.IndexFundDrowingVo;
 import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -19,9 +20,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <p>
@@ -169,6 +168,53 @@ public class ProNewsCharityController {
         }
 
         return ResponseUtlis.success(newsCharityOutVoPage);
+    }
+
+    @ApiOperation(value = "捐款名录查询", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
+    @RequestMapping(value = "index/getPayUser", method = RequestMethod.GET)
+    public Response<DonorVo> getPayUser(@ApiParam(value = "显示位置") @RequestParam Integer showId,
+                                        @ApiParam(value = "捐款人") @RequestParam(value = "nickName", required = false) String nickName,
+                                        @ApiParam(value = "排序(time-时间,money-金额,null-缺省)") @RequestParam(value = "order", required = false) String order,
+                                        @ApiParam(value = "升序-asc,降序-desc") @RequestParam(value = "label", required = false) String label,
+                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                        @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+
+        if (showId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        List list = new ArrayList();
+        list.add(1);
+
+        Page<DonorVo> donorVoPage;
+        String money = "money";
+        if (money.equals(order)) {
+            Map map = new HashMap(16);
+            map.put("showId", showId);
+            map.put("status", list);
+
+            if (!StringUtils.isEmpty(nickName)) {
+                map.put("nick_name", nickName);
+            }
+
+            map.put("label", label);
+
+            Page page = new Page();
+            page.setCurrent(pageNo);
+            page.setSize(pageSize);
+            Page<ProNewsCharityPayIn> mapPage = new Page<>(page.getCurrent(), page.getSize());
+
+            donorVoPage = proNewsCharityPayInService.getDonorVoPage(mapPage, map);
+        } else {
+            donorVoPage = proNewsCharityPayInService.getDonorVoPageByTime(showId, list, nickName, pageNo, pageSize, order, label);
+        }
+
+        if (StringUtils.isEmpty(donorVoPage)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        return ResponseUtlis.success(donorVoPage);
+
     }
 
     /**
