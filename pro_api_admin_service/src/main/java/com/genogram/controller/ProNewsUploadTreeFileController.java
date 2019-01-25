@@ -13,6 +13,8 @@ import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +44,8 @@ public class ProNewsUploadTreeFileController {
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
+
+    Logger log= LoggerFactory.getLogger(ProNewsUploadTreeFileController.class);
 
     private List getList() {
 
@@ -120,9 +124,13 @@ public class ProNewsUploadTreeFileController {
         proNewsUploadTreeFile.setCreateUser(userLogin.getId());
         proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
 
+        String filePath = proNewsUploadTreeFile.getFilePath();
+        log.info("proNewsUploadTreeFile.getFilePath() ==  " +filePath);
+
         if (proNewsUploadTreeFile.getId() == null) {
             //文件上传就转换成jpg图片
             String[] split = proNewsUploadTreeFile.getFilePath().split("@");
+
             proNewsUploadTreeFile.setFilePath(split[0]);
             proNewsUploadTreeFile.setTreePreviewPath(split[1]);
         }
