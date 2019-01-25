@@ -4,29 +4,30 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.genogram.entity.ProNewsUploadTreeFile">
-        <id column="id" property="id"/>
-        <result column="site_id" property="siteId"/>
-        <result column="region_code" property="regionCode"/>
-        <result column="is_from" property="isFrom"/>
-        <result column="family_code" property="familyCode"/>
-        <result column="file_path" property="filePath"/>
-        <result column="file_name" property="fileName"/>
-        <result column="contact_user" property="contactUser"/>
-        <result column="status" property="status"/>
-        <result column="password" property="password"/>
-        <result column="pre_thirty" property="preThirty"/>
-        <result column="comment_count" property="commentCount"/>
-        <result column="order" property="order"/>
-        <result column="create_time" property="createTime"/>
-        <result column="create_user" property="createUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="update_user" property="updateUser"/>
-        <result column="tree_preview_path" property="treePreviewPath"/>
+        <id column="id" property="id" />
+        <result column="site_id" property="siteId" />
+        <result column="region_code" property="regionCode" />
+        <result column="is_from" property="isFrom" />
+        <result column="family_code" property="familyCode" />
+        <result column="file_path" property="filePath" />
+        <result column="file_name" property="fileName" />
+        <result column="contact_user" property="contactUser" />
+        <result column="status" property="status" />
+        <result column="password" property="password" />
+        <result column="pre_thirty" property="preThirty" />
+        <result column="comment_count" property="commentCount" />
+        <result column="order" property="order" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="tree_preview_path" property="treePreviewPath" />
+        <result column="upload_file_name" property="uploadFileName" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, site_id AS siteId, region_code AS regionCode, is_from AS isFrom, family_code AS familyCode, file_path AS filePath, file_name AS fileName, contact_user AS contactUser, status, password, pre_thirty AS preThirty, comment_count AS commentCount, order, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser, tree_preview_path AS treePreviewPath
+        id, site_id AS siteId, region_code AS regionCode, is_from AS isFrom, family_code AS familyCode, file_path AS filePath, file_name AS fileName, contact_user AS contactUser, status, password, pre_thirty AS preThirty, comment_count AS commentCount, order, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser, tree_preview_path AS treePreviewPath, upload_file_name AS uploadFileName
     </sql>
 
 </mapper>
