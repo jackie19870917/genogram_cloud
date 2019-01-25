@@ -44,7 +44,7 @@ public class ProNewsUploadTreeFileController {
     @RequestMapping(value = "getProNewsUploadTreeFileList", method = RequestMethod.GET)
     public Response<ProNewsUploadTreeFile> getProNewsUploadTreeFileList(@ApiParam("网站ID") @RequestParam("siteId") Integer siteId,
                                                                         @ApiParam("地区") @RequestParam(value = "regionCode", required = false) String regionCode,
-                                                                        @ApiParam("名称") @RequestParam(value = "file_name", required = false) String fileName,
+                                                                        @ApiParam("名称") @RequestParam(value = "fileName", required = false) String fileName,
                                                                         @ApiParam("状态") @RequestParam(value = "status", defaultValue = "0") Integer status,
                                                                         @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
