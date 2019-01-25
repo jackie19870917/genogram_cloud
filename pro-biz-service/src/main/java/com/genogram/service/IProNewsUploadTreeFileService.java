@@ -81,4 +81,11 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
      * @return
      */
     Boolean deleteProNewsUploadTreeFile(Integer id, Integer userId);
+
+    /**
+     * 新增 修改 电子普
+     * @param proNewsUploadTreeFile
+     * @return
+     */
+    Boolean insertOrUpdateProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile);
 }

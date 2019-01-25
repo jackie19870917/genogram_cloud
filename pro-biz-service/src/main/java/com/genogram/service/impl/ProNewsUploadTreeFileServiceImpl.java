@@ -311,4 +311,10 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
         return this.updateById(proNewsUploadTreeFile);
     }
+
+    @Override
+    public Boolean insertOrUpdateProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile) {
+
+        return this.insertOrUpdate(proNewsUploadTreeFile);
+    }
 }

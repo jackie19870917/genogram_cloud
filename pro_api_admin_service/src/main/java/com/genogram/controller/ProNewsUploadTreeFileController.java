@@ -101,7 +101,7 @@ public class ProNewsUploadTreeFileController {
     }
 
     @ApiOperation(value = "电子谱上传", notes = "id-主键,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
-    @RequestMapping(value = "uploadProNewsUploadTreeFile", method = RequestMethod.POST)
+   // @RequestMapping(value = "uploadProNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<ProNewsUploadTreeFile> uploadProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
                                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
@@ -199,7 +199,7 @@ public class ProNewsUploadTreeFileController {
     }
 
     @ApiOperation(value = "电子谱修改", notes = "id-主键,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
-    @RequestMapping(value = "updateProNewsUploadTreeFile", method = RequestMethod.POST)
+   // @RequestMapping(value = "updateProNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<ProNewsUploadTreeFile> updateProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
                                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
@@ -256,6 +256,63 @@ public class ProNewsUploadTreeFileController {
         }
 
         Boolean result = proNewsUploadTreeFileService.deleteProNewsUploadTreeFile(id, userLogin.getId());
+
+        if (result) {
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        } else {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    @ApiOperation(value = "电子谱 新增/修改", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
+    @RequestMapping(value = "uploadFanNewsUploadTreeFile", method = RequestMethod.POST)
+    public Response<FanNewsUploadTreeFile> uploadFanNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
+                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
+        if (proNewsUploadTreeFile.getId() == null) {
+            proNewsUploadTreeFile.setCreateUser(userLogin.getId());
+            proNewsUploadTreeFile.setIsFrom(1);
+            proNewsUploadTreeFile.setCreateTime(timeStamp);
+        }
+
+        proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
+        proNewsUploadTreeFile.setUpdateTime(timeStamp);
+
+        if (proNewsUploadTreeFile.getId() == null) {
+            //文件上传就转换成jpg图片
+            String[] split = proNewsUploadTreeFile.getFilePath().split("@");
+            proNewsUploadTreeFile.setFilePath(split[0]);
+            proNewsUploadTreeFile.setTreePreviewPath(split[1]);
+        }
+
+        //存储电子谱预览地址
+        //http://192.168.2.122:8083/fileConventer?filePath=http://47.105.17 7.1:6090/00/01/rB_QCFwXNg-AdtcNAABhJxiBuv8808.doc
+        //fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + fanNewsUploadTreeFile.getFilePath());
+        /*String filePath = Constants.ALIYUN_IP + fanNewsUploadTreeFile.getFilePath();
+        //电子谱文件名称
+        String treePreviewPath = conventerController.fileConventer(filePath, model, request, response);
+        fanNewsUploadTreeFile.setTreePreviewPath(Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath);*/
+        Boolean result = proNewsUploadTreeFileService.insertOrUpdateProNewsUploadTreeFile(proNewsUploadTreeFile);
 
         if (result) {
             return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
