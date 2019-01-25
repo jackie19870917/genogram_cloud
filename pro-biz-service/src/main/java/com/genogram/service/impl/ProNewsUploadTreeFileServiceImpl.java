@@ -273,13 +273,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
     @Override
     public Boolean insertProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile) {
 
-        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-
-        proNewsUploadTreeFile.setIsFrom(2);
-        proNewsUploadTreeFile.setCreateTime(timeStamp);
-        proNewsUploadTreeFile.setUpdateTime(timeStamp);
-
-        return this.insert(proNewsUploadTreeFile);
+        return this.insertOrUpdate(proNewsUploadTreeFile);
     }
 
     @Override

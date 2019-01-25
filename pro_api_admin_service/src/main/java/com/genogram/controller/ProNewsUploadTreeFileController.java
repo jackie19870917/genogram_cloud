@@ -8,6 +8,7 @@ import com.genogram.entity.ProNewsUploadTreeFile;
 import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IProNewsUploadTreeFileService;
 import com.genogram.service.IUserService;
+import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,8 @@ import java.util.List;
 @RequestMapping("/genogram/admin/proNewsUploadTreeFile")
 public class ProNewsUploadTreeFileController {
 
+    Logger log = LoggerFactory.getLogger(ProNewsUploadTreeFileController.class);
+
     @Autowired
     private IProNewsUploadTreeFileService proNewsUploadTreeFileService;
 
@@ -44,8 +48,6 @@ public class ProNewsUploadTreeFileController {
 
     @Autowired
     private IAllUserLoginService allUserLoginService;
-
-    Logger log= LoggerFactory.getLogger(ProNewsUploadTreeFileController.class);
 
     private List getList() {
 
@@ -121,11 +123,22 @@ public class ProNewsUploadTreeFileController {
             return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
+        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
+
+        if (proNewsUploadTreeFile.getId() == null) {
+            proNewsUploadTreeFile.setCreateUser(userLogin.getId());
+            proNewsUploadTreeFile.setIsFrom(1);
+            proNewsUploadTreeFile.setCreateTime(timeStamp);
+        }
+
+        proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
+        proNewsUploadTreeFile.setUpdateTime(timeStamp);
+
         proNewsUploadTreeFile.setCreateUser(userLogin.getId());
         proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
 
         String filePath = proNewsUploadTreeFile.getFilePath();
-        log.info("proNewsUploadTreeFile.getFilePath() ==  " +filePath);
+        log.info("filePath 电子谱文件名称 +++ ====" +filePath);
 
         if (proNewsUploadTreeFile.getId() == null) {
             //文件上传就转换成jpg图片

@@ -31,14 +31,15 @@ import java.util.Map;
 @RequestMapping("/pro")
 @Api(description = "省级上传")
 public class UploadFastDfsController {
+
+    Logger log = LoggerFactory.getLogger(UploadFastDfsController.class);
+
     @Autowired
     private IUploadFastDfsService uploadFastDfsService;
     @Autowired
     private IUploadFileService uploadFileService;
     @Autowired
     private ConventerController conventerController;
-
-    Logger log = LoggerFactory.getLogger(UploadFastDfsController.class);
 
     /**
      * 文件上传
@@ -55,7 +56,6 @@ public class UploadFastDfsController {
     public Response<Map> uploadFastdfs(MultipartFile file, @RequestParam(value = "isGenealogy", defaultValue = "0") Integer isGenealogy,
                                        HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
         Map<String, Object> stringObjectMap = uploadFastDfsService.uploadFastDfs(file);
-        log.info("isGenealogy==  " + isGenealogy);
         if (isGenealogy != 0) {
             Object path = stringObjectMap.get("file_path");
             //文件所在地址
@@ -63,6 +63,9 @@ public class UploadFastDfsController {
             //电子谱文件名称
             String treePreviewPath = conventerController.fileConventer(filePath, model, request, response);
             path = path + "@" + Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath;
+
+            log.info("path  电子谱文件名称 ===+++" +path);
+
             stringObjectMap.put("file_path", path);
         }
         return ResponseUtlis.success(stringObjectMap);
