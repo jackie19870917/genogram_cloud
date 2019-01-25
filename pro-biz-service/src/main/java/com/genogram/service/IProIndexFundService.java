@@ -31,6 +31,7 @@ public interface IProIndexFundService extends IService<ProIndexFund> {
 
     /**
      * 新增 基金金额
+     *
      * @param proIndexFund
      * @return
      */

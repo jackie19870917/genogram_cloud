@@ -27,7 +27,7 @@ public class Sign {
             MessageDigest crypt = MessageDigest.getInstance("SHA-1");
             crypt.reset();
             crypt.update(string1.getBytes("UTF-8"));
-            signature = WXUnitl.getSignature(jsapi_ticket, nonce_str, timestamp, url);
+            signature = WxUnitl.getSignature(jsapi_ticket, nonce_str, timestamp, url);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {

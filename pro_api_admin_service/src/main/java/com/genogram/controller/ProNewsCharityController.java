@@ -415,7 +415,7 @@ public class ProNewsCharityController {
      */
     @ApiOperation(value = "线上提现记录", notes = "id:主键,siteId:网站Id,drowAmount:提现金额,drowBank;提现银行,drowBankSub:支行名称,drowTime:提现时间,drowInAccountName:账户名,drowInAccountCard:账户")
     @RequestMapping(value = "getFanIndexFundDrowing", method = RequestMethod.POST)
-    public Response<IndexFundDrowingVo> getFanIndexFundDrowing(@ApiParam("网站Id") @RequestParam Integer siteId,
+    public Response<IndexFundDrowingVo> getProIndexFundDrowing(@ApiParam("网站Id") @RequestParam Integer siteId,
                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token,
                                                                @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {

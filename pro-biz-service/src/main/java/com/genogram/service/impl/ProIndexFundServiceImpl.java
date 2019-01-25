@@ -56,11 +56,11 @@ public class ProIndexFundServiceImpl extends ServiceImpl<ProIndexFundMapper, Pro
     @Override
     public Boolean insertOrUpdateFanIndexFund(ProIndexFund proIndexFund) {
 
-        ProIndexFund ProIndexFund1 = this.getProIndexFund(proIndexFund.getSiteId());
+        ProIndexFund proIndexFund1 = this.getProIndexFund(proIndexFund.getSiteId());
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
-        if (StringUtils.isEmpty(ProIndexFund1)) {
+        if (StringUtils.isEmpty(proIndexFund1)) {
 
             proIndexFund.setCreateTime(timeStamp);
             proIndexFund.setCreateUser(1);

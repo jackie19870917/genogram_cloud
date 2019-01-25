@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author yizx
@@ -44,10 +44,10 @@ public class PuPepoleInfoController {
     @ApiOperation(value = "添加人物信息 新增修改", notes = "puBaseInfo-谱实体")
     @RequestMapping(value = "addPuPepoleInfo", method = RequestMethod.POST)
     public Response<Boolean> addPuPepoleInfo(@RequestBody PuPepoleInfo puPepoleInfo,
-                                           @ApiParam("基础表ID") @RequestParam(value = "puBaseInfoId", required = false) Integer puBaseInfoId,
-                                           @ApiParam("pepoleID 主键 根据这个主键增加pu_pepole_info数据") @RequestParam(value = "pepoleId", required = false) Integer pepoleId,
-                                           @ApiParam("是否是根人物 isPepId 0=根人物 1=兄弟姐妹 2=配偶 3=女儿 4=儿子") @RequestParam(value = "isPepId", defaultValue = "0") Integer isPepId,
-                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+                                             @ApiParam("基础表ID") @RequestParam(value = "puBaseInfoId", required = false) Integer puBaseInfoId,
+                                             @ApiParam("pepoleID 主键 根据这个主键增加pu_pepole_info数据") @RequestParam(value = "pepoleId", required = false) Integer pepoleId,
+                                             @ApiParam("是否是根人物 isPepId 0=根人物 1=兄弟姐妹 2=配偶 3=女儿 4=儿子") @RequestParam(value = "isPepId", defaultValue = "0") Integer isPepId,
+                                             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
             return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
@@ -69,12 +69,12 @@ public class PuPepoleInfoController {
         //状态(0:删除;1:显示;)
         int isLive = 1;
         puPepoleInfo.setIsLive(isLive);
-        Boolean aBoolean =puPepoleInfoService.addPuPepoleInfo(puPepoleInfo,userLogin,puBaseInfoId,pepoleId,isPepId);
-        if(!aBoolean){
-            return ResponseUtlis.error(Constants.FAILURE_CODE,"失败");
+        Boolean aBoolean = puPepoleInfoService.addPuPepoleInfo(puPepoleInfo, userLogin, puBaseInfoId, pepoleId, isPepId);
+        if (!aBoolean) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, "失败");
         }
 
-        return ResponseUtlis.error(Constants.SUCCESSFUL_CODE,"成功");
+        return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "成功");
     }
 
 }

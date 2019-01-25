@@ -12,7 +12,7 @@ import org.hibernate.validator.internal.util.logging.LoggerFactory;
 /**
  * @author Toxicant
  */
-public class WXUnitl {
+public class WxUnitl {
 
     public static String getSignature(String jsapi_ticket, String nonce_str, String timestamp, String url) {
         // 注意这里参数名必须全部小写，且必须有序

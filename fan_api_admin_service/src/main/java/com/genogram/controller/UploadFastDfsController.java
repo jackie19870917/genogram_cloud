@@ -74,13 +74,13 @@ public class UploadFastDfsController {
         return ResponseUtlis.success(stringObjectMap);
     }*/
         if (isGenealogy != 0) {
-            Object file_path = stringObjectMap.get("file_path");
+            Object path = stringObjectMap.get("file_path");
             //文件所在地址
-            String filePath = Constants.ALIYUN_IP + file_path;
+            String filePath = Constants.ALIYUN_IP + path;
             //电子谱文件名称
             String treePreviewPath = conventerController.fileConventer(filePath, model, request, response);
-            file_path = file_path + "@" + Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath;
-            stringObjectMap.put("file_path", file_path);
+            path = path + "@" + Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath;
+            stringObjectMap.put("file_path", path);
         }
         return ResponseUtlis.success(stringObjectMap);
     }

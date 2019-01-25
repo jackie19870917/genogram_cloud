@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.service.IService;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yizx
@@ -16,9 +16,12 @@ public interface IPuPepoleInfoService extends IService<PuPepoleInfo> {
 
     /**
      * 添加人物信息 修改
+     *
      * @param puPepoleInfo
      * @param userLogin
      * @param puBaseInfoId
+     * @param pepoleId
+     * @param isPepId
      * @return
      */
     Boolean addPuPepoleInfo(PuPepoleInfo puPepoleInfo, AllUserLogin userLogin, Integer puBaseInfoId, Integer pepoleId, Integer isPepId);

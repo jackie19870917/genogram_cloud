@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONObject;
 import com.genogram.config.WeChatConfig;
 import com.genogram.unit.HttpUtil;
-import com.genogram.unit.WXUnitl;
+import com.genogram.unit.WxUnitl;
 import com.genogram.unit.WeiXinUnitl;
 import com.genogram.unit.WinXinEntity;
 import io.swagger.annotations.Api;
@@ -41,7 +41,7 @@ public class WeiXinController {
         WinXinEntity wx = WeiXinUnitl.getWinXinEntity(strUrl);
         // 将wx的信息到给页面
         Map<String, Object> map = new HashMap<String, Object>(16);
-        String sgture = WXUnitl.getSignature(wx.getTicket(), wx.getNoncestr(), wx.getTimestamp(), strUrl);
+        String sgture = WxUnitl.getSignature(wx.getTicket(), wx.getNoncestr(), wx.getTimestamp(), strUrl);
         //签名
         map.put("sgture", sgture.trim());
         //时间戳
