@@ -52,7 +52,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
         Wrapper<FanNewsUploadTreeFile> fanNewsUploadTreeFileWrapper = new EntityWrapper<>();
 
         // 地区和名称为空
-        if (regionCode == null && fileName == null) {
+        if (regionCode == "" && fileName == "") {
             proNewsUploadTreeFileWrapper.in("status", list);
             proNewsUploadTreeFileWrapper.orderBy("update_time", false);
 
@@ -70,7 +70,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             return mapPage;
 
             // 地区为空   名称不为空
-        } else if (regionCode == null && fileName != null) {
+        } else if (regionCode == "" && fileName != "") {
             proNewsUploadTreeFileWrapper.like("file_name", fileName);
             proNewsUploadTreeFileWrapper.in("status", list);
             proNewsUploadTreeFileWrapper.orderBy("update_time", false);
@@ -98,7 +98,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             return page;
 
             // 地区不为空   名称为空
-        } else if (regionCode != null && regionCode != "" && fileName == null) {
+        } else if (regionCode != "" && fileName == "") {
 
             AllRegion allRegion = new AllRegion();
             allRegion.setCode(Integer.valueOf(regionCode));
@@ -224,7 +224,6 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
                 return page;
             }
         }
-
     }
 
     private List<NewsUploadTreeFileVo> getNewsUploadTreeFile(List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList) {
