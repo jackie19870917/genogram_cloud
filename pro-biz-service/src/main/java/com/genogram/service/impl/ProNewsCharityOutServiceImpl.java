@@ -125,6 +125,7 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
         //查询图片
         Wrapper<ProNewsUploadFile> entityWrapper = new EntityWrapper<ProNewsUploadFile>();
         entityWrapper.eq("news_id", id);
+        entityWrapper.eq("pic_index", 1);
         entityWrapper.eq("show_id", proNewsCharityOut.getShowId());
 
         //查询所有文章id下的图片附件

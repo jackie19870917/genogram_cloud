@@ -295,7 +295,7 @@ public class ProNewsRecordController {
         try {
             // 插入数据
             boolean b = iProNewsFamilyRecordService.addOrUpdateRecord(proNewsFamilyRecord, fileName, filePath);
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
             //插入图片
         } catch (Exception e) {
             e.printStackTrace();
@@ -347,7 +347,7 @@ public class ProNewsRecordController {
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);

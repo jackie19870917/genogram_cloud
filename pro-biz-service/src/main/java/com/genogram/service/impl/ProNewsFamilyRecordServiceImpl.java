@@ -137,6 +137,7 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
         //查询图片
         Wrapper<ProNewsUploadFile> uploadentity = new EntityWrapper<ProNewsUploadFile>();
         uploadentity.eq("show_id", proNewsFamilyRecord.getShowId());
+        uploadentity.eq("pic_index", 1);
         uploadentity.eq("news_id", id);
         //查询所有文章id下的图片附件
         List<ProNewsUploadFile> files = proNewsUploadFileService.selectList(uploadentity);
