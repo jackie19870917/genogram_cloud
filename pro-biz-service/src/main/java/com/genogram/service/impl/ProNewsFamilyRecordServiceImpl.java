@@ -221,7 +221,7 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
         boolean result = this.insertOrUpdate(proNewsFamilyRecord);
         //存储图片
         if (result && StringsUtils.isNotEmpty(filePath)) {
-            iUploadFileService.storageFanFiles(fileName, proNewsFamilyRecord.getId(), proNewsFamilyRecord.getShowId());
+            iUploadFileService.storageFanFile(fileName,filePath, proNewsFamilyRecord.getId(), proNewsFamilyRecord.getShowId());
         }
         return result;
     }
