@@ -5,9 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.*;
 import com.genogram.entityvo.FamilyRecordVedioVo;
-import com.genogram.entityvo.FamilyRecordVideoVo;
 import com.genogram.entityvo.NewsDetailVo;
-import com.genogram.entityvo.ProFamilyRecordVedioVo;
 import com.genogram.mapper.ProNewsFamilyRecordVedioMapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.*;
@@ -74,7 +72,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
 
         //遍历主表文章集合,赋值新对象vo
         list.forEach((news) -> {
-            ProFamilyRecordVedioVo familyRecordVedioVo = new ProFamilyRecordVedioVo();
+            FamilyRecordVedioVo familyRecordVedioVo = new FamilyRecordVedioVo();
             //copy bean
             BeanUtils.copyProperties(news, familyRecordVedioVo);
 
@@ -86,7 +84,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
                 }
             });
             //存储视频list集合
-            familyRecordVedioVo.setProNewsFamilyRecordVedios(list);
+            familyRecordVedioVo.setFanUploadVedioList(list);
 
             //设置封面file
             this.getPicIndex(familyRecordVedioVo, news.getId(), showId);
@@ -157,6 +155,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
 
         for (ProNewsUploadVedio file : files) {
             FanNewsUploadVedio fanNewsUploadVedio = new FanNewsUploadVedio();
+
             BeanUtils.copyProperties(file,fanNewsFamilyRecordVedio);
             fanNewsUploadVedios.add(fanNewsUploadVedio);
         }
@@ -168,6 +167,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
         FamilyRecordVedioVo familyRecordVedioVo = new FamilyRecordVedioVo();
         //调用方法封装集合
         BeanUtils.copyProperties(fanNewsFamilyRecordVedio, familyRecordVedioVo);
+
         //存储图片list集合
         //设置封面file
         this.getPicIndex(familyRecordVedioVo, familyRecordVedioVo.getId(), familyRecordVedioVo.getShowId());
@@ -221,17 +221,5 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
         proNewsFamilyRecordVedio.setUpdateUser(userId);
         boolean result = this.updateAllColumnById(proNewsFamilyRecordVedio);
         return result;
-    }
-
-    private void getPicIndex(ProFamilyRecordVedioVo vo, int newsId, int showId) {
-        Wrapper<ProNewsUploadFile> entity = new EntityWrapper<>();
-        entity.eq("news_id", newsId);
-        entity.eq("show_id", showId);
-        entity.eq("status", 1);
-        entity.eq("pic_index", 1);
-        ProNewsUploadFile file = iProNewsUploadFileService.selectOne(entity);
-        List list = new ArrayList();
-        list.add(file);
-        vo.setProNewsUploadFile(list);
     }
 }
