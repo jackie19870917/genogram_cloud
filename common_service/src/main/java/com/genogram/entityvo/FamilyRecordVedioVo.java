@@ -17,12 +17,12 @@ public class FamilyRecordVedioVo {
     /**
      * 视频概要
      */
-    private List<FanNewsUploadVedio> fanUploadVedioList;
+    private List fanUploadVedioList;
 
     /**
      * 封面
      */
-    private List<FanNewsUploadFile> fanNewsUploadFile;
+    private List fanNewsUploadFile;
 
 
     /**
