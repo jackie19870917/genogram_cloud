@@ -3,7 +3,7 @@ package com.genogram.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.ProNewsFamilyRecordVedio;
 import com.baomidou.mybatisplus.service.IService;
-import com.genogram.entityvo.FamilyRecordVideoVo;
+import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.NewsDetailVo;
 
 /**
@@ -25,7 +25,7 @@ public interface IProNewsFamilyRecordVedioService extends IService<ProNewsFamily
      * @param pageSize
      * @return
      */
-    Page<FamilyRecordVideoVo> getFamilyRecordVedioPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<FamilyRecordVedioVo> getFamilyRecordVedioPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 
     /**
      * 联谊会记录家族视频详情
@@ -41,7 +41,7 @@ public interface IProNewsFamilyRecordVedioService extends IService<ProNewsFamily
      * @param id 主键
      * @return
      */
-    FamilyRecordVideoVo getFamilyVedioDetilRecord(Integer id);
+    FamilyRecordVedioVo getFamilyVedioDetilRecord(Integer id);
 
     /**
      * 联谊会记录家族后台视频新增

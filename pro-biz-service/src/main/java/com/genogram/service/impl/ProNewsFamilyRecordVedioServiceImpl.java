@@ -3,10 +3,8 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.genogram.entity.AllUserLogin;
-import com.genogram.entity.ProNewsFamilyRecordVedio;
-import com.genogram.entity.ProNewsUploadFile;
-import com.genogram.entity.ProNewsUploadVedio;
+import com.genogram.entity.*;
+import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVideoVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.entityvo.ProFamilyRecordVedioVo;
@@ -45,9 +43,9 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
     private IAllUserLoginService allUserLoginService;
 
     @Override
-    public Page<FamilyRecordVideoVo> getFamilyRecordVedioPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FamilyRecordVedioVo> getFamilyRecordVedioPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
-        List<FamilyRecordVideoVo> familyRecordVedioVoList = new ArrayList<>();
+        List<FamilyRecordVedioVo> familyRecordVedioVoList = new ArrayList<>();
 
         Wrapper<ProNewsFamilyRecordVedio> entity = new EntityWrapper<ProNewsFamilyRecordVedio>();
         entity.eq("show_id", showId);
@@ -97,7 +95,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
             familyRecordVedioVoList.add(familyRecordVedioVo);
         });
         //重新设置page对象
-        Page<FamilyRecordVideoVo> mapPage = new Page<>(pageNo, pageSize);
+        Page<FamilyRecordVedioVo> mapPage = new Page<>(pageNo, pageSize);
         mapPage.setRecords(familyRecordVedioVoList);
         mapPage.setSize(proNewsFamilyRecordVedioPage.getSize());
         mapPage.setTotal(proNewsFamilyRecordVedioPage.getTotal());
@@ -140,7 +138,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
     }
 
     @Override
-    public FamilyRecordVideoVo getFamilyVedioDetilRecord(Integer id) {
+    public FamilyRecordVedioVo getFamilyVedioDetilRecord(Integer id) {
         //根据Id查出记录家族详情
         ProNewsFamilyRecordVedio fanNewsFamilyRecordVedio = this.selectById(id);
 
@@ -155,20 +153,26 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
         uploadentity.eq("status", 1);
         //查询所有文章id下的视频附件
         List<ProNewsUploadVedio> files = iProNewsUploadVedioService.selectList(uploadentity);
+        List<FanNewsUploadVedio> fanNewsUploadVedios = new ArrayList<>();
 
-
+        for (ProNewsUploadVedio file : files) {
+            FanNewsUploadVedio fanNewsUploadVedio = new FanNewsUploadVedio();
+            BeanUtils.copyProperties(file,fanNewsFamilyRecordVedio);
+            fanNewsUploadVedios.add(fanNewsUploadVedio);
+        }
         //查出名称
         AllUserLogin createUser = allUserLoginService.selectById(null);
         AllUserLogin updateUser = allUserLoginService.selectById(null);
 
         //返回新VO的集合赋值新对象vo
-        FamilyRecordVideoVo familyRecordVedioVo = new FamilyRecordVideoVo();
+        FamilyRecordVedioVo familyRecordVedioVo = new FamilyRecordVedioVo();
         //调用方法封装集合
         BeanUtils.copyProperties(fanNewsFamilyRecordVedio, familyRecordVedioVo);
         //存储图片list集合
         //设置封面file
         this.getPicIndex(familyRecordVedioVo, familyRecordVedioVo.getId(), familyRecordVedioVo.getShowId());
-        familyRecordVedioVo.setFanUploadVedioList(files);
+
+        familyRecordVedioVo.setFanUploadVedioList(fanNewsUploadVedios);
         //存储作者名称时间
         familyRecordVedioVo.setUpdateTimeLong(fanNewsFamilyRecordVedio.getUpdateTime().getTime());
         familyRecordVedioVo.setCreateTimeLong(fanNewsFamilyRecordVedio.getCreateTime().getTime());
@@ -177,7 +181,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
         return familyRecordVedioVo;
     }
 
-    private void getPicIndex(FamilyRecordVideoVo vo, int newsId, int showId) {
+    private void getPicIndex(FamilyRecordVedioVo vo, int newsId, int showId) {
         Wrapper<ProNewsUploadFile> entity = new EntityWrapper<>();
         entity.eq("news_id", newsId);
         entity.eq("show_id", showId);

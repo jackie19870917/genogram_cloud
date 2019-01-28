@@ -11,7 +11,7 @@ import java.util.List;
  * @author Administrator
  */
 @Data
-public class ProFamilyRecordVedioVo extends FamilyRecordVideoVo {
+public class ProFamilyRecordVedioVo extends FamilyRecordVedioVo {
     //记录家族视频
     /**
      * 视频概要

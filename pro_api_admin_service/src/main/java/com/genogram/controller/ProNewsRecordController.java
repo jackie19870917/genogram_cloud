@@ -5,7 +5,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProNewsFamilyRecord;
 import com.genogram.entity.ProNewsFamilyRecordVedio;
-import com.genogram.entityvo.FamilyRecordVideoVo;
+import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.entityvo.ProFamilyRecordVo;
@@ -399,7 +399,7 @@ public class ProNewsRecordController {
             }
 
             int status = 1;
-            Page<FamilyRecordVideoVo> familyRecordVedioVo = proNewsFamilyRecordVedioService.getFamilyRecordVedioPage(showId, status, pageNo, pageSize);
+            Page<FamilyRecordVedioVo> familyRecordVedioVo = proNewsFamilyRecordVedioService.getFamilyRecordVedioPage(showId, status, pageNo, pageSize);
             if (familyRecordVedioVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
@@ -435,7 +435,7 @@ public class ProNewsRecordController {
             "update_user  修改人"
     )
     @RequestMapping(value = "/getFamilyRecordVedioDetail", method = RequestMethod.GET)
-    public Response<FamilyRecordVideoVo> getFamilyRecordVedioDetail(
+    public Response<FamilyRecordVedioVo> getFamilyRecordVedioDetail(
             @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
@@ -483,7 +483,7 @@ public class ProNewsRecordController {
             "update_user  修改人"
     )
     @RequestMapping(value = "/getFamilyRecordVedioAmend", method = RequestMethod.GET)
-    public Response<FamilyRecordVideoVo> getFamilyRecordVedioAmend(
+    public Response<FamilyRecordVedioVo> getFamilyRecordVedioAmend(
             @RequestParam(value = "id") Integer id, // 家族文化详情显示位置
             @ApiParam("token") @RequestParam(value = "token", required = false) String token
     ) {
@@ -518,7 +518,7 @@ public class ProNewsRecordController {
      * @return:
      * @Description:
      */
-    private Response<FamilyRecordVideoVo> getNewsDetailVedioVoResponse(@RequestParam("id") Integer id) {
+    private Response<FamilyRecordVedioVo> getNewsDetailVedioVoResponse(@RequestParam("id") Integer id) {
         try {
             NewsDetailVo newsDetailVo = proNewsFamilyRecordVedioService.getFamilyVedioRecord(id);
             return ResponseUtlis.success(newsDetailVo);
@@ -529,9 +529,9 @@ public class ProNewsRecordController {
         }
     }
 
-    private Response<FamilyRecordVideoVo> getNewsDetailVedioVoDetailResponse(@RequestParam("id") Integer id) {
+    private Response<FamilyRecordVedioVo> getNewsDetailVedioVoDetailResponse(@RequestParam("id") Integer id) {
         try {
-            FamilyRecordVideoVo familyRecordVedioVo = proNewsFamilyRecordVedioService.getFamilyVedioDetilRecord(id);
+            FamilyRecordVedioVo familyRecordVedioVo = proNewsFamilyRecordVedioService.getFamilyVedioDetilRecord(id);
             return ResponseUtlis.success(familyRecordVedioVo);
         } catch (Exception e) {
             e.printStackTrace();
