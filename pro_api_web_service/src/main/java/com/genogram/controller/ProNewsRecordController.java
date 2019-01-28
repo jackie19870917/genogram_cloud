@@ -3,10 +3,7 @@ package com.genogram.controller;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.ProNewsFamilyRecord;
-import com.genogram.entityvo.FamilyRecordVedioVo;
-import com.genogram.entityvo.FamilyRecordVo;
-import com.genogram.entityvo.NewsDetailVo;
-import com.genogram.entityvo.ProFamilyRecordVo;
+import com.genogram.entityvo.*;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -227,7 +224,7 @@ public class ProNewsRecordController {
     ) {
         try {
             int status = 1;
-            Page<FamilyRecordVedioVo> familyRecordVedioVo = iProNewsFamilyRecordVedioServices.getFamilyRecordVedioPage(showId, status, pageNo, pageSize);
+            Page<FamilyRecordVideoVo> familyRecordVedioVo = iProNewsFamilyRecordVedioServices.getFamilyRecordVedioPage(showId, status, pageNo, pageSize);
             if (familyRecordVedioVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
