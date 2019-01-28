@@ -387,6 +387,9 @@ public class FanNewsAncestorController {
                 return ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             Boolean aBoolean = fanNewsFamousAncestorService.deleteFamousAncestor(id);
+            if (!aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();

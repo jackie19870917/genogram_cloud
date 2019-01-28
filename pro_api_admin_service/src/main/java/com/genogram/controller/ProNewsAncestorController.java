@@ -351,7 +351,10 @@ public class ProNewsAncestorController {
             }
 
             Boolean aBoolean = proNewsFamousAncestorService.addFamousAncestor(proNewsFamousAncestor, proSplit, fanSplit, userLogin);
-            return null;
+            if (!aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
@@ -399,7 +402,10 @@ public class ProNewsAncestorController {
                 ResponseUtlis.error(Constants.IS_EMPTY, null);
             }
             Boolean aBoolean = proNewsFamousAncestorService.deleteFamousAncestor(id);
-            return null;
+            if (!aBoolean) {
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            }
+            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
