@@ -7,7 +7,7 @@ import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProNewsFamilyRecordVedio;
 import com.genogram.entity.ProNewsUploadFile;
 import com.genogram.entity.ProNewsUploadVedio;
-import com.genogram.entityvo.FamilyRecordVedioVo;
+import com.genogram.entityvo.FamilyRecordVideoVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.entityvo.ProFamilyRecordVedioVo;
 import com.genogram.mapper.ProNewsFamilyRecordVedioMapper;
@@ -45,9 +45,9 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
     private IAllUserLoginService allUserLoginService;
 
     @Override
-    public Page<FamilyRecordVedioVo> getFamilyRecordVedioPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<FamilyRecordVideoVo> getFamilyRecordVedioPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
-        List<FamilyRecordVedioVo> familyRecordVedioVoList = new ArrayList<>();
+        List<FamilyRecordVideoVo> familyRecordVedioVoList = new ArrayList<>();
 
         Wrapper<ProNewsFamilyRecordVedio> entity = new EntityWrapper<ProNewsFamilyRecordVedio>();
         entity.eq("show_id", showId);
@@ -97,7 +97,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
             familyRecordVedioVoList.add(familyRecordVedioVo);
         });
         //重新设置page对象
-        Page<FamilyRecordVedioVo> mapPage = new Page<>(pageNo, pageSize);
+        Page<FamilyRecordVideoVo> mapPage = new Page<>(pageNo, pageSize);
         mapPage.setRecords(familyRecordVedioVoList);
         mapPage.setSize(proNewsFamilyRecordVedioPage.getSize());
         mapPage.setTotal(proNewsFamilyRecordVedioPage.getTotal());
@@ -140,7 +140,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
     }
 
     @Override
-    public FamilyRecordVedioVo getFamilyVedioDetilRecord(Integer id) {
+    public FamilyRecordVideoVo getFamilyVedioDetilRecord(Integer id) {
         //根据Id查出记录家族详情
         ProNewsFamilyRecordVedio fanNewsFamilyRecordVedio = this.selectById(id);
 
@@ -162,7 +162,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
         AllUserLogin updateUser = allUserLoginService.selectById(null);
 
         //返回新VO的集合赋值新对象vo
-        FamilyRecordVedioVo familyRecordVedioVo = new FamilyRecordVedioVo();
+        FamilyRecordVideoVo familyRecordVedioVo = new FamilyRecordVideoVo();
         //调用方法封装集合
         BeanUtils.copyProperties(fanNewsFamilyRecordVedio, familyRecordVedioVo);
         //存储图片list集合
@@ -177,7 +177,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
         return familyRecordVedioVo;
     }
 
-    private void getPicIndex(FamilyRecordVedioVo vo, int newsId, int showId) {
+    private void getPicIndex(FamilyRecordVideoVo vo, int newsId, int showId) {
         Wrapper<ProNewsUploadFile> entity = new EntityWrapper<>();
         entity.eq("news_id", newsId);
         entity.eq("show_id", showId);

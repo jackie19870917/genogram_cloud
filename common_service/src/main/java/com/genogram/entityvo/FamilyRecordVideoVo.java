@@ -1,7 +1,7 @@
 package com.genogram.entityvo;
 
-import com.genogram.entity.ProNewsFamilyRecordVedio;
 import com.genogram.entity.ProNewsUploadFile;
+import com.genogram.entity.ProNewsUploadVedio;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,17 +11,17 @@ import java.util.List;
  * @author Administrator
  */
 @Data
-public class ProFamilyRecordVedioVo extends FamilyRecordVideoVo {
+public class FamilyRecordVideoVo {
     //记录家族视频
     /**
      * 视频概要
      */
-    private List<ProNewsFamilyRecordVedio> proNewsFamilyRecordVedios;
+    private List<ProNewsUploadVedio> fanUploadVedioList;
 
     /**
      * 封面
      */
-    private List<ProNewsUploadFile> proNewsUploadFile;
+    private List<ProNewsUploadFile> fanNewsUploadFile;
 
 
     /**
@@ -48,12 +48,6 @@ public class ProFamilyRecordVedioVo extends FamilyRecordVideoVo {
      * 状态(0:删除;1:显示;2:不显示)
      */
     private Integer status;
-
-    /**
-     * 评论数
-     */
-    private Integer commentCount;
-
     private Date createTime;
     private Integer createUserName;
     private Date updateTime;
@@ -67,4 +61,9 @@ public class ProFamilyRecordVedioVo extends FamilyRecordVideoVo {
      * 修改时间LONG
      */
     private Long createTimeLong;
+
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
 }
