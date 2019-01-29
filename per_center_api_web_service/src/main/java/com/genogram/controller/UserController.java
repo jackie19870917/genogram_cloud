@@ -640,7 +640,7 @@ public class UserController {
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         if (allUserLogin.getRegionCode() % 10000 == 0) {
-            ProSysSite proSysSite = sysSiteService.getProSysSiteByCode(userLogin.getFamilyCode(), userLogin.getRegionCode());
+            ProSysSite proSysSite = sysSiteService.getProSysSiteByCode(allUserLogin.getFamilyCode(), allUserLogin.getRegionCode());
 
             if (StringUtils.isEmpty(proSysSite)) {
                 return ResponseUtlis.error(Constants.FAILURE_CODE, null);
@@ -649,7 +649,7 @@ public class UserController {
             }
 
         } else {
-            FanSysSite fanSysSite = sysSiteService.getFanSysSiteByCode(userLogin.getFamilyCode(), userLogin.getRegionCode());
+            FanSysSite fanSysSite = sysSiteService.getFanSysSiteByCode(allUserLogin.getFamilyCode(), allUserLogin.getRegionCode());
 
             if (StringUtils.isEmpty(fanSysSite)) {
                 return ResponseUtlis.error(Constants.FAILURE_CODE, null);
