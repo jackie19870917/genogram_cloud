@@ -74,6 +74,9 @@ public class ProNewsFamilyRecordServiceImpl extends ServiceImpl<ProNewsFamilyRec
         List newsids = new ArrayList<>();
         list.forEach((news) -> {
             newsids.add(news.getId());
+
+            //去除html标签
+            news.setNewsText(StringsUtils.removeTag(news.getNewsText()));
         });
 
         //查询图片
