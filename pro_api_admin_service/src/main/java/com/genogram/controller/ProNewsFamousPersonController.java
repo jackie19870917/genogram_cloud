@@ -277,7 +277,7 @@ public class ProNewsFamousPersonController {
      * @Description:
      */
     @ApiOperation("新增/修改家族名人(草稿)")
-    @RequestMapping(value = "/addOrUpdateIndustryDrft", method = RequestMethod.POST)
+    @RequestMapping(value = "/addOrUpdatePersonDrft", method = RequestMethod.POST)
     public Response<ProNewsFamousPerson> addOrUpdateIndustryDrft(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath,
                                                                  @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
