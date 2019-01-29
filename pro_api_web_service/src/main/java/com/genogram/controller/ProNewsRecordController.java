@@ -50,7 +50,7 @@ public class ProNewsRecordController {
             if (proFamilyRecordPage == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.success(proFamilyRecordPage);
         } catch (Exception e) {
@@ -175,7 +175,7 @@ public class ProNewsRecordController {
         try {
             // 插入数据
             boolean b = iProNewsFamilyRecordService.addOrUpdateRecord(proNewsFamilyRecord, fileName, filePath);
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
             //插入图片
         } catch (Exception e) {
             e.printStackTrace();
@@ -231,7 +231,7 @@ public class ProNewsRecordController {
             if (familyRecordVedioVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }
             return ResponseUtlis.success(familyRecordVedioVo);
         } catch (Exception e) {

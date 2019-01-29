@@ -238,6 +238,8 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         List newsids = new ArrayList<>();
         list.forEach((news) -> {
             newsids.add(news.getId());
+            //去除html标签
+            news.setPersonSummary(StringsUtils.removeTag(news.getPersonSummary()));
         });
 
         //查询图片
