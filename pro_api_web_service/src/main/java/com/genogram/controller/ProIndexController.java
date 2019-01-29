@@ -1,15 +1,15 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.AllUserNewsInfo;
 import com.genogram.entity.ProIndexSlidePic;
 import com.genogram.entity.ProSysSite;
 import com.genogram.entityvo.IndexInfoVo;
-import com.genogram.service.IAllUserNewsInfoService;
-import com.genogram.service.IProIndexInfoService;
-import com.genogram.service.IProIndexSlidePicService;
-import com.genogram.service.IProSysSiteService;
+import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
@@ -50,6 +50,9 @@ public class ProIndexController {
     @Autowired
     private IAllUserNewsInfoService allUserNewsInfoService;
 
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
     @ApiOperation(value = "基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名称,regionCode;地区编号,totemPicSrc:图腾,title:宣言,description;简介")
     @RequestMapping(value = "index/getIndexInfo", method = RequestMethod.GET)
     public Response<IndexInfoVo> getIndexInfoVo(@ApiParam("网站Id") @RequestParam Integer siteId) {
@@ -88,7 +91,7 @@ public class ProIndexController {
         return ResponseUtlis.success(proIndexSlidePic);
     }
 
-    @ApiOperation(value = "最新发布", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
+    /*@ApiOperation(value = "最新发布", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
     @RequestMapping(value = "getAllUserNewsInfoPage", method = RequestMethod.GET)
     public Response<AllUserNewsInfo> getAllUserNewsInfoPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
                                                             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
@@ -121,5 +124,58 @@ public class ProIndexController {
         }
 
         return ResponseUtlis.success(userNewsInfoPage);
+    }*/
+
+    /**
+     * 最新发布(根据用户)
+     *
+     * @param siteId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @ApiOperation(value = "最新发布", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
+    @RequestMapping(value = "getAllUserNewsInfoPage", method = RequestMethod.GET)
+    public Response<AllUserNewsInfo> getAllUserNewsInfoPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
+                                                            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        ProSysSite proSysSite = proSysSiteService.getProSysSite(siteId);
+
+        if (StringUtils.isEmpty(proSysSite)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+
+        List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(proSysSite.getFamilyCode());
+
+        if (loginList.size() == 0) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+
+        List list = new ArrayList();
+        loginList.forEach((AllUserLogin allUserLogin) -> {
+            list.add(allUserLogin.getId());
+        });
+
+        Wrapper<AllUserNewsInfo> wrapper = new EntityWrapper<>();
+
+        wrapper.in("user_id", list);
+        wrapper.eq("region_id", proSysSite.getRegionCode());
+        wrapper.eq("status", 1);
+        wrapper.orderBy("create_time", false);
+
+        Page<AllUserNewsInfo> page = new Page<>(pageNo, pageSize);
+
+        Page<AllUserNewsInfo> allUserNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoList(page, wrapper);
+
+        if (StringUtils.isEmpty(allUserNewsInfoPage)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+
+        return ResponseUtlis.success(allUserNewsInfoPage);
     }
 }
