@@ -1,7 +1,10 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProNewsFamousPerson;
 import com.genogram.entity.ProSysWebNewsShow;
 import com.genogram.entityvo.FamilyPersonVo;
@@ -12,10 +15,14 @@ import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,6 +60,51 @@ public class ProNewsFamousController {
                 return ResponseUtlis.error(Constants.ERRO_CODE, "familyPersonVo为空");
             }
             return ResponseUtlis.success(familyPersonVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+    }
+
+    /**
+     * 联谊会家族名人后台查询
+     *
+     * @Author: yuzhou
+     * @Date: 2018-11-09
+     * @Time: 16:24
+     * @Param:
+     * @return:
+     * @Description:
+     */
+    @ApiOperation("查询家族名人")
+    @RequestMapping(value = "/getFamilyPersonPage", method = RequestMethod.GET)
+    public Response<ProFamilyPersonVo> getFamilyPersonPage(
+            @RequestParam(value = "showId") Integer showId,
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
+        try {
+            //判断showId是否有值
+            if (showId == null) {
+                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            }
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            List statusList = new ArrayList();
+            statusList.add(1);
+            statusList.add(2);
+            //查询文章信息的条件
+            Wrapper<ProNewsFamousPerson> entity = new EntityWrapper<ProNewsFamousPerson>();
+            entity.eq("show_id", showId);
+            if (statusList.size() != 0) {
+                entity.in("status", statusList);
+            }
+            entity.orderBy("create_time", false);
+            Page<ProFamilyPersonVo> familyPersonVoPage = iProNewsFamousPersonService.getFamilyPersionPages(entity, pageNo, pageSize);
+            if (familyPersonVoPage == null) {
+                //没有取到参数,返回空参
+                Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
+                return ResponseUtlis.error(Constants.ERRO_CODE, "familyPersonVoPage为空");
+            }
+            return ResponseUtlis.success(familyPersonVoPage);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
