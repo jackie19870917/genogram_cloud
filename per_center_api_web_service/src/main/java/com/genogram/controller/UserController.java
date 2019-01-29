@@ -637,7 +637,7 @@ public class UserController {
             return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
-        if (userLogin.getRegionCode() / 10000 == 0) {
+        if (userLogin.getRegionCode() % 10000 == 0) {
             ProSysSite proSysSite = sysSiteService.getProSysSiteByCode(userLogin.getFamilyCode(), userLogin.getRegionCode());
 
             if (StringUtils.isEmpty(proSysSite)) {
