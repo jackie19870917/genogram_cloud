@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.*;
-import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
 import com.genogram.mapper.ProNewsFamousPersonMapper;
 import com.genogram.mapper.ProNewsUploadFileMapper;
@@ -30,7 +29,7 @@ import java.util.List;
  * @since 2018-11-17
  */
 @Service
-public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPersonMapper, ProNewsFamousPerson> implements IProNewsFamilyPersionService {
+public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPersonMapper, ProNewsFamousPerson> implements IProNewsFamilyPersonService {
     @Autowired
     private IAllUserLoginService allUserLoginService;
     @Autowired
@@ -42,7 +41,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
     @Autowired
     private ProNewsUploadFileMapper proNewsUploadFileMapper;
     @Autowired
-    private IProNewsFamilyPersionService iProNewsFamilyPersionService;
+    private IProNewsFamilyPersonService iProNewsFamilyPersonService;
 
     /**
      * 省级家族名人分页
@@ -54,7 +53,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
      * @return
      */
     @Override
-    public Page<ProFamilyPersonVo> getFamilyPersionPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
+    public Page<ProFamilyPersonVo> getFamilyPersonPage(Integer showId, Integer status, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
         List<ProFamilyPersonVo> familyPersonVoList = new ArrayList<>();
 
@@ -75,6 +74,9 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
         List newsids = new ArrayList<>();
         list.forEach((news) -> {
             newsids.add(news.getId());
+
+            //去除html标签
+            news.setPersonSummary(StringsUtils.removeTag(news.getPersonSummary()));
         });
 
         //查询图片
@@ -218,7 +220,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
      * @return
      */
     @Override
-    public Page<ProFamilyPersonVo> getFamilyPersionPages(Wrapper<ProNewsFamousPerson> entity, Integer pageNo, Integer pageSize) {
+    public Page<ProFamilyPersonVo> getFamilyPersonPages(Wrapper<ProNewsFamousPerson> entity, Integer pageNo, Integer pageSize) {
         //返回新VO的集合
         List<ProFamilyPersonVo> familyPersionVoList = new ArrayList<>();
 
@@ -284,7 +286,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
      * @return
      */
     @Override
-    public ProFamilyPersonVo getFamilyPersionDetail(Integer id) {
+    public ProFamilyPersonVo getFamilyPersonDetail(Integer id) {
         //根据Id查出产业详情
         ProNewsFamousPerson proNewsFamousPerson = this.selectById(id);
 
@@ -325,7 +327,7 @@ public class ProNewsFamousPersonServiceImpl extends ServiceImpl<ProNewsFamousPer
      * @return
      */
     @Override
-    public boolean addOrUpdatePersion(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
+    public boolean addOrUpdatePerson(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
         if (proNewsFamousPerson.getId() == null) {

@@ -4,20 +4,17 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
-import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ProNewsFamousPerson;
 import com.genogram.entity.ProSysWebNewsShow;
 import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
-import com.genogram.service.IProNewsFamilyPersionService;
+import com.genogram.service.IProNewsFamilyPersonService;
 import com.genogram.service.IProSysWebNewsShowService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -35,7 +32,7 @@ import java.util.Map;
 public class ProNewsFamousController {
 
     @Autowired
-    private IProNewsFamilyPersionService iProNewsFamousPersonService;
+    private IProNewsFamilyPersonService iProNewsFamousPersonService;
 
     @Autowired
     private IProSysWebNewsShowService iProSysWebNewsShowService;
@@ -53,7 +50,7 @@ public class ProNewsFamousController {
     ) {
         try {
             int status = 1;
-            Page<ProFamilyPersonVo> familyPersonVo = iProNewsFamousPersonService.getFamilyPersionPage(showId, status, pageNo, pageSize);
+            Page<ProFamilyPersonVo> familyPersonVo = iProNewsFamousPersonService.getFamilyPersonPage(showId, status, pageNo, pageSize);
             if (familyPersonVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
@@ -98,7 +95,7 @@ public class ProNewsFamousController {
                 entity.in("status", statusList);
             }
             entity.orderBy("create_time", false);
-            Page<ProFamilyPersonVo> familyPersonVoPage = iProNewsFamousPersonService.getFamilyPersionPages(entity, pageNo, pageSize);
+            Page<ProFamilyPersonVo> familyPersonVoPage = iProNewsFamousPersonService.getFamilyPersonPages(entity, pageNo, pageSize);
             if (familyPersonVoPage == null) {
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();

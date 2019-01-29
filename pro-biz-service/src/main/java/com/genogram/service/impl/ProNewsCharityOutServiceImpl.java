@@ -12,6 +12,7 @@ import com.genogram.mapper.ProNewsCharityOutMapper;
 import com.genogram.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,9 @@ public class ProNewsCharityOutServiceImpl extends ServiceImpl<ProNewsCharityOutM
         List list = new ArrayList<>();
         proNewsCharityOutList.forEach((proNewsCharityOut) -> {
             list.add(proNewsCharityOut.getId());
+
+            //去掉文章标签
+            proNewsCharityOut.setNewsText(StringsUtils.removeTag(proNewsCharityOut.getNewsText()));
         });
 
         //查询图片

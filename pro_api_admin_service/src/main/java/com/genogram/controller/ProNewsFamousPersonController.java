@@ -10,7 +10,7 @@ import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.ProFamilyPersonVo;
 import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IAllUserLoginService;
-import com.genogram.service.IProNewsFamilyPersionService;
+import com.genogram.service.IProNewsFamilyPersonService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
@@ -37,7 +37,7 @@ import java.util.Set;
 public class ProNewsFamousPersonController {
 
     @Autowired
-    private IProNewsFamilyPersionService iProNewsFamilyPersionService;
+    private IProNewsFamilyPersonService iProNewsFamilyPersonService;
 
     @Autowired
     private IAllCheckOutService allCheckOutService;
@@ -113,7 +113,7 @@ public class ProNewsFamousPersonController {
                 entity.in("status", statusList);
             }
             entity.orderBy("create_time", false);
-            Page<ProFamilyPersonVo> familyPersonVoPage = iProNewsFamilyPersionService.getFamilyPersionPages(entity, pageNo, pageSize);
+            Page<ProFamilyPersonVo> familyPersonVoPage = iProNewsFamilyPersonService.getFamilyPersonPages(entity, pageNo, pageSize);
             if (familyPersonVoPage == null) {
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
@@ -211,7 +211,7 @@ public class ProNewsFamousPersonController {
      */
     private Response<ProFamilyPersonVo> getNewsDetailVoResponse(@RequestParam("id") Integer id) {
         try {
-            ProFamilyPersonVo proFamilyPersonVo = iProNewsFamilyPersionService.getFamilyPersionDetail(id);
+            ProFamilyPersonVo proFamilyPersonVo = iProNewsFamilyPersonService.getFamilyPersonDetail(id);
             return ResponseUtlis.success(proFamilyPersonVo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -318,7 +318,7 @@ public class ProNewsFamousPersonController {
     private Response<ProNewsFamousPerson> getProNewsPersonResponse(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath) {
         try {
             // 插入数据
-            boolean b = iProNewsFamilyPersionService.addOrUpdatePersion(proNewsFamousPerson, fileName, filePath);
+            boolean b = iProNewsFamilyPersonService.addOrUpdatePerson(proNewsFamousPerson, fileName, filePath);
             return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {
@@ -367,7 +367,7 @@ public class ProNewsFamousPersonController {
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 0;
-            Boolean aBoolean = iProNewsFamilyPersionService.deletePersonById(id, status, userLogin.getId());
+            Boolean aBoolean = iProNewsFamilyPersonService.deletePersonById(id, status, userLogin.getId());
             if (!aBoolean) {
                 return ResponseUtlis.error(Constants.ERRO_CODE, null);
             }

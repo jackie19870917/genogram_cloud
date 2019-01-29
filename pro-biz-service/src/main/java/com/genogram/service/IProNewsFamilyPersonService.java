@@ -13,7 +13,7 @@ import com.genogram.entityvo.ProFamilyPersonVo;
 /**
  * @author Administrator
  */
-public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPerson> {
+public interface IProNewsFamilyPersonService extends IService<ProNewsFamousPerson> {
     /**
      * 前后台查询
      *
@@ -23,7 +23,7 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
      * @param pageSize
      * @return
      */
-    Page<ProFamilyPersonVo> getFamilyPersionPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
+    Page<ProFamilyPersonVo> getFamilyPersonPage(Integer showId, Integer status, Integer pageNo, Integer pageSize);
 
     /**
      * 省级家族名人增加查看数
@@ -46,7 +46,7 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
      * @param id 主键Pro
      * @return
      */
-    ProFamilyPersonVo getFamilyPersionDetail(Integer id);
+    ProFamilyPersonVo getFamilyPersonDetail(Integer id);
 
     /**
      * 后台查询
@@ -56,7 +56,7 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
      * @param pageSize
      * @return
      */
-    Page<ProFamilyPersonVo> getFamilyPersionPages(Wrapper<ProNewsFamousPerson> entity, Integer pageNo, Integer pageSize);
+    Page<ProFamilyPersonVo> getFamilyPersonPages(Wrapper<ProNewsFamousPerson> entity, Integer pageNo, Integer pageSize);
 
     /**
      * 联谊会家族名人后台新增
@@ -66,7 +66,7 @@ public interface IProNewsFamilyPersionService extends IService<ProNewsFamousPers
      * @param filePath            文件路径
      * @return
      */
-    boolean addOrUpdatePersion(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath);
+    boolean addOrUpdatePerson(ProNewsFamousPerson proNewsFamousPerson, String fileName, String filePath);
 
     /**
      * 删除
