@@ -96,13 +96,13 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         volist.add(vo);
 
         //人物 - 祖先 - 省级
-        vo = setIndexMenu(siteId, "祖先", "index_family_person_1", "genogram/proNewsFamous/selectPersonPage?showId=", "");
+        vo = setIndexMenu(siteId, "祖先", "index_family_person_1", "genogram/proNewsFamous/getFamilyPersonPage?showId=", "");
         volist.add(vo);
         //人物 - 名人 - 省级
-        vo = setIndexMenu(siteId, "名人", "index_family_person_2", "genogram/proNewsFamous/selectPersonPage?showId=", "");
+        vo = setIndexMenu(siteId, "名人", "index_family_person_2", "genogram/proNewsFamous/getFamilyPersonPage?showId=", "");
         volist.add(vo);
         //人物 - 精英 - 省级
-        vo = setIndexMenu(siteId, "精英", "index_family_person_3", "genogram/proNewsFamous/selectPersonPage?showId=", "");
+        vo = setIndexMenu(siteId, "精英", "index_family_person_3", "genogram/proNewsFamous/getFamilyPersonPage?showId=", "");
         volist.add(vo);
 
         //下级县级网站
