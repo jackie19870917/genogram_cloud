@@ -43,4 +43,20 @@ public interface ISysSiteService extends IService<FanSysSite> {
      * @return
      */
     List<ProSysSite> getProSysSite();
+
+    /**
+     * 联谊会
+     * @param familyCode
+     * @param regionCode
+     * @return
+     */
+    FanSysSite getFanSysSiteByCode(Integer familyCode, Integer regionCode);
+
+    /**
+     * 省级
+     * @param familyCode
+     * @param regionCode
+     * @return
+     */
+    ProSysSite getProSysSiteByCode(Integer familyCode, Integer regionCode);
 }
