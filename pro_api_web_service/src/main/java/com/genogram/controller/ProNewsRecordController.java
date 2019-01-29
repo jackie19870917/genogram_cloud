@@ -1,8 +1,13 @@
 package com.genogram.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
+import com.genogram.entity.AllUserVideos;
 import com.genogram.entity.ProNewsFamilyRecord;
+import com.genogram.entity.ProSysSite;
 import com.genogram.entityvo.FamilyRecordVedioVo;
 import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
@@ -12,9 +17,13 @@ import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtlis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,10 +38,19 @@ public class ProNewsRecordController {
     private IProNewsFamilyRecordService iProNewsFamilyRecordService;
 
     @Autowired
-    private IProNewsFamilyRecordVedioService iProNewsFamilyRecordVedioServices;
+    private IProNewsFamilyRecordVedioService proNewsFamilyRecordVideoServices;
 
     @Autowired
     private IAllCheckOutService allCheckOutService;
+
+    @Autowired
+    private IProSysSiteService proSysSiteService;
+
+    @Autowired
+    private IAllUserVideosService allUserVideosService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
 
     /**
      * 省级家族动态查询
@@ -227,7 +245,7 @@ public class ProNewsRecordController {
     ) {
         try {
             int status = 1;
-            Page<FamilyRecordVedioVo> familyRecordVedioVo = iProNewsFamilyRecordVedioServices.getFamilyRecordVedioPage(showId, status, pageNo, pageSize);
+            Page<FamilyRecordVedioVo> familyRecordVedioVo = proNewsFamilyRecordVideoServices.getFamilyRecordVedioPage(showId, status, pageNo, pageSize);
             if (familyRecordVedioVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
@@ -238,5 +256,58 @@ public class ProNewsRecordController {
             e.printStackTrace();
             return ResponseUtlis.error(Constants.FAILURE_CODE, null);
         }
+    }
+
+    /**
+     * 个人视频(根据用户)
+     *
+     * @param siteId
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    @ApiOperation(value = "个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
+    @RequestMapping(value = "getAllUserVideosPage", method = RequestMethod.GET)
+    public Response<AllUserVideos> getAllUserVideosPage(@ApiParam("主键") @RequestParam("siteId") Integer siteId,
+                                                        @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                        @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
+
+        if (siteId == null) {
+            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+        }
+
+        ProSysSite proSysSite = proSysSiteService.getProSysSite(siteId);
+
+        if (StringUtils.isEmpty(proSysSite)) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(proSysSite.getFamilyCode());
+
+        if (loginList.size() == 0) {
+            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+        }
+
+        List list = new ArrayList();
+        loginList.forEach((AllUserLogin allUserLogin) -> {
+            list.add(allUserLogin.getId());
+        });
+
+        Wrapper<AllUserVideos> wrapper = new EntityWrapper<>();
+
+        wrapper.in("user_id", list);
+        wrapper.eq("region_id", proSysSite.getRegionCode());
+        wrapper.eq("status", 1);
+        wrapper.orderBy("create_time", false);
+
+        Page<AllUserVideos> page = new Page<>(pageNo, pageSize);
+
+        Page<AllUserVideos> allUserVideosPage = allUserVideosService.getAllUserVideosList(page, wrapper);
+
+        if (StringUtils.isEmpty(allUserVideosPage)) {
+            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+        }
+
+        return ResponseUtlis.success(allUserVideosPage);
     }
 }
