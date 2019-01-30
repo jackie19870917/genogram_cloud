@@ -351,7 +351,7 @@ public class PayController {
         proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
 
         // 回调地址
-        String callback ="http://www.yhtpw.com/8070/genogram/pay/callBack";
+        String callback ="47.105.177.1:8070/genogram/pay/callBack";
 
         // 生成一个code_url
         String codeUrl = PayUtils.pay(payId, userIp, totalFee, body, callback);
