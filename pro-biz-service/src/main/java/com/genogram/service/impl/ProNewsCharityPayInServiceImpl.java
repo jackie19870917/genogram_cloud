@@ -128,7 +128,7 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
 
         proNewsCharityPayIn.setUpdateTime(timeStamp);
 
-        return this.insert(proNewsCharityPayIn);
+        return this.insertOrUpdate(proNewsCharityPayIn);
     }
 
     @Override
