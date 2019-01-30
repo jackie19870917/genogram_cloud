@@ -22,12 +22,13 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
      *
      * @param regionCode
      * @param fileName
+     * @param siteId
      * @param list
      * @param pageNo
      * @param pageSize
      * @return
      */
-    Page getProNewsUploadTreeFile(String regionCode, String fileName, List list, Integer pageNo, Integer pageSize);
+    Page getProNewsUploadTreeFile(String regionCode, String fileName,Integer siteId, List list, Integer pageNo, Integer pageSize);
 
     /**
      * 查询省级电子谱

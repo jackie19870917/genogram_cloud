@@ -46,7 +46,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
     private IAllFamilyService allFamilyService;
 
     @Override
-    public Page getProNewsUploadTreeFile(String regionCode, String fileName, List list, Integer pageNo, Integer pageSize) {
+    public Page getProNewsUploadTreeFile(String regionCode, String fileName,Integer siteId, List list, Integer pageNo, Integer pageSize) {
 
         Wrapper<ProNewsUploadTreeFile> proNewsUploadTreeFileWrapper = new EntityWrapper<>();
         Wrapper<FanNewsUploadTreeFile> fanNewsUploadTreeFileWrapper = new EntityWrapper<>();
@@ -54,6 +54,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
         // 地区和名称为空
         if (regionCode == "" && fileName == "") {
             proNewsUploadTreeFileWrapper.in("status", list);
+            proNewsUploadTreeFileWrapper.eq("site_id", siteId);
             proNewsUploadTreeFileWrapper.orderBy("update_time", false);
 
 
@@ -72,6 +73,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             // 地区为空   名称不为空
         } else if (regionCode == "" && fileName != "") {
             proNewsUploadTreeFileWrapper.like("file_name", fileName);
+            proNewsUploadTreeFileWrapper.eq("site_id", siteId);
             proNewsUploadTreeFileWrapper.in("status", list);
             proNewsUploadTreeFileWrapper.orderBy("update_time", false);
 
