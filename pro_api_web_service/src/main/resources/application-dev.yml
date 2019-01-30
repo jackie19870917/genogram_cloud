@@ -1,6 +1,6 @@
 #阿里pay测试服务器
-pay_notify_url: http://192.168.2.179:8060/genogram/pay/notify_url
-pay_return_url: http://192.168.2.179:8060/genogram/pay/return_url
+pay_notify_url: http://127.0.0.1:8060/genogram/pay/notify_url
+pay_return_url: http://127.0.0.1:8060/genogram/pay/return_url
 spring:
   profiles: dev
   datasource:
