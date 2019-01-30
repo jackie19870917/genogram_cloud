@@ -119,7 +119,13 @@ public class ProNewsCharityPayInServiceImpl extends ServiceImpl<ProNewsCharityPa
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
 
-        proNewsCharityPayIn.setCreateTime(timeStamp);
+        if (StringUtils.isEmpty(this.selectOne(proNewsCharityPayIn))) {
+            proNewsCharityPayIn.setCreateTime(timeStamp);
+            proNewsCharityPayIn.setCreateUser(proNewsCharityPayIn.getPayUsrId());
+            proNewsCharityPayIn.setUpdateUser(proNewsCharityPayIn.getPayUsrId());
+
+        }
+
         proNewsCharityPayIn.setUpdateTime(timeStamp);
 
         return this.insert(proNewsCharityPayIn);
