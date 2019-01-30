@@ -60,7 +60,7 @@ public class ProNewsUploadTreeFileController {
             list.add(2);
         }
 
-        Page newsUploadTreeFile = proNewsUploadTreeFileService.getProNewsUploadTreeFile(regionCode, fileName, list, pageNo, pageSize);
+        Page newsUploadTreeFile = proNewsUploadTreeFileService.getProNewsUploadTreeFile(regionCode, fileName,siteId, list, pageNo, pageSize);
 
         if (StringUtils.isEmpty(newsUploadTreeFile)) {
             return ResponseUtlis.error(Constants.ERRO_CODE, null);
