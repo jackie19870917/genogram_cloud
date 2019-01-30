@@ -84,7 +84,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
                 }
             });
             //存储视频list集合
-            familyRecordVedioVo.setFanUploadVedioList(list);
+            familyRecordVedioVo.setFanUploadVedioList(proNewsUploadVedio);
 
             //设置封面file
             this.getPicIndex(familyRecordVedioVo, news.getId(), showId);
