@@ -6,7 +6,7 @@ import com.genogram.entity.FanNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.service.IFanNewsFamousAncestorService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -67,18 +67,18 @@ public class FanNewsAncestorController {
     ) {
         try {
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             Page<FanNewsFamousAncestor> proFamilyRecordPage = fanNewsFamousAncestorService.getFamousAncestorPage(siteId, pageNo, pageSize);
             if (proFamilyRecordPage == null) {
                 //没有取到参数,返回空参
                 Page<FanNewsFamousAncestor> proNewsFamousAncestor = new Page<FanNewsFamousAncestor>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
-            return ResponseUtlis.success(proFamilyRecordPage);
+            return ResponseUtils.success(proFamilyRecordPage);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -116,16 +116,16 @@ public class FanNewsAncestorController {
     ) {
         try {
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             AncestorsBranchVo ancestorsBranchVo = fanNewsFamousAncestorService.getFamousAncestorDetails(id);
             if (ancestorsBranchVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(ancestorsBranchVo);
+            return ResponseUtils.success(ancestorsBranchVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

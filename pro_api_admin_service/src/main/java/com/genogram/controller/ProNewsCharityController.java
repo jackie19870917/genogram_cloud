@@ -11,7 +11,7 @@ import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -83,33 +83,33 @@ public class ProNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(siteId);
 
         if (StringUtils.isEmpty(proIndexFund)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(proIndexFund);
+        return ResponseUtils.success(proIndexFund);
     }
 
     /**
@@ -131,24 +131,24 @@ public class ProNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -164,10 +164,10 @@ public class ProNewsCharityController {
         Page<NewsCharityOutVo> newsCharityOutVoPage = proNewsCharityOutService.getNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         if (StringUtils.isEmpty(newsCharityOutVoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(newsCharityOutVoPage);
+        return ResponseUtils.success(newsCharityOutVoPage);
     }
 
     @ApiOperation(value = "捐款名录查询", notes = "id:主键,showId:显示位置,payUsrId:捐款人,userName:用户名,realName:真实名,nickName:昵称,payAmount:捐款金额")
@@ -180,7 +180,7 @@ public class ProNewsCharityController {
                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -210,10 +210,10 @@ public class ProNewsCharityController {
         }
 
         if (StringUtils.isEmpty(donorVoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(donorVoPage);
+        return ResponseUtils.success(donorVoPage);
 
     }
 
@@ -230,25 +230,25 @@ public class ProNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         NewsDetailVo newsCharityOutDetail = proNewsCharityOutService.getNewsCharityOutDetail(id);
 
-        return ResponseUtlis.success(newsCharityOutDetail);
+        return ResponseUtils.success(newsCharityOutDetail);
     }
 
     /**
@@ -268,20 +268,20 @@ public class ProNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (proNewsCharityOut.getId() == null) {
@@ -293,7 +293,7 @@ public class ProNewsCharityController {
         Set set = allCheckOutService.getSensitiveWord(proNewsCharityOut.getNewsText());
 
         if (set != null && set.size() >= 1) {
-            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
         //状态   (1:已发布;2:草稿)
@@ -301,9 +301,9 @@ public class ProNewsCharityController {
         Boolean result = proNewsCharityOutService.insertOrUpdateProNewsCharityOutVo(proNewsCharityOut, fileName, filePath);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -324,20 +324,20 @@ public class ProNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (proNewsCharityOut.getId() == null) {
@@ -351,9 +351,9 @@ public class ProNewsCharityController {
         Boolean result = proNewsCharityOutService.insertOrUpdateProNewsCharityOutVo(proNewsCharityOut, fileName, filePath);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -370,28 +370,28 @@ public class ProNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Boolean result = proNewsCharityOutService.deleteProNewsCharityOut(id, userLogin.getId());
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -408,13 +408,13 @@ public class ProNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
@@ -423,17 +423,17 @@ public class ProNewsCharityController {
         //  2-省级管理员
         Integer role02 = 2;
         if (!allUserLogin.getRole().equals(role02)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(proIndexFundDrowing.getSiteId());
 
         if (proIndexFundDrowing.getDrowAmount().compareTo(new BigDecimal(0)) != -1) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "金额不能小于0");
+            return ResponseUtils.error(Constants.ERRO_CODE, "金额不能小于0");
         }
 
         if (proIndexFund.getRemain().subtract(proIndexFund.getUnuseAmount()).compareTo(proIndexFundDrowing.getDrowAmount()) == -1) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "金额不足");
+            return ResponseUtils.error(Constants.ERRO_CODE, "金额不足");
         }
 
         proIndexFundDrowing.setCreateUser(userLogin.getId());
@@ -445,9 +445,9 @@ public class ProNewsCharityController {
         proIndexFundService.updateProIndexFund(proIndexFund);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -468,33 +468,33 @@ public class ProNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         Page<IndexFundDrowingVo> indexFundDrowingVoPage = proIndexFundDrowingService.getIndexFundDrowingVoPage(siteId, pageNo, pageSize);
 
         if (StringUtils.isEmpty(indexFundDrowingVoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(indexFundDrowingVoPage);
+        return ResponseUtils.success(indexFundDrowingVoPage);
     }
 
     /**
@@ -510,20 +510,20 @@ public class ProNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         proNewsCharityPayIn.setType(2);
@@ -532,9 +532,9 @@ public class ProNewsCharityController {
         Boolean result = proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 

@@ -12,7 +12,7 @@ import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsCultureNewsService;
 import com.genogram.service.IFanNewsCultureZipaiService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -73,7 +73,7 @@ public class FanNewsCultureController {
         try {
             //判断showId是否有值
             if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
@@ -87,12 +87,12 @@ public class FanNewsCultureController {
             if (fanNewsCultureZipai == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(fanNewsCultureZipai);
+            return ResponseUtils.success(fanNewsCultureZipai);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -125,7 +125,7 @@ public class FanNewsCultureController {
         try {
             //判断showId是否有值
             if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
@@ -139,12 +139,12 @@ public class FanNewsCultureController {
             if (stringBuffer == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "没有取到参数,返回空参");
+                return ResponseUtils.error(Constants.ERRO_CODE, "没有取到参数,返回空参");
             }
-            return ResponseUtlis.success(stringBuffer);
+            return ResponseUtils.success(stringBuffer);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -182,7 +182,7 @@ public class FanNewsCultureController {
             List<FanNewsCultureZipai> list = new ArrayList<>();
             //判断showId是否有值
             if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "showId 为空");
+                return ResponseUtils.error(Constants.IS_EMPTY, "showId 为空");
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
@@ -195,12 +195,12 @@ public class FanNewsCultureController {
             }
             Page<NewsCultureZipaiVo> fanNewsCultureZipaiPage = fanNewsCultureZipaiService.commonality(entity, pageNo, pageSize);
             if (fanNewsCultureZipaiPage == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
-            return ResponseUtlis.success(fanNewsCultureZipaiPage);
+            return ResponseUtils.success(fanNewsCultureZipaiPage);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -235,7 +235,7 @@ public class FanNewsCultureController {
         try {
             //判断showId是否有值
             if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
@@ -249,12 +249,12 @@ public class FanNewsCultureController {
             if (familyCultureVoList == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
-            return ResponseUtlis.success(familyCultureVoList);
+            return ResponseUtils.success(familyCultureVoList);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -288,16 +288,16 @@ public class FanNewsCultureController {
         try {
             //判断showId是否有值
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             Page<FamilyCultureVo> familyCultureVo = fanNewsCultureNewsService.getFamilyIndexCulturePage(siteId, pageNo, pageSize);
             if (StringsUtils.isEmpty(familyCultureVo)) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(familyCultureVo);
+            return ResponseUtils.success(familyCultureVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -370,18 +370,18 @@ public class FanNewsCultureController {
             //返回空参
             NewsDetailVo newsDetail = new NewsDetailVo();
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "数据为空");
+                return ResponseUtils.error(Constants.IS_EMPTY, "数据为空");
             }
             NewsDetailVo newsDetailVo = fanNewsCultureNewsService.getFamilyCultureDetail(id);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
             //增加查看数
             fanNewsCultureNewsService.addVisitNum(id);
-            return ResponseUtlis.success(newsDetailVo);
+            return ResponseUtils.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 

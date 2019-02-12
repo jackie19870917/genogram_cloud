@@ -15,7 +15,7 @@ import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.MessageUtil;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -77,7 +77,7 @@ public class UserLoginController {
         AllUserLogin userLogin = allUserLoginService.getAllUserLogin(allUserLogin);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不存在");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "用户名不存在");
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
@@ -86,7 +86,7 @@ public class UserLoginController {
                     String opedId = (String) request.getSession().getAttribute("opedId");
 
                     if (StringUtils.isEmpty(opedId)) {
-                        return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+                        return ResponseUtils.error(Constants.NOSUPPORT, "您还没授权");
                     }
 
                     userLogin.setOpenId(opedId);
@@ -96,9 +96,9 @@ public class UserLoginController {
 
                 PersonVo personVo = getPersonVo(userLogin);
 
-                return ResponseUtlis.success(personVo);
+                return ResponseUtils.success(personVo);
             } else {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名或密码错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "用户名或密码错误");
             }
         }
 
@@ -116,7 +116,7 @@ public class UserLoginController {
 
         List<AllFamily> familyList = allUserLoginService.getAllFamily(wrapper);
 
-        return ResponseUtlis.success(familyList);
+        return ResponseUtils.success(familyList);
     }
 
     String message = null;
@@ -128,9 +128,9 @@ public class UserLoginController {
         message = MessageUtil.sendMessage(mobilePhone);
 
         if (StringUtils.isEmpty(message)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "发送失败");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "发送失败");
         } else {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         }
     }
 
@@ -147,11 +147,11 @@ public class UserLoginController {
                                                      @ApiParam("验证码") @RequestParam("verificationCode") String verificationCode) {
 
         if (!verificationCode.equals(message)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
+            return ResponseUtils.error(Constants.ERRO_CODE, "验证码错误");
         }
 
         if (StringUtils.isEmpty(allUserLogin.getFamilyCode())) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "姓氏不能为空");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "姓氏不能为空");
         }
 
         if (isWX == 1) {
@@ -159,7 +159,7 @@ public class UserLoginController {
             String opedId = (String) request.getSession().getAttribute("opedId");
 
             if (StringUtils.isEmpty(opedId)) {
-                return ResponseUtlis.error(Constants.NOSUPPORT, "您还没授权");
+                return ResponseUtils.error(Constants.NOSUPPORT, "您还没授权");
             }
 
             allUserLogin.setOpenId(opedId);
@@ -177,10 +177,10 @@ public class UserLoginController {
 
             PersonVo personVo = getPersonVo(userLogin);
 
-            return ResponseUtlis.success(personVo);
+            return ResponseUtils.success(personVo);
 
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名已注册");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "用户名已注册");
         }
     }
 
@@ -212,7 +212,7 @@ public class UserLoginController {
                                                   @ApiParam("新密码") @RequestParam("password") String password) {
 
         if (!verificationCode.equals(message)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "验证码错误");
+            return ResponseUtils.error(Constants.ERRO_CODE, "验证码错误");
         }
 
         AllUserLogin allUserLogin = new AllUserLogin();
@@ -225,7 +225,7 @@ public class UserLoginController {
 
         allUserLoginService.updateAllUserLogin(allUserLogin);
 
-        return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
     }
 
     @ApiOperation("修改密码")
@@ -235,7 +235,7 @@ public class UserLoginController {
                                                  @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -243,7 +243,7 @@ public class UserLoginController {
         AllUserLogin login = allUserLoginService.getAllUserLogin(userLogin);
 
         if (!oldPassword.equals(login.getPassword())) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您输入的密码不正确");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "您输入的密码不正确");
         }
 
         AllUserLogin allUserLogin = new AllUserLogin();
@@ -252,7 +252,7 @@ public class UserLoginController {
 
         allUserLoginService.updateAllUserLogin(allUserLogin);
 
-        return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
     }
 
     @ApiOperation(value = "个人资料查询", notes = "userName:用户名,realName:真实名,nickName:别名,mobilePhone:手机,picUrl:头像,siteId:网站Id,role:角色(1-县级管理员,2-省级管理员,0-不是管理员),familyCode:姓氏,region:地区,token:token")
@@ -260,18 +260,18 @@ public class UserLoginController {
     public Response<AllUserLogin> getUserLogin(@ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        return ResponseUtlis.success(allUserLogin);
+        return ResponseUtils.success(allUserLogin);
     }
 
     /**
@@ -286,13 +286,13 @@ public class UserLoginController {
     public Response<AllUserLogin> updatePerson(AllUserLogin allUserLogin, @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         allUserLogin.setId(userLogin.getId());
@@ -319,9 +319,9 @@ public class UserLoginController {
         personVo.setToken(str);
 
         if (result) {
-            return ResponseUtlis.success(personVo);
+            return ResponseUtils.success(personVo);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

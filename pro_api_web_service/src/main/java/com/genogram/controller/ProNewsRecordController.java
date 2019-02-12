@@ -14,7 +14,7 @@ import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.entityvo.ProFamilyRecordVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -68,12 +68,12 @@ public class ProNewsRecordController {
             if (proFamilyRecordPage == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(proFamilyRecordPage);
+            return ResponseUtils.success(proFamilyRecordPage);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -129,11 +129,11 @@ public class ProNewsRecordController {
 
             //增加查看数
             iProNewsFamilyRecordService.addVisitNum(id);
-            return ResponseUtlis.success(newsDetailVo);
+            return ResponseUtils.success(newsDetailVo);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -154,7 +154,7 @@ public class ProNewsRecordController {
         Set set = allCheckOutService.getSensitiveWord(proNewsFamilyRecord.getNewsText());
 
         if (set.size() >= 1) {
-            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         proNewsFamilyRecord.setStatus(1);
@@ -193,11 +193,11 @@ public class ProNewsRecordController {
         try {
             // 插入数据
             boolean b = iProNewsFamilyRecordService.addOrUpdateRecord(proNewsFamilyRecord, fileName, filePath);
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
             //插入图片
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -249,12 +249,12 @@ public class ProNewsRecordController {
             if (familyRecordVedioVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(familyRecordVedioVo);
+            return ResponseUtils.success(familyRecordVedioVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -273,19 +273,19 @@ public class ProNewsRecordController {
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         ProSysSite proSysSite = proSysSiteService.getProSysSite(siteId);
 
         if (StringUtils.isEmpty(proSysSite)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
         List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(proSysSite.getFamilyCode());
 
         if (loginList.size() == 0) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
         List list = new ArrayList();
@@ -305,9 +305,9 @@ public class ProNewsRecordController {
         Page<AllUserVideos> allUserVideosPage = allUserVideosService.getAllUserVideosList(page, wrapper);
 
         if (StringUtils.isEmpty(allUserVideosPage)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(allUserVideosPage);
+        return ResponseUtils.success(allUserVideosPage);
     }
 }

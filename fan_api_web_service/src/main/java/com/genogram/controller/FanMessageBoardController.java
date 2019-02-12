@@ -6,7 +6,7 @@ import com.genogram.entity.AllMessageBoard;
 import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IFanMessageBoardService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,14 +58,14 @@ public class FanMessageBoardController {
             Set set = allCheckOutService.getSensitiveWord(allMessageBoard.getContent());
 
             if (set.size() >= 1) {
-                return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+                return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
             }
 
             boolean b = iFanMessageBoardService.addOrUpdateRecord(allMessageBoard);
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

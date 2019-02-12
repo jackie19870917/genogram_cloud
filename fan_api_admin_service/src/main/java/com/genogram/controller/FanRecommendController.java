@@ -10,7 +10,7 @@ import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanSysRecommendService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -84,23 +84,23 @@ public class FanRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (showId == null || id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 1;
@@ -117,12 +117,12 @@ public class FanRecommendController {
             fanSysRecommend.setNewsSource(newsSource);
             Boolean aBoolean = fanSysRecommendService.addRecommend(fanSysRecommend);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -146,23 +146,23 @@ public class FanRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             if (showId == null || id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 1;
@@ -178,12 +178,12 @@ public class FanRecommendController {
             entity.eq("status", status);
             Boolean aBoolean = fanSysRecommendService.recommendDelete(entity);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -206,20 +206,20 @@ public class FanRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 3;
@@ -227,12 +227,12 @@ public class FanRecommendController {
             entity.eq("id", recommendId);
             Boolean aBoolean = fanSysRecommendService.deleteRecommend(recommendId);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -273,24 +273,24 @@ public class FanRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 1;
@@ -305,12 +305,12 @@ public class FanRecommendController {
             map.put("isAuto", isAuto);
             List<CommonRecommendVo> commonRecommendVo = fanSysRecommendService.getManualRecommend(map);
             if (commonRecommendVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(commonRecommendVo);
+            return ResponseUtils.success(commonRecommendVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -352,24 +352,24 @@ public class FanRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 1;
@@ -387,12 +387,12 @@ public class FanRecommendController {
             }
             List<CommonRecommendVo> commonRecommendVo = fanSysRecommendService.getManualRecommend(map);
             if (commonRecommendVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(commonRecommendVo);
+            return ResponseUtils.success(commonRecommendVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

@@ -4,7 +4,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.AllRegion;
 import com.genogram.service.IAllRegionService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -44,16 +44,16 @@ public class CommonController {
             @ApiParam(value = "网站Id") @RequestParam(value = "siteId") Integer siteId) {
         try {
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             List<AllRegion> provincialSubordinate = allRegionService.getProvincialSubordinate(siteId);
             if (provincialSubordinate == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(provincialSubordinate);
+            return ResponseUtils.success(provincialSubordinate);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

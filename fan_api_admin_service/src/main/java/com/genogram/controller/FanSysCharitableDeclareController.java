@@ -10,7 +10,7 @@ import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IFanSysCharitableDeclareService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -117,35 +117,35 @@ public class FanSysCharitableDeclareController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入showId");
+                return ResponseUtils.error(Constants.IS_EMPTY, "请输入showId");
             }
             Wrapper<FanSysCharitableDeclare> entity = new EntityWrapper<FanSysCharitableDeclare>();
             entity.eq("show_id", showId);
             Page<FanSysCharitableDeclare> fanSysCharitableDeclarePage = fanSysCharitableDeclareService.getCharitableDeclarePage(entity, pageNo, pageSize);
             if (fanSysCharitableDeclarePage == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
+                return ResponseUtils.error(Constants.ERRO_CODE, "查询失败");
             }
-            return ResponseUtlis.success(fanSysCharitableDeclarePage);
+            return ResponseUtils.success(fanSysCharitableDeclarePage);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -168,36 +168,36 @@ public class FanSysCharitableDeclareController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
+                return ResponseUtils.error(Constants.IS_EMPTY, "请输入Id");
             }
             Boolean aBoolean = fanSysCharitableDeclareService.deleteCharitableDeclareById(id);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "删除失败");
+                return ResponseUtils.error(Constants.ERRO_CODE, "删除失败");
             }
             if (aBoolean == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "您好,数据不能删除");
+                return ResponseUtils.error(Constants.ERRO_CODE, "您好,数据不能删除");
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "删除成功");
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "删除成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -261,33 +261,33 @@ public class FanSysCharitableDeclareController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
+                return ResponseUtils.error(Constants.IS_EMPTY, "请输入Id");
             }
             FanSysCharitableDeclare fanSysCharitableDeclare = fanSysCharitableDeclareService.getFamilyStructureDetails(id);
             if (fanSysCharitableDeclare == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
+                return ResponseUtils.error(Constants.ERRO_CODE, "查询失败");
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "查询成功");
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "查询成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -312,33 +312,33 @@ public class FanSysCharitableDeclareController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断id是否为空
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
+                return ResponseUtils.error(Constants.IS_EMPTY, "请输入Id");
             }
             Boolean aBoolean = fanSysCharitableDeclareService.addCharityAssistFeedback(id, helpFeedback, helpFeedbackFile, userLogin);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "新增失败");
+                return ResponseUtils.error(Constants.ERRO_CODE, "新增失败");
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "新增成功");
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "新增成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -362,20 +362,20 @@ public class FanSysCharitableDeclareController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //添加创建人或者修改人Id
             if (fanSysCharitableDeclare.getId() == null) {
@@ -388,12 +388,12 @@ public class FanSysCharitableDeclareController {
             fanSysCharitableDeclare.setStatus(1);
             Boolean aBoolean = fanSysCharitableDeclareService.addCharityAssist(fanSysCharitableDeclare);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "新增失败");
+                return ResponseUtils.error(Constants.ERRO_CODE, "新增失败");
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "新增成功");
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "新增成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -416,20 +416,20 @@ public class FanSysCharitableDeclareController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //添加创建人或者修改人Id
             if (fanSysCharitableDeclare.getId() == null) {
@@ -442,12 +442,12 @@ public class FanSysCharitableDeclareController {
             fanSysCharitableDeclare.setStatus(2);
             Boolean aBoolean = fanSysCharitableDeclareService.addCharityAssist(fanSysCharitableDeclare);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "修改失败");
+                return ResponseUtils.error(Constants.ERRO_CODE, "修改失败");
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "修改成功");
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "修改成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 

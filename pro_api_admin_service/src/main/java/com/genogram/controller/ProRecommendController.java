@@ -13,7 +13,7 @@ import com.genogram.service.IProSysRecommendService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -86,25 +86,25 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
             //判断showId id 是否为空
             if (showId == null || id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 1;
@@ -127,12 +127,12 @@ public class ProRecommendController {
             fanSysRecommend.setUpdateUser(userLogin.getId());
             Boolean aBoolean = proSysRecommendService.addRecommend(fanSysRecommend);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -156,24 +156,24 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断showId id 是否为空
             if (showId == null || id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 0;
@@ -190,12 +190,12 @@ public class ProRecommendController {
             entity.eq("news_source", newsSource);
             Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status, userLogin);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -255,35 +255,35 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断recommendId是否为空
             if (recommendId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             Wrapper<FanSysRecommend> entity = new EntityWrapper();
             entity.eq("id", recommendId);
             Boolean aBoolean = proSysRecommendService.deleteRecommend(entity, status, userLogin);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -324,24 +324,24 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "您好,请正确输入");
+                return ResponseUtils.error(Constants.IS_EMPTY, "您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 1;
@@ -356,12 +356,12 @@ public class ProRecommendController {
             map.put("isAuto", isAuto);
             List<CommonRecommendVo> commonRecommendVo = proSysRecommendService.getManualRecommend(map);
             if (commonRecommendVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
+                return ResponseUtils.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
             }
-            return ResponseUtlis.success(commonRecommendVo);
+            return ResponseUtils.success(commonRecommendVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "请联系客服");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "请联系客服");
         }
     }
 
@@ -403,24 +403,24 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "您好,请正确输入");
+                return ResponseUtils.error(Constants.IS_EMPTY, "您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 1;
@@ -438,12 +438,12 @@ public class ProRecommendController {
             map.put("isAuto", isAuto);
             List<CommonRecommendVo> commonRecommendVo = proSysRecommendService.getManualRecommend(map);
             if (commonRecommendVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
+                return ResponseUtils.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
             }
-            return ResponseUtlis.success(commonRecommendVo);
+            return ResponseUtils.success(commonRecommendVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "请联系客服");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "请联系客服");
         }
     }
 
@@ -484,24 +484,24 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "您好,请正确输入");
+                return ResponseUtils.error(Constants.IS_EMPTY, "您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 2;
@@ -516,12 +516,12 @@ public class ProRecommendController {
             map.put("isAuto", isAuto);
             List<IndustryDetailVo> industryDetailVo = proSysRecommendService.getRecommendArticle(map);
             if (industryDetailVo.size() == 0) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
+                return ResponseUtils.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
             }
-            return ResponseUtlis.success(industryDetailVo);
+            return ResponseUtils.success(industryDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "请联系客服");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "请联系客服");
         }
     }
 
@@ -563,24 +563,24 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "您好,请正确输入");
+                return ResponseUtils.error(Constants.IS_EMPTY, "您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 2;
@@ -598,12 +598,12 @@ public class ProRecommendController {
             map.put("isAuto", isAuto);
             List<IndustryDetailVo> industryDetailVo = proSysRecommendService.getRecommendArticle(map);
             if (industryDetailVo.size() == 0) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
+                return ResponseUtils.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
             }
-            return ResponseUtlis.success(industryDetailVo);
+            return ResponseUtils.success(industryDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "请联系客服");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "请联系客服");
         }
     }
 
@@ -646,24 +646,24 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "您好,请正确输入");
+                return ResponseUtils.error(Constants.IS_EMPTY, "您好,请正确输入");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 2;
@@ -678,12 +678,12 @@ public class ProRecommendController {
             map.put("isAuto", isAuto);
             List<FamilyPersonVo> familyPersonVo = proSysRecommendService.getRecommendFigure(map);
             if (familyPersonVo.size() == 0) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
+                return ResponseUtils.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
             }
-            return ResponseUtlis.success(familyPersonVo);
+            return ResponseUtils.success(familyPersonVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "请联系客服");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "请联系客服");
         }
     }
 
@@ -727,24 +727,24 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "您好,请正确输入siteId");
+                return ResponseUtils.error(Constants.IS_EMPTY, "您好,请正确输入siteId");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 2;
@@ -762,12 +762,12 @@ public class ProRecommendController {
             map.put("isAuto", isAuto);
             List<FamilyPersonVo> familyPersonVo = proSysRecommendService.getRecommendFigure(map);
             if (familyPersonVo.size() == 0) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
+                return ResponseUtils.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
             }
-            return ResponseUtlis.success(familyPersonVo);
+            return ResponseUtils.success(familyPersonVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "请联系客服");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "请联系客服");
         }
     }
 
@@ -790,24 +790,24 @@ public class ProRecommendController {
         try {
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
             //判断siteId是否为空
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "您好,请正确输入siteId");
+                return ResponseUtils.error(Constants.IS_EMPTY, "您好,请正确输入siteId");
             }
             //状态(0:删除;2:通过正常显示;1:审核中3:不通过不显示)
             int status = 1;
@@ -822,12 +822,12 @@ public class ProRecommendController {
             map.put("isAuto", isAuto);
             List<CommonRecommendVo> commonRecommendVo = proSysRecommendService.getManuaRecommendNationwide(map);
             if (commonRecommendVo.size() == 0) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
+                return ResponseUtils.error(Constants.ERRO_CODE, "您好,没有您想要的数据");
             }
-            return ResponseUtlis.success(commonRecommendVo);
+            return ResponseUtils.success(commonRecommendVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "请联系客服");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "请联系客服");
         }
     }
 }

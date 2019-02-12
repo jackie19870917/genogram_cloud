@@ -11,7 +11,7 @@ import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -84,33 +84,33 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
 
         if (StringUtils.isEmpty(fanIndexFund)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(fanIndexFund);
+        return ResponseUtils.success(fanIndexFund);
     }
 
     /**
@@ -134,7 +134,7 @@ public class FanNewsCharityController {
                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -170,10 +170,10 @@ public class FanNewsCharityController {
         }
 
         if (StringUtils.isEmpty(donorVoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(donorVoPage);
+        return ResponseUtils.success(donorVoPage);
 
     }
 
@@ -195,24 +195,24 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -228,10 +228,10 @@ public class FanNewsCharityController {
         Page<NewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         if (StringUtils.isEmpty(fanNewsCharityOutPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(fanNewsCharityOutPage);
+        return ResponseUtils.success(fanNewsCharityOutPage);
     }
 
     /**
@@ -247,25 +247,25 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         NewsDetailVo newsCharityOutDetail = fanNewsCharityOutService.getNewsCharityOutDetail(id);
 
-        return ResponseUtlis.success(newsCharityOutDetail);
+        return ResponseUtils.success(newsCharityOutDetail);
     }
 
     /**
@@ -285,20 +285,20 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (fanNewsCharityOut.getId() == null) {
@@ -308,7 +308,7 @@ public class FanNewsCharityController {
         Set set = allCheckOutService.getSensitiveWord(fanNewsCharityOut.getNewsText());
 
         if (set != null && set.size() >= 1) {
-            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
         fanNewsCharityOut.setUpdateUser(userLogin.getId());
@@ -318,9 +318,9 @@ public class FanNewsCharityController {
         Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut, fileName, filePath);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -341,20 +341,20 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (fanNewsCharityOut.getId() == null) {
@@ -368,9 +368,9 @@ public class FanNewsCharityController {
         Boolean result = fanNewsCharityOutService.insertOrUpdateFanNewsCharityOutVo(fanNewsCharityOut, fileName, filePath);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -387,28 +387,28 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Boolean result = fanNewsCharityOutService.deleteFanNewsCharityOut(id, userLogin.getId());
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -425,30 +425,30 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (allUserLogin.getRole() != 1) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "您没有权限");
+            return ResponseUtils.error(Constants.ERRO_CODE, "您没有权限");
         }
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(fanIndexFundDrowing.getSiteId());
 
         if (fanIndexFundDrowing.getDrowAmount().compareTo(new BigDecimal(0)) == -1) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "金额不能小于0");
+            return ResponseUtils.error(Constants.ERRO_CODE, "金额不能小于0");
         }
 
         if (fanIndexFund.getRemain().subtract(fanIndexFund.getUnuseAmount()).compareTo(fanIndexFundDrowing.getDrowAmount()) == -1) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "金额不足");
+            return ResponseUtils.error(Constants.ERRO_CODE, "金额不足");
         }
 
         fanIndexFundDrowing.setCreateUser(userLogin.getId());
@@ -460,9 +460,9 @@ public class FanNewsCharityController {
 
         fanIndexFundService.updateFanIndexFund(fanIndexFund);
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -479,20 +479,20 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (allUserLogin.getRole() != 9) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "您没有权限");
+            return ResponseUtils.error(Constants.ERRO_CODE, "您没有权限");
         }
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(fanIndexFundDrowing.getSiteId());
@@ -504,9 +504,9 @@ public class FanNewsCharityController {
         fanIndexFund.setUpdateUser(userLogin.getId());
         fanIndexFundService.updateIndexFund(fanIndexFund);
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -527,33 +527,33 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         Page<IndexFundDrowingVo> indexFundDrowingVoPage = fanIndexFundDrowingService.getIndexFundDrowingVoPage(siteId, pageNo, pageSize);
 
         if (StringUtils.isEmpty(indexFundDrowingVoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(indexFundDrowingVoPage);
+        return ResponseUtils.success(indexFundDrowingVoPage);
     }
 
     /**
@@ -569,20 +569,20 @@ public class FanNewsCharityController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         fanNewsCharityPayIn.setType(2);
@@ -591,9 +591,9 @@ public class FanNewsCharityController {
         Boolean result = fanNewsCharityPayInService.insertFanNewsCharityPayIn(fanNewsCharityPayIn);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

@@ -8,7 +8,7 @@ package com.genogram.unit;
  * @return:
  * @Description:
  */
-public class ResponseUtlis {
+public class ResponseUtils {
     public static Response success(Object object) {
         Response response = new Response();
         response.setCode(ResponseEnum.SUCCESS.getCode());

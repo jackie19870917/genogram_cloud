@@ -4,7 +4,7 @@ import com.genogram.config.Constants;
 import com.genogram.service.IUploadFastDfsService;
 import com.genogram.service.IUploadFileService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -64,10 +64,10 @@ public class UploadFastDfsController {
             String treePreviewPath = conventerController.fileConventer(filePath, model, request, response);
             path = path + "@" + Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath;
 
-            log.info("path  电子谱文件名称 ===+++" +path);
+            log.info("path  电子谱文件名称 ===+++" + path);
 
             stringObjectMap.put("file_path", path);
         }
-        return ResponseUtlis.success(stringObjectMap);
+        return ResponseUtils.success(stringObjectMap);
     }
 }

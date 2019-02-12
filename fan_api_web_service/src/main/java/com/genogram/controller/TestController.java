@@ -7,7 +7,7 @@ import com.genogram.entityvo.TestVo;
 import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.TestServ;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +51,7 @@ public class TestController {
         //requestParam.put("value","s")
         Page<AllFamily> myItems = testServ.queryMyItems(mapPage, requestParam);
         System.out.println(myItems);
-        return ResponseUtlis.success(myItems);
+        return ResponseUtils.success(myItems);
     }
 
     @ResponseBody
@@ -59,9 +59,9 @@ public class TestController {
     public Response<TestVo> test2(@RequestParam("string") String string) {
         Set set = checkOutService.getSensitiveWord(string);
         if (set.size() >= 1) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您输入的含有敏感词汇----" + set);
+            return ResponseUtils.error(Constants.FAILURE_CODE, "您输入的含有敏感词汇----" + set);
         } else {
-            return ResponseUtlis.success("成功");
+            return ResponseUtils.success("成功");
         }
     }
 }

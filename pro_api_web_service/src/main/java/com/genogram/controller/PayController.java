@@ -122,7 +122,7 @@ public class PayController {
             userLogin.setId(1);
         } else {
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             } else {
                 userLogin = userService.getUserLoginInfoByToken(token);
             }
@@ -145,7 +145,7 @@ public class PayController {
         try {
             String result = alipayClient.pageExecute(alipayRequest).getBody();
 
-            return ResponseUtlis.success(result);
+            return ResponseUtils.success(result);
         } catch (AlipayApiException e) {
             e.printStackTrace();
 
@@ -323,7 +323,7 @@ public class PayController {
             userLogin.setId(1);
         } else {
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             } else {
                 userLogin = userService.getUserLoginInfoByToken(token);
             }
@@ -351,13 +351,13 @@ public class PayController {
         proNewsCharityPayInService.insertProNewsCharityPayIn(proNewsCharityPayIn);
 
         // 回调地址
-        String callback ="47.105.177.1:8070/genogram/pay/callBack";
+        String callback = "47.105.177.1:8070/genogram/pay/callBack";
 
         // 生成一个code_url
         String codeUrl = PayUtils.pay(payId, userIp, totalFee, body, callback);
 
         if (StringUtils.isEmpty(codeUrl)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "服务器正忙");
+            return ResponseUtils.error(Constants.ERRO_CODE, "服务器正忙");
         } else {
 
             Map map = new HashMap(16);
@@ -366,7 +366,7 @@ public class PayController {
             map.put("out_trade_no", payId);
             map.put("total_fee", totalFee);
 
-            return ResponseUtlis.success(map);
+            return ResponseUtils.success(map);
         }
     }
 
@@ -381,13 +381,13 @@ public class PayController {
         proNewsCharityPayIn = proNewsCharityPayInService.selectOne(proNewsCharityPayIn);
 
         if (StringUtils.isEmpty(proNewsCharityPayIn)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, "订单号不存在");
+            return ResponseUtils.error(Constants.ERRO_CODE, "订单号不存在");
         } else {
             if (proNewsCharityPayIn.getStatus() == 1) {
 
-                return ResponseUtlis.success(proNewsCharityPayIn);
+                return ResponseUtils.success(proNewsCharityPayIn);
             } else {
-                return ResponseUtlis.error(201, null);
+                return ResponseUtils.error(201, null);
             }
         }
     }
@@ -492,7 +492,7 @@ public class PayController {
             String openId = (String) session.getAttribute("openId");
 
             if (StringUtils.isEmpty(openId)) {
-                return ResponseUtlis.error(Constants.NOSUPPORT, "您还没有授权");
+                return ResponseUtils.error(Constants.NOSUPPORT, "您还没有授权");
             }
 
             AllUserLogin userLogin = new AllUserLogin();
@@ -507,7 +507,7 @@ public class PayController {
                 }
 
                 if (StringUtils.isEmpty(token)) {
-                    return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                    return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
                 } else {
                     userLogin = userService.getUserLoginInfoByToken(token);
 
@@ -573,7 +573,7 @@ public class PayController {
             String paySign = WXPayUtil.generateSignature(payMap, WeChatConfig.KEY);
             payMap.put("paySign", paySign);
 
-            return ResponseUtlis.success(payMap);
+            return ResponseUtils.success(payMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -585,7 +585,7 @@ public class PayController {
     public Response go() {
 
         String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb192063260e82181&redirect_uri=http://yhtpw.com/fanApiWebService/genogram/wx/oauth2WeChat?showwxpaytitle=1&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
-        return ResponseUtlis.success(url);
+        return ResponseUtils.success(url);
     }
 
     @ApiOperation("回调")

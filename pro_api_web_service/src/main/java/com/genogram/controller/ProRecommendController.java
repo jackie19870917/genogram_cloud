@@ -5,7 +5,7 @@ import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.service.IProSysRecommendService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -62,10 +62,10 @@ public class ProRecommendController {
             map.put("status", status);
             map.put("newsSource", newsSource);
             List<IndustryDetailVo> industryDetailVo = proSysRecommendService.getRecommendArticle(map);
-            return ResponseUtlis.success(industryDetailVo);
+            return ResponseUtils.success(industryDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -97,10 +97,10 @@ public class ProRecommendController {
             //家族栋梁
             map.put("showId", "22");
             List<FamilyPersonVo> familyPersonVo = proSysRecommendService.getRecommendFigure(map);
-            return ResponseUtlis.success(familyPersonVo);
+            return ResponseUtils.success(familyPersonVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -133,10 +133,10 @@ public class ProRecommendController {
             //家族长老
             map.put("showId", "21");
             List<FamilyPersonVo> familyPersonVo = proSysRecommendService.getRecommendFigure(map);
-            return ResponseUtlis.success(familyPersonVo);
+            return ResponseUtils.success(familyPersonVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -162,16 +162,16 @@ public class ProRecommendController {
         try {
             //1代表家族文化 2 代表记录家族 3代表家族产业
             if (id == null && source == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             Object newsDetailVo = proSysRecommendService.getRecommendParticulars(id, source);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(newsDetailVo);
+            return ResponseUtils.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -193,16 +193,16 @@ public class ProRecommendController {
     ) {
         try {
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             FamilyPersonVo familyPersonVo = proSysRecommendService.getRecommendFigureParticulars(id);
             if (familyPersonVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(familyPersonVo);
+            return ResponseUtils.success(familyPersonVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 

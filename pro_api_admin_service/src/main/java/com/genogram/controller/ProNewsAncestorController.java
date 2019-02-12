@@ -9,7 +9,7 @@ import com.genogram.entity.ProNewsFamousAncestor;
 import com.genogram.entityvo.AncestorsBranchVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -99,25 +99,25 @@ public class ProNewsAncestorController {
 
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
             //判断显示位置Id是否为空
             if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //parent_id 为0代表主数据
             Integer parentId = 0;
@@ -130,12 +130,12 @@ public class ProNewsAncestorController {
             if (proFamilyRecordPage == null) {
                 //没有取到参数,返回空参
                 Page<ProNewsFamousAncestor> proNewsFamousAncestor = new Page<ProNewsFamousAncestor>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "proFamilyRecordPage为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "proFamilyRecordPage为空");
             }
-            return ResponseUtlis.success(proFamilyRecordPage);
+            return ResponseUtils.success(proFamilyRecordPage);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -176,34 +176,34 @@ public class ProNewsAncestorController {
 
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
             //判断Id
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             AncestorsBranchVo ancestorsBranchVo = proNewsFamousAncestorService.getFamousAncestorDetails(id);
             if (ancestorsBranchVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(ancestorsBranchVo);
+            return ResponseUtils.success(ancestorsBranchVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -246,20 +246,20 @@ public class ProNewsAncestorController {
 
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
             //分页
@@ -270,12 +270,12 @@ public class ProNewsAncestorController {
             }
             Page<AncestorsBranchVo> ancestorsBranchVo = proNewsFamousAncestorService.getFamousAncestorVaguePage(mapPage, map);
             if (ancestorsBranchVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(ancestorsBranchVo);
+            return ResponseUtils.success(ancestorsBranchVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -316,20 +316,20 @@ public class ProNewsAncestorController {
 
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
             //省级主键Id
@@ -347,17 +347,17 @@ public class ProNewsAncestorController {
             Set set = allCheckOutService.getSensitiveWord(proNewsFamousAncestor.getAncestorSummary());
 
             if (set != null && set.size() >= 1) {
-                return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+                return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
             }
 
             Boolean aBoolean = proNewsFamousAncestorService.addFamousAncestor(proNewsFamousAncestor, proSplit, fanSplit, userLogin);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -381,34 +381,34 @@ public class ProNewsAncestorController {
 
             //  判断是否登陆
             if (StringUtils.isEmpty(token)) {
-                return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
             }
 
             AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
             if (StringUtils.isEmpty(userLogin)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
             }
 
             AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
             //  判断是否有权限访问
             if (!this.getList().contains(allUserLogin.getRole())) {
-                return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
             }
 
             //判断主键是否为空
             if (id == null) {
-                ResponseUtlis.error(Constants.IS_EMPTY, null);
+                ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             Boolean aBoolean = proNewsFamousAncestorService.deleteFamousAncestor(id);
             if (!aBoolean) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

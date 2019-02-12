@@ -11,18 +11,14 @@ import com.genogram.service.IFanNewsUploadTreeFileService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,20 +72,20 @@ public class FanNewsUploadTreeFileController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         List list = new ArrayList<>();
@@ -102,10 +98,10 @@ public class FanNewsUploadTreeFileController {
         Page<NewsUploadTreeFileVo> newsUploadTreeFileVoPage = fanNewsUploadTreeFileService.getFanNewsUploadTreeFile(siteId, fileName, list, pageNo, pageSize);
 
         if (StringUtils.isEmpty(newsUploadTreeFileVoPage)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(newsUploadTreeFileVoPage);
+        return ResponseUtils.success(newsUploadTreeFileVoPage);
     }
 
     @ApiOperation(value = "电子谱详情", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
@@ -115,29 +111,29 @@ public class FanNewsUploadTreeFileController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         FanNewsUploadTreeFile fanNewsUploadTreeFile = fanNewsUploadTreeFileService.getFanNewsUploadTreeFile(id);
 
         if (StringUtils.isEmpty(fanNewsUploadTreeFile)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(fanNewsUploadTreeFile);
+        return ResponseUtils.success(fanNewsUploadTreeFile);
     }
 
     @ApiOperation(value = "电子谱 新增/修改", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
@@ -147,20 +143,20 @@ public class FanNewsUploadTreeFileController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
@@ -191,9 +187,9 @@ public class FanNewsUploadTreeFileController {
         Boolean result = fanNewsUploadTreeFileService.insertOrUpdateFanNewsUploadTreeFile(fanNewsUploadTreeFile);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -204,28 +200,28 @@ public class FanNewsUploadTreeFileController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Boolean result = fanNewsUploadTreeFileService.deleteFanNewsUploadTreeFile(id, userLogin.getId());
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 

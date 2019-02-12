@@ -156,7 +156,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
         for (ProNewsUploadVedio file : files) {
             FanNewsUploadVedio fanNewsUploadVedio = new FanNewsUploadVedio();
 
-            BeanUtils.copyProperties(file,fanNewsFamilyRecordVedio);
+            BeanUtils.copyProperties(file, fanNewsFamilyRecordVedio);
             fanNewsUploadVedios.add(fanNewsUploadVedio);
         }
         //查出名称
@@ -192,6 +192,7 @@ public class ProNewsFamilyRecordVedioServiceImpl extends ServiceImpl<ProNewsFami
         list.add(file);
         vo.setFanNewsUploadFile(list);
     }
+
     @Override
     public boolean addOrUpdateVedioRecord(ProNewsFamilyRecordVedio proNewsFamilyRecordVedio, String picfileName, String picPath, String vedioFileName, String vedioPath) {
         //生成时间

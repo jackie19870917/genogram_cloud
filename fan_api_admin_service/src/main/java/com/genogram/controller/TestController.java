@@ -3,7 +3,7 @@ package com.genogram.controller;
 import com.genogram.entityvo.TestVo;
 import com.genogram.service.TestServ;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +29,6 @@ public class TestController {
     public Response<TestVo> test1(@RequestParam(name = "username") String username,
                                   @RequestParam(name = "pwd") String pwd) {
         TestVo vo = testServ.test(username, pwd);
-        return ResponseUtlis.success(vo);
+        return ResponseUtils.success(vo);
     }
 }

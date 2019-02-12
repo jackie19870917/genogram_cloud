@@ -9,7 +9,7 @@ import com.genogram.service.IAllUserRegService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -66,15 +66,15 @@ public class ProUserLoginController {
         AllUserLogin userLogin = allUserLoginService.getAllUserLogin(allUserLogin);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名不存在");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "用户名不存在");
         } else {
             if (userLogin.getPassword().equals(allUserLogin.getPassword())) {
 
                 UserVo userVo = getPersonVo(userLogin);
 
-                return ResponseUtlis.success(userVo);
+                return ResponseUtils.success(userVo);
             } else {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名或密码错误");
+                return ResponseUtils.error(Constants.FAILURE_CODE, "用户名或密码错误");
             }
         }
 
@@ -102,10 +102,10 @@ public class ProUserLoginController {
 
             allUserRegService.insertAllUserReg(allUserReg);
 
-            return ResponseUtlis.success(userVo);
+            return ResponseUtils.success(userVo);
 
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "用户名已注册");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "用户名已注册");
         }
     }
 
@@ -143,7 +143,7 @@ public class ProUserLoginController {
                                                  @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
@@ -151,7 +151,7 @@ public class ProUserLoginController {
         AllUserLogin login = allUserLoginService.getAllUserLogin(userLogin);
 
         if (!oldPassword.equals(login.getPassword())) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您输入的密码不正确");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "您输入的密码不正确");
         }
 
         AllUserLogin allUserLogin = new AllUserLogin();
@@ -160,7 +160,7 @@ public class ProUserLoginController {
 
         allUserLoginService.updateAllUserLogin(allUserLogin);
 
-        return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+        return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
     }
 
     /**
@@ -174,14 +174,14 @@ public class ProUserLoginController {
     public Response<AllUserLogin> getUserLogin(@ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "token不能为空");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
-        return ResponseUtlis.success(allUserLogin);
+        return ResponseUtils.success(allUserLogin);
     }
 
     /**
@@ -196,7 +196,7 @@ public class ProUserLoginController {
     public Response<AllUserLogin> updatePerson(AllUserLogin allUserLogin, @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "token不能为空");
         }
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
@@ -224,9 +224,9 @@ public class ProUserLoginController {
         userVo.setToken(str);
 
         if (result) {
-            return ResponseUtlis.success(userVo);
+            return ResponseUtils.success(userVo);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 

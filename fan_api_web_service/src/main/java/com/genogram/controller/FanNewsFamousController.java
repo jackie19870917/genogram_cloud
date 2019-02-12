@@ -7,7 +7,7 @@ import com.genogram.entityvo.FamilyPersonVo;
 import com.genogram.service.IFanNewsFamousPersonService;
 import com.genogram.service.IFanSysWebNewsShowService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,12 +48,12 @@ public class FanNewsFamousController {
             if (familyPersonVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
-            return ResponseUtlis.success(familyPersonVo);
+            return ResponseUtils.success(familyPersonVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -76,18 +76,18 @@ public class FanNewsFamousController {
             //返回空参
             FamilyPersonVo familyPersonVo = new FamilyPersonVo();
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "数据为空");
+                return ResponseUtils.error(Constants.IS_EMPTY, "数据为空");
             }
             FamilyPersonVo newsDetailVo = iFanNewsFamousPersonService.getFamilyFamilyDetail(id);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
             //增加查看数
             iFanNewsFamousPersonService.addVisitNum(id);
-            return ResponseUtlis.success(newsDetailVo);
+            return ResponseUtils.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 

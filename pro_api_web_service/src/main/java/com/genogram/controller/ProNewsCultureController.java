@@ -14,7 +14,7 @@ import com.genogram.entityvo.ProNewsCultureZipaiVo;
 import com.genogram.service.IProNewsCultureNewsService;
 import com.genogram.service.IProNewsCultureZipaiService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -77,7 +77,7 @@ public class ProNewsCultureController {
         try {
             //判断showId是否有值
             if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
@@ -91,12 +91,12 @@ public class ProNewsCultureController {
             if (fanNewsCultureZipai == null) {
                 //没有取到参数,返回空参
                 Page<ProNewsCultureZipai> emptfamilyCultureVo = new Page<ProNewsCultureZipai>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(fanNewsCultureZipai);
+            return ResponseUtils.success(fanNewsCultureZipai);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -135,7 +135,7 @@ public class ProNewsCultureController {
             List<ProNewsCultureZipai> list = new ArrayList<>();
             //判断showId是否有值
             if (showId == null && siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "list为空");
+                return ResponseUtils.error(Constants.IS_EMPTY, "list为空");
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 1;
@@ -148,12 +148,12 @@ public class ProNewsCultureController {
             map.put("status", status);
             Page<ProNewsCultureZipaiVo> zipaiVaguePage = proNewsCultureZipaiService.getZipaiVaguePage(mapPage, map);
             if (zipaiVaguePage == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "zipaiVaguePage为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "zipaiVaguePage为空");
             }
-            return ResponseUtlis.success(zipaiVaguePage);
+            return ResponseUtils.success(zipaiVaguePage);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -188,7 +188,7 @@ public class ProNewsCultureController {
     ) {
         //判断sizeId是否有值
         if (sizeId == null && code == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         int status = 1;
@@ -199,7 +199,7 @@ public class ProNewsCultureController {
         map.put("status", 1);
 
         Page<FanNewsCultureZipai> zipaiVaguePage = proNewsCultureZipaiService.getZipaiRegionPage(sizeId, mapPage, map);
-        return ResponseUtlis.success(zipaiVaguePage);
+        return ResponseUtils.success(zipaiVaguePage);
     }
 
     /**
@@ -235,7 +235,7 @@ public class ProNewsCultureController {
     ) {
         //判断showId是否有值
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
         return getFamilyCultureVoResponse(showId, pageNo, pageSize);
     }
@@ -273,7 +273,7 @@ public class ProNewsCultureController {
     ) {
         //判断showId是否有值
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
         return getFamilyCultureVoResponse(showId, pageNo, pageSize);
     }
@@ -302,12 +302,12 @@ public class ProNewsCultureController {
             if (familyCultureVoList == null) {
                 //没有取到参数,返回空参
                 Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "familyCultureVoList为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "familyCultureVoList为空");
             }
-            return ResponseUtlis.success(familyCultureVoList);
+            return ResponseUtils.success(familyCultureVoList);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -348,18 +348,18 @@ public class ProNewsCultureController {
             //返回空参
             NewsDetailVo newsDetail = new NewsDetailVo();
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "id为空");
+                return ResponseUtils.error(Constants.IS_EMPTY, "id为空");
             }
             NewsDetailVo newsDetailVo = proNewsCultureNewsService.getFamilyCultureDetail(id);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "newsDetailVo为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "newsDetailVo为空");
             }
             //增加查看数
             proNewsCultureNewsService.addVisitNum(id);
-            return ResponseUtlis.success(newsDetailVo);
+            return ResponseUtils.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

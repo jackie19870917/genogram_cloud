@@ -46,7 +46,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
     private IAllFamilyService allFamilyService;
 
     @Override
-    public Page getProNewsUploadTreeFile(String regionCode, String fileName,Integer siteId, List list, Integer pageNo, Integer pageSize) {
+    public Page getProNewsUploadTreeFile(String regionCode, String fileName, Integer siteId, List list, Integer pageNo, Integer pageSize) {
 
         Wrapper<ProNewsUploadTreeFile> proNewsUploadTreeFileWrapper = new EntityWrapper<>();
         Wrapper<FanNewsUploadTreeFile> fanNewsUploadTreeFileWrapper = new EntityWrapper<>();
@@ -64,11 +64,35 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFileVos(newsUploadTreeFileList);
 
-            Page<NewsUploadTreeFileVo> mapPage = new Page<>(pageNo, pageSize);
-            mapPage.setRecords(newsUploadTreeFileVoList);
-            mapPage.setTotal(proNewsUploadTreeFilePage.getTotal());
+            //根据地区获取县级网站ID
+            ProSysSite proSysSite = proSysSiteMapper.selectById(siteId);
 
-            return mapPage;
+            Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
+            wrapper.eq("parent", proSysSite.getRegionCode());
+
+            List<FanSysSite> sysSiteList = fanSysSiteMapper.selectList(wrapper);
+
+            fanNewsUploadTreeFileWrapper.in("status", list);
+            for (FanSysSite fanSysSite : sysSiteList) {
+                fanNewsUploadTreeFileWrapper.eq("region_code", fanSysSite.getRegionCode());
+            }
+
+            fanNewsUploadTreeFileWrapper.eq("family_code", proSysSite.getFamilyCode());
+            fanNewsUploadTreeFileWrapper.orderBy("update_time", false);
+
+            List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
+
+            List<NewsUploadTreeFileVo> newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
+
+            List arrayList = new ArrayList<>();
+            arrayList.add(newsUploadTreeFileVoList);
+            arrayList.add(newsUploadTreeFileList1);
+
+            Page page = new Page(pageNo, pageSize);
+            page.setRecords(arrayList);
+            page.setTotal(newsUploadTreeFileVoList.size() + newsUploadTreeFileList1.size());
+
+            return page;
 
             // 地区为空   名称不为空
         } else if (regionCode == "" && fileName != "") {

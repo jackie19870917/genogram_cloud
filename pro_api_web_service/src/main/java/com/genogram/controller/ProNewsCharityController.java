@@ -12,7 +12,7 @@ import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -65,16 +65,16 @@ public class ProNewsCharityController {
     public Response<ProIndexFund> getProIndexFund(@ApiParam(value = "网站id") @RequestParam Integer siteId) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         ProIndexFund proIndexFund = proIndexFundService.getProIndexFund(siteId);
 
         if (StringUtils.isEmpty(proIndexFund)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(proIndexFund);
+        return ResponseUtils.success(proIndexFund);
     }
 
     /**
@@ -98,7 +98,7 @@ public class ProNewsCharityController {
                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -128,10 +128,10 @@ public class ProNewsCharityController {
         }
 
         if (StringUtils.isEmpty(donorVoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(donorVoPage);
+        return ResponseUtils.success(donorVoPage);
 
     }
 
@@ -151,7 +151,7 @@ public class ProNewsCharityController {
                                                                @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -165,10 +165,10 @@ public class ProNewsCharityController {
         Page<NewsCharityOutVo> newsCharityOutVoPage = proNewsCharityOutService.getNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         if (StringUtils.isEmpty(newsCharityOutVoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(newsCharityOutVoPage);
+        return ResponseUtils.success(newsCharityOutVoPage);
     }
 
     /**
@@ -184,7 +184,7 @@ public class ProNewsCharityController {
         NewsDetailVo newsCharityOutDetail = proNewsCharityOutService.getNewsCharityOutDetail(id);
         proNewsCharityOutService.insertVisitNum(id);
 
-        return ResponseUtlis.success(newsCharityOutDetail);
+        return ResponseUtils.success(newsCharityOutDetail);
     }
 
 }

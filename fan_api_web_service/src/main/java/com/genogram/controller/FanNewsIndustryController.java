@@ -11,7 +11,7 @@ import com.genogram.entityvo.IndustryDetailVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IFanNewsIndustryService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -69,7 +69,7 @@ public class FanNewsIndustryController {
             @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
         return getFamilyIndustryVoResponse(showId, pageNo, pageSize);
     }
@@ -103,7 +103,7 @@ public class FanNewsIndustryController {
             @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
         //判断showId是否有值
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
         return getFamilyIndustryVoResponse(showId, pageNo, pageSize);
     }
@@ -135,12 +135,12 @@ public class FanNewsIndustryController {
             if (familyCultureVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyIndustryVo> emptfamilyCultureVo = new Page<FamilyIndustryVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
-            return ResponseUtlis.success(familyCultureVo);
+            return ResponseUtils.success(familyCultureVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -173,19 +173,19 @@ public class FanNewsIndustryController {
         try {
             NewsDetailVo newsDetailEmpty = new NewsDetailVo();
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "数据为空");
+                return ResponseUtils.error(Constants.IS_EMPTY, "数据为空");
             }
             IndustryDetailVo familyIndustryDetail = fanNewsIndustryService.getFamilyIndustryDetail(id);
             //判断是否返回为空
             if (familyIndustryDetail == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
             //增加查看数
             fanNewsIndustryService.addVisitNum(id);
-            return ResponseUtlis.success(familyIndustryDetail);
+            return ResponseUtils.success(familyIndustryDetail);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

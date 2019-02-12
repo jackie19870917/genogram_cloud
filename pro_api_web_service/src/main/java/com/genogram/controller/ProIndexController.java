@@ -11,7 +11,7 @@ import com.genogram.entity.ProSysSite;
 import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,9 +20,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -58,16 +56,16 @@ public class ProIndexController {
     public Response<IndexInfoVo> getIndexInfoVo(@ApiParam("网站Id") @RequestParam Integer siteId) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         IndexInfoVo indexInfoVo = proIndexInfoService.getFanIndexInfoVo(siteId);
 
         if (StringUtils.isEmpty(indexInfoVo)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(indexInfoVo);
+        return ResponseUtils.success(indexInfoVo);
     }
 
     @ApiOperation(value = "轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
@@ -75,7 +73,7 @@ public class ProIndexController {
     public Response<ProIndexSlidePic> getProIndexSlidePic(@ApiParam("网站Id") @RequestParam Integer siteId) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -85,10 +83,10 @@ public class ProIndexController {
         List<ProIndexSlidePic> proIndexSlidePic = proIndexSlidePicService.getProIndexSlidePic(siteId, list);
 
         if (StringUtils.isEmpty(proIndexSlidePic)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(proIndexSlidePic);
+        return ResponseUtils.success(proIndexSlidePic);
     }
 
     /*@ApiOperation(value = "最新发布", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
@@ -98,13 +96,14 @@ public class ProIndexController {
                                                             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
+
         }
 
         ProSysSite proSysSite = proSysSiteService.getProSysSite(siteId);
 
         if (StringUtils.isEmpty(proSysSite)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
         Map map = new HashMap(16);
@@ -120,10 +119,10 @@ public class ProIndexController {
         Page<AllUserNewsInfo> userNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoList(mapPage, map);
 
         if (StringUtils.isEmpty(userNewsInfoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(userNewsInfoPage);
+        return ResponseUtils.success(userNewsInfoPage);
     }*/
 
     /**
@@ -141,19 +140,19 @@ public class ProIndexController {
                                                             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         ProSysSite proSysSite = proSysSiteService.getProSysSite(siteId);
 
         if (StringUtils.isEmpty(proSysSite)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
         List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(proSysSite.getFamilyCode());
 
         if (loginList.size() == 0) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
         List list = new ArrayList();
@@ -173,9 +172,9 @@ public class ProIndexController {
         Page<AllUserNewsInfo> allUserNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoList(page, wrapper);
 
         if (StringUtils.isEmpty(allUserNewsInfoPage)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(allUserNewsInfoPage);
+        return ResponseUtils.success(allUserNewsInfoPage);
     }
 }

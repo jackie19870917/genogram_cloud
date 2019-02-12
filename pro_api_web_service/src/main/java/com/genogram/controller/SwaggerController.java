@@ -5,7 +5,7 @@ import com.genogram.entity.FanNewsCharityOut;
 import com.genogram.service.IProNewsCharityOutService;
 import com.genogram.service.IProSysWebNewsShowService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class SwaggerController {
     @RequestMapping(value = "/getTitlesByMenuId", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Response getTitlesByMenuId(FanNewsCharityOut fan) {
         System.out.println(fan);
-        return ResponseUtlis.success(fan);
+        return ResponseUtils.success(fan);
     }
 
 
@@ -55,7 +55,7 @@ public class SwaggerController {
     @RequestMapping(value = "/getTitlesByMenuId2", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Response getTitlesByMenuId2(@RequestBody FanNewsCharityOut fan) {
         System.out.println(fan);
-        return ResponseUtlis.success(fan);
+        return ResponseUtils.success(fan);
     }
 
 }

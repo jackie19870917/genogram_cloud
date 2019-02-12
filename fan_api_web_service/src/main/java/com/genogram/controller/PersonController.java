@@ -10,7 +10,7 @@ import com.genogram.service.IFanIndexInfoService;
 import com.genogram.service.IFanProIndexInfoService;
 import com.genogram.service.IFanSysSiteService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -53,9 +53,9 @@ public class PersonController {
         FanSysSite fanSysSite = fanSysSiteService.getFanSysSiteByCode(fanUrlCode);
 
         if (StringUtils.isEmpty(fanSysSite)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         } else {
-            return ResponseUtlis.success(fanSysSite);
+            return ResponseUtils.success(fanSysSite);
         }
     }
 
@@ -119,10 +119,10 @@ public class PersonController {
             });
 
             if (StringUtils.isEmpty(sysSiteVoList)) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
 
-            return ResponseUtlis.success(sysSiteVoList);
+            return ResponseUtils.success(sysSiteVoList);
 
         } else if (pro.equals(siteType)) {
             Wrapper<ProSysSite> wrapper = new EntityWrapper<>();
@@ -176,7 +176,7 @@ public class PersonController {
                 });
                 sysSiteVoList.add(sysSiteVo1);
             });
-            return ResponseUtlis.success(sysSiteVoList);
+            return ResponseUtils.success(sysSiteVoList);
         } else {
             return null;
         }
@@ -191,9 +191,9 @@ public class PersonController {
         FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(familyCode, regionCode);
 
         if (StringUtils.isEmpty(fanSysSite)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "数据为空");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "数据为空");
         } else {
-            return ResponseUtlis.success(fanSysSite);
+            return ResponseUtils.success(fanSysSite);
         }
 
     }

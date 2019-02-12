@@ -10,7 +10,7 @@ import com.genogram.entityvo.FamilyRecordVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -67,12 +67,12 @@ public class FanNewsFamilyRecordController {
             if (familyRecordVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVo> emptfamilyRecordVo = new Page<FamilyRecordVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
-            return ResponseUtlis.success(familyRecordVo);
+            return ResponseUtils.success(familyRecordVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -95,18 +95,18 @@ public class FanNewsFamilyRecordController {
             //返回空参
             FamilyRecordVo familyRecordVo = new FamilyRecordVo();
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "数据为空");
+                return ResponseUtils.error(Constants.IS_EMPTY, "数据为空");
             }
             NewsDetailVo newsDetailVo = iFanNewsFamilyRecordService.getFamilyRecordDetail(id);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
             //增加查看数
             iFanNewsFamilyRecordService.addVisitNum(id);
-            return ResponseUtlis.success(newsDetailVo);
+            return ResponseUtils.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -129,12 +129,12 @@ public class FanNewsFamilyRecordController {
             if (familyRecordVedioVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyRecordVedioVo> emptfamilyRecordVedioVo = new Page<FamilyRecordVedioVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "数据为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "数据为空");
             }
-            return ResponseUtlis.success(familyRecordVedioVo);
+            return ResponseUtils.success(familyRecordVedioVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -187,11 +187,11 @@ public class FanNewsFamilyRecordController {
     private Response<FamilyRecordVedioVo> getNewsDetailVedioVoResponse(@RequestParam("id") Integer id) {
         try {
             NewsDetailVo newsDetailVo = iFanNewsFamilyRecordVedioService.getFamilyVedioRecord(id);
-            return ResponseUtlis.success(newsDetailVo);
+            return ResponseUtils.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
 
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -227,11 +227,11 @@ public class FanNewsFamilyRecordController {
         try {
             // 插入数据
             boolean b = iFanNewsFamilyRecordVedioService.addOrUpdateVedioRecord(fanNewsFamilyRecordVedio, picfileName, picPath, vedioFileName, vedioPath);
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
             //插入图片
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -335,19 +335,19 @@ public class FanNewsFamilyRecordController {
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(siteId);
 
         if (StringUtils.isEmpty(fanSysSite)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
         List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(fanSysSite.getFamilyCode());
 
         if (loginList.size() == 0) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
         List list = new ArrayList();
@@ -367,10 +367,10 @@ public class FanNewsFamilyRecordController {
         Page<AllUserVideos> allUserVideosPage = allUserVideosService.getAllUserVideosList(page, wrapper);
 
         if (StringUtils.isEmpty(allUserVideosPage)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(allUserVideosPage);
+        return ResponseUtils.success(allUserVideosPage);
     }
 }
 

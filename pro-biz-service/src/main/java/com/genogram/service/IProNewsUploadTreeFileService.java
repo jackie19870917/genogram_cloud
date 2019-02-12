@@ -28,7 +28,7 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
      * @param pageSize
      * @return
      */
-    Page getProNewsUploadTreeFile(String regionCode, String fileName,Integer siteId, List list, Integer pageNo, Integer pageSize);
+    Page getProNewsUploadTreeFile(String regionCode, String fileName, Integer siteId, List list, Integer pageNo, Integer pageSize);
 
     /**
      * 查询省级电子谱
@@ -85,6 +85,7 @@ public interface IProNewsUploadTreeFileService extends IService<ProNewsUploadTre
 
     /**
      * 新增 修改 电子普
+     *
      * @param proNewsUploadTreeFile
      * @return
      */

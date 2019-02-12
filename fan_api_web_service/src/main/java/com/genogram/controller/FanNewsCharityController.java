@@ -12,7 +12,7 @@ import com.genogram.entityvo.NewsCharityOutVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -64,16 +64,16 @@ public class FanNewsCharityController {
     public Response<FanIndexFund> getFanIndexFund(@ApiParam(value = "网站id") @RequestParam Integer siteId) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         FanIndexFund fanIndexFund = fanIndexFundService.getFanIndexFund(siteId);
 
         if (StringUtils.isEmpty(fanIndexFund)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(fanIndexFund);
+        return ResponseUtils.success(fanIndexFund);
     }
 
     /**
@@ -97,7 +97,7 @@ public class FanNewsCharityController {
                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
 
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -133,10 +133,10 @@ public class FanNewsCharityController {
         }
 
         if (StringUtils.isEmpty(donorVoPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(donorVoPage);
+        return ResponseUtils.success(donorVoPage);
 
     }
 
@@ -156,7 +156,7 @@ public class FanNewsCharityController {
                                                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (showId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -170,10 +170,10 @@ public class FanNewsCharityController {
         Page<NewsCharityOutVo> fanNewsCharityOutPage = fanNewsCharityOutService.getFanNewsCharityOutVoPage(entity, pageNo, pageSize);
 
         if (StringUtils.isEmpty(fanNewsCharityOutPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(fanNewsCharityOutPage);
+        return ResponseUtils.success(fanNewsCharityOutPage);
     }
 
     /**
@@ -189,7 +189,7 @@ public class FanNewsCharityController {
         NewsDetailVo newsCharityOutDetail = fanNewsCharityOutService.getNewsCharityOutDetail(id);
         fanNewsCharityOutService.insertVisitNum(id);
 
-        return ResponseUtlis.success(newsCharityOutDetail);
+        return ResponseUtils.success(newsCharityOutDetail);
     }
 
 }

@@ -46,6 +46,7 @@ public interface ISysSiteService extends IService<FanSysSite> {
 
     /**
      * 联谊会
+     *
      * @param familyCode
      * @param regionCode
      * @return
@@ -54,6 +55,7 @@ public interface ISysSiteService extends IService<FanSysSite> {
 
     /**
      * 省级
+     *
      * @param familyCode
      * @param regionCode
      * @return

@@ -10,7 +10,7 @@ import com.genogram.service.IProNewsUploadTreeFileService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -72,20 +72,20 @@ public class ProNewsUploadTreeFileController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         List list = new ArrayList<>();
@@ -97,30 +97,30 @@ public class ProNewsUploadTreeFileController {
 
         Page<ProNewsUploadTreeFile> proNewsUploadTreeFilePage = proNewsUploadTreeFileService.getProNewsUploadTreeFilePage(siteId, filename, list, pageNo, pageSize);
 
-        return ResponseUtlis.success(proNewsUploadTreeFilePage);
+        return ResponseUtils.success(proNewsUploadTreeFilePage);
     }
 
     @ApiOperation(value = "电子谱上传", notes = "id-主键,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
-   // @RequestMapping(value = "uploadProNewsUploadTreeFile", method = RequestMethod.POST)
+    // @RequestMapping(value = "uploadProNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<ProNewsUploadTreeFile> uploadProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
                                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
@@ -138,7 +138,7 @@ public class ProNewsUploadTreeFileController {
         proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
 
         String filePath = proNewsUploadTreeFile.getFilePath();
-        log.info("filePath 电子谱文件名称 +++ ====" +filePath);
+        log.info("filePath 电子谱文件名称 +++ ====" + filePath);
 
         if (proNewsUploadTreeFile.getId() == null) {
             //文件上传就转换成jpg图片
@@ -152,9 +152,9 @@ public class ProNewsUploadTreeFileController {
         Boolean result = proNewsUploadTreeFileService.insertProNewsUploadTreeFile(proNewsUploadTreeFile);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -162,63 +162,63 @@ public class ProNewsUploadTreeFileController {
     @RequestMapping(value = "getProNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<ProNewsUploadTreeFile> getProNewsUploadTreeFile(@ApiParam("主键") @RequestParam("id") Integer id,
                                                                     // @ApiParam("密码") @RequestParam(value = "password", required = false) String password,
-                                                                    @ApiParam("来源") @RequestParam(value = "isFrom",defaultValue = "2") Integer isFrom,
+                                                                    @ApiParam("来源") @RequestParam(value = "isFrom", defaultValue = "2") Integer isFrom,
                                                                     @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Integer a = 2;
         if (isFrom.equals(a)) {
             ProNewsUploadTreeFile proNewsUploadTreeFile = proNewsUploadTreeFileService.getProNewsUploadTreeFile(id);
 
-            return ResponseUtlis.success(proNewsUploadTreeFile);
+            return ResponseUtils.success(proNewsUploadTreeFile);
 
         } else {
 
             FanNewsUploadTreeFile fanNewsUploadTreeFile = proNewsUploadTreeFileService.getFanNewsUploadTreeFile(id);
 
-            return ResponseUtlis.success(fanNewsUploadTreeFile);
+            return ResponseUtils.success(fanNewsUploadTreeFile);
         }
 
     }
 
     @ApiOperation(value = "电子谱修改", notes = "id-主键,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
-   // @RequestMapping(value = "updateProNewsUploadTreeFile", method = RequestMethod.POST)
+    // @RequestMapping(value = "updateProNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<ProNewsUploadTreeFile> updateProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
                                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
@@ -226,9 +226,9 @@ public class ProNewsUploadTreeFileController {
         Boolean result = proNewsUploadTreeFileService.updateProNewsUploadTreeFile(proNewsUploadTreeFile);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -239,52 +239,52 @@ public class ProNewsUploadTreeFileController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Boolean result = proNewsUploadTreeFileService.deleteProNewsUploadTreeFile(id, userLogin.getId());
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
     @ApiOperation(value = "电子谱 新增/修改", notes = "id-主键,siteId-网站ID,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "updateProNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<FanNewsUploadTreeFile> insertOrUpdateProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
-                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+                                                                               @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
@@ -315,9 +315,9 @@ public class ProNewsUploadTreeFileController {
         Boolean result = proNewsUploadTreeFileService.insertOrUpdateProNewsUploadTreeFile(proNewsUploadTreeFile);
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

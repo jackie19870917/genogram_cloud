@@ -5,7 +5,7 @@ import com.genogram.entity.AllMessageBoard;
 import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IProMessageBoardServices;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -46,7 +46,7 @@ public class ProMessageBoardController {
             @RequestParam(value = "siteId") Integer siteId,
             @ApiParam("token") @RequestParam(value = "token", defaultValue = "") String token) {
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "token不能为空");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "token不能为空");
         }
         int sourceType = 2;
         allMessageBoard.setSourceType(sourceType);
@@ -55,15 +55,15 @@ public class ProMessageBoardController {
             Set set = allCheckOutService.getSensitiveWord(allMessageBoard.getContent());
 
             if (set.size() >= 1) {
-                return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+                return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
             }
 
             // 插入数据
             boolean b = iProMessageBoardServices.addOrUpdateRecord(allMessageBoard);
-            return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, null);
+            return ResponseUtils.error(Constants.SUCCESSFUL_CODE, null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

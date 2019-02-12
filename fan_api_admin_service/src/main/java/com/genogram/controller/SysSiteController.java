@@ -7,7 +7,7 @@ import com.genogram.entity.*;
 import com.genogram.entityvo.SysSiteVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -102,10 +102,10 @@ public class SysSiteController {
         List<AllFamily> familyList = allUserLoginService.getAllFamily(wrapper);
 
         if (StringUtils.isEmpty(familyList)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(familyList);
+        return ResponseUtils.success(familyList);
     }
 
     @ApiOperation(value = "开通网站", notes = "id-网站ID,familyCode-姓氏,regionCode-地区编号,name-网站名称,oneUrl-公司指定域名,twoUrl-自费域名")
@@ -116,20 +116,20 @@ public class SysSiteController {
 
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin allUserLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(allUserLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserLogin userLogin01 = allUserLoginService.getAllUserLoginById(allUserLogin.getId());
 
         //  判断是否有权限访问
         if (!this.getList().contains(userLogin01.getRole())) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
         Integer id = allUserLogin.getId();
@@ -151,7 +151,7 @@ public class SysSiteController {
             List<FanSysSite> fanSysSiteList = allUserLoginService.getFanSysSite(wrapper);
 
             if (fanSysSiteList.size() != 0) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "该联谊会已开通");
+                return ResponseUtils.error(Constants.ERRO_CODE, "该联谊会已开通");
             }
 
             FanSysSite fanSysSite = new FanSysSite();
@@ -223,7 +223,7 @@ public class SysSiteController {
             List<ProSysSite> proSysSiteList = allUserLoginService.getProSysSite(wrapper);
 
             if (proSysSiteList.size() != 0) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "该省级网站已开通");
+                return ResponseUtils.error(Constants.ERRO_CODE, "该省级网站已开通");
             }
 
             ProSysSite proSysSite = new ProSysSite();
@@ -282,9 +282,9 @@ public class SysSiteController {
         }
 
         if (true) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

@@ -10,7 +10,7 @@ import com.genogram.entityvo.ProFamilyPersonVo;
 import com.genogram.entityvo.SysWebMenuVo;
 import com.genogram.service.*;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -81,7 +81,7 @@ public class FanIndexController {
                                                               @ApiParam("属性属性(1-pc端,2-移动端)") @RequestParam(value = "classes", defaultValue = "1") Integer classes) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -90,10 +90,10 @@ public class FanIndexController {
         List<FanIndexSlidePic> fanIndexSlidePicList = fanIndexSlidePicService.getFanIndexSlidePicListBySiteId(siteId, classes, list);
 
         if (StringUtils.isEmpty(fanIndexSlidePicList)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(fanIndexSlidePicList);
+        return ResponseUtils.success(fanIndexSlidePicList);
     }
 
     /**
@@ -111,7 +111,7 @@ public class FanIndexController {
                                                                           @RequestParam(value = "pageSize", defaultValue = "2333") Integer pageSize) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         List list = new ArrayList();
@@ -120,10 +120,10 @@ public class FanIndexController {
         Page<FanIndexFamilySummarys> fanIndexFamilySummarysPage = fanIndexFamilySummarysService.getFanIndexFamilySummarysPage(siteId, list, pageNo, pageSize);
 
         if (StringUtils.isEmpty(fanIndexFamilySummarysPage)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(fanIndexFamilySummarysPage);
+        return ResponseUtils.success(fanIndexFamilySummarysPage);
     }
 
     /**
@@ -137,16 +137,16 @@ public class FanIndexController {
     public Response<IndexInfoVo> getFanIndexInfo(@ApiParam("网站ID") @RequestParam Integer siteId) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         IndexInfoVo indexInfoVo = fanIndexInfoService.getFanIndexInfoVo(siteId);
 
         if (StringUtils.isEmpty(indexInfoVo)) {
-            return ResponseUtlis.error(Constants.ERRO_CODE, null);
+            return ResponseUtils.error(Constants.ERRO_CODE, null);
         }
 
-        return ResponseUtlis.success(indexInfoVo);
+        return ResponseUtils.success(indexInfoVo);
     }
 
     /**
@@ -169,7 +169,7 @@ public class FanIndexController {
         try {
             //判断showId是否有值
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             int status = 1;
@@ -177,12 +177,12 @@ public class FanIndexController {
             if (fanIndexMessage == null) {
                 //没有取到参数,返回空参
                 Page<FanIndexMessage> emptfamilyCultureVo = new Page<FanIndexMessage>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "没有取到参数,返回空参");
+                return ResponseUtils.error(Constants.ERRO_CODE, "没有取到参数,返回空参");
             }
-            return ResponseUtlis.success(fanIndexMessage);
+            return ResponseUtils.success(fanIndexMessage);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -251,19 +251,19 @@ public class FanIndexController {
                                                             @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize) {
 
         if (siteId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
 
         FanSysSite fanSysSite = fanSysSiteService.getFanSysSite(siteId);
 
         if (StringUtils.isEmpty(fanSysSite)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
         List<AllUserLogin> loginList = allUserLoginService.getAllUserLoginByFamilyCode(fanSysSite.getFamilyCode());
 
         if (loginList.size() == 0) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
         List list = new ArrayList();
@@ -283,10 +283,10 @@ public class FanIndexController {
         Page<AllUserNewsInfo> allUserNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoList(page, wrapper);
 
         if (StringUtils.isEmpty(allUserNewsInfoPage)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(allUserNewsInfoPage);
+        return ResponseUtils.success(allUserNewsInfoPage);
     }
 
     /**
@@ -314,11 +314,11 @@ public class FanIndexController {
                 zongmap.put(show.getMenuName(), list1);
             }
 
-            return ResponseUtlis.success(zongmap);
+            return ResponseUtils.success(zongmap);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -335,9 +335,9 @@ public class FanIndexController {
         List<ProSysSite> proSysSiteList = sysSiteService.getProSysSite();
 
         if (proSysSiteList.size() == 0) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         } else {
-            return ResponseUtlis.success(proSysSiteList);
+            return ResponseUtils.success(proSysSiteList);
         }
     }
 
@@ -355,9 +355,9 @@ public class FanIndexController {
         page.setTotal(fanSysSiteList.size());
 
         if (StringUtils.isEmpty(page)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         } else {
-            return ResponseUtlis.success(page);
+            return ResponseUtils.success(page);
         }
     }
 }

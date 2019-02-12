@@ -87,7 +87,7 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
 
         FanSysSite fanSysSite = new FanSysSite();
         fanSysSite.setFamilyCode(familyCode);
-        fanSysSite.setRegionCode(regionCode+"");
+        fanSysSite.setRegionCode(regionCode + "");
 
         return fanSysSiteMapper.selectOne(fanSysSite);
     }
@@ -97,7 +97,7 @@ public class SysSiteServiceImpl extends ServiceImpl<FanSysSiteMapper, FanSysSite
 
         ProSysSite proSysSite = new ProSysSite();
         proSysSite.setFamilyCode(familyCode);
-        proSysSite.setRegionCode(regionCode+"");
+        proSysSite.setRegionCode(regionCode + "");
 
         return proSysSiteMapper.selectOne(proSysSite);
     }

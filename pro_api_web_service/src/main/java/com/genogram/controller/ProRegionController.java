@@ -5,7 +5,7 @@ import com.genogram.config.Constants;
 import com.genogram.entity.FanSysSite;
 import com.genogram.service.IAllRegionService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -41,16 +41,16 @@ public class ProRegionController {
     ) {
         try {
             if (siteId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             Page<FanSysSite> fanSysSite = allRegionService.getSodalityRegion(siteId, pageNo, pageSize, code);
             if (fanSysSite == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "请开通网站");
+                return ResponseUtils.error(Constants.ERRO_CODE, "请开通网站");
             }
-            return ResponseUtlis.success(fanSysSite);
+            return ResponseUtils.success(fanSysSite);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

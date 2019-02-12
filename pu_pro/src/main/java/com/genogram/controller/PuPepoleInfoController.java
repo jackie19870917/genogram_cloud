@@ -9,7 +9,7 @@ import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IPuPepoleInfoService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -50,31 +50,31 @@ public class PuPepoleInfoController {
                                              @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
         //  判断是否登陆
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         if (StringUtils.isEmpty(puPepoleInfo)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "puPepoleInfo为空");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "puPepoleInfo为空");
         }
         //判断id是否为空
         if (puBaseInfoId == null) {
-            return ResponseUtlis.error(Constants.IS_EMPTY, null);
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
         }
         //状态(0:删除;1:显示;)
         int isLive = 1;
         puPepoleInfo.setIsLive(isLive);
         Boolean aBoolean = puPepoleInfoService.addPuPepoleInfo(puPepoleInfo, userLogin, puBaseInfoId, pepoleId, isPepId);
         if (!aBoolean) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "失败");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "失败");
         }
 
-        return ResponseUtlis.error(Constants.SUCCESSFUL_CODE, "成功");
+        return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "成功");
     }
 
 }

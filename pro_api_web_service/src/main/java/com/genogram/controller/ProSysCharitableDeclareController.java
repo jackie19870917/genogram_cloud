@@ -9,7 +9,7 @@ import com.genogram.entity.FanSysCharitableDeclare;
 import com.genogram.service.IProFanSysCharitableDeclareService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -98,7 +98,7 @@ public class ProSysCharitableDeclareController {
         try {
             //判断id是否为空
             if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入showId");
+                return ResponseUtils.error(Constants.IS_EMPTY, "请输入showId");
             }
             //状态(0:审核通过;1:审核中;2:草稿3:审核不通过)
             List<Integer> list = new ArrayList<>();
@@ -110,12 +110,12 @@ public class ProSysCharitableDeclareController {
             entity.in("status", list);
             Page<FanSysCharitableDeclare> fanSysCharitableDeclarePage = fanSysCharitableDeclareService.getCharitableDeclarePage(entity, pageNo, pageSize);
             if (fanSysCharitableDeclarePage == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
+                return ResponseUtils.error(Constants.ERRO_CODE, "查询失败");
             }
-            return ResponseUtlis.success(fanSysCharitableDeclarePage);
+            return ResponseUtils.success(fanSysCharitableDeclarePage);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -178,16 +178,16 @@ public class ProSysCharitableDeclareController {
         try {
             //判断id是否为空
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "请输入Id");
+                return ResponseUtils.error(Constants.IS_EMPTY, "请输入Id");
             }
             FanSysCharitableDeclare fanSysCharitableDeclare = fanSysCharitableDeclareService.getFamilyStructureDetails(id);
             if (fanSysCharitableDeclare == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "查询失败");
+                return ResponseUtils.error(Constants.ERRO_CODE, "查询失败");
             }
-            return ResponseUtlis.success(fanSysCharitableDeclare);
+            return ResponseUtils.success(fanSysCharitableDeclare);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

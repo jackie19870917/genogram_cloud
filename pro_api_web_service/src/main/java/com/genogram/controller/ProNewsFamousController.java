@@ -11,7 +11,7 @@ import com.genogram.entityvo.ProFamilyPersonVo;
 import com.genogram.service.IProNewsFamilyPersonService;
 import com.genogram.service.IProSysWebNewsShowService;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,12 +54,12 @@ public class ProNewsFamousController {
             if (familyPersonVo == null) {
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "familyPersonVo为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "familyPersonVo为空");
             }
-            return ResponseUtlis.success(familyPersonVo);
+            return ResponseUtils.success(familyPersonVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -82,7 +82,7 @@ public class ProNewsFamousController {
         try {
             //判断showId是否有值
             if (showId == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, null);
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             //状态(0:删除;1:已发布;2:草稿3:不显示)
             List statusList = new ArrayList();
@@ -99,12 +99,12 @@ public class ProNewsFamousController {
             if (familyPersonVoPage == null) {
                 //没有取到参数,返回空参
                 Page<FamilyPersonVo> emptfamilyCultureVo = new Page<FamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, null);
+                return ResponseUtils.error(Constants.ERRO_CODE, null);
             }
-            return ResponseUtlis.success(familyPersonVoPage);
+            return ResponseUtils.success(familyPersonVoPage);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -127,18 +127,18 @@ public class ProNewsFamousController {
             //返回空参
             ProFamilyPersonVo proFamilyPersonVo = new ProFamilyPersonVo();
             if (id == null) {
-                return ResponseUtlis.error(Constants.IS_EMPTY, "id为空");
+                return ResponseUtils.error(Constants.IS_EMPTY, "id为空");
             }
             ProFamilyPersonVo newsDetailVo = iProNewsFamousPersonService.getFamilyFamilyDetail(id);
             if (newsDetailVo == null) {
-                return ResponseUtlis.error(Constants.ERRO_CODE, "newsDetailVo为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "newsDetailVo为空");
             }
             //增加查看数
             iProNewsFamousPersonService.addVisitNum(id);
-            return ResponseUtlis.success(newsDetailVo);
+            return ResponseUtils.success(newsDetailVo);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -175,12 +175,12 @@ public class ProNewsFamousController {
             if (familyFrameList == null) {
                 //没有取到参数,返回空参
                 Page<ProFamilyPersonVo> emptfamilyCultureVo = new Page<ProFamilyPersonVo>();
-                return ResponseUtlis.error(Constants.ERRO_CODE, "familyFrameList为空");
+                return ResponseUtils.error(Constants.ERRO_CODE, "familyFrameList为空");
             }
-            return ResponseUtlis.success(map);
+            return ResponseUtils.success(map);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 }

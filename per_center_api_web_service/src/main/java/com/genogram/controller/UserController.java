@@ -9,7 +9,7 @@ import com.genogram.entityvo.PersonVo;
 import com.genogram.service.*;
 import com.genogram.unit.DateUtil;
 import com.genogram.unit.Response;
-import com.genogram.unit.ResponseUtlis;
+import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -69,22 +69,22 @@ public class UserController {
     public Response<PersonVo> getAllUserReg(@ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         PersonVo personVo = allUserRegService.getAllUserRegByUserId(userLogin.getId());
 
         if (StringUtils.isEmpty(personVo)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(personVo);
+        return ResponseUtils.success(personVo);
     }
 
     @ApiOperation(value = "修改   个人资料", notes = "nickName-昵称,englishName-英文名,nation-国籍,birthplace-出生地,job-职业,lidai-历代,jinshi-近世,laopai-老派,xinpai-新派,tongpai-统派,presentAddress-现居,oldAddress-故居,alias-现居别称,summary-简介,fans-粉丝,honesty-诚信值,url-头像")
@@ -93,13 +93,13 @@ public class UserController {
 
         String token = personVo.getToken();
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         if (!StringUtils.isEmpty(personVo.getSummary())) {
@@ -107,7 +107,7 @@ public class UserController {
             Set set = allCheckOutService.getSensitiveWord(personVo.getSummary());
 
             if (set != null && set.size() >= 1) {
-                return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+                return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
             }
         }
 
@@ -135,9 +135,9 @@ public class UserController {
         personVo1.setToken(str);
 
         if (result) {
-            return ResponseUtlis.success(personVo1);
+            return ResponseUtils.success(personVo1);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -148,23 +148,23 @@ public class UserController {
                                                       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         Page page = allUserPayInService.getPayInPageByUserId(userLogin.getId(), pageNo, pageSize);
 
 
         if (StringUtils.isEmpty(page)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
-        return ResponseUtlis.success(page);
+        return ResponseUtils.success(page);
     }
 
     @ApiOperation(value = "个人日志", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
@@ -174,13 +174,13 @@ public class UserController {
                                                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         List list = new ArrayList<>();
@@ -191,10 +191,10 @@ public class UserController {
         Page<AllUserNewsInfo> userNewsInfoPage = allUserNewsInfoService.getAllUserNewsInfoPage(userLogin.getId(), list, pageNo, pageSize);
 
         if (StringUtils.isEmpty(userNewsInfoPage)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(userNewsInfoPage);
+        return ResponseUtils.success(userNewsInfoPage);
     }
 
     @ApiOperation(value = "新增/修改   个人日志", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
@@ -204,13 +204,13 @@ public class UserController {
                                                            AllUserNewsInfo allUserNewsInfo) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
@@ -232,16 +232,16 @@ public class UserController {
         Set set = allCheckOutService.getSensitiveWord(allUserNewsInfo.getContent());
 
         if (set.size() >= 1) {
-            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
         AllUserNewsInfo userNewsInfo = allUserNewsInfoService.insertOrUpdateAllUserNewsInfo(allUserNewsInfo);
 
         if (StringUtils.isEmpty(userNewsInfo)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(userNewsInfo);
+        return ResponseUtils.success(userNewsInfo);
     }
 
     @ApiOperation(value = "个人日志详情", notes = "id-主键,userId-个人Id,title-文章标题,newsFaceUrl-文章封面URL,content-文章内容,status-状态(0-删除,1-正常,2-草稿)")
@@ -257,10 +257,10 @@ public class UserController {
         newsInfoVo.setNickName(allUserLogin.getNickName());
 
         if (StringUtils.isEmpty(newsInfoVo)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(newsInfoVo);
+        return ResponseUtils.success(newsInfoVo);
     }
 
     @ApiOperation("删除日志")
@@ -269,21 +269,21 @@ public class UserController {
                                                            @ApiParam("主键") @RequestParam("id") Integer id) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
         Boolean result = allUserNewsInfoService.deleteAllUserNewsInfo(id, userLogin.getId());
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -294,13 +294,13 @@ public class UserController {
                                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         List list = new ArrayList<>();
@@ -311,10 +311,10 @@ public class UserController {
         Page<AllUserSays> userSaysPage = allUserSaysService.getAllUserSaysPage(userLogin.getId(), list, pageNo, pageSize);
 
         if (StringUtils.isEmpty(userSaysPage)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(userSaysPage);
+        return ResponseUtils.success(userSaysPage);
     }
 
     @ApiOperation(value = "个人说说详情", notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
@@ -323,22 +323,22 @@ public class UserController {
                                                 @ApiParam("主键") @RequestParam("id") Integer id) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserSays allUserSays = allUserSaysService.getAllUserSaysById(id);
 
         if (StringUtils.isEmpty(allUserSays)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(allUserSays);
+        return ResponseUtils.success(allUserSays);
     }
 
     @ApiOperation(value = "新增    个人说说", notes = "id-主键,userId-个人id,content-说说内容,status-状态(1-正常,0-删除)")
@@ -347,13 +347,13 @@ public class UserController {
                                                    AllUserSays allUserSays) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
@@ -369,16 +369,16 @@ public class UserController {
         Set set = allCheckOutService.getSensitiveWord(allUserSays.getContent());
 
         if (set.size() >= 1) {
-            return ResponseUtlis.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
+            return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set);
         }
 
         AllUserSays userSays = allUserSaysService.insertAllUserSays(allUserSays);
 
         if (StringUtils.isEmpty(userSays)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(userSays);
+        return ResponseUtils.success(userSays);
     }
 
     @ApiOperation("删除说说")
@@ -387,21 +387,21 @@ public class UserController {
                                                    @ApiParam("主键") @RequestParam("id") Integer id) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
         Boolean result = allUserSaysService.deleteAllUserSays(id, userLogin.getId());
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -412,13 +412,13 @@ public class UserController {
                                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         List list = new ArrayList<>();
@@ -429,10 +429,10 @@ public class UserController {
         Page<AllUserPics> userPicsPage = allUserPicsService.getAllUserPicsPage(userLogin.getId(), list, pageNo, pageSize);
 
         if (StringUtils.isEmpty(userPicsPage)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(userPicsPage);
+        return ResponseUtils.success(userPicsPage);
     }
 
     @ApiOperation(value = "个人照片详情", notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
@@ -441,22 +441,22 @@ public class UserController {
                                                 @ApiParam("主键") @RequestParam("id") Integer id) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         AllUserPics allUserPics = allUserPicsService.getAllUserPicsById(id);
 
         if (StringUtils.isEmpty(allUserPics)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(allUserPics);
+        return ResponseUtils.success(allUserPics);
     }
 
     @ApiOperation(value = "新增/修改    个人照片", notes = "id-主键,userId-个人id,picUrl-图片url,status-状态(1-正常,0-删除)")
@@ -465,13 +465,13 @@ public class UserController {
                                                            AllUserPics allUserPics) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
@@ -488,10 +488,10 @@ public class UserController {
         AllUserPics userPics = allUserPicsService.insertOrUpdateAllUserPics(allUserPics);
 
         if (StringUtils.isEmpty(userPics)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(userPics);
+        return ResponseUtils.success(userPics);
     }
 
     @ApiOperation("删除照片")
@@ -500,21 +500,21 @@ public class UserController {
                                                    @ApiParam("主键") @RequestParam("id") Integer id) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
         Boolean result = allUserPicsService.deleteAllUserPics(id, userLogin.getId());
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
@@ -525,13 +525,13 @@ public class UserController {
                                                         @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "token错误");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
         }
 
         List list = new ArrayList<>();
@@ -542,10 +542,10 @@ public class UserController {
         Page<AllUserVideos> userVideosPage = allUserVideosService.getAllUserVideosPage(userLogin.getId(), list, pageNo, pageSize);
 
         if (StringUtils.isEmpty(userVideosPage)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(userVideosPage);
+        return ResponseUtils.success(userVideosPage);
     }
 
     @ApiOperation(value = "个人视频详情", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
@@ -555,10 +555,10 @@ public class UserController {
         AllUserVideos allUserVideos = allUserVideosService.getAllUserVideosById(id);
 
         if (StringUtils.isEmpty(allUserVideos)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(allUserVideos);
+        return ResponseUtils.success(allUserVideos);
     }
 
     @ApiOperation(value = "新增/修改   个人视频", notes = "id-主键,userId-个人Id,status-状态(0-删除,1-正常),title-内容,videoPicUrl-视频封面URL,videoUrl-视频URL")
@@ -567,13 +567,13 @@ public class UserController {
                                                        AllUserVideos allUserVideos) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.NOTLOGIN, "您还没有登陆");
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
@@ -593,10 +593,10 @@ public class UserController {
         AllUserVideos userNewsInfo = allUserVideosService.insertOrUpdateAllUserVideos(allUserVideos);
 
         if (StringUtils.isEmpty(userNewsInfo)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
 
-        return ResponseUtlis.success(userNewsInfo);
+        return ResponseUtils.success(userNewsInfo);
     }
 
     @ApiOperation("删除视频")
@@ -605,36 +605,36 @@ public class UserController {
                                                        @ApiParam("主键") @RequestParam("id") Integer id) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
         Boolean result = allUserVideosService.deleteAllUserVideos(id, userLogin.getId());
 
         if (result) {
-            return ResponseUtlis.success(Constants.SUCCESSFUL_CODE);
+            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
         } else {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
         }
     }
 
     @ApiOperation("查询网站")
-    @RequestMapping(value = "selectSysSite",method = RequestMethod.POST)
+    @RequestMapping(value = "selectSysSite", method = RequestMethod.POST)
     public Response<FanSysSite> selectSysSite(@ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         if (StringUtils.isEmpty(token)) {
-            return ResponseUtlis.error(Constants.UNAUTHORIZED, "您还没有登陆");
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您还没有登陆");
         }
 
         AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
 
         if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtlis.error(Constants.FAILURE_CODE, "您还没有登陆");
+            return ResponseUtils.error(Constants.FAILURE_CODE, "您还没有登陆");
         }
 
         AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
@@ -643,18 +643,18 @@ public class UserController {
             ProSysSite proSysSite = sysSiteService.getProSysSiteByCode(allUserLogin.getFamilyCode(), allUserLogin.getRegionCode());
 
             if (StringUtils.isEmpty(proSysSite)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+                return ResponseUtils.error(Constants.FAILURE_CODE, null);
             } else {
-                return ResponseUtlis.success(proSysSite);
+                return ResponseUtils.success(proSysSite);
             }
 
         } else {
             FanSysSite fanSysSite = sysSiteService.getFanSysSiteByCode(allUserLogin.getFamilyCode(), allUserLogin.getRegionCode());
 
             if (StringUtils.isEmpty(fanSysSite)) {
-                return ResponseUtlis.error(Constants.FAILURE_CODE, null);
+                return ResponseUtils.error(Constants.FAILURE_CODE, null);
             } else {
-                return ResponseUtlis.success(fanSysSite);
+                return ResponseUtils.success(fanSysSite);
             }
         }
     }
