@@ -82,7 +82,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             fanNewsUploadTreeFileWrapper.in("site_id", siteList);
             fanNewsUploadTreeFileWrapper.orderBy("update_time", false);
 
-            List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
+            List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectPage(new Page(pageNo, pageSize), fanNewsUploadTreeFileWrapper);
 
             List<NewsUploadTreeFileVo> newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
 
