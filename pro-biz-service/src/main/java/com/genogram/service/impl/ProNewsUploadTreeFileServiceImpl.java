@@ -86,11 +86,11 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             List newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
 
-            newsUploadTreeFileList.addAll(newsUploadTreeFileList1);
+            newsUploadTreeFileVoList.addAll(newsUploadTreeFileList1);
 
             Page page = new Page(pageNo, pageSize);
-            page.setRecords(newsUploadTreeFileList);
-            page.setTotal(newsUploadTreeFileList.size());
+            page.setRecords(newsUploadTreeFileVoList);
+            page.setTotal(newsUploadTreeFileVoList.size());
 
             return page;
 
