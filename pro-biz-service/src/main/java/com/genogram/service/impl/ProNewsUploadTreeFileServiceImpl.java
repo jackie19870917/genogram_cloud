@@ -88,6 +88,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             Page page = new Page(pageNo, pageSize);
             page.setRecords(newsUploadTreeFileVoList);
             page.setTotal(newsUploadTreeFileVoList.size());
+            page.setSize(pageSize);
 
             return page;
 
