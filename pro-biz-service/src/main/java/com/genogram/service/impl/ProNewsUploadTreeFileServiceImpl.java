@@ -86,9 +86,6 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             List newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
 
-            /*List arrayList = new ArrayList<>();
-            arrayList.add(newsUploadTreeFileVoList);
-            arrayList.add(newsUploadTreeFileList1);*/
             newsUploadTreeFileList.addAll(newsUploadTreeFileList1);
 
             Page page = new Page(pageNo, pageSize);
@@ -116,13 +113,11 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             List<NewsUploadTreeFileVo> newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
 
-            List arrayList = new ArrayList<>();
-            arrayList.add(newsUploadTreeFileVoList);
-            arrayList.add(newsUploadTreeFileList1);
+            newsUploadTreeFileVoList.addAll(newsUploadTreeFileList1);
 
             Page page = new Page(pageNo, pageSize);
-            page.setRecords(arrayList);
-            page.setTotal(newsUploadTreeFileVoList.size() + newsUploadTreeFileList1.size());
+            page.setRecords(newsUploadTreeFileVoList);
+            page.setTotal(newsUploadTreeFileVoList.size());
 
             return page;
 
