@@ -57,10 +57,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             proNewsUploadTreeFileWrapper.eq("site_id", siteId);
             proNewsUploadTreeFileWrapper.orderBy("update_time", false);
 
-
-            Page<ProNewsUploadTreeFile> proNewsUploadTreeFilePage = this.selectPage(new Page<>(pageNo, pageSize), proNewsUploadTreeFileWrapper);
-
-            List<ProNewsUploadTreeFile> newsUploadTreeFileList = proNewsUploadTreeFilePage.getRecords();
+            List<ProNewsUploadTreeFile> newsUploadTreeFileList = this.selectList(proNewsUploadTreeFileWrapper);
 
             List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFileVos(newsUploadTreeFileList);
 
@@ -82,7 +79,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             fanNewsUploadTreeFileWrapper.in("site_id", siteList);
             fanNewsUploadTreeFileWrapper.orderBy("update_time", false);
 
-            List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectPage(new Page(pageNo, pageSize), fanNewsUploadTreeFileWrapper);
+            List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
 
             List<NewsUploadTreeFileVo> newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
 
