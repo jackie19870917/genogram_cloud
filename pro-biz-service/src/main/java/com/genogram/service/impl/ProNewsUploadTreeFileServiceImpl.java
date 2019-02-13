@@ -84,7 +84,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
 
-            List newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
+            List<NewsUploadTreeFileVo> newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
 
             newsUploadTreeFileVoList.addAll(newsUploadTreeFileList1);
 
