@@ -69,15 +69,17 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("parent", proSysSite.getRegionCode());
+            wrapper.eq("family_code", proSysSite.getFamilyCode());
 
             List<FanSysSite> sysSiteList = fanSysSiteMapper.selectList(wrapper);
 
-            fanNewsUploadTreeFileWrapper.in("status", list);
+            List siteList = new ArrayList();
             for (FanSysSite fanSysSite : sysSiteList) {
-                fanNewsUploadTreeFileWrapper.eq("region_code", fanSysSite.getRegionCode());
+                siteList.add(fanSysSite.getId());
             }
 
-            fanNewsUploadTreeFileWrapper.eq("family_code", proSysSite.getFamilyCode());
+            fanNewsUploadTreeFileWrapper.in("status", list);
+            fanNewsUploadTreeFileWrapper.in("site_id", siteList);
             fanNewsUploadTreeFileWrapper.orderBy("update_time", false);
 
             List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
