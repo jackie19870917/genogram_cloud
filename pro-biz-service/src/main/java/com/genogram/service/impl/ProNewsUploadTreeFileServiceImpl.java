@@ -260,6 +260,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             BeanUtils.copyProperties(fanNewsUploadTreeFile, newsUploadTreeFileVo);
             AllFamily allFamily = allFamilyService.getAllFamilyById(fanNewsUploadTreeFile.getFamilyCode());
             newsUploadTreeFileVo.setFamilyName(allFamily.getValue());
+            newsUploadTreeFileVo.setUrl(fanNewsUploadTreeFile.getTreePreviewPath());
 
             newsUploadTreeFileList.add(newsUploadTreeFileVo);
         });
