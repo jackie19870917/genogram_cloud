@@ -100,64 +100,6 @@ public class ProNewsUploadTreeFileController {
         return ResponseUtils.success(proNewsUploadTreeFilePage);
     }
 
-    @ApiOperation(value = "电子谱上传", notes = "id-主键,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
-    // @RequestMapping(value = "uploadProNewsUploadTreeFile", method = RequestMethod.POST)
-    public Response<ProNewsUploadTreeFile> uploadProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
-                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
-
-        //  判断是否登陆
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
-        }
-
-        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
-
-        if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
-        }
-
-        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
-
-        //  判断是否有权限访问
-        if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
-        }
-
-        Timestamp timeStamp = DateUtil.getCurrentTimeStamp();
-
-        if (proNewsUploadTreeFile.getId() == null) {
-            proNewsUploadTreeFile.setCreateUser(userLogin.getId());
-            proNewsUploadTreeFile.setIsFrom(1);
-            proNewsUploadTreeFile.setCreateTime(timeStamp);
-        }
-
-        proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
-        proNewsUploadTreeFile.setUpdateTime(timeStamp);
-
-        proNewsUploadTreeFile.setCreateUser(userLogin.getId());
-        proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
-
-        String filePath = proNewsUploadTreeFile.getFilePath();
-        log.info("filePath 电子谱文件名称 +++ ====" + filePath);
-
-        if (proNewsUploadTreeFile.getId() == null) {
-            //文件上传就转换成jpg图片
-            String[] split = proNewsUploadTreeFile.getFilePath().split("@");
-
-            proNewsUploadTreeFile.setFilePath(split[0]);
-            proNewsUploadTreeFile.setTreePreviewPath(split[1]);
-        }
-
-
-        Boolean result = proNewsUploadTreeFileService.insertProNewsUploadTreeFile(proNewsUploadTreeFile);
-
-        if (result) {
-            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
-        } else {
-            return ResponseUtils.error(Constants.FAILURE_CODE, null);
-        }
-    }
-
     @ApiOperation(value = "电子谱详情", notes = "id-主键,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
     @RequestMapping(value = "getProNewsUploadTreeFile", method = RequestMethod.POST)
     public Response<ProNewsUploadTreeFile> getProNewsUploadTreeFile(@ApiParam("主键") @RequestParam("id") Integer id,
@@ -196,40 +138,6 @@ public class ProNewsUploadTreeFileController {
             return ResponseUtils.success(fanNewsUploadTreeFile);
         }
 
-    }
-
-    @ApiOperation(value = "电子谱修改", notes = "id-主键,familyCode-姓氏,regionCode-地区,isFrom-来源(1-县级,2-省级),filePath-文件路径,fileName-文件名称,contactUser-联系人,status-状态(1-公开,2-密码访问,3-私密,0-删除),password-密码,preThirty-前三十页(1-显示,2-不显示)")
-    // @RequestMapping(value = "updateProNewsUploadTreeFile", method = RequestMethod.POST)
-    public Response<ProNewsUploadTreeFile> updateProNewsUploadTreeFile(ProNewsUploadTreeFile proNewsUploadTreeFile,
-                                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
-
-        //  判断是否登陆
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
-        }
-
-        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
-
-        if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
-        }
-
-        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
-
-        //  判断是否有权限访问
-        if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
-        }
-
-        proNewsUploadTreeFile.setUpdateUser(userLogin.getId());
-
-        Boolean result = proNewsUploadTreeFileService.updateProNewsUploadTreeFile(proNewsUploadTreeFile);
-
-        if (result) {
-            return ResponseUtils.success(Constants.SUCCESSFUL_CODE);
-        } else {
-            return ResponseUtils.error(Constants.FAILURE_CODE, null);
-        }
     }
 
     @ApiOperation("删除电子谱")
