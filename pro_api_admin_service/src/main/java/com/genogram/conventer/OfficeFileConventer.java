@@ -143,7 +143,7 @@ public class OfficeFileConventer {
         this.logger.warn("start openoffice....");
         // 设置OpenOffice.org安装目录
         configuration.setOfficeHome(officeHome);
-        // 设置转换端口，默认为8100
+        // 设置转换端口，默认为8200
         configuration.setPortNumbers(port);
         // 设置任务执行超时为5分钟
         configuration.setTaskExecutionTimeout(1000 * 60 * 10L);

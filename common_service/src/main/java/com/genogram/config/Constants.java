@@ -90,7 +90,10 @@ public final class Constants {
     /**
      * 阿里云电子谱查看
      */
+    //县级
     public static final String ELECTRONIC_SPECTRUM_PREVIEW_IP = "http://yhtpw.com:8050/family/preview?familyPreview=";
+    //省级
+    public static final String PRO_ELECTRONIC_SPECTRUM_PREVIEW_IP = "http://yhtpw.com:8040/family/preview?familyPreview=";
     /**
      * 本地电子谱查看
      */

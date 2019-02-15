@@ -62,7 +62,7 @@ public class UploadFastDfsController {
             String filePath = Constants.ALIYUN_IP + path;
             //电子谱文件名称
             String treePreviewPath = conventerController.fileConventer(filePath, model, request, response);
-            path = path + "@" + Constants.ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath;
+            path = path + "@" + Constants.PRO_ELECTRONIC_SPECTRUM_PREVIEW_IP + treePreviewPath;
 
             log.info("path  电子谱文件名称 ===+++" + path);
 
