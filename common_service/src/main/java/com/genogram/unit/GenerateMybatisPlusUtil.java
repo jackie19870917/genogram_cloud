@@ -58,7 +58,7 @@ public class GenerateMybatisPlusUtil {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude(new String[]{"pro_news_charity_pay_in"});
+        strategy.setInclude(new String[]{"chi_index_fund","chi_index_fund_drowing","chi_index_info","chi_index_slide_pic","chi_news_charity_out","chi_news_charity_pay_in","chi_news_culture_news","chi_news_culture_zipai","chi_news_family_record","chi_news_family_record_video","chi_news_famous_ancestor","chi_news_famous_person","chi_news_upload_file","chi_news_upload_tree_file","chi_news_upload_video","chi_sys_show_permission","chi_sys_site","chi_sys_web_menu","chi_sys_web_news_show"});
         //strategy.setExclude(new String[]{"all_family"}); // 排除生成的表
         strategy.setEntityBuilderModel(true);
         mpg.setStrategy(strategy);

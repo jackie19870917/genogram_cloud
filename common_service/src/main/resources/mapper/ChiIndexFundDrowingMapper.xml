@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.genogram.mapper.ChiIndexFundDrowingMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.genogram.entity.ChiIndexFundDrowing">
+        <id column="id" property="id" />
+        <result column="site_id" property="siteId" />
+        <result column="drow_amount" property="drowAmount" />
+        <result column="drow_bank" property="drowBank" />
+        <result column="drow_bank_sub" property="drowBankSub" />
+        <result column="drow_time" property="drowTime" />
+        <result column="drow_in_account_name" property="drowInAccountName" />
+        <result column="drow_in_account_card" property="drowInAccountCard" />
+        <result column="drow_comments" property="drowComments" />
+        <result column="approve_status" property="approveStatus" />
+        <result column="create_time" property="createTime" />
+        <result column="create_user" property="createUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="update_user" property="updateUser" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, site_id AS siteId, drow_amount AS drowAmount, drow_bank AS drowBank, drow_bank_sub AS drowBankSub, drow_time AS drowTime, drow_in_account_name AS drowInAccountName, drow_in_account_card AS drowInAccountCard, drow_comments AS drowComments, approve_status AS approveStatus, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+    </sql>
+
+</mapper>
