@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.genogram</groupId>
-    <artifactId>pu_pro</artifactId>
+    <artifactId>chi_api_admin_service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -17,8 +17,8 @@
     </parent>
 
 
-    <name>pu_pro</name>
-    <description>pu_pro project for Spring Boot</description>
+    <name>chi_api_admin_service</name>
+    <description>Demo project for Spring Boot</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,6 +40,7 @@
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
         <!-- swagger -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -72,6 +73,18 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.genogram</groupId>
+            <artifactId>chi-biz-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.genogram</groupId>
+            <artifactId>chi-biz-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>

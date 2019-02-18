@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.genogram</groupId>
-    <artifactId>fan-biz-service</artifactId>
+    <artifactId>chi-biz-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>fan-biz-service</name>
+    <name>chi-biz-service</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>

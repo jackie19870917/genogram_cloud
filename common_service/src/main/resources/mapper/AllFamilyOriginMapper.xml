@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.genogram.entity.AllFamilyOrigin">
         <id column="id" property="id" />
         <result column="family_id" property="familyId" />
+        <result column="ancient_surnames" property="ancientSurnames" />
         <result column="first_ancestor" property="firstAncestor" />
         <result column="progenitor_source" property="progenitorSource" />
         <result column="pu_clique" property="puClique" />
@@ -19,6 +20,7 @@
         <result column="migrate_line" property="migrateLine" />
         <result column="population_distribution" property="populationDistribution" />
         <result column="family_figure" property="familyFigure" />
+        <result column="status" property="status" />
         <result column="create_time" property="createTime" />
         <result column="create_user" property="createUser" />
         <result column="update_time" property="updateTime" />
@@ -27,7 +29,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, family_id AS familyId, first_ancestor AS firstAncestor, progenitor_source AS progenitorSource, pu_clique AS puClique, ancient_rank AS ancientRank, nowadays_rank AS nowadaysRank, population_profile AS populationProfile, family_totem_pic AS familyTotemPic, family_paraphrase AS familyParaphrase, derive, jun_wang AS junWang, migrate_line AS migrateLine, population_distribution AS populationDistribution, family_figure AS familyFigure, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
+        id, family_id AS familyId, ancient_surnames AS ancientSurnames, first_ancestor AS firstAncestor, progenitor_source AS progenitorSource, pu_clique AS puClique, ancient_rank AS ancientRank, nowadays_rank AS nowadaysRank, population_profile AS populationProfile, family_totem_pic AS familyTotemPic, family_paraphrase AS familyParaphrase, derive, jun_wang AS junWang, migrate_line AS migrateLine, population_distribution AS populationDistribution, family_figure AS familyFigure, status, create_time AS createTime, create_user AS createUser, update_time AS updateTime, update_user AS updateUser
     </sql>
 
 </mapper>

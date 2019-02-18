@@ -32,6 +32,11 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
     @TableField("family_id")
     private Integer familyId;
     /**
+     * 姓氏繁体
+     */
+    @TableField("ancient_surnames")
+    private String ancientSurnames;
+    /**
      * 始祖
      */
     @TableField("first_ancestor")
@@ -96,6 +101,10 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
     @TableField("family_figure")
     private String familyFigure;
     /**
+     * 状态(0:删除;1:已发布;2:草稿3:不显示)
+     */
+    private Integer status;
+    /**
      * 创建时间
      */
     @TableField("create_time")
@@ -132,6 +141,15 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
 
     public AllFamilyOrigin setFamilyId(Integer familyId) {
         this.familyId = familyId;
+        return this;
+    }
+
+    public String getAncientSurnames() {
+        return ancientSurnames;
+    }
+
+    public AllFamilyOrigin setAncientSurnames(String ancientSurnames) {
+        this.ancientSurnames = ancientSurnames;
         return this;
     }
 
@@ -252,6 +270,15 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
         return this;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public AllFamilyOrigin setStatus(Integer status) {
+        this.status = status;
+        return this;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -298,6 +325,7 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
         return "AllFamilyOrigin{" +
         ", id=" + id +
         ", familyId=" + familyId +
+        ", ancientSurnames=" + ancientSurnames +
         ", firstAncestor=" + firstAncestor +
         ", progenitorSource=" + progenitorSource +
         ", puClique=" + puClique +
@@ -311,6 +339,7 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
         ", migrateLine=" + migrateLine +
         ", populationDistribution=" + populationDistribution +
         ", familyFigure=" + familyFigure +
+        ", status=" + status +
         ", createTime=" + createTime +
         ", createUser=" + createUser +
         ", updateTime=" + updateTime +
