@@ -67,19 +67,21 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFileVos(newsUploadTreeFileList);
 
+            log.info(siteId+"");
             //根据地区获取县级网站ID
             ProSysSite proSysSite = proSysSiteMapper.selectById(siteId);
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("parent", proSysSite.getRegionCode());
             wrapper.eq("family_code", proSysSite.getFamilyCode());
+            log.info(proSysSite.getRegionCode());
+            log.info(proSysSite.getFamilyCode()+"");
 
             List<FanSysSite> sysSiteList = fanSysSiteMapper.selectList(wrapper);
 
             List siteList = new ArrayList();
             for (FanSysSite fanSysSite : sysSiteList) {
                 siteList.add(fanSysSite.getId());
-                log.info(fanSysSite.getId()+"");
             }
 
             fanNewsUploadTreeFileWrapper.in("status", list);
