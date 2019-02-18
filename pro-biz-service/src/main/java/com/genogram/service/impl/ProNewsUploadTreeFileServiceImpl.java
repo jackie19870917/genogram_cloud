@@ -10,6 +10,8 @@ import com.genogram.service.IAllFamilyService;
 import com.genogram.service.IProNewsUploadTreeFileService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,8 @@ import java.util.List;
  */
 @Service
 public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadTreeFileMapper, ProNewsUploadTreeFile> implements IProNewsUploadTreeFileService {
+
+    Logger log = LoggerFactory.getLogger(ProNewsUploadTreeFileServiceImpl.class);
 
     @Autowired
     private FanNewsUploadTreeFileMapper fanNewsUploadTreeFileMapper;
@@ -53,6 +57,8 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
         // 地区和名称为空
         if (regionCode == "" && fileName == "") {
+
+            log.info("**********");
             proNewsUploadTreeFileWrapper.in("status", list);
             proNewsUploadTreeFileWrapper.eq("site_id", siteId);
             proNewsUploadTreeFileWrapper.orderBy("update_time", false);
@@ -73,6 +79,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
             List siteList = new ArrayList();
             for (FanSysSite fanSysSite : sysSiteList) {
                 siteList.add(fanSysSite.getId());
+                log.info(fanSysSite.getId()+"");
             }
 
             fanNewsUploadTreeFileWrapper.in("status", list);
