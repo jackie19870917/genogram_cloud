@@ -1,12 +1,15 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.math.BigDecimal;
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -199,18 +202,18 @@ public class ChiIndexFund extends Model<ChiIndexFund> {
     @Override
     public String toString() {
         return "ChiIndexFund{" +
-        ", id=" + id +
-        ", siteId=" + siteId +
-        ", remain=" + remain +
-        ", payNum=" + payNum +
-        ", unuseAmount=" + unuseAmount +
-        ", payOnline=" + payOnline +
-        ", payUnderline=" + payUnderline +
-        ", payGenogram=" + payGenogram +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", siteId=" + siteId +
+                ", remain=" + remain +
+                ", payNum=" + payNum +
+                ", unuseAmount=" + unuseAmount +
+                ", payOnline=" + payOnline +
+                ", payUnderline=" + payUnderline +
+                ", payGenogram=" + payGenogram +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

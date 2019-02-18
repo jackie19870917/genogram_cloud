@@ -62,18 +62,19 @@ public class AllFamilyOriginController {
     }
 
     /**
-     *  全国姓氏起源新增
-     *@Author: yuzhou
-     *@Date: 2019-02-18
-     *@Time: 11:32
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国姓氏起源新增
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-18
+     * @Time: 11:32
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "全国姓氏起源新增 修改", notes = "")
     @RequestMapping(value = "/addOrUpdateOrigin", method = RequestMethod.POST)
     public Response<AllFamilyOrigin> addOrUpdateOrigin(@ApiParam(value = "省级字派实体类") AllFamilyOrigin allFamilyOrigin,
-                                                      @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         // 校验敏感词汇
         Set set1 = allCheckOutService.getSensitiveWord(allFamilyOrigin.getFamilyParaphrase());
@@ -85,15 +86,15 @@ public class AllFamilyOriginController {
 
         if (set1 != null && set1.size() >= 1) {
             return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set1);
-        }else if(set2 != null && set2.size() >= 1){
+        } else if (set2 != null && set2.size() >= 1) {
             return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set2);
-        }else if(set3 != null && set3.size() >= 1){
+        } else if (set3 != null && set3.size() >= 1) {
             return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set3);
-        }else if(set4 != null && set4.size() >= 1){
+        } else if (set4 != null && set4.size() >= 1) {
             return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set4);
-        }else if(set5 != null && set5.size() >= 1){
+        } else if (set5 != null && set5.size() >= 1) {
             return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set5);
-        }else if(set6 != null && set6.size() >= 1){
+        } else if (set6 != null && set6.size() >= 1) {
             return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set6);
         }
 
@@ -115,7 +116,7 @@ public class AllFamilyOriginController {
             return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
-        Boolean aBoolean =allFamilyOriginService.addOrUpdateOrigin(allFamilyOrigin,userLogin);
+        Boolean aBoolean = allFamilyOriginService.addOrUpdateOrigin(allFamilyOrigin, userLogin);
         if (!aBoolean) {
             return ResponseUtils.error(Constants.FAILURE_CODE, "失败");
         }

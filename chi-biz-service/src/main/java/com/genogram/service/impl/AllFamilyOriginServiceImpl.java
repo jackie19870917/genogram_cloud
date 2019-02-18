@@ -22,19 +22,20 @@ import java.sql.Timestamp;
 public class AllFamilyOriginServiceImpl extends ServiceImpl<AllFamilyOriginMapper, AllFamilyOrigin> implements IAllFamilyOriginService {
 
     /**
-     *全国姓氏起源新增 修改
-     *@Author: yuzhou
-     *@Date: 2019-02-18
-     *@Time: 12:00
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国姓氏起源新增 修改
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-18
+     * @Time: 12:00
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean addOrUpdateOrigin(AllFamilyOrigin allFamilyOrigin, AllUserLogin userLogin) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
-        if(allFamilyOrigin.getId()==null){
+        if (allFamilyOrigin.getId() == null) {
             allFamilyOrigin.setCreateUser(userLogin.getId());
             allFamilyOrigin.setCreateTime(format);
         }

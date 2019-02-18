@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -323,27 +326,27 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
     @Override
     public String toString() {
         return "AllFamilyOrigin{" +
-        ", id=" + id +
-        ", familyId=" + familyId +
-        ", ancientSurnames=" + ancientSurnames +
-        ", firstAncestor=" + firstAncestor +
-        ", progenitorSource=" + progenitorSource +
-        ", puClique=" + puClique +
-        ", ancientRank=" + ancientRank +
-        ", nowadaysRank=" + nowadaysRank +
-        ", populationProfile=" + populationProfile +
-        ", familyTotemPic=" + familyTotemPic +
-        ", familyParaphrase=" + familyParaphrase +
-        ", derive=" + derive +
-        ", junWang=" + junWang +
-        ", migrateLine=" + migrateLine +
-        ", populationDistribution=" + populationDistribution +
-        ", familyFigure=" + familyFigure +
-        ", status=" + status +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", familyId=" + familyId +
+                ", ancientSurnames=" + ancientSurnames +
+                ", firstAncestor=" + firstAncestor +
+                ", progenitorSource=" + progenitorSource +
+                ", puClique=" + puClique +
+                ", ancientRank=" + ancientRank +
+                ", nowadaysRank=" + nowadaysRank +
+                ", populationProfile=" + populationProfile +
+                ", familyTotemPic=" + familyTotemPic +
+                ", familyParaphrase=" + familyParaphrase +
+                ", derive=" + derive +
+                ", junWang=" + junWang +
+                ", migrateLine=" + migrateLine +
+                ", populationDistribution=" + populationDistribution +
+                ", familyFigure=" + familyFigure +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

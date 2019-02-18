@@ -1,11 +1,14 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
+
 import java.util.Date;
+
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.io.Serializable;
 
 /**
@@ -212,19 +215,19 @@ public class ChiNewsFamousPerson extends Model<ChiNewsFamousPerson> {
     @Override
     public String toString() {
         return "ChiNewsFamousPerson{" +
-        ", id=" + id +
-        ", showId=" + showId +
-        ", personName=" + personName +
-        ", personSummary=" + personSummary +
-        ", picFileSrc=" + picFileSrc +
-        ", picFileName=" + picFileName +
-        ", visitNum=" + visitNum +
-        ", status=" + status +
-        ", commentCount=" + commentCount +
-        ", createTime=" + createTime +
-        ", createUser=" + createUser +
-        ", updateTime=" + updateTime +
-        ", updateUser=" + updateUser +
-        "}";
+                ", id=" + id +
+                ", showId=" + showId +
+                ", personName=" + personName +
+                ", personSummary=" + personSummary +
+                ", picFileSrc=" + picFileSrc +
+                ", picFileName=" + picFileName +
+                ", visitNum=" + visitNum +
+                ", status=" + status +
+                ", commentCount=" + commentCount +
+                ", createTime=" + createTime +
+                ", createUser=" + createUser +
+                ", updateTime=" + updateTime +
+                ", updateUser=" + updateUser +
+                "}";
     }
 }

@@ -16,6 +16,7 @@ public interface IAllFamilyOriginService extends IService<AllFamilyOrigin> {
 
     /**
      * 全国姓氏起源新增 修改
+     *
      * @param allFamilyOrigin
      * @param userLogin
      * @return
