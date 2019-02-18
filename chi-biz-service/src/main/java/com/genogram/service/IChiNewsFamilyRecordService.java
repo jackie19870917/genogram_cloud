@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ChiNewsFamilyRecord;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -13,4 +14,20 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IChiNewsFamilyRecordService extends IService<ChiNewsFamilyRecord> {
 
+    /**
+     * 全国记录家族文章新增 修改
+     * @param chiNewsFamilyRecord
+     * @param userLogin
+     * @return
+     */
+    Boolean addOrUpdateRecord(ChiNewsFamilyRecord chiNewsFamilyRecord, AllUserLogin userLogin);
+
+    /**
+     * 全国记录家族文章删除
+     * @param id
+     * @param userLogin
+     * @param status
+     * @return
+     */
+    Boolean deleteRecord(Integer id, AllUserLogin userLogin, int status);
 }
