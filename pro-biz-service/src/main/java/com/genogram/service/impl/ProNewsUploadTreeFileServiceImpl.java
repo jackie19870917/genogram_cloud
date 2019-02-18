@@ -77,7 +77,7 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             List siteList = new ArrayList();
 
-            if (siteList.size() != 0) {
+            if (sysSiteList.size() != 0) {
 
                 for (FanSysSite fanSysSite : sysSiteList) {
                     siteList.add(fanSysSite.getId());
