@@ -11,10 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Description:
  */
 @SpringBootApplication
-public class ChiApiWebServiceApplication {
+public class ChiApiAdminServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ChiApiWebServiceApplication.class, args);
+        SpringApplication.run(ChiApiAdminServiceApplication.class, args);
     }
 
 }
