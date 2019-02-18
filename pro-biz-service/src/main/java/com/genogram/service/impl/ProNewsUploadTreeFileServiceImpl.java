@@ -58,7 +58,6 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
         // 地区和名称为空
         if (regionCode == "" && fileName == "") {
 
-            log.info("**********");
             proNewsUploadTreeFileWrapper.in("status", list);
             proNewsUploadTreeFileWrapper.eq("site_id", siteId);
             proNewsUploadTreeFileWrapper.orderBy("update_time", false);
@@ -67,33 +66,34 @@ public class ProNewsUploadTreeFileServiceImpl extends ServiceImpl<ProNewsUploadT
 
             List<NewsUploadTreeFileVo> newsUploadTreeFileVoList = getNewsUploadTreeFileVos(newsUploadTreeFileList);
 
-            log.info(siteId+"");
             //根据地区获取县级网站ID
             ProSysSite proSysSite = proSysSiteMapper.selectById(siteId);
 
             Wrapper<FanSysSite> wrapper = new EntityWrapper<>();
             wrapper.eq("parent", proSysSite.getRegionCode());
             wrapper.eq("family_code", proSysSite.getFamilyCode());
-            log.info(proSysSite.getRegionCode());
-            log.info(proSysSite.getFamilyCode()+"");
 
             List<FanSysSite> sysSiteList = fanSysSiteMapper.selectList(wrapper);
 
             List siteList = new ArrayList();
-            for (FanSysSite fanSysSite : sysSiteList) {
-                siteList.add(fanSysSite.getId());
+
+            if (siteList.size() != 0) {
+
+                for (FanSysSite fanSysSite : sysSiteList) {
+                    siteList.add(fanSysSite.getId());
+                }
+
+                fanNewsUploadTreeFileWrapper.in("status", list);
+                fanNewsUploadTreeFileWrapper.in("site_id", siteList);
+                fanNewsUploadTreeFileWrapper.orderBy("update_time", false);
+
+                List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
+
+                List<NewsUploadTreeFileVo> newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
+
+                newsUploadTreeFileVoList.addAll(newsUploadTreeFileList1);
+
             }
-
-            fanNewsUploadTreeFileWrapper.in("status", list);
-            fanNewsUploadTreeFileWrapper.in("site_id", siteList);
-            fanNewsUploadTreeFileWrapper.orderBy("update_time", false);
-
-            List<FanNewsUploadTreeFile> fanNewsUploadTreeFileList = fanNewsUploadTreeFileMapper.selectList(fanNewsUploadTreeFileWrapper);
-
-            List<NewsUploadTreeFileVo> newsUploadTreeFileList1 = getNewsUploadTreeFile(fanNewsUploadTreeFileList);
-
-            newsUploadTreeFileVoList.addAll(newsUploadTreeFileList1);
-
             Page page = new Page(pageNo, pageSize);
             page.setRecords(newsUploadTreeFileVoList);
             page.setTotal(newsUploadTreeFileVoList.size());
