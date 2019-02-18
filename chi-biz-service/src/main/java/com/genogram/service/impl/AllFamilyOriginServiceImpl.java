@@ -44,4 +44,27 @@ public class AllFamilyOriginServiceImpl extends ServiceImpl<AllFamilyOriginMappe
         boolean result = this.insertOrUpdate(allFamilyOrigin);
         return result;
     }
+
+    /**
+     *删除姓氏起源信息
+     *@Author: yuzhou
+     *@Date: 2019-02-18
+     *@Time: 14:34
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean deleteOrigin(Integer id, int status, AllUserLogin userLogin) {
+        //生成时间
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+        //根据id查询数据
+        AllFamilyOrigin allFamilyOrigin = this.selectById(id);
+        allFamilyOrigin.setStatus(status);
+        allFamilyOrigin.setUpdateUser(userLogin.getId());
+        allFamilyOrigin.setUpdateTime(format);
+        //逻辑删除数据
+        Boolean aBoolean = this.updateAllColumnById(allFamilyOrigin);
+        return aBoolean;
+    }
 }

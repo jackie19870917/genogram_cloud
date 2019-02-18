@@ -116,12 +116,52 @@ public class AllFamilyOriginController {
             return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
+        //状态(0:删除;1:已发布;2:不显示)
+        int status = 1;
+        allFamilyOrigin.setStatus(status);
         Boolean aBoolean = allFamilyOriginService.addOrUpdateOrigin(allFamilyOrigin, userLogin);
         if (!aBoolean) {
             return ResponseUtils.error(Constants.FAILURE_CODE, "失败");
         }
 
         return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "成功");
+    }
+
+    /**
+     *删除姓氏起源信息
+     *@Author: yuzhou
+     *@Date: 2019-02-18
+     *@Time: 14:33
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "删除姓氏起源信息", notes = "")
+    @RequestMapping(value = "deleteOrigin", method = RequestMethod.POST)
+    public Response<Boolean> deleteOrigin(@ApiParam("id 姓氏起源表主键") @RequestParam(value = "id") Integer id,
+                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token){
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+        }
+        //判断ID是否为空
+        if(id==null){
+            return ResponseUtils.error(Constants.ERRO_CODE,"pepoleID为空");
+        }
+        //状态(0:删除;1:已发布;2:不显示)
+        int status = 0;
+        Boolean aBoolean =allFamilyOriginService.deleteOrigin(id,status,userLogin);
+        if (!aBoolean) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "删除失败");
+        }
+
+        return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "删除成功");
     }
 }
 

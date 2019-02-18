@@ -22,4 +22,13 @@ public interface IAllFamilyOriginService extends IService<AllFamilyOrigin> {
      * @return
      */
     Boolean addOrUpdateOrigin(AllFamilyOrigin allFamilyOrigin, AllUserLogin userLogin);
+
+    /**
+     * 删除姓氏起源信息
+     * @param id
+     * @param status
+     * @param userLogin
+     * @return
+     */
+    Boolean deleteOrigin(Integer id, int status, AllUserLogin userLogin);
 }
