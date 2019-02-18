@@ -1,12 +1,5 @@
-#http://localhost:8090/swagger-ui.html
-fastDfs_ip: http://192.168.2.132:8090/
-fan_api_web_service:
-  ip: http://192.168.2.179:8090
-
-
-
 server:
-  port: 8070
+  port: 8030
 spring:
   profiles:
-    active: pro
+    active: dev

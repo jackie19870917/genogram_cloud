@@ -11,8 +11,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * SwaggerConfig
  *
- * @author Toxicant
- * @date 2016/10/31
+ * @author yizx
+ * @date 2018/12/5
  */
 @Configuration
 @EnableSwagger2
