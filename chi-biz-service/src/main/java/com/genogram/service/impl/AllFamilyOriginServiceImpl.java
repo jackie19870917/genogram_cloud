@@ -6,6 +6,7 @@ import com.genogram.mapper.AllFamilyOriginMapper;
 import com.genogram.service.IAllFamilyOriginService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.StringsUtils;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -60,6 +61,11 @@ public class AllFamilyOriginServiceImpl extends ServiceImpl<AllFamilyOriginMappe
         Timestamp format = DateUtil.getCurrentTimeStamp();
         //根据id查询数据
         AllFamilyOrigin allFamilyOrigin = this.selectById(id);
+
+        if(StringsUtils.isEmpty(allFamilyOrigin)){
+            return false;
+        }
+
         allFamilyOrigin.setStatus(status);
         allFamilyOrigin.setUpdateUser(userLogin.getId());
         allFamilyOrigin.setUpdateTime(format);
