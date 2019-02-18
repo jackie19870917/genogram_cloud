@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.genogram</groupId>
-    <artifactId>fan-biz-service</artifactId>
+    <artifactId>pro-biz-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>fan-biz-service</name>
+    <name>pro-biz-service</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
@@ -33,16 +33,9 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <!--common_file_upload_service 依赖-->
-        <dependency>
-            <groupId>com.genogram</groupId>
-            <artifactId>common_file_upload_service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -55,7 +48,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>

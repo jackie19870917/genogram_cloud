@@ -1,8 +1,6 @@
-#正式服务器浏览图片(提供给前端IP)
-fastDfs_ip: http://192.168.2.132:8090/
-#测试服务器fastDFS 配置文件地址(上传测试服务器配置) 记得改tracker_server=192.168.2.132:22122
-fastDfs_path: c:/fastDFS.properties
-
+#阿里pay测试服务器
+pay_notify_url: http://127.0.0.1:8060/genogram/pay/notify_url
+pay_return_url: http://127.0.0.1:8060/genogram/pay/return_url
 spring:
   profiles: dev
   datasource:
