@@ -3,12 +3,15 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.genogram.entity.AllFamily;
+import com.genogram.entity.ChiSysSite;
 import com.genogram.entity.ChiSysWebMenu;
 import com.genogram.entity.ChiSysWebNewsShow;
-import com.genogram.entity.ProSysWebNewsShow;
 import com.genogram.mapper.ChiSysWebNewsShowMapper;
-import com.genogram.service.IChiSysWebMenuService;
-import com.genogram.service.IChiSysWebNewsShowService;
+import com.genogram.service.ChiSysSiteService;
+import com.genogram.service.ChiSysWebMenuService;
+import com.genogram.service.ChiSysWebNewsShowService;
+import com.genogram.service.IAllFamilyService;
 import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,7 @@ import java.util.List;
  * @since 2019-02-15
  */
 @Service
-public class ChiSysWebNewsShowServiceImpl extends ServiceImpl<ChiSysWebNewsShowMapper, ChiSysWebNewsShow> implements IChiSysWebNewsShowService {
+public class IChiSysWebNewsShowServiceImpl extends ServiceImpl<ChiSysWebNewsShowMapper, ChiSysWebNewsShow> implements ChiSysWebNewsShowService {
 
     private final static String SHOW_ID = "showId=";
     private final static String SITE_ID = "siteId=";
@@ -39,7 +42,13 @@ public class ChiSysWebNewsShowServiceImpl extends ServiceImpl<ChiSysWebNewsShowM
     private final static int NUM_100 = 100;
 
     @Autowired
-    private IChiSysWebMenuService chiSysWebMenuService;
+    private ChiSysWebMenuService chiSysWebMenuService;
+
+    @Autowired
+    private ChiSysSiteService chiSysSiteService;
+
+    @Autowired
+    private IAllFamilyService allFamilyService;
 
     @Override
     public void initWebMenu(int siteId) {
@@ -49,6 +58,19 @@ public class ChiSysWebNewsShowServiceImpl extends ServiceImpl<ChiSysWebNewsShowM
         List<ChiSysWebNewsShow> showList = new ArrayList<>();
 
         if (list.isEmpty()) {
+            ChiSysSite chiSysSite = chiSysSiteService.selectById(siteId);
+            //查询姓氏
+            AllFamily allFamily = allFamilyService.selectById(chiSysSite.getFamilyCode());
+
+            //修改数据
+            ChiSysWebMenu chiSysWebMenu = chiSysWebMenuService.selectById(4);
+            chiSysWebMenu.setMenuName(allFamily.getValue()+"氏文化");
+            chiSysWebMenuService.updateAllColumnById(chiSysWebMenu);
+
+            ChiSysWebMenu chiMenu = chiSysWebMenuService.selectById(22);
+            chiMenu.setMenuName(allFamily.getValue()+"氏先贤");
+            chiSysWebMenuService.updateAllColumnById(chiSysWebMenu);
+
             List<ChiSysWebMenu> menuList = chiSysWebMenuService.selectList(null);
             menuList.forEach(menu -> {
                 ChiSysWebNewsShow show = new ChiSysWebNewsShow();

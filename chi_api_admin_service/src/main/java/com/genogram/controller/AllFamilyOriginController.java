@@ -1,6 +1,8 @@
 package com.genogram.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllFamilyOrigin;
 import com.genogram.entity.AllUserLogin;
@@ -163,5 +165,57 @@ public class AllFamilyOriginController {
 
         return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "删除成功");
     }
-}
+
+
+    /**
+     *全国姓氏起源查询
+     *@Author: yuzhou
+     *@Date: 2019-02-19
+     *@Time: 14:09
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "全国姓氏起源查询", notes = "")
+    @RequestMapping(value = "/addOrUpdateOrigin", method = RequestMethod.POST)
+    public Response<AllFamilyOrigin> sOrigin(@ApiParam(value = "显示位置Id")@RequestParam(value = "showId", required = false)String showId,
+                                             @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                             @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+                                             @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+        //判断showId是否有值
+        if (showId == null) {
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
+        }
+
+        //状态(0:删除;1:已发布;2:不显示)
+        List statusList = new ArrayList();
+        statusList.add(1);
+        //查询条件
+        Wrapper<AllFamilyOrigin> entity = new EntityWrapper<AllFamilyOrigin>();
+        entity.eq("show_id", showId);
+        if (statusList.size() != 0) {
+            entity.in("status", statusList);
+        }
+        entity.orderBy("update_time", false);
+        return null;
+    }
+
+    }
 

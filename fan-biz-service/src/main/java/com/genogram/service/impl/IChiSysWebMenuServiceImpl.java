@@ -3,7 +3,7 @@ package com.genogram.service.impl;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.entity.ChiSysWebMenu;
 import com.genogram.mapper.ChiSysWebMenuMapper;
-import com.genogram.service.IChiSysWebMenuService;
+import com.genogram.service.ChiSysWebMenuService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Service;
  * @since 2019-02-15
  */
 @Service
-public class ChiSysWebMenuServiceImpl extends ServiceImpl<ChiSysWebMenuMapper, ChiSysWebMenu> implements IChiSysWebMenuService {
+public class IChiSysWebMenuServiceImpl extends ServiceImpl<ChiSysWebMenuMapper, ChiSysWebMenu> implements ChiSysWebMenuService {
 
 }

@@ -11,7 +11,7 @@ import com.genogram.entity.ChiSysWebNewsShow;
  * @author wangwei
  * @since 2019-02-15
  */
-public interface IChiSysWebNewsShowService extends IService<ChiSysWebNewsShow> {
+public interface ChiSysWebNewsShowService extends IService<ChiSysWebNewsShow> {
 
     /**
      * 开网站初始化菜单

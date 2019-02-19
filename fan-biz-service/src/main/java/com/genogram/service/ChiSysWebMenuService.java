@@ -11,6 +11,6 @@ import com.genogram.entity.ChiSysWebMenu;
  * @author wangwei
  * @since 2019-02-15
  */
-public interface IChiSysWebMenuService extends IService<ChiSysWebMenu> {
+public interface ChiSysWebMenuService extends IService<ChiSysWebMenu> {
 
 }
