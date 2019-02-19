@@ -2,6 +2,7 @@ package com.genogram.service;
 
 import com.genogram.entity.ChiIndexInfo;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.IndexInfoVo;
 
 /**
  * <p>
@@ -13,4 +14,10 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IChiIndexInfoService extends IService<ChiIndexInfo> {
 
+    /**
+     * 全国信息
+     * @param siteId
+     * @return
+     */
+    IndexInfoVo getIndexInfoVoBySiteId(Integer siteId);
 }
