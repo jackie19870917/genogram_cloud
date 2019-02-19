@@ -1,14 +1,11 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
@@ -17,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author wangwei
- * @since 2019-02-18
+ * @since 2019-02-19
  */
 @TableName("all_family_origin")
 public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
@@ -29,6 +26,11 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+    /**
+     * 显示位置Id
+     */
+    @TableField("show_id")
+    private Integer showId;
     /**
      * 姓氏表ID all_family_origin
      */
@@ -135,6 +137,15 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
 
     public AllFamilyOrigin setId(Integer id) {
         this.id = id;
+        return this;
+    }
+
+    public Integer getShowId() {
+        return showId;
+    }
+
+    public AllFamilyOrigin setShowId(Integer showId) {
+        this.showId = showId;
         return this;
     }
 
@@ -326,27 +337,28 @@ public class AllFamilyOrigin extends Model<AllFamilyOrigin> {
     @Override
     public String toString() {
         return "AllFamilyOrigin{" +
-                ", id=" + id +
-                ", familyId=" + familyId +
-                ", ancientSurnames=" + ancientSurnames +
-                ", firstAncestor=" + firstAncestor +
-                ", progenitorSource=" + progenitorSource +
-                ", puClique=" + puClique +
-                ", ancientRank=" + ancientRank +
-                ", nowadaysRank=" + nowadaysRank +
-                ", populationProfile=" + populationProfile +
-                ", familyTotemPic=" + familyTotemPic +
-                ", familyParaphrase=" + familyParaphrase +
-                ", derive=" + derive +
-                ", junWang=" + junWang +
-                ", migrateLine=" + migrateLine +
-                ", populationDistribution=" + populationDistribution +
-                ", familyFigure=" + familyFigure +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", familyId=" + familyId +
+        ", ancientSurnames=" + ancientSurnames +
+        ", firstAncestor=" + firstAncestor +
+        ", progenitorSource=" + progenitorSource +
+        ", puClique=" + puClique +
+        ", ancientRank=" + ancientRank +
+        ", nowadaysRank=" + nowadaysRank +
+        ", populationProfile=" + populationProfile +
+        ", familyTotemPic=" + familyTotemPic +
+        ", familyParaphrase=" + familyParaphrase +
+        ", derive=" + derive +
+        ", junWang=" + junWang +
+        ", migrateLine=" + migrateLine +
+        ", populationDistribution=" + populationDistribution +
+        ", familyFigure=" + familyFigure +
+        ", status=" + status +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }
