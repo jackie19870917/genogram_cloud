@@ -52,8 +52,8 @@ public class ChiNewsFamilyRecordVideoController {
         /**
          * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
          */
-        list.add(2);
-        list.add(5);
+        list.add(3);
+        list.add(6);
         list.add(9);
 
         return list;
