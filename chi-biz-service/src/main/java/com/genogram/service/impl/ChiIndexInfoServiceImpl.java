@@ -14,10 +14,13 @@ import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IChiIndexInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.service.IChiSysSiteService;
+import com.genogram.unit.DateUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.sql.Timestamp;
 
 /**
  * <p>
@@ -71,5 +74,49 @@ public class ChiIndexInfoServiceImpl extends ServiceImpl<ChiIndexInfoMapper, Chi
         indexInfoVo.setUserNum(allUserLoginPage.getTotal());
 
         return indexInfoVo;
+    }
+
+    @Override
+    public Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo) {
+
+        ChiIndexInfo chiIndexInfo = this.selectById(indexInfoVo.getId());
+
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+
+        if (StringUtils.isEmpty(chiIndexInfo)) {
+
+            chiIndexInfo.setCreateTime(format);
+            indexInfoVo.setCreateTime(format);
+        }
+
+        ChiIndexInfo indexInfo = new ChiIndexInfo();
+        BeanUtils.copyProperties(indexInfoVo, indexInfo);
+        indexInfo.setUpdateTime(format);
+
+        ChiSysSite chiSysSite = chiSysSiteService.getFanSysSite(chiIndexInfo.getSiteId());
+
+        chiSysSite.setUpdateTime(DateUtil.format(format));
+        chiSysSite.setName(indexInfoVo.getSiteName());
+        chiSysSite.setUpdateUser(indexInfoVo.getUpdateUser());
+
+        return this.insertOrUpdate(indexInfo) && chiSysSiteService.updateById(chiSysSite);
+    }
+
+    @Override
+    public Boolean deleteChiIndexInfo(ChiIndexInfo chiIndexInfo) {
+
+        Timestamp format = DateUtil.getCurrentTimeStamp();
+
+        chiIndexInfo.setUpdateTime(format);
+
+        if ("".equals(chiIndexInfo.getTotemPicSrc())) {
+            chiIndexInfo.setTotemPicSrc("");
+        } else if ("".equals(chiIndexInfo.getTitle())) {
+            chiIndexInfo.setTitle("");
+        } else if ("".equals(chiIndexInfo.getDescription())) {
+            chiIndexInfo.setDescription("");
+        }
+
+        return this.updateById(chiIndexInfo);
     }
 }

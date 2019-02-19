@@ -17,4 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChiSysSiteServiceImpl extends ServiceImpl<ChiSysSiteMapper, ChiSysSite> implements IChiSysSiteService {
 
+    @Override
+    public ChiSysSite getFanSysSite(Integer siteId) {
+
+        return this.selectById(siteId);
+    }
 }

@@ -23,4 +23,19 @@ public interface IChiIndexSlidePicService extends IService<ChiIndexSlidePic> {
      * @return
      */
     List<ChiIndexSlidePic> getChiIndexSlidePicBySiteId(Integer siteId, Integer status);
+
+    /**
+     * 删除轮播图
+     * @param id
+     * @param userId
+     * @return
+     */
+    Boolean chiIndexSlidePic(Integer id, Integer userId);
+
+    /**
+     * 新增 修改 轮播图
+     * @param chiIndexSlidePic
+     * @return
+     */
+    Boolean insertOrUpdateChiIndexSlidePic(ChiIndexSlidePic chiIndexSlidePic);
 }

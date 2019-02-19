@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IChiSysSiteService extends IService<ChiSysSite> {
 
+    /**
+     * 网站查询
+     * @param siteId
+     * @return
+     */
+    ChiSysSite getFanSysSite(Integer siteId);
 }

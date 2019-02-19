@@ -103,7 +103,7 @@ public class FanIndexInfoServiceImpl extends ServiceImpl<FanIndexInfoMapper, Fan
         fanSysSite.setName(indexInfoVo.getSiteName());
         fanSysSite.setUpdateUser(indexInfoVo.getUpdateUser());
 
-        return this.insertOrUpdate(indexInfo) & fanSysSiteService.updateById(fanSysSite);
+        return this.insertOrUpdate(indexInfo) && fanSysSiteService.updateById(fanSysSite);
 
     }
 

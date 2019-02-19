@@ -21,4 +21,18 @@ public interface IChiIndexInfoService extends IService<ChiIndexInfo> {
      * @return
      */
     IndexInfoVo getIndexInfoVoBySiteId(Integer siteId);
+
+    /**
+     * 新增 修改 基本信息
+     * @param indexInfoVo
+     * @return
+     */
+    Boolean insertOrUpdateIndexInfoVo(IndexInfoVo indexInfoVo);
+
+    /**
+     * 删除 基本信息
+     * @param chiIndexInfo
+     * @return
+     */
+    Boolean deleteChiIndexInfo(ChiIndexInfo chiIndexInfo);
 }
