@@ -78,7 +78,7 @@ public class ProIndexInfoServiceImpl extends ServiceImpl<ProIndexInfoMapper, Pro
         proSysSite.setName(indexInfoVo.getSiteName());
         proSysSite.setUpdateUser(indexInfoVo.getUpdateUser());
 
-        return this.insertOrUpdate(indexInfo) & proSysSiteService.updateById(proSysSite);
+        return this.insertOrUpdate(indexInfo) && proSysSiteService.updateById(proSysSite);
     }
 
     @Override
