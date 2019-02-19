@@ -69,7 +69,7 @@ public class ProSysWebNewsShowServiceImpl extends ServiceImpl<ProSysWebNewsShowM
         vo = setIndexMenu(siteId, "家族头条", "index_family_record1", "genogram/proNewsFamilyRecord/proSelectRecortPage?showId=", "");
         volist.add(vo);
         //省级公告
-        vo = setIndexMenu(siteId, "省级公告", "index_family_record2", "genogram/proNewsFamilyRecord/proSelectRecortPage?showId=", "");
+        vo = setIndexMenu(siteId, "家族公告", "index_family_record2", "genogram/proNewsFamilyRecord/proSelectRecortPage?showId=", "");
         volist.add(vo);
 
         //资讯-联谊会发布-家族文化除去字派,记录家族除去视频
