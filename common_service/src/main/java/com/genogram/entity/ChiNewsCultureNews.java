@@ -1,23 +1,20 @@
 package com.genogram.entity;
 
 import com.baomidou.mybatisplus.enums.IdType;
-
 import java.util.Date;
-
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
-
 import java.io.Serializable;
 
 /**
  * <p>
- * 省级-家族文化文章表
+ * 全国-家族文化文章表
  * </p>
  *
  * @author wangwei
- * @since 2019-02-15
+ * @since 2019-02-19
  */
 @TableName("chi_news_culture_news")
 public class ChiNewsCultureNews extends Model<ChiNewsCultureNews> {
@@ -187,17 +184,17 @@ public class ChiNewsCultureNews extends Model<ChiNewsCultureNews> {
     @Override
     public String toString() {
         return "ChiNewsCultureNews{" +
-                ", id=" + id +
-                ", showId=" + showId +
-                ", newsTitle=" + newsTitle +
-                ", newsText=" + newsText +
-                ", visitNum=" + visitNum +
-                ", status=" + status +
-                ", commentCount=" + commentCount +
-                ", createTime=" + createTime +
-                ", createUser=" + createUser +
-                ", updateTime=" + updateTime +
-                ", updateUser=" + updateUser +
-                "}";
+        ", id=" + id +
+        ", showId=" + showId +
+        ", newsTitle=" + newsTitle +
+        ", newsText=" + newsText +
+        ", visitNum=" + visitNum +
+        ", status=" + status +
+        ", commentCount=" + commentCount +
+        ", createTime=" + createTime +
+        ", createUser=" + createUser +
+        ", updateTime=" + updateTime +
+        ", updateUser=" + updateUser +
+        "}";
     }
 }
