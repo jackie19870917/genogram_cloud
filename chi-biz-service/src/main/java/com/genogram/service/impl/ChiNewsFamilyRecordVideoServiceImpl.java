@@ -22,21 +22,22 @@ import java.sql.Timestamp;
 public class ChiNewsFamilyRecordVideoServiceImpl extends ServiceImpl<ChiNewsFamilyRecordVideoMapper, ChiNewsFamilyRecordVideo> implements IChiNewsFamilyRecordVideoService {
 
     /**
-     *全国记录家族视频新增
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 9:35
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族视频新增
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 9:35
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean addOrUpdateRecordVideo(ChiNewsFamilyRecordVideo chiNewsFamilyRecordVideo, AllUserLogin userLogin) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
 
         //判断是否有id
-        if(chiNewsFamilyRecordVideo.getId()==null){
+        if (chiNewsFamilyRecordVideo.getId() == null) {
             chiNewsFamilyRecordVideo.setCreateUser(userLogin.getId());
             chiNewsFamilyRecordVideo.setCreateTime(format);
         }

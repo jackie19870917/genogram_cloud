@@ -119,19 +119,20 @@ public class PuPepoleInfoServiceImpl extends ServiceImpl<PuPepoleInfoMapper, PuP
     }
 
     /**
-     *删除人物信息
-     *@Author: yuzhou
-     *@Date: 2019-02-15
-     *@Time: 10:37
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 删除人物信息
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-15
+     * @Time: 10:37
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean deletePuPepoleInfo(Integer id) {
         //查询数据信息
         PuPepoleInfo puPepoleInfo = this.selectById(id);
-        if(StringUtils.isEmpty(puPepoleInfo)){
+        if (StringUtils.isEmpty(puPepoleInfo)) {
             return null;
         }
 
@@ -145,9 +146,9 @@ public class PuPepoleInfoServiceImpl extends ServiceImpl<PuPepoleInfoMapper, PuP
 
     private void deletePuPole(String ids) {
         //判断是否有女儿
-        if(StringsUtils.isNotEmpty(ids)){
+        if (StringsUtils.isNotEmpty(ids)) {
             String[] daughterIds = ids.split(" ");
-            for (String daughter:daughterIds) {
+            for (String daughter : daughterIds) {
                 PuPepoleInfo puPepole = this.selectById(daughter);
                 //女儿
                 String daughterId = puPepole.getDaughterId();

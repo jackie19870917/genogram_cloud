@@ -2,10 +2,10 @@ package com.genogram.controller;
 
 
 import com.genogram.config.Constants;
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ChiIndexSlidePic;
 import com.genogram.entityvo.IndexInfoVo;
-import com.genogram.service.IChiIndexInfoService;
-import com.genogram.service.IChiIndexSlidePicService;
+import com.genogram.service.*;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtils;
 import io.swagger.annotations.Api;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,14 +38,53 @@ public class ChiIndexController {
     @Autowired
     private IChiIndexInfoService chiIndexInfoService;
 
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private IAllUserLoginService allUserLoginService;
+
+    private List getList() {
+
+        List list = new ArrayList();
+        /**
+         * 角色权限 (0.不是管理员,1.县级管理员,2省级管理员,3.全国管理员,4县级副管理员,5省级副管理员,6全国副管理员,9.超级管理员)
+         */
+        list.add(3);
+        list.add(6);
+        list.add(9);
+
+        return list;
+    }
+
     /**
      * 轮播图
+     *
      * @param siteId
      * @return
      */
     @ApiOperation(value = "轮播图", notes = "id:主键,siteId:网站Id,picUrl:图片url,sort:排序")
     @RequestMapping(value = "index/getChiIndexSlidePic", method = RequestMethod.GET)
-    public Response<ChiIndexSlidePic> getChiIndexSlidePic(@ApiParam("网站ID") @RequestParam Integer siteId) {
+    public Response<ChiIndexSlidePic> getChiIndexSlidePic(@ApiParam("网站ID") @RequestParam Integer siteId,
+                                                          @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
 
         if (siteId == null) {
             return ResponseUtils.error(Constants.IS_EMPTY, null);
@@ -61,12 +101,32 @@ public class ChiIndexController {
 
     /**
      * 全国基本信息
+     *
      * @param siteId
      * @return
      */
     @ApiOperation(value = "基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名称,regionCode;地区编号,totemPicSrc:图腾,title:宣言,description;简介")
     @RequestMapping(value = "index/getChiIndexInfo", method = RequestMethod.GET)
-    public Response<IndexInfoVo> getChiIndexInfo(@ApiParam("网站ID") @RequestParam Integer siteId) {
+    public Response<IndexInfoVo> getChiIndexInfo(@ApiParam("网站ID") @RequestParam Integer siteId,
+                                                 @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
 
         if (siteId == null) {
             return ResponseUtils.error(Constants.IS_EMPTY, null);

@@ -16,6 +16,7 @@ public interface IChiNewsFamilyRecordService extends IService<ChiNewsFamilyRecor
 
     /**
      * 全国记录家族文章新增 修改
+     *
      * @param chiNewsFamilyRecord
      * @param userLogin
      * @return
@@ -24,6 +25,7 @@ public interface IChiNewsFamilyRecordService extends IService<ChiNewsFamilyRecor
 
     /**
      * 全国记录家族文章删除
+     *
      * @param id
      * @param userLogin
      * @param status

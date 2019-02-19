@@ -23,21 +23,22 @@ import java.sql.Timestamp;
 public class ChiNewsFamilyRecordServiceImpl extends ServiceImpl<ChiNewsFamilyRecordMapper, ChiNewsFamilyRecord> implements IChiNewsFamilyRecordService {
 
     /**
-     *全国记录家族文章新增 修改
-     *@Author: yuzhou
-     *@Date: 2019-02-18
-     *@Time: 17:49
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族文章新增 修改
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-18
+     * @Time: 17:49
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean addOrUpdateRecord(ChiNewsFamilyRecord chiNewsFamilyRecord, AllUserLogin userLogin) {
         //生成时间
         Timestamp format = DateUtil.getCurrentTimeStamp();
 
         //判断是否有id
-        if(chiNewsFamilyRecord.getId()==null){
+        if (chiNewsFamilyRecord.getId() == null) {
             chiNewsFamilyRecord.setCreateUser(userLogin.getId());
             chiNewsFamilyRecord.setCreateTime(format);
         }
@@ -48,14 +49,15 @@ public class ChiNewsFamilyRecordServiceImpl extends ServiceImpl<ChiNewsFamilyRec
     }
 
     /**
-     *全国记录家族文章删除
-     *@Author: yuzhou
-     *@Date: 2019-02-18
-     *@Time: 18:09
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族文章删除
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-18
+     * @Time: 18:09
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean deleteRecord(Integer id, AllUserLogin userLogin, int status) {
         //生成时间
@@ -63,7 +65,7 @@ public class ChiNewsFamilyRecordServiceImpl extends ServiceImpl<ChiNewsFamilyRec
 
         //查询数据
         ChiNewsFamilyRecord chiNewsFamilyRecord = this.selectById(id);
-        if(StringsUtils.isEmpty(chiNewsFamilyRecord)){
+        if (StringsUtils.isEmpty(chiNewsFamilyRecord)) {
             return false;
         }
         chiNewsFamilyRecord.setUpdateTime(format);

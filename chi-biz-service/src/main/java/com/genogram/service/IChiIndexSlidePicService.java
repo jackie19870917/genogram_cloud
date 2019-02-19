@@ -17,9 +17,10 @@ public interface IChiIndexSlidePicService extends IService<ChiIndexSlidePic> {
 
     /**
      * 轮播图查询
+     *
      * @param siteId
      * @param status
      * @return
      */
-    List<ChiIndexSlidePic> getChiIndexSlidePicBySiteId(Integer siteId,Integer status);
+    List<ChiIndexSlidePic> getChiIndexSlidePicBySiteId(Integer siteId, Integer status);
 }

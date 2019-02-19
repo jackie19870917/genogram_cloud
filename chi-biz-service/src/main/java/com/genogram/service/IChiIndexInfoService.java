@@ -16,6 +16,7 @@ public interface IChiIndexInfoService extends IService<ChiIndexInfo> {
 
     /**
      * 全国信息
+     *
      * @param siteId
      * @return
      */

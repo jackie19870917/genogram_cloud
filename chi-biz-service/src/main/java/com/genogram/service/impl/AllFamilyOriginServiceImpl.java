@@ -49,14 +49,15 @@ public class AllFamilyOriginServiceImpl extends ServiceImpl<AllFamilyOriginMappe
     }
 
     /**
-     *删除姓氏起源信息
-     *@Author: yuzhou
-     *@Date: 2019-02-18
-     *@Time: 14:34
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 删除姓氏起源信息
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-18
+     * @Time: 14:34
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean deleteOrigin(Integer id, int status, AllUserLogin userLogin) {
         //生成时间
@@ -64,7 +65,7 @@ public class AllFamilyOriginServiceImpl extends ServiceImpl<AllFamilyOriginMappe
         //根据id查询数据
         AllFamilyOrigin allFamilyOrigin = this.selectById(id);
 
-        if(StringsUtils.isEmpty(allFamilyOrigin)){
+        if (StringsUtils.isEmpty(allFamilyOrigin)) {
             return false;
         }
 
@@ -77,14 +78,15 @@ public class AllFamilyOriginServiceImpl extends ServiceImpl<AllFamilyOriginMappe
     }
 
     /**
-     *全国姓氏起源查询
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 15:54
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国姓氏起源查询
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 15:54
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Page<AllFamilyOrigin> getOriginPage(Integer pageNo, Integer pageSize, Wrapper<AllFamilyOrigin> entity) {
         Page<AllFamilyOrigin> allFamilyOriginPage = this.selectPage(new Page<AllFamilyOrigin>(pageNo, pageSize), entity);

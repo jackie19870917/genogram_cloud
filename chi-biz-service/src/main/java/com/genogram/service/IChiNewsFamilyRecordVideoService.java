@@ -16,6 +16,7 @@ public interface IChiNewsFamilyRecordVideoService extends IService<ChiNewsFamily
 
     /**
      * 全国记录家族视频新增
+     *
      * @param chiNewsFamilyRecordVideo
      * @param userLogin
      * @return

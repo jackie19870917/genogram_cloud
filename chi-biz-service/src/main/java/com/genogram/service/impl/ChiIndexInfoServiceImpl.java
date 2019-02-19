@@ -70,6 +70,6 @@ public class ChiIndexInfoServiceImpl extends ServiceImpl<ChiIndexInfoMapper, Chi
 
         indexInfoVo.setUserNum(allUserLoginPage.getTotal());
 
-        return indexInfoVo ;
+        return indexInfoVo;
     }
 }

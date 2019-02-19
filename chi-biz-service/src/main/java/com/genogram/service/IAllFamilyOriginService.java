@@ -27,6 +27,7 @@ public interface IAllFamilyOriginService extends IService<AllFamilyOrigin> {
 
     /**
      * 删除姓氏起源信息
+     *
      * @param id
      * @param status
      * @param userLogin
@@ -36,6 +37,7 @@ public interface IAllFamilyOriginService extends IService<AllFamilyOrigin> {
 
     /**
      * 全国姓氏起源查询
+     *
      * @param pageNo
      * @param pageSize
      * @param entity

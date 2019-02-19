@@ -39,6 +39,7 @@ public class ChiIndexController {
 
     /**
      * 轮播图
+     *
      * @param siteId
      * @return
      */
@@ -61,6 +62,7 @@ public class ChiIndexController {
 
     /**
      * 全国基本信息
+     *
      * @param siteId
      * @return
      */

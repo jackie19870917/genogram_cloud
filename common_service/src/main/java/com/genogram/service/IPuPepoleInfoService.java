@@ -28,6 +28,7 @@ public interface IPuPepoleInfoService extends IService<PuPepoleInfo> {
 
     /**
      * 删除人物信息
+     *
      * @param id
      * @return
      */

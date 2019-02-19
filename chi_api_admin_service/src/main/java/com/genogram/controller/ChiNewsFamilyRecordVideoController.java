@@ -60,18 +60,19 @@ public class ChiNewsFamilyRecordVideoController {
     }
 
     /**
-     *全国记录家族视频新增
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 9:34
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族视频新增
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 9:34
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "全国记录家族视频新增 修改", notes = "")
     @RequestMapping(value = "/addOrUpdateRecordVideo", method = RequestMethod.POST)
     public Response<ChiNewsFamilyRecordVideo> addOrUpdateRecordVideo(@ApiParam(value = "省级字派实体类") ChiNewsFamilyRecordVideo chiNewsFamilyRecordVideo,
-                                                                @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+                                                                     @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
         if (StringsUtils.isEmpty(token)) {

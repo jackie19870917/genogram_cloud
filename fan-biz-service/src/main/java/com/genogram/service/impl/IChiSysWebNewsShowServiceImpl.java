@@ -64,11 +64,11 @@ public class IChiSysWebNewsShowServiceImpl extends ServiceImpl<ChiSysWebNewsShow
 
             //修改数据
             ChiSysWebMenu chiSysWebMenu = chiSysWebMenuService.selectById(4);
-            chiSysWebMenu.setMenuName(allFamily.getValue()+"氏文化");
+            chiSysWebMenu.setMenuName(allFamily.getValue() + "氏文化");
             chiSysWebMenuService.updateAllColumnById(chiSysWebMenu);
 
             ChiSysWebMenu chiMenu = chiSysWebMenuService.selectById(22);
-            chiMenu.setMenuName(allFamily.getValue()+"氏先贤");
+            chiMenu.setMenuName(allFamily.getValue() + "氏先贤");
             chiSysWebMenuService.updateAllColumnById(chiSysWebMenu);
 
             List<ChiSysWebMenu> menuList = chiSysWebMenuService.selectList(null);

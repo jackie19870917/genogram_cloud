@@ -116,8 +116,8 @@ public class ChiNewsFamilyRecordController {
 
     @ApiOperation(value = "全国记录家族文章删除", notes = "")
     @RequestMapping(value = "/deleteRecord", method = RequestMethod.POST)
-    public Response<ChiNewsFamilyRecord> deleteRecord(@ApiParam("主键")@RequestParam(value = "id") Integer id,
-                                                           @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+    public Response<ChiNewsFamilyRecord> deleteRecord(@ApiParam("主键") @RequestParam(value = "id") Integer id,
+                                                      @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
         if (StringsUtils.isEmpty(token)) {
@@ -137,13 +137,13 @@ public class ChiNewsFamilyRecordController {
             return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
         }
 
-        if(id == null){
-            return ResponseUtils.error(Constants.IS_EMPTY,"请输入正确参数");
+        if (id == null) {
+            return ResponseUtils.error(Constants.IS_EMPTY, "请输入正确参数");
         }
 
         //状态(0:删除;1:已发布;2:草稿3:不显示)
         int status = 0;
-        Boolean aBoolean = chiNewsFamilyRecordService.deleteRecord(id,userLogin,status);
+        Boolean aBoolean = chiNewsFamilyRecordService.deleteRecord(id, userLogin, status);
         if (!aBoolean) {
             return ResponseUtils.error(Constants.FAILURE_CODE, "失败");
         }
