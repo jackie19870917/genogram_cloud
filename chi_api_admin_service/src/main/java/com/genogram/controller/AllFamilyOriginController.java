@@ -3,6 +3,7 @@ package com.genogram.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllFamilyOrigin;
 import com.genogram.entity.AllUserLogin;
@@ -12,6 +13,7 @@ import com.genogram.service.IAllUserLoginService;
 import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtils;
+import com.genogram.unit.StringsUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -214,7 +216,12 @@ public class AllFamilyOriginController {
             entity.in("status", statusList);
         }
         entity.orderBy("update_time", false);
-        return null;
+
+        Page<AllFamilyOrigin> allFamilyOrigin =allFamilyOriginService.getOriginPage(pageNo,pageSize,entity);
+        if (StringsUtils.isEmpty(allFamilyOrigin)) {
+            return ResponseUtils.error(Constants.ERRO_CODE, "fanNewsCultureZipai为空");
+        }
+        return ResponseUtils.success(allFamilyOrigin);
     }
 
     }

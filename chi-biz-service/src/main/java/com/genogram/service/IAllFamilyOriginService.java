@@ -1,5 +1,7 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllFamilyOrigin;
 import com.baomidou.mybatisplus.service.IService;
 import com.genogram.entity.AllUserLogin;
@@ -31,4 +33,13 @@ public interface IAllFamilyOriginService extends IService<AllFamilyOrigin> {
      * @return
      */
     Boolean deleteOrigin(Integer id, int status, AllUserLogin userLogin);
+
+    /**
+     * 全国姓氏起源查询
+     * @param pageNo
+     * @param pageSize
+     * @param entity
+     * @return
+     */
+    Page<AllFamilyOrigin> getOriginPage(Integer pageNo, Integer pageSize, Wrapper<AllFamilyOrigin> entity);
 }

@@ -1,5 +1,7 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllFamilyOrigin;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.mapper.AllFamilyOriginMapper;
@@ -73,4 +75,20 @@ public class AllFamilyOriginServiceImpl extends ServiceImpl<AllFamilyOriginMappe
         Boolean aBoolean = this.updateAllColumnById(allFamilyOrigin);
         return aBoolean;
     }
+
+    /**
+     *全国姓氏起源查询
+     *@Author: yuzhou
+     *@Date: 2019-02-19
+     *@Time: 15:54
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Page<AllFamilyOrigin> getOriginPage(Integer pageNo, Integer pageSize, Wrapper<AllFamilyOrigin> entity) {
+        Page<AllFamilyOrigin> allFamilyOriginPage = this.selectPage(new Page<AllFamilyOrigin>(pageNo, pageSize), entity);
+        return allFamilyOriginPage;
+    }
+
 }
