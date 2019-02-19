@@ -11,15 +11,13 @@ import com.genogram.service.IUserService;
 import com.genogram.unit.Response;
 import com.genogram.unit.ResponseUtils;
 import com.genogram.unit.StringsUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +31,8 @@ import java.util.Set;
  * @author wangwei
  * @since 2019-02-15
  */
+@CrossOrigin(origins = "*")
+@Api(description = "全国记录家族文章")
 @RestController
 @RequestMapping("/genogram/chiNewsFamilyRecord")
 public class ChiNewsFamilyRecordController {
