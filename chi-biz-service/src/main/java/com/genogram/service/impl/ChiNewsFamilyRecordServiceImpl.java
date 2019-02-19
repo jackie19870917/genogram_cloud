@@ -1,5 +1,7 @@
 package com.genogram.service.impl;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ChiNewsFamilyRecord;
 import com.genogram.mapper.ChiNewsFamilyRecordMapper;
@@ -75,5 +77,20 @@ public class ChiNewsFamilyRecordServiceImpl extends ServiceImpl<ChiNewsFamilyRec
         //逻辑删除
         boolean result = this.updateById(chiNewsFamilyRecord);
         return result;
+    }
+
+    /**
+     *全国记录家族文章查询
+     *@Author: yuzhou
+     *@Date: 2019-02-19
+     *@Time: 16:36
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Page<ChiNewsFamilyRecord> getRecordPage(Wrapper<ChiNewsFamilyRecord> entity, Integer pageNo, Integer pageSize) {
+        Page<ChiNewsFamilyRecord> chiNewsFamilyRecordPage = this.selectPage(new Page<>(pageNo, pageSize), entity);
+        return chiNewsFamilyRecordPage;
     }
 }

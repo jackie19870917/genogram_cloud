@@ -1,5 +1,7 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ChiNewsFamilyRecord;
 import com.baomidou.mybatisplus.service.IService;
@@ -32,4 +34,13 @@ public interface IChiNewsFamilyRecordService extends IService<ChiNewsFamilyRecor
      * @return
      */
     Boolean deleteRecord(Integer id, AllUserLogin userLogin, int status);
+
+    /**
+     * 全国记录家族文章查询
+     * @param entity
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Page<ChiNewsFamilyRecord> getRecordPage(Wrapper<ChiNewsFamilyRecord> entity, Integer pageNo, Integer pageSize);
 }

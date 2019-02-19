@@ -1,6 +1,9 @@
 package com.genogram.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ChiNewsFamilyRecord;
@@ -114,6 +117,15 @@ public class ChiNewsFamilyRecordController {
         return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "成功");
     }
 
+    /**
+     *全国记录家族文章删除
+     *@Author: yuzhou
+     *@Date: 2019-02-19
+     *@Time: 16:30
+     *@Param:
+     *@return:
+     *@Description:
+    */
     @ApiOperation(value = "全国记录家族文章删除", notes = "")
     @RequestMapping(value = "/deleteRecord", method = RequestMethod.POST)
     public Response<ChiNewsFamilyRecord> deleteRecord(@ApiParam("主键") @RequestParam(value = "id") Integer id,
@@ -150,5 +162,62 @@ public class ChiNewsFamilyRecordController {
 
         return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "成功");
     }
+
+    /**
+     *全国记录家族文章查询
+     *@Author: yuzhou
+     *@Date: 2019-02-19
+     *@Time: 16:35
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "全国记录家族文章查询", notes = "")
+    @RequestMapping(value = "/getRecordPage", method = RequestMethod.POST)
+    public Response<ChiNewsFamilyRecord> getRecordPage(@ApiParam("显示位置的Id") @RequestParam(value = "showId") Integer showId,
+                                                       @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                       @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        //  判断是否登陆
+        if (StringsUtils.isEmpty(token)) {
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringsUtils.isEmpty(userLogin)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+
+        if (showId == null) {
+            return ResponseUtils.error(Constants.IS_EMPTY, "请输入正确参数");
+        }
+
+        //状态(0:删除;1:已发布;2:不显示)
+        List statusList = new ArrayList();
+        statusList.add(1);
+
+        //查询条件
+        Wrapper<ChiNewsFamilyRecord> entity = new EntityWrapper<ChiNewsFamilyRecord>();
+        entity.eq("show_id", showId);
+        if (statusList.size() != 0) {
+            entity.in("status", statusList);
+        }
+        entity.orderBy("update_time", false);
+        Page<ChiNewsFamilyRecord> chiNewsFamilyRecord = chiNewsFamilyRecordService.getRecordPage(entity,pageNo,pageSize);
+        if (StringsUtils.isEmpty(chiNewsFamilyRecord)) {
+            return ResponseUtils.error(Constants.ERRO_CODE, "fanNewsCultureZipai为空");
+        }
+        return ResponseUtils.success(chiNewsFamilyRecord);
+    }
+
 }
 
