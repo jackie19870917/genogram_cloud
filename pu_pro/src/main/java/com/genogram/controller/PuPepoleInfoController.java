@@ -77,5 +77,32 @@ public class PuPepoleInfoController {
         return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "成功");
     }
 
+    @ApiOperation(value = "删除人物信息", notes = "")
+    @RequestMapping(value = "deletePuPepoleInfo", method = RequestMethod.POST)
+    public Response<Boolean> deletePuPepoleInfo(@ApiParam("pepoleID 主键 根据这个主键删除pu_pepole_info数据") @RequestParam(value = "id") Integer id,
+                                             @ApiParam("token") @RequestParam(value = "token", required = false) String token){
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+        }
+        //判断ID是否为空
+        if(id==null){
+            return ResponseUtils.error(Constants.ERRO_CODE,"pepoleID为空");
+        }
+
+        Boolean aBoolean =puPepoleInfoService.deletePuPepoleInfo(id);
+        if (!aBoolean) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "删除失败");
+        }
+
+        return ResponseUtils.error(Constants.SUCCESSFUL_CODE, "删除成功");
+    }
+
 }
 

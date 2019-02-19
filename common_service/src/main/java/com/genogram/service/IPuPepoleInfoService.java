@@ -25,4 +25,11 @@ public interface IPuPepoleInfoService extends IService<PuPepoleInfo> {
      * @return
      */
     Boolean addPuPepoleInfo(PuPepoleInfo puPepoleInfo, AllUserLogin userLogin, Integer puBaseInfoId, Integer pepoleId, Integer isPepId);
+
+    /**
+     * 删除人物信息
+     * @param id
+     * @return
+     */
+    Boolean deletePuPepoleInfo(Integer id);
 }

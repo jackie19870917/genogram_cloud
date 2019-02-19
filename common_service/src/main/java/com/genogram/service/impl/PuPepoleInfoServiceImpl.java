@@ -8,6 +8,7 @@ import com.genogram.service.IPuBaseInfoService;
 import com.genogram.service.IPuPepoleInfoService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.genogram.unit.DateUtil;
+import com.genogram.unit.StringsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -105,14 +106,62 @@ public class PuPepoleInfoServiceImpl extends ServiceImpl<PuPepoleInfoMapper, PuP
             puPepoleInfoService.updateAllColumnById(puPepole);
 
             //判断写入是第几代
+            Integer generateNum = puPepole.getGenerateNum();
             if (isPepId == 1 || isPepId == 2) {
-                puPepole.setGenerateNum(puPepole.getGenerateNum());
+                puPepole.setGenerateNum(generateNum);
                 puPepoleInfoService.updateAllColumnById(puPepole);
             } else if (isPepId == 3 || isPepId == 4) {
-                puPepole.setGenerateNum(puPepole.getGenerateNum() + 1);
+                puPepole.setGenerateNum(generateNum + 1);
                 puPepoleInfoService.updateAllColumnById(puPepole);
             }
         }
         return result;
+    }
+
+    /**
+     *删除人物信息
+     *@Author: yuzhou
+     *@Date: 2019-02-15
+     *@Time: 10:37
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public Boolean deletePuPepoleInfo(Integer id) {
+        //查询数据信息
+        PuPepoleInfo puPepoleInfo = this.selectById(id);
+        if(StringUtils.isEmpty(puPepoleInfo)){
+            return null;
+        }
+
+        deletePuPole(puPepoleInfo.getDaughterId());
+        deletePuPole(puPepoleInfo.getSonId());
+        deletePuPole(puPepoleInfo.getSpouseId());
+
+        Boolean aBoolean = this.deleteById(id);
+        return aBoolean;
+    }
+
+    private void deletePuPole(String ids) {
+        //判断是否有女儿
+        if(StringsUtils.isNotEmpty(ids)){
+            String[] daughterIds = ids.split(" ");
+            for (String daughter:daughterIds) {
+                PuPepoleInfo puPepole = this.selectById(daughter);
+                //女儿
+                String daughterId = puPepole.getDaughterId();
+                //儿子
+                String sonId = puPepole.getSonId();
+                //配偶
+                String spouseId = puPepole.getSpouseId();
+                //删除
+                this.deleteById(daughter);
+                //递归删除数据
+                deletePuPole(daughterId);
+                deletePuPole(sonId);
+                deletePuPole(spouseId);
+            }
+        }
     }
 }
