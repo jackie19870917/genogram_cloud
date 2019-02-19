@@ -64,7 +64,6 @@ public class ChiIndexInfoServiceImpl extends ServiceImpl<ChiIndexInfoMapper, Chi
         indexInfoVo.setFamilyName(family.getValue());
 
         Wrapper<AllUserLogin> allUserLoginEntityWrapper = new EntityWrapper<>();
-        wrapper.eq("region_code", chiSysSite.getRegionCode());
         wrapper.eq("family_code", chiSysSite.getFamilyCode());
 
         Page<AllUserLogin> allUserLoginPage = allUserLoginService.getAllUserLoginPage(allUserLoginEntityWrapper, 1, 100);

@@ -3,6 +3,7 @@ package com.genogram.controller;
 
 import com.genogram.config.Constants;
 import com.genogram.entity.ChiIndexSlidePic;
+import com.genogram.entityvo.IndexInfoVo;
 import com.genogram.service.IChiIndexInfoService;
 import com.genogram.service.IChiIndexSlidePicService;
 import com.genogram.unit.Response;
@@ -56,6 +57,28 @@ public class ChiIndexController {
         }
 
         return ResponseUtils.success(chiIndexSlidePicList);
+    }
+
+    /**
+     * 全国基本信息
+     * @param siteId
+     * @return
+     */
+    @ApiOperation(value = "基本信息", notes = "id:主键,siteId:网站Id,siteName:网站名称,regionCode;地区编号,totemPicSrc:图腾,title:宣言,description;简介")
+    @RequestMapping(value = "index/getChiIndexInfo", method = RequestMethod.GET)
+    public Response<IndexInfoVo> getChiIndexInfo(@ApiParam("网站ID") @RequestParam Integer siteId) {
+
+        if (siteId == null) {
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
+        }
+
+        IndexInfoVo indexInfoVo = chiIndexInfoService.getIndexInfoVoBySiteId(siteId);
+
+        if (StringUtils.isEmpty(indexInfoVo)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
+        }
+
+        return ResponseUtils.success(indexInfoVo);
     }
 }
 
