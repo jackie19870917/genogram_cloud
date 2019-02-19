@@ -80,14 +80,15 @@ public class ChiNewsFamilyRecordServiceImpl extends ServiceImpl<ChiNewsFamilyRec
     }
 
     /**
-     *全国记录家族文章查询
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 16:36
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族文章查询
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 16:36
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Page<ChiNewsFamilyRecord> getRecordPage(Wrapper<ChiNewsFamilyRecord> entity, Integer pageNo, Integer pageSize) {
         Page<ChiNewsFamilyRecord> chiNewsFamilyRecordPage = this.selectPage(new Page<>(pageNo, pageSize), entity);

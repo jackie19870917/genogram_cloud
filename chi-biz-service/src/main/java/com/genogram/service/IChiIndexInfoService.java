@@ -24,6 +24,7 @@ public interface IChiIndexInfoService extends IService<ChiIndexInfo> {
 
     /**
      * 新增 修改 基本信息
+     *
      * @param indexInfoVo
      * @return
      */
@@ -31,6 +32,7 @@ public interface IChiIndexInfoService extends IService<ChiIndexInfo> {
 
     /**
      * 删除 基本信息
+     *
      * @param chiIndexInfo
      * @return
      */

@@ -107,14 +107,15 @@ public class ChiNewsFamilyRecordVideoController {
     }
 
     /**
-     *全国记录家族视频删除
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 16:43
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族视频删除
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 16:43
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "全国记录家族视频删除", notes = "")
     @RequestMapping(value = "/deleteRecordVideo", method = RequestMethod.POST)
     public Response<ChiNewsFamilyRecordVideo> deleteRecordVideo(@ApiParam(value = "主键") Integer id,
@@ -153,20 +154,21 @@ public class ChiNewsFamilyRecordVideoController {
     }
 
     /**
-     *全国记录家族视频查询
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 17:05
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族视频查询
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 17:05
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "全国记录家族视频查询", notes = "")
     @RequestMapping(value = "/getRecordVideoPage", method = RequestMethod.POST)
     public Response<ChiNewsFamilyRecordVideo> getRecordVideoPage(@ApiParam("显示位置的Id") @RequestParam(value = "showId") Integer showId,
-                                                       @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-                                                       @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
-                                                       @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+                                                                 @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+                                                                 @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+                                                                 @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
 
         //  判断是否登陆
         if (StringsUtils.isEmpty(token)) {
@@ -201,7 +203,7 @@ public class ChiNewsFamilyRecordVideoController {
             entity.in("status", statusList);
         }
         entity.orderBy("update_time", false);
-        Page<ChiNewsFamilyRecordVideo> chiNewsFamilyRecord = chiNewsFamilyRecordVideoService.getRecordVideoPage(entity,pageNo,pageSize);
+        Page<ChiNewsFamilyRecordVideo> chiNewsFamilyRecord = chiNewsFamilyRecordVideoService.getRecordVideoPage(entity, pageNo, pageSize);
         if (StringsUtils.isEmpty(chiNewsFamilyRecord)) {
             return ResponseUtils.error(Constants.ERRO_CODE, "fanNewsCultureZipai为空");
         }

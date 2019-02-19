@@ -26,7 +26,8 @@ public interface IChiNewsFamilyRecordVideoService extends IService<ChiNewsFamily
     Boolean addOrUpdateRecordVideo(ChiNewsFamilyRecordVideo chiNewsFamilyRecordVideo, AllUserLogin userLogin);
 
     /**
-     *全国记录家族视频删除
+     * 全国记录家族视频删除
+     *
      * @param id
      * @param status
      * @param userLogin
@@ -36,6 +37,7 @@ public interface IChiNewsFamilyRecordVideoService extends IService<ChiNewsFamily
 
     /**
      * 全国记录家族视频查询
+     *
      * @param entity
      * @param pageNo
      * @param pageSize

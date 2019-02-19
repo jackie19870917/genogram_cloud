@@ -37,6 +37,7 @@ public interface IChiNewsFamilyRecordService extends IService<ChiNewsFamilyRecor
 
     /**
      * 全国记录家族文章查询
+     *
      * @param entity
      * @param pageNo
      * @param pageSize

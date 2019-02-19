@@ -26,6 +26,7 @@ public interface IChiIndexSlidePicService extends IService<ChiIndexSlidePic> {
 
     /**
      * 删除轮播图
+     *
      * @param id
      * @param userId
      * @return
@@ -34,6 +35,7 @@ public interface IChiIndexSlidePicService extends IService<ChiIndexSlidePic> {
 
     /**
      * 新增 修改 轮播图
+     *
      * @param chiIndexSlidePic
      * @return
      */

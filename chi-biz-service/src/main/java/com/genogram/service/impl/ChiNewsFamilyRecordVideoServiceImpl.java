@@ -51,14 +51,15 @@ public class ChiNewsFamilyRecordVideoServiceImpl extends ServiceImpl<ChiNewsFami
     }
 
     /**
-     *全国记录家族视频删除
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 16:44
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族视频删除
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 16:44
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Boolean deleteOrigin(Integer id, int status, AllUserLogin userLogin) {
         //生成时间
@@ -79,14 +80,15 @@ public class ChiNewsFamilyRecordVideoServiceImpl extends ServiceImpl<ChiNewsFami
     }
 
     /**
-     *全国记录家族视频查询
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 17:06
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族视频查询
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 17:06
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @Override
     public Page<ChiNewsFamilyRecordVideo> getRecordVideoPage(Wrapper<ChiNewsFamilyRecordVideo> entity, Integer pageNo, Integer pageSize) {
         Page<ChiNewsFamilyRecordVideo> chiNewsFamilyRecordVideoPage = this.selectPage(new Page<ChiNewsFamilyRecordVideo>(pageNo, pageSize), entity);

@@ -118,14 +118,15 @@ public class ChiNewsFamilyRecordController {
     }
 
     /**
-     *全国记录家族文章删除
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 16:30
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族文章删除
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 16:30
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "全国记录家族文章删除", notes = "")
     @RequestMapping(value = "/deleteRecord", method = RequestMethod.POST)
     public Response<ChiNewsFamilyRecord> deleteRecord(@ApiParam("主键") @RequestParam(value = "id") Integer id,
@@ -164,14 +165,15 @@ public class ChiNewsFamilyRecordController {
     }
 
     /**
-     *全国记录家族文章查询
-     *@Author: yuzhou
-     *@Date: 2019-02-19
-     *@Time: 16:35
-     *@Param:
-     *@return:
-     *@Description:
-    */
+     * 全国记录家族文章查询
+     *
+     * @Author: yuzhou
+     * @Date: 2019-02-19
+     * @Time: 16:35
+     * @Param:
+     * @return:
+     * @Description:
+     */
     @ApiOperation(value = "全国记录家族文章查询", notes = "")
     @RequestMapping(value = "/getRecordPage", method = RequestMethod.POST)
     public Response<ChiNewsFamilyRecord> getRecordPage(@ApiParam("显示位置的Id") @RequestParam(value = "showId") Integer showId,
@@ -212,7 +214,7 @@ public class ChiNewsFamilyRecordController {
             entity.in("status", statusList);
         }
         entity.orderBy("update_time", false);
-        Page<ChiNewsFamilyRecord> chiNewsFamilyRecord = chiNewsFamilyRecordService.getRecordPage(entity,pageNo,pageSize);
+        Page<ChiNewsFamilyRecord> chiNewsFamilyRecord = chiNewsFamilyRecordService.getRecordPage(entity, pageNo, pageSize);
         if (StringsUtils.isEmpty(chiNewsFamilyRecord)) {
             return ResponseUtils.error(Constants.ERRO_CODE, "fanNewsCultureZipai为空");
         }
