@@ -73,8 +73,26 @@ public class AllFamilyOriginController {
      */
     @ApiOperation(value = "全国姓氏起源新增 修改", notes = "")
     @RequestMapping(value = "/addOrUpdateOrigin", method = RequestMethod.POST)
-    public Response<AllFamilyOrigin> addOrUpdateOrigin(@ApiParam(value = "省级字派实体类") AllFamilyOrigin allFamilyOrigin,
+    public Response<AllFamilyOrigin> addOrUpdateOrigin(@ApiParam(value = "省级字派实体类")AllFamilyOrigin allFamilyOrigin,
                                                        @ApiParam("token") @RequestParam(value = "token", required = false) String token) {
+
+        //  判断是否登陆
+        if (StringUtils.isEmpty(token)) {
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringUtils.isEmpty(userLogin)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
 
         // 校验敏感词汇
         Set set1 = allCheckOutService.getSensitiveWord(allFamilyOrigin.getFamilyParaphrase());
@@ -98,24 +116,6 @@ public class AllFamilyOriginController {
             return ResponseUtils.error(Constants.SENSITIVE_WORD, "您输入的含有敏感词汇  ----    " + set6);
         }
 
-        //  判断是否登陆
-        if (StringUtils.isEmpty(token)) {
-            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
-        }
-
-        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
-
-        if (StringUtils.isEmpty(userLogin)) {
-            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
-        }
-
-        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
-
-        //  判断是否有权限访问
-        if (!this.getList().contains(allUserLogin.getRole())) {
-            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
-        }
-
         //状态(0:删除;1:已发布;2:不显示)
         int status = 1;
         allFamilyOrigin.setStatus(status);
@@ -137,7 +137,7 @@ public class AllFamilyOriginController {
      *@Description:
     */
     @ApiOperation(value = "删除姓氏起源信息", notes = "")
-    @RequestMapping(value = "deleteOrigin", method = RequestMethod.POST)
+    @RequestMapping(value = "deleteOrigin", method = RequestMethod.GET)
     public Response<Boolean> deleteOrigin(@ApiParam("id 姓氏起源表主键") @RequestParam(value = "id") Integer id,
                                                 @ApiParam("token") @RequestParam(value = "token", required = false) String token){
         //  判断是否登陆

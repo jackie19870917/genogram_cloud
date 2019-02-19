@@ -1,5 +1,6 @@
 package com.genogram.service;
 
+import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ChiNewsFamilyRecordVideo;
 import com.baomidou.mybatisplus.service.IService;
 
@@ -13,4 +14,11 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface IChiNewsFamilyRecordVideoService extends IService<ChiNewsFamilyRecordVideo> {
 
+    /**
+     * 全国记录家族视频新增
+     * @param chiNewsFamilyRecordVideo
+     * @param userLogin
+     * @return
+     */
+    Boolean addOrUpdateRecordVideo(ChiNewsFamilyRecordVideo chiNewsFamilyRecordVideo, AllUserLogin userLogin);
 }
