@@ -181,7 +181,7 @@ public class AllFamilyOriginController {
      * @Description:
      */
     @ApiOperation(value = "全国姓氏起源查询", notes = "")
-    @RequestMapping(value = "/getOriginPage", method = RequestMethod.POST)
+    @RequestMapping(value = "/getOriginPage", method = RequestMethod.GET)
     public Response<AllFamilyOrigin> sOrigin(@ApiParam(value = "显示位置Id") @RequestParam(value = "showId", required = false) String showId,
                                              @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
                                              @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
