@@ -3,6 +3,7 @@ package com.genogram.service;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ChiNewsCultureNews;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.NewsDetailVo;
 
 /**
  * <p>
@@ -23,4 +24,20 @@ public interface IChiNewsCultureNewsService extends IService<ChiNewsCultureNews>
      * @return
      */
     Boolean addOrUpdateCultureNews(ChiNewsCultureNews chiNewsCultureNews, AllUserLogin userLogin, String fileName, String filePath);
+
+    /**
+     * 全国姓氏文化删除
+     * @param id
+     * @param status
+     * @param userLogin
+     * @return
+     */
+    Boolean deleteCulturById(Integer id, int status, AllUserLogin userLogin);
+
+    /**
+     * 全国姓氏文化详情
+     * @param id
+     * @return
+     */
+    NewsDetailVo getFamilyCultureDetail(Integer id);
 }
