@@ -93,4 +93,19 @@ public class AllFamilyOriginServiceImpl extends ServiceImpl<AllFamilyOriginMappe
         return allFamilyOriginPage;
     }
 
+    /**
+     *全国姓氏起源详情
+     *@Author: yuzhou
+     *@Date: 2019-02-20
+     *@Time: 15:43
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public AllFamilyOrigin getFamilyOriginDetail(Integer id) {
+        AllFamilyOrigin allFamilyOrigin = this.selectById(id);
+        return allFamilyOrigin;
+    }
+
 }

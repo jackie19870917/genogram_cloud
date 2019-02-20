@@ -44,4 +44,11 @@ public interface IAllFamilyOriginService extends IService<AllFamilyOrigin> {
      * @return
      */
     Page<AllFamilyOrigin> getOriginPage(Integer pageNo, Integer pageSize, Wrapper<AllFamilyOrigin> entity);
+
+    /**
+     * 全国姓氏起源详情
+     * @param id
+     * @return
+     */
+    AllFamilyOrigin getFamilyOriginDetail(Integer id);
 }

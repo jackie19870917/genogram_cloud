@@ -226,5 +226,48 @@ public class AllFamilyOriginController {
         return ResponseUtils.success(allFamilyOrigin);
     }
 
+    /**
+     *全国姓氏起源详情
+     *@Author: yuzhou
+     *@Date: 2019-02-20
+     *@Time: 15:40
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "全国姓氏起源详情", notes ="")
+    @RequestMapping(value = "/getFamilyOriginDetail", method = RequestMethod.GET)
+    public Response<AllFamilyOrigin> getFamilyOriginDetail(
+            @ApiParam(value = "主键ID") @RequestParam(value = "id") Integer id,
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
+    ) {
+        //  判断是否登陆
+        if (StringsUtils.isEmpty(token)) {
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringsUtils.isEmpty(userLogin)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+        //判断id是否为空
+        if (id == null) {
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
+        }
+        AllFamilyOrigin allFamilyOrigin = allFamilyOriginService.getFamilyOriginDetail(id);
+        if(StringsUtils.isEmpty(allFamilyOrigin)){
+            return ResponseUtils.error(Constants.ERRO_CODE,"没有查到数据");
+        }
+        return ResponseUtils.success(allFamilyOrigin);
+    }
+
 }
 

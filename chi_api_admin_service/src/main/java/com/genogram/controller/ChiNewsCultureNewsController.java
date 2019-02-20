@@ -208,6 +208,9 @@ public class ChiNewsCultureNewsController {
                 return ResponseUtils.error(Constants.IS_EMPTY, null);
             }
             NewsDetailVo newsDetailVo = chiNewsCultureNewsService.getFamilyCultureDetail(id);
+            if(newsDetailVo==null){
+                return ResponseUtils.error(Constants.ERRO_CODE,"没有查到数据");
+            }
             return ResponseUtils.success(newsDetailVo);
     }
 
