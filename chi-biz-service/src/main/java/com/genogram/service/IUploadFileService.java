@@ -11,7 +11,7 @@ package com.genogram.service;
  */
 public interface IUploadFileService {
     /**
-     * 保存联谊会文件
+     * 保存全国文件
      *
      * @param fileName 文件列表
      * @param filePath 文件路径
@@ -27,7 +27,7 @@ public interface IUploadFileService {
 
 
     /**
-     * 保存联谊会文件
+     * 保存全国文件
      *
      * @param fileName 文件列表
      * @param filePath 文件路径
@@ -42,7 +42,7 @@ public interface IUploadFileService {
     boolean storageFanVedio(String fileName, String filePath, Integer newsId, Integer showId);
 
     /**
-     * 保存联谊会文件
+     * 保存全国文件
      *
      * @param fileNames 文件列表，已分号分隔，或者单个文件
      * @param showId
