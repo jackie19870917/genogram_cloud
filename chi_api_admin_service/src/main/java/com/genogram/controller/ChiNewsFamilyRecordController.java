@@ -221,5 +221,48 @@ public class ChiNewsFamilyRecordController {
         return ResponseUtils.success(chiNewsFamilyRecord);
     }
 
+    /**
+     *全国记录家族文章详情
+     *@Author: yuzhou
+     *@Date: 2019-02-20
+     *@Time: 16:46
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "全国记录家族文章详情", notes ="")
+    @RequestMapping(value = "/getFamilyRecordDetail", method = RequestMethod.GET)
+    public Response<ChiNewsFamilyRecord> getFamilyRecordDetail(
+            @ApiParam(value = "主键ID") @RequestParam(value = "id") Integer id,
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
+    ) {
+        //  判断是否登陆
+        if (StringsUtils.isEmpty(token)) {
+            return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+        }
+
+        AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+        if (StringsUtils.isEmpty(userLogin)) {
+            return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+        }
+
+        AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+        //  判断是否有权限访问
+        if (!this.getList().contains(allUserLogin.getRole())) {
+            return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
+        }
+        //判断id是否为空
+        if (id == null) {
+            return ResponseUtils.error(Constants.IS_EMPTY, null);
+        }
+        ChiNewsFamilyRecord chiNewsFamilyRecord = chiNewsFamilyRecordService.getFamilyRecordDetail(id);
+        if(StringsUtils.isEmpty(chiNewsFamilyRecord)){
+            return ResponseUtils.error(Constants.ERRO_CODE,"没有查到数据");
+        }
+        return ResponseUtils.success(chiNewsFamilyRecord);
+    }
+
 }
 

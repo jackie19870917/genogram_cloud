@@ -44,4 +44,11 @@ public interface IChiNewsFamilyRecordService extends IService<ChiNewsFamilyRecor
      * @return
      */
     Page<ChiNewsFamilyRecord> getRecordPage(Wrapper<ChiNewsFamilyRecord> entity, Integer pageNo, Integer pageSize);
+
+    /**
+     * 全国记录家族文章详情
+     * @param id
+     * @return
+     */
+    ChiNewsFamilyRecord getFamilyRecordDetail(Integer id);
 }

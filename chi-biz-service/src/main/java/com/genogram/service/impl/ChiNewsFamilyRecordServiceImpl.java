@@ -94,4 +94,19 @@ public class ChiNewsFamilyRecordServiceImpl extends ServiceImpl<ChiNewsFamilyRec
         Page<ChiNewsFamilyRecord> chiNewsFamilyRecordPage = this.selectPage(new Page<>(pageNo, pageSize), entity);
         return chiNewsFamilyRecordPage;
     }
+
+    /**
+     *全国记录家族文章详情
+     *@Author: yuzhou
+     *@Date: 2019-02-20
+     *@Time: 16:48
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @Override
+    public ChiNewsFamilyRecord getFamilyRecordDetail(Integer id) {
+        ChiNewsFamilyRecord chiNewsFamilyRecord = this.selectById(id);
+        return chiNewsFamilyRecord;
+    }
 }
