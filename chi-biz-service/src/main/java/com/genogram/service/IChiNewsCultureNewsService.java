@@ -1,8 +1,11 @@
 package com.genogram.service;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ChiNewsCultureNews;
 import com.baomidou.mybatisplus.service.IService;
+import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
 
 /**
@@ -40,4 +43,14 @@ public interface IChiNewsCultureNewsService extends IService<ChiNewsCultureNews>
      * @return
      */
     NewsDetailVo getFamilyCultureDetail(Integer id);
+
+    /**
+     * 全国姓氏文化后台查询
+     * @param entity
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    Page<FamilyCultureVo> getFamilyCulturePage(Wrapper<ChiNewsCultureNews> entity, Integer pageNo, Integer pageSize);
+
 }

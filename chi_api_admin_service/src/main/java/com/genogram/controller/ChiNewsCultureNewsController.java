@@ -1,9 +1,13 @@
 package com.genogram.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.genogram.config.Constants;
 import com.genogram.entity.AllUserLogin;
 import com.genogram.entity.ChiNewsCultureNews;
+import com.genogram.entityvo.FamilyCultureVo;
 import com.genogram.entityvo.NewsDetailVo;
 import com.genogram.service.IAllCheckOutService;
 import com.genogram.service.IAllUserLoginService;
@@ -207,6 +211,68 @@ public class ChiNewsCultureNewsController {
             return ResponseUtils.success(newsDetailVo);
     }
 
+    /**
+     *全国姓氏文化后台查询
+     *@Author: yuzhou
+     *@Date: 2019-02-20
+     *@Time: 15:31
+     *@Param:
+     *@return:
+     *@Description:
+    */
+    @ApiOperation(value = "全国姓氏文化后台查询", notes ="")
+    @RequestMapping(value = "/getFamilyCulturePage", method = RequestMethod.GET)
+    public Response<FamilyCultureVo> getFamilyCulturePage(
+            @ApiParam(value = "显示位置Id") @RequestParam(value = "showId") Integer showId,
+            @ApiParam(value = "当前页") @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @ApiParam(value = "每页显示的条数") @RequestParam(value = "pageSize", defaultValue = "6") Integer pageSize,
+            @ApiParam("token") @RequestParam(value = "token", required = false) String token
+    ) {
+        try {
+            //  判断是否登陆
+            if (StringsUtils.isEmpty(token)) {
+                return ResponseUtils.error(Constants.NOTLOGIN, "您还没有登陆");
+            }
+
+            AllUserLogin userLogin = userService.getUserLoginInfoByToken(token);
+
+            if (StringsUtils.isEmpty(userLogin)) {
+                return ResponseUtils.error(Constants.FAILURE_CODE, "token错误");
+            }
+
+            AllUserLogin allUserLogin = allUserLoginService.getAllUserLoginById(userLogin.getId());
+
+            //  判断是否有权限访问
+            if (!this.getList().contains(allUserLogin.getRole())) {
+                return ResponseUtils.error(Constants.UNAUTHORIZED, "您没有权限访问");
+            }
+            //判断showId是否有值
+            if (showId == null) {
+                return ResponseUtils.error(Constants.IS_EMPTY, null);
+            }
+            //状态(0:删除;1:已发布;2:草稿3:不显示)
+            List statusList = new ArrayList();
+            statusList.add(1);
+            statusList.add(2);
+            //查询文章信息的条件
+            Wrapper<ChiNewsCultureNews> entity = new EntityWrapper<ChiNewsCultureNews>();
+            entity.eq("show_id", Integer.valueOf(showId));
+            if (statusList.size() != 0) {
+                entity.in("status", statusList);
+            }
+            entity.orderBy("create_time", false);
+            Page<FamilyCultureVo> familyCultureVoList = chiNewsCultureNewsService.getFamilyCulturePage(entity, pageNo, pageSize);
+            if (familyCultureVoList == null) {
+                //没有取到参数,返回空参
+                Page<FamilyCultureVo> emptfamilyCultureVo = new Page<FamilyCultureVo>();
+                return ResponseUtils.error(Constants.ERRO_CODE, "familyCultureVoList为空");
+            }
+            return ResponseUtils.success(familyCultureVoList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseUtils.error(Constants.FAILURE_CODE, null);
+        }
+    }
 
 }
 
